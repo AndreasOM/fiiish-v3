@@ -29,6 +29,8 @@
 - [ ] Add in game (pause) menu and settings
 - [ ] Add result screen
 - [ ] Add background
+s [ ] Add music
+- [ ] Add sfx
 - [ ] Bonus: Add basic script support -- for testing and screenshots
-
+- [ ] Bonus: Animate Seaweed in code
 
