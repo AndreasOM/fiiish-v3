@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bviw4wx2laqag"]
+
+[ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
+[ext_resource type="PackedScene" uid="uid://dmcqoohtinyr1" path="res://Scenes/fish.tscn" id="2_ea5sf"]
+
+[node name="Game" type="Node2D"]
+position = Vector2(910, 512)
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_48x5b")
+
+[node name="Fish" parent="." instance=ExtResource("2_ea5sf")]
