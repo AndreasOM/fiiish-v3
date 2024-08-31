@@ -1,14 +1,22 @@
 # Todo
 
 ## In Progress
-- [ ] #godot Set up basic project
 - [ ] #godot Add fish and basic movement
+- [ ] #unity Add simple zone management
 
 ## Todo
 - [ ] Do something
 
 
 ## Done
+
+### 2024-08-31
+- [x] #unity Set up basic project
+- [x] #unity Add fish and basic movement
+- [x] #unity Set up obstacles, and collisions
+
+### 2024-08-30
+- [x] #godot Set up basic project
 
 
 ## Released
@@ -21,9 +29,9 @@
 ## Plan
 
 - [x] Extract all needed assets from Fiiish-rs
-- [g] Setup base project
-- [ ] Add fish and basic movement
-- [ ] Add obstacles, with collisions
+- [x] Setup base project
+- [u] Add fish and basic movement
+- [u] Add obstacles, with collisions
 - [ ] Add zones (including loading & saving of legacy format) and zone management
 - [ ] Add pickups (coins, and specials)
 - [ ] Handle death and restart
