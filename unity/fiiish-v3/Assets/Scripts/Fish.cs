@@ -9,7 +9,7 @@ public class Fish : MonoBehaviour
         Swimming,
         Dying,
         Dead,
-        Respawing,
+        Respawning,
     }
     enum Direction {
         Up,
@@ -24,10 +24,13 @@ public class Fish : MonoBehaviour
 
 
     private Animator animator;
+    private GameManager gameManager = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        this.gameManager = GameObject.FindObjectOfType<GameManager>();
+
         animator = GetComponent<Animator>(); 
         animator.Play("FishSwim");
     }
@@ -54,7 +57,7 @@ public class Fish : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space))
         {
-            this.state = State.Swimming;
+            GotoSwimming();
         }
 
     }
@@ -69,10 +72,7 @@ public class Fish : MonoBehaviour
 
         if(Input.GetKey("k"))
         {
-            this.state = State.Dying;
-
-            // change animation
-            animator.Play("FishDying");
+            GotoDying();
         }
 
     }
@@ -80,10 +80,42 @@ public class Fish : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space))
         {
-            animator.Play("FishSwim");
-            transform.position = new Vector3( -1024.0f, 0.0f, 0.0f );
-            transform.localEulerAngles = new Vector3( 0.0f, 0.0f, 0.0f );
-            this.state = State.Respawing;            
+            GotoRespawning();
+        }
+    }
+    void GotoRespawning()
+    {
+        this.state = State.Respawning;
+        animator.Play("FishSwim");
+        transform.position = new Vector3( -1024.0f, 0.0f, 0.0f );
+        transform.localEulerAngles = new Vector3( 0.0f, 0.0f, 0.0f );
+        if( this.gameManager != null ) {
+            this.gameManager.Cleanup();
+        }
+    }
+    void GotoWaitingForStart()
+    {        
+        this.state = State.WaitingForStart;
+        Debug.Log( "WaitingForStart" );
+    }
+    void GotoSwimming()
+    {
+        this.state = State.Swimming;
+        if( this.gameManager != null ) {
+            this.gameManager.ResumeMovement();
+            this.gameManager.SpawnZone();
+        }
+    }
+
+    void GotoDying()
+    {
+        this.state = State.Dying;
+
+        // change animation
+        animator.Play("FishDying");
+
+        if( this.gameManager != null ) {
+            this.gameManager.PauseMovement();
         }
     }
 
@@ -96,7 +128,7 @@ public class Fish : MonoBehaviour
             case State.Dying:
                 FixedUpdateDying();
                 break;
-            case State.Respawing:
+            case State.Respawning:
                 FixedUpdateRespawning();
                 break;
             default:
@@ -198,9 +230,16 @@ public class Fish : MonoBehaviour
     {
         transform.position = transform.position + new Vector3( 256.0f * Time.deltaTime, 0.0f, 0.0f );
         if ( transform.position.x >= -512.0 ) {
-            this.state = State.WaitingForStart;
-            Debug.Log( "WaitingForStart" );
+            GotoWaitingForStart();
         }
     }
 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log( "Fish - Colliding");
+        if ( this.state == State.Swimming ) {
+            GotoDying();
+        }
+    }
 }
