@@ -23,6 +23,16 @@ func _ready() -> void:
 
 
 
+func _goto_swimming():
+	self.state = State.SWIMMING
+	%GameManager.resume()
+	
+func _goto_dying() -> void:
+	self.state = State.DYING
+	%GameManager.pause()
+	%AnimatedSprite2D.play("dying")
+	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	match self.state:
@@ -32,8 +42,7 @@ func _process(delta: float) -> void:
 			else:
 				self.direction = Direction.UP
 			if Input.is_key_pressed(KEY_K):
-				%AnimatedSprite2D.play("dying")
-				self.state = State.DYING
+				_goto_dying()
 		#State.DYING:
 			
 		State.DEAD:
@@ -48,7 +57,7 @@ func _process(delta: float) -> void:
 		#		self.state = State.WAITING_FOR_START
 		State.WAITING_FOR_START:
 			if Input.is_key_pressed(KEY_SPACE):
-				self.state = State.SWIMMING
+				self._goto_swimming()
 
 func _physics_process(delta: float) -> void:
 	match self.state:
@@ -95,8 +104,7 @@ func _physics_process_swimming(delta: float) -> void:
 	var y =  self.transform.origin.y
 	var m = _get_angle_range_for_y( y )
 	var na = clampf( a, m[ 0 ], m[ 1 ] )
-	# print("!", a, " at ", y, ":", m[ 0 ], " - ", m[ 1 ], " -> ", na )
-	print( "! %5.2f at %5.2f: %5.2f - %5.2f -> %5.2f" % [ a, y, m[0], m[1], na ])
+	# print( "! %5.2f at %5.2f: %5.2f - %5.2f -> %5.2f" % [ a, y, m[0], m[1], na ])
 	self.rotation_degrees = na
 	var dy = sin(deg_to_rad(na)) * 350.0 * delta;
 	
@@ -112,3 +120,9 @@ func _physics_process_dying(delta: float) -> void:
 	if %AnimatedSprite2D.global_position.y < -128.0: # aka off screen
 		print("Finished dying (off screen)")
 		self.state = State.DEAD
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	print("Entered")
+	_goto_dying()
+	pass # Replace with function body.
