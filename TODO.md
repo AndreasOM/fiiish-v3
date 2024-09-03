@@ -9,6 +9,10 @@
 
 ## Done
 
+### 2024-09-03
+- [x] #godot Add simple zone management
+- [x] #godot Load legacy "new" zones and spawn them
+
 ### 2024-08-31
 - [x] #unity Set up basic project
 - [x] #unity Add fish and basic movement
@@ -31,7 +35,7 @@
 - [x] Extract all needed assets from Fiiish-rs
 - [x] Setup base project
 - [x] Add fish and basic movement
-- [u] Add obstacles, with collisions
+- [x] Add obstacles, with collisions
 - [ ] Add zones (including loading & saving of legacy format) and zone management
 - [ ] Add pickups (coins, and specials)
 - [ ] Handle death and restart
