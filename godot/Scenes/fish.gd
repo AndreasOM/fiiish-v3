@@ -65,7 +65,8 @@ func _physics_process(delta: float) -> void:
 func _get_angle_range_for_y( y: float ) -> Array[float]:
 	var limit: float = 35.0
 	var range: float = 1.0/280.0
-	var a: float = sin( deg_to_rad( abs( y ) * range ) )
+	# var a: float = sin( deg_to_rad( abs( y ) * range ) )
+	var a: float = sin( abs( y ) * range )
 	var m: float = limit * ( 1.0 - a*a*a*a )
 	# print(y, "->", limit, " ... ", m, " a=", a )
 	if y > 0.0:
@@ -91,12 +92,13 @@ func _physics_process_swimming(delta: float) -> void:
 			pass
 		#Direction.NEUTRAL:
 
-	var m = _get_angle_range_for_y( self.transform.origin.y )
-	# print("!", a, ":", m[ 0 ], " - ", m[ 1 ])
-	a = clampf( a, m[ 0 ], m[ 1 ] )
-	# print(a)
-	self.rotation_degrees = a
-	var dy = sin(deg_to_rad(a)) * 350.0 * delta;
+	var y =  self.transform.origin.y
+	var m = _get_angle_range_for_y( y )
+	var na = clampf( a, m[ 0 ], m[ 1 ] )
+	# print("!", a, " at ", y, ":", m[ 0 ], " - ", m[ 1 ], " -> ", na )
+	print( "! %5.2f at %5.2f: %5.2f - %5.2f -> %5.2f" % [ a, y, m[0], m[1], na ])
+	self.rotation_degrees = na
+	var dy = sin(deg_to_rad(na)) * 350.0 * delta;
 	
 	self.transform.origin.y += dy
  	
