@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=5 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
 [ext_resource type="PackedScene" uid="uid://dmcqoohtinyr1" path="res://Scenes/fish.tscn" id="2_ea5sf"]
+[ext_resource type="PackedScene" uid="uid://prkubdda2hay" path="res://Scenes/Obstacles/rock_b.tscn" id="3_vf1e6"]
+[ext_resource type="Script" path="res://Scenes/game_manager.gd" id="4_cqt8y"]
 
 [node name="Game" type="Node2D"]
 position = Vector2(910, 512)
@@ -10,3 +12,13 @@ position = Vector2(910, 512)
 texture = ExtResource("1_48x5b")
 
 [node name="Fish" parent="." instance=ExtResource("2_ea5sf")]
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="RockB" parent="Obstacles" instance=ExtResource("3_vf1e6")]
+
+[node name="Managers" type="Node" parent="."]
+
+[node name="GameManager" type="Node" parent="Managers"]
+unique_name_in_owner = true
+script = ExtResource("4_cqt8y")
