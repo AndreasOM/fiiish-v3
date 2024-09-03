@@ -25,13 +25,22 @@ func _ready() -> void:
 
 func _goto_swimming():
 	self.state = State.SWIMMING
+	%GameManager.spawn_zone()
 	%GameManager.resume()
 	
 func _goto_dying() -> void:
 	self.state = State.DYING
 	%GameManager.pause()
 	%AnimatedSprite2D.play("dying")
-	
+
+func _goto_respawning():
+	self.state = State.RESPAWNING
+	self.transform.origin.y = 0.0
+	self.transform.origin.x = -1200.0
+	self.rotation_degrees = 0.0
+	%GameManager.cleanup()
+	%AnimatedSprite2D.play("swim")
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -47,11 +56,7 @@ func _process(delta: float) -> void:
 			
 		State.DEAD:
 			if Input.is_key_pressed(KEY_SPACE):
-				self.transform.origin.y = 0.0
-				self.transform.origin.x = -1200.0
-				self.rotation_degrees = 0.0
-				%AnimatedSprite2D.play("swim")
-				self.state = State.RESPAWNING
+				self._goto_respawning()
 		#State.RESPAWNING:
 		#	if !Input.is_key_pressed(KEY_SPACE):
 		#		self.state = State.WAITING_FOR_START

@@ -3,10 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://owmp1l4nq88w" path="res://Textures/Obstacles/Rocks/rock-b.png" id="1_aaj52"]
 [ext_resource type="Script" path="res://Scenes/Obstacles/obstacle.gd" id="2_8g75w"]
 
-[node name="RockB" type="Sprite2D"]
-position = Vector2(-429, 395)
-texture = ExtResource("1_aaj52")
+[node name="RockB" type="Node2D"]
 script = ExtResource("2_8g75w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_aaj52")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
