@@ -3,10 +3,9 @@ class_name NewZoneResourceLoader
 
 
 func _init() -> void:
-	print("!!!")
+	pass
 	
 func _get_recognized_extensions() -> PackedStringArray:
-	print("!!!!!")
 	return PackedStringArray(["nzne"])
 
 func _get_resource_type(path: String) -> String:
@@ -14,7 +13,6 @@ func _get_resource_type(path: String) -> String:
 	return "NewZone"
 
 func _handles_type(type: StringName) -> bool:
-	print("!!!!!--")
 	return type == "Resource"
 	
 func _load(path: String, original_path: String, use_sub_threads: bool, cache_mode: int) -> Variant:
@@ -65,6 +63,7 @@ func _load(path: String, original_path: String, use_sub_threads: bool, cache_mod
 	var name: String = ""
 	name = s.serialize_fixed_string( 64, name )	
 	print( "Name: ", name )
+	n.name = name
 	
 	var difficullty = 0
 	difficullty = s.serialize_u16( difficullty )

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3sssky7beb2e"]
+
+[ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
+[ext_resource type="PackedScene" uid="uid://dscdweyjo64pw" path="res://Scenes/debug_ui.tscn" id="2_3lm13"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Game" parent="." instance=ExtResource("1_0flmv")]
+
+[node name="DebugUI" parent="." instance=ExtResource("2_3lm13")]
+layout_mode = 1
+
+[connection signal="zone_changed" from="Game" to="DebugUI" method="_on_game_zone_changed"]
+[connection signal="goto_next_zone" from="DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
+[connection signal="zoom_changed" from="DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]

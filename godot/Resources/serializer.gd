@@ -7,6 +7,7 @@ func load_file(path: String):
 	var data = FileAccess.get_file_as_bytes(path)
 	self._data = data
 	self._pos = 0
+	print("Size of %s = %d" % [ path, self._data.size() ])
 	
 
 func serialize_u8( v: int ) -> int:
@@ -20,6 +21,7 @@ func serialize_u8( v: int ) -> int:
 
 func serialize_u16( v: int ) -> int:
 	if self._pos + 2 >= self._data.size():
+		push_warning("Reading past end of data")
 		return 0
 		
 	var r = self._data.decode_u16( self._pos )

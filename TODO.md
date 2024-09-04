@@ -2,12 +2,18 @@
 
 ## In Progress
 - [ ] #unity Add simple zone management
+- [ ] #godot More zone management
 
 ## Todo
 - [ ] Do something
 
 
 ## Done
+
+### 2024-09-04
+- [x] #godot add debug ui
+- [x] #godot fix collision shapes for rocks
+- [x] #godot add all v2 zones
 
 ### 2024-09-03
 - [x] #godot Add simple zone management
