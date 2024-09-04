@@ -14,8 +14,14 @@ enum Direction {
 	DOWN
 }
 
+enum Mode {
+	PLAY,
+	TEST,
+}
+
 var state: State = State.WAITING_FOR_START
 var direction: Direction = Direction.NEUTRAL
+var mode: Mode = Mode.PLAY
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,8 +48,17 @@ func _goto_respawning():
 	%AnimatedSprite2D.play("swim")
 		
 
+func toggle_mode():
+	match self.mode:
+		Mode.PLAY:
+			self.mode = Mode.TEST
+		Mode.TEST:
+			self.mode = Mode.PLAY
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if Input.is_key_pressed(KEY_M):
+		self.toggle_mode()
 	match self.state:
 		State.SWIMMING:
 			if Input.is_key_pressed(KEY_SPACE):
@@ -95,6 +110,9 @@ func _physics_process_respawning(delta: float) -> void:
 
 
 func _physics_process_swimming(delta: float) -> void:
+	if self.mode != Mode.PLAY:
+		return
+		
 	var a: float = self.rotation_degrees
 	
 	match self.direction:

@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=5 format=3 uid="uid://bviw4wx2laqag"]
 
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
 [ext_resource type="PackedScene" uid="uid://dmcqoohtinyr1" path="res://Scenes/fish.tscn" id="2_ea5sf"]
 [ext_resource type="Script" path="res://Scenes/game_manager.gd" id="4_cqt8y"]
 
 [node name="Game" type="Node2D"]
 position = Vector2(910, 512)
+script = ExtResource("1_2tnct")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_48x5b")
@@ -20,3 +22,5 @@ unique_name_in_owner = true
 [node name="GameManager" type="Node" parent="Managers"]
 unique_name_in_owner = true
 script = ExtResource("4_cqt8y")
+
+[connection signal="zone_changed" from="Managers/GameManager" to="." method="_on_game_manager_zone_changed"]
