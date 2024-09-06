@@ -1,4 +1,5 @@
 extends Node2D
+class_name Game
 
 signal zone_changed
 
@@ -23,3 +24,7 @@ func _on_game_manager_zone_changed( name: String ) -> void:
 
 func _on_debug_ui_goto_next_zone() -> void:
 	%GameManager.goto_next_zone()
+
+
+func get_game_manager() -> GameManager:
+	return %GameManager

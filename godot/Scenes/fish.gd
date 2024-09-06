@@ -45,6 +45,7 @@ func _goto_respawning():
 	self.transform.origin.x = -1200.0
 	self.rotation_degrees = 0.0
 	%GameManager.cleanup()
+	%GameManager.prepare_respawn()
 	%AnimatedSprite2D.play("swim")
 		
 

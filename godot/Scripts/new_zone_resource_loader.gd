@@ -65,15 +65,20 @@ func _load(path: String, original_path: String, use_sub_threads: bool, cache_mod
 	print( "Name: ", name )
 	n.name = name
 	
-	var difficullty = 0
-	difficullty = s.serialize_u16( difficullty )
+	var difficulty: int = 0
+	difficulty = s.serialize_u16( difficulty )
+	
+	n.difficulty = difficulty
 	
 	var size_x = 0.0
 	size_x = s.serialize_f32( size_x )
 	var size_y = 0.0
 	size_y = s.serialize_f32( size_y )
 	
-	print( "Difficulty: ", difficullty )
+	n.width = size_x
+	n.height = size_y
+	
+	print( "Difficulty: ", difficulty )
 	print( "size_x    %f: " % size_x )
 	print( "size_y    %f: " % size_y )
 		#self.difficulty = f.read_u16();
