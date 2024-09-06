@@ -13,8 +13,9 @@ grow_vertical = 2
 
 [node name="Game" parent="." instance=ExtResource("1_0flmv")]
 
-[node name="DebugUI" parent="." instance=ExtResource("2_3lm13")]
+[node name="DebugUI" parent="." node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]
 layout_mode = 1
+game = NodePath("../Game")
 
 [connection signal="zone_changed" from="Game" to="DebugUI" method="_on_game_zone_changed"]
 [connection signal="goto_next_zone" from="DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]

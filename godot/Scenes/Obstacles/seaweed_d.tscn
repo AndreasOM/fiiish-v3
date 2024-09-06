@@ -1,0 +1,220 @@
+[gd_scene load_steps=51 format=3 uid="uid://biw56itwyt1nm"]
+
+[ext_resource type="Script" path="res://Scenes/Obstacles/obstacle.gd" id="1_thteg"]
+[ext_resource type="Texture2D" uid="uid://tu35wxxpj1h6" path="res://Textures/Obstacles/Seaweed/seaweed-d-1.png" id="2_622mj"]
+[ext_resource type="Texture2D" uid="uid://ctthvqhrlqjd6" path="res://Textures/Obstacles/Seaweed/seaweed-d-2.png" id="3_1dmod"]
+[ext_resource type="Texture2D" uid="uid://6lj1g8joiibc" path="res://Textures/Obstacles/Seaweed/seaweed-d-3.png" id="4_hffge"]
+[ext_resource type="Texture2D" uid="uid://etwo5grnc84s" path="res://Textures/Obstacles/Seaweed/seaweed-d-4.png" id="5_eqlip"]
+[ext_resource type="Texture2D" uid="uid://bogc7xmqqkcvd" path="res://Textures/Obstacles/Seaweed/seaweed-d-5.png" id="6_d0qgl"]
+[ext_resource type="Texture2D" uid="uid://c1fdj8jwqhy3u" path="res://Textures/Obstacles/Seaweed/seaweed-d-6.png" id="7_c8snq"]
+[ext_resource type="Texture2D" uid="uid://jtcvsdm6opj7" path="res://Textures/Obstacles/Seaweed/seaweed-d-7.png" id="8_1iscw"]
+[ext_resource type="Texture2D" uid="uid://c6xtsc2rm4548" path="res://Textures/Obstacles/Seaweed/seaweed-d-8.png" id="9_iug2s"]
+[ext_resource type="Texture2D" uid="uid://b3add5c51hf37" path="res://Textures/Obstacles/Seaweed/seaweed-d-9.png" id="10_6l08w"]
+[ext_resource type="Texture2D" uid="uid://bm1vyfw5enhp" path="res://Textures/Obstacles/Seaweed/seaweed-d-10.png" id="11_jefdj"]
+[ext_resource type="Texture2D" uid="uid://d0xd76mfxifw" path="res://Textures/Obstacles/Seaweed/seaweed-d-11.png" id="12_ujo40"]
+[ext_resource type="Texture2D" uid="uid://bkjqxcl5d7yea" path="res://Textures/Obstacles/Seaweed/seaweed-d-12.png" id="13_3xrkb"]
+[ext_resource type="Texture2D" uid="uid://dgekp6slov1qq" path="res://Textures/Obstacles/Seaweed/seaweed-d-13.png" id="14_yr87l"]
+[ext_resource type="Texture2D" uid="uid://dnq1upks2igjn" path="res://Textures/Obstacles/Seaweed/seaweed-d-14.png" id="15_8q84x"]
+[ext_resource type="Texture2D" uid="uid://iv2cft54lk77" path="res://Textures/Obstacles/Seaweed/seaweed-d-15.png" id="16_xi0e0"]
+[ext_resource type="Texture2D" uid="uid://c4xe0qyanphoe" path="res://Textures/Obstacles/Seaweed/seaweed-d-16.png" id="17_6vkvw"]
+[ext_resource type="Texture2D" uid="uid://cgobe1mrfqlav" path="res://Textures/Obstacles/Seaweed/seaweed-d-17.png" id="18_506bj"]
+[ext_resource type="Texture2D" uid="uid://dl31nwcumckcc" path="res://Textures/Obstacles/Seaweed/seaweed-d-18.png" id="19_07da1"]
+[ext_resource type="Texture2D" uid="uid://b2732r2tronmd" path="res://Textures/Obstacles/Seaweed/seaweed-d-19.png" id="20_5oi8s"]
+[ext_resource type="Texture2D" uid="uid://ey27v332aqh1" path="res://Textures/Obstacles/Seaweed/seaweed-d-20.png" id="21_x4n5k"]
+[ext_resource type="Texture2D" uid="uid://1qxd53xfwufu" path="res://Textures/Obstacles/Seaweed/seaweed-d-21.png" id="22_r41wi"]
+[ext_resource type="Texture2D" uid="uid://dg880lncnngvu" path="res://Textures/Obstacles/Seaweed/seaweed-d-22.png" id="23_emkmp"]
+[ext_resource type="Texture2D" uid="uid://dx0e51ne2ohmq" path="res://Textures/Obstacles/Seaweed/seaweed-d-23.png" id="24_cs3g6"]
+[ext_resource type="Texture2D" uid="uid://co410grxxscy" path="res://Textures/Obstacles/Seaweed/seaweed-d-24.png" id="25_1loos"]
+[ext_resource type="Texture2D" uid="uid://2ssky0esetao" path="res://Textures/Obstacles/Seaweed/seaweed-d-25.png" id="26_wjpyd"]
+[ext_resource type="Texture2D" uid="uid://turxj5b1ta8s" path="res://Textures/Obstacles/Seaweed/seaweed-d-26.png" id="27_okijs"]
+[ext_resource type="Texture2D" uid="uid://cyk7fmi0yq1wx" path="res://Textures/Obstacles/Seaweed/seaweed-d-27.png" id="28_attw4"]
+[ext_resource type="Texture2D" uid="uid://ctqf4t86k0ry0" path="res://Textures/Obstacles/Seaweed/seaweed-d-28.png" id="29_5642h"]
+[ext_resource type="Texture2D" uid="uid://2d6sx0cijwyj" path="res://Textures/Obstacles/Seaweed/seaweed-d-29.png" id="30_2o6vb"]
+[ext_resource type="Texture2D" uid="uid://chclinkq4757w" path="res://Textures/Obstacles/Seaweed/seaweed-d-30.png" id="31_v2o72"]
+[ext_resource type="Texture2D" uid="uid://b6x7qvws023ug" path="res://Textures/Obstacles/Seaweed/seaweed-d-31.png" id="32_vqdea"]
+[ext_resource type="Texture2D" uid="uid://cq0areu2v0orn" path="res://Textures/Obstacles/Seaweed/seaweed-d-32.png" id="33_2dq40"]
+[ext_resource type="Texture2D" uid="uid://bliyepdtdrw21" path="res://Textures/Obstacles/Seaweed/seaweed-d-33.png" id="34_gwl4w"]
+[ext_resource type="Texture2D" uid="uid://dah4udnmuw37c" path="res://Textures/Obstacles/Seaweed/seaweed-d-34.png" id="35_mdpvv"]
+[ext_resource type="Texture2D" uid="uid://dfjyel3hwl2in" path="res://Textures/Obstacles/Seaweed/seaweed-d-35.png" id="36_ywvcl"]
+[ext_resource type="Texture2D" uid="uid://c7cbtx20opgg4" path="res://Textures/Obstacles/Seaweed/seaweed-d-36.png" id="37_y6o4h"]
+[ext_resource type="Texture2D" uid="uid://b2yhpvwtgfqpl" path="res://Textures/Obstacles/Seaweed/seaweed-d-37.png" id="38_h87jy"]
+[ext_resource type="Texture2D" uid="uid://c72c5n2pa5i0d" path="res://Textures/Obstacles/Seaweed/seaweed-d-38.png" id="39_5xgo2"]
+[ext_resource type="Texture2D" uid="uid://8vygtms8ykeh" path="res://Textures/Obstacles/Seaweed/seaweed-d-39.png" id="40_8alqb"]
+[ext_resource type="Texture2D" uid="uid://dt6u73yfyveir" path="res://Textures/Obstacles/Seaweed/seaweed-d-40.png" id="41_nyuf3"]
+[ext_resource type="Texture2D" uid="uid://bbco5vravsu1p" path="res://Textures/Obstacles/Seaweed/seaweed-d-41.png" id="42_ir0p8"]
+[ext_resource type="Texture2D" uid="uid://bjttne0535rd2" path="res://Textures/Obstacles/Seaweed/seaweed-d-42.png" id="43_e2fhy"]
+[ext_resource type="Texture2D" uid="uid://bxfnleydu7qqd" path="res://Textures/Obstacles/Seaweed/seaweed-d-43.png" id="44_wqkuw"]
+[ext_resource type="Texture2D" uid="uid://ckgaocd7nwfou" path="res://Textures/Obstacles/Seaweed/seaweed-d-44.png" id="45_ffqgq"]
+[ext_resource type="Texture2D" uid="uid://c1ttkufxph8pn" path="res://Textures/Obstacles/Seaweed/seaweed-d-45.png" id="46_txegi"]
+[ext_resource type="Texture2D" uid="uid://gh111iv6j83v" path="res://Textures/Obstacles/Seaweed/seaweed-d-46.png" id="47_j2lg8"]
+[ext_resource type="Texture2D" uid="uid://dn70wy3a3tjvr" path="res://Textures/Obstacles/Seaweed/seaweed-d-47.png" id="48_4sxbx"]
+[ext_resource type="Texture2D" uid="uid://c0jyxpqbwqs7" path="res://Textures/Obstacles/Seaweed/seaweed-d-48.png" id="49_8rkvs"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t10rm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_622mj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1dmod")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hffge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_eqlip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_d0qgl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_c8snq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1iscw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_iug2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_6l08w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_jefdj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ujo40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_3xrkb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_yr87l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_8q84x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_xi0e0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_6vkvw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_506bj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_07da1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_5oi8s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_x4n5k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_r41wi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_emkmp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_cs3g6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_1loos")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_wjpyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_okijs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_attw4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_5642h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_2o6vb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_v2o72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_vqdea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_2dq40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_gwl4w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_mdpvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_ywvcl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_y6o4h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_h87jy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_5xgo2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_8alqb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_nyuf3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_ir0p8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_e2fhy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_wqkuw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_ffqgq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_txegi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_j2lg8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_4sxbx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_8rkvs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 25.0
+}]
+
+[node name="SeaweedD" type="Node2D"]
+script = ExtResource("1_thteg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_t10rm")
+frame_progress = 0.96019
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(51, 63)
+scale = Vector2(2.49519, 1.57917)
+polygon = PackedVector2Array(-20.4393, -77.2558, -15.2293, -37.3614, -12.4239, 2.53297, -14.8285, 53.1925, -23.2447, 52.5593, -26.0501, 6.96568, -29.2563, -22.1635, -25.6493, -69.0236, -23.2447, -102.586)

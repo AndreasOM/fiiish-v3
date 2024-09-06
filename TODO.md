@@ -2,13 +2,16 @@
 
 ## In Progress
 - [ ] #unity Add simple zone management
-- [ ] #godot More zone management
 
 ## Todo
 - [ ] Do something
 
 
 ## Done
+
+### 2024-09-06
+- [x] #godot add missing seaweed
+- [x] #godot More zone management
 
 ### 2024-09-04
 - [x] #godot add debug ui
@@ -42,7 +45,7 @@
 - [x] Setup base project
 - [x] Add fish and basic movement
 - [x] Add obstacles, with collisions
-- [ ] Add zones (including loading & saving of legacy format) and zone management
+- [g] Add zones (including loading & saving of legacy format) and zone management
 - [ ] Add pickups (coins, and specials)
 - [ ] Handle death and restart
 - [ ] Add in game hud

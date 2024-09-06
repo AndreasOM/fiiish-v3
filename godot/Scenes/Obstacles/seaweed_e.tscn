@@ -208,7 +208,7 @@ script = ExtResource("1_qobqa")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_t10rm")
-frame_progress = 0.36545
+frame_progress = 0.712509
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

@@ -22,5 +22,6 @@ unique_name_in_owner = true
 [node name="GameManager" type="Node" parent="Managers"]
 unique_name_in_owner = true
 script = ExtResource("4_cqt8y")
+zone_spawn_offset = 1000.0
 
 [connection signal="zone_changed" from="Managers/GameManager" to="." method="_on_game_manager_zone_changed"]
