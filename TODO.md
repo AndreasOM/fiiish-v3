@@ -9,6 +9,9 @@
 
 ## Done
 
+### 2024-09-10
+- [x] #unity Load legacy "new" zone and spawn it
+
 ### 2024-09-06
 - [x] #godot add missing seaweed
 - [x] #godot More zone management
