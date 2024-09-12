@@ -9,6 +9,10 @@
 
 ## Done
 
+### 2024-09-12
+- [x] #unity Improve obstacle spawning, and loading
+- [x] #unity Add remaining rocks
+
 ### 2024-09-10
 - [x] #unity Load legacy "new" zone and spawn it
 
@@ -48,7 +52,7 @@
 - [x] Setup base project
 - [x] Add fish and basic movement
 - [x] Add obstacles, with collisions
-- [g] Add zones (including loading & saving of legacy format) and zone management
+- [g] Add zones (including loading & ~saving~ of legacy format) and zone management
 - [ ] Add pickups (coins, and specials)
 - [ ] Handle death and restart
 - [ ] Add in game hud

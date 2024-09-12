@@ -8,6 +8,29 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using System;
 using System.IO;
 
+
+class EntityConfig
+{
+    public AsyncOperationHandle<GameObject> handle;
+
+    public void LoadFromAssetAsync( string name )
+    {
+        handle = Addressables.LoadAssetAsync<GameObject>(name);
+        handle.Completed += OnLoadComplete;
+    }
+
+    void OnLoadComplete(AsyncOperationHandle<GameObject> asyncOperationHandle)
+    {
+        Debug.Log($"AsyncOperationHandle Status: {asyncOperationHandle.Status}");
+        Debug.Log("Load complete.");
+    }
+    public void OnDisable()
+    {
+        handle.Completed -= OnLoadComplete;
+    }
+
+}
+
 public class GameManager : MonoBehaviour
 {
     public float speed = 240.0f;
@@ -17,17 +40,81 @@ public class GameManager : MonoBehaviour
 
     private GameObject obstacles = null;
 
-    private AsyncOperationHandle<GameObject> m_ObstaclesRockBHandle;
-
+    // private AsyncOperationHandle<GameObject> m_ObstaclesRockBHandle;
+    // private EntityConfig m_ObstacleRockBEntityConfig;
+    //private Dictionary<uint, EntityConfig> m_entityConfigs = new Dictionary<uint, EntityConfig>();
+    private Dictionary<uint, EntityConfig> m_entityConfigs = new Dictionary<uint, EntityConfig>();
+    
     private NewZone m_zone = null;
+
+    GameManager()
+    {
+        Debug.Log( "Creating GameManager");    
+    }
     // Start is called before the first frame update
     void Start()
     {
         this.obstacles = GameObject.FindWithTag("Obstacles");
 
+        /*
         m_ObstaclesRockBHandle = Addressables.LoadAssetAsync<GameObject>("ObstaclesRockB");
         m_ObstaclesRockBHandle.Completed += OnLoadComplete;
+        */
+        //m_ObstacleRockBEntityConfig = new EntityConfig();
+        //m_ObstacleRockBEntityConfig.LoadFromAssetAsync( "ObstaclesRockB" );
+/*
+    #ROCKA           = 0xd058353c,
+    #ROCKB           = 0x49516486,
+    #ROCKC           = 0x3e565410,
+    #ROCKD           = 0xa032c1b3,
+    #ROCKE           = 0xd735f125,
+    #ROCKF           = 0x4e3ca09f,
+*/
 
+        try
+        {
+            {
+                // RockA
+                var ec = new EntityConfig();
+                ec.LoadFromAssetAsync("ObstaclesRockA");
+                m_entityConfigs.Add(0xd058353c, ec);
+            }
+            {
+                // RockB
+                var ec = new EntityConfig();
+                ec.LoadFromAssetAsync("ObstaclesRockB");
+                m_entityConfigs.Add(0x49516486, ec);
+            }
+            {
+                // RockC
+                var ec = new EntityConfig();
+                ec.LoadFromAssetAsync("ObstaclesRockC");
+                m_entityConfigs.Add(0x3e565410, ec);
+            }
+            {
+                // RockD
+                var ec = new EntityConfig();
+                ec.LoadFromAssetAsync("ObstaclesRockD");
+                m_entityConfigs.Add(0xa032c1b3, ec);
+            }
+            {
+                // RockE
+                var ec = new EntityConfig();
+                ec.LoadFromAssetAsync("ObstaclesRockE");
+                m_entityConfigs.Add(0xd735f125, ec);
+            }
+            {
+                // RockF
+                var ec = new EntityConfig();
+                ec.LoadFromAssetAsync("ObstaclesRockF");
+                m_entityConfigs.Add(0x4e3ca09f, ec);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
         // :HACK: needs cleanup
 
         // var file = Resources.Load<TextAsset>("Zones/0000_ILoveFiiish");
@@ -54,14 +141,14 @@ public class GameManager : MonoBehaviour
 
     void OnDisable()
     {
-        m_ObstaclesRockBHandle.Completed -= OnLoadComplete;
+        foreach (var ec in m_entityConfigs.Values)
+        {
+            ec.OnDisable();
+        }
+        // m_ObstacleRockBEntityConfig.OnDisable();
+        // m_ObstaclesRockBHandle.Completed -= OnLoadComplete;
     }
 
-    void OnLoadComplete(AsyncOperationHandle<GameObject> asyncOperationHandle)
-    {
-        Debug.Log($"AsyncOperationHandle Status: {asyncOperationHandle.Status}");
-        Debug.Log("Load complete.");
-    }
     // Update is called once per frame
     void Update()
     {
@@ -70,14 +157,6 @@ public class GameManager : MonoBehaviour
 
     public void SpawnZone()
     {
-/*
-    #ROCKA           = 0xd058353c,
-    #ROCKB           = 0x49516486,
-    #ROCKC           = 0x3e565410,
-    #ROCKD           = 0xa032c1b3,
-    #ROCKE           = 0xd735f125,
-    #ROCKF           = 0x4e3ca09f,
-*/
         if( this.obstacles != null )
         {
             if( m_zone != null ) {
@@ -88,25 +167,23 @@ public class GameManager : MonoBehaviour
                     {
                         continue;
                     }
-                    foreach( NewZoneLayerObject o in l.Objects() ){
-                        GameObject go = Instantiate(m_ObstaclesRockBHandle.Result, new Vector3(o.PosX(), o.PosY(), 0.0f), Quaternion.Euler(0.0f, 0.0f, o.Rotation()));
-                        go.transform.SetParent( this.obstacles.transform );
-                    }
-                }
-            } else {
-                if (m_ObstaclesRockBHandle.Status == AsyncOperationStatus.Succeeded)
-                {
+                    foreach( NewZoneLayerObject o in l.Objects() )
                     {
-                        GameObject o = Instantiate(m_ObstaclesRockBHandle.Result, new Vector3(1200.0f, -410.0f, 0.0f), Quaternion.identity);
-                        o.transform.SetParent( this.obstacles.transform );
-                    }
-                    {
-                        GameObject o = Instantiate(m_ObstaclesRockBHandle.Result, new Vector3(1500.0f, -410.0f, 0.0f), Quaternion.identity);
-                        o.transform.SetParent( this.obstacles.transform );
-                    }
-                    {
-                        GameObject o = Instantiate(m_ObstaclesRockBHandle.Result, new Vector3(1800.0f, -410.0f, 0.0f), Quaternion.identity);
-                        o.transform.SetParent( this.obstacles.transform );
+                        uint crc = o.Crc();
+                        EntityConfig ec;
+                        if( m_entityConfigs.TryGetValue( crc, out ec))
+                        {
+                            if (ec.handle.Result != null)
+                            {
+                                GameObject go = Instantiate(ec.handle.Result, new Vector3(o.PosX(), o.PosY(), 0.0f),
+                                    Quaternion.Euler(0.0f, 0.0f, o.Rotation()));
+                                go.transform.SetParent(this.obstacles.transform);
+                            }
+                        }
+                        else
+                        {
+                            // Debug.Log( "Entity Config not found for " + crc.ToString("X") );
+                        }
                     }
                 }
             }

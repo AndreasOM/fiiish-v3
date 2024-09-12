@@ -23,6 +23,11 @@ public class NewZoneLayerObject {
     {
         return m_rotation;
     }
+
+    public uint Crc()
+    {
+        return m_crc;
+    }
     public bool Serialize( ref Serializer serializer )
     {
         serializer.Serialize_U16( ref m_id );
@@ -30,7 +35,7 @@ public class NewZoneLayerObject {
         serializer.Serialize_F32( ref m_pos_x );
         serializer.Serialize_F32( ref m_pos_y );
         serializer.Serialize_F32( ref m_rotation );
-        Debug.Log( String.Format("\t\tObj: '{0}'  @{1},{2} rot {3}", m_id, m_pos_x, m_pos_y, m_rotation ) );
+        // Debug.Log( String.Format("\t\tObj: '{0}'  @{1},{2} rot {3} [{4}", m_id, m_pos_x, m_pos_y, m_rotation, m_crc.ToString("X") ) );
 
         return true;
     }
