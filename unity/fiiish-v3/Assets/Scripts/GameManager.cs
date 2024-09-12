@@ -40,28 +40,20 @@ public class GameManager : MonoBehaviour
 
     private GameObject obstacles = null;
 
-    // private AsyncOperationHandle<GameObject> m_ObstaclesRockBHandle;
-    // private EntityConfig m_ObstacleRockBEntityConfig;
-    //private Dictionary<uint, EntityConfig> m_entityConfigs = new Dictionary<uint, EntityConfig>();
     private Dictionary<uint, EntityConfig> m_entityConfigs = new Dictionary<uint, EntityConfig>();
     
     private NewZone m_zone = null;
-
-    GameManager()
+    
+    private void AddEntityConfig( uint crc, string addressableName)
     {
-        Debug.Log( "Creating GameManager");    
+        var ec = new EntityConfig();
+        ec.LoadFromAssetAsync(addressableName);
+        m_entityConfigs.Add(crc, ec);
     }
     // Start is called before the first frame update
     void Start()
     {
         this.obstacles = GameObject.FindWithTag("Obstacles");
-
-        /*
-        m_ObstaclesRockBHandle = Addressables.LoadAssetAsync<GameObject>("ObstaclesRockB");
-        m_ObstaclesRockBHandle.Completed += OnLoadComplete;
-        */
-        //m_ObstacleRockBEntityConfig = new EntityConfig();
-        //m_ObstacleRockBEntityConfig.LoadFromAssetAsync( "ObstaclesRockB" );
 /*
     #ROCKA           = 0xd058353c,
     #ROCKB           = 0x49516486,
@@ -70,45 +62,14 @@ public class GameManager : MonoBehaviour
     #ROCKE           = 0xd735f125,
     #ROCKF           = 0x4e3ca09f,
 */
-
         try
         {
-            {
-                // RockA
-                var ec = new EntityConfig();
-                ec.LoadFromAssetAsync("ObstaclesRockA");
-                m_entityConfigs.Add(0xd058353c, ec);
-            }
-            {
-                // RockB
-                var ec = new EntityConfig();
-                ec.LoadFromAssetAsync("ObstaclesRockB");
-                m_entityConfigs.Add(0x49516486, ec);
-            }
-            {
-                // RockC
-                var ec = new EntityConfig();
-                ec.LoadFromAssetAsync("ObstaclesRockC");
-                m_entityConfigs.Add(0x3e565410, ec);
-            }
-            {
-                // RockD
-                var ec = new EntityConfig();
-                ec.LoadFromAssetAsync("ObstaclesRockD");
-                m_entityConfigs.Add(0xa032c1b3, ec);
-            }
-            {
-                // RockE
-                var ec = new EntityConfig();
-                ec.LoadFromAssetAsync("ObstaclesRockE");
-                m_entityConfigs.Add(0xd735f125, ec);
-            }
-            {
-                // RockF
-                var ec = new EntityConfig();
-                ec.LoadFromAssetAsync("ObstaclesRockF");
-                m_entityConfigs.Add(0x4e3ca09f, ec);
-            }
+            AddEntityConfig(0xd058353c, "ObstaclesRockA");
+            AddEntityConfig(0x49516486, "ObstaclesRockB");
+            AddEntityConfig(0x3e565410, "ObstaclesRockC");
+            AddEntityConfig(0xa032c1b3, "ObstaclesRockD");
+            AddEntityConfig(0xd735f125, "ObstaclesRockE");
+            AddEntityConfig(0x4e3ca09f, "ObstaclesRockF");
         }
         catch (Exception e)
         {
@@ -117,8 +78,6 @@ public class GameManager : MonoBehaviour
         }
         // :HACK: needs cleanup
 
-        // var file = Resources.Load<TextAsset>("Zones/0000_ILoveFiiish");
-        //var file = Resources.Load<TextAsset>("Zones/test_zone");
         var path = Application.streamingAssetsPath + "/Zones/0000_ILoveFiiish.nzne";
 
         var serializer = new Serializer();
@@ -145,8 +104,6 @@ public class GameManager : MonoBehaviour
         {
             ec.OnDisable();
         }
-        // m_ObstacleRockBEntityConfig.OnDisable();
-        // m_ObstaclesRockBHandle.Completed -= OnLoadComplete;
     }
 
     // Update is called once per frame
@@ -163,7 +120,6 @@ public class GameManager : MonoBehaviour
                 string[] rendered_layers = {"Obstacles", "Obstacles_01"};
                 foreach( NewZoneLayer l in m_zone.Layers() ){
                     if( !Array.Exists(rendered_layers, e => e == l.Name() ) )
-                    //if ( !rendered_layers.Contains( l.Name() ) )
                     {
                         continue;
                     }
