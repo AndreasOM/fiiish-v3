@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4737063424696548824}
   - component: {fileID: 8675833070806029760}
-  - component: {fileID: 1126470923855828919}
   - component: {fileID: 4053529226110472070}
   m_Layer: 0
   m_Name: rock-a
@@ -86,18 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1126470923855828919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4832668622127570207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 346e3fdd6e2b442d4814956132f4f0ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &4053529226110472070
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -165,6 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8729207237305879374}
+  - component: {fileID: 478361458755409910}
   m_Layer: 0
   m_Name: rock-a
   m_TagString: Untagged
@@ -188,3 +176,15 @@ Transform:
   - {fileID: 4737063424696548824}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &478361458755409910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5629858893437704375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 346e3fdd6e2b442d4814956132f4f0ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -83,3 +83,7 @@ func _on_debug_collision_check_button_toggled(toggled_on: bool) -> void:
 
 func _on_debug_camer_check_button_toggled(toggled_on: bool) -> void:
 	%CameraDebugPanel.visible = toggled_on
+
+
+func _on_button_pressed() -> void:
+	print("Unity")

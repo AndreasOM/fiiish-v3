@@ -87,7 +87,10 @@ public class Fish : MonoBehaviour
     {
         this.state = State.Respawning;
         animator.Play("FishSwim");
-        transform.position = new Vector3( -1024.0f, 0.0f, 0.0f );
+        var pos = transform.localPosition;
+        pos.x = -1024.0f;
+        pos.y = 0.0f;
+        transform.localPosition = pos;
         transform.localEulerAngles = new Vector3( 0.0f, 0.0f, 0.0f );
         if( this.gameManager != null ) {
             this.gameManager.Cleanup();
@@ -195,7 +198,7 @@ public class Fish : MonoBehaviour
         }
 
         lea.z = lea.z + rot_z;
-        ( float min_a, float max_a ) = GetAngleRangeForY( transform.position.y );
+        ( float min_a, float max_a ) = GetAngleRangeForY( transform.localPosition.y );
 
         // float ta = Mathf.Clamp( lea.z, min_a, max_a );
         // Debug.Log( "Clamp " + lea.z + " " + min_a + " " + max_a + "->" + ta );
@@ -205,13 +208,13 @@ public class Fish : MonoBehaviour
         float a = lea.z;
         float dy = (Mathf.Sin(a / 57.2957795f)) * 350.0f * Time.deltaTime;
 
-        transform.position = transform.position + new Vector3( 0.0f, dy, 0.0f );
+        transform.localPosition = transform.localPosition + new Vector3( 0.0f, dy, 0.0f );
         transform.localEulerAngles = lea;
     }
 
     void FixedUpdateDying()
     {
-        transform.position = transform.position + new Vector3( 0.0f, 1.5f * 128.0f * Time.deltaTime, 0.0f );
+        transform.localPosition = transform.localPosition + new Vector3( 0.0f, 1.5f * 128.0f * Time.deltaTime, 0.0f );
         Vector3 lea = transform.localEulerAngles;
         // :HACK: since unity normalizes angles to 0.0 -> 360.0
         if( lea.z > 180.0f ) {
@@ -220,7 +223,7 @@ public class Fish : MonoBehaviour
         lea.z = Mathf.Min( 90.0f, lea.z + 60.0f*Time.deltaTime );
         transform.localEulerAngles = lea;
 
-        if( transform.position.y > 512.0+128.0 ) {
+        if( transform.localPosition.y > 512.0+128.0 ) {
             this.state = State.Dead;
             Debug.Log( "Dead" );
         }
@@ -228,8 +231,8 @@ public class Fish : MonoBehaviour
 
     void FixedUpdateRespawning()
     {
-        transform.position = transform.position + new Vector3( 256.0f * Time.deltaTime, 0.0f, 0.0f );
-        if ( transform.position.x >= -512.0 ) {
+        transform.localPosition = transform.localPosition + new Vector3( 256.0f * Time.deltaTime, 0.0f, 0.0f );
+        if ( transform.localPosition.x >= -512.0 ) {
             GotoWaitingForStart();
         }
     }

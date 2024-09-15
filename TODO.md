@@ -9,6 +9,10 @@
 
 ## Done
 
+### 2024-09-15
+- [x] #unity Add some basic debug UI
+- [x] #unity Switch to local transforms
+
 ### 2024-09-12
 - [x] #unity Improve obstacle spawning, and loading
 - [x] #unity Add remaining rocks

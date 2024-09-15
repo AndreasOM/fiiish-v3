@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
                             {
                                 GameObject go = Instantiate(ec.handle.Result, new Vector3(o.PosX(), o.PosY(), 0.0f),
                                     Quaternion.Euler(0.0f, 0.0f, o.Rotation()));
-                                go.transform.SetParent(this.obstacles.transform);
+                                go.transform.SetParent(this.obstacles.transform, false);
                             }
                         }
                         else
