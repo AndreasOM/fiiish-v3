@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -35,6 +36,9 @@ public class GameManager : MonoBehaviour
 {
     public float speed = 240.0f;
     public bool wrapWorld = true;
+    public float zoneSpawnOffset = 0.0f;
+    
+    public UnityEvent<String> OnZoneChanged;
 
     private bool moving = false;
 
@@ -43,6 +47,8 @@ public class GameManager : MonoBehaviour
     private Dictionary<uint, EntityConfig> m_entityConfigs = new Dictionary<uint, EntityConfig>();
     
     private NewZone m_zone = null;
+
+    private Vector2 _zonePos;
     
     private void AddEntityConfig( uint crc, string addressableName)
     {
@@ -109,29 +115,40 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (this.moving)
+        {
+            float speed = CurrentSpeed() * Time.deltaTime;
+            _zonePos.x += speed;
+            if (_zonePos.x > m_zone.GetSize().x)
+            {
+                SpawnZone();
+            }
+        }
     }
 
     public void SpawnZone()
     {
         if( this.obstacles != null )
         {
-            if( m_zone != null ) {
-                string[] rendered_layers = {"Obstacles", "Obstacles_01"};
-                foreach( NewZoneLayer l in m_zone.Layers() ){
-                    if( !Array.Exists(rendered_layers, e => e == l.Name() ) )
+            if (m_zone != null)
+            {
+                string[] rendered_layers = { "Obstacles", "Obstacles_01" };
+                foreach (NewZoneLayer l in m_zone.Layers())
+                {
+                    if (!Array.Exists(rendered_layers, e => e == l.Name()))
                     {
                         continue;
                     }
-                    foreach( NewZoneLayerObject o in l.Objects() )
+
+                    foreach (NewZoneLayerObject o in l.Objects())
                     {
                         uint crc = o.Crc();
                         EntityConfig ec;
-                        if( m_entityConfigs.TryGetValue( crc, out ec))
+                        if (m_entityConfigs.TryGetValue(crc, out ec))
                         {
                             if (ec.handle.Result != null)
                             {
-                                GameObject go = Instantiate(ec.handle.Result, new Vector3(o.PosX(), o.PosY(), 0.0f),
+                                GameObject go = Instantiate(ec.handle.Result, new Vector3(o.PosX()+zoneSpawnOffset, o.PosY(), 0.0f),
                                     Quaternion.Euler(0.0f, 0.0f, o.Rotation()));
                                 go.transform.SetParent(this.obstacles.transform, false);
                             }
@@ -142,6 +159,9 @@ public class GameManager : MonoBehaviour
                         }
                     }
                 }
+
+                _zonePos = new Vector2();
+                OnZoneChanged.Invoke(m_zone.name);
             }
         }
     }
@@ -176,5 +196,18 @@ public class GameManager : MonoBehaviour
     public void ResumeMovement()
     {
         this.moving = true;
+    }
+
+    public float GetZoneProgress()
+    {
+        var progress = _zonePos.x / m_zone.GetSize().x;
+        return Mathf.Clamp01( progress );
+    }
+
+    public void GotoNextZone()
+    {
+        Debug.Log("GotoNextZone");
+        Cleanup();
+        SpawnZone();
     }
 }

@@ -12,7 +12,7 @@ public class Obstacle : MonoBehaviour
     {
         this.gameManager = GameObject.FindObjectOfType<GameManager>();
 
-        Debug.Log( "Obstacle - Speed: " + this.gameManager.speed );
+        // Debug.Log( "Obstacle - Speed: " + this.gameManager.speed );
     }
 
     // Update is called once per frame

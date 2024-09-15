@@ -1,34 +1,50 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DebugUI : MonoBehaviour
 {
-    public Slider zoomSlider = null;
     public Game game = null;
 
+    public Slider zoomSlider = null;
+    public UIProgressBar zoneProgressBar;
+
     private GameObject _cameraFrame = null;
+    private TextMeshProUGUI _zoneNameLabel = null;
     
     // Start is called before the first frame update
     void Start()
     {
-        _cameraFrame = transform.Find("CameraFrame").gameObject;
+        Setup();
+        Configure();
+    }
 
+    void Setup()
+    {
+        _cameraFrame = transform.Find("CameraFrame").gameObject;
+        var zoneNameLabelGo = GameObject.Find("ZoneNameLabel");
+        _zoneNameLabel = zoneNameLabelGo.GetComponent<TextMeshProUGUI>();
+    }
+
+    void Configure()
+    {
         var debugCameraToggle_go = GameObject.Find("DebugCameraToggle");
         var debugCameraToggle = debugCameraToggle_go.GetComponent<Toggle>();
-
         debugCameraToggle.SetIsOnWithoutNotify( _cameraFrame.activeSelf );
         
         var zoom = game.GetZoom();
         SetZoom( zoom );
-    }
 
+        _zoneNameLabel.text = "From Script";
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        var progress = game.GetZoneProgress();
+        zoneProgressBar.SetProgress( progress );
     }
 
     void SetZoom(float value)
@@ -51,6 +67,11 @@ public class DebugUI : MonoBehaviour
         SetZoom( 1.0f );
     }
 
+    public void OnClickNextZoneButton()
+    {
+        Debug.Log( "OnClickNextZoneButton" );
+        this.game.GotoNextZone();
+    }
     public void OnZoomChanged(float value)
     {
         // Debug.Log("Zoom:" + value);
@@ -72,5 +93,11 @@ public class DebugUI : MonoBehaviour
             Debug.Log( "OnDebugCameraChanged" + value);
             _cameraFrame.SetActive( value );
         }
+    }
+
+    public void OnZoneChanged(String zoneName)
+    {
+        Debug.Log("Zone Changed to " + zoneName);
+        _zoneNameLabel.text = zoneName;
     }
 }

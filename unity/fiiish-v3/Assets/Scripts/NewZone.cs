@@ -74,8 +74,14 @@ public class NewZoneLayer {
 
 public class NewZone : ScriptableObject
 {
+    private Vector2 _size;
     private List<NewZoneLayer> m_layers = new List<NewZoneLayer>();
 
+    public Vector2 GetSize()
+    {
+        return _size;
+    }
+    
     public List<NewZoneLayer> Layers()
     {
         return m_layers;
@@ -126,6 +132,7 @@ public class NewZone : ScriptableObject
 
         string name = "";
         serializer.Serialize_FixedString( ref name, 64 );
+        this.name = name;
 
         ushort difficulty = 0;
         serializer.Serialize_U16( ref difficulty );
@@ -135,6 +142,8 @@ public class NewZone : ScriptableObject
         float size_y = 0.0f;
         serializer.Serialize_F32( ref size_y );
 
+        this._size.x = size_x;
+        this._size.y = size_y;
         Debug.Log( String.Format("Name: '{0}'  Difficulty {1}, Size {2}x{3}", name, difficulty, size_x, size_y ) );
 
         ushort layer_count = 0;
