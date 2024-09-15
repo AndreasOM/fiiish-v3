@@ -8,6 +8,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
+using Random = System.Random;
 
 
 class EntityConfig
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<uint, EntityConfig> m_entityConfigs = new Dictionary<uint, EntityConfig>();
     
     private NewZone m_zone = null;
+    private List<NewZone> _zones = new List<NewZone>();
 
     private Vector2 _zonePos;
     
@@ -84,10 +88,28 @@ public class GameManager : MonoBehaviour
         }
         // :HACK: needs cleanup
 
+        var zone_path = Application.streamingAssetsPath + "/Zones/";
+        var zone_pattern = "*.nzne";
+        var zone_files = Directory.GetFiles(zone_path, zone_pattern);
+        foreach (var zone_file in zone_files)
+        {
+            Debug.Log( "Loading " + zone_file );
+            var z = LoadNewZone(zone_file);
+            _zones.Add( z );
+        }
+
+        m_zone = _zones[0];
+        /*
         var path = Application.streamingAssetsPath + "/Zones/0000_ILoveFiiish.nzne";
 
-        var serializer = new Serializer();
+        m_zone = LoadNewZone(path);
+        */
+        Debug.Log("Started.");
+    }
 
+    private static NewZone LoadNewZone(string path)
+    {
+        var serializer = new Serializer();
         if (serializer.LoadFile(path))
         {
             Debug.Log("File exists " + path );
@@ -95,13 +117,15 @@ public class GameManager : MonoBehaviour
             if( !zone.Serialize( ref serializer ) )
             {
                 Debug.LogWarning( "Failed loading " + path );
-            } else {
-                m_zone = zone;
+            } else
+            {
+                return zone;
             }
         } else {
             Debug.LogWarning( "Serializer failed loading: " + path );
         }
-        Debug.Log("Started.");
+
+        return null;
     }
 
     void OnDisable()
@@ -130,6 +154,9 @@ public class GameManager : MonoBehaviour
     {
         if( this.obstacles != null )
         {
+            var rnd = new Random();
+            var i = rnd.Next(_zones.Count);
+            m_zone = _zones[i];
             if (m_zone != null)
             {
                 string[] rendered_layers = { "Obstacles", "Obstacles_01" };
