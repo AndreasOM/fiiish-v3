@@ -12,6 +12,8 @@
 ### 2024-09-15
 - [x] #unity Add some basic debug UI
 - [x] #unity Switch to local transforms
+- [x] #unity Add zone debug UI
+- [x] #unity Add auto spawning of zone
 
 ### 2024-09-12
 - [x] #unity Improve obstacle spawning, and loading
