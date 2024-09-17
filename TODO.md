@@ -1,13 +1,17 @@
 # Todo
 
 ## In Progress
-- [ ] #unity Add simple zone management
 
 ## Todo
 - [ ] Do something
 
 
 ## Done
+
+### 2024-09-17
+- [x] #unity Complete simple zone management
+- [x] #unity Add seaweed obstacles
+
 
 ### 2024-09-15
 - [x] #unity Add some basic debug UI
@@ -59,7 +63,7 @@
 - [x] Setup base project
 - [x] Add fish and basic movement
 - [x] Add obstacles, with collisions
-- [g] Add zones (including loading & ~saving~ of legacy format) and zone management
+- [x] Add zones (including loading & ~saving~ of legacy format) and zone management
 - [ ] Add pickups (coins, and specials)
 - [ ] Handle death and restart
 - [ ] Add in game hud

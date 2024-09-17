@@ -92,8 +92,9 @@ public class Fish : MonoBehaviour
         pos.y = 0.0f;
         transform.localPosition = pos;
         transform.localEulerAngles = new Vector3( 0.0f, 0.0f, 0.0f );
-        if( this.gameManager != null ) {
-            this.gameManager.Cleanup();
+        if( this.gameManager != null ){
+            //this.gameManager.Cleanup();
+            this.gameManager.PrepareRespawn();
         }
     }
     void GotoWaitingForStart()

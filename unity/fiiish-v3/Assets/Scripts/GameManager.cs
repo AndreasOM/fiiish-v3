@@ -49,8 +49,9 @@ public class GameManager : MonoBehaviour
 
     private Dictionary<uint, EntityConfig> m_entityConfigs = new Dictionary<uint, EntityConfig>();
     
-    private NewZone m_zone = null;
+    private NewZone _currentZone = null;
     private List<NewZone> _zones = new List<NewZone>();
+    private List<string> _queuedZones = new List<string>();
 
     private Vector2 _zonePos;
     
@@ -72,14 +73,34 @@ public class GameManager : MonoBehaviour
     #ROCKE           = 0xd735f125,
     #ROCKF           = 0x4e3ca09f,
 */
+/*
+    #SEAWEEDA        = 0x6fe93bef,
+    #SEAWEEDB        = 0xf6e06a55,
+    #SEAWEEDC        = 0x81e75ac3,
+    #SEAWEEDD        = 0x1f83cf60,
+    #SEAWEEDE        = 0x6884fff6,
+    #SEAWEEDF        = 0xf18dae4c,
+    #SEAWEEDG        = 0x868a9eda,
+
+ */
         try
         {
+            AddEntityConfig(0x00000000, "ObstaclesBlock1x1");
+            
             AddEntityConfig(0xd058353c, "ObstaclesRockA");
             AddEntityConfig(0x49516486, "ObstaclesRockB");
             AddEntityConfig(0x3e565410, "ObstaclesRockC");
             AddEntityConfig(0xa032c1b3, "ObstaclesRockD");
             AddEntityConfig(0xd735f125, "ObstaclesRockE");
             AddEntityConfig(0x4e3ca09f, "ObstaclesRockF");
+            
+            AddEntityConfig(0x6fe93bef, "ObstaclesSeaweedA");
+            AddEntityConfig(0xf6e06a55, "ObstaclesSeaweedB");
+            AddEntityConfig(0x81e75ac3, "ObstaclesSeaweedC");
+            AddEntityConfig(0x1f83cf60, "ObstaclesSeaweedD");
+            AddEntityConfig(0x6884fff6, "ObstaclesSeaweedE");
+            AddEntityConfig(0xf18dae4c, "ObstaclesSeaweedF");
+            AddEntityConfig(0x868a9eda, "ObstaclesSeaweedG");
         }
         catch (Exception e)
         {
@@ -98,12 +119,10 @@ public class GameManager : MonoBehaviour
             _zones.Add( z );
         }
 
-        m_zone = _zones[0];
-        /*
-        var path = Application.streamingAssetsPath + "/Zones/0000_ILoveFiiish.nzne";
-
-        m_zone = LoadNewZone(path);
-        */
+        _currentZone = _zones[0];
+        
+        QueueInitialZones();
+        
         Debug.Log("Started.");
     }
 
@@ -143,25 +162,86 @@ public class GameManager : MonoBehaviour
         {
             float speed = CurrentSpeed() * Time.deltaTime;
             _zonePos.x += speed;
-            if (_zonePos.x > m_zone.GetSize().x)
+            if (_zonePos.x > _currentZone.GetSize().x)
             {
                 SpawnZone();
             }
         }
     }
 
+    private void QueueInitialZones()
+    {
+        string[] initialZones =
+        {
+            "0000_ILoveFiiish",
+        };
+
+        _queuedZones.Clear();
+        foreach (var zn in initialZones)
+        {
+            _queuedZones.Add( zn );   
+        }
+    }
+    private NewZone PickNextZone()
+    {
+        string[] blockedZones =
+        {
+            "0000_Start",
+            "0000_ILoveFiiish",
+            "0000_ILoveFiiishAndRust",
+            "8000_MarketingScreenshots",
+            "9998_AssetTest",
+            "9999_Test"
+        };
+
+        if (_queuedZones.Count > 0)
+        {
+            var nextZoneName = _queuedZones[0];
+            _queuedZones.RemoveAt( 0 );
+            var nextZone = _zones.Find(e => e.name == nextZoneName);
+            if (nextZone != null)
+            {
+                return nextZone;
+            }
+            else
+            {
+                Debug.LogWarning("Queued zone not found: " + nextZoneName );
+            }
+        }
+        var candidateZoneIndices = new List<int>();
+
+        for (int i = 0; i < _zones.Count; i++)
+        {
+            var z = _zones[i];
+            if (Array.Exists(blockedZones, e => e == z.name))
+            {
+                continue;
+            }
+            candidateZoneIndices.Add( i );
+        }
+        if( candidateZoneIndices.Count == 0 )
+        {
+            return null;
+        }
+        var rnd = new Random();
+        var r = rnd.Next(candidateZoneIndices.Count);
+        var zi = candidateZoneIndices[r];
+        return _zones[zi];
+    }
+    
     public void SpawnZone()
     {
         if( this.obstacles != null )
         {
-            var rnd = new Random();
-            var i = rnd.Next(_zones.Count);
-            m_zone = _zones[i];
-            if (m_zone != null)
+            var nextZone = PickNextZone();
+            if (nextZone != null)
             {
+                _currentZone = nextZone;
                 string[] rendered_layers = { "Obstacles", "Obstacles_01" };
-                foreach (NewZoneLayer l in m_zone.Layers())
+                var layerOffsetZ = 1.0f;
+                foreach (NewZoneLayer l in _currentZone.Layers())
                 {
+                    layerOffsetZ -= 0.1f;
                     if (!Array.Exists(rendered_layers, e => e == l.Name()))
                     {
                         continue;
@@ -175,9 +255,27 @@ public class GameManager : MonoBehaviour
                         {
                             if (ec.handle.Result != null)
                             {
-                                GameObject go = Instantiate(ec.handle.Result, new Vector3(o.PosX()+zoneSpawnOffset, o.PosY(), 0.0f),
+                                GameObject go = Instantiate(ec.handle.Result, new Vector3(o.PosX()+zoneSpawnOffset, o.PosY(), 0.0f+layerOffsetZ),
                                     Quaternion.Euler(0.0f, 0.0f, o.Rotation()));
                                 go.transform.SetParent(this.obstacles.transform, false);
+                            }
+                            else
+                            {
+                                if (crc == 0x81e75ac3)
+                                {
+                                    Debug.LogWarning("SeaweedC used, but not found!");
+                                }
+
+                                if (m_entityConfigs.TryGetValue(0x00000000, out ec))
+                                {
+                                    if (ec.handle.Result != null)
+                                    {
+                                        GameObject go = Instantiate(ec.handle.Result,
+                                            new Vector3(o.PosX() + zoneSpawnOffset, o.PosY(), 0.0f + layerOffsetZ),
+                                            Quaternion.Euler(0.0f, 0.0f, o.Rotation()));
+                                        go.transform.SetParent(this.obstacles.transform, false);
+                                    }
+                                }
                             }
                         }
                         else
@@ -188,7 +286,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 _zonePos = new Vector2();
-                OnZoneChanged.Invoke(m_zone.name);
+                OnZoneChanged.Invoke(_currentZone.name);
             }
         }
     }
@@ -227,7 +325,7 @@ public class GameManager : MonoBehaviour
 
     public float GetZoneProgress()
     {
-        var progress = _zonePos.x / m_zone.GetSize().x;
+        var progress = _zonePos.x / _currentZone.GetSize().x;
         return Mathf.Clamp01( progress );
     }
 
@@ -236,5 +334,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("GotoNextZone");
         Cleanup();
         SpawnZone();
+    }
+
+    public void PrepareRespawn()
+    {
+        Cleanup();
+        QueueInitialZones();
     }
 }

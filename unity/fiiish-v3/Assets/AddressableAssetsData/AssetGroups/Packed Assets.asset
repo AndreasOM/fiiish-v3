@@ -27,6 +27,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f6c0902c24a643e8b9d369190ddbcb2
+    m_Address: ObstaclesSeaweedB
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ab9f666c69a548348bdfbfa3fa2f5f4
+    m_Address: ObstaclesSeaweedC
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 45c016db6699e42a38d27e274297c005
     m_Address: ObstaclesRockE
     m_ReadOnly: 0
@@ -44,6 +54,36 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b52e6a2e3b6a94f35822ed5f336e3e60
     m_Address: ObstaclesRockC
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b80dede4cf14240eba99002c93d44dac
+    m_Address: ObstaclesSeaweedD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cef75a7466fd74a7ab093ee840e259ca
+    m_Address: ObstaclesSeaweedE
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e13586d6676a346d1abd53d20597abe1
+    m_Address: ObstaclesSeaweedG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e4ea1964b1a6746988a1049211b07468
+    m_Address: ObstaclesSeaweedA
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e91e6fc38036c49a88ee9ca288075fb9
+    m_Address: ObstaclesBlock1x1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc7dd2779138a42b8aa84f794d69c464
+    m_Address: ObstaclesSeaweedF
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

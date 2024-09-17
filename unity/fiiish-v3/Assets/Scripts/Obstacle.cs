@@ -19,7 +19,7 @@ public class Obstacle : MonoBehaviour
     void Update()
     {
         if( this.gameManager != null ) {
-            float speed = -this.gameManager.CurrentSpeed() * Time.deltaTime;
+            float speed = -this.gameManager.CurrentSpeed() * Time.deltaTime * 1.0f;
             /*
             if (transform.eulerAngles.z != 0.0f)
             {
