@@ -11,6 +11,7 @@
 ### 2024-09-17
 - [x] #unity Complete simple zone management
 - [x] #unity Add seaweed obstacles
+- [x] #unity Start adding pickups
 
 
 ### 2024-09-15
