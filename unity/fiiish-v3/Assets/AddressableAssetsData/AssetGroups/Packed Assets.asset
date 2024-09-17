@@ -32,6 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f87ea0e6acda484093bfba0420abf0c
+    m_Address: PickupsCoin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3ab9f666c69a548348bdfbfa3fa2f5f4
     m_Address: ObstaclesSeaweedC
     m_ReadOnly: 0

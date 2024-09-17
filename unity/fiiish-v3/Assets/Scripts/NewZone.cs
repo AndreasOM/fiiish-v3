@@ -58,7 +58,6 @@ public class NewZoneLayer {
     public bool Serialize( ref Serializer serializer )
     {
         serializer.Serialize_FixedString( ref m_name, 16 );
-        Debug.Log( String.Format("\tLayer Name: '{0}'", m_name ) );
 
         ushort object_count = 0;
         serializer.Serialize_U16( ref object_count );
@@ -66,7 +65,15 @@ public class NewZoneLayer {
             var obj = new NewZoneLayerObject();
             obj.Serialize( ref serializer );
             m_objects.Add( obj );
+            /*
+            if (m_name == "Pickups_00")
+            {
+                Debug.Log("Pickup: "+ obj.Crc().ToString("X"));
+            }
+            */
+
         }
+        // Debug.Log( String.Format("\tLayer Name: '{0}' -> {1} objects", m_name, object_count ) );
 
         return true;
     }
@@ -144,7 +151,7 @@ public class NewZone : ScriptableObject
 
         this._size.x = size_x;
         this._size.y = size_y;
-        Debug.Log( String.Format("Name: '{0}'  Difficulty {1}, Size {2}x{3}", name, difficulty, size_x, size_y ) );
+        // Debug.Log( String.Format("Name: '{0}'  Difficulty {1}, Size {2}x{3}", name, difficulty, size_x, size_y ) );
 
         ushort layer_count = 0;
         serializer.Serialize_U16( ref layer_count );

@@ -83,6 +83,10 @@ public class GameManager : MonoBehaviour
     #SEAWEEDG        = 0x868a9eda,
 
  */
+/*
+    #COIN            = 0x5569975d, // old coin, unused
+    #PICKUPCOIN      = 0xe4c651aa,    
+ */
         try
         {
             AddEntityConfig(0x00000000, "ObstaclesBlock1x1");
@@ -101,6 +105,9 @@ public class GameManager : MonoBehaviour
             AddEntityConfig(0x6884fff6, "ObstaclesSeaweedE");
             AddEntityConfig(0xf18dae4c, "ObstaclesSeaweedF");
             AddEntityConfig(0x868a9eda, "ObstaclesSeaweedG");
+            
+            AddEntityConfig(0xe4c651aa, "PickupsCoin");
+            
         }
         catch (Exception e)
         {
@@ -236,8 +243,10 @@ public class GameManager : MonoBehaviour
             var nextZone = PickNextZone();
             if (nextZone != null)
             {
+                var missingAssetCrcs = new HashSet<uint>();
+                
                 _currentZone = nextZone;
-                string[] rendered_layers = { "Obstacles", "Obstacles_01" };
+                string[] rendered_layers = { "Obstacles", "Obstacles_01", "Pickups_00" };
                 var layerOffsetZ = 1.0f;
                 foreach (NewZoneLayer l in _currentZone.Layers())
                 {
@@ -261,11 +270,6 @@ public class GameManager : MonoBehaviour
                             }
                             else
                             {
-                                if (crc == 0x81e75ac3)
-                                {
-                                    Debug.LogWarning("SeaweedC used, but not found!");
-                                }
-
                                 if (m_entityConfigs.TryGetValue(0x00000000, out ec))
                                 {
                                     if (ec.handle.Result != null)
@@ -281,10 +285,15 @@ public class GameManager : MonoBehaviour
                         else
                         {
                             // Debug.Log( "Entity Config not found for " + crc.ToString("X") );
+                            missingAssetCrcs.Add(crc);
                         }
                     }
                 }
 
+                foreach (var crc in missingAssetCrcs)
+                {
+                    Debug.Log("Missing Assets CRC: " + crc.ToString("X"));
+                }
                 _zonePos = new Vector2();
                 OnZoneChanged.Invoke(_currentZone.name);
             }
