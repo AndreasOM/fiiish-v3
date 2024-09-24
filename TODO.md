@@ -5,8 +5,15 @@
 ## Todo
 - [ ] Do something
 
+## Later
+- [ ] #unity Fix z-fighting of pickups
 
 ## Done
+
+### 2024-09024
+- [x] #unity Collect pickups
+- [x] #unity Add remaining pickups
+- [x] #unity Implement magnet effect
 
 ### 2024-09-17
 - [x] #unity Complete simple zone management
