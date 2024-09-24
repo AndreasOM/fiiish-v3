@@ -22,6 +22,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10826e4ebdec94a8abd0babe27e6b0af
+    m_Address: PickupsExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 23abf3811ebaf475eb20c844cffcbbc5
     m_Address: ObstaclesRockA
     m_ReadOnly: 0
@@ -52,8 +57,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6796ee0c6e24a416da0eec5775290871
+    m_Address: PickupsRain
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6d958cffacfc1473d8fc220b2761cbab
     m_Address: ObstaclesRockF
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70b06a46864ab4c5a82292bf6b91d135
+    m_Address: PickupsMagnet
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

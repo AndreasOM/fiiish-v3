@@ -61,4 +61,9 @@ public class Game : MonoBehaviour
         _gameManager.GotoNextZone();
     }
 
+    public int Coins()
+    {
+        return _gameManager.Coins();
+    }
+
 }

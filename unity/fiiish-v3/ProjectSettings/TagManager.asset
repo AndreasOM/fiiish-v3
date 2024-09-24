@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacles
+  - Pickups
+  - Fishes
   layers:
   - Default
   - TransparentFX
@@ -45,14 +47,14 @@ TagManager:
   - name: Background
     uniqueID: 1948369749
     locked: 0
+  - name: Pickups
+    uniqueID: 3355879929
+    locked: 0
   - name: Player
     uniqueID: 3577691937
     locked: 0
   - name: Obstacles
     uniqueID: 233018217
-    locked: 0
-  - name: Pickups
-    uniqueID: 3355879929
     locked: 0
   - name: Debug UI
     uniqueID: 153619895

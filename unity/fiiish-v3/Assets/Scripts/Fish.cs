@@ -17,11 +17,18 @@ public class Fish : MonoBehaviour
         Down,
     }
 
+    public float pickup_range = 10.0f;
+    public float magnet_range = 200.0f;
+    public float magnet_speed = 300.0f;
+    
     private float rotation_speed = 120.0f;
 
     private State state = State.WaitingForStart;
     private Direction direction = Direction.Neutral;
 
+    private float _magnet_range_boost = 1.0f;
+    private float _magnet_speed_boost = 1.0f;
+    private float _magnet_boost_duration = 0.0f;
 
     private Animator animator;
     private GameManager gameManager = null;
@@ -35,6 +42,38 @@ public class Fish : MonoBehaviour
         animator.Play("FishSwim");
     }
 
+    public void ApplyMagnetBoost(float range, float speed, float duration)
+    {
+        _magnet_range_boost = range;
+        _magnet_speed_boost = speed;
+        _magnet_boost_duration = duration;
+    }
+    public float PickupRange()
+    {
+        return pickup_range;
+    }
+    public float MagnetRange()
+    {
+        return magnet_range * _magnet_range_boost;
+    }
+    public float MagnetSpeed()
+    {
+        return magnet_speed * _magnet_speed_boost;
+    }
+    public bool IsAlive()
+    {
+        switch (this.state)
+        {
+            case State.WaitingForStart: return false;
+            case State.Swimming:        return true;
+            case State.Dying:           return false;
+            case State.Dead:            return false;
+            case State.Respawning:      return false;
+        }
+
+        return false;
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -75,6 +114,16 @@ public class Fish : MonoBehaviour
             GotoDying();
         }
 
+        if (_magnet_boost_duration > 0.0f)
+        {
+            _magnet_boost_duration -= Time.deltaTime;
+            if (_magnet_boost_duration < 0.0f)
+            {
+                _magnet_boost_duration = 0.0f;
+                _magnet_range_boost = 1.0f;
+                _magnet_speed_boost = 1.0f;
+            }
+        }
     }
     void UpdateDead()
     {
@@ -96,6 +145,9 @@ public class Fish : MonoBehaviour
             //this.gameManager.Cleanup();
             this.gameManager.PrepareRespawn();
         }
+        _magnet_boost_duration = 0.0f;
+        _magnet_range_boost = 1.0f;
+        _magnet_speed_boost = 1.0f;
     }
     void GotoWaitingForStart()
     {        

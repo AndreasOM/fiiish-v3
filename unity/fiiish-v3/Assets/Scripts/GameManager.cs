@@ -13,6 +13,7 @@ using Unity.VisualScripting;
 using Random = System.Random;
 
 
+
 class EntityConfig
 {
     public AsyncOperationHandle<GameObject> handle;
@@ -43,24 +44,37 @@ public class GameManager : MonoBehaviour
     
     public UnityEvent<String> OnZoneChanged;
 
+    private int _coins = 0;
     private bool moving = false;
 
     private GameObject obstacles = null;
 
-    private Dictionary<uint, EntityConfig> m_entityConfigs = new Dictionary<uint, EntityConfig>();
+    private Dictionary<UInt32, EntityConfig> m_entityConfigs = new Dictionary<UInt32, EntityConfig>();
     
     private NewZone _currentZone = null;
     private List<NewZone> _zones = new List<NewZone>();
     private List<string> _queuedZones = new List<string>();
 
     private Vector2 _zonePos;
-    
-    private void AddEntityConfig( uint crc, string addressableName)
+    private float _closest_ever = float.MaxValue;
+
+
+    private void AddEntityConfig( UInt32 crc, string addressableName)
     {
         var ec = new EntityConfig();
         ec.LoadFromAssetAsync(addressableName);
         m_entityConfigs.Add(crc, ec);
     }
+    
+    enum EntityId : UInt32
+    {
+        Coin = 0x5569975d, // old coin, unused
+        PickupCoin = 0xe4c651aa,
+        PickupRain = 0x06fd4c5a,
+        PickupExplosion = 0xf75fd92f,
+        PickupMagnet = 0x235a41dd,
+    };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,7 +100,11 @@ public class GameManager : MonoBehaviour
 /*
     #COIN            = 0x5569975d, // old coin, unused
     #PICKUPCOIN      = 0xe4c651aa,    
+    #PICKUPRAIN      = 0x06fd4c5a,
+    #PICKUPEXPLOSION = 0xf75fd92f,
+    #PICKUPMAGNET    = 0x235a41dd,
  */
+        
         try
         {
             AddEntityConfig(0x00000000, "ObstaclesBlock1x1");
@@ -106,7 +124,11 @@ public class GameManager : MonoBehaviour
             AddEntityConfig(0xf18dae4c, "ObstaclesSeaweedF");
             AddEntityConfig(0x868a9eda, "ObstaclesSeaweedG");
             
-            AddEntityConfig(0xe4c651aa, "PickupsCoin");
+//            AddEntityConfig(0xe4c651aa, "PickupsCoin");
+            AddEntityConfig((UInt32)EntityId.PickupCoin, "PickupsCoin");
+            AddEntityConfig((UInt32)EntityId.PickupRain, "PickupsRain");
+            AddEntityConfig((UInt32)EntityId.PickupExplosion, "PickupsExplosion");
+            AddEntityConfig((UInt32)EntityId.PickupMagnet, "PickupsMagnet");
             
         }
         catch (Exception e)
@@ -162,6 +184,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int Coins()
+    {
+        return _coins;
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -174,8 +201,98 @@ public class GameManager : MonoBehaviour
                 SpawnZone();
             }
         }
+        UpdatePickups();
     }
 
+    void UpdatePickups()
+    {
+        var fishes = GameObject.FindGameObjectsWithTag("Fishes");
+        var pickups = GameObject.FindGameObjectsWithTag("Pickups");
+
+        // Debug.Log("Fish Count:" + fishes.Length);
+        // Debug.Log("Pickup Count:" + pickups.Length);
+        var closest = float.MaxValue;
+        
+        foreach (var fish in fishes)
+        {
+            var f = fish.GetComponent<Fish>();
+            if (f == null)
+            {
+                // Debug.LogWarning( "Fish could not be found in " + fish.name );
+                continue;
+            }
+            if (!f.IsAlive())
+            {
+                // Debug.LogWarning("Fish is NOT alive");
+                continue;
+            }
+
+            var fp = fish.transform.position;
+            fp.z = 0.0f;
+            var pickup_range_sqr = f.PickupRange() * f.PickupRange();
+            var magnet_range_sqr = f.MagnetRange() * f.MagnetRange();
+            var magnet_speed = f.MagnetSpeed();
+            
+            
+            foreach (var pickup in pickups)
+            {
+                var p = pickup.GetComponent<Pickup>();
+                if (p == null)
+                {
+                    // Debug.LogWarning( "Pickup could not be found in " + pickup.name );
+                    continue;
+                }
+
+                if (!p.IsAlive())
+                {
+                    // Debug.LogWarning("Pickup is NOT alive");
+                    continue;
+                }
+                
+                var pp = pickup.transform.position;
+                pp.z = 0.0f;
+                var delta = pp - fp;
+                var ls = delta.sqrMagnitude;
+                // Debug.Log( "fp: " + fp );
+                // Debug.Log( "pp: " + pp );
+                //Debug.Log( "ls: " + ls );
+                //Debug.Log( "pickup_range_sqr: " + pickup_range_sqr );
+                if (ls < closest)
+                {
+                    closest = ls;
+                }
+                if (ls < pickup_range_sqr)
+                {
+                    // Debug.Log( "Collect: " + pickup );
+                    p.Collect();
+                    // :TODO: play PICKED_COIN
+                    var effect = p.Effect();
+                    switch (effect)
+                    {
+                        case PickupEffect.Magnet:
+                            f.ApplyMagnetBoost( 3.0f, 10.0f, 1.5f );
+                            break;
+                        case PickupEffect.None:
+                            break;
+                    } 
+                    _coins += 1;
+                    Destroy( pickup );
+                } else if (ls < magnet_range_sqr)
+                {
+                    var speed = -magnet_speed * Time.deltaTime;
+                    delta.Normalize();
+                    delta = speed * delta;
+                    pickup.transform.position += delta;
+                }
+            }
+        }
+        //Debug.Log("Closest: "+closest);
+        if (closest < _closest_ever)
+        {
+            _closest_ever = closest;
+        }
+        //Debug.Log("Closest Ever: "+_closest_ever);
+    }
     private void QueueInitialZones()
     {
         string[] initialZones =
@@ -349,5 +466,6 @@ public class GameManager : MonoBehaviour
     {
         Cleanup();
         QueueInitialZones();
+        _coins = 0;
     }
 }

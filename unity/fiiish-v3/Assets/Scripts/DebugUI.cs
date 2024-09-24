@@ -14,6 +14,7 @@ public class DebugUI : MonoBehaviour
 
     private GameObject _cameraFrame = null;
     private TextMeshProUGUI _zoneNameLabel = null;
+    private TextMeshProUGUI _coinsValueLabel = null;
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,8 @@ public class DebugUI : MonoBehaviour
         _cameraFrame = transform.Find("CameraFrame").gameObject;
         var zoneNameLabelGo = GameObject.Find("ZoneNameLabel");
         _zoneNameLabel = zoneNameLabelGo.GetComponent<TextMeshProUGUI>();
+        var coinsValueLabelGo = GameObject.Find("CoinsValueLabel");
+        _coinsValueLabel = coinsValueLabelGo.GetComponent<TextMeshProUGUI>();
     }
 
     void Configure()
@@ -45,6 +48,8 @@ public class DebugUI : MonoBehaviour
     {
         var progress = game.GetZoneProgress();
         zoneProgressBar.SetProgress( progress );
+        var coins = game.Coins();
+        _coinsValueLabel.text = coins.ToString();
     }
 
     void SetZoom(float value)
