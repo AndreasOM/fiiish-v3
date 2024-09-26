@@ -10,8 +10,8 @@ using System;
 using System.IO;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
-using Random = System.Random;
-
+//using Random = System.Random;
+using Random = UnityEngine.Random;
 
 
 class EntityConfig
@@ -59,6 +59,10 @@ public class GameManager : MonoBehaviour
     private float _closest_ever = float.MaxValue;
 
 
+    private float _coinRainDuration = 0.0f;
+    private float _coinRainPerSecond = 3.3f;
+    private float _coinRainCounter = 0.0f;
+    
     private void AddEntityConfig( UInt32 crc, string addressableName)
     {
         var ec = new EntityConfig();
@@ -227,7 +231,7 @@ public class GameManager : MonoBehaviour
                 continue;
             }
 
-            var fp = fish.transform.position;
+            var fp = fish.transform.localPosition;
             fp.z = 0.0f;
             var pickup_range_sqr = f.PickupRange() * f.PickupRange();
             var magnet_range_sqr = f.MagnetRange() * f.MagnetRange();
@@ -249,7 +253,7 @@ public class GameManager : MonoBehaviour
                     continue;
                 }
                 
-                var pp = pickup.transform.position;
+                var pp = pickup.transform.localPosition;
                 pp.z = 0.0f;
                 var delta = pp - fp;
                 var ls = delta.sqrMagnitude;
@@ -257,6 +261,7 @@ public class GameManager : MonoBehaviour
                 // Debug.Log( "pp: " + pp );
                 //Debug.Log( "ls: " + ls );
                 //Debug.Log( "pickup_range_sqr: " + pickup_range_sqr );
+                ls = float.MaxValue; // far far away
                 if (ls < closest)
                 {
                     closest = ls;
@@ -272,10 +277,17 @@ public class GameManager : MonoBehaviour
                         case PickupEffect.Magnet:
                             f.ApplyMagnetBoost( 3.0f, 10.0f, 1.5f );
                             break;
+                        case PickupEffect.Explosion:
+                            SpawnCoinExplosion( pickup.transform.position );
+                            break;
+                        case PickupEffect.Rain:
+                            _coinRainDuration += 3.0f;
+                            _coinRainPerSecond = 33.3f;
+                            break;
                         case PickupEffect.None:
                             break;
                     } 
-                    _coins += 1;
+                    _coins += p.CoinValue();
                     Destroy( pickup );
                 } else if (ls < magnet_range_sqr)
                 {
@@ -285,6 +297,10 @@ public class GameManager : MonoBehaviour
                     pickup.transform.position += delta;
                 }
             }
+            if(Input.GetKeyDown("e"))
+            {
+                SpawnCoinExplosion( new Vector3( 10.0f, 0.0f, 0.0f ) + fish.transform.position );
+            }
         }
         //Debug.Log("Closest: "+closest);
         if (closest < _closest_ever)
@@ -292,6 +308,96 @@ public class GameManager : MonoBehaviour
             _closest_ever = closest;
         }
         //Debug.Log("Closest Ever: "+_closest_ever);
+
+        if (_coinRainDuration > 0.0f)
+        {
+            Debug.Log("_coinRainDuration > 0.0f"+_coinRainDuration);
+            var t = Mathf.Min( Time.deltaTime, _coinRainDuration );
+            _coinRainCounter += t * _coinRainPerSecond;
+            _coinRainDuration -= Time.deltaTime;
+            
+            var cc = (int)_coinRainCounter;
+            if (cc > 0)
+            {
+                _coinRainCounter -= cc;
+
+                SpawnCoins(cc);
+            }
+        }
+        
+    }
+
+    private void SpawnCoinExplosion(Vector3 position)
+    {
+        position.x += 100.0f;
+        
+        EntityConfig ec;
+        if (m_entityConfigs.TryGetValue((UInt32)EntityId.PickupCoin, out ec))
+        {
+            if (ec.handle.Result != null)
+            {
+
+                var amount = 5*5*5;
+                //                             120
+                //     25                                         25          25           25         25
+                // 5 5 5 5 5                                  5 5 5 5 5   5 5 5 5 5   5 5 5 5 5   5 5 5 5 5
+                // 1 1 1 1 1   1 1 1 1 1  1 1 1 1 1 ...
+                for (int i = 0; i < amount; ++i)
+                {
+                    GameObject go = Instantiate(ec.handle.Result, position,
+                        Quaternion.identity);
+                    go.transform.SetParent(this.obstacles.transform, false);
+                    var obstacle = go.GetComponent<Obstacle>();
+                    if (obstacle != null)
+                    {
+                        obstacle.SetVelocity( new Vector2( speed + 800.0f, 0.0f ) );
+                        var j = ((float)i + 0.5f);
+                        var osy = 0.0f;
+                        var sy = 200.0f;
+                        var g = (int)j%5; // group
+                        sy *= (2.0f - g); 
+                        osy += sy;
+                        g = ((int)(j / 5.0f)) % 5; // group // 0 - 4
+                        var gd = g * 0.15f;
+                        //gd = 0.0f;
+                        obstacle.AddTimedVelocity( 0.05f+gd, new Vector2( speed + 400.0f, sy ) );
+                        sy = 400.0f;
+                        osy += sy;
+                        g = ((int)(j / 25.0f)) % 5; // group
+                        sy *= (2.0f - g);
+                        osy += sy;
+                        osy = Math.Abs(osy)/1600.0f;
+                        
+                        //Debug.Log("osy: " + osy );
+                        obstacle.AddTimedVelocity( 0.2f, new Vector2( speed + 200.0f, sy ) );
+                        osy = 1.0f-osy;
+                        obstacle.AddTimedVelocity( 0.5f+0.5f*osy, Vector2.zero );
+                    }
+                }
+            }
+        }
+    }
+    private void SpawnCoins(int amount)
+    {
+        EntityConfig ec;
+        if (m_entityConfigs.TryGetValue((UInt32)EntityId.PickupCoin, out ec))
+        {
+            if (ec.handle.Result != null)
+            {
+                for (int i = 0; i < amount; ++i)
+                {
+                    var position = new Vector3(Random.Range(0.0f, 1000.0f), Random.Range(600.0f, 1100.0f), 0.0f);
+                    GameObject go = Instantiate(ec.handle.Result, position,
+                        Quaternion.identity);
+                    go.transform.SetParent(this.obstacles.transform, false);
+                    var obstacle = go.GetComponent<Obstacle>();
+                    if (obstacle != null)
+                    {
+                        obstacle.SetVelocity( new Vector2( Random.Range( -10.0f, 10.0f ), Random.Range(-400.0f, -250.0f) ) );
+                    }
+                }
+            }
+        }
     }
     private void QueueInitialZones()
     {
@@ -347,8 +453,9 @@ public class GameManager : MonoBehaviour
         {
             return null;
         }
-        var rnd = new Random();
-        var r = rnd.Next(candidateZoneIndices.Count);
+        //var rnd = new Random();
+        //var r = rnd.Next(candidateZoneIndices.Count);
+        var r = Random.Range(0, candidateZoneIndices.Count);
         var zi = candidateZoneIndices[r];
         return _zones[zi];
     }
@@ -467,5 +574,6 @@ public class GameManager : MonoBehaviour
         Cleanup();
         QueueInitialZones();
         _coins = 0;
+        _coinRainDuration = 0.0f;
     }
 }
