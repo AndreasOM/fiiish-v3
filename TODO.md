@@ -7,8 +7,16 @@
 
 ## Later
 - [ ] #unity Fix z-fighting of pickups
+- [ ] Create explosion path editor
+
+## Future
+- [ ] Add leaderboards
 
 ## Done
+
+### 2024-0926
+- [x] #unity Add coin rain effect
+- [x] #unity Add bad version of coin explosion
 
 ### 2024-09024
 - [x] #unity Collect pickups
