@@ -17,6 +17,7 @@
 ### 2024-0926
 - [x] #unity Add coin rain effect
 - [x] #unity Add bad version of coin explosion
+- [x] #unity Add improved version of coin explosion
 
 ### 2024-09024
 - [x] #unity Collect pickups
@@ -80,7 +81,7 @@
 - [x] Add fish and basic movement
 - [x] Add obstacles, with collisions
 - [x] Add zones (including loading & ~saving~ of legacy format) and zone management
-- [ ] Add pickups (coins, and specials)
+- [u] Add pickups (coins, and specials)
 - [ ] Handle death and restart
 - [ ] Add in game hud
 - [ ] Add in game (pause) menu and settings
