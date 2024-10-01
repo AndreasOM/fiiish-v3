@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/Obstacles/obstacle.gd" id="2_8g75w"]
 
 [node name="RockB" type="Node2D"]
+z_index = 5
 script = ExtResource("2_8g75w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

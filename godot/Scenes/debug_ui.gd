@@ -22,6 +22,8 @@ func _process(delta: float) -> void:
 			%CurrentZoneWidthLabel.text = "%5.2f" % zw
 			%CurrentZoneProgressBar.value = ( zx/zw ) * 100.0 
 			# print( "%5.2f" % ( zx/zw ) )
+			var coins = game_manager.coins()
+			%CoinValueLabel.text = "%d" % coins
 		pass
 	pass
 

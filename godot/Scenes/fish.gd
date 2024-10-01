@@ -23,12 +23,41 @@ var state: State = State.WAITING_FOR_START
 var direction: Direction = Direction.NEUTRAL
 var mode: Mode = Mode.PLAY
 
+var _pickup_range: float = 10.0
+var _magnet_range: float = 200.0
+var _magnet_speed: float = 300.0
+
+var _magnet_range_boost: float = 1.0;
+var _magnet_speed_boost: float = 1.0;
+var _magnet_boost_duration: float = 0.0;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%AnimatedSprite2D.play("swim")
 
+func pickup_range() -> float:
+	return _pickup_range
+	
+func magnet_range() -> float:
+	return _magnet_range * _magnet_range_boost
+	
+func magnet_speed() -> float:
+	return _magnet_speed * _magnet_speed_boost
 
-
+func apply_magnet_boost( range: float, speed: float, duration: float ):
+	_magnet_range_boost = range
+	_magnet_speed_boost = speed
+	_magnet_boost_duration = duration
+	
+func is_alive() -> bool:
+	match state:
+		State.WAITING_FOR_START:	return false;
+		State.SWIMMING:        		return true;
+		State.DYING:           		return false;
+		State.DEAD:            		return false;
+		State.RESPAWNING:      		return false;
+	return false
+		
 func _goto_swimming():
 	self.state = State.SWIMMING
 	%GameManager.spawn_zone()
@@ -68,6 +97,12 @@ func _process(delta: float) -> void:
 				self.direction = Direction.UP
 			if Input.is_key_pressed(KEY_K):
 				_goto_dying()
+			if _magnet_boost_duration > 0.0:
+				_magnet_boost_duration -= delta
+				if _magnet_boost_duration < 0.0:
+					_magnet_boost_duration = 0.0
+					_magnet_range_boost = 1.0
+					_magnet_speed_boost = 1.0
 		#State.DYING:
 			
 		State.DEAD:

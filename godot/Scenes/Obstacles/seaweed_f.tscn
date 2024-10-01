@@ -203,6 +203,7 @@ animations = [{
 }]
 
 [node name="SeaweedF" type="Node2D"]
+z_index = 5
 script = ExtResource("1_bamu6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

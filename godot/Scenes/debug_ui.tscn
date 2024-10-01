@@ -13,6 +13,7 @@ border_blend = true
 anti_aliasing = false
 
 [node name="DebugUI" type="Control"]
+z_index = 8
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,6 +143,20 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Debug Camera"
+
+[node name="CoinHBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CoinLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/CoinHBoxContainer"]
+layout_mode = 2
+text = "Coins"
+
+[node name="CoinValueLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/CoinHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "0"
+horizontal_alignment = 2
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/ButtonSmall" to="." method="_on_button_small_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/ButtonMedium" to="." method="_on_button_medium_pressed"]

@@ -14,12 +14,17 @@
 
 ## Done
 
-### 2024-0926
+### 2024-10-01
+- [x] #godot Collect pickups
+- [x] #godot Add remaining pickups
+- [x] #godot Implement magnet effect
+
+### 2024-09-26
 - [x] #unity Add coin rain effect
 - [x] #unity Add bad version of coin explosion
 - [x] #unity Add improved version of coin explosion
 
-### 2024-09024
+### 2024-09-24
 - [x] #unity Collect pickups
 - [x] #unity Add remaining pickups
 - [x] #unity Implement magnet effect

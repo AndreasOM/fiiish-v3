@@ -10,11 +10,18 @@ position = Vector2(910, 512)
 script = ExtResource("1_2tnct")
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = 1
 texture = ExtResource("1_48x5b")
 
-[node name="Fish" parent="." instance=ExtResource("2_ea5sf")]
+[node name="Fishes" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Fish" parent="Fishes" instance=ExtResource("2_ea5sf")]
 
 [node name="Obstacles" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Pickups" type="Node2D" parent="."]
 unique_name_in_owner = true
 
 [node name="Managers" type="Node" parent="."]
