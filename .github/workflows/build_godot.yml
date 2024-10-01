@@ -9,7 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubicloud-standard-4
-
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,15 +21,22 @@ jobs:
             .github
             godot
           fetch-depth: 1
-      - name: export game
-        id: export
-        # Use latest version (see releases for all versions)
-        uses: firebelley/godot-export@v5.2.0
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v1
         with:
-          # Defining all the required inputs
-          # godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_linux.x86_64.zip
-          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip
-          # godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_export_templates.tpz
-          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz
-          relative_project_path: ./godot/
-          archive_output: true
+          version: 4.3
+          use-dotnet: false
+          include-templates: true
+      - name: Verify setup
+        run: |
+          godot --version
+
+      - name: Export WebGL
+        run: |
+          cd godot
+          godot --headless --export-debug Web export/web/fiiish-v3.html --quit || exit 0
+
+      - name: Check result
+        run: |
+          cd godot
+          find export
