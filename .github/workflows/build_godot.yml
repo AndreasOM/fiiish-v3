@@ -34,6 +34,7 @@ jobs:
       - name: Export WebGL
         run: |
           cd godot
+          mkdir -p export/web
           godot --headless --export-debug Web export/web/fiiish-v3.html --quit || exit 0
 
       - name: Check result
