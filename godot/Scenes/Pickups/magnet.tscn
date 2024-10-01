@@ -1,0 +1,151 @@
+[gd_scene load_steps=35 format=3 uid="uid://yl2euexbpx4g"]
+
+[ext_resource type="Script" path="res://Scenes/Pickups/pickup.gd" id="1_pgxbg"]
+[ext_resource type="Texture2D" uid="uid://boah2yqooe5x4" path="res://Textures/Pickups/Magnet/magnet_01.png" id="2_u0f1h"]
+[ext_resource type="Texture2D" uid="uid://dwrk1elewhmey" path="res://Textures/Pickups/Magnet/magnet_02.png" id="3_pi5yd"]
+[ext_resource type="Texture2D" uid="uid://co8ok2u8yojn3" path="res://Textures/Pickups/Magnet/magnet_03.png" id="4_5tpyu"]
+[ext_resource type="Texture2D" uid="uid://ckbyhfkuutpvv" path="res://Textures/Pickups/Magnet/magnet_04.png" id="5_mcf0o"]
+[ext_resource type="Texture2D" uid="uid://bkuqu6o6rs185" path="res://Textures/Pickups/Magnet/magnet_05.png" id="6_0kone"]
+[ext_resource type="Texture2D" uid="uid://c2m3apmcvl0q4" path="res://Textures/Pickups/Magnet/magnet_06.png" id="7_547my"]
+[ext_resource type="Texture2D" uid="uid://cnlkaxdca32y2" path="res://Textures/Pickups/Magnet/magnet_07.png" id="8_dlfpw"]
+[ext_resource type="Texture2D" uid="uid://jsm73jrxfir5" path="res://Textures/Pickups/Magnet/magnet_08.png" id="9_le346"]
+[ext_resource type="Texture2D" uid="uid://c6lnc5qjwtubm" path="res://Textures/Pickups/Magnet/magnet_09.png" id="10_isawb"]
+[ext_resource type="Texture2D" uid="uid://bmgy8wysteqek" path="res://Textures/Pickups/Magnet/magnet_10.png" id="11_q2rcj"]
+[ext_resource type="Texture2D" uid="uid://cu7y0311iwoda" path="res://Textures/Pickups/Magnet/magnet_11.png" id="12_1l42s"]
+[ext_resource type="Texture2D" uid="uid://cj0tlhvylcbmc" path="res://Textures/Pickups/Magnet/magnet_12.png" id="13_r41fm"]
+[ext_resource type="Texture2D" uid="uid://bpuwy6w6k7fja" path="res://Textures/Pickups/Magnet/magnet_13.png" id="14_rauem"]
+[ext_resource type="Texture2D" uid="uid://blq7bi5ppt2qx" path="res://Textures/Pickups/Magnet/magnet_14.png" id="15_v2b18"]
+[ext_resource type="Texture2D" uid="uid://bmcl5pt31i8k5" path="res://Textures/Pickups/Magnet/magnet_15.png" id="16_uyjxh"]
+[ext_resource type="Texture2D" uid="uid://blvd6lfff4o5r" path="res://Textures/Pickups/Magnet/magnet_16.png" id="17_tknhk"]
+[ext_resource type="Texture2D" uid="uid://du3fu11gup2e3" path="res://Textures/Pickups/Magnet/magnet_17.png" id="18_b3486"]
+[ext_resource type="Texture2D" uid="uid://dfv42uy5txmnc" path="res://Textures/Pickups/Magnet/magnet_18.png" id="19_tcrt0"]
+[ext_resource type="Texture2D" uid="uid://duu6yft1j8hlt" path="res://Textures/Pickups/Magnet/magnet_19.png" id="20_7rx2v"]
+[ext_resource type="Texture2D" uid="uid://2fnumf0b8bvn" path="res://Textures/Pickups/Magnet/magnet_20.png" id="21_g1uxj"]
+[ext_resource type="Texture2D" uid="uid://clegqsrhfvofp" path="res://Textures/Pickups/Magnet/magnet_21.png" id="22_s1dfj"]
+[ext_resource type="Texture2D" uid="uid://btijgnbmk880r" path="res://Textures/Pickups/Magnet/magnet_22.png" id="23_vjoxk"]
+[ext_resource type="Texture2D" uid="uid://gddij38ud7i0" path="res://Textures/Pickups/Magnet/magnet_23.png" id="24_oj132"]
+[ext_resource type="Texture2D" uid="uid://dkkpj8n4xh8tb" path="res://Textures/Pickups/Magnet/magnet_24.png" id="25_x1jnq"]
+[ext_resource type="Texture2D" uid="uid://5rvypevbdwjm" path="res://Textures/Pickups/Magnet/magnet_25.png" id="26_frkbk"]
+[ext_resource type="Texture2D" uid="uid://bqekt0yhnkiq4" path="res://Textures/Pickups/Magnet/magnet_26.png" id="27_7q45c"]
+[ext_resource type="Texture2D" uid="uid://cnr3ntuhqgmeu" path="res://Textures/Pickups/Magnet/magnet_27.png" id="28_e266d"]
+[ext_resource type="Texture2D" uid="uid://mkjk3j5ypdpi" path="res://Textures/Pickups/Magnet/magnet_28.png" id="29_2ra60"]
+[ext_resource type="Texture2D" uid="uid://cb6u8365bjvkn" path="res://Textures/Pickups/Magnet/magnet_29.png" id="30_gkv5g"]
+[ext_resource type="Texture2D" uid="uid://easdtk4t3rdt" path="res://Textures/Pickups/Magnet/magnet_30.png" id="31_cgt0r"]
+[ext_resource type="Texture2D" uid="uid://deed3ayo6qixv" path="res://Textures/Pickups/Magnet/magnet_31.png" id="32_lj05e"]
+[ext_resource type="Texture2D" uid="uid://bhdo3btrkpg30" path="res://Textures/Pickups/Magnet/magnet_32.png" id="33_scquw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1n27x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u0f1h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pi5yd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5tpyu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mcf0o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0kone")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_547my")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_dlfpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_le346")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_isawb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_q2rcj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_1l42s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_r41fm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_rauem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_v2b18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_uyjxh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_tknhk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_b3486")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_tcrt0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_7rx2v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_g1uxj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_s1dfj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_vjoxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_oj132")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_x1jnq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_frkbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_7q45c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_e266d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_2ra60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_gkv5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_cgt0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_lj05e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_scquw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 25.0
+}]
+
+[node name="Magnet" type="Node2D"]
+script = ExtResource("1_pgxbg")
+_coin_value = 1
+_effect = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 3
+sprite_frames = SubResource("SpriteFrames_1n27x")
+frame = 22
+frame_progress = 0.430408

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dxkylg0k1lmm3" path="res://Textures/Obstacles/Rocks/rock-a.png" id="2_pjd1y"]
 
 [node name="RockA" type="Node2D"]
+z_index = 5
 script = ExtResource("1_s33a8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

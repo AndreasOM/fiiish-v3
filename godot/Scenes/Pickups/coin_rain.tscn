@@ -1,0 +1,151 @@
+[gd_scene load_steps=35 format=3 uid="uid://drv8nabn33aa4"]
+
+[ext_resource type="Script" path="res://Scenes/Pickups/pickup.gd" id="1_a6i8r"]
+[ext_resource type="Texture2D" uid="uid://bgut43ba4yjtr" path="res://Textures/Pickups/CoinBlue/coin_blue_01.png" id="2_ugrjy"]
+[ext_resource type="Texture2D" uid="uid://br2fk25hcsdym" path="res://Textures/Pickups/CoinBlue/coin_blue_02.png" id="3_4y8g8"]
+[ext_resource type="Texture2D" uid="uid://b6g71na07rhw3" path="res://Textures/Pickups/CoinBlue/coin_blue_03.png" id="4_qg7hc"]
+[ext_resource type="Texture2D" uid="uid://c6m1vlxm4783p" path="res://Textures/Pickups/CoinBlue/coin_blue_04.png" id="5_ur0wi"]
+[ext_resource type="Texture2D" uid="uid://s8lekwrqv7j1" path="res://Textures/Pickups/CoinBlue/coin_blue_05.png" id="6_2hltt"]
+[ext_resource type="Texture2D" uid="uid://b37y7u4t1rc61" path="res://Textures/Pickups/CoinBlue/coin_blue_06.png" id="7_sjca7"]
+[ext_resource type="Texture2D" uid="uid://bn7nbt24ixysi" path="res://Textures/Pickups/CoinBlue/coin_blue_07.png" id="8_heblr"]
+[ext_resource type="Texture2D" uid="uid://b3irjf8jpeo0p" path="res://Textures/Pickups/CoinBlue/coin_blue_08.png" id="9_tu1yh"]
+[ext_resource type="Texture2D" uid="uid://cs4rdw2u300dg" path="res://Textures/Pickups/CoinBlue/coin_blue_09.png" id="10_aaa8w"]
+[ext_resource type="Texture2D" uid="uid://bwp24km1axhl3" path="res://Textures/Pickups/CoinBlue/coin_blue_10.png" id="11_82q08"]
+[ext_resource type="Texture2D" uid="uid://6s1ieasilb15" path="res://Textures/Pickups/CoinBlue/coin_blue_11.png" id="12_cthdy"]
+[ext_resource type="Texture2D" uid="uid://cnayyykh6mmop" path="res://Textures/Pickups/CoinBlue/coin_blue_12.png" id="13_lmi73"]
+[ext_resource type="Texture2D" uid="uid://uha6pi7i8owv" path="res://Textures/Pickups/CoinBlue/coin_blue_13.png" id="14_5k3f1"]
+[ext_resource type="Texture2D" uid="uid://csjfqbryyqtha" path="res://Textures/Pickups/CoinBlue/coin_blue_14.png" id="15_idhdm"]
+[ext_resource type="Texture2D" uid="uid://cfcu7evq4uvy4" path="res://Textures/Pickups/CoinBlue/coin_blue_15.png" id="16_8bns5"]
+[ext_resource type="Texture2D" uid="uid://c8qpjo56nutgu" path="res://Textures/Pickups/CoinBlue/coin_blue_16.png" id="17_yifua"]
+[ext_resource type="Texture2D" uid="uid://dw8ax886vt6h3" path="res://Textures/Pickups/CoinBlue/coin_blue_17.png" id="18_v3xh7"]
+[ext_resource type="Texture2D" uid="uid://dxw55lx6n8weq" path="res://Textures/Pickups/CoinBlue/coin_blue_18.png" id="19_tdkee"]
+[ext_resource type="Texture2D" uid="uid://brikhy78nulks" path="res://Textures/Pickups/CoinBlue/coin_blue_19.png" id="20_tl7jn"]
+[ext_resource type="Texture2D" uid="uid://bo3gj3x5kx304" path="res://Textures/Pickups/CoinBlue/coin_blue_20.png" id="21_doett"]
+[ext_resource type="Texture2D" uid="uid://cv8pdshyflj3d" path="res://Textures/Pickups/CoinBlue/coin_blue_21.png" id="22_bkphy"]
+[ext_resource type="Texture2D" uid="uid://jplmp48rxfdn" path="res://Textures/Pickups/CoinBlue/coin_blue_22.png" id="23_5emri"]
+[ext_resource type="Texture2D" uid="uid://dr7fvbc0ywfpv" path="res://Textures/Pickups/CoinBlue/coin_blue_23.png" id="24_hdgkx"]
+[ext_resource type="Texture2D" uid="uid://db6a3vhl06oyw" path="res://Textures/Pickups/CoinBlue/coin_blue_24.png" id="25_imhr1"]
+[ext_resource type="Texture2D" uid="uid://c4m1pfk0xakop" path="res://Textures/Pickups/CoinBlue/coin_blue_25.png" id="26_l7ryy"]
+[ext_resource type="Texture2D" uid="uid://dsdilc206upl5" path="res://Textures/Pickups/CoinBlue/coin_blue_26.png" id="27_h1qfq"]
+[ext_resource type="Texture2D" uid="uid://bn8tnqcw3gilb" path="res://Textures/Pickups/CoinBlue/coin_blue_27.png" id="28_bj22y"]
+[ext_resource type="Texture2D" uid="uid://l2n1fuo5d4vk" path="res://Textures/Pickups/CoinBlue/coin_blue_28.png" id="29_5y38p"]
+[ext_resource type="Texture2D" uid="uid://cfwa6736ppd54" path="res://Textures/Pickups/CoinBlue/coin_blue_29.png" id="30_rbcwg"]
+[ext_resource type="Texture2D" uid="uid://msh24cube66a" path="res://Textures/Pickups/CoinBlue/coin_blue_30.png" id="31_m7mp1"]
+[ext_resource type="Texture2D" uid="uid://dd2kddtcb22p8" path="res://Textures/Pickups/CoinBlue/coin_blue_31.png" id="32_b5h3n"]
+[ext_resource type="Texture2D" uid="uid://k302qgyv5kdn" path="res://Textures/Pickups/CoinBlue/coin_blue_32.png" id="33_pocf3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q24i8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ugrjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4y8g8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qg7hc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ur0wi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2hltt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sjca7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_heblr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_tu1yh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_aaa8w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_82q08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_cthdy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_lmi73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_5k3f1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_idhdm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_8bns5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_yifua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_v3xh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_tdkee")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_tl7jn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_doett")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_bkphy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_5emri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_hdgkx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_imhr1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_l7ryy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_h1qfq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_bj22y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_5y38p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_rbcwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_m7mp1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_b5h3n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_pocf3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 25.0
+}]
+
+[node name="CoinRain" type="Node2D"]
+script = ExtResource("1_a6i8r")
+_coin_value = 1
+_effect = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 3
+sprite_frames = SubResource("SpriteFrames_q24i8")
+frame = 3
+frame_progress = 0.488028
