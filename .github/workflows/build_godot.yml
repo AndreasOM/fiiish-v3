@@ -41,3 +41,8 @@ jobs:
         run: |
           cd godot
           find export
+
+      - name: Update alpha
+        run: |
+          cd godot
+          aws s3 sync export/web/ s3://games.omnimad.net/alpha/fiiish-v3/
