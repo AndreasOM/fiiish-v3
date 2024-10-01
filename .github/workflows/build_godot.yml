@@ -1,0 +1,32 @@
+on: 
+  workflow_dispatch:
+  push:
+    tags:
+      # - "v*"
+    paths:
+      - godot/**
+
+jobs:
+  build:
+    runs-on: ubicloud-standard-4
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            godot
+          fetch-depth: 1
+      - name: export game
+        id: export
+        # Use latest version (see releases for all versions)
+        uses: firebelley/godot-export@v5.2.0
+        with:
+          # Defining all the required inputs
+          # godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_linux.x86_64.zip
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_linux.x86_64.zip
+          # godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_export_templates.tpz
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz
+          relative_project_path: ./godot/
+          archive_output: true
