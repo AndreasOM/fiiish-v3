@@ -1,0 +1,1 @@
+- [ ] Check license for all things pink

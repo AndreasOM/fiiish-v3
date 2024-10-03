@@ -17,7 +17,6 @@ func _on_debug_ui_zoom_changed( value: float ) -> void:
 	self.scale.x = value
 	self.scale.y = value
 
-
 func _on_game_manager_zone_changed( name: String ) -> void:
 	self.zone_changed.emit( name )
 

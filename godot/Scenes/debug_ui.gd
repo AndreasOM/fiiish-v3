@@ -54,6 +54,9 @@ func recalc_camera_debug_panel():
 	var offset_y = 0.5 * %CameraDebugPanel.size.y
 	%CameraDebugPanel.pivot_offset.x = offset_x
 	%CameraDebugPanel.pivot_offset.y = offset_y
+
+func _on_button_tiny_pressed() -> void:
+	%ZoomSlider.value = 0.025
 		
 func _on_button_small_pressed() -> void:
 	%ZoomSlider.value = 0.25

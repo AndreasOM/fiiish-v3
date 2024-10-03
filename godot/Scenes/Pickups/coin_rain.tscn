@@ -140,7 +140,6 @@ animations = [{
 
 [node name="CoinRain" type="Node2D"]
 script = ExtResource("1_a6i8r")
-_coin_value = 1
 _effect = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

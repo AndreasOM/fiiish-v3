@@ -8,11 +8,18 @@
 ## Later
 - [ ] #unity Fix z-fighting of pickups
 - [ ] Create explosion path editor
+- [ ] #godot crossfade toggle buttons
 
 ## Future
 - [ ] Add leaderboards
 
 ## Done
+
+### 2024-10-03
+- [x] #godot Add coin rain
+- [x] #godot Add coin explosion
+- [x] #godot Add HUD with coin and distance info
+- [x] #godot Add pause menu
 
 ### 2024-10-01
 - [x] #godot Collect pickups
@@ -86,8 +93,8 @@
 - [x] Add fish and basic movement
 - [x] Add obstacles, with collisions
 - [x] Add zones (including loading & ~saving~ of legacy format) and zone management
-- [u] Add pickups (coins, and specials)
-- [ ] Handle death and restart
+- [x] Add pickups (coins, and specials)
+- [+] Handle death and restart -> improve later
 - [ ] Add in game hud
 - [ ] Add in game (pause) menu and settings
 - [ ] Add result screen
