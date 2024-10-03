@@ -12,11 +12,20 @@ signal zone_changed
 		else:
 			return movement_x
 
+@export var pixels_per_meter: float = 100.0
+
 @export var left_boundary: float = -1200.0
 @export var left_boundary_wrap_offset: float = 0	# 0=> destroy instead of wrapping
 @export var zone_spawn_offset: float = 0.0
 
-var _coins: int = 0;
+@export var game_zone: CollisionShape2D = null
+
+var _coin_rain_duration: float = 0.0
+var _coin_rain_coins_per_second: float = 0.0
+var _coin_rain_counter: float = 0.0
+
+var _coins: int = 0
+var _distance: float = 0.0
 var _paused: bool = true
 var current_zone_progress: float = 0.0
 
@@ -89,6 +98,9 @@ enum EntityId {
 func coins() -> int:
 	return _coins
 
+func distance_in_m() -> int:
+	return floor(_distance/pixels_per_meter)
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var zones = DirAccess.get_files_at("res://Resources/Zones/")
@@ -117,7 +129,7 @@ func _process(delta: float) -> void:
 		if self.current_zone_progress >= self._current_zone.width:
 			self.spawn_zone()
 			pass
-	pass
+	_distance += self.movement_x * delta
 
 func _physics_process(delta: float) -> void:
 	if !_paused:
@@ -135,7 +147,7 @@ func _physics_process_pickups(delta_time: float) -> void:
 		for p in %Pickups.get_children():
 			if !p.is_alive():
 				continue
-			
+	
 			var pp = p.position
 			var delta = pp - fp
 			var ls = delta.length_squared()
@@ -147,17 +159,91 @@ func _physics_process_pickups(delta_time: float) -> void:
 					PickupEffect.MAGNET:
 						f.apply_magnet_boost( 3.0, 10.0, 1.5 )
 					# :TODO: to be continued...
+					PickupEffect.RAIN:
+						_coin_rain_duration += 3.0
+						_coin_rain_coins_per_second = 33.0
+					PickupEffect.EXPLOSION:
+						spawn_explosion( pp )
 					_: pass
 				_coins += p.coin_value()
 				p.queue_free()
 				p.get_parent().remove_child( p )
 			elif ls < magnet_range_sqr:
+				if !p.is_magnetic():
+					continue
 				var speed = -magnet_speed * delta_time;
 				delta = delta.normalized()
 				delta = speed * delta;
 				p.position += delta;
 				
+		if _coin_rain_duration > 0.0:
+			var t = min( delta_time, _coin_rain_duration )
+			_coin_rain_counter += t * _coin_rain_coins_per_second
+			_coin_rain_duration -= delta_time
+			
+			var cc = floor(_coin_rain_counter)
+			if cc > 0:
+				_coin_rain_counter -= cc
+				spawn_coins(cc)
 	
+func spawn_explosion( position: Vector2 ):
+	var ec = _entity_configs.get( EntityId.PICKUPCOIN )
+	var ece = _entity_configs.get( EntityId.PICKUPEXPLOSION )
+	var ecr = _entity_configs.get( EntityId.PICKUPRAIN )
+	if ec == null || ece == null || ecr == null:
+		return
+	position.x += 50.0
+	
+	var count = 50
+	for i in count:
+		var p = null
+		var rt = randf()
+		if rt > 0.99:
+			p = ece.resource.instantiate()
+		elif rt > 0.98:
+			p = ecr.resource.instantiate()
+		else:
+			p = ec.resource.instantiate()
+		p.game_manager = self
+		p.position = position
+		%Pickups.add_child(p)
+		
+		var pickup = p as Pickup
+		if pickup != null:
+			var v = Vector2.RIGHT
+			var cone = 0.5
+			var a = ( i+0.5 ) * ( ( cone*3.14 )/count ) + (1.5+0.5*cone)*3.14 + randf_range( -0.1, 0.1 )
+			var r = randf_range( 1.0, 1.5 )
+			v = v.rotated( a )
+			v *= 500.0 * r
+			v.x += movement_x
+			pickup.set_velocity( v )
+			pickup.set_target_velocity( Vector2.ZERO, 1.0 * r )
+			pickup.disable_magnetic_for_seconds( 1.0 )
+	
+func spawn_coins( count: int ):
+	var ec = _entity_configs.get( EntityId.PICKUPCOIN )
+	var ece = _entity_configs.get( EntityId.PICKUPEXPLOSION )
+	var ecr = _entity_configs.get( EntityId.PICKUPRAIN )
+	if ec == null || ece == null || ecr == null:
+		return
+	for i in count:
+		var p = null
+		var r = randf()
+		if r > 0.99:
+			p = ece.resource.instantiate()
+		elif r > 0.98:
+			p = ecr.resource.instantiate()
+		else:
+			p = ec.resource.instantiate()
+		p.game_manager = self
+		p.position = Vector2( randf_range( 0.0, 1000.0 ), randf_range( -1100.0, -600.0 ) )
+		%Pickups.add_child(p)
+		
+		var pickup = p as Pickup
+		if pickup != null:
+			pickup.set_velocity( Vector2( randf_range( -10.0, 10.0 ), randf_range( 250.0, 400.0 ) ) )
+			
 func pause():
 	self._paused = true
 
@@ -241,6 +327,8 @@ func cleanup():
 
 func prepare_respawn():
 	_coins = 0
+	_coin_rain_duration = 0.0
+	_distance = 0.0
 	self.push_initial_zones()
 	
 func goto_next_zone():

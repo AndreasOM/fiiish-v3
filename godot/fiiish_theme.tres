@@ -1,0 +1,12 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://iw1xv475xr8k"]
+
+[ext_resource type="FontFile" uid="uid://bb2pts3o32ebo" path="res://Fonts/all_things_pink.ttf" id="1_wkw6o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dpako"]
+
+[resource]
+HUDPanel/base_type = &"Panel"
+HUDPanel/styles/panel = SubResource("StyleBoxEmpty_dpako")
+HUDScoreLabel/base_type = &"Label"
+HUDScoreLabel/font_sizes/font_size = 32
+HUDScoreLabel/fonts/font = ExtResource("1_wkw6o")

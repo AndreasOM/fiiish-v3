@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=11 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="PackedScene" uid="uid://dscdweyjo64pw" path="res://Scenes/debug_ui.tscn" id="2_3lm13"]
+[ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="3_2aw7r"]
+[ext_resource type="Script" path="res://Scenes/hud.gd" id="3_ypy50"]
+[ext_resource type="Texture2D" uid="uid://bvm6wtn8i6awd" path="res://Textures/UI/Buttons/button_pause.png" id="5_7votb"]
+[ext_resource type="Texture2D" uid="uid://byyivxx7e4lfo" path="res://Textures/UI/mini_icon_flag.png" id="5_p4vau"]
+[ext_resource type="Script" path="res://Scenes/in_game_pause_menu.gd" id="5_rumqw"]
+[ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_ue6v2"]
+[ext_resource type="Script" path="res://Scenes/pause_button.gd" id="7_lkgxm"]
+[ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="8_oaf07"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -13,10 +21,131 @@ grow_vertical = 2
 
 [node name="Game" parent="." instance=ExtResource("1_0flmv")]
 
-[node name="DebugUI" parent="." node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]
-layout_mode = 1
-game = NodePath("../Game")
+[node name="UI" type="Node" parent="."]
 
-[connection signal="zone_changed" from="Game" to="DebugUI" method="_on_game_zone_changed"]
-[connection signal="goto_next_zone" from="DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
-[connection signal="zoom_changed" from="DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
+[node name="HUD" type="Control" parent="UI" node_paths=PackedStringArray("game")]
+z_index = 8
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_ypy50")
+game = NodePath("../../Game")
+
+[node name="Panel" type="Panel" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -660.0
+offset_bottom = 134.0
+grow_horizontal = 0
+theme_type_variation = &"HUDPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HUD/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -718.0
+offset_bottom = 164.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="CoinHBoxContainer" type="HBoxContainer" parent="UI/HUD/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CoinValueLabel" type="Label" parent="UI/HUD/Panel/MarginContainer/VBoxContainer/CoinHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HUDScoreLabel"
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/Panel/MarginContainer/VBoxContainer/CoinHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_2aw7r")
+
+[node name="DistanceHBoxContainer" type="HBoxContainer" parent="UI/HUD/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DistanceValueLabel" type="Label" parent="UI/HUD/Panel/MarginContainer/VBoxContainer/DistanceHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HUDScoreLabel"
+text = "0m"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/Panel/MarginContainer/VBoxContainer/DistanceHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_p4vau")
+
+[node name="InGamePauseMenu" type="Control" parent="UI" node_paths=PackedStringArray("game")]
+process_mode = 3
+z_index = 8
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_rumqw")
+game = NodePath("../../Game")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/InGamePauseMenu"]
+layout_mode = 1
+offset_right = 292.0
+offset_bottom = 160.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InGamePauseMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="PauseButton" type="TextureButton" parent="UI/InGamePauseMenu/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("5_7votb")
+script = ExtResource("7_lkgxm")
+texture_a = ExtResource("5_7votb")
+texture_b = ExtResource("8_oaf07")
+
+[node name="SettingsButton" type="TextureButton" parent="UI/InGamePauseMenu/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("6_ue6v2")
+
+[node name="DebugUI" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]
+offset_top = 521.0
+offset_right = -3.0
+size_flags_vertical = 10
+game = NodePath("../../Game")
+
+[connection signal="zone_changed" from="Game" to="UI/DebugUI" method="_on_game_zone_changed"]
+[connection signal="pressed" from="UI/InGamePauseMenu/MarginContainer/HBoxContainer/PauseButton" to="UI/InGamePauseMenu" method="_on_pause_button_pressed"]
+[connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
+[connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
