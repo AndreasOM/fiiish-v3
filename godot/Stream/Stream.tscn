@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1i12c257tdqv"]
+[gd_scene load_steps=5 format=3 uid="uid://b1i12c257tdqv"]
 
 [ext_resource type="PackedScene" uid="uid://b3sssky7beb2e" path="res://Scenes/main.tscn" id="1_qderd"]
 [ext_resource type="Theme" uid="uid://cehhrcyd281vp" path="res://Stream/stream_theme.tres" id="2_77mxc"]
+[ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="3_js83g"]
+[ext_resource type="Texture2D" uid="uid://jmkymvkmoqku" path="res://Textures/UI/screen_frame_2.png" id="4_1a0hc"]
 
 [node name="Stream" type="Control"]
 layout_mode = 3
@@ -15,6 +17,7 @@ grow_vertical = 2
 layout_mode = 1
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8
@@ -44,6 +47,7 @@ text = "Soon...
 "
 
 [node name="BRBRichTextLabel2" type="RichTextLabel" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -55,3 +59,63 @@ grow_vertical = 2
 theme = ExtResource("2_77mxc")
 text = "Be right back
 "
+
+[node name="StreamFadeableContainer" type="CenterContainer" parent="."]
+z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -512.0
+offset_right = 512.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_js83g")
+
+[node name="TextureRect" type="TextureRect" parent="StreamFadeableContainer"]
+layout_mode = 2
+texture = ExtResource("4_1a0hc")
+
+[node name="MarginContainer" type="MarginContainer" parent="StreamFadeableContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 240
+theme_override_constants/margin_top = 260
+theme_override_constants/margin_right = 140
+theme_override_constants/margin_bottom = 380
+
+[node name="ColorRect" type="ColorRect" parent="StreamFadeableContainer/TextureRect/MarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(1, 0.2, 0.2, 0.560784)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StreamFadeableContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+
+[node name="SettingsTitleRichTextLabel" type="RichTextLabel" parent="StreamFadeableContainer/TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"TitleRichtTextLabel"
+text = "Be right Back
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="SettingsInfoRichTextLabel" type="RichTextLabel" parent="StreamFadeableContainer/TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"InfoRichTextLabel"
+text = "I am taking a little break.
+Will be back soon :)
+
+"
+fit_content = true
+autowrap_mode = 0
