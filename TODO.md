@@ -9,11 +9,16 @@
 - [ ] #unity Fix z-fighting of pickups
 - [ ] Create explosion path editor
 - [ ] #godot crossfade toggle buttons
+- [ ] #godot Figure out why only top portion of music and sound buttons is clickable in settings
 
 ## Future
 - [ ] Add leaderboards
 
 ## Done
+
+### 2024-10-05
+- [x] #godot Add crossfading toggle buttons
+- [x] #godot Add InGame Settings dialog (partially working)
 
 ### 2024-10-03
 - [x] #godot Add coin rain
@@ -95,8 +100,8 @@
 - [x] Add zones (including loading & ~saving~ of legacy format) and zone management
 - [x] Add pickups (coins, and specials)
 - [+] Handle death and restart -> improve later
-- [ ] Add in game hud
-- [ ] Add in game (pause) menu and settings
+- [g] Add in game hud
+- [g] Add in game (pause) menu and settings
 - [ ] Add result screen
 - [ ] Add background
 - [ ] Add music

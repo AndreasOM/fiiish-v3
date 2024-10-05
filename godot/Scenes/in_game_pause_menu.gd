@@ -4,8 +4,8 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	%SettingsButton.visible = false
-
+	%SettingsButtonFade.fade_out( 0.0 )
+	%SettingsFadeableContainer.fade_out( 0.0 )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -19,11 +19,24 @@ func toggle_pause():
 		var is_paused = !was_paused
 		tree.set_pause(is_paused)
 		if is_paused:
-			%PauseButton.set_a( false )
-			%SettingsButton.visible = true
+			%PauseToggleButton.goto_b()
+			var settings_button = %SettingsButtonFade as FadeableContainer
+			if settings_button:
+				settings_button.fade_in( 0.3 )
+			else:
+				%SettingsButtonFade.visible = true
 		else:
-			%PauseButton.set_a( true )
-			%SettingsButton.visible = false 
+			%PauseToggleButton.goto_a()
+			%SettingsFadeableContainer.fade_out( 0.3 )
+			var settings_button = %SettingsButtonFade as FadeableContainer
+			if settings_button:
+				settings_button.fade_out( 0.3 )
+			else:
+				%SettingsButtonFade.visible = false
 			
-func _on_pause_button_pressed() -> void:
+func _on_settings_button_pressed():
+	%SettingsFadeableContainer.toggle_fade( 0.3 )
+	print("Settings Button pressed")
+
+func _on_pause_toggle_button_toggled( v: String ) -> void:
 	toggle_pause()
