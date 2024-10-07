@@ -46,6 +46,7 @@ jobs:
         run: |
           cd godot
           aws s3 sync export/web/ s3://games.omnimad.net/alpha/fiiish-v3/
+          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
