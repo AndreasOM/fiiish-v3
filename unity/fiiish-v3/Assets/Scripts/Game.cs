@@ -66,4 +66,9 @@ public class Game : MonoBehaviour
         return _gameManager.Coins();
     }
 
+    public int CurrentDistanceInMeters()
+    {
+        return _gameManager.CurrentDistanceInMeters();
+    }
+
 }

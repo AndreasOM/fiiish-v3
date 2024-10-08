@@ -38,6 +38,7 @@ class EntityConfig
 
 public class GameManager : MonoBehaviour
 {
+    public float pixelsPerMeter = 100.0f;
     public float speed = 240.0f;
     public bool wrapWorld = true;
     public float zoneSpawnOffset = 0.0f;
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent<String> OnZoneChanged;
 
     private int _coins = 0;
+    private float _distance = 0.0f;
     private bool moving = false;
 
     private GameObject obstacles = null;
@@ -192,7 +194,14 @@ public class GameManager : MonoBehaviour
     {
         return _coins;
     }
+
+    public int CurrentDistanceInMeters()
+    {
+        
+        return (int)Mathf.Floor(_distance / pixelsPerMeter);
+    }
     
+
     // Update is called once per frame
     void Update()
     {
@@ -200,6 +209,7 @@ public class GameManager : MonoBehaviour
         {
             float speed = CurrentSpeed() * Time.deltaTime;
             _zonePos.x += speed;
+            _distance += speed;
             if (_zonePos.x > _currentZone.GetSize().x)
             {
                 SpawnZone();
@@ -585,5 +595,6 @@ public class GameManager : MonoBehaviour
         QueueInitialZones();
         _coins = 0;
         _coinRainDuration = 0.0f;
+        _distance = 0.0f;
     }
 }
