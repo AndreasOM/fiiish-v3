@@ -18,6 +18,7 @@
 
 ### 2024-10-08
 - [x] #unity Add HUD with coin and distance info
+- [x] #unity Add pause menu
 
 ### 2024-10-05
 - [x] #godot Add crossfading toggle buttons
@@ -103,7 +104,7 @@
 - [x] Add zones (including loading & ~saving~ of legacy format) and zone management
 - [x] Add pickups (coins, and specials)
 - [+] Handle death and restart -> improve later
-- [g] Add in game hud
+- [x] Add in game hud
 - [g] Add in game (pause) menu and settings
 - [ ] Add result screen
 - [ ] Add background

@@ -26,17 +26,21 @@ public class Obstacle : MonoBehaviour
     void Update()
     {
         // :TODO: handle world speed factor, and pause
-        if (_timedVelocities.Count > 0)
-        {
-            _timedVelocities[0].duration -= Time.deltaTime;
-            if (_timedVelocities[0].duration <= 0)
-            {
-                _velocity.x = _timedVelocities[0].velocity.x;
-                _velocity.y = _timedVelocities[0].velocity.y;
-                _timedVelocities.RemoveAt(0);
-            }
-        }
         if( this.gameManager != null ) {
+            if (gameManager.IsPaused())
+            {
+                return;
+            }
+            if (_timedVelocities.Count > 0)
+            {
+                _timedVelocities[0].duration -= Time.deltaTime;
+                if (_timedVelocities[0].duration <= 0)
+                {
+                    _velocity.x = _timedVelocities[0].velocity.x;
+                    _velocity.y = _timedVelocities[0].velocity.y;
+                    _timedVelocities.RemoveAt(0);
+                }
+            }
             float speed = -this.gameManager.CurrentSpeed() * Time.deltaTime * 1.0f;
             /*
             if (transform.eulerAngles.z != 0.0f)

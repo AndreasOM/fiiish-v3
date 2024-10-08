@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     private float _coinRainPerSecond = 3.3f;
     private float _coinRainCounter = 0.0f;
     
+    private bool _paused = false;
+    
     private void AddEntityConfig( UInt32 crc, string addressableName)
     {
         var ec = new EntityConfig();
@@ -205,6 +207,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_paused)
+        {
+            return;
+        }
         if (this.moving)
         {
             float speed = CurrentSpeed() * Time.deltaTime;
@@ -321,7 +327,7 @@ public class GameManager : MonoBehaviour
 
         if (_coinRainDuration > 0.0f)
         {
-            Debug.Log("_coinRainDuration > 0.0f"+_coinRainDuration);
+            // Debug.Log("_coinRainDuration > 0.0f"+_coinRainDuration);
             var t = Mathf.Min( Time.deltaTime, _coinRainDuration );
             _coinRainCounter += t * _coinRainPerSecond;
             _coinRainDuration -= Time.deltaTime;
@@ -559,7 +565,7 @@ public class GameManager : MonoBehaviour
     public float CurrentSpeed()
     {
 
-        if ( this.moving ) {
+        if ( this.moving && !_paused ) {
             return this.speed;
         } else {
             return 0.0f;
@@ -596,5 +602,25 @@ public class GameManager : MonoBehaviour
         _coins = 0;
         _coinRainDuration = 0.0f;
         _distance = 0.0f;
+    }
+
+    public bool TogglePause()
+    {
+        _paused = !_paused;
+
+        if (_paused)
+        {
+            Debug.Log("Paused");
+        }
+        else
+        {
+            Debug.Log("Resumed");
+        }
+        return _paused;
+    }
+
+    public bool IsPaused()
+    {
+        return _paused;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
+    public Game game = null;
+
     enum State {
         WaitingForStart,
         Swimming,
@@ -77,6 +79,14 @@ public class Fish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (game.IsPaused())
+        {
+            animator.speed = 0.0f;
+        }
+        else
+        {
+            animator.speed = 1.0f;
+        }
         switch ( this.state ) {
             case State.WaitingForStart:
                 UpdateWaitingForStart();
@@ -102,6 +112,10 @@ public class Fish : MonoBehaviour
     }
     void UpdateSwimming()
     {
+        if (game.IsPaused())
+        {
+            return;
+        }
         if(Input.GetKey(KeyCode.Space))
         {
             this.direction = Direction.Down;
@@ -109,7 +123,7 @@ public class Fish : MonoBehaviour
             this.direction = Direction.Up;
         }
 
-        if(Input.GetKey("k"))
+        if(Input.GetKeyDown("k"))
         {
             GotoDying();
         }
@@ -177,6 +191,10 @@ public class Fish : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (game.IsPaused())
+        {
+            return;
+        }
         switch ( this.state ) {
             case State.Swimming:
                 FixedUpdateSwimming();
