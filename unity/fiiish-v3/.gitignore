@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 /export/
 
+.DS_Store
+
