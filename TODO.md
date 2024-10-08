@@ -16,6 +16,9 @@
 
 ## Done
 
+### 2024-10-08
+- [x] #unity Add HUD with coin and distance info
+
 ### 2024-10-05
 - [x] #godot Add crossfading toggle buttons
 - [x] #godot Add InGame Settings dialog (partially working)
