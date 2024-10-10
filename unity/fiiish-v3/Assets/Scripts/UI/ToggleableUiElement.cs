@@ -43,7 +43,7 @@ public class ToggleableUiElement : MonoBehaviour
         
         a.FadeOut(0.0f);
         b.FadeOut(0.0f);
-        gotoA( 0.0f );
+        GotoA( 0.0f );
     }
     
     // Update is called once per frame
@@ -52,12 +52,12 @@ public class ToggleableUiElement : MonoBehaviour
         
     }
 
-    public void gotoA(float duration)
+    public void GotoA(float duration)
     {
         a.FadeIn(duration);
         b.FadeOut(duration);
     }
-    public void gotoB(float duration)
+    public void GotoB(float duration)
     {
         a.FadeOut(duration);
         b.FadeIn(duration);
@@ -65,12 +65,12 @@ public class ToggleableUiElement : MonoBehaviour
 
     public void OnAClicked()
     {
-        gotoB( 0.3f );
+        GotoB( 0.3f );
         onToggled.Invoke( State.B );
     }
     public void OnBClicked()
     {
-        gotoA( 0.3f );
+        GotoA( 0.3f );
         onToggled.Invoke( State.A );
     }
 }

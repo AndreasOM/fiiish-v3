@@ -46,12 +46,12 @@ public class InGamePauseMenu : MonoBehaviour
         if (game.IsPaused())
         {
             settingsUiElement.FadeIn( 0.3f );
-            pausePlayToggleButton.gotoB( 0.3f );
+            pausePlayToggleButton.GotoB( 0.3f );
         }
         else
         {
             settingsUiElement.FadeOut( 0.3f );
-            pausePlayToggleButton.gotoA( 0.3f );
+            pausePlayToggleButton.GotoA( 0.3f );
         }
     }
     private void TogglePause()
