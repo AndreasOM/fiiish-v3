@@ -18,6 +18,9 @@
 
 ### 2024-10-10
 - [x] #unity Add fading to settings button
+- [x] #unity Add crossfading toggle button
+- [x] #unity Refactor pause handling
+
 
 ### 2024-10-08
 - [x] #unity Add HUD with coin and distance info
