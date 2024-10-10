@@ -18,6 +18,10 @@ public class FadeableUiElement : MonoBehaviour
     private void Setup()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
+        if (_canvasGroup == null)
+        {
+            Debug.LogError($"FadeableUiElement::Setup(): canvas group is null for {gameObject.name}");
+        }
     }
 
     private void Configure()
@@ -47,6 +51,23 @@ public class FadeableUiElement : MonoBehaviour
         }
     }
 
+    public bool IsFadeIn()
+    {
+        return _canvasGroup.alpha >= 1.0f || _fadeSpeed >= 1.0f;
+    }
+    
+    public void ToggleFade( float duration )
+    {
+        if (IsFadeIn())
+        {
+            FadeOut(duration);
+        }
+        else
+        {
+            FadeIn(duration);
+        }
+    }
+    
     public void FadeIn( float duration )
     {
         // Debug.Log($"FadeIn {duration}");

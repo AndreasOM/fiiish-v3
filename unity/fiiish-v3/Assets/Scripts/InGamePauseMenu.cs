@@ -11,6 +11,7 @@ public class InGamePauseMenu : MonoBehaviour
 
     public ToggleableUiElement pausePlayToggleButton = null;
     public FadeableUiElement settingsUiElement = null;
+    public FadeableUiElement settingsDialog = null;
     
     // Start is called before the first frame update
     public IEnumerator Start()
@@ -27,6 +28,7 @@ public class InGamePauseMenu : MonoBehaviour
     IEnumerator Configure()
     {
         settingsUiElement.FadeOut(0.0f);
+        settingsDialog.FadeOut( 0.0f );
         yield return new WaitForEndOfFrame();
         // settingsUiElement.FadeOut(0.0f);
         UpdateSettingsButton();
@@ -52,6 +54,7 @@ public class InGamePauseMenu : MonoBehaviour
         {
             settingsUiElement.FadeOut( 0.3f );
             pausePlayToggleButton.GotoA( 0.3f );
+            settingsDialog.FadeOut( 0.3f );
         }
     }
     private void TogglePause()
@@ -67,6 +70,7 @@ public class InGamePauseMenu : MonoBehaviour
     public void OnSettingsButtonClicked()
     {
         Debug.Log("OnSettingsButtonClicked");
+        settingsDialog.ToggleFade( 0.3f );
     }
 
     public void OnPlayPauseToggled( ToggleableUiElement.State state )
