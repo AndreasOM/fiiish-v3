@@ -16,6 +16,9 @@
 
 ## Done
 
+### 2024-10-10
+- [x] #unity Add fading to settings button
+
 ### 2024-10-08
 - [x] #unity Add HUD with coin and distance info
 - [x] #unity Add pause menu
