@@ -20,6 +20,7 @@
 - [x] #unity Add fading to settings button
 - [x] #unity Add crossfading toggle button
 - [x] #unity Refactor pause handling
+- [x] #unity Add InGame Settings dialog (partially working)
 
 
 ### 2024-10-08
@@ -111,7 +112,8 @@
 - [x] Add pickups (coins, and specials)
 - [+] Handle death and restart -> improve later
 - [x] Add in game hud
-- [g] Add in game (pause) menu and settings
+- [x] Add in game (pause) menu and settings
+- [ ] Save & Load settings and progress
 - [ ] Add result screen
 - [ ] Add background
 - [ ] Add music

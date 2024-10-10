@@ -98,7 +98,6 @@ layout_mode = 2
 color = Color(1, 0.2, 0.2, 0.560784)
 
 [node name="BRBVBoxContainer" type="VBoxContainer" parent="StreamFadeableContainer/TextureRect/MarginContainer"]
-visible = false
 layout_mode = 2
 
 [node name="SettingsTitleRichTextLabel" type="RichTextLabel" parent="StreamFadeableContainer/TextureRect/MarginContainer/BRBVBoxContainer"]
@@ -122,6 +121,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="SoonVBoxContainer" type="VBoxContainer" parent="StreamFadeableContainer/TextureRect/MarginContainer"]
+visible = false
 layout_mode = 2
 
 [node name="SettingsTitleRichTextLabel" type="RichTextLabel" parent="StreamFadeableContainer/TextureRect/MarginContainer/SoonVBoxContainer"]
