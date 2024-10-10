@@ -9,12 +9,13 @@ public class InGamePauseMenu : MonoBehaviour
 {
     public Game game = null;
 
-    public Button pauseButton = null;
+    public ToggleableUiElement pausePlayToggleButton = null;
     public FadeableUiElement settingsUiElement = null;
     
     // Start is called before the first frame update
     public IEnumerator Start()
     {
+        // Time.timeScale = 0.01f;
         Setup();
         return Configure();
     }
@@ -25,17 +26,19 @@ public class InGamePauseMenu : MonoBehaviour
 
     IEnumerator Configure()
     {
-        pauseButton.gameObject.SetActive(false);
         settingsUiElement.FadeOut(0.0f);
         yield return new WaitForEndOfFrame();
         // settingsUiElement.FadeOut(0.0f);
-        pauseButton.gameObject.SetActive(true);
         UpdateSettingsButton();
     }
     
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown("p"))
+        {
+            TogglePause();
+        }
     }
 
     private void UpdateSettingsButton()
@@ -43,10 +46,12 @@ public class InGamePauseMenu : MonoBehaviour
         if (game.IsPaused())
         {
             settingsUiElement.FadeIn( 0.3f );
+            pausePlayToggleButton.gotoB( 0.3f );
         }
         else
         {
             settingsUiElement.FadeOut( 0.3f );
+            pausePlayToggleButton.gotoA( 0.3f );
         }
     }
     private void TogglePause()
@@ -62,5 +67,17 @@ public class InGamePauseMenu : MonoBehaviour
     public void OnSettingsButtonClicked()
     {
         Debug.Log("OnSettingsButtonClicked");
+    }
+
+    public void OnPlayPauseToggled( ToggleableUiElement.State state )
+    {
+        Debug.Log($"OnPlayPauseToggled {state}");
+         // A -> Showing Pause -> Playing
+         // B -> Showing Play -> Paused
+
+         var paused = game.TogglePause();
+        
+         UpdateSettingsButton();
+
     }
 }
