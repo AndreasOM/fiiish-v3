@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Fish : MonoBehaviour
 {
     public Game game = null;
+    public UnityEvent<Game.State> onStateChanged;
 
-    enum State {
-        WaitingForStart,
-        Swimming,
-        Dying,
-        Dead,
-        Respawning,
-    }
     enum Direction {
         Up,
         Neutral,
@@ -25,7 +20,7 @@ public class Fish : MonoBehaviour
     
     private float rotation_speed = 120.0f;
 
-    private State state = State.WaitingForStart;
+    private Game.State _state = Game.State.WaitingForStart;
     private Direction direction = Direction.Neutral;
 
     private float _magnet_range_boost = 1.0f;
@@ -64,13 +59,13 @@ public class Fish : MonoBehaviour
     }
     public bool IsAlive()
     {
-        switch (this.state)
+        switch (this._state)
         {
-            case State.WaitingForStart: return false;
-            case State.Swimming:        return true;
-            case State.Dying:           return false;
-            case State.Dead:            return false;
-            case State.Respawning:      return false;
+            case Game.State.WaitingForStart: return false;
+            case Game.State.Swimming:        return true;
+            case Game.State.Dying:           return false;
+            case Game.State.Dead:            return false;
+            case Game.State.Respawning:      return false;
         }
 
         return false;
@@ -87,14 +82,14 @@ public class Fish : MonoBehaviour
         {
             animator.speed = 1.0f;
         }
-        switch ( this.state ) {
-            case State.WaitingForStart:
+        switch ( this._state ) {
+            case Game.State.WaitingForStart:
                 UpdateWaitingForStart();
                 break;
-            case State.Swimming:
+            case Game.State.Swimming:
                 UpdateSwimming();
                 break;
-            case State.Dead:
+            case Game.State.Dead:
                 UpdateDead();
                 break;
             default:
@@ -146,9 +141,16 @@ public class Fish : MonoBehaviour
             GotoRespawning();
         }
     }
+
+    void SetState(Game.State state)
+    {
+        this._state = state;
+        onStateChanged?.Invoke(state);
+    }
     void GotoRespawning()
     {
-        this.state = State.Respawning;
+        SetState( Game.State.Respawning);
+        
         animator.Play("FishSwim");
         var pos = transform.localPosition;
         pos.x = -1024.0f;
@@ -165,12 +167,12 @@ public class Fish : MonoBehaviour
     }
     void GotoWaitingForStart()
     {        
-        this.state = State.WaitingForStart;
+        SetState( Game.State.WaitingForStart);
         Debug.Log( "WaitingForStart" );
     }
     void GotoSwimming()
     {
-        this.state = State.Swimming;
+        SetState( Game.State.Swimming);
         if( this.gameManager != null ) {
             this.gameManager.ResumeMovement();
             this.gameManager.SpawnZone();
@@ -179,7 +181,7 @@ public class Fish : MonoBehaviour
 
     void GotoDying()
     {
-        this.state = State.Dying;
+        SetState( Game.State.Dying);
 
         // change animation
         animator.Play("FishDying");
@@ -195,14 +197,14 @@ public class Fish : MonoBehaviour
         {
             return;
         }
-        switch ( this.state ) {
-            case State.Swimming:
+        switch ( this._state ) {
+            case Game.State.Swimming:
                 FixedUpdateSwimming();
                 break;
-            case State.Dying:
+            case Game.State.Dying:
                 FixedUpdateDying();
                 break;
-            case State.Respawning:
+            case Game.State.Respawning:
                 FixedUpdateRespawning();
                 break;
             default:
@@ -295,7 +297,7 @@ public class Fish : MonoBehaviour
         transform.localEulerAngles = lea;
 
         if( transform.localPosition.y > 512.0+128.0 ) {
-            this.state = State.Dead;
+            SetState(Game.State.Dead);
             Debug.Log( "Dead" );
         }
     }
@@ -312,7 +314,7 @@ public class Fish : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log( "Fish - Colliding");
-        if ( this.state == State.Swimming ) {
+        if ( this._state == Game.State.Swimming ) {
             GotoDying();
         }
     }

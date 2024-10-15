@@ -17,6 +17,7 @@ using Random = UnityEngine.Random;
 class EntityConfig
 {
     public AsyncOperationHandle<GameObject> handle;
+    public UnityEvent<Game.State> OnStateChanged;
 
     public void LoadFromAssetAsync( string name )
     {
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
     public float zoneSpawnOffset = 0.0f;
     
     public UnityEvent<String> OnZoneChanged;
+    public UnityEvent<Game.State> onStateChanged;
 
     private int _coins = 0;
     private float _distance = 0.0f;
@@ -622,5 +624,10 @@ public class GameManager : MonoBehaviour
     public bool IsPaused()
     {
         return _paused;
+    }
+
+    public void OnFishStateChanged(Game.State state)
+    {
+        onStateChanged?.Invoke(state);
     }
 }

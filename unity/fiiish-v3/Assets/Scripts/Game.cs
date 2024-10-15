@@ -7,8 +7,17 @@ using UnityEngine.Serialization;
 
 public class Game : MonoBehaviour
 {
-    public UnityEvent<String> OnZoneChanged;
+    public enum State {
+        WaitingForStart,
+        Swimming,
+        Dying,
+        Dead,
+        Respawning,
+    }
     
+    public UnityEvent<String> OnZoneChanged;
+    public UnityEvent<State> onStateChanged;
+
     public Camera mainCamera = null;
 
     private GameManager _gameManager; // = null;
@@ -50,6 +59,10 @@ public class Game : MonoBehaviour
     public Player GetPlayer()
     {
         return _player;
+    }
+    public GameManager GetGameManager()
+    {
+        return _gameManager;
     }
 
     public void SetZoom(float value)
@@ -97,6 +110,10 @@ public class Game : MonoBehaviour
     public bool IsPaused()
     {
         return _gameManager.IsPaused();
+    }
+    public void OnGameManagerStateChanged(Game.State state)
+    {
+        onStateChanged?.Invoke(state);
     }
 
 }

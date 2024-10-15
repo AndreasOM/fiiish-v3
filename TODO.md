@@ -18,6 +18,7 @@
 
 ### 2024-10-15
 - [x] #unity Add player serialization
+- [x] #unity Start adding result dialog
 
 ### 2024-10-10
 - [x] #unity Add fading to settings button
@@ -117,7 +118,7 @@
 - [x] Add in game hud
 - [x] Add in game (pause) menu and settings
 - [u] Save & Load settings and progress
-- [ ] Add result screen
+- [ ] Add result dialog
 - [ ] Add background
 - [ ] Add music
 - [ ] Add sfx
