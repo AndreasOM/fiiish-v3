@@ -12,6 +12,8 @@ public class Game : MonoBehaviour
     public Camera mainCamera = null;
 
     private GameManager _gameManager; // = null;
+    
+    private Player _player;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,11 +38,18 @@ public class Game : MonoBehaviour
 
     void Configure()
     {
+        _player = ScriptableObject.CreateInstance<Player>();
+        _player.TryLoad();
     }
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public Player GetPlayer()
+    {
+        return _player;
     }
 
     public void SetZoom(float value)

@@ -16,6 +16,9 @@
 
 ## Done
 
+### 2024-10-15
+- [x] #unity Add player serialization
+
 ### 2024-10-10
 - [x] #unity Add fading to settings button
 - [x] #unity Add crossfading toggle button
@@ -113,7 +116,7 @@
 - [+] Handle death and restart -> improve later
 - [x] Add in game hud
 - [x] Add in game (pause) menu and settings
-- [ ] Save & Load settings and progress
+- [u] Save & Load settings and progress
 - [ ] Add result screen
 - [ ] Add background
 - [ ] Add music

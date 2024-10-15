@@ -4,12 +4,43 @@ using UnityEngine;
 
 public class InGameSettingsDialog : MonoBehaviour
 {
+    public Game game;
+    public ToggleableUiElement musicToggle;
+    public ToggleableUiElement soundToggle;
     // Start is called before the first frame update
     void Start()
+    {
+        Setup();
+        Configure();
+    }
+
+    void Setup()
     {
         
     }
 
+    void Configure()
+    {
+        var player  = game.GetPlayer();
+
+        if (player.IsMusicEnabled())
+        {
+            musicToggle.GotoA( 0.0f );
+        }
+        else
+        {
+            musicToggle.GotoB( 0.0f );
+        }
+        if (player.IsSoundEnabled())
+        {
+            soundToggle.GotoA( 0.0f );
+        }
+        else
+        {
+            // Debug.Log("Sound is disabled");
+            soundToggle.GotoB( 0.0f );
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -19,10 +50,38 @@ public class InGameSettingsDialog : MonoBehaviour
     public void OnMusicToggled(ToggleableUiElement.State state)
     {
         Debug.Log($"OnMusicToggled: {state}");
+        switch (state)
+        {
+            case ToggleableUiElement.State.A:
+                {
+                    game.GetPlayer().EnableMusic();
+                }
+                break;
+            case ToggleableUiElement.State.B:
+                {
+                    game.GetPlayer().DisableMusic();
+                }
+                break;
+        }
+        game.GetPlayer().Save();
     }
     
     public void OnSoundToggled(ToggleableUiElement.State state)
     {
         Debug.Log($"OnSoundToggled: {state}");
+        switch (state)
+        {
+            case ToggleableUiElement.State.A:
+                {
+                    game.GetPlayer().EnableSound();
+                }
+                break;
+            case ToggleableUiElement.State.B:
+                {
+                    game.GetPlayer().DisableSound();
+                }
+                break;
+        }
+        game.GetPlayer().Save();
     }
 }

@@ -10,6 +10,7 @@ public class ToggleableUiElement : MonoBehaviour
     {
         A,
         B,
+        Undefined,
     }
     
     [System.Serializable]
@@ -22,6 +23,7 @@ public class ToggleableUiElement : MonoBehaviour
     // [SerializeField]
     public ToggledEvent onToggled;// = new ToggleableUiElementToggledEvent();
     
+    private State _state = State.Undefined;
     // Start is called before the first frame update
     IEnumerator Start()
     {
@@ -40,10 +42,13 @@ public class ToggleableUiElement : MonoBehaviour
         // b.FadeOut(0.0f);
         
         yield return new WaitForEndOfFrame();
-        
-        a.FadeOut(0.0f);
-        b.FadeOut(0.0f);
-        GotoA( 0.0f );
+
+        if (_state == State.Undefined)
+        {
+            a.FadeOut(0.0f);
+            b.FadeOut(0.0f);
+            GotoA(0.0f);
+        }
     }
     
     // Update is called once per frame
@@ -52,15 +57,24 @@ public class ToggleableUiElement : MonoBehaviour
         
     }
 
+    public State GetState()
+    {
+        return _state;
+    }
+    
     public void GotoA(float duration)
     {
+        // Debug.Log($"Goto A - ${name}");
         a.FadeIn(duration);
         b.FadeOut(duration);
+        _state = State.A;
     }
     public void GotoB(float duration)
     {
+        // Debug.Log($"Goto B - ${name}");
         a.FadeOut(duration);
         b.FadeIn(duration);
+        _state = State.B;
     }
 
     public void OnAClicked()
