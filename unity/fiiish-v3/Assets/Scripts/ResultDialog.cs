@@ -15,12 +15,15 @@ public class ResultDialog : MonoBehaviour
     
     private FadeableUiElement _fadeableUiElement;
 
-    private UInt32 _coinsTarget;
-    private float _coinsCurrent;
-
-    private float _coinSpeed = 10.0f;
+    private int _coinsTarget;
+    private int _distanceTarget;
+    private int _totalDistanceTarget;
+    private int _bestDistance;
     
-    // Start is called before the first frame update
+    private EasedInteger _coinsGained;
+    private EasedInteger _distanceGained;
+    private float _time;
+    
     IEnumerator Start()
     {
         Setup();
@@ -43,15 +46,42 @@ public class ResultDialog : MonoBehaviour
         _fadeableUiElement.FadeOut( 0.0f );
     }
     
-    // Update is called once per frame
     void Update()
     {
-        if (_coinsCurrent < _coinsTarget)
+        if (_coinsGained != null)
         {
-            _coinsCurrent += Time.deltaTime * _coinSpeed;
-            
-            var coins = Mathf.FloorToInt(_coinsCurrent);
+            _time += Time.deltaTime;
+            var coinsGained = _coinsGained.GetForTime(_time);
+            if (coinsGained != 0)
+            {
+                coinResultRow.SetCurrent($"{coinsGained}");
+            }
+            else
+            {
+                coinResultRow.SetCurrent("");
+            }
+
+            var coins = _coinsTarget - coinsGained;
             coinResultRow.SetTotal($"{coins}");
+
+            var distanceGained = _distanceGained.GetForTime(_time);
+            if (distanceGained != 0)
+            {
+                distanceResultRow.SetCurrent($"{distanceGained} m");
+            }
+            else
+            {
+                distanceResultRow.SetCurrent("");
+            }
+
+            var distance = _distanceTarget - distanceGained;
+            distanceResultRow.SetTotal($"{distance} m");
+
+            var bestDistance = Mathf.Max(distance, _bestDistance);
+            bestDistanceResultRow.SetTotal($"{bestDistance} m");
+
+            var totalDistance = _totalDistanceTarget - distanceGained;
+            totalDistanceResultRow.SetTotal($"{totalDistance} m");
         }
     }
     public void OnGameStateChanged(Game.State state)
@@ -61,25 +91,39 @@ public class ResultDialog : MonoBehaviour
         {
             case Game.State.Dying:
                 {
-                    // :TODO: setup from actual results
                     var gameManager = game.GetGameManager();
                     var coins = gameManager.Coins();
                     var distance = gameManager.CurrentDistanceInMeters();
-                    
-                    _coinsTarget = (uint)coins;
-                    _coinsCurrent = 0.0f;
-                    
-                    coinResultRow.SetTotal( "0" );
-                    coinResultRow.SetCurrent( $"{coins}" );
-                    
-                    distanceResultRow.SetTotal( $"0 m" );
-                    distanceResultRow.SetCurrent( $"{distance} m" );
-                    
-                    bestDistanceResultRow.SetTotal( $"0 m" );
-                    bestDistanceResultRow.SetCurrent( $"" );
 
-                    totalDistanceResultRow.SetTotal( $"0 m" );
-                    totalDistanceResultRow.SetCurrent( $"" );
+                    _time = 0.0f;
+                    var startTime = 0.0f;
+                    var duration = 4.0f*MathF.Log10( coins )+1.3f;
+                    var endTime = startTime + duration;
+                    
+                    var startCoins = 100; // :TODO: get from player
+                    var startDistance = 1000; // :TODO: get from player
+                    _bestDistance = 500; // :TODO: get from player
+                    
+                    _coinsGained = new EasedInteger(startTime, endTime-0.3f*duration, coins, 0,
+                        EasedInteger.EasingFunction.InOutCubic);
+                    _coinsTarget = startCoins + coins;
+
+                    _distanceGained = new EasedInteger(startTime+0.3f*duration, endTime, distance, 0,
+                        EasedInteger.EasingFunction.InOutCubic);
+                    _distanceTarget = distance;
+                    _totalDistanceTarget = startDistance + distance;
+                    
+                    coinResultRow.SetTotal( "" );
+                    coinResultRow.SetCurrent( "" );
+                    
+                    distanceResultRow.SetTotal( "" );
+                    distanceResultRow.SetCurrent( "" );
+                    
+                    bestDistanceResultRow.SetTotal( "" );
+                    bestDistanceResultRow.SetCurrent( "" );
+
+                    totalDistanceResultRow.SetTotal( "" );
+                    totalDistanceResultRow.SetCurrent( "" );
                     
                     _fadeableUiElement.FadeIn( 0.3f );
                 }
@@ -88,6 +132,7 @@ public class ResultDialog : MonoBehaviour
                 break;
             default:
                 {
+                    _coinsGained = null;
                     _fadeableUiElement.FadeOut( 0.3f );
                 }
                 break;

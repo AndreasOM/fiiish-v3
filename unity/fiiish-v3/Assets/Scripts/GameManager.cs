@@ -209,6 +209,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("c"))
+        {
+            _coins += 100;
+        }
+        if (Input.GetKeyDown("d"))
+        {
+            _distance += 100*pixelsPerMeter;
+        }
         if (_paused)
         {
             return;
