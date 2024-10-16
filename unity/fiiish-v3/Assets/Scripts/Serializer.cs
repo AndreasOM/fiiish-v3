@@ -35,12 +35,20 @@ public class Serializer // : ScriptableObject
                 Debug.LogWarning( "Couldn't read full file");
                 return false;
             }
-            /*
-            for( int i=0; i<10; ++i){
-                Debug.Log( data[ i ].ToString("X"));
-            }
-            */
 
+            /*
+            string hex = "\n";
+            for( int i=0; i<32; ++i){
+                //Debug.Log( data[ i ].ToString("X"));
+                hex += data[ i ].ToString("X")+" ";
+                if (i % 16 == 15)
+                {
+                    hex += "\n";
+                }
+            }
+            Debug.LogWarning(hex);
+            */
+            
             this.m_data = data;
             this.m_pos = 0;
             this.m_length = l;

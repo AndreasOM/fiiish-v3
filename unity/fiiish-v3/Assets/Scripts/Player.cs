@@ -30,6 +30,7 @@ public class Player : ScriptableObject
             Debug.LogWarning($"Failed to load player from ${path}");
             return false;
         }
+        
 
         var player = ScriptableObject.CreateInstance<Player>();
         if (!player.Serialize(ref serializer))
@@ -40,6 +41,11 @@ public class Player : ScriptableObject
         
         this._isMusicEnabled = player._isMusicEnabled;
         this._isSoundEnabled = player._isSoundEnabled;
+        this._coins = player._coins;
+        this._lastDistance = player._lastDistance;
+        this._totalDistance = player._totalDistance;
+        this._bestDistance = player._bestDistance;
+        this._playCount = player._playCount;
         this._isDirty = false;
         
         ScriptableObject.DestroyImmediate(player);
@@ -151,4 +157,32 @@ public class Player : ScriptableObject
         return _isSoundEnabled;
     }
 
+    public void GiveCoins(UInt32 coins)
+    {
+        _coins += coins;
+    }
+
+    public void ApplyDistance(UInt32 distance)
+    {
+        _totalDistance += distance;
+        _bestDistance = Math.Max(_bestDistance, distance);
+        _lastDistance = distance;
+    }
+    public UInt32 Coins()
+    {
+        return _coins;
+    }
+    public UInt32 LastDistance()
+    {
+        return _lastDistance;
+    }
+    public UInt32 TotalDistance()
+    {
+        return _totalDistance;
+    }
+    public UInt32 BestDistance()
+    {
+        return _bestDistance;
+    }
+    
 }

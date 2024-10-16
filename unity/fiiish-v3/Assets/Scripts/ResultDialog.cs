@@ -94,16 +94,17 @@ public class ResultDialog : MonoBehaviour
                     var gameManager = game.GetGameManager();
                     var coins = gameManager.Coins();
                     var distance = gameManager.CurrentDistanceInMeters();
-
+                    var player = game.GetPlayer();
+                    
                     _time = 0.0f;
                     var startTime = 0.0f;
-                    var duration = 4.0f*MathF.Log10( coins )+1.3f;
+                    var duration = 4.0f*MathF.Log10( Math.Max(coins, distance) )+1.3f;
                     var endTime = startTime + duration;
-                    
-                    var startCoins = 100; // :TODO: get from player
-                    var startDistance = 1000; // :TODO: get from player
-                    _bestDistance = 500; // :TODO: get from player
-                    
+
+                    var startCoins = (int)player.Coins();
+                    var startDistance = (int)player.TotalDistance();
+                    _bestDistance = (int)player.BestDistance();
+
                     _coinsGained = new EasedInteger(startTime, endTime-0.3f*duration, coins, 0,
                         EasedInteger.EasingFunction.InOutCubic);
                     _coinsTarget = startCoins + coins;

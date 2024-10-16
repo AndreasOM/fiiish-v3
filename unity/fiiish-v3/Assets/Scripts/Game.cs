@@ -114,6 +114,26 @@ public class Game : MonoBehaviour
     public void OnGameManagerStateChanged(Game.State state)
     {
         onStateChanged?.Invoke(state);
+
+        switch (state)
+        {
+            case State.Dead:
+                CreditLastSwim();
+                break;
+            default:
+                break;
+        }
+    }
+    
+    private void CreditLastSwim()
+    {
+        var coins = (UInt32)_gameManager.TakeCoins();
+        _player.GiveCoins(coins);
+        
+        var distance = (UInt32)_gameManager.TakeCurrentDistanceInMeters();
+        _player.ApplyDistance(distance);
+        
+        _player.Save();
     }
 
 }

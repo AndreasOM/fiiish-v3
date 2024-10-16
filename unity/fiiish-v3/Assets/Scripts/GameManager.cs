@@ -199,12 +199,25 @@ public class GameManager : MonoBehaviour
         return _coins;
     }
 
+    public int TakeCoins()
+    {
+        var c = _coins;
+        _coins = 0;
+        return c;
+    }
+    
     public int CurrentDistanceInMeters()
     {
         
         return (int)Mathf.Floor(_distance / pixelsPerMeter);
     }
     
+    public int TakeCurrentDistanceInMeters()
+    {
+        var d = CurrentDistanceInMeters();
+        _distance = 0.0f;
+        return d;
+    }
 
     // Update is called once per frame
     void Update()
