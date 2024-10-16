@@ -16,6 +16,9 @@
 
 ## Done
 
+### 2024-10-16
+- [x] #unity Polish result dialog
+
 ### 2024-10-15
 - [x] #unity Add player serialization
 - [x] #unity Start adding result dialog
