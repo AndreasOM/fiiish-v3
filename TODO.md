@@ -18,6 +18,7 @@
 
 ### 2024-10-16
 - [x] #unity Polish result dialog
+- [x] #unity Save player progress
 
 ### 2024-10-15
 - [x] #unity Add player serialization
@@ -121,10 +122,11 @@
 - [x] Add in game hud
 - [x] Add in game (pause) menu and settings
 - [u] Save & Load settings and progress
-- [ ] Add result dialog
+- [u] Add result dialog
 - [ ] Add background
 - [ ] Add music
 - [ ] Add sfx
+- [ ] Improve death (cleanup, etc)
 - [ ] Bonus: Add basic script support -- for testing and screenshots
 - [ ] Bonus: Animate Seaweed in code
 
