@@ -354,6 +354,7 @@ theme_override_constants/margin_right = 160
 theme_override_constants/margin_bottom = 360
 
 [node name="ColorRect" type="ColorRect" parent="UI/InGamePauseMenu/ResultDialogFadeableContainer/ResultDialog/TextureRect/MarginContainer"]
+visible = false
 layout_mode = 2
 color = Color(1, 0.2, 0.2, 0.560784)
 
