@@ -16,6 +16,9 @@
 
 ## Done
 
+### 2024-10-17
+- [x] #godot Add player serialization
+
 ### 2024-10-16
 - [x] #unity Polish result dialog
 - [x] #unity Save player progress
