@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch18db020xqmp"]
+
+[ext_resource type="Script" path="res://Scenes/result_row.gd" id="1_obxuq"]
+
+[node name="ResultRow" type="HBoxContainer" node_paths=PackedStringArray("totalLabel", "currentLabel")]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_obxuq")
+totalLabel = NodePath("TotalLabel")
+currentLabel = NodePath("CurrentLabel")
+
+[node name="TotalLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ResultLabel"
+text = "Total"
+horizontal_alignment = 2
+
+[node name="CurrentLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ResultLabel"
+text = "Current"
+horizontal_alignment = 2

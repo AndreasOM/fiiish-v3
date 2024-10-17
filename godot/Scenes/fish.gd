@@ -1,12 +1,15 @@
 extends Node2D
 
-enum State {
-	WAITING_FOR_START,
-	SWIMMING,
-	DYING,
-	DEAD,
-	RESPAWNING,
-}
+signal state_changed( state: Game.State )
+
+# Moved into Game
+#enum State {
+#	WAITING_FOR_START,
+#	SWIMMING,
+#	DYING,
+#	DEAD,
+#	RESPAWNING,
+#}
 
 enum Direction {
 	UP,
@@ -19,7 +22,7 @@ enum Mode {
 	TEST,
 }
 
-var state: State = State.WAITING_FOR_START
+var state: Game.State = Game.State.WAITING_FOR_START
 var direction: Direction = Direction.NEUTRAL
 var mode: Mode = Mode.PLAY
 
@@ -51,25 +54,28 @@ func apply_magnet_boost( range: float, speed: float, duration: float ):
 	
 func is_alive() -> bool:
 	match state:
-		State.WAITING_FOR_START:	return false;
-		State.SWIMMING:        		return true;
-		State.DYING:           		return false;
-		State.DEAD:            		return false;
-		State.RESPAWNING:      		return false;
+		Game.State.WAITING_FOR_START:	return false;
+		Game.State.SWIMMING:        		return true;
+		Game.State.DYING:           		return false;
+		Game.State.DEAD:            		return false;
+		Game.State.RESPAWNING:      		return false;
 	return false
 		
+func _set_state( state: Game.State ):
+	state_changed.emit( state )
+	self.state = state
 func _goto_swimming():
-	self.state = State.SWIMMING
+	_set_state( Game.State.SWIMMING )
 	%GameManager.spawn_zone()
 	%GameManager.resume()
 	
 func _goto_dying() -> void:
-	self.state = State.DYING
+	_set_state( Game.State.DYING )
 	%GameManager.pause()
 	%AnimatedSprite2D.play("dying")
 
 func _goto_respawning():
-	self.state = State.RESPAWNING
+	_set_state( Game.State.RESPAWNING )
 	self.transform.origin.y = 0.0
 	self.transform.origin.x = -1200.0
 	self.rotation_degrees = 0.0
@@ -90,7 +96,7 @@ func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_M):
 		self.toggle_mode()
 	match self.state:
-		State.SWIMMING:
+		Game.State.SWIMMING:
 			if Input.is_key_pressed(KEY_SPACE):
 				self.direction = Direction.DOWN
 			else:
@@ -103,29 +109,29 @@ func _process(delta: float) -> void:
 					_magnet_boost_duration = 0.0
 					_magnet_range_boost = 1.0
 					_magnet_speed_boost = 1.0
-		#State.DYING:
+		#Game.State.DYING:
 			
-		State.DEAD:
+		Game.State.DEAD:
 			if Input.is_key_pressed(KEY_SPACE):
 				self._goto_respawning()
-		#State.RESPAWNING:
+		#Game.State.RESPAWNING:
 		#	if !Input.is_key_pressed(KEY_SPACE):
-		#		self.state = State.WAITING_FOR_START
-		State.WAITING_FOR_START:
+		#		_set_state( Game.State.WAITING_FOR_START )
+		Game.State.WAITING_FOR_START:
 			if Input.is_key_pressed(KEY_SPACE):
 				self._goto_swimming()
 
 func _physics_process(delta: float) -> void:
 	match self.state:
-		State.RESPAWNING:
+		Game.State.RESPAWNING:
 			_physics_process_respawning(delta)
-		State.SWIMMING:
+		Game.State.SWIMMING:
 			_physics_process_swimming(delta)
-		State.DYING:
+		Game.State.DYING:
 			_physics_process_dying(delta)
-		#State.DEAD:
-		#State.RESPAWNING:
-		#State.WAITING_FOR_START:
+		#Game.State.DEAD:
+		#Game.State.RESPAWNING:
+		#Game.State.WAITING_FOR_START:
 
 func _get_angle_range_for_y( y: float ) -> Array[float]:
 	var limit: float = 35.0
@@ -142,7 +148,8 @@ func _get_angle_range_for_y( y: float ) -> Array[float]:
 func _physics_process_respawning(delta: float) -> void:
 	self.transform.origin.x += 256.0 * delta
 	if self.transform.origin.x >= -512.0:
-		self.state = State.WAITING_FOR_START
+		_set_state( Game.State.WAITING_FOR_START )
+		
 
 
 func _physics_process_swimming(delta: float) -> void:
@@ -178,7 +185,7 @@ func _physics_process_dying(delta: float) -> void:
 	self.rotation_degrees = a
 	if %AnimatedSprite2D.global_position.y < -128.0: # aka off screen
 		print("Finished dying (off screen)")
-		self.state = State.DEAD
+		_set_state( Game.State.DEAD )
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

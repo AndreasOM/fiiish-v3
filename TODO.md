@@ -17,6 +17,7 @@
 ## Done
 
 ### 2024-10-17
+- [x] #godot Start adding result dialog
 - [x] #godot Add player serialization
 
 ### 2024-10-16
@@ -124,7 +125,7 @@
 - [+] Handle death and restart -> improve later
 - [x] Add in game hud
 - [x] Add in game (pause) menu and settings
-- [u] Save & Load settings and progress
+- [x] Save & Load settings and progress
 - [u] Add result dialog
 - [ ] Add background
 - [ ] Add music
