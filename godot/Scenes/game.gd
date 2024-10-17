@@ -1,7 +1,16 @@
 extends Node2D
 class_name Game
 
+enum State {
+	WAITING_FOR_START,
+	SWIMMING,
+	DYING,
+	DEAD,
+	RESPAWNING,
+}
+
 signal zone_changed
+signal state_changed( state: Game.State )
 
 var _player: Player = Player.new()
 
@@ -34,3 +43,7 @@ func _on_debug_ui_goto_next_zone() -> void:
 
 func get_game_manager() -> GameManager:
 	return %GameManager
+
+
+func _on_fish_state_changed(state: Game.State) -> void:
+	state_changed.emit( state )

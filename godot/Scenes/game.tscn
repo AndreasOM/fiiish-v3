@@ -48,4 +48,5 @@ position = Vector2(8800, 0)
 shape = SubResource("RectangleShape2D_quh18")
 disabled = true
 
+[connection signal="state_changed" from="Fishes/Fish" to="." method="_on_fish_state_changed"]
 [connection signal="zone_changed" from="Managers/GameManager" to="." method="_on_game_manager_zone_changed"]
