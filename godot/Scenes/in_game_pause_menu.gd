@@ -38,5 +38,5 @@ func _on_settings_button_pressed():
 	%SettingsFadeableContainer.toggle_fade( 0.3 )
 	print("Settings Button pressed")
 
-func _on_pause_toggle_button_toggled( v: String ) -> void:
+func _on_pause_toggle_button_toggled( state: ToggleButtonContainer.ToggleState ) -> void:
 	toggle_pause()

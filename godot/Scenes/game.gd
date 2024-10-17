@@ -3,15 +3,22 @@ class_name Game
 
 signal zone_changed
 
+var _player: Player = Player.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	print("Game - _ready()")
+	
+	var player = Player.load()
+	if player != null:
+		_player = player
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+func get_player() -> Player:
+	return _player
 
 func _on_debug_ui_zoom_changed( value: float ) -> void:
 	self.scale.x = value

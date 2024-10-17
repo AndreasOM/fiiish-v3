@@ -8,7 +8,13 @@ class_name ToggleButtonContainer
 var button_a: FadeableContainer = null
 var button_b: FadeableContainer = null
 
-signal toggled( String )
+enum ToggleState {
+	A,
+	B,
+	None,
+}
+
+signal toggled( ToggleState )
 
 	
 func _ready() -> void:
@@ -43,9 +49,9 @@ func goto_b():
 func _on_a_pressed():
 	print("A")
 	goto_b()
-	toggled.emit("A")
+	toggled.emit(ToggleState.B)
 
 func _on_b_pressed():
 	print("B")
 	goto_a()
-	toggled.emit("B")
+	toggled.emit(ToggleState.A)
