@@ -1072,6 +1072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10431a60644d34cf7a10ec4a484ab7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game: {fileID: 2078407300}
   coinResultRow: {fileID: 3557738938328711987}
   distanceResultRow: {fileID: 1786463001}
   bestDistanceResultRow: {fileID: 1996645141}
@@ -1096,7 +1097,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141932736}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
