@@ -1,52 +1,93 @@
-[gd_scene load_steps=6 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=10 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
 [ext_resource type="PackedScene" uid="uid://dmcqoohtinyr1" path="res://Scenes/fish.tscn" id="2_ea5sf"]
+[ext_resource type="Shader" path="res://Scenes/background.gdshader" id="2_mc2jp"]
+[ext_resource type="Script" path="res://Scenes/background.gd" id="4_bsinc"]
 [ext_resource type="Script" path="res://Scenes/game_manager.gd" id="4_cqt8y"]
+[ext_resource type="Texture2D" uid="uid://c7yh3onttaenq" path="res://Textures/Backgrounds/background_grad.png" id="5_cq2wm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uo4vc"]
+shader = ExtResource("2_mc2jp")
+shader_parameter/tint = null
+shader_parameter/offset = 759.835
+shader_parameter/phase = 0.685
+shader_parameter/gradient = ExtResource("5_cq2wm")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_quh18"]
 size = Vector2(20000, 2200)
 
-[node name="Game" type="Node2D"]
-position = Vector2(910, 512)
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_2tnct")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_uo4vc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_48x5b")
+stretch_mode = 1
+script = ExtResource("4_bsinc")
+tint = Color(0.351123, 0.464003, 0.607544, 1)
+gradientTexture = ExtResource("5_cq2wm")
+offset = 759.835
+phase = 0.685
+
+[node name="GameNode2D" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(960, 512)
+
+[node name="Background" type="Sprite2D" parent="GameNode2D"]
+visible = false
 z_index = 1
 texture = ExtResource("1_48x5b")
 
-[node name="Fishes" type="Node2D" parent="."]
+[node name="Fishes" type="Node2D" parent="GameNode2D"]
 unique_name_in_owner = true
 
-[node name="Fish" parent="Fishes" instance=ExtResource("2_ea5sf")]
+[node name="Fish" parent="GameNode2D/Fishes" instance=ExtResource("2_ea5sf")]
 
-[node name="Obstacles" type="Node2D" parent="."]
+[node name="Obstacles" type="Node2D" parent="GameNode2D"]
 unique_name_in_owner = true
 
-[node name="Pickups" type="Node2D" parent="."]
+[node name="Pickups" type="Node2D" parent="GameNode2D"]
 unique_name_in_owner = true
 
-[node name="Managers" type="Node" parent="."]
+[node name="Managers" type="Node" parent="GameNode2D"]
 
-[node name="GameManager" type="Node" parent="Managers" node_paths=PackedStringArray("game_zone")]
+[node name="GameManager" type="Node" parent="GameNode2D/Managers" node_paths=PackedStringArray("game_zone")]
 unique_name_in_owner = true
 script = ExtResource("4_cqt8y")
 zone_spawn_offset = 1500.0
 game_zone = NodePath("../../Helpers/Area2D/GameZone")
 
-[node name="Helpers" type="Node2D" parent="."]
+[node name="Helpers" type="Node2D" parent="GameNode2D"]
 
-[node name="Area2D" type="Area2D" parent="Helpers"]
+[node name="Area2D" type="Area2D" parent="GameNode2D/Helpers"]
 collision_layer = 4
 collision_mask = 0
 
-[node name="GameZone" type="CollisionShape2D" parent="Helpers/Area2D"]
+[node name="GameZone" type="CollisionShape2D" parent="GameNode2D/Helpers/Area2D"]
 unique_name_in_owner = true
 visible = false
 position = Vector2(8800, 0)
 shape = SubResource("RectangleShape2D_quh18")
 disabled = true
 
-[connection signal="state_changed" from="Fishes/Fish" to="." method="_on_fish_state_changed"]
-[connection signal="zone_changed" from="Managers/GameManager" to="." method="_on_game_manager_zone_changed"]
+[connection signal="state_changed" from="." to="Background" method="_on_game_state_changed"]
+[connection signal="state_changed" from="GameNode2D/Fishes/Fish" to="." method="_on_fish_state_changed"]
+[connection signal="zone_changed" from="GameNode2D/Managers/GameManager" to="." method="_on_game_manager_zone_changed"]

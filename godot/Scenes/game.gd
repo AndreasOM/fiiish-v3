@@ -1,7 +1,8 @@
-extends Node2D
+extends Control
 class_name Game
 
 enum State {
+	INITIAL,
 	WAITING_FOR_START,
 	SWIMMING,
 	DYING,
@@ -30,8 +31,8 @@ func get_player() -> Player:
 	return _player
 
 func _on_debug_ui_zoom_changed( value: float ) -> void:
-	self.scale.x = value
-	self.scale.y = value
+	%GameNode2D.scale.x = value
+	%GameNode2D.scale.y = value
 
 func _on_game_manager_zone_changed( name: String ) -> void:
 	self.zone_changed.emit( name )
