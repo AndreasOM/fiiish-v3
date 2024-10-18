@@ -16,6 +16,9 @@
 
 ## Done
 
+### 2024-10-18
+- [x] #godot resize debug ui to allow clicks on settings buttons
+
 ### 2024-10-17
 - [x] #godot Start adding result dialog
 - [x] #godot Add player serialization
