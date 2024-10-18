@@ -107,3 +107,11 @@ func disableSound():
 	_isSoundEnabled = false
 	_isDirty = true
 			
+func give_coins( coins: int ):
+	_coins += coins
+	
+func apply_distance( distance: int ):
+	_totalDistance += distance
+	_bestDistance = max(_bestDistance, distance)
+	_lastDistance = distance;
+	

@@ -100,6 +100,16 @@ func coins() -> int:
 
 func distance_in_m() -> int:
 	return floor(_distance/pixels_per_meter)
+
+func take_coins() -> int:
+	var c = _coins;
+	_coins = 0
+	return c
+	
+func take_current_distance_in_meters() -> int:
+	var d = distance_in_m();
+	_distance = 0
+	return d
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -130,6 +140,13 @@ func _process(delta: float) -> void:
 			self.spawn_zone()
 			pass
 	_distance += self.movement_x * delta
+
+	if Input.is_key_pressed(KEY_D):
+		_distance += 100 * pixels_per_meter
+	
+	if Input.is_key_pressed(KEY_C):
+		_coins += 100
+			
 
 func _physics_process(delta: float) -> void:
 	if !_paused:
