@@ -17,7 +17,8 @@
 ## Done
 
 ### 2024-10-18
-- [x] #godot resize debug ui to allow clicks on settings buttons
+- [x] #godot Resize debug ui to allow clicks on settings buttons
+- [x] #godot Polish result dialog
 
 ### 2024-10-17
 - [x] #godot Start adding result dialog
@@ -129,7 +130,7 @@
 - [x] Add in game hud
 - [x] Add in game (pause) menu and settings
 - [x] Save & Load settings and progress
-- [u] Add result dialog
+- [x] Add result dialog
 - [ ] Add background
 - [ ] Add music
 - [ ] Add sfx

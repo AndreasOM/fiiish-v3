@@ -47,3 +47,17 @@ func get_game_manager() -> GameManager:
 
 func _on_fish_state_changed(state: Game.State) -> void:
 	state_changed.emit( state )
+	match state:
+		State.DYING:
+			_credit_last_swim()
+		_:
+			pass
+
+func _credit_last_swim():
+	var coins = %GameManager.take_coins()
+	_player.give_coins(coins)
+	
+	var distance = %GameManager.take_current_distance_in_meters()
+	_player.apply_distance(distance)
+	
+	_player.save();
