@@ -22,7 +22,7 @@ enum Mode {
 	TEST,
 }
 
-var state: Game.State = Game.State.WAITING_FOR_START
+var state: Game.State = Game.State.INITIAL
 var direction: Direction = Direction.NEUTRAL
 var mode: Mode = Mode.PLAY
 
@@ -37,6 +37,7 @@ var _magnet_boost_duration: float = 0.0;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%AnimatedSprite2D.play("swim")
+	
 
 func pickup_range() -> float:
 	return _pickup_range
@@ -96,6 +97,8 @@ func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_M):
 		self.toggle_mode()
 	match self.state:
+		Game.State.INITIAL:
+			_set_state(Game.State.WAITING_FOR_START)
 		Game.State.SWIMMING:
 			if Input.is_key_pressed(KEY_SPACE):
 				self.direction = Direction.DOWN

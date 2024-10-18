@@ -9,7 +9,8 @@
 - [ ] #unity Fix z-fighting of pickups
 - [ ] Create explosion path editor
 - [ ] #godot crossfade toggle buttons
-- [ ] #godot Figure out why only top portion of music and sound buttons is clickable in settings
+- [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
+- [ ] #godot Fix debug camera frame
 
 ## Future
 - [ ] Add leaderboards
@@ -19,6 +20,7 @@
 ### 2024-10-18
 - [x] #godot Resize debug ui to allow clicks on settings buttons
 - [x] #godot Polish result dialog
+- [x] #godot Add background transitions and movement
 
 ### 2024-10-17
 - [x] #godot Start adding result dialog
@@ -131,7 +133,7 @@
 - [x] Add in game (pause) menu and settings
 - [x] Save & Load settings and progress
 - [x] Add result dialog
-- [ ] Add background
+- [g] Add background
 - [ ] Add music
 - [ ] Add sfx
 - [ ] Improve death (cleanup, etc)

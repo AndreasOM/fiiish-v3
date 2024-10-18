@@ -31,6 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Game" parent="." instance=ExtResource("1_0flmv")]
+layout_mode = 1
 
 [node name="UI" type="Node" parent="."]
 
@@ -374,6 +375,7 @@ visible = false
 layout_mode = 2
 
 [node name="DebugUI" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]
+process_mode = 3
 offset_top = 692.0
 offset_right = -1482.0
 size_flags_vertical = 10
