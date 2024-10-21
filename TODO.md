@@ -3,7 +3,6 @@
 ## In Progress
 
 ## Todo
-- [ ] Do something
 
 ## Later
 - [ ] #unity Fix z-fighting of pickups
@@ -11,6 +10,7 @@
 - [ ] #godot crossfade toggle buttons
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
 - [ ] #godot Fix debug camera frame
+- [ ] Add volume slider?
 
 ## Future
 - [ ] Add leaderboards
@@ -19,6 +19,7 @@
 
 ### 2024-10-21
 - [x] #unity Set background transitions and movement
+- [x] #unity Add music
 
 ### 2024-10-18
 - [x] #godot Resize debug ui to allow clicks on settings buttons
@@ -137,7 +138,7 @@
 - [x] Save & Load settings and progress
 - [x] Add result dialog
 - [x] Add background
-- [ ] Add music
+- [u] Add music
 - [ ] Add sfx
 - [ ] Improve death (cleanup, etc)
 - [ ] Bonus: Add basic script support -- for testing and screenshots

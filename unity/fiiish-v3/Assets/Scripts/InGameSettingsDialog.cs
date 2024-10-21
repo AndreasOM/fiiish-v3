@@ -54,16 +54,16 @@ public class InGameSettingsDialog : MonoBehaviour
         {
             case ToggleableUiElement.State.A:
                 {
-                    game.GetPlayer().EnableMusic();
+                    game.EnableMusic();
                 }
                 break;
             case ToggleableUiElement.State.B:
                 {
-                    game.GetPlayer().DisableMusic();
+                    game.DisableMusic();
                 }
                 break;
         }
-        game.GetPlayer().Save();
+        // game.GetPlayer().Save();
     }
     
     public void OnSoundToggled(ToggleableUiElement.State state)
@@ -73,15 +73,15 @@ public class InGameSettingsDialog : MonoBehaviour
         {
             case ToggleableUiElement.State.A:
                 {
-                    game.GetPlayer().EnableSound();
+                    game.EnableSound();
                 }
                 break;
             case ToggleableUiElement.State.B:
                 {
-                    game.GetPlayer().DisableSound();
+                    game.DisableSound();
                 }
                 break;
         }
-        game.GetPlayer().Save();
+        // game.GetPlayer().Save();
     }
 }

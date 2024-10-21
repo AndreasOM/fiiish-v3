@@ -21,6 +21,7 @@ public class Game : MonoBehaviour
     public Camera mainCamera = null;
 
     private GameManager _gameManager; // = null;
+    private MusicManager _musicManager;
     
     private Player _player;
     // Start is called before the first frame update
@@ -43,12 +44,20 @@ public class Game : MonoBehaviour
         var gameManager = transform.Find("GameManager");
         var gameManagerGo = gameManager.transform;
         _gameManager = gameManagerGo.GetComponent<GameManager>();
+        var musicManager = transform.Find("MusicManager");
+        var musicManagerGo = musicManager.transform;
+        _musicManager = musicManagerGo.GetComponent<MusicManager>();
     }
 
     void Configure()
     {
         _player = ScriptableObject.CreateInstance<Player>();
         _player.TryLoad();
+        _musicManager.FadeOutMusic( 0.0f );
+        if (_player.IsMusicEnabled())
+        {
+            _musicManager.FadeInMusic( 1.5f );
+        }
     }
     // Update is called once per frame
     void Update()
@@ -136,4 +145,27 @@ public class Game : MonoBehaviour
         _player.Save();
     }
 
+    public void EnableMusic()
+    {
+        _player.EnableMusic();
+        _player.Save();
+        _musicManager.FadeInMusic( 0.5f );
+    }
+    
+    public void DisableMusic()
+    {
+        _player.DisableMusic();
+        _player.Save();
+        _musicManager.FadeOutMusic( 0.5f );
+    }
+    public void EnableSound()
+    {
+        _player.EnableSound();
+        _player.Save();
+    }
+    public void DisableSound()
+    {
+        _player.DisableSound();
+        _player.Save();
+    }
 }
