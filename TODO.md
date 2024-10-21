@@ -17,6 +17,9 @@
 
 ## Done
 
+### 2024-10-21
+- [x] #unity Set background transitions and movement
+
 ### 2024-10-18
 - [x] #godot Resize debug ui to allow clicks on settings buttons
 - [x] #godot Polish result dialog
@@ -133,7 +136,7 @@
 - [x] Add in game (pause) menu and settings
 - [x] Save & Load settings and progress
 - [x] Add result dialog
-- [g] Add background
+- [x] Add background
 - [ ] Add music
 - [ ] Add sfx
 - [ ] Improve death (cleanup, etc)
