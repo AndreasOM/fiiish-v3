@@ -20,6 +20,7 @@
 ### 2024-10-21
 - [x] #unity Set background transitions and movement
 - [x] #unity Add music
+- [x] #unity Start adding sound
 
 ### 2024-10-18
 - [x] #godot Resize debug ui to allow clicks on settings buttons
