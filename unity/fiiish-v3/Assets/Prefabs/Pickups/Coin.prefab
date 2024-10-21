@@ -132,3 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7902e16026ed046a6a201673d1686f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effect: 3
+  coinValue: 1
+  collectAudioEffect: 1

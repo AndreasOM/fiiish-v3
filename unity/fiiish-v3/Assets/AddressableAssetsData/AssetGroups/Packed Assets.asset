@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 6ea33c74882db4e399a586f4171c443f
   m_SerializeEntries:
+  - m_GUID: 01490821087a74e518e88d10b875a500
+    m_Address: sound_picked_coin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0992a02cea67642848b4b23844ef3fb2
     m_Address: ObstaclesRockB
     m_ReadOnly: 0
@@ -64,6 +69,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6d958cffacfc1473d8fc220b2761cbab
     m_Address: ObstaclesRockF
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7086affb828ee4c788a172f832918f74
+    m_Address: sound_fish_death
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

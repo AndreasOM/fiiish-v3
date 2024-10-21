@@ -31,7 +31,6 @@ public class FixedAspect : MonoBehaviour
     void Update()
     {
         var camAspect = mainCamera.aspect;
-        Debug.Log($"{camAspect}");
         _rawImage.uvRect = new Rect(0, 0, camAspect / Aspect, 1.0f );
     }
 }

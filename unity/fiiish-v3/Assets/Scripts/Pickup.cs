@@ -13,6 +13,7 @@ public class Pickup : MonoBehaviour
 {
     public PickupEffect effect = PickupEffect.None;
     public int coinValue = 1;
+    public AudioEffectId collectAudioEffect = AudioEffectId.None;
     
     private bool _alive = true;
 
@@ -24,6 +25,11 @@ public class Pickup : MonoBehaviour
     public int CoinValue()
     {
         return coinValue;
+    }
+
+    public AudioEffectId CollectAudioEffect()
+    {
+        return collectAudioEffect;
     }
     public void Collect()
     {

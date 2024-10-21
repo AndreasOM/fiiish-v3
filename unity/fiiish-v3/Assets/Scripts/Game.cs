@@ -22,6 +22,7 @@ public class Game : MonoBehaviour
 
     private GameManager _gameManager; // = null;
     private MusicManager _musicManager;
+    private SoundManager _soundManager;
     
     private Player _player;
     // Start is called before the first frame update
@@ -47,6 +48,9 @@ public class Game : MonoBehaviour
         var musicManager = transform.Find("MusicManager");
         var musicManagerGo = musicManager.transform;
         _musicManager = musicManagerGo.GetComponent<MusicManager>();
+        var soundManager = transform.Find("SoundManager");
+        var soundManagerGo = soundManager.transform;
+        _soundManager = soundManagerGo.GetComponent<SoundManager>();
     }
 
     void Configure()
@@ -126,6 +130,9 @@ public class Game : MonoBehaviour
 
         switch (state)
         {
+            case State.Dying:
+                _soundManager.TriggerSound(AudioEffectId.FishDeath);
+                break;
             case State.Dead:
                 CreditLastSwim();
                 break;
@@ -167,5 +174,19 @@ public class Game : MonoBehaviour
     {
         _player.DisableSound();
         _player.Save();
+    }
+
+    public void TriggerSound(AudioEffectId audioEffectId)
+    {
+        if (_player.IsSoundEnabled())
+        {
+            _soundManager.TriggerSound(audioEffectId);
+        }
+    }
+
+    public void OnAudioEffectTriggered(AudioEffectId audioEffectId)
+    {
+        Debug.Log("OnAudioEffectTriggered");
+        TriggerSound(audioEffectId);
     }
 }

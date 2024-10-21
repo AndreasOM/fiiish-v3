@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
 //using Random = System.Random;
 using Random = UnityEngine.Random;
 
@@ -18,7 +19,7 @@ class EntityConfig
 {
     public AsyncOperationHandle<GameObject> handle;
     public UnityEvent<Game.State> OnStateChanged;
-
+    
     public void LoadFromAssetAsync( string name )
     {
         handle = Addressables.LoadAssetAsync<GameObject>(name);
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     
     public UnityEvent<String> OnZoneChanged;
     public UnityEvent<Game.State> onStateChanged;
+    public UnityEvent<AudioEffectId> onAudioEffectTriggered;
 
     private int _coins = 0;
     private float _distance = 0.0f;
@@ -327,6 +329,8 @@ public class GameManager : MonoBehaviour
                             break;
                     } 
                     _coins += p.CoinValue();
+                    var audioEffect = p.CollectAudioEffect();
+                    onAudioEffectTriggered.Invoke(audioEffect);
                     Destroy( pickup );
                 } else if (ls < magnet_range_sqr)
                 {
