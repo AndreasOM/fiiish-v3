@@ -117,12 +117,12 @@ public class Fish : MonoBehaviour
         } else {
             this.direction = Direction.Up;
         }
-
+#if UNITY_EDITOR
         if(Input.GetKeyDown("k"))
         {
             GotoDying();
         }
-
+#endif
         if (_magnet_boost_duration > 0.0f)
         {
             _magnet_boost_duration -= Time.deltaTime;

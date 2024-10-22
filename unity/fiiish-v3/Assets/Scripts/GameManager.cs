@@ -226,6 +226,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR        
         if (Input.GetKeyDown("c"))
         {
             _coins += 100;
@@ -234,6 +235,7 @@ public class GameManager : MonoBehaviour
         {
             _distance += 100*pixelsPerMeter;
         }
+#endif        
         if (_paused)
         {
             return;
