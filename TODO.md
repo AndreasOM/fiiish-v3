@@ -5,7 +5,7 @@
 ## Todo
 
 ## Later
-- [ ] #unity Fix z-fighting of pickups
+- [ ] #unity Move setting in front of result
 - [ ] Create explosion path editor
 - [ ] #godot crossfade toggle buttons
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
@@ -16,6 +16,10 @@
 - [ ] Add leaderboards
 
 ## Done
+
+### 2024-10-22
+- [x] #unity Polish SFX
+- [x] #unity Fix z-fighting of pickups
 
 ### 2024-10-21
 - [x] #unity Set background transitions and movement
