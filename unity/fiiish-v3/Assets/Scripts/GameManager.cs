@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
     private float _coinRainCounter = 0.0f;
     
     private bool _paused = false;
+
+    private float _pickupZBias = 0.0f;
     
     private void AddEntityConfig( UInt32 crc, string addressableName)
     {
@@ -372,6 +374,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnCoinExplosion(Vector3 position)
     {
+        float z = position.z;
         position.x += 120.0f;
         
         EntityConfig ec;
@@ -385,6 +388,7 @@ public class GameManager : MonoBehaviour
                 var periodScale = Random.Range(0.9f, 1.1f);
                 for (int i = 0; i < amount; ++i)
                 {
+                    position.z = z + NextPickupZBias();
                     GameObject go = Instantiate(ec.handle.Result, position,
                         Quaternion.identity);
                     go.transform.SetParent(this.obstacles.transform, false);
@@ -430,6 +434,11 @@ public class GameManager : MonoBehaviour
         v.y = (s * tx) + (c * ty);
         return v;
     }
+    private float NextPickupZBias()
+    {
+        _pickupZBias = (_pickupZBias + 0.0001f)%1.0f;
+        return _pickupZBias;
+    }
     private void SpawnCoins(int amount)
     {
         EntityConfig ec;
@@ -439,7 +448,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int i = 0; i < amount; ++i)
                 {
-                    var position = new Vector3(Random.Range(0.0f, 1000.0f), Random.Range(600.0f, 1100.0f), 0.0f);
+                    var position = new Vector3(Random.Range(0.0f, 1000.0f), Random.Range(600.0f, 1100.0f), 0.0f+NextPickupZBias());
                     GameObject go = Instantiate(ec.handle.Result, position,
                         Quaternion.identity);
                     go.transform.SetParent(this.obstacles.transform, false);
@@ -541,7 +550,7 @@ public class GameManager : MonoBehaviour
                         {
                             if (ec.handle.Result != null)
                             {
-                                GameObject go = Instantiate(ec.handle.Result, new Vector3(o.PosX()+zoneSpawnOffset, o.PosY(), 0.0f+layerOffsetZ),
+                                GameObject go = Instantiate(ec.handle.Result, new Vector3(o.PosX()+zoneSpawnOffset, o.PosY(), 0.0f+layerOffsetZ+NextPickupZBias()),
                                     Quaternion.Euler(0.0f, 0.0f, o.Rotation()));
                                 go.transform.SetParent(this.obstacles.transform, false);
                             }
