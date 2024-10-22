@@ -9,8 +9,9 @@ public class FadeableUiElement : MonoBehaviour
     private CanvasGroup _canvasGroup;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        Debug.Log($"FadeableUiElement.Awake() - {gameObject.name}");
         Setup();
         Configure();
     }

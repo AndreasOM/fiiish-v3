@@ -28,8 +28,8 @@ class EntityConfig
 
     void OnLoadComplete(AsyncOperationHandle<GameObject> asyncOperationHandle)
     {
-        Debug.Log($"AsyncOperationHandle Status: {asyncOperationHandle.Status}");
-        Debug.Log("Load complete.");
+        //Debug.Log($"AsyncOperationHandle Status: {asyncOperationHandle.Status}");
+        //Debug.Log("Load complete.");
     }
     public void OnDisable()
     {
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         var zone_files = Directory.GetFiles(zone_path, zone_pattern);
         foreach (var zone_file in zone_files)
         {
-            Debug.Log( "Loading " + zone_file );
+            //Debug.Log( "Loading " + zone_file );
             var z = LoadNewZone(zone_file);
             _zones.Add( z );
         }
@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
         
         QueueInitialZones();
         
-        Debug.Log("Started.");
+        //Debug.Log("Started.");
     }
 
     private static NewZone LoadNewZone(string path)
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
         var serializer = new Serializer();
         if (serializer.LoadFile(path))
         {
-            Debug.Log("File exists " + path );
+            //Debug.Log("File exists " + path );
             var zone = ScriptableObject.CreateInstance<NewZone>();
             if( !zone.Serialize( ref serializer ) )
             {

@@ -8,12 +8,26 @@ public class InGameSettingsDialog : MonoBehaviour
     public ToggleableUiElement musicToggle;
     public ToggleableUiElement soundToggle;
     // Start is called before the first frame update
+    /*
     void Start()
     {
+        Debug.Log("InGameSettingsDialog.Start()");
+        Setup();
+        Configure();
+    }
+    */
+    void Awake()
+    {
+        Debug.Log("InGameSettingsDialog.Awake()");
         Setup();
         Configure();
     }
 
+    public void SetGame(Game game)
+    {
+        this.game = game;
+        Configure();
+    }
     void Setup()
     {
         
@@ -21,6 +35,10 @@ public class InGameSettingsDialog : MonoBehaviour
 
     void Configure()
     {
+        if (game == null)
+        {
+            return;
+        }
         var player  = game.GetPlayer();
 
         if (player.IsMusicEnabled())

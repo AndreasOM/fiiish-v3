@@ -28,7 +28,7 @@ public class Serializer // : ScriptableObject
         using (FileStream fs = File.OpenRead(path))
         {
             var l = (int)fs.Length;
-            Debug.Log( "Length: " + l);
+            //Debug.Log( "Length: " + l);
             var data = new byte[ l ];
             var n = fs.Read(data, 0, l);
             if( n != l ) {

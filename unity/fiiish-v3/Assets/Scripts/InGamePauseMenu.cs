@@ -1,7 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
+//using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 //using UnityEngine.UIElements;
 
@@ -13,6 +14,8 @@ public class InGamePauseMenu : MonoBehaviour
     public FadeableUiElement settingsUiElement = null;
     public FadeableUiElement settingsDialog = null;
     
+    public GameObject settingsDialogPrefab = null;
+    
     // Start is called before the first frame update
     public IEnumerator Start()
     {
@@ -23,14 +26,23 @@ public class InGamePauseMenu : MonoBehaviour
 
     void Setup()
     {
+        if (settingsDialogPrefab != null)
+        {
+            Debug.Log("Instantiating settingsDialog");
+            var go = Instantiate(settingsDialogPrefab, transform); 
+            settingsDialog = go.GetComponent<FadeableUiElement>();
+            var inGameSettingsDialog = go.GetComponent<InGameSettingsDialog>();
+            inGameSettingsDialog.SetGame( game );
+        }
     }
 
     IEnumerator Configure()
     {
+        //yield return new WaitForEndOfFrame();
         settingsUiElement.FadeOut(0.0f);
         settingsDialog.FadeOut( 0.0f );
         yield return new WaitForEndOfFrame();
-        // settingsUiElement.FadeOut(0.0f);
+        settingsUiElement.FadeOut(0.0f);
         UpdateSettingsButton();
     }
     

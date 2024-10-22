@@ -28,6 +28,7 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Game.Start()");
         Setup();
         Configure();
     }
