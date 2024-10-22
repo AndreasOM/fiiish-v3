@@ -4,8 +4,8 @@ Shader "Unlit/BackgroundShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _GradientTex ("GradientTexture", 2D) = "white" {}
-        _Phase ("Phase", Float ) = 0.5
-        _Offset ("Offset", Float ) = 0.0
+        // _Phase ("Phase", Float ) = 0.5
+        // _Offset ("Offset", Float ) = 0.0
     }
     SubShader
     {
