@@ -4,8 +4,8 @@
 
 ## Todo
 
+- [ ] Remove debug UI
 ## Later
-- [ ] Create explosion path editor
 - [ ] #godot crossfade toggle buttons
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
 - [ ] #godot Fix debug camera frame
@@ -13,6 +13,7 @@
 
 ## Future
 - [ ] Add leaderboards
+- [+] Create explosion path editor
 
 ## Done
 
