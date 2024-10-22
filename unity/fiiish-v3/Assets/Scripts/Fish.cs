@@ -20,7 +20,7 @@ public class Fish : MonoBehaviour
     
     private float rotation_speed = 120.0f;
 
-    private Game.State _state = Game.State.WaitingForStart;
+    private Game.State _state = Game.State.Initialised;
     private Direction direction = Direction.Neutral;
 
     private float _magnet_range_boost = 1.0f;
@@ -83,6 +83,9 @@ public class Fish : MonoBehaviour
             animator.speed = 1.0f;
         }
         switch ( this._state ) {
+            case Game.State.Initialised:
+                SetState(Game.State.WaitingForStart);
+                break;
             case Game.State.WaitingForStart:
                 UpdateWaitingForStart();
                 break;

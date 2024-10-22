@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 public class Game : MonoBehaviour
 {
     public enum State {
+        Initialised,
         WaitingForStart,
         Swimming,
         Dying,
