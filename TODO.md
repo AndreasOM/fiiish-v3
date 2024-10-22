@@ -140,7 +140,7 @@
 - [x] Add result dialog
 - [x] Add background
 - [u] Add music
-- [ ] Add sfx
+- [u] Add sfx
 - [ ] Improve death (cleanup, etc)
 - [ ] Bonus: Add basic script support -- for testing and screenshots
 - [ ] Bonus: Animate Seaweed in code
