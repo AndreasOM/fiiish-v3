@@ -1,6 +1,8 @@
 extends Control
 class_name Game
 
+const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
+
 enum State {
 	INITIAL,
 	WAITING_FOR_START,
@@ -14,6 +16,7 @@ signal zone_changed
 signal state_changed( state: Game.State )
 
 @export var musicManager: MusicManager = null
+@export var soundManager: SoundManager = null
 
 var _player: Player = Player.new()
 
@@ -56,7 +59,10 @@ func _on_fish_state_changed(state: Game.State) -> void:
 	state_changed.emit( state )
 	match state:
 		State.DYING:
+			soundManager.trigger_effect( SoundEffect.FISH_DEATH )
 			_credit_last_swim()
+		State.RESPAWNING:
+			soundManager.fade_out_effect( SoundEffect.FISH_DEATH, 0.3 )
 		_:
 			pass
 
@@ -84,5 +90,11 @@ func enableSound():
 	_player.save()
 	
 func disableSound():
+	soundManager.fade_out_all( 0.3 )
 	_player.disableSound()
 	_player.save()
+
+
+func _on_game_manager_sound_triggered( soundEffect: SoundEffect ) -> void:
+	if _player.isSoundEnabled():
+		soundManager.trigger_effect( soundEffect )

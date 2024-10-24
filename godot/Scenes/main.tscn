@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=25 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="PackedScene" uid="uid://dscdweyjo64pw" path="res://Scenes/debug_ui.tscn" id="2_3lm13"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://ch18db020xqmp" path="res://Scenes/UI/result_row.tscn" id="19_1v75y"]
 [ext_resource type="AudioStream" uid="uid://d2u0kcl8pn3o2" path="res://Music/theme-00.mp3" id="22_n5j80"]
 [ext_resource type="Script" path="res://Scenes/music_manager.gd" id="23_l5um0"]
+[ext_resource type="Script" path="res://Scenes/sound_manager.gd" id="24_6541p"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -32,9 +33,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Game" parent="." node_paths=PackedStringArray("musicManager") instance=ExtResource("1_0flmv")]
+[node name="Game" parent="." node_paths=PackedStringArray("musicManager", "soundManager") instance=ExtResource("1_0flmv")]
 layout_mode = 1
 musicManager = NodePath("../Managers/MusicManager")
+soundManager = NodePath("../Managers/SoundManager")
 
 [node name="UI" type="Node" parent="."]
 
@@ -392,6 +394,9 @@ stream = ExtResource("22_n5j80")
 playback_type = 1
 parameters/looping = true
 script = ExtResource("23_l5um0")
+
+[node name="SoundManager" type="Node" parent="Managers"]
+script = ExtResource("24_6541p")
 
 [connection signal="state_changed" from="Game" to="UI/InGamePauseMenu/ResultDialogFadeableContainer/ResultDialog" method="on_game_state_changed"]
 [connection signal="zone_changed" from="Game" to="UI/DebugUI" method="_on_game_zone_changed"]

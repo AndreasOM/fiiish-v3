@@ -3,8 +3,12 @@ class_name GameManager
 
 const EntityType = preload("res://Scripts/entity_type.gd").EntityType
 const PickupEffect = preload("res://Scripts/pickup_effect.gd").PickupEffect
+const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
 
 signal zone_changed
+
+signal sound_triggered( SoundEffect )
+
 @export var movement_x: float = 240.0:
 	get:
 		if self._paused:
@@ -182,6 +186,7 @@ func _physics_process_pickups(delta_time: float) -> void:
 					PickupEffect.EXPLOSION:
 						spawn_explosion( pp )
 					_: pass
+				sound_triggered.emit( p.soundEffect() )
 				_coins += p.coin_value()
 				p.queue_free()
 				p.get_parent().remove_child( p )
