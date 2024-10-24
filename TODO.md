@@ -5,6 +5,7 @@
 ## Todo
 
 - [ ] Remove debug UI
+
 ## Later
 - [ ] #godot crossfade toggle buttons
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
@@ -17,6 +18,8 @@
 
 ## Done
 
+### 2024-10-24
+- [x] #godot Add music
 ### 2024-10-22
 - [x] #unity Polish SFX
 - [x] #unity Move setting in front of result
@@ -144,7 +147,7 @@
 - [x] Save & Load settings and progress
 - [x] Add result dialog
 - [x] Add background
-- [u] Add music
+- [x] Add music
 - [u] Add sfx
 - [ ] Improve death (cleanup, etc)
 - [ ] Bonus: Add basic script support -- for testing and screenshots
