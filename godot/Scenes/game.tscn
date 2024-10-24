@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=12 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
@@ -7,12 +7,14 @@
 [ext_resource type="Script" path="res://Scenes/background.gd" id="4_bsinc"]
 [ext_resource type="Script" path="res://Scenes/game_manager.gd" id="4_cqt8y"]
 [ext_resource type="Texture2D" uid="uid://c7yh3onttaenq" path="res://Textures/Backgrounds/background_grad.png" id="5_cq2wm"]
+[ext_resource type="PackedScene" uid="uid://bfbdti018xlkm" path="res://Scenes/Pickups/coin.tscn" id="7_5w3j0"]
+[ext_resource type="PackedScene" uid="uid://nm2c8x0fbn5c" path="res://Scenes/Pickups/coin_explosion.tscn" id="8_wo164"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uo4vc"]
 shader = ExtResource("2_mc2jp")
 shader_parameter/tint = null
 shader_parameter/offset = 759.835
-shader_parameter/phase = 0.685
+shader_parameter/phase = 0.0
 shader_parameter/gradient = ExtResource("5_cq2wm")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_quh18"]
@@ -45,7 +47,7 @@ script = ExtResource("4_bsinc")
 tint = Color(0.351123, 0.464003, 0.607544, 1)
 gradientTexture = ExtResource("5_cq2wm")
 offset = 759.835
-phase = 0.685
+phase = 0.0
 
 [node name="GameNode2D" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -66,6 +68,14 @@ unique_name_in_owner = true
 
 [node name="Pickups" type="Node2D" parent="GameNode2D"]
 unique_name_in_owner = true
+
+[node name="Coin" parent="GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("7_5w3j0")]
+position = Vector2(-258, -8)
+game_manager = NodePath("../../Managers/GameManager")
+
+[node name="CoinExplosion" parent="GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("8_wo164")]
+position = Vector2(-343, 29)
+game_manager = NodePath("../../Managers/GameManager")
 
 [node name="Managers" type="Node" parent="GameNode2D"]
 
@@ -90,4 +100,5 @@ disabled = true
 
 [connection signal="state_changed" from="." to="Background" method="_on_game_state_changed"]
 [connection signal="state_changed" from="GameNode2D/Fishes/Fish" to="." method="_on_fish_state_changed"]
+[connection signal="sound_triggered" from="GameNode2D/Managers/GameManager" to="." method="_on_game_manager_sound_triggered"]
 [connection signal="zone_changed" from="GameNode2D/Managers/GameManager" to="." method="_on_game_manager_zone_changed"]

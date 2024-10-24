@@ -141,6 +141,7 @@ animations = [{
 [node name="Coin" type="Node2D"]
 script = ExtResource("1_okegm")
 _coin_value = 1
+_soundEffect = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true

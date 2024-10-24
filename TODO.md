@@ -20,6 +20,8 @@
 
 ### 2024-10-24
 - [x] #godot Add music
+- [x] #godot Add SFX
+
 ### 2024-10-22
 - [x] #unity Polish SFX
 - [x] #unity Move setting in front of result
