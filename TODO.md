@@ -4,7 +4,7 @@
 
 ## Todo
 
-- [ ] Remove debug UI
+- [ ] #godot Check why zones are missing in web build
 
 ## Later
 - [ ] #godot crossfade toggle buttons
@@ -21,6 +21,7 @@
 ### 2024-10-24
 - [x] #godot Add music
 - [x] #godot Add SFX
+- [x] Remove debug UI
 
 ### 2024-10-22
 - [x] #unity Polish SFX
@@ -150,7 +151,7 @@
 - [x] Add result dialog
 - [x] Add background
 - [x] Add music
-- [u] Add sfx
+- [x] Add sfx
 - [ ] Improve death (cleanup, etc)
 - [ ] Bonus: Add basic script support -- for testing and screenshots
 - [ ] Bonus: Animate Seaweed in code
