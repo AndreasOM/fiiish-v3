@@ -27,9 +27,9 @@ func load_file(path: String) -> bool:
 	
 func save_file(path:String) -> bool:
 	
-	for i in self._data.size():
-		var b = self._data[ i ]
-		print("%02x" % b )
+	#for i in self._data.size():
+	#	var b = self._data[ i ]
+	#	print("%02x" % b )
 		
 	var f = FileAccess.open(path, FileAccess.WRITE)
 	self._data.resize( self._pos )
@@ -57,7 +57,7 @@ func serialize_bool( v: bool ) -> bool:
 func serialize_u8( v: int ) -> int:
 	match _mode:
 		Mode.Write:
-			print("Serializer writing u8")
+			# print("Serializer writing u8")
 			ensure_space( 1 )
 			self._data.encode_u8( self._pos, v & 0xff )
 			self._pos += 1

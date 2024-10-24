@@ -12,19 +12,21 @@ var _sound_players = {
 
 var _soundPlayerScene = preload("res://Scenes/sound_player.tscn")
 
-func _add_sound_player( soundEffect: SoundEffect, amount: int, minSeperation: float, clip: String ):
+func _add_sound_player( soundEffect: SoundEffect, amount: int, minSeperation: float, loop: bool, clip: String ):
 	#var player: SoundPlayer = preload("res://Scenes/sound_player.tscn")
 	var player: SoundPlayer = _soundPlayerScene.instantiate()
 	player.load_clip( clip )
 	player.set_amount( amount )
 	player.set_min_seperation( minSeperation )
+	player.set_loop( loop )
 	self.add_child(player)
 	_sound_players[soundEffect] = player
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_add_sound_player( SoundEffect.PICKED_COIN, 50, 0.025, "res://Sound/picked_coin.wav" )
-	_add_sound_player( SoundEffect.FISH_DEATH, 1, 1.0, "res://Sound/fiish_death.wav" )
+	_add_sound_player( SoundEffect.PICKED_COIN, 50, 0.025, false, "res://Sound/picked_coin.wav" )
+	_add_sound_player( SoundEffect.FISH_DEATH, 1, 1.0, false, "res://Sound/fiish_death.wav" )
+	_add_sound_player( SoundEffect.BUBBLE_BLAST_LOOP, 1, 1.0, true, "res://Sound/bubble_blast_loop.wav" )
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -68,5 +70,6 @@ func fade_out_effect( soundEffect: SoundEffect, duration: float ):
 		player.fade_out( duration )
 
 func fade_out_all( duration: float ):
-	for player in _sound_players:
+	print("fade_out_all")
+	for player in _sound_players.values():
 		player.fade_out( duration )

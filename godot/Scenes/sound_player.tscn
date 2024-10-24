@@ -3,4 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/sound_player.gd" id="1_1mhab"]
 
 [node name="SoundPlayer" type="AudioStreamPlayer"]
+process_mode = 3
 script = ExtResource("1_1mhab")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

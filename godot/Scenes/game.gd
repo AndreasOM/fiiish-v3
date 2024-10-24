@@ -59,10 +59,13 @@ func _on_fish_state_changed(state: Game.State) -> void:
 	state_changed.emit( state )
 	match state:
 		State.DYING:
-			soundManager.trigger_effect( SoundEffect.FISH_DEATH )
+			if _player.isSoundEnabled():
+				soundManager.trigger_effect( SoundEffect.FISH_DEATH )
+				soundManager.trigger_effect( SoundEffect.BUBBLE_BLAST_LOOP )
 			_credit_last_swim()
 		State.RESPAWNING:
 			soundManager.fade_out_effect( SoundEffect.FISH_DEATH, 0.3 )
+			soundManager.fade_out_effect( SoundEffect.BUBBLE_BLAST_LOOP, 0.3 )
 		_:
 			pass
 

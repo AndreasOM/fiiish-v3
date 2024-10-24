@@ -40,12 +40,8 @@ func _on_sound_toggle_button_container_toggled(state: ToggleButtonContainer.Togg
 	match state:
 		ToggleButtonContainer.ToggleState.A:
 			print("Sound toggle to A")
-			var player = game.get_player()
-			player.enableSound()
-			player.save()
+			game.enableSound()
 			
 		ToggleButtonContainer.ToggleState.B:
 			print("Sound toggle to B")
-			var player = game.get_player()
-			player.disableSound()
-			player.save()
+			game.disableSound()
