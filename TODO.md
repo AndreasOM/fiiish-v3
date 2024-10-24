@@ -5,16 +5,23 @@
 ## Todo
 
 - [ ] #godot Check why zones are missing in web build
+- [ ] Add splash image
+- [ ] Create a demo build
 
 ## Later
-- [ ] #godot crossfade toggle buttons
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
-- [ ] #godot Fix debug camera frame
-- [ ] Add volume slider?
 
 ## Future
 - [ ] Add leaderboards
 - [+] Create explosion path editor
+- [?] #godot crossfade toggle buttons
+- [+] #godot Fix debug camera frame
+- [ ] Add volume slider?
+- [ ] Bonus: Animate Seaweed in code
+
+## Released
+
+### V3.0.0 - Target: 2024-10-31
 
 ## Done
 
@@ -154,5 +161,4 @@
 - [x] Add sfx
 - [ ] Improve death (cleanup, etc)
 - [ ] Bonus: Add basic script support -- for testing and screenshots
-- [ ] Bonus: Animate Seaweed in code
 
