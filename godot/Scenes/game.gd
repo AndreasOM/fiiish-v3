@@ -13,6 +13,8 @@ enum State {
 signal zone_changed
 signal state_changed( state: Game.State )
 
+@export var musicManager: MusicManager = null
+
 var _player: Player = Player.new()
 
 # Called when the node enters the scene tree for the first time.
@@ -22,6 +24,10 @@ func _ready() -> void:
 	var player = Player.load()
 	if player != null:
 		_player = player
+		musicManager.fadeOut( 0.0 )
+		if _player.isMusicEnabled():
+			musicManager.fadeIn( 0.3 )
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -62,3 +68,21 @@ func _credit_last_swim():
 	_player.apply_distance(distance)
 	
 	_player.save();
+
+func enableMusic():
+	musicManager.fadeIn( 0.3 )
+	_player.enableMusic()
+	_player.save()
+	
+func disableMusic():
+	musicManager.fadeOut( 0.3 )
+	_player.disableMusic()
+	_player.save()
+
+func enableSound():
+	_player.enableSound()
+	_player.save()
+	
+func disableSound():
+	_player.disableSound()
+	_player.save()

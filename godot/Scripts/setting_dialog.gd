@@ -30,15 +30,11 @@ func _on_music_toggle_button_container_toggled(state: ToggleButtonContainer.Togg
 	match state:
 		ToggleButtonContainer.ToggleState.A:
 			print("Music toggle to A")
-			var player = game.get_player()
-			player.enableMusic()
-			player.save()
+			game.enableMusic()
 			
 		ToggleButtonContainer.ToggleState.B:
 			print("Music toggle to B")
-			var player = game.get_player()
-			player.disableMusic()
-			player.save()
+			game.disableMusic()
 
 func _on_sound_toggle_button_container_toggled(state: ToggleButtonContainer.ToggleState) -> void:
 	match state:
