@@ -25,6 +25,9 @@
 
 ## Done
 
+### 2024-10-26
+- [x] #godot fix background and game to work on all window sizes
+
 ### 2024-10-24
 - [x] #godot Add music
 - [x] #godot Add SFX

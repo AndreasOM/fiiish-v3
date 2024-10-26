@@ -1,4 +1,4 @@
-extends Control
+extends Node
 class_name Game
 
 const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
