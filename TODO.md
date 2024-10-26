@@ -26,7 +26,8 @@
 ## Done
 
 ### 2024-10-26
-- [x] #godot fix background and game to work on all window sizes
+- [x] #godot Fix background and game to work on all window sizes
+- [x] #godot Fix game ui for all window sizes, and re-fix game scale
 
 ### 2024-10-24
 - [x] #godot Add music
