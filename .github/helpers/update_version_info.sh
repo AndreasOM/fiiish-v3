@@ -24,5 +24,6 @@ version=${version}
 suffix=${suffix}
 EOF
 
-
+echo ${PWD}
+echo ${VI}
 cat ${VI}
