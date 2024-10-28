@@ -5,7 +5,7 @@
 ## Todo
 
 - [ ] Add splash image
-- [ ] Create a demo build
+- [g] Create a demo build
 
 ## Later
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
@@ -25,6 +25,7 @@
 ## Done
 ### 2024-10-28
 - [x] #godot Check why zones are missing in web build
+- [x] #godot Create a demo build
 
 ### 2024-10-26
 - [x] #godot Fix background and game to work on all window sizes
