@@ -32,6 +32,10 @@ jobs:
         run: |
           godot --version
 
+      - name: Fix version info
+        run: |
+        .github/helpers/update_version_info.sh Web
+
       - name: Export WebGL
         run: |
           cd godot

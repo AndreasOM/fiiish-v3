@@ -280,6 +280,8 @@ script = ExtResource("11_uqoye")
 game = NodePath("../../../../Game")
 musicToggleButton = NodePath("TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer")
 soundToggleButton = NodePath("TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer")
+descriptionFile = "res://Resources/description.txt"
+versionFile = "res://Resources/version_info.txt"
 
 [node name="TextureRect" type="TextureRect" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog"]
 layout_mode = 2
@@ -310,6 +312,7 @@ color = Color(1, 0.2, 0.2, 0.560784)
 layout_mode = 2
 
 [node name="SettingsTitleRichTextLabel" type="RichTextLabel" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"TitleRichtTextLabel"
@@ -319,6 +322,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="SettingsInfoRichTextLabel" type="RichTextLabel" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
