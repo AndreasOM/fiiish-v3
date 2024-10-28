@@ -16,7 +16,7 @@ func _handles_type(type: StringName) -> bool:
 	return type == "Resource"
 	
 func _load(path: String, original_path: String, use_sub_threads: bool, cache_mode: int) -> Variant:
-	print("!!!!! Load ", original_path)
+	# print("!!!!! Load ", original_path)
 	var n = NewZone.new()
 	
 	var s = Serializer.new()
@@ -62,7 +62,7 @@ func _load(path: String, original_path: String, use_sub_threads: bool, cache_mod
 
 	var name: String = ""
 	name = s.serialize_fixed_string( 64, name )	
-	print( "Name: ", name )
+	# print( "Name: ", name )
 	n.name = name
 	
 	var difficulty: int = 0
@@ -78,9 +78,9 @@ func _load(path: String, original_path: String, use_sub_threads: bool, cache_mod
 	n.width = size_x
 	n.height = size_y
 	
-	print( "Difficulty: ", difficulty )
-	print( "size_x    %f: " % size_x )
-	print( "size_y    %f: " % size_y )
+	#print( "Difficulty: ", difficulty )
+	#print( "size_x    %f: " % size_x )
+	#print( "size_y    %f: " % size_y )
 		#self.difficulty = f.read_u16();
 		#self.size.x = f.read_f32();
 		#self.size.y = f.read_f32();
@@ -93,7 +93,7 @@ func _load(path: String, original_path: String, use_sub_threads: bool, cache_mod
 		# :TODO: layer.serialize( s )	
 		var layer_name: String = ""
 		layer.name = s.serialize_fixed_string( 16, layer.name )	
-		print( "Layer Name: ", layer.name )
+		# print( "Layer Name: ", layer.name )
 		var object_count = 0
 		object_count = s.serialize_u16( layer_count )
 		for o in range(object_count):

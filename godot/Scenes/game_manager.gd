@@ -119,6 +119,7 @@ func take_current_distance_in_meters() -> int:
 func _ready() -> void:
 	var zones = DirAccess.get_files_at("res://Resources/Zones/")
 	for zn in zones:
+		print("Zones: %s" % zn)
 		var fzn = "res://Resources/Zones/%s" % zn
 		var z = load( fzn )
 		self._zones.push_back(z )
