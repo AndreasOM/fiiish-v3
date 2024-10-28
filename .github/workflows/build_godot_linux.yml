@@ -1,9 +1,9 @@
-name: Build WebGL on push
+name: Build Linux
 on: 
   workflow_dispatch:
   push:
     tags:
-      # - "v*"
+      - "v*"
     paths:
       - godot/**
 
@@ -32,23 +32,24 @@ jobs:
         run: |
           godot --version
 
-      - name: Export WebGL
+      - name: Export Linux
         run: |
           cd godot
           mkdir -p export/web
-          godot --headless --export-debug Web export/web/fiiish-v3.html --quit || exit 0
+          godot --headless --export-debug Linux export/linux/fiiish-v3.x86_64 --quit || exit 0
 
       - name: Check result
         run: |
           cd godot
           find export
 
-      - name: Update alpha
-        run: |
-          cd godot
-          aws s3 sync export/web/ s3://games.omnimad.net/alpha/fiiish-v3/
-          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/*"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "eu-west-1"
+#      - name: Update alpha
+#        run: |
+#          cd godot
+#          # :TODO:
+#          # aws s3 sync export/web/ s3://games.omnimad.net/alpha/fiiish-v3/
+#          # aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/*"
+#        env:
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          AWS_DEFAULT_REGION: "eu-west-1"
