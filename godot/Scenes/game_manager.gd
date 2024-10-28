@@ -117,6 +117,13 @@ func take_current_distance_in_meters() -> int:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var dirs = DirAccess.get_directories_at("res://Resources/")
+	for d in dirs:
+		print("Dirs: %s" % d)
+	var files = DirAccess.get_files_at("res://Resources/")
+	for f in files:
+		print("Files: %s" % f)
+		
 	var zones = DirAccess.get_files_at("res://Resources/Zones/")
 	for zn in zones:
 		print("Zones: %s" % zn)
