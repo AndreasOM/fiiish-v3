@@ -35,7 +35,7 @@ jobs:
       - name: Export Linux
         run: |
           cd godot
-          mkdir -p export/web
+          mkdir -p export/linux
           godot --headless --export-debug Linux export/linux/fiiish-v3.x86_64 --quit || exit 0
 
       - name: Check result
