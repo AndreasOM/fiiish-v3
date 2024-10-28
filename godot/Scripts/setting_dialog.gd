@@ -26,7 +26,7 @@ func _ready() -> void:
 	
 	var commit = "local"
 	var build = "local"
-	var version = "version_infov0.0.0"
+	var version = "v0.0.0"
 	var suffix = "local"
 	for l in vlines:
 		print( l )
