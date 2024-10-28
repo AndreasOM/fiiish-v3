@@ -3,6 +3,8 @@ extends Control
 @export var game: Game = null
 @export var musicToggleButton: ToggleButtonContainer = null
 @export var soundToggleButton: ToggleButtonContainer = null
+@export var descriptionFile: String
+@export var versionFile: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,7 +20,38 @@ func _ready() -> void:
 	else:
 		soundToggleButton.goto_b()
 		
-	pass # Replace with function body.
+	var desc = FileAccess.get_file_as_string( descriptionFile )
+	var version_info = FileAccess.get_file_as_string( versionFile )
+	var vlines = version_info.split("\n")
+	
+	var commit = "local"
+	var build = "local"
+	var version = "version_infov0.0.0"
+	var suffix = "local"
+	for l in vlines:
+		print( l )
+		var p = l.split("=")
+		if p.size() != 2:
+			print("Skipping %s" % l)
+			continue
+		match p[ 0 ]:
+			"commit": commit = p[ 1 ]
+			"build": build = p[ 1 ]
+			"version": version = p[ 1 ]
+			"suffix": suffix = p[ 1 ]
+			_:
+				pass
+	var versionString = "Fiiish! %s" % [ version ]
+	if suffix != "":
+		versionString = "%s-%s" % [ versionString, suffix ]
+	versionString = "%s (Godot)" % [ versionString ]
+	%SettingsTitleRichTextLabel.text = versionString
+	
+	desc = desc.replace( "[commit]", commit )
+	desc = desc.replace( "[build]", build )
+	desc = desc.replace( "[version]", version )
+	desc = desc.replace( "[suffix]", suffix )
+	%SettingsInfoRichTextLabel.text = desc
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
