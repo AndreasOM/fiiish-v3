@@ -17,7 +17,7 @@ func load_file(path: String) -> bool:
 	self._data = data
 	self._pos = 0
 	self._mode = Mode.Read
-	print("Size of %s = %d" % [ path, self._data.size() ])
+	# print("Size of %s = %d" % [ path, self._data.size() ])
 	if self._data.size() == 0:
 		var e = FileAccess.get_open_error()
 		print("Error opening %s" % path )
