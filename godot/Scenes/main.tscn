@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=29 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scenes/in_game_pause_menu.gd" id="5_rumqw"]
 [ext_resource type="Script" path="res://Scenes/toggle_button_container.gd" id="6_f48l1"]
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_ue6v2"]
+[ext_resource type="FontFile" uid="uid://bb2pts3o32ebo" path="res://Fonts/all_things_pink.ttf" id="7_c40ns"]
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="8_oaf07"]
 [ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="9_jeb54"]
 [ext_resource type="Texture2D" uid="uid://cglln6ar6xm5y" path="res://Textures/UI/Buttons/button_sound_on.png" id="10_jcui4"]
@@ -26,6 +27,13 @@
 [ext_resource type="AudioStream" uid="uid://d2u0kcl8pn3o2" path="res://Music/theme-00.mp3" id="22_n5j80"]
 [ext_resource type="Script" path="res://Scenes/music_manager.gd" id="23_l5um0"]
 [ext_resource type="Script" path="res://Scenes/sound_manager.gd" id="24_6541p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uwb6x"]
+font = ExtResource("7_c40ns")
+font_size = 128
+font_color = Color(0.952438, 0.613833, 0.475208, 1)
+outline_size = 35
+outline_color = Color(0.038076, 0.0370335, 6.01634e-09, 1)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -123,6 +131,42 @@ offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
 texture = ExtResource("5_l2xk6")
+
+[node name="DemoContainer" type="MarginContainer" parent="UI/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Control" type="Control" parent="UI/HUD/DemoContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/HUD/DemoContainer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -293.0
+offset_top = -137.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = -0.785398
+text = "DEMO"
+label_settings = SubResource("LabelSettings_uwb6x")
 
 [node name="InGamePauseMenu" type="Control" parent="UI" node_paths=PackedStringArray("game")]
 process_mode = 3
