@@ -4,7 +4,6 @@
 
 ## Todo
 
-- [ ] #godot Check why zones are missing in web build
 - [ ] Add splash image
 - [ ] Create a demo build
 
@@ -24,6 +23,8 @@
 ### V3.0.0 - Target: 2024-10-31
 
 ## Done
+### 2024-10-28
+- [x] #godot Check why zones are missing in web build
 
 ### 2024-10-26
 - [x] #godot Fix background and game to work on all window sizes
