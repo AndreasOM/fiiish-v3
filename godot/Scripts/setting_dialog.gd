@@ -4,6 +4,7 @@ extends Control
 @export var musicToggleButton: ToggleButtonContainer = null
 @export var soundToggleButton: ToggleButtonContainer = null
 @export var descriptionFile: String
+@export var descriptionDemoFile: String
 @export var versionFile: String
 
 # Called when the node enters the scene tree for the first time.
@@ -19,8 +20,12 @@ func _ready() -> void:
 		soundToggleButton.goto_a()
 	else:
 		soundToggleButton.goto_b()
-		
-	var desc = FileAccess.get_file_as_string( descriptionFile )
+
+	var desc = ""		
+	if OS.has_feature("demo"):
+		desc = FileAccess.get_file_as_string( descriptionDemoFile )
+	else:
+		desc = FileAccess.get_file_as_string( descriptionFile )
 	var version_info = FileAccess.get_file_as_string( versionFile )
 	var vlines = version_info.split("\n")
 	
@@ -45,6 +50,8 @@ func _ready() -> void:
 	if suffix != "":
 		versionString = "%s-%s" % [ versionString, suffix ]
 	versionString = "%s (Godot)" % [ versionString ]
+	if OS.has_feature("demo"):
+		versionString = "%s [DEMO]" % [ versionString ]
 	%SettingsTitleRichTextLabel.text = versionString
 	
 	desc = desc.replace( "[commit]", commit )

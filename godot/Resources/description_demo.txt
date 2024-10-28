@@ -1,0 +1,5 @@
+Demo Version
+Check our website for full version
+
+commit=[commit]
+build=[build]

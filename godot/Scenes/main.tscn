@@ -281,6 +281,7 @@ game = NodePath("../../../../Game")
 musicToggleButton = NodePath("TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer")
 soundToggleButton = NodePath("TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer")
 descriptionFile = "res://Resources/description.txt"
+descriptionDemoFile = "res://Resources/description_demo.txt"
 versionFile = "res://Resources/version_info.txt"
 
 [node name="TextureRect" type="TextureRect" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog"]
