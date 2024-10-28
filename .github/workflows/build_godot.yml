@@ -34,13 +34,13 @@ jobs:
 
       - name: Fix version info
         run: |
-          .github/helpers/update_version_info.sh Web
+          .github/helpers/update_version_info.sh Web-demo
 
       - name: Export WebGL
         run: |
           cd godot
           mkdir -p export/web
-          godot --headless --export-debug Web export/web/fiiish-v3.html --quit || exit 0
+          godot --headless --export-debug Web-demo export/web/fiiish-v3.html --quit || exit 0
 
       - name: Check result
         run: |
@@ -50,7 +50,7 @@ jobs:
       - name: Update alpha
         run: |
           cd godot
-          aws s3 sync export/web/ s3://games.omnimad.net/alpha/fiiish-v3/
+          aws s3 sync export/webgl-demo/ s3://games.omnimad.net/alpha/fiiish-v3/
           aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

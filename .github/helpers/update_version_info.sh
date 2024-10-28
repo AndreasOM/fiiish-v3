@@ -21,3 +21,6 @@ build=${build}
 version=${version}
 suffix=${suffix}
 EOF
+
+
+cat ${VI}
