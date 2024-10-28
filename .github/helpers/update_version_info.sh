@@ -8,12 +8,14 @@ suffix="local"
 build=${1:-unknown}
 if [ ${version:+1} ]
 then
-	version=v0.0.0
+	suffix=$(echo ${version}|cut -d'-' -f2)
+	version=$(echo ${version}|cut -d'-' -f1)
 else
-	suffix="TODO"
+	version=v0.0.0
 fi
-echo ${build}
-echo ${suffix}
+echo version ${version}
+echo build ${build}
+echo suffix ${suffix}
 
 cat <<EOF >${VI}
 commit=${commit}
