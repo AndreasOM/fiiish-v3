@@ -153,11 +153,11 @@ func _process(delta: float) -> void:
 			pass
 	_distance += self.movement_x * delta
 
-	if Input.is_key_pressed(KEY_D):
-		_distance += 100 * pixels_per_meter
+#	if Input.is_key_pressed(KEY_D):
+#		_distance += 100 * pixels_per_meter
 	
-	if Input.is_key_pressed(KEY_C):
-		_coins += 100
+#	if Input.is_key_pressed(KEY_C):
+#		_coins += 100
 			
 
 func _physics_process(delta: float) -> void:
