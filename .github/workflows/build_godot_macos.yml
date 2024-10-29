@@ -105,4 +105,5 @@ jobs:
           echo "| LATEST_FILE      | ${{ env.LATEST_FILE }}     |" >> $GITHUB_STEP_SUMMARY
           echo "| S3_ARCHIVE_FILE      | \`${{ env.S3_ARCHIVE_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
           echo "| S3_LATEST_FILE      | \`${{ env.S3_LATEST_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
+          echo "| VERSION      | \`${{ env.VERSION }}\`     |" >> $GITHUB_STEP_SUMMARY
 
