@@ -9,7 +9,6 @@
 
 ## Later
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
-- [ ] Add version to butler uploads for itchio
 
 ## Future
 - [ ] Add leaderboards
@@ -19,14 +18,21 @@
 - [ ] Add volume slider?
 - [ ] Bonus: Animate Seaweed in code
 
+## Done
+
 ## Released
 
-### V3.0.0 - Target: 2024-10-31
+### V3.0.1-rc3 - 2024-08-29
 
-## Done
+First release of the Godot version on itch.io.
+[itch.io - v3.0.1-rc3-uploaded](https://omni-mad.itch.io/fiiish-v3/devlog/824500/v301-rc3-uploaded)
+
+(### V3.0.0 - Target: 2024-10-31)
+
 
 ##3 204-10-29
 - [x] #godot Add splash screen
+- [x] #godot Add version to butler uploads for itchio
 
 ### 2024-10-28
 - [x] #godot Check why zones are missing in web build
