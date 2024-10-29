@@ -79,9 +79,9 @@ jobs:
 #          cd godot/export/linux
 
       - name: Create latest reference
-          run: |
-            echo ${{ env.LATEST_CONTENT }} > ${{ env.LATEST_FILE }}
-            aws s3 sync ${{ env.LATEST_FILE }} ${{ env.S#_LATEST_FILE }}
+        run: |
+          echo ${{ env.LATEST_CONTENT }} > ${{ env.LATEST_FILE }}
+          aws s3 sync ${{ env.LATEST_FILE }} ${{ env.S#_LATEST_FILE }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
