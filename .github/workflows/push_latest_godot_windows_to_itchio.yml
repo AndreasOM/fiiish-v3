@@ -1,4 +1,4 @@
-name: Push latest macOS to itchio
+name: Push latest Windows to itchio
 on: 
   workflow_dispatch:
 #  push:
