@@ -45,6 +45,8 @@ jobs:
           echo "S3_LATEST_FILE=${S3_LATEST_FILE}" >> $GITHUB_ENV
           LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
           echo "LATEST_CONTENT=${LATEST_CONTENT}" >> $GITHUB_ENV
+          VERSION=$(git tag --points-at HEAD)
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Fix version info
         run: |
@@ -63,6 +65,7 @@ jobs:
       - name: Export Windows
         run: |
           cd godot
+          echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
           mkdir -p export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
           godot --headless --export-debug ${{ env.BUILD_TYPE }} export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY }} --quit || exit 0
 
@@ -102,4 +105,5 @@ jobs:
           echo "| LATEST_FILE      | ${{ env.LATEST_FILE }}     |" >> $GITHUB_STEP_SUMMARY
           echo "| S3_ARCHIVE_FILE      | \`${{ env.S3_ARCHIVE_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
           echo "| S3_LATEST_FILE      | \`${{ env.S3_LATEST_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
+          echo "| VERSION      | \`${{ env.VERSION }}\`     |" >> $GITHUB_STEP_SUMMARY
 
