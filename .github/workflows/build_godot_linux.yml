@@ -81,7 +81,7 @@ jobs:
       - name: Create latest reference
         run: |
           echo ${{ env.LATEST_CONTENT }} > ${{ env.LATEST_FILE }}
-          aws s3 sync ${{ env.LATEST_FILE }} ${{ env.S3_LATEST_FILE }}
+          aws s3 cp ${{ env.LATEST_FILE }} ${{ env.S3_LATEST_FILE }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -99,6 +99,7 @@ jobs:
 #          AWS_DEFAULT_REGION: "eu-west-1"
 
       - name: Create Summary
+        if: always()
         run: |
           build_number=$(cat build_number.txt)
           echo "| COMMIT_HASH      | ${{ env.COMMIT_HASH }}     |" >> $GITHUB_STEP_SUMMARY
