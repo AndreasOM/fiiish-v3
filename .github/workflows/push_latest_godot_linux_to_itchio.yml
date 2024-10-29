@@ -23,7 +23,7 @@ jobs:
         run: |
           PROJECT=fiiish-v3
           echo "PROJECT=${PROJECT}" >> $GITHUB_ENV
-          BUILD_TYPE="macOS"
+          BUILD_TYPE="Linux"
           echo "BUILD_TYPE=${BUILD_TYPE}" >> $GITHUB_ENV
           LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
           echo "LATEST_FILE=${LATEST_FILE}" >> $GITHUB_ENV
@@ -57,6 +57,6 @@ jobs:
 
       - name: Push to itch.io
         run: |
-          butler push . omni-mad/fiiish-v3:osx-universal
+          butler push . omni-mad/fiiish-v3:linux-universal
           # --userversion-file=${{ matrix.version_file }}
         working-directory: fiiish-v3-${{ env.BUILD_TYPE }}

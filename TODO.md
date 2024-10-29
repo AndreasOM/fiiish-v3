@@ -9,6 +9,7 @@
 
 ## Later
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
+- [ ] Add version to butler uploads for itchio
 
 ## Future
 - [ ] Add leaderboards
