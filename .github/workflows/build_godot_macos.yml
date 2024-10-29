@@ -1,0 +1,105 @@
+name: Build macOS
+on: 
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+    # We always build on a tag
+    # paths:
+    #  - godot/**
+
+jobs:
+  build:
+    runs-on: ubicloud-standard-4
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            godot
+          fetch-depth: 1
+      - name: Create variables
+        run: |
+          PROJECT=fiiish-v3
+          echo "PROJECT=${PROJECT}" >> $GITHUB_ENV
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          echo "COMMIT_HASH=${COMMIT_HASH}" >> $GITHUB_ENV
+          COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
+          echo "COMMIT_DATE=${COMMIT_DATE}" >> $GITHUB_ENV
+          ARCHIVE_FILE=fiiish-v3-macos-${COMMIT_DATE}.tgz
+          echo "ARCHIVE_FILE=${ARCHIVE_FILE}" >> $GITHUB_ENV
+          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
+          echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}" >> $GITHUB_ENV
+          BUILD_TYPE="macOS"
+          echo "BUILD_TYPE=${BUILD_TYPE}" >> $GITHUB_ENV
+          BINARY=${PROJECT}.app
+          echo "BINARY=${BINARY}" >> $GITHUB_ENV
+          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
+          echo "LATEST_FILE=${LATEST_FILE}" >> $GITHUB_ENV
+          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
+          echo "S3_LATEST_FILE=${S3_LATEST_FILE}" >> $GITHUB_ENV
+          LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
+          echo "LATEST_CONTENT=${LATEST_CONTENT}" >> $GITHUB_ENV
+
+      - name: Fix version info
+        run: |
+          .github/helpers/update_version_info.sh ${{ env. BUILD_TYPE }}
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.3.0
+          use-dotnet: false
+          include-templates: true
+      - name: Verify setup
+        run: |
+          godot --version
+
+      - name: Export macOS
+        run: |
+          cd godot
+          mkdir -p export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          godot --headless --export-debug ${{ env.BUILD_TYPE }} export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY }} --quit || exit 0
+
+      - name: Check result
+        run: |
+          cd godot
+          find export
+
+      - name: Upload artifact
+        run: |
+          cd godot/export
+          tar czf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Create latest reference
+        run: |
+          echo ${{ env.LATEST_CONTENT }} > ${{ env.LATEST_FILE }}
+          aws s3 cp ${{ env.LATEST_FILE }} ${{ env.S3_LATEST_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Create Summary
+        if: always()
+        run: |
+          echo "| COMMIT_HASH      | ${{ env.COMMIT_HASH }}     |" >> $GITHUB_STEP_SUMMARY
+          echo "| :----------- | ---------------------: |" >> $GITHUB_STEP_SUMMARY
+          echo "| COMMIT_DATE      | ${{ env.COMMIT_DATE }}     |" >> $GITHUB_STEP_SUMMARY
+          echo "| ARCHIVE_FILE      | ${{ env.ARCHIVE_FILE }}     |" >> $GITHUB_STEP_SUMMARY
+          echo "| BUILD_TYPE      | ${{ env.BUILD_TYPE }}     |" >> $GITHUB_STEP_SUMMARY
+          echo "| BINARY      | ${{ env.BINARY }}     |" >> $GITHUB_STEP_SUMMARY
+          echo "| LATEST_FILE      | ${{ env.LATEST_FILE }}     |" >> $GITHUB_STEP_SUMMARY
+          echo "| S3_ARCHIVE_FILE      | \`${{ env.S3_ARCHIVE_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
+          echo "| S3_LATEST_FILE      | \`${{ env.S3_LATEST_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
+
