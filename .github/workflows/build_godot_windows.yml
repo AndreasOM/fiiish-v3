@@ -62,7 +62,7 @@ jobs:
         run: |
           godot --version
 
-      - name: Open project
+      - name: Open project for import
         run: |
           cd godot
           godot --headless --import || exit 0

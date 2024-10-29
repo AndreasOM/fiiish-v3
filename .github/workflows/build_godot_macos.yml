@@ -62,6 +62,11 @@ jobs:
         run: |
           godot --version
 
+      - name: Open project for import
+        run: |
+          cd godot
+          godot --headless --import || exit 0
+
       - name: Export macOS
         run: |
           cd godot

@@ -73,6 +73,11 @@ jobs:
           cd godot
           find export
 
+      - name: Open project for import
+        run: |
+          cd godot
+          godot --headless --import || exit 0
+
       - name: Upload artifact
         run: |
           cd godot/export
