@@ -62,11 +62,15 @@ jobs:
         run: |
           godot --version
 
+      - name: Open project
+        run: |
+          cd godot
+          godot --headless --import || exit 0
+
       - name: Export Windows
         run: |
           cd godot
           mkdir -p export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
-          godot --headless --quit
           godot --headless --export-debug ${{ env.BUILD_TYPE }} export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY }} --quit || exit 0
 
       - name: Check result
