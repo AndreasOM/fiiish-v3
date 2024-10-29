@@ -57,6 +57,5 @@ jobs:
 
       - name: Push to itch.io
         run: |
-          butler push . omni-mad/fiiish-v3:osx-universal
-          # --userversion-file=${{ matrix.version_file }}
+          butler push . omni-mad/fiiish-v3:osx-universal --userversion-file=version.txt
         working-directory: fiiish-v3-${{ env.BUILD_TYPE }}

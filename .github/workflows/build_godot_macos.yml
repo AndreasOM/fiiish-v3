@@ -45,6 +45,8 @@ jobs:
           echo "S3_LATEST_FILE=${S3_LATEST_FILE}" >> $GITHUB_ENV
           LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
           echo "LATEST_CONTENT=${LATEST_CONTENT}" >> $GITHUB_ENV
+          VERSION=$(git tag --points-at HEAD)
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Fix version info
         run: |
@@ -74,6 +76,7 @@ jobs:
       - name: Upload artifact
         run: |
           cd godot/export
+          echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
           tar czvf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
           aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
         env:
