@@ -4,8 +4,9 @@ on:
   push:
     tags:
       - "v*"
-    paths:
-      - godot/**
+    # We always build on a tag
+    # paths:
+    #  - godot/**
 
 jobs:
   build:
@@ -49,34 +50,36 @@ jobs:
         run: |
           .github/helpers/update_version_info.sh ${{ env. BUILD_TYPE }}
 
-#      - name: Setup Godot
-#        uses: chickensoft-games/setup-godot@v1
-#        with:
-#          version: 4.3.0
-#          use-dotnet: false
-#          include-templates: true
-#      - name: Verify setup
-#        run: |
-#          godot --version
-#
-#      - name: Fix version info
-#        run: |
-#          .github/helpers/update_version_info.sh Linux
-#
-#      - name: Export Linux
-#        run: |
-#          cd godot
-#          mkdir -p export/linux
-#          godot --headless --export-debug Linux export/linux/fiiish-v3.x86_64 --quit || exit 0
-#
-#      - name: Check result
-#        run: |
-#          cd godot
-#          find export
-#
-#      - name: Upload artifact
-#        run: |
-#          cd godot/export/linux
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.3.0
+          use-dotnet: false
+          include-templates: true
+      - name: Verify setup
+        run: |
+          godot --version
+
+      - name: Export Linux
+        run: |
+          cd godot
+          mkdir -p export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          godot --headless --export-debug ${{ env.BUILD_TYPE }} export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY }} --quit || exit 0
+
+      - name: Check result
+        run: |
+          cd godot
+          find export
+
+      - name: Upload artifact
+        run: |
+          cd godot/export
+          tar xzf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
 
       - name: Create latest reference
         run: |
@@ -86,17 +89,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "eu-west-1"
-
-#      - name: Update alpha
-#        run: |
-#          cd godot
-#          # :TODO:
-#          # aws s3 sync export/web/ s3://games.omnimad.net/alpha/fiiish-v3/
-#          # aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/*"
-#        env:
-#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          AWS_DEFAULT_REGION: "eu-west-1"
 
       - name: Create Summary
         if: always()
