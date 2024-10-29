@@ -65,7 +65,8 @@ jobs:
       - name: Export Windows
         run: |
           cd godot
-          echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
+          mkdir -p export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          godot --headless --quit
           godot --headless --export-debug ${{ env.BUILD_TYPE }} export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY }} --quit || exit 0
 
       - name: Check result
@@ -76,7 +77,7 @@ jobs:
       - name: Upload artifact
         run: |
           cd godot/export
-          mkdir -p export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
           tar czf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
           aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
         env:
