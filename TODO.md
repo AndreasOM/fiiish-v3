@@ -4,7 +4,7 @@
 
 ## Todo
 
-- [ ] Add splash image
+- [g] Add splash image
 - [g] Create a demo build
 
 ## Later
@@ -23,6 +23,10 @@
 ### V3.0.0 - Target: 2024-10-31
 
 ## Done
+
+##3 204-10-29
+- [x] #godot Add splash screen
+
 ### 2024-10-28
 - [x] #godot Check why zones are missing in web build
 - [x] #godot Create a demo build
