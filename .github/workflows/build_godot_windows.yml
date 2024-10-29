@@ -48,7 +48,7 @@ jobs:
 
       - name: Fix version info
         run: |
-          .github/helpers/update_version_info.sh ${{ env. BUILD_TYPE }}
+          .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
 
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v1
