@@ -51,14 +51,10 @@ jobs:
           username: ${{ secrets.UNITY_USERNAME }}
           password: ${{ secrets.UNITY_PASSWORD }}
 
-      - name: Verify setup
-        run: |
-          godot --version
-
-      - name: Fix version info
-        run: |
-          .github/helpers/update_version_info.sh Web-demo
-
+#      - name: Fix version info
+#        run: |
+#          .github/helpers/update_version_info.sh Web-demo
+#
 
       - name: Export WebGL Demo
         run: |
