@@ -4,7 +4,6 @@
 
 ## Todo
 
-- [g] Add splash image
 - [g] Create a demo build
 
 ## Later
@@ -19,6 +18,9 @@
 - [ ] Bonus: Animate Seaweed in code
 
 ## Done
+
+### 2024-11-06
+- [x] #unity Add splash screen
 
 ## Released
 
