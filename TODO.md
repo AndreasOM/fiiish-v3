@@ -4,7 +4,6 @@
 
 ## Todo
 
-- [g] Create a demo build
 
 ## Later
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
@@ -21,6 +20,7 @@
 
 ### 2024-11-06
 - [x] #unity Add splash screen
+- [x] #unity Create a demo build
 
 ## Released
 
