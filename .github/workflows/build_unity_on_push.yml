@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubicloud-standard-16
+    runs-on: ubicloud-standard-30
     defaults:
       run:
         # Use bash shells on all platforms.
@@ -25,7 +25,7 @@ jobs:
 
       - name: Cache Unity
         id: cache-unity
-        uses: actions/cache@v4
+        uses: ubicloud/cache@v4
         with:
           path: Unity
           key: ${{ runner.os }}-unity
@@ -59,22 +59,23 @@ jobs:
 #        run: |
 #          .github/helpers/update_version_info.sh Web-demo
 #
-      - name: Export WebGL Demo
-        run: |
-          cd unity
-          /home/runner/Unity/Hub/Editor/6000.0.24f1/Editor/Unity --verbose --headless --quit --batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
 
-      - name: Check result
-        run: |
-          cd unity
-          find export
-
-      - name: Update alpha
-        run: |
-          cd unity
-          aws s3 sync export/web-demo/ s3://games.omnimad.net/alpha/fiiish-v3-unity/
-          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3-unity/*"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "eu-west-1"
+#      - name: Export WebGL Demo
+#        run: |
+#          cd unity
+#          /home/runner/Unity/Hub/Editor/6000.0.24f1/Editor/Unity --verbose --headless --quit --batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
+#
+#      - name: Check result
+#        run: |
+#          cd unity
+#          find export
+#
+#      - name: Update alpha
+#        run: |
+#          cd unity
+#          aws s3 sync export/web-demo/ s3://games.omnimad.net/alpha/fiiish-v3/unity/
+#          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/unity/*"
+#        env:
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          AWS_DEFAULT_REGION: "eu-west-1"
