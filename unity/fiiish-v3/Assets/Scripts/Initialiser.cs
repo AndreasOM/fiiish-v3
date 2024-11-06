@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Initialiser : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Initialiser : MonoBehaviour
     {
         #if DEMO
             Debug.Log("DEMO build");
+            SceneManager.LoadScene("DemoOverlayScene", LoadSceneMode.Additive);
         #else
             Debug.Log("Normal build");
         #endif

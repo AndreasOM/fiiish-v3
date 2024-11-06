@@ -27,8 +27,8 @@ jobs:
         # with:
           # version-file: 'path/to/your/ProjectSettings.ProjectVersion.txt'
           # unity-version: ${{ matrix.unity-versions }} # overrides version in version-file
-          # build-targets: ${{ matrix.build-targets }}
-          # modules: ${{ matrix.modules }}
+          build-targets: webgl
+          modules: webgl
 
 #      - name: Verify setup
 #        run: |
