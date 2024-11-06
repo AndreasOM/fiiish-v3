@@ -29,6 +29,12 @@ jobs:
           # unity-version: ${{ matrix.unity-versions }} # overrides version in version-file
           build-targets: WebGL
           modules: webgl
+      - name: Activate unity
+        uses: RageAgainstThePixel/activate-unity-license@v1
+        with:
+          license: 'Personal' # Choose license type to use [ Personal, Professional, Floating ]
+          username: ${{ secrets.UNITY_USERNAME }}
+          password: ${{ secrets.UNITY_PASSWORD }}
 
 #      - name: Verify setup
 #        run: |
@@ -41,7 +47,7 @@ jobs:
       - name: Export WebGL Demo
         run: |
           cd unity
-          unity --verbose --headless --quit --batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
+          /home/runner/Unity/Hub/Editor/6000.0.24f1/Editor/Unity --verbose --headless --quit --batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
 
       - name: Check result
         run: |
