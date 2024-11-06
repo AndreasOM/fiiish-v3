@@ -22,6 +22,20 @@ jobs:
             .github
             unity
           fetch-depth: 1
+
+      - name: Cache Unity
+        id: cache-unity
+        uses: actions/cache@v4
+        with:
+          path: Unity
+          key: ${{ runner.os }}-unity
+
+      - name: Check Unity cache
+        if: steps.cache-primes.outputs.cache-hit == 'true'
+        run: |
+          echo "Unity cache was hit"
+          du -sch Unity
+
       - name: Setup Unity
         uses: RageAgainstThePixel/unity-setup@v1
         with:
@@ -29,6 +43,7 @@ jobs:
           # unity-version: ${{ matrix.unity-versions }} # overrides version in version-file
           build-targets: WebGL
           modules: webgl
+
       - name: Activate unity
         uses: RageAgainstThePixel/activate-unity-license@v1
         with:
