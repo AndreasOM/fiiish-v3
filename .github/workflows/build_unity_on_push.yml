@@ -27,7 +27,7 @@ jobs:
         with:
           # version-file: 'path/to/your/ProjectSettings.ProjectVersion.txt'
           # unity-version: ${{ matrix.unity-versions }} # overrides version in version-file
-          build-targets: webgl
+          build-targets: WebGL
           modules: webgl
 
 #      - name: Verify setup
@@ -38,23 +38,22 @@ jobs:
 #        run: |
 #          .github/helpers/update_version_info.sh Web-demo
 #
-#      - name: Export WebGL
-#        run: |
-#          cd godot
-#          mkdir -p export/webgl-demo
-#          godot --headless --export-debug Web-demo export/webgl-demo/fiiish-v3.html --quit || exit 0
-#
-#      - name: Check result
-#        run: |
-#          cd godot
-#          find export
-#
-#      - name: Update alpha
-#        run: |
-#          cd godot
-#          aws s3 sync export/webgl-demo/ s3://games.omnimad.net/alpha/fiiish-v3/
-#          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/*"
-#        env:
-#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          AWS_DEFAULT_REGION: "eu-west-1"
+      - name: Export WebGL Demo
+        run: |
+          cd unity
+          unity --verbose --headless --quit --batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
+
+      - name: Check result
+        run: |
+          cd unity
+          find export
+
+      - name: Update alpha
+        run: |
+          cd unity
+          aws s3 sync export/webgl-demo/ s3://games.omnimad.net/alpha/fiiish-v3-unity/
+          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3-unity/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
