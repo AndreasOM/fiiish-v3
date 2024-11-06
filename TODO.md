@@ -22,7 +22,7 @@
 
 ## Released
 
-### V3.0.1-rc3 - 2024-08-29
+### V3.0.1-rc3 - 2024-10-29
 
 First release of the Godot version on itch.io.
 [itch.io - v3.0.1-rc3-uploaded](https://omni-mad.itch.io/fiiish-v3/devlog/824500/v301-rc3-uploaded)
@@ -30,7 +30,7 @@ First release of the Godot version on itch.io.
 (### V3.0.0 - Target: 2024-10-31)
 
 
-##3 204-10-29
+### 2024-10-29
 - [x] #godot Add splash screen
 - [x] #godot Add version to butler uploads for itchio
 
