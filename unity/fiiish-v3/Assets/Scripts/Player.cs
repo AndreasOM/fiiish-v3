@@ -66,13 +66,32 @@ public class Player : ScriptableObject
         Debug.Log("Serialized player");
         
         var path = GetSavePath();
-        Debug.Log($"Saving to ${path}");
-        serializer.SaveFile(path);
+        Debug.Log($"Saving to {path}");
+        if (!serializer.SaveFile(path))
+        {
+            Debug.LogWarning("Failed saving player");
+        }
+        else
+        {
+            Debug.Log("Saved player");
+            SaveGame.SyncFS();
+        }
     }
 
     private string GetSavePath()
     {
-        var path = Application.persistentDataPath + "/player.data";
+        var path = Application.persistentDataPath;
+        if (path.StartsWith("/idbfs/"))
+        {
+            path = "/idbfs";
+        }
+        var productPath = "/" + Application.productName;
+        if (!path.EndsWith(productPath))
+        {
+            path = path + productPath;
+        }
+        path = path + "/player.data";
+        
         return path;
     }
 

@@ -60,13 +60,33 @@ public class Serializer // : ScriptableObject
 
     public bool SaveFile(string path)
     {
-        using (FileStream fs = File.OpenWrite(path))
+        try
         {
-            foreach (var b in _buffer)
+            var folder = Path.GetDirectoryName(path);
+            if (!Directory.Exists(folder))
             {
-                fs.WriteByte(b);
+                Directory.CreateDirectory(folder);
+            }
+            using (FileStream fs = File.OpenWrite(path))
+            {
+                if (!fs.CanWrite)
+                {
+                    Debug.LogWarning($"Cannot write to {path}");
+                    return false;
+                }
+
+                foreach (var b in _buffer)
+                {
+                    fs.WriteByte(b);
+                }
             }
         }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"Failed writing to {path}: {ex.Message} ");
+            return false;
+        }
+
         return true;
     }
 
