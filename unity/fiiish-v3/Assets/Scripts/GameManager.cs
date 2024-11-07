@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     public UnityEvent<Game.State> onStateChanged;
     public UnityEvent<AudioEffectId> onAudioEffectTriggered;
 
+    public List<ZoneList> zoneLists;
+    
     private int _coins = 0;
     private float _distance = 0.0f;
     private bool moving = false;
@@ -152,11 +154,33 @@ public class GameManager : MonoBehaviour
         }
         // :HACK: needs cleanup
 
+        List<string> zones = new List<string>();
         var zone_path = Application.streamingAssetsPath + "/Zones/";
         var zone_pattern = "*.nzne";
         var zone_files = Directory.GetFiles(zone_path, zone_pattern);
         foreach (var zone_file in zone_files)
         {
+            var zone = Path.GetFileName(zone_file);
+            if (!zones.Contains(zone))
+            {
+                zones.Add( zone );
+            }
+        }
+        foreach (var zlo in zoneLists)
+        {
+            var zl = zlo.GetComponent<ZoneList>();
+            foreach (var zone in zl.GetZones())
+            {
+                if (!zones.Contains(zone))
+                {
+                    zones.Add( zone );
+                }
+            }
+        }
+
+        foreach (var zone in zones)
+        {
+            var zone_file = zone_path + zone;            
             //Debug.Log( "Loading " + zone_file );
             var z = LoadNewZone(zone_file);
             _zones.Add( z );
