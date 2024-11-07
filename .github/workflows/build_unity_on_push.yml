@@ -62,8 +62,9 @@ jobs:
       - name: Export WebGL Demo
         run: |
           cd unity
-          /home/runner/Unity/Hub/Editor/6000.0.24f1/Editor/Unity -quit -batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
-          # /home/runner/Unity/Hub/Editor/6000.0.24f1/Editor/Unity --verbose --headless -quit -batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
+          /home/runner/Unity/Hub/Editor/6000.0.24f1/Editor/Unity --verbose --headless -quit -batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
+
+#          /home/runner/Unity/Hub/Editor/6000.0.24f1/Editor/Unity -quit -batchmode -projectpath fiiish-v3 -activeBuildProfile Assets/Settings/Build\ Profiles/Web\ Demo.asset -build ../export/web-demo
 
       - name: Check result
         run: |
