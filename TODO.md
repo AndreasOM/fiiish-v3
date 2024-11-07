@@ -2,10 +2,9 @@
 
 ## In Progress
 
-## Todo
-
-- [ ] #unity Fix WebGL html wrapper template
 - [ ] #unity Ensure zones are bundled and loaded correctly
+
+## Todo
 
 ## Later
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
@@ -17,6 +16,7 @@
 - [+] #godot Fix debug camera frame
 - [ ] Add volume slider?
 - [ ] Bonus: Animate Seaweed in code
+- [ ] #unity Fix WebGL html wrapper template
 
 ## Done
 
