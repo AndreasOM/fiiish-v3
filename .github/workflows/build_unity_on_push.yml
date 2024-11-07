@@ -37,7 +37,7 @@ jobs:
         if: steps.cache-unity.outputs.cache-hit == 'true'
         run: |
           echo "Unity cache was hit"
-          du -sch Unity
+          # du -sch ~/Unity
 
       - name: Setup Unity
         uses: RageAgainstThePixel/unity-setup@v1
