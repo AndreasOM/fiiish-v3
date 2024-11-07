@@ -4,6 +4,9 @@
 
 ## Todo
 
+- [ ] #unity Fix WebGL html wrapper template
+- [ ] #unity Fix audio in WebGL
+- [ ] #unity Ensure zones are bundled and loaded correctly
 
 ## Later
 - [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
@@ -17,6 +20,9 @@
 - [ ] Bonus: Animate Seaweed in code
 
 ## Done
+
+### 2024-11-07
+- [x] #unity Fix Demo overlay glitch
 
 ### 2024-11-06
 - [x] #unity Add splash screen

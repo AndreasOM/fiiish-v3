@@ -15,6 +15,9 @@ jobs:
         # Use bash shells on all platforms.
         shell: bash
     steps:
+      - name: Install ffmpeg
+        run: sudo apt-get install -y ffmpeg
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -73,6 +76,7 @@ jobs:
           aws s3 cp s3://games.omnimad.net/alpha/fiiish-v3/unity/Build/web-demo.wasm.br s3://games.omnimad.net/alpha/fiiish-v3/unity/Build/ --content-encoding br
           aws s3 cp s3://games.omnimad.net/alpha/fiiish-v3/unity/Build/web-demo.data.br s3://games.omnimad.net/alpha/fiiish-v3/unity/Build/ --content-encoding br
           aws s3 cp s3://games.omnimad.net/alpha/fiiish-v3/unity/Build/web-demo.framework.js.br s3://games.omnimad.net/alpha/fiiish-v3/unity/Build/ --content-encoding br
+          # for f in $(aws s3 ls s3://games.omnimad.net/alpha/fiiish-v3/unity/ --recursive|grep ".br$" |cut -b32-); do aws s3 cp s3://games.omnimad.net/${f} s3://games.omnimad.net/${f} --content-encoding br; done
           aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/unity/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

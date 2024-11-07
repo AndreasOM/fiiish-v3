@@ -461,6 +461,14 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                Debug.LogWarning("No handle in entity config for PickupCoin");    
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No entity config found for PickupCoin");
         }
     }
     private void QueueInitialZones()
