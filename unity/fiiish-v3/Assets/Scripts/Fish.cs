@@ -175,10 +175,17 @@ public class Fish : MonoBehaviour
     }
     void GotoSwimming()
     {
-        SetState( Game.State.Swimming);
         if( this.gameManager != null ) {
-            this.gameManager.ResumeMovement();
-            this.gameManager.SpawnZone();
+            if (this.gameManager.isFullyLoaded())
+            {
+                this.gameManager.ResumeMovement();
+                this.gameManager.SpawnZone();
+                SetState(Game.State.Swimming);
+            }
+            else
+            {
+                Debug.LogWarning("GameManager not ready yet");
+            }
         }
     }
 

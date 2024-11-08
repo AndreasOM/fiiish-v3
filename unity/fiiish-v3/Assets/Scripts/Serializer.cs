@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Text;
+using UnityEngine.Networking;
 
 
 public class Serializer // : ScriptableObject
@@ -20,11 +21,94 @@ public class Serializer // : ScriptableObject
     {
         Read,
         Write,
+        Loading,
+        Invalid,
+    }
+
+    public bool CanRead()
+    {
+        return _mode == Mode.Read;
     }
     
-    public bool LoadFile( string path )
+    public IEnumerator LoadFileOrUrl(string path)
     {
+        _mode = Mode.Loading;
+        IEnumerator c = null;
+        if (path.StartsWith("http://") || path.StartsWith("https://"))
+        {
+            c = LoadUrl(path);
+            LoadUrl(path);
+        }
+        else
+        {
+            c = LoadFile(path);
+        }
 
+        while (c.MoveNext())
+        {
+            yield return null;
+        }
+
+        yield break;
+    }
+
+    public IEnumerator LoadUrl(string path)
+    {
+        using var req = UnityWebRequest.Get(path);
+        req.timeout = 10;
+        var op = req.SendWebRequest();
+
+        while (!op.isDone)
+        {
+            yield return null;
+        }
+        Debug.Log($"GET done {path}" );
+        if (req.result != UnityWebRequest.Result.Success)
+        {
+            _mode = Mode.Invalid;
+            yield break;
+        }
+
+        var dh = req.downloadHandler;
+
+        if (dh.data == null)
+        {
+            _mode = Mode.Invalid;
+            yield break;
+        }
+        
+        LoadFromData(dh.data);
+    }
+
+    private void LoadFromData(byte[] data)
+    {
+        Debug.Log($"LoadFromData {data.Length}");
+        
+        string hex = "\n";
+        for( int i=0; i<32; ++i){
+            //Debug.Log( data[ i ].ToString("X"));
+            hex += data[ i ].ToString("X")+" ";
+            if (i % 16 == 15)
+            {
+                hex += "\n";
+            }
+        }
+        Debug.LogWarning(hex);
+        
+            
+        this.m_data = data;
+        this.m_pos = 0;
+        this.m_length = data.Length;
+        this._mode = Mode.Read;
+        //yield break;
+        //yield return null;
+    }
+    
+    public IEnumerator LoadFile( string path )
+    {
+        yield return null;
+        Debug.Log($"LoadFile {path}");
+        _mode = Mode.Loading;
         using (FileStream fs = File.OpenRead(path))
         {
             var l = (int)fs.Length;
@@ -33,29 +117,31 @@ public class Serializer // : ScriptableObject
             var n = fs.Read(data, 0, l);
             if( n != l ) {
                 Debug.LogWarning( "Couldn't read full file");
-                return false;
+                _mode = Mode.Invalid;
+                yield break;
             }
 
-            /*
-            string hex = "\n";
-            for( int i=0; i<32; ++i){
-                //Debug.Log( data[ i ].ToString("X"));
-                hex += data[ i ].ToString("X")+" ";
-                if (i % 16 == 15)
-                {
-                    hex += "\n";
-                }
-            }
-            Debug.LogWarning(hex);
-            */
-            
-            this.m_data = data;
-            this.m_pos = 0;
-            this.m_length = l;
-            this._mode = Mode.Read;
-            return true;
+            Debug.Log($"LoadFile Got Data for {path}");
+            LoadFromData(data);
+            Debug.Log($"LoadFile Handled Data for {path}");
+
         }
-        return false;
+        Debug.Log($"LoadFile DONE {path}");
+        yield break;
+    }
+
+    public bool LoadFileSync(string path)
+    {
+        Debug.Log($"LoadFileSync {path}");
+        var e = LoadFile(path);
+        while (e.MoveNext())
+        {
+            Debug.Log($"LoadFileSync MoveNext {path}");
+            
+        }
+
+        Debug.Log($"LoadFileSync {_mode} {path} {m_length}");
+        return CanRead();
     }
 
     public bool SaveFile(string path)

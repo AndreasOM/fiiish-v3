@@ -38,6 +38,48 @@ class EntityConfig
 
 }
 
+class ZoneLoader
+{
+    private string _zone_file = null;
+    private NewZone _zone = null;
+    public ZoneLoader(string zone_file)
+    {
+        _zone_file = zone_file;
+    }
+
+    public NewZone Zone()
+    {
+        return _zone;
+    }
+    public IEnumerator Load()
+    {
+        var serializer = new Serializer();
+        var c = serializer.LoadFileOrUrl(_zone_file);
+        while (c.MoveNext())
+        {
+            yield return null;
+        }
+        //yield return serializer.LoadFileOrUrl(_zone_file);
+        
+        if (serializer.CanRead())
+        {
+            //Debug.Log("File exists " + path );
+            var zone = ScriptableObject.CreateInstance<NewZone>();
+            if( !zone.Serialize( ref serializer ) )
+            {
+                Debug.LogWarning( "Failed loading " + _zone_file );
+            } else
+            {
+                _zone = zone;
+                //yield break;
+            }
+        } else {
+            Debug.LogWarning( "Serializer failed loading: " + _zone_file );
+        }
+
+        yield break;
+    }
+}
 public class GameManager : MonoBehaviour
 {
     public float pixelsPerMeter = 100.0f;
@@ -74,6 +116,8 @@ public class GameManager : MonoBehaviour
     private bool _paused = false;
 
     private float _pickupZBias = 0.0f;
+
+    private bool _isFullyLoaded = false;
     
     private void AddEntityConfig( UInt32 crc, string addressableName)
     {
@@ -154,11 +198,38 @@ public class GameManager : MonoBehaviour
             // Console.WriteLine(e);
             throw;
         }
+
+        StartCoroutine(LoadZones());
+
+        //Debug.Log("Started.");
+    }
+
+    private IEnumerator LoadZone(string zone_file)
+    {
+        Debug.Log("Loading " + zone_file);
+        var zl = new ZoneLoader(zone_file);
+        var czl = zl.Load();
+        //var zl = StartCoroutine(ZoneLoad.Load(zone_file));
+        while (czl.MoveNext())
+        {
+            yield return null;    
+        }
+
+        var z = zl.Zone();
+        //var z = LoadNewZone(zone_file);
+        
+        _zones.Add(z);
+
+        //yield return null;
+        yield break;
+    }
+    private IEnumerator LoadZones()
+    {
         // :HACK: needs cleanup
 
         List<string> zones = new List<string>();
         var zone_path = Application.streamingAssetsPath + "/Zones/";
-        if (!zone_path.StartsWith("http://"))
+        if (!zone_path.StartsWith("http://") && !zone_path.StartsWith("https://"))
         {
             Debug.Log($"Scanning for zones in {zone_path}");
             try
@@ -216,15 +287,19 @@ public class GameManager : MonoBehaviour
             Debug.Log("No ZoneLists to add!");
         }
 
+        // zone_path = "https://games.omnimad.net/alpha/fiiish-v3/unity/StreamingAssets/Zones/";
         if (zones.Count > 0)
         {
             Debug.Log($"Loading {zones.Count} zones");
             foreach (var zone in zones)
             {
                 var zone_file = zone_path + zone;
-                Debug.Log("Loading " + zone_file);
-                var z = LoadNewZone(zone_file);
-                _zones.Add(z);
+                var c = LoadZone(zone_file);
+                while (c.MoveNext())
+                {
+                    yield return null;
+                }
+                //yield return LoadZone(zone_file);
             }
         }
         else
@@ -238,14 +313,17 @@ public class GameManager : MonoBehaviour
         }
 
         QueueInitialZones();
-        
-        //Debug.Log("Started.");
+
+        _isFullyLoaded = true;
+        yield break;
     }
 
-    private static NewZone LoadNewZone(string path)
+    private static IEnumerator LoadNewZone(string path)
     {
         var serializer = new Serializer();
-        if (serializer.LoadFile(path))
+        yield return serializer.LoadFileOrUrl(path);
+        
+        if (serializer.CanRead())
         {
             //Debug.Log("File exists " + path );
             var zone = ScriptableObject.CreateInstance<NewZone>();
@@ -254,13 +332,13 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning( "Failed loading " + path );
             } else
             {
-                return zone;
+                yield return zone;
             }
         } else {
             Debug.LogWarning( "Serializer failed loading: " + path );
         }
 
-        return null;
+        yield return null;
     }
 
     void OnDisable()
@@ -604,9 +682,21 @@ public class GameManager : MonoBehaviour
         var zi = candidateZoneIndices[r];
         return _zones[zi];
     }
+
+    public bool isFullyLoaded()
+    {
+        return _isFullyLoaded;
+    }
     
     public void SpawnZone()
     {
+        if (!_isFullyLoaded)
+        {
+            while (!_isFullyLoaded)
+            {
+                Debug.Log("SpawnZone waiting to be fully loaded");
+            }
+        }
         if( this.obstacles != null )
         {
             var nextZone = PickNextZone();

@@ -23,11 +23,11 @@ public class Player : ScriptableObject
     {
         var serializer = new Serializer();
         var path = GetSavePath();
-        Debug.Log($"Loading from ${path}");
+        Debug.Log($"Player - Loading from ${path}");
         
-        if (!serializer.LoadFile(path))
+        if (!serializer.LoadFileSync(path))
         {
-            Debug.LogWarning($"Failed to load player from ${path}");
+            Debug.LogWarning($"Failed to load player from {path}");
             return false;
         }
         
@@ -35,7 +35,7 @@ public class Player : ScriptableObject
         var player = ScriptableObject.CreateInstance<Player>();
         if (!player.Serialize(ref serializer))
         {
-            Debug.LogWarning($"Failed serializing player from ${path}");
+            Debug.LogWarning($"Failed serializing player from {path}");
             return false;
         }
         
@@ -50,6 +50,7 @@ public class Player : ScriptableObject
         
         ScriptableObject.DestroyImmediate(player);
 
+        Debug.Log($"Loaded player from {{path}} Music: {this._isMusicEnabled}");
         return true;
     }
 
@@ -63,6 +64,7 @@ public class Player : ScriptableObject
             return;
         }
         
+        Debug.Log($"Music: {_isMusicEnabled}");
         Debug.Log("Serialized player");
         
         var path = GetSavePath();
