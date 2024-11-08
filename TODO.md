@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] #unity Ensure zones are bundled and loaded correctly
 
 ## Todo
 
@@ -19,6 +18,9 @@
 - [ ] #unity Fix WebGL html wrapper template
 
 ## Done
+
+### 2024-11-08
+- [x] #unity Load zones via http if needed
 
 ### 2024-11-07
 - [x] #unity Fix Demo overlay glitch
