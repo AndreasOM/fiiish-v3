@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("GameManager - Start");
         this.obstacles = GameObject.FindWithTag("Obstacles");
 /*
     #ROCKA           = 0xd058353c,
@@ -149,45 +150,93 @@ public class GameManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Debug.Log($"Exception adding entity configs {e}");
+            // Console.WriteLine(e);
             throw;
         }
         // :HACK: needs cleanup
 
         List<string> zones = new List<string>();
         var zone_path = Application.streamingAssetsPath + "/Zones/";
-        var zone_pattern = "*.nzne";
-        var zone_files = Directory.GetFiles(zone_path, zone_pattern);
-        foreach (var zone_file in zone_files)
+        if (!zone_path.StartsWith("http://"))
         {
-            var zone = Path.GetFileName(zone_file);
-            if (!zones.Contains(zone))
+            Debug.Log($"Scanning for zones in {zone_path}");
+            try
             {
-                zones.Add( zone );
+                var zone_pattern = "*.nzne";
+                var zone_files = Directory.GetFiles(zone_path, zone_pattern);
+                foreach (var zone_file in zone_files)
+                {
+                    var zone = Path.GetFileName(zone_file);
+                    if (!zones.Contains(zone))
+                    {
+                        zones.Add(zone);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Log($"Exception scanning zones {ex}");
+                // don't rethrow, just continue
             }
         }
-        foreach (var zlo in zoneLists)
+        else
         {
-            var zl = zlo.GetComponent<ZoneList>();
-            foreach (var zone in zl.GetZones())
+            Debug.Log($"Not scanning for zones in {zone_path}");
+        }
+
+        // Debug.Log("ZoneLists: ", zoneLists);
+        if (zoneLists.Count > 0)
+        {
+            foreach (var zlo in zoneLists)
             {
-                if (!zones.Contains(zone))
+                Debug.Log($"ZoneListObject: {zlo.name}");
+                var zl = zlo.GetComponent<ZoneList>();
+                Debug.Log($"ZoneList: {zl.name}");
+                var zs = zl.GetZones();
+                if (zs.Count > 0)
                 {
-                    zones.Add( zone );
+                    Debug.Log($"Adding {zs.Count} zones");
+                    foreach (var zone in zs)
+                    {
+                        if (!zones.Contains(zone))
+                        {
+                            zones.Add(zone);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("Empty ZoneList");
                 }
             }
         }
-
-        foreach (var zone in zones)
+        else
         {
-            var zone_file = zone_path + zone;            
-            //Debug.Log( "Loading " + zone_file );
-            var z = LoadNewZone(zone_file);
-            _zones.Add( z );
+            Debug.Log("No ZoneLists to add!");
         }
 
-        _currentZone = _zones[0];
-        
+        if (zones.Count > 0)
+        {
+            Debug.Log($"Loading {zones.Count} zones");
+            foreach (var zone in zones)
+            {
+                var zone_file = zone_path + zone;
+                Debug.Log("Loading " + zone_file);
+                var z = LoadNewZone(zone_file);
+                _zones.Add(z);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No zones to load");
+        }
+
+        if (zones.Count > 0)
+        {
+            _currentZone = _zones[0];
+        }
+
         QueueInitialZones();
         
         //Debug.Log("Started.");
