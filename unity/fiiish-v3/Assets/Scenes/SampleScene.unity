@@ -1275,6 +1275,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zones:
   - 0000_ILoveFiiish.nzne
+  - 0000_ILoveFiiishAndRust.nzne
+  - 0000_Start.nzne
+  - 0001_ZigZag.nzne
+  - 0002_ZigZag-B.nzne
+  - 0003_ZigZag-C.nzne
+  - 0004_ZigZag-D.nzne
+  - 0005_ZigZag-E.nzne
+  - 0006_ZigZag-F.nzne
+  - 0010_Tunnel.nzne
+  - 0020_Funnel.nzne
+  - 1001_SeaweedAgain.nzne
+  - 2001_SmoothBump.nzne
+  - 2002_BigRockFlow.nzne
+  - 2003_QuickDip.nzne
+  - 2004_Curves.nzne
+  - 2005_GoUp.nzne
+  - 5001_Anchor.nzne
+  - 5002_PinkAndPurple.nzne
+  - 8000_MarketingScreenshots.nzne
+  - 9998_AssetTest.nzne
+  - 9999_Test.nzne
 --- !u!1 &461513742
 GameObject:
   m_ObjectHideFlags: 0

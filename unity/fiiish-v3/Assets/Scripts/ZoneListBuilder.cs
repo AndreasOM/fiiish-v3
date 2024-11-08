@@ -5,7 +5,7 @@ using UnityEditor.Build.Reporting;
 using System.Collections.Generic;
 using System.IO;
 
-public class ZoneListBuilder : MonoBehaviour , IPreprocessBuildWithReport
+public class ZoneListBuilder : IPreprocessBuildWithReport
 {
     public int callbackOrder { get { return 0; } }
     public void OnPreprocessBuild(BuildReport report)
@@ -24,7 +24,7 @@ public class ZoneListBuilder : MonoBehaviour , IPreprocessBuildWithReport
         
         Debug.Log($"Added {zones.Count} zones to list");
 
-        var zoneLists = FindObjectsByType<ZoneList>(FindObjectsSortMode.None);
+        var zoneLists = GameObject.FindObjectsByType<ZoneList>(FindObjectsSortMode.None);
         foreach (var zlo in zoneLists)
         {
             var zl = zlo.GetComponent<ZoneList>();
