@@ -10,7 +10,7 @@ public class ZoneList : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("ZoneList - Awake");
+        // Debug.Log("ZoneList - Awake");
     }
 
     public void SetZones(List<string> zones)

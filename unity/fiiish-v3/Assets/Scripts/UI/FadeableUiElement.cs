@@ -11,7 +11,7 @@ public class FadeableUiElement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log($"FadeableUiElement.Awake() - {gameObject.name}");
+        // Debug.Log($"FadeableUiElement.Awake() - {gameObject.name}");
         Setup();
         Configure();
     }

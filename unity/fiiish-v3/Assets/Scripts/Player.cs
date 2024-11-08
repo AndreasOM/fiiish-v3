@@ -23,7 +23,7 @@ public class Player : ScriptableObject
     {
         var serializer = new Serializer();
         var path = GetSavePath();
-        Debug.Log($"Player - Loading from ${path}");
+        //Debug.Log($"Player - Loading from ${path}");
         
         if (!serializer.LoadFileSync(path))
         {
@@ -50,7 +50,7 @@ public class Player : ScriptableObject
         
         ScriptableObject.DestroyImmediate(player);
 
-        Debug.Log($"Loaded player from {{path}} Music: {this._isMusicEnabled}");
+        //Debug.Log($"Loaded player from {{path}} Music: {this._isMusicEnabled}");
         return true;
     }
 
@@ -64,18 +64,17 @@ public class Player : ScriptableObject
             return;
         }
         
-        Debug.Log($"Music: {_isMusicEnabled}");
-        Debug.Log("Serialized player");
+        //Debug.Log("Serialized player");
         
         var path = GetSavePath();
-        Debug.Log($"Saving to {path}");
+        //Debug.Log($"Saving to {path}");
         if (!serializer.SaveFile(path))
         {
             Debug.LogWarning("Failed saving player");
         }
         else
         {
-            Debug.Log("Saved player");
+            Debug.Log($"Saved player to {path}");
             SaveGame.SyncFS();
         }
     }
@@ -132,7 +131,7 @@ public class Player : ScriptableObject
 
     public void EnableMusic()
     {
-        Debug.Log("EnableMusic");
+        //Debug.Log("EnableMusic");
         if (_isMusicEnabled)
         {
             return;
@@ -142,7 +141,7 @@ public class Player : ScriptableObject
     }
     public void DisableMusic()
     {
-        Debug.Log("DisableMusic");
+        //Debug.Log("DisableMusic");
         if (!_isMusicEnabled)
         {
             return;

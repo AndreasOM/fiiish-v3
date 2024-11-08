@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("GameManager - Start");
+        // Debug.Log("GameManager - Start");
         this.obstacles = GameObject.FindWithTag("Obstacles");
 /*
     #ROCKA           = 0xd058353c,
@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadZone(string zone_file)
     {
-        Debug.Log("Loading " + zone_file);
+        // Debug.Log("Loading " + zone_file);
         var zl = new ZoneLoader(zone_file);
         var czl = zl.Load();
         //var zl = StartCoroutine(ZoneLoad.Load(zone_file));
@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
         var zone_path = Application.streamingAssetsPath + "/Zones/";
         if (!zone_path.StartsWith("http://") && !zone_path.StartsWith("https://"))
         {
-            Debug.Log($"Scanning for zones in {zone_path}");
+            //Debug.Log($"Scanning for zones in {zone_path}");
             try
             {
                 var zone_pattern = "*.nzne";
@@ -253,7 +253,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Not scanning for zones in {zone_path}");
+            //Debug.Log($"Not scanning for zones in {zone_path}");
         }
 
         // Debug.Log("ZoneLists: ", zoneLists);
@@ -261,9 +261,9 @@ public class GameManager : MonoBehaviour
         {
             foreach (var zlo in zoneLists)
             {
-                Debug.Log($"ZoneListObject: {zlo.name}");
+                //Debug.Log($"ZoneListObject: {zlo.name}");
                 var zl = zlo.GetComponent<ZoneList>();
-                Debug.Log($"ZoneList: {zl.name}");
+                //Debug.Log($"ZoneList: {zl.name}");
                 var zs = zl.GetZones();
                 if (zs.Count > 0)
                 {
@@ -278,19 +278,19 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Empty ZoneList");
+                    //Debug.Log("Empty ZoneList");
                 }
             }
         }
         else
         {
-            Debug.Log("No ZoneLists to add!");
+            //Debug.Log("No ZoneLists to add!");
         }
 
         // zone_path = "https://games.omnimad.net/alpha/fiiish-v3/unity/StreamingAssets/Zones/";
         if (zones.Count > 0)
         {
-            Debug.Log($"Loading {zones.Count} zones");
+            //Debug.Log($"Loading {zones.Count} zones");
             foreach (var zone in zones)
             {
                 var zone_file = zone_path + zone;
@@ -317,30 +317,7 @@ public class GameManager : MonoBehaviour
         _isFullyLoaded = true;
         yield break;
     }
-
-    private static IEnumerator LoadNewZone(string path)
-    {
-        var serializer = new Serializer();
-        yield return serializer.LoadFileOrUrl(path);
-        
-        if (serializer.CanRead())
-        {
-            //Debug.Log("File exists " + path );
-            var zone = ScriptableObject.CreateInstance<NewZone>();
-            if( !zone.Serialize( ref serializer ) )
-            {
-                Debug.LogWarning( "Failed loading " + path );
-            } else
-            {
-                yield return zone;
-            }
-        } else {
-            Debug.LogWarning( "Serializer failed loading: " + path );
-        }
-
-        yield return null;
-    }
-
+    
     void OnDisable()
     {
         foreach (var ec in m_entityConfigs.Values)

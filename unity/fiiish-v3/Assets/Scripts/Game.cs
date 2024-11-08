@@ -188,7 +188,7 @@ public class Game : MonoBehaviour
 
     public void OnAudioEffectTriggered(AudioEffectId audioEffectId)
     {
-        Debug.Log("OnAudioEffectTriggered");
+        // Debug.Log("OnAudioEffectTriggered");
         TriggerSound(audioEffectId);
     }
 }

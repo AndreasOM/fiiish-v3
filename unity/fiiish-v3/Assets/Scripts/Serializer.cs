@@ -62,7 +62,7 @@ public class Serializer // : ScriptableObject
         {
             yield return null;
         }
-        Debug.Log($"GET done {path}" );
+        // Debug.Log($"GET done {path}" );
         if (req.result != UnityWebRequest.Result.Success)
         {
             _mode = Mode.Invalid;
@@ -82,8 +82,8 @@ public class Serializer // : ScriptableObject
 
     private void LoadFromData(byte[] data)
     {
-        Debug.Log($"LoadFromData {data.Length}");
-        
+        //Debug.Log($"LoadFromData {data.Length}");
+        /*
         string hex = "\n";
         for( int i=0; i<32; ++i){
             //Debug.Log( data[ i ].ToString("X"));
@@ -94,7 +94,7 @@ public class Serializer // : ScriptableObject
             }
         }
         Debug.LogWarning(hex);
-        
+        */
             
         this.m_data = data;
         this.m_pos = 0;
@@ -107,7 +107,7 @@ public class Serializer // : ScriptableObject
     public IEnumerator LoadFile( string path )
     {
         yield return null;
-        Debug.Log($"LoadFile {path}");
+        //Debug.Log($"LoadFile {path}");
         _mode = Mode.Loading;
         using (FileStream fs = File.OpenRead(path))
         {
@@ -121,26 +121,25 @@ public class Serializer // : ScriptableObject
                 yield break;
             }
 
-            Debug.Log($"LoadFile Got Data for {path}");
+            //Debug.Log($"LoadFile Got Data for {path}");
             LoadFromData(data);
-            Debug.Log($"LoadFile Handled Data for {path}");
+            //Debug.Log($"LoadFile Handled Data for {path}");
 
         }
-        Debug.Log($"LoadFile DONE {path}");
-        yield break;
+        //Debug.Log($"LoadFile DONE {path}");
+        //yield break;
     }
 
     public bool LoadFileSync(string path)
     {
-        Debug.Log($"LoadFileSync {path}");
+        //Debug.Log($"LoadFileSync {path}");
         var e = LoadFile(path);
         while (e.MoveNext())
         {
-            Debug.Log($"LoadFileSync MoveNext {path}");
-            
+            //Debug.Log($"LoadFileSync MoveNext {path}");
         }
 
-        Debug.Log($"LoadFileSync {_mode} {path} {m_length}");
+        //Debug.Log($"LoadFileSync {_mode} {path} {m_length}");
         return CanRead();
     }
 
