@@ -2,11 +2,38 @@
 
 ## In Progress
 
+- [ ] Task: Continue basic Skill Upgrade Dialog
+
 
 ## Todo
 
+- [ ] Task: Add close button to Skill Upgrade Dialog
+- [ ] Task: Fix hscroll of Skill Upgrade Item
+
+- [ ] Story: Move all dialogs into dialog manager
+
+## V3.1
+
+- [ ] Cleanup: Restructure Main Scene
+- [ ] Feature: Skill Upgrades
+	- [ ] Story: Skill Upgrade Dialog
+		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
+
+	- [ ] Story: Skills
+		- [ ] Task: Save skills in player
+
+- [ ] Feature: Cheat Console
+
+## V3.2
+
+## Next release
+
+- [ ] Cleanup GameManager
+
 ## Later
-- [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
+
+- [ ] Feature: Main Menu
+- [ ] Feature: Cloud Saves
 
 ## Future
 - [ ] Add leaderboards
@@ -18,6 +45,13 @@
 - [ ] #unity Fix WebGL html wrapper template
 
 ## Done
+
+
+### 2024-11-12
+- [x] Task: Set up basic Skill Upgrade Dialog
+
+### Forgot when
+- [x] #godot Figure out why only top portion of music and sound buttons is clickable in settings
 
 ### 2024-11-08
 - [x] #unity Load zones via http if needed

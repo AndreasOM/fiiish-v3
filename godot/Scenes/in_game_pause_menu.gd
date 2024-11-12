@@ -4,6 +4,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# await get_tree().process_frame
 	%SettingsButtonFade.fade_out( 0.0 )
 	%SettingsFadeableContainer.fade_out( 0.0 )
 

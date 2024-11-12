@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://br2xttibjn8qo"]
+
+[ext_resource type="Script" path="res://Dialogs/SkillUpgradeElements/skill_upgrade_item.gd" id="1_mv3ju"]
+[ext_resource type="PackedScene" uid="uid://bilwlijmp22dx" path="res://Dialogs/SkillUpgradeElements/skill_upgrade_item_button.tscn" id="2_iiy6h"]
+
+[node name="SkillUpgradeItem" type="VBoxContainer"]
+offset_right = 500.0
+offset_bottom = 103.0
+script = ExtResource("1_mv3ju")
+
+[node name="SkillNameLabel" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"SkillsNameLabel"
+text = "Collection Range"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 3
+scroll_horizontal = 100
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Control" type="ReferenceRect" parent="ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(367, 0)
+layout_mode = 2
+
+[node name="SkillUpgradeItemButton" parent="ScrollContainer/HBoxContainer" instance=ExtResource("2_iiy6h")]
+layout_mode = 2
+
+[node name="SkillUpgradeItemButton2" parent="ScrollContainer/HBoxContainer" instance=ExtResource("2_iiy6h")]
+layout_mode = 2
+state = 1
+
+[node name="SkillUpgradeItemButton3" parent="ScrollContainer/HBoxContainer" instance=ExtResource("2_iiy6h")]
+layout_mode = 2
+
+[node name="SkillUpgradeItemButton4" parent="ScrollContainer/HBoxContainer" instance=ExtResource("2_iiy6h")]
+layout_mode = 2
+
+[node name="SkillUpgradeItemButton5" parent="ScrollContainer/HBoxContainer" instance=ExtResource("2_iiy6h")]
+layout_mode = 2
