@@ -653,6 +653,16 @@ layout_mode = 2
 title = "Dummy 3"
 max = 5
 
+[node name="CloseButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture_normal = ExtResource("5_l2xk6")
+
 [node name="Managers" type="Node" parent="."]
 
 [node name="MusicManager" type="AudioStreamPlayer" parent="Managers"]
@@ -682,3 +692,4 @@ script = ExtResource("24_6541p")
 [connection signal="pressed" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer/SoundOffTextureButton" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_b_pressed"]
 [connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
 [connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
+[connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/CloseButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_close_button_pressed"]
