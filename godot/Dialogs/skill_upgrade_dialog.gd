@@ -84,7 +84,8 @@ func _on_buy_skill_point_button_pressed() -> void:
 
 
 func _on_skill_buy_triggered( id: SkillEffectIds.Id, level: int ) -> void:
-	print( "Skill buy: %d -> %d" %[ id, level ] )
+	var name = SkillEffectIds.get_name_for_id( id )
+	print( "Skill buy: (%d) %s -> %d" %[ id, name, level ] )
 	# :TODO: handle cost
 	var p = game.get_player()
 	
