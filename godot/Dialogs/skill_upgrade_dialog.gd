@@ -22,3 +22,7 @@ func fade_out( duration: float ):
 
 func fade_in( duration: float ):
 	$FadeableCenterContainer.fade_in( duration )
+
+
+func _on_close_button_pressed() -> void:
+	fade_out( 0.3 )

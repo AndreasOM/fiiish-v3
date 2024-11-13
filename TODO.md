@@ -2,17 +2,19 @@
 
 ## In Progress
 
-- [ ] Task: Continue basic Skill Upgrade Dialog
 
 
 ## Todo
 
-- [ ] Task: Add close button to Skill Upgrade Dialog
+- [ ] Task: Continue basic Skill Upgrade Dialog
+- [ ] Task: Save skills in player
+- [ ] Task: "Buy" skill points in Skill Upgrade Dialog
+
 - [ ] Task: Fix hscroll of Skill Upgrade Item
 
 - [ ] Story: Move all dialogs into dialog manager
 
-## V3.1
+## V3.2.0
 
 - [ ] Cleanup: Restructure Main Scene
 - [ ] Feature: Skill Upgrades
@@ -20,11 +22,10 @@
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
 
 	- [ ] Story: Skills
-		- [ ] Task: Save skills in player
 
 - [ ] Feature: Cheat Console
 
-## V3.2
+## V3.4.0
 
 ## Next release
 
@@ -46,6 +47,8 @@
 
 ## Done
 
+### 2024-11-13
+- [x] Task: Add close button to Skill Upgrade Dialog
 
 ### 2024-11-12
 - [x] Task: Set up basic Skill Upgrade Dialog
