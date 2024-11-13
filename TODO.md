@@ -19,6 +19,8 @@
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
 
 	- [ ] Story: Skills
+		- [ ] Task: Define skill config for balancing
+		- [ ] Task: Apply skill levels during play
 
 - [ ] Feature: Cheat Console
 
