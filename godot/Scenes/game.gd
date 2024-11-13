@@ -78,6 +78,9 @@ func _credit_last_swim():
 	
 	_player.save();
 
+func save_player():
+	_player.save()
+	
 func enableMusic():
 	musicManager.fadeIn( 0.3 )
 	_player.enableMusic()
