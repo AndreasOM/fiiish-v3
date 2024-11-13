@@ -27,7 +27,6 @@ func _ready() -> void:
 		State.Disabled:
 			texture_normal = disabledTexture
 
-
 func setId( id: int ):
 	_id = id
 

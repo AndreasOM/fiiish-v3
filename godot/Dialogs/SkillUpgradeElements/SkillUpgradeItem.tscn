@@ -17,7 +17,7 @@ text = "Collection Range"
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
-scroll_horizontal = 100
+scroll_horizontal = 340
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
@@ -26,7 +26,7 @@ layout_mode = 2
 size_flags_vertical = 6
 
 [node name="Control" type="ReferenceRect" parent="ScrollContainer/HBoxContainer"]
-custom_minimum_size = Vector2(367, 0)
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
 [node name="SkillUpgradeItemButton" parent="ScrollContainer/HBoxContainer" instance=ExtResource("2_iiy6h")]
