@@ -487,7 +487,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("25_xncef")
 
-[node name="SkillUpgradeDialog" type="Control" parent="UI/DialogManager"]
+[node name="SkillUpgradeDialog" type="Control" parent="UI/DialogManager" node_paths=PackedStringArray("game")]
 z_index = 10
 layout_mode = 1
 anchors_preset = 15
@@ -497,6 +497,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("26_k4u55")
+game = NodePath("../../../Game")
 
 [node name="FadeableCenterContainer" type="CenterContainer" parent="UI/DialogManager/SkillUpgradeDialog"]
 layout_mode = 1
@@ -554,6 +555,7 @@ size_flags_vertical = 3
 color = Color(0.308919, 0.577972, 0.400032, 0.541176)
 
 [node name="SkillPointLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/SkillPointColorRect"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -565,11 +567,11 @@ text = "9"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
+[node name="BuySkillPointButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_p4vau")
 
-[node name="SkillCostLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/TextureButton"]
+[node name="SkillCostLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -588,6 +590,7 @@ size_flags_vertical = 3
 color = Color(0.631373, 0.482353, 0.254902, 0.490196)
 
 [node name="CoinsLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/CoinsColorRect"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -692,4 +695,5 @@ script = ExtResource("24_6541p")
 [connection signal="pressed" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer/SoundOffTextureButton" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_b_pressed"]
 [connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
 [connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
+[connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_buy_skill_point_button_pressed"]
 [connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/CloseButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_close_button_pressed"]

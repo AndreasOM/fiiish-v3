@@ -1,5 +1,8 @@
 class_name Player
 
+const current_version: int = 4
+const oldest_supported_version: int = 3
+
 var _coins: int = 0
 var _lastDistance: int = 0
 var _totalDistance: int = 0
@@ -8,6 +11,10 @@ var _playCount: int = 0
 var _isMusicEnabled: bool = true
 var _isSoundEnabled: bool = true
 var _isDirty: bool = false
+
+## version 4
+var _skill_points_gained: int = 0
+var _skill_points_used: int = 0
 
 static func get_save_path() -> String:
 	return "user://player.data"
@@ -46,9 +53,9 @@ func serialize( s: Serializer ) -> bool:
 			push_error( "Broken chunk magic")
 			return false
 
-	var version: int = 0x0003;
+	var version: int = current_version;
 	version = s.serialize_u16( version )
-	if version != 3:
+	if version < oldest_supported_version:
 		push_warning("Version not supported ", version)
 		return false
 
@@ -59,6 +66,13 @@ func serialize( s: Serializer ) -> bool:
 	_playCount = s.serialize_u32( _playCount )
 	_isMusicEnabled = s.serialize_bool( _isMusicEnabled )
 	_isSoundEnabled = s.serialize_bool( _isSoundEnabled )
+	
+	# version 4
+	if version < 4:
+		return true
+	
+	_skill_points_gained = s.serialize_u32( _skill_points_gained )
+	_skill_points_used = s.serialize_u32( _skill_points_used )
 	
 	return true
 		
@@ -110,8 +124,28 @@ func disableSound():
 func give_coins( coins: int ):
 	_coins += coins
 	
+func spend_coins( amount: int, reason: String ) -> bool:
+	if _coins < amount:
+		return false
+		
+	_coins -= amount
+	return true
+	
 func apply_distance( distance: int ):
 	_totalDistance += distance
 	_bestDistance = max(_bestDistance, distance)
 	_lastDistance = distance;
 	
+func give_skill_points( amount: int, reason: String ):
+	_skill_points_gained += amount
+	
+func available_skill_points() -> int:
+	return _skill_points_gained - _skill_points_used
+	
+func use_skill_points( amount: int, reason: String ) -> bool:
+	if	amount > available_skill_points():
+		return false
+		
+	_skill_points_used += amount
+	
+	return true
