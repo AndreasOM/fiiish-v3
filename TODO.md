@@ -2,15 +2,12 @@
 
 ## In Progress
 
-- [ ] Task: Save skills in player
+
 
 
 ## Todo
 
 - [ ] Task: Continue basic Skill Upgrade Dialog
-- [ ] Task: "Buy" skill points in Skill Upgrade Dialog
-
-- [ ] Task: Fix hscroll of Skill Upgrade Item
 
 - [ ] Story: Move all dialogs into dialog manager
 
@@ -50,6 +47,10 @@
 ### 2024-11-13
 - [x] Task: Add close button to Skill Upgrade Dialog
 - [x] Task: Save skill points in player
+- [x] Task: Fix hscroll of Skill Upgrade Item
+- [x] Task: "Buy" skill points in Skill Upgrade Dialog
+- [x] Task: Reset skill points in Skill Upgrade Dialog
+- [x] Task: Save skills in player
 
 ### 2024-11-12
 - [x] Task: Set up basic Skill Upgrade Dialog

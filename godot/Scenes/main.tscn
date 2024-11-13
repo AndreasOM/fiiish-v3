@@ -603,6 +603,23 @@ text = "200
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ResetSkillPointsButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_p4vau")
+
+[node name="SkillResetLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"SkillsAmountLabel"
+text = "Reset
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 764)
 layout_mode = 2
@@ -620,11 +637,13 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 title = "Magnet Range"
 max = 5
+skill_effect_id = 1
 
 [node name="MagnetRangeBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
-title = "Magnet Range Boost"
+title = "Magnet Boost Range "
 max = 5
+skill_effect_id = 2
 
 [node name="MagnetDurationBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
@@ -696,4 +715,7 @@ script = ExtResource("24_6541p")
 [connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
 [connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
 [connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_buy_skill_point_button_pressed"]
+[connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_reset_skill_points_button_pressed"]
+[connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer/MagnetRangeUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
+[connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer/MagnetRangeBoostUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
 [connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/CloseButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_close_button_pressed"]

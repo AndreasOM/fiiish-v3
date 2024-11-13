@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 4
+const current_version: int = 5
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -15,6 +15,13 @@ var _isDirty: bool = false
 ## version 4
 var _skill_points_gained: int = 0
 var _skill_points_used: int = 0
+
+## version 5
+
+var _skills = {
+#	SkillEffectIds.Id.MAGNET_RANGE_FACTOR: 0,
+#	SkillEffectIds.Id.MAGNET_BOOST_RANGE_FACTOR: 0,
+}
 
 static func get_save_path() -> String:
 	return "user://player.data"
@@ -73,6 +80,25 @@ func serialize( s: Serializer ) -> bool:
 	
 	_skill_points_gained = s.serialize_u32( _skill_points_gained )
 	_skill_points_used = s.serialize_u32( _skill_points_used )
+
+	# version 5
+	if version < 5:
+		return true
+		
+	var keys = _skills.keys()
+	var number_of_skills = keys.size()
+	number_of_skills = s.serialize_u16( number_of_skills )
+	
+	for idx in range(0,number_of_skills):
+		var k = SkillEffectIds.Id.NONE
+		var v = 0
+		if idx < keys.size():
+			k = keys[ idx ]
+			v = _skills.get( k, 0 )
+		k = s.serialize_u32( k )
+		v = s.serialize_u16( v )
+		
+		_skills[ k ] = v
 	
 	return true
 		
@@ -149,3 +175,13 @@ func use_skill_points( amount: int, reason: String ) -> bool:
 	_skill_points_used += amount
 	
 	return true
+	
+func get_skill_effect_level( id: SkillEffectIds.Id ) -> int:
+	return _skills.get( id, 0 )
+	
+func set_skill_effect_level( id: SkillEffectIds.Id, level: int ):
+	_skills[ id ] = level
+	
+func reset_skill_effecs():
+	_skills = {}
+	_skill_points_used = 0
