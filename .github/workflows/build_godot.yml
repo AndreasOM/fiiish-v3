@@ -36,6 +36,11 @@ jobs:
         run: |
           .github/helpers/update_version_info.sh Web-demo
 
+      - name: Import project
+        run: |
+          cd godot
+          godot --headless --quit || exit 0
+
       - name: Export WebGL
         run: |
           cd godot
