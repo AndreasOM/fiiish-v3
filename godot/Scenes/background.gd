@@ -32,14 +32,16 @@ func _on_viewport_resize():
 	
 func _fix_size():
 	# var screensize = get_window().size
-	var screensize = get_viewport().size
-	var scale = screensize.y/1024.0
-	var repeat = screensize.x/1024.0
-	repeat /= scale
-	repeat = ceil(repeat)
-	repeat = floor( 0.5*repeat )*2+1
-	size.x = 1024*repeat
-	position.x = -0.5*size.x
+	var viewport = get_viewport()
+	if viewport != null:
+		var screensize = viewport.size
+		var s = screensize.y/1024.0
+		var repeat = screensize.x/1024.0
+		repeat /= s
+		repeat = ceil(repeat)
+		repeat = floor( 0.5*repeat )*2+1
+		size.x = 1024*repeat
+		position.x = -0.5*size.x
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

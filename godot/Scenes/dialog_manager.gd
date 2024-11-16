@@ -6,12 +6,6 @@ func _ready() -> void:
 	$SkillUpgradeDialog.fade_out( 0.0 )
 	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_skills_upgrade_button_pressed() -> void:
 	$SkillUpgradeDialog.fade_in( 0.3 )
 	pass # Replace with function body.

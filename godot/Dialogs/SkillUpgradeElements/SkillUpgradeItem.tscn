@@ -17,7 +17,7 @@ text = "Collection Range"
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
-scroll_horizontal = 340
+scroll_horizontal = 100
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 

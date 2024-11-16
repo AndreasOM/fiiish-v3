@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if self.game !=	null:
 		var game_manager = self.game.get_game_manager()
 		if game_manager != null:
@@ -70,9 +70,9 @@ func _on_button_normal_pressed() -> void:
 	%ZoomSlider.value = 1.0
 
 
-func _on_game_zone_changed( name: String ) -> void:
-	print( "Zone: ", name )
-	%CurrentZoneLabel.text = name
+func _on_game_zone_changed( zone_name: String ) -> void:
+	print( "Zone: ", zone_name )
+	%CurrentZoneLabel.text = zone_name
 	pass # Replace with function body.
 
 
@@ -80,7 +80,7 @@ func _on_next_zone_button_pressed() -> void:
 	self.goto_next_zone.emit()
 
 
-func _on_debug_collision_check_button_toggled(toggled_on: bool) -> void:
+func _on_debug_collision_check_button_toggled(_toggled_on: bool) -> void:
 	# self.get_tree().set_debug_collisions_hint(toggled_on)
 	# :(
 	pass

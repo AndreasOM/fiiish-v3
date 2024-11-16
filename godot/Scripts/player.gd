@@ -147,10 +147,10 @@ func disableSound():
 	_isSoundEnabled = false
 	_isDirty = true
 			
-func give_coins( coins: int ):
-	_coins += coins
+func give_coins( amount: int ):
+	_coins += amount
 	
-func spend_coins( amount: int, reason: String ) -> bool:
+func spend_coins( amount: int, _reason: String ) -> bool:
 	if _coins < amount:
 		return false
 		
@@ -162,13 +162,13 @@ func apply_distance( distance: int ):
 	_bestDistance = max(_bestDistance, distance)
 	_lastDistance = distance;
 	
-func give_skill_points( amount: int, reason: String ):
+func give_skill_points( amount: int, _reason: String ):
 	_skill_points_gained += amount
 	
 func available_skill_points() -> int:
 	return _skill_points_gained - _skill_points_used
 	
-func use_skill_points( amount: int, reason: String ) -> bool:
+func use_skill_points( amount: int, _reason: String ) -> bool:
 	if	amount > available_skill_points():
 		return false
 		

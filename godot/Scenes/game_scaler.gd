@@ -22,12 +22,12 @@ func _fix_size():
 	
 	# var scale = screensize.y/1024.0
 	# scale *= 1080.0/1024.0
-	var scale = 1080.0/1024.0
+	var new_scale = 1080.0/1024.0
 	if a < target_aspect:
 		var s = target_aspect/a
-		scale *= s
-	self.scale.x = scale
-	self.scale.y = scale
+		new_scale *= s
+	self.scale.x = new_scale
+	self.scale.y = new_scale
 	# position.x = 0.5 *screensize.x #0.5*960*scale # 960*scale
 	# position.x = 0.5 *screensize.x*scale #0.5*960*scale # 960*scale
 	#position.x = ( 0.5 * 1920.0 + 0.25  * screensize.x )*scale
@@ -38,9 +38,9 @@ func _fix_size():
 	#	position.x = screensize.x
 	var ar = max(1.0,sx/sy)
 	position.x = 960.0 * ar
-	position.y = 512*scale
+	position.y = 512*new_scale
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

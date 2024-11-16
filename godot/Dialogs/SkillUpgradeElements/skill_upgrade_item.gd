@@ -4,7 +4,7 @@ class_name SkillUpgradeItem
 @export var title: String;
 @export var current: int = 0;
 @export var unlockable: int = 0;
-@export var max: int = 0;
+@export var maximum: int = 0;
 
 @export var skill_effect_id: SkillEffectIds.Id = SkillEffectIds.Id.NONE;
 
@@ -24,7 +24,7 @@ func _createButtons():
 			p.remove_child( suib )
 			suib.queue_free()
 
-	for i in range(0,max):
+	for i in range(0,maximum):
 		var b = button.instantiate()
 		b.setId( i+1 )
 		b.connect("on_pressed", _on_button_pressed)
@@ -37,7 +37,7 @@ func _on_button_pressed( i: int ):
 	# setCurrent( i )
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 #	var tx = 0 + max( 0, current-1 ) * 64 + 32 + 32
 	var tx = 0 + current * 64 + 32 + 32
 	$ScrollContainer.scroll_horizontal = lerp( $ScrollContainer.scroll_horizontal, tx, 0.08 )

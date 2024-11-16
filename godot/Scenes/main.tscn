@@ -636,44 +636,44 @@ size_flags_stretch_ratio = 2.0
 [node name="MagnetRangeUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Magnet Range"
-max = 5
+maximum = 5
 skill_effect_id = 1
 
 [node name="MagnetRangeBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Magnet Boost Range "
-max = 5
+maximum = 5
 skill_effect_id = 2
 
 [node name="MagnetDurationBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Magnet Duration Boost"
-max = 5
+maximum = 5
 
 [node name="CoinExplosionUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Coin Explosion"
-max = 5
+maximum = 5
 
 [node name="CoinRainUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Coin Rain"
-max = 5
+maximum = 5
 
 [node name="DummyUpgradeItem1" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Dummy 1"
-max = 5
+maximum = 5
 
 [node name="DummyUpgradeItem2" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Dummy 2"
-max = 5
+maximum = 5
 
 [node name="DummyUpgradeItem3" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Dummy 3"
-max = 5
+maximum = 5
 
 [node name="CloseButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect"]
 layout_mode = 1

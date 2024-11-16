@@ -20,7 +20,7 @@ func load_file(path: String) -> bool:
 	# print("Size of %s = %d" % [ path, self._data.size() ])
 	if self._data.size() == 0:
 		var e = FileAccess.get_open_error()
-		print("Error opening %s" % path )
+		print("Error opening %s: %s" % [ path, e ] )
 		return false
 	
 	return true
@@ -113,6 +113,9 @@ func serialize_f32( v: float ) -> float:
 	return r
 
 func serialize_fixed_string( l: int, v: String ) -> String:
+	if _mode == Mode.Write:
+		push_error("serialize_fixed_string - write mode is not implemented %s" % v )
+		
 	if self._pos + l >= self._data.size():
 		return ""
 		
