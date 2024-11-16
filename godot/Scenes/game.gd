@@ -33,7 +33,7 @@ func _ready() -> void:
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func get_player() -> Player:
@@ -43,8 +43,8 @@ func _on_debug_ui_zoom_changed( value: float ) -> void:
 	%GameNode2D.scale.x = value
 	%GameNode2D.scale.y = value
 
-func _on_game_manager_zone_changed( name: String ) -> void:
-	self.zone_changed.emit( name )
+func _on_game_manager_zone_changed( zone_name: String ) -> void:
+	self.zone_changed.emit( zone_name )
 
 
 func _on_debug_ui_goto_next_zone() -> void:

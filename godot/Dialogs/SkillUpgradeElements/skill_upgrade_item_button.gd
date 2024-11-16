@@ -42,10 +42,6 @@ func setDisabled():
 	state = State.Disabled
 	texture_normal = disabledTexture
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 
 func _on_pressed() -> void:
 	match state:

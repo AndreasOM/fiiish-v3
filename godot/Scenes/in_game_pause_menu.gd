@@ -9,7 +9,7 @@ func _ready() -> void:
 	%SettingsFadeableContainer.fade_out( 0.0 )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("TogglePause"):
 		toggle_pause()
 
@@ -39,5 +39,5 @@ func _on_settings_button_pressed():
 	%SettingsFadeableContainer.toggle_fade( 0.3 )
 	print("Settings Button pressed")
 
-func _on_pause_toggle_button_toggled( state: ToggleButtonContainer.ToggleState ) -> void:
+func _on_pause_toggle_button_toggled( _state: ToggleButtonContainer.ToggleState ) -> void:
 	toggle_pause()

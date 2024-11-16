@@ -20,11 +20,6 @@ func _ready() -> void:
 	
 	_update_all()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func _update_skill_points():
 	var p = game.get_player()
 	var sp = p.available_skill_points()
@@ -48,7 +43,6 @@ func _update_skill_upgrade_items():
 		
 
 func _prepare_fade_in():
-	var p = game.get_player()
 	for id in _skill_effect_ids:
 		var sui = _get_skill_upgrade_item_for_skill_effect_id( id )
 		if sui == null:
@@ -84,8 +78,8 @@ func _on_buy_skill_point_button_pressed() -> void:
 
 
 func _on_skill_buy_triggered( id: SkillEffectIds.Id, level: int ) -> void:
-	var name = SkillEffectIds.get_name_for_id( id )
-	print( "Skill buy: (%d) %s -> %d" %[ id, name, level ] )
+	var skilleffect_name = SkillEffectIds.get_name_for_id( id )
+	print( "Skill buy: (%d) %s -> %d" %[ id, skilleffect_name, level ] )
 	# :TODO: handle cost
 	var p = game.get_player()
 	

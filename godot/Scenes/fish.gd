@@ -48,8 +48,8 @@ func magnet_range() -> float:
 func magnet_speed() -> float:
 	return _magnet_speed * _magnet_speed_boost
 
-func apply_magnet_boost( range: float, speed: float, duration: float ):
-	_magnet_range_boost = range
+func apply_magnet_boost( range_boost: float, speed: float, duration: float ):
+	_magnet_range_boost = range_boost
 	_magnet_speed_boost = speed
 	_magnet_boost_duration = duration
 	
@@ -62,9 +62,9 @@ func is_alive() -> bool:
 		Game.State.RESPAWNING:      		return false;
 	return false
 		
-func _set_state( state: Game.State ):
-	state_changed.emit( state )
-	self.state = state
+func _set_state( new_state: Game.State ):
+	state_changed.emit( new_state )
+	self.state = new_state
 func _goto_swimming():
 	_set_state( Game.State.SWIMMING )
 	%GameManager.spawn_zone()
@@ -138,9 +138,9 @@ func _physics_process(delta: float) -> void:
 
 func _get_angle_range_for_y( y: float ) -> Array[float]:
 	var limit: float = 35.0
-	var range: float = 1.0/280.0
-	# var a: float = sin( deg_to_rad( abs( y ) * range ) )
-	var a: float = sin( abs( y ) * range )
+	var r: float = 1.0/280.0
+	# var a: float = sin( deg_to_rad( abs( y ) * r ) )
+	var a: float = sin( abs( y ) * r )
 	var m: float = limit * ( 1.0 - a*a*a*a )
 	# print(y, "->", limit, " ... ", m, " a=", a )
 	if y > 0.0:
@@ -191,7 +191,7 @@ func _physics_process_dying(delta: float) -> void:
 		_set_state( Game.State.DEAD )
 
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
+func _on_area_2d_area_entered(_area: Area2D) -> void:
 	print("Entered")
 	_goto_dying()
 	pass # Replace with function body.

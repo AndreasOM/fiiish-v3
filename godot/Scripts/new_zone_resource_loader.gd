@@ -9,13 +9,16 @@ func _get_recognized_extensions() -> PackedStringArray:
 	return PackedStringArray(["nzne"])
 
 func _get_resource_type(path: String) -> String:
-	print("NewZoneResourceLoader: ", path )
-	return "NewZone"
+	# print("NewZoneResourceLoader: ", path )
+	if path.ends_with(".nzne"):
+		return "NewZone"
+	else:
+		return ""
 
 func _handles_type(type: StringName) -> bool:
 	return type == "Resource"
 	
-func _load(path: String, original_path: String, use_sub_threads: bool, cache_mode: int) -> Variant:
+func _load(_path: String, original_path: String, _use_sub_threads: bool, _cache_mode: int) -> Variant:
 	# print("!!!!! Load ", original_path)
 	var n = NewZone.new()
 	
@@ -91,14 +94,14 @@ func _load(path: String, original_path: String, use_sub_threads: bool, cache_mod
 	for l in range(layer_count):
 		var layer = NewZoneLayer.new()
 		# :TODO: layer.serialize( s )	
-		var layer_name: String = ""
+		# var layer_name: String = ""
 		layer.name = s.serialize_fixed_string( 16, layer.name )	
 		# print( "Layer Name: ", layer.name )
 		var object_count = 0
 		object_count = s.serialize_u16( layer_count )
 		for o in range(object_count):
 			var object = NewZoneLayerObject.new()
-			var o_id = 0;
+			# var o_id = 0;
 			
 			object.id = s.serialize_u16( object.id )
 			object.crc = s.serialize_u32( object.crc )
