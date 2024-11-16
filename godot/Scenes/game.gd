@@ -20,6 +20,8 @@ signal state_changed( state: Game.State )
 
 var _player: Player = Player.new()
 
+var _skill_config_manager: SkillConfigManager = SkillConfigManager.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("Game - _ready()")
@@ -38,6 +40,9 @@ func _process(_delta: float) -> void:
 
 func get_player() -> Player:
 	return _player
+	
+func get_skill_config_manager() -> SkillConfigManager:
+	return _skill_config_manager
 
 func _on_debug_ui_zoom_changed( value: float ) -> void:
 	%GameNode2D.scale.x = value
@@ -66,6 +71,10 @@ func _on_fish_state_changed(state: Game.State) -> void:
 		State.RESPAWNING:
 			soundManager.fade_out_effect( SoundEffect.FISH_DEATH, 0.3 )
 			soundManager.fade_out_effect( SoundEffect.BUBBLE_BLAST_LOOP, 0.3 )
+		State.WAITING_FOR_START:
+			var f = %Fish as Fish
+			if f != null:
+				f.apply_skills( _player, _skill_config_manager )
 		_:
 			pass
 

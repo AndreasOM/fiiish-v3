@@ -3,11 +3,11 @@
 ## In Progress
 
 
-- [ ] Task: Define skill config for balancing
 
 
 ## Todo
 
+- [ ] Task: Use correct cost for skill upgrades
 - [ ] Task: Continue basic Skill Upgrade Dialog
 
 - [ ] Story: Move all dialogs into dialog manager
@@ -20,7 +20,7 @@
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
 
 	- [ ] Story: Skills
-		- [ ] Task: Apply skill levels during play
+		- [ ] Task: Apply remaining skill levels during play
 
 - [ ] Feature: Cheat Console
 
@@ -45,6 +45,12 @@
 - [ ] #unity Fix WebGL html wrapper template
 
 ## Done
+
+
+### 2024-11-16
+- [x] Cleanup: Replace skill effect levels with skill levels in player
+- [x] Task: Define skill config for balancing
+- [x] Task: Apply magnet range skill level during play
 
 ### 2024-11-13
 - [x] Task: Add close button to Skill Upgrade Dialog
