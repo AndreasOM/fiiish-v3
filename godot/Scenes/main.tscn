@@ -628,49 +628,50 @@ size_flags_stretch_ratio = 2.0
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 2
 
-[node name="RightVBoxContainer" type="VBoxContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer"]
+[node name="SkillUpgradeItemContainer" type="VBoxContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="MagnetRangeUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
+[node name="MagnetRangeUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Magnet Range"
 maximum = 5
-skill_effect_id = 1
+skill_id = 1
 
-[node name="MagnetRangeBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
+[node name="MagnetRangeBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Magnet Boost Range "
 maximum = 5
-skill_effect_id = 2
+skill_id = 2
 
-[node name="MagnetDurationBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
+[node name="MagnetDurationBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Magnet Duration Boost"
 maximum = 5
 
-[node name="CoinExplosionUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
+[node name="CoinExplosionUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Coin Explosion"
 maximum = 5
 
-[node name="CoinRainUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
+[node name="CoinRainUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Coin Rain"
 maximum = 5
 
-[node name="DummyUpgradeItem1" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
+[node name="DummyUpgradeItem1" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Dummy 1"
 maximum = 5
 
-[node name="DummyUpgradeItem2" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
+[node name="DummyUpgradeItem2" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Dummy 2"
 maximum = 5
 
-[node name="DummyUpgradeItem3" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer" instance=ExtResource("27_uql34")]
+[node name="DummyUpgradeItem3" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
 layout_mode = 2
 title = "Dummy 3"
 maximum = 5
@@ -716,6 +717,6 @@ script = ExtResource("24_6541p")
 [connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
 [connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_buy_skill_point_button_pressed"]
 [connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_reset_skill_points_button_pressed"]
-[connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer/MagnetRangeUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
-[connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer/MagnetRangeBoostUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
+[connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
+[connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeBoostUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
 [connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/CloseButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_close_button_pressed"]

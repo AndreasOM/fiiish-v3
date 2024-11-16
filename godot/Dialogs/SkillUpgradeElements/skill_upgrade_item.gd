@@ -6,7 +6,7 @@ class_name SkillUpgradeItem
 @export var unlockable: int = 0;
 @export var maximum: int = 0;
 
-@export var skill_effect_id: SkillEffectIds.Id = SkillEffectIds.Id.NONE;
+@export var skill_id: SkillIds.Id = SkillIds.Id.NONE;
 
 signal skill_buy_triggered;
 
@@ -32,7 +32,7 @@ func _createButtons():
 
 func _on_button_pressed( i: int ):
 	print( "pressed %d" % i)
-	skill_buy_triggered.emit( skill_effect_id, i )
+	skill_buy_triggered.emit( skill_id, i )
 	# :HACK:
 	# setCurrent( i )
 	
@@ -63,6 +63,10 @@ func setUnlockable( v: int ):
 	
 func setCurrent( v: int):
 	current = v
+	_updateStates()
+
+func setMaximum( v: int):
+	maximum = v
 	_updateStates()
 
 func prepare_fade_in():

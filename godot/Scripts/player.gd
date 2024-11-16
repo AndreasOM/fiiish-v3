@@ -19,8 +19,6 @@ var _skill_points_used: int = 0
 ## version 5
 
 var _skills = {
-#	SkillEffectIds.Id.MAGNET_RANGE_FACTOR: 0,
-#	SkillEffectIds.Id.MAGNET_BOOST_RANGE_FACTOR: 0,
 }
 
 static func get_save_path() -> String:
@@ -176,12 +174,12 @@ func use_skill_points( amount: int, _reason: String ) -> bool:
 	
 	return true
 	
-func get_skill_effect_level( id: SkillEffectIds.Id ) -> int:
+func get_skill_level( id: SkillIds.Id ) -> int:
 	return _skills.get( id, 0 )
 	
-func set_skill_effect_level( id: SkillEffectIds.Id, level: int ):
+func set_skill_level( id: SkillIds.Id, level: int ):
 	_skills[ id ] = level
 	
-func reset_skill_effecs():
+func reset_skills():
 	_skills = {}
 	_skill_points_used = 0

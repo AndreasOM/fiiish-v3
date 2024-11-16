@@ -1,4 +1,5 @@
 extends Node2D
+class_name Fish
 
 signal state_changed( state: Game.State )
 
@@ -30,9 +31,11 @@ var _pickup_range: float = 10.0
 var _magnet_range: float = 200.0
 var _magnet_speed: float = 300.0
 
-var _magnet_range_boost: float = 1.0;
-var _magnet_speed_boost: float = 1.0;
-var _magnet_boost_duration: float = 0.0;
+var _magnet_range_boost: float = 1.0
+var _magnet_speed_boost: float = 1.0
+var _magnet_boost_duration: float = 0.0
+
+var _magnet_range_factor: float = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,7 +46,7 @@ func pickup_range() -> float:
 	return _pickup_range
 	
 func magnet_range() -> float:
-	return _magnet_range * _magnet_range_boost
+	return _magnet_range * _magnet_range_factor * _magnet_range_boost
 	
 func magnet_speed() -> float:
 	return _magnet_speed * _magnet_speed_boost
@@ -195,3 +198,15 @@ func _on_area_2d_area_entered(_area: Area2D) -> void:
 	print("Entered")
 	_goto_dying()
 	pass # Replace with function body.
+
+func apply_skills( player: Player, scm: SkillConfigManager ):
+	var id = SkillIds.Id.MAGNET_RANGE_FACTOR
+	var magnet_level = player.get_skill_level( id )
+	var skill_level_config = scm.get_skill_level_config( id, magnet_level )
+	if skill_level_config != null:
+		var effect_value = skill_level_config.get_effect( SkillEffectIds.Id.MAGNET_RANGE_FACTOR, 1.0 )
+		_magnet_range_factor = effect_value
+	else:
+		_magnet_range_factor = 1.0
+
+	print("Magnet Range Factor %f" % _magnet_range_factor )
