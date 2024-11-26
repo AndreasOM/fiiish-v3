@@ -16,6 +16,8 @@
 
 - [ ] Cleanup: Restructure Main Scene
 - [ ] Feature: Skill Upgrades
+	- [ ] Story: Do final balancing pass for skills
+		- [ ] Task: Limit lucky streaks 
 	- [ ] Story: Skill Upgrade Dialog
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
 
@@ -50,6 +52,8 @@
 - [x] Task: Cleanup skill handling
 - [x] Task: Rebalance skills: Magnet, Magnet Boost Power & Duration
 - [x] Task: Add luck skill
+- [x] Task: Apply luck to coin explosion
+- [x] Task: Rebalance Coin Explosion skill
 
 ### 2024-11-16
 - [x] Cleanup: Replace skill effect levels with skill levels in player
