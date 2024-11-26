@@ -227,3 +227,6 @@ func set_skill_effect_set( ses: SkillEffectSet ):
 	_magnet_speed_factor = _skill_effect_set.get_value( SkillEffectIds.Id.MAGNET_SPEED, 1.0 )
 	print("Magnet Range Factor %f" % _magnet_range_factor )
 	print("Magnet Speed Factor %f" % _magnet_speed_factor )
+
+func get_skill_effect_value( skill_effect_id: SkillEffectIds.Id, default: float):
+	return _skill_effect_set.get_value( skill_effect_id, default)

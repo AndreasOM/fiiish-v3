@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=17 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bfbdti018xlkm" path="res://Scenes/Pickups/coin.tscn" id="7_5w3j0"]
 [ext_resource type="Script" path="res://Scenes/sprite_background.gd" id="7_vai64"]
 [ext_resource type="PackedScene" uid="uid://nm2c8x0fbn5c" path="res://Scenes/Pickups/coin_explosion.tscn" id="8_wo164"]
+[ext_resource type="PackedScene" uid="uid://drv8nabn33aa4" path="res://Scenes/Pickups/coin_rain.tscn" id="9_1neft"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="10_40ndf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uo4vc"]
@@ -88,12 +89,16 @@ unique_name_in_owner = true
 [node name="Pickups" type="Node2D" parent="GameScaler/GameNode2D"]
 unique_name_in_owner = true
 
+[node name="CoinRain" parent="GameScaler/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("9_1neft")]
+position = Vector2(0, -200)
+game_manager = NodePath("../../Managers/GameManager")
+
 [node name="Coin" parent="GameScaler/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("7_5w3j0")]
 position = Vector2(-258, -8)
 game_manager = NodePath("../../Managers/GameManager")
 
 [node name="CoinExplosion" parent="GameScaler/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("8_wo164")]
-position = Vector2(-343, 29)
+position = Vector2(0, 100)
 game_manager = NodePath("../../Managers/GameManager")
 
 [node name="Managers" type="Node" parent="GameScaler/GameNode2D"]

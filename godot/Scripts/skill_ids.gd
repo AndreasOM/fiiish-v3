@@ -13,6 +13,7 @@ enum Id {
 	MAGNET_BOOST_DURATION = 8,
 	COIN_EXPLOSION = 9,
 	COIN_RAIN = 10,
+	LUCK = 11,
 }
 
 
@@ -39,5 +40,7 @@ static func get_name_for_id( id: SkillIds.Id ) -> String:
 			return "COIN_EXPLOSION"
 		SkillIds.Id.COIN_RAIN: 
 			return "COIN_RAIN"
+		SkillIds.Id.LUCK: 
+			return "LUCK"
 		_:
 			return "[UNKNOWN]"
