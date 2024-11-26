@@ -7,19 +7,26 @@
 
 ## Todo
 
-- [ ] Task: Use correct cost for skill upgrades
-- [ ] Task: Continue basic Skill Upgrade Dialog
-
 - [ ] Story: Move all dialogs into dialog manager
 
 ## V3.2.0
 
+- [ ] Polish: Drop coins on death
 - [ ] Cleanup: Restructure Main Scene
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Do final balancing pass for skills
 		- [ ] Task: Limit lucky streaks 
 	- [ ] Story: Skill Upgrade Dialog
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
+		- [ ] Task: Fix/Add coin and skill point icons
+		- [ ] Task: Apply skill point costs when buying skills
+		- [ ] Task: Apply price when buying skill points
+		- [ ] Task: Make buy skill points stand out as button
+		- [ ] Task: Use "recycle" icon for skill reset
+		- [ ] Task: Add popup when can't afford skill
+		- [ ] Task: Add confirmation popup for skill reset
+		- [ ] Task: Make close button smaller
+		- [ ] Task: Replace background
 
 	- [ ] Story: Skills
 		- [ ] Task: Apply remaining skill levels during play
