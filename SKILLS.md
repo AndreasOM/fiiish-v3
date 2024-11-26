@@ -1,15 +1,15 @@
 # SKILLS
 
-- [ ] Magnet
-	- [ ] Magnet Range
-	- [ ] Magnet Strength/Speed
-- [ ] Magnet Boost Power
-	- [ ] Magnet Boost Range
-	- [ ] Magnet Boost Strength
-- [ ] Magnet Boost Duration
-	- [ ] Magnet Boost Duration
-- [ ] Coin Explosion
-	- [ ] Coin Explosion Amount
+- [x] Magnet
+	- [x] Magnet Range
+	- [x] Magnet Strength/Speed
+- [x] Magnet Boost Power
+	- [x] Magnet Boost Range
+	- [x] Magnet Boost Strength
+- [x] Magnet Boost Duration
+	- [x] Magnet Boost Duration
+- [x] Coin Explosion
+	- [x] Coin Explosion Amount
 - [ ] Coin Rain
 	- [ ] Coin Rain CPS (Coins per Second)
 	- [ ] Coin Rain Duration
@@ -18,6 +18,8 @@
 
 - [ ] Luck
 	- [ ] Special Coin Probability
+	- [x] :HACK: Rain & Explosion Coin probability for Coin Rain
+	
 - [ ] Coin Multiplier
 	:TODO:
 - [ ] Health
