@@ -28,14 +28,17 @@ var direction: Direction = Direction.NEUTRAL
 var mode: Mode = Mode.PLAY
 
 var _pickup_range: float = 10.0
-var _magnet_range: float = 200.0
-var _magnet_speed: float = 300.0
+#var _magnet_range: float = 1.0
+#var _magnet_speed: float = 1.0
 
 var _magnet_range_boost: float = 1.0
 var _magnet_speed_boost: float = 1.0
 var _magnet_boost_duration: float = 0.0
 
 var _magnet_range_factor: float = 1.0
+var _magnet_speed_factor: float = 1.0
+
+var _skill_effect_set: SkillEffectSet = SkillEffectSet.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -46,15 +49,22 @@ func pickup_range() -> float:
 	return _pickup_range
 	
 func magnet_range() -> float:
-	return _magnet_range * _magnet_range_factor * _magnet_range_boost
+	#return _magnet_range * _magnet_range_factor * _magnet_range_boost
+	return _magnet_range_factor * _magnet_range_boost
 	
 func magnet_speed() -> float:
-	return _magnet_speed * _magnet_speed_boost
+	# return _magnet_speed * _magnet_speed_factor * _magnet_speed_boost
+	return _magnet_speed_factor * _magnet_speed_boost
 
-func apply_magnet_boost( range_boost: float, speed: float, duration: float ):
-	_magnet_range_boost = range_boost
-	_magnet_speed_boost = speed
-	_magnet_boost_duration = duration
+func trigger_magnet_boost():
+	_magnet_range_boost = _skill_effect_set.get_value(SkillEffectIds.Id.MAGNET_BOOST_RANGE, 1.0)
+	_magnet_speed_boost = _skill_effect_set.get_value(SkillEffectIds.Id.MAGNET_BOOST_SPEED, 1.0)
+	_magnet_boost_duration = _skill_effect_set.get_value(SkillEffectIds.Id.MAGNET_BOOST_DURATION, 1.0)
+	
+#func apply_magnet_boost( range_boost: float, speed: float, duration: float ):
+#	_magnet_range_boost = range_boost
+#	_magnet_speed_boost = speed
+#	_magnet_boost_duration = duration
 	
 func is_alive() -> bool:
 	match state:
@@ -199,14 +209,21 @@ func _on_area_2d_area_entered(_area: Area2D) -> void:
 	_goto_dying()
 	pass # Replace with function body.
 
-func apply_skills( player: Player, scm: SkillConfigManager ):
-	var id = SkillIds.Id.MAGNET_RANGE_FACTOR
-	var magnet_level = player.get_skill_level( id )
-	var skill_level_config = scm.get_skill_level_config( id, magnet_level )
-	if skill_level_config != null:
-		var effect_value = skill_level_config.get_effect( SkillEffectIds.Id.MAGNET_RANGE_FACTOR, 1.0 )
-		_magnet_range_factor = effect_value
-	else:
-		_magnet_range_factor = 1.0
+#func apply_skills( player: Player, scm: SkillConfigManager ):
+#	var id = SkillIds.Id.MAGNET_RANGE_FACTOR
+#	var magnet_level = player.get_skill_level( id )
+#	var skill_level_config = scm.get_skill_level_config( id, magnet_level )
+#	if skill_level_config != null:
+#		var effect_value = skill_level_config.get_effect( SkillEffectIds.Id.MAGNET_RANGE_FACTOR, 1.0 )
+#		_magnet_range_factor = effect_value
+#	else:
+#		_magnet_range_factor = 1.0
+#
+#	print("Magnet Range Factor %f" % _magnet_range_factor )
 
+func set_skill_effect_set( ses: SkillEffectSet ):
+	_skill_effect_set = ses
+	_magnet_range_factor = _skill_effect_set.get_value( SkillEffectIds.Id.MAGNET_RANGE, 1.0 )
+	_magnet_speed_factor = _skill_effect_set.get_value( SkillEffectIds.Id.MAGNET_SPEED, 1.0 )
 	print("Magnet Range Factor %f" % _magnet_range_factor )
+	print("Magnet Speed Factor %f" % _magnet_speed_factor )

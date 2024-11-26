@@ -186,7 +186,8 @@ func _physics_process_pickups(delta_time: float) -> void:
 				p.collect()
 				match p.effect():
 					PickupEffect.MAGNET:
-						f.apply_magnet_boost( 3.0, 10.0, 1.5 )
+						f.trigger_magnet_boost()
+						#f.apply_magnet_boost( 3.0, 10.0, 1.5 )
 					# :TODO: to be continued...
 					PickupEffect.RAIN:
 						_coin_rain_duration += 3.0
@@ -202,6 +203,8 @@ func _physics_process_pickups(delta_time: float) -> void:
 				if !p.is_magnetic():
 					continue
 				var speed = -magnet_speed * delta_time;
+				var l = sqrt(ls);
+				speed = max( -l, speed ) 
 				delta = delta.normalized()
 				delta = speed * delta;
 				p.position += delta;
