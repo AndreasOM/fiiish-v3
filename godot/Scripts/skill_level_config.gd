@@ -22,3 +22,7 @@ func get_effect( id: SkillEffectIds.Id, default: float ) -> float:
 		return default
 		
 	return e
+
+func get_effect_ids() -> Array:
+	return effects.keys()
+	

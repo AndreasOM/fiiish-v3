@@ -98,6 +98,8 @@ func serialize( s: Serializer ) -> bool:
 		
 		_skills[ k ] = v
 	
+	# :TODO: cleanup old skills
+	
 	return true
 		
 func coins() -> int:

@@ -74,7 +74,10 @@ func _on_fish_state_changed(state: Game.State) -> void:
 		State.WAITING_FOR_START:
 			var f = %Fish as Fish
 			if f != null:
-				f.apply_skills( _player, _skill_config_manager )
+				var ses = SkillEffectSet.new()
+				ses.apply_skills( _player, _skill_config_manager )
+				# f.apply_skills( _player, _skill_config_manager )
+				f.set_skill_effect_set( ses )
 		_:
 			pass
 
