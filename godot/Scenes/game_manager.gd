@@ -165,7 +165,10 @@ func _physics_process(delta: float) -> void:
 		_physics_process_pickups(delta)
 
 func _physics_process_pickups(delta_time: float) -> void:
-	for f in %Fishes.get_children():
+	for fi in %Fishes.get_children():
+		var f = fi as Fish
+		if f == null:
+			continue
 		if !f.is_alive():
 			continue
 		var pickup_range_sqr = f.pickup_range() * f.pickup_range();
@@ -190,8 +193,8 @@ func _physics_process_pickups(delta_time: float) -> void:
 						#f.apply_magnet_boost( 3.0, 10.0, 1.5 )
 					# :TODO: to be continued...
 					PickupEffect.RAIN:
-						_coin_rain_duration += 3.0
-						_coin_rain_coins_per_second = 33.0
+						_coin_rain_duration += f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_DURATION, 0.0 )
+						_coin_rain_coins_per_second = f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_COINS_PER_SECOND, 0.0 )
 					PickupEffect.EXPLOSION:
 						spawn_explosion( pp )
 					_: pass
@@ -217,7 +220,7 @@ func _physics_process_pickups(delta_time: float) -> void:
 			var cc = floor(_coin_rain_counter)
 			if cc > 0:
 				_coin_rain_counter -= cc
-				spawn_coins(cc)
+				spawn_coins(cc, f)
 	
 func spawn_explosion( position: Vector2 ):
 	var ec = _entity_configs.get( EntityId.PICKUPCOIN )
@@ -254,21 +257,32 @@ func spawn_explosion( position: Vector2 ):
 			pickup.set_target_velocity( Vector2.ZERO, 1.0 * r )
 			pickup.disable_magnetic_for_seconds( 1.0 )
 	
-func spawn_coins( count: int ):
+func spawn_coins( count: int, fish: Fish ):
 	var ec = _entity_configs.get( EntityId.PICKUPCOIN )
 	var ece = _entity_configs.get( EntityId.PICKUPEXPLOSION )
 	var ecr = _entity_configs.get( EntityId.PICKUPRAIN )
 	if ec == null || ece == null || ecr == null:
 		return
+	var rain_coin_probability = fish.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_RAIN_COIN_PROBABILITY, 0.0 )
+	var explosion_coin_probability = fish.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_EXPLOSION_COIN_PROBABILITY, 0.0 )
 	for i in count:
 		var p = null
-		var r = randf()
-		if r > 0.99:
-			p = ece.resource.instantiate()
-		elif r > 0.98:
-			p = ecr.resource.instantiate()
-		else:
+
+		# explosion coin?
+		if p == null:
+			var rec = randf()
+			if rec < explosion_coin_probability:
+				p = ece.resource.instantiate()
+
+		# rain coin?
+		if p == null:
+			var rcr = randf()
+			if rcr < rain_coin_probability:
+				p = ecr.resource.instantiate()
+			
+		if p == null:
 			p = ec.resource.instantiate()
+			
 		p.game_manager = self
 		p.position = Vector2( randf_range( 0.0, 1000.0 ), randf_range( -1100.0, -600.0 ) )
 		%Pickups.add_child(p)

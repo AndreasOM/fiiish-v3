@@ -49,6 +49,7 @@
 ### 2024-11-28
 - [x] Task: Cleanup skill handling
 - [x] Task: Rebalance skills: Magnet, Magnet Boost Power & Duration
+- [x] Task: Add luck skill
 
 ### 2024-11-16
 - [x] Cleanup: Replace skill effect levels with skill levels in player
