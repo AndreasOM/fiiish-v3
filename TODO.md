@@ -3,8 +3,6 @@
 ## In Progress
 
 
-- [ ] Story: Do final balancing pass for skills
-	- [ ] Task: Limit lucky streaks 
 
 
 ## Todo
@@ -56,6 +54,8 @@
 ### 2024-11-27
 - [x] Polish: Drop coins on death
 - [x] Task: Make close button smaller
+- [x] Story: Do final balancing pass for skills
+- [x] Task: Limit lucky streaks 
 
 ### 2024-11-28
 - [x] Task: Cleanup skill handling
