@@ -10,16 +10,16 @@
 	- [x] Magnet Boost Duration
 - [x] Coin Explosion
 	- [x] Coin Explosion Amount
-- [ ] Coin Rain
-	- [ ] Coin Rain CPS (Coins per Second)
-	- [ ] Coin Rain Duration
+- [x] Coin Rain
+	- [x] Coin Rain CPS (Coins per Second)
+	- [x] Coin Rain Duration
 
 ## Future
 
 - [ ] Luck
 	- [ ] Special Coin Probability
 	- [x] :HACK: Rain & Explosion Coin probability for Coin Rain
-	
+
 - [ ] Coin Multiplier
 	:TODO:
 - [ ] Health

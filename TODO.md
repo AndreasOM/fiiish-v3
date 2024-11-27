@@ -3,6 +3,8 @@
 ## In Progress
 
 
+- [ ] Story: Do final balancing pass for skills
+	- [ ] Task: Limit lucky streaks 
 
 
 ## Todo
@@ -13,8 +15,6 @@
 
 - [ ] Cleanup: Restructure Main Scene
 - [ ] Feature: Skill Upgrades
-	- [ ] Story: Do final balancing pass for skills
-		- [ ] Task: Limit lucky streaks 
 	- [ ] Story: Skill Upgrade Dialog
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
 		- [ ] Task: Fix/Add coin and skill point icons
@@ -24,7 +24,6 @@
 		- [ ] Task: Use "recycle" icon for skill reset
 		- [ ] Task: Add popup when can't afford skill
 		- [ ] Task: Add confirmation popup for skill reset
-		- [ ] Task: Make close button smaller
 		- [ ] Task: Replace background
 
 	- [ ] Story: Skills
@@ -56,6 +55,7 @@
 
 ### 2024-11-27
 - [x] Polish: Drop coins on death
+- [x] Task: Make close button smaller
 
 ### 2024-11-28
 - [x] Task: Cleanup skill handling

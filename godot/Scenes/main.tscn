@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=35 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://b14w8r43ut34" path="res://Textures/UI/shop_frame.png" id="26_fi230"]
 [ext_resource type="Script" path="res://Dialogs/skill_upgrade_dialog.gd" id="26_k4u55"]
 [ext_resource type="PackedScene" uid="uid://br2xttibjn8qo" path="res://Dialogs/SkillUpgradeElements/SkillUpgradeItem.tscn" id="27_uql34"]
+[ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="30_5lvsn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwb6x"]
 font = ExtResource("7_c40ns")
@@ -676,15 +677,23 @@ layout_mode = 2
 title = "Dummy 3"
 maximum = 5
 
-[node name="CloseButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect"]
+[node name="MarginContainer3" type="MarginContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-texture_normal = ExtResource("5_l2xk6")
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 98
+theme_override_constants/margin_top = 47
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 140
+
+[node name="CloseButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("30_5lvsn")
 
 [node name="Managers" type="Node" parent="."]
 
@@ -719,4 +728,4 @@ script = ExtResource("24_6541p")
 [connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_reset_skill_points_button_pressed"]
 [connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
 [connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeBoostUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
-[connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/CloseButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_close_button_pressed"]
+[connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer3/CloseButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_close_button_pressed"]
