@@ -4,7 +4,6 @@
 
 
 
-
 ## Todo
 
 - [ ] Story: Move all dialogs into dialog manager
@@ -56,6 +55,7 @@
 - [x] Task: Limit lucky streaks 
 - [x] Task: Apply skill point costs when buying skills
 - [x] Task: Apply price when buying skill points
+- [x] Polish: Make fish accelerate on death
 
 ### 2024-11-28
 - [x] Task: Cleanup skill handling
