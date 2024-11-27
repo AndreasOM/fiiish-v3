@@ -17,7 +17,11 @@ var _start_velocity: Vector2 = Vector2.ZERO
 var _velocity_change_duration: float = 0.0
 var _velocity_change_time: float = 0.0
 
+
 var _disable_magnetic_duration: float = 0.0
+
+var _acceleration: Vector2 = Vector2.ZERO
+
 func set_velocity( velocity: Vector2 ):
 	_velocity = velocity
 	_velocity_change_duration = 0.0
@@ -27,6 +31,9 @@ func set_target_velocity( velocity: Vector2, duration: float ):
 	_target_velocity = velocity
 	_velocity_change_duration = duration
 	_velocity_change_time = 0.0
+
+func set_acceleration( acceleration: Vector2 ):
+	_acceleration = acceleration
 
 func is_alive() -> bool:
 	return true
@@ -65,6 +72,8 @@ func _process(delta: float) -> void:
 		_velocity = _start_velocity.lerp( _target_velocity, p )
 
 func _physics_process(delta: float) -> void:
+	_velocity += _acceleration * delta;
+	
 	if self.game_manager != null:
 		var m = Vector2( -self.game_manager.movement_x, 0.0 )
 		m += _velocity

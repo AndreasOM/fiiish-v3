@@ -365,6 +365,14 @@ func cleanup():
 		%Pickups.remove_child(p)
 		p.queue_free()
 
+func kill_pickups():
+	var g = Vector2( 0.0, 9.81*100.0 )
+	for pi in %Pickups.get_children():
+		var p = pi as Pickup
+		if p == null:
+			continue
+		p.set_acceleration( g )
+	
 func prepare_respawn():
 	_coins = 0
 	_coin_rain_duration = 0.0
