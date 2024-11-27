@@ -40,10 +40,15 @@ var _magnet_speed_factor: float = 1.0
 
 var _skill_effect_set: SkillEffectSet = SkillEffectSet.new()
 
+var _velocity: Vector2 = Vector2.ZERO
+var _acceleration: Vector2 = Vector2.ZERO
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%AnimatedSprite2D.play("swim")
 	
+func set_acceleration( acceleration: Vector2 ):
+	_acceleration = acceleration
 
 func pickup_range() -> float:
 	return _pickup_range
@@ -84,6 +89,8 @@ func _goto_swimming():
 	%GameManager.resume()
 	
 func _goto_dying() -> void:
+	#set_acceleration(Vector2( 0.0, -9.81*100.0 ))
+	set_acceleration(Vector2( 0.0, -9.81*50.0 ))
 	_set_state( Game.State.DYING )
 	%GameManager.pause()
 	%AnimatedSprite2D.play("dying")
@@ -125,7 +132,8 @@ func _process(delta: float) -> void:
 					_magnet_boost_duration = 0.0
 					_magnet_range_boost = 1.0
 					_magnet_speed_boost = 1.0
-		#Game.State.DYING:
+		# Game.State.DYING:
+
 			
 		Game.State.DEAD:
 			if Input.is_key_pressed(KEY_SPACE):
@@ -194,13 +202,17 @@ func _physics_process_swimming(delta: float) -> void:
  	
 func _physics_process_dying(delta: float) -> void:
 	# print("Dying: %s" % %AnimatedSprite2D.global_position)
-	self.transform.origin.y -= 192.0 * delta
+	_velocity += _acceleration * delta
+	# self.transform.origin.y -= 192.0 * delta
+	self.transform.origin += _velocity * delta
 	var a = self.rotation_degrees
 	a -= 60.0 * delta
 	a = maxf( a, -90.0)
 	self.rotation_degrees = a
 	if %AnimatedSprite2D.global_position.y < -128.0: # aka off screen
 		print("Finished dying (off screen)")
+		_velocity = Vector2.ZERO
+		_acceleration = Vector2.ZERO
 		_set_state( Game.State.DEAD )
 
 
