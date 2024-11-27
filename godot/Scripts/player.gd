@@ -99,7 +99,8 @@ func serialize( s: Serializer ) -> bool:
 		_skills[ k ] = v
 	
 	# :TODO: cleanup old skills
-	
+#	reset_skills()
+#	_skill_points_gained = 0
 	return true
 		
 func coins() -> int:
@@ -167,6 +168,9 @@ func give_skill_points( amount: int, _reason: String ):
 	
 func available_skill_points() -> int:
 	return _skill_points_gained - _skill_points_used
+
+func gained_skill_points() -> int:
+	return _skill_points_gained
 	
 func use_skill_points( amount: int, _reason: String ) -> bool:
 	if	amount > available_skill_points():

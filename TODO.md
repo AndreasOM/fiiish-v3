@@ -16,8 +16,6 @@
 	- [ ] Story: Skill Upgrade Dialog
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
 		- [ ] Task: Fix/Add coin and skill point icons
-		- [ ] Task: Apply skill point costs when buying skills
-		- [ ] Task: Apply price when buying skill points
 		- [ ] Task: Make buy skill points stand out as button
 		- [ ] Task: Use "recycle" icon for skill reset
 		- [ ] Task: Add popup when can't afford skill
@@ -56,6 +54,8 @@
 - [x] Task: Make close button smaller
 - [x] Story: Do final balancing pass for skills
 - [x] Task: Limit lucky streaks 
+- [x] Task: Apply skill point costs when buying skills
+- [x] Task: Apply price when buying skill points
 
 ### 2024-11-28
 - [x] Task: Cleanup skill handling
