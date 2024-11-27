@@ -11,7 +11,6 @@
 
 ## V3.2.0
 
-- [ ] Polish: Drop coins on death
 - [ ] Cleanup: Restructure Main Scene
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Do final balancing pass for skills
@@ -54,6 +53,9 @@
 - [ ] #unity Fix WebGL html wrapper template
 
 ## Done
+
+### 2024-11-27
+- [x] Polish: Drop coins on death
 
 ### 2024-11-28
 - [x] Task: Cleanup skill handling
