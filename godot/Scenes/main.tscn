@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=31 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -29,10 +29,6 @@
 [ext_resource type="Script" path="res://Scenes/music_manager.gd" id="23_l5um0"]
 [ext_resource type="Script" path="res://Scenes/sound_manager.gd" id="24_6541p"]
 [ext_resource type="Script" path="res://Scenes/dialog_manager.gd" id="25_xncef"]
-[ext_resource type="Texture2D" uid="uid://b14w8r43ut34" path="res://Textures/UI/shop_frame.png" id="26_fi230"]
-[ext_resource type="Script" path="res://Dialogs/skill_upgrade_dialog.gd" id="26_k4u55"]
-[ext_resource type="PackedScene" uid="uid://br2xttibjn8qo" path="res://Dialogs/SkillUpgradeElements/SkillUpgradeItem.tscn" id="27_uql34"]
-[ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="30_5lvsn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwb6x"]
 font = ExtResource("7_c40ns")
@@ -476,7 +472,7 @@ offset_right = -1482.0
 size_flags_vertical = 10
 game = NodePath("../../Game")
 
-[node name="DialogManager" type="Control" parent="UI"]
+[node name="DialogManager" type="Control" parent="UI" node_paths=PackedStringArray("game")]
 process_mode = 3
 z_index = 10
 layout_mode = 3
@@ -487,215 +483,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("25_xncef")
-
-[node name="SkillUpgradeDialog" type="Control" parent="UI/DialogManager" node_paths=PackedStringArray("game")]
-z_index = 10
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("26_k4u55")
-game = NodePath("../../../Game")
-
-[node name="FadeableCenterContainer" type="CenterContainer" parent="UI/DialogManager/SkillUpgradeDialog"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -512.0
-offset_top = -512.0
-offset_right = 512.0
-offset_bottom = 512.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("9_jeb54")
-
-[node name="TextureRect" type="TextureRect" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer"]
-layout_mode = 2
-texture = ExtResource("26_fi230")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 98
-theme_override_constants/margin_top = 120
-theme_override_constants/margin_right = 90
-theme_override_constants/margin_bottom = 140
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer"]
-layout_mode = 2
-
-[node name="LeftVBoxContainer" type="VBoxContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ColorRect" type="ColorRect" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-color = Color(0.435294, 0.0235294, 0.545098, 0.32549)
-
-[node name="Label" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"SkillsHeaderLabel"
-text = "Skills"
-horizontal_alignment = 1
-
-[node name="SkillPointColorRect" type="ColorRect" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-color = Color(0.308919, 0.577972, 0.400032, 0.541176)
-
-[node name="SkillPointLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/SkillPointColorRect"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"SkillsAmountLabel"
-text = "9"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BuySkillPointButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-layout_mode = 2
-texture_normal = ExtResource("5_p4vau")
-
-[node name="SkillCostLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointButton"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"SkillsAmountLabel"
-text = "200 -> 1
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CoinsColorRect" type="ColorRect" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-color = Color(0.631373, 0.482353, 0.254902, 0.490196)
-
-[node name="CoinsLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/CoinsColorRect"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"SkillsAmountLabel"
-text = "200
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ResetSkillPointsButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-layout_mode = 2
-texture_normal = ExtResource("5_p4vau")
-
-[node name="SkillResetLabel" type="Label" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"SkillsAmountLabel"
-text = "Reset
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 764)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 2
-
-[node name="SkillUpgradeItemContainer" type="VBoxContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-
-[node name="MagnetRangeUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
-layout_mode = 2
-title = "Magnet Range"
-maximum = 5
-skill_id = 1
-
-[node name="MagnetRangeBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
-layout_mode = 2
-title = "Magnet Boost Range "
-maximum = 5
-skill_id = 2
-
-[node name="MagnetDurationBoostUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
-layout_mode = 2
-title = "Magnet Duration Boost"
-maximum = 5
-
-[node name="CoinExplosionUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
-layout_mode = 2
-title = "Coin Explosion"
-maximum = 5
-
-[node name="CoinRainUpgradeItem" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
-layout_mode = 2
-title = "Coin Rain"
-maximum = 5
-
-[node name="DummyUpgradeItem1" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
-layout_mode = 2
-title = "Dummy 1"
-maximum = 5
-
-[node name="DummyUpgradeItem2" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
-layout_mode = 2
-title = "Dummy 2"
-maximum = 5
-
-[node name="DummyUpgradeItem3" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("27_uql34")]
-layout_mode = 2
-title = "Dummy 3"
-maximum = 5
-
-[node name="MarginContainer3" type="MarginContainer" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 98
-theme_override_constants/margin_top = 47
-theme_override_constants/margin_right = 35
-theme_override_constants/margin_bottom = 140
-
-[node name="CloseButton" type="TextureButton" parent="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer3"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("30_5lvsn")
+game = NodePath("../../Game")
 
 [node name="Managers" type="Node" parent="."]
 
@@ -726,8 +514,3 @@ script = ExtResource("24_6541p")
 [connection signal="pressed" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer/SoundOffTextureButton" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_b_pressed"]
 [connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
 [connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
-[connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_buy_skill_point_button_pressed"]
-[connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_reset_skill_points_button_pressed"]
-[connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
-[connection signal="skill_buy_triggered" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeBoostUpgradeItem" to="UI/DialogManager/SkillUpgradeDialog" method="_on_skill_buy_triggered"]
-[connection signal="pressed" from="UI/DialogManager/SkillUpgradeDialog/FadeableCenterContainer/TextureRect/MarginContainer3/CloseButton" to="UI/DialogManager/SkillUpgradeDialog" method="_on_close_button_pressed"]

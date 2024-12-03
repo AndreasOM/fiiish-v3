@@ -2,11 +2,10 @@
 
 ## In Progress
 
+- [ ] Story: Move all dialogs into dialog manager
 
 
 ## Todo
-
-- [ ] Story: Move all dialogs into dialog manager
 
 ## V3.2.0
 
@@ -21,8 +20,6 @@
 		- [ ] Task: Add confirmation popup for skill reset
 		- [ ] Task: Replace background
 
-	- [ ] Story: Skills
-		- [ ] Task: Apply remaining skill levels during play
 
 - [ ] Feature: Cheat Console
 
@@ -36,6 +33,7 @@
 
 - [ ] Feature: Main Menu
 - [ ] Feature: Cloud Saves
+- [ ] Fix: Cleanup fadeable container with focus on z_index
 
 ## Future
 - [ ] Add leaderboards
@@ -47,6 +45,15 @@
 - [ ] #unity Fix WebGL html wrapper template
 
 ## Done
+
+### Forgot when
+
+- [x] Story: Skills
+- [x] Task: Apply remaining skill levels during play
+
+### 2024-12-03
+- [x] Task: Create basic DialogManager
+- [x] Task: Use DialogManager to handle SkillUpgradeDialog
 
 ### 2024-11-27
 - [x] Polish: Drop coins on death
