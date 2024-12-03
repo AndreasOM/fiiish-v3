@@ -6,7 +6,8 @@ extends Control
 func _ready() -> void:
 	# await get_tree().process_frame
 	%SettingsButtonFade.fade_out( 0.0 )
-	%SettingsFadeableContainer.fade_out( 0.0 )
+	%SettingDialog.fade_out( 0.0 )
+	# %SettingsFadeableContainer.fade_out( 0.0 )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -28,7 +29,8 @@ func toggle_pause():
 				%SettingsButtonFade.visible = true
 		else:
 			%PauseToggleButton.goto_a()
-			%SettingsFadeableContainer.fade_out( 0.3 )
+			%SettingDialog.fade_out( 0.3 )
+			# %SettingsFadeableContainer.fade_out( 0.3 )
 			var settings_button = %SettingsButtonFade as FadeableContainer
 			if settings_button:
 				settings_button.fade_out( 0.3 )
@@ -36,7 +38,8 @@ func toggle_pause():
 				%SettingsButtonFade.visible = false
 			
 func _on_settings_button_pressed():
-	%SettingsFadeableContainer.toggle_fade( 0.3 )
+	# %SettingsFadeableContainer.toggle_fade( 0.3 )
+	%SettingDialog.toggle_fade( 0.3 )
 	print("Settings Button pressed")
 
 func _on_pause_toggle_button_toggled( _state: ToggleButtonContainer.ToggleState ) -> void:
