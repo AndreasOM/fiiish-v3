@@ -46,14 +46,15 @@
 
 ## Done
 
-### Forgot when
-
-- [x] Story: Skills
-- [x] Task: Apply remaining skill levels during play
 
 ### 2024-12-03
 - [x] Task: Create basic DialogManager
 - [x] Task: Use DialogManager to handle SkillUpgradeDialog
+- [x] Task: Use DialogManager to handle SettingDialog
+
+### Forgot when
+- [x] Story: Skills
+- [x] Task: Apply remaining skill levels during play
 
 ### 2024-11-27
 - [x] Polish: Drop coins on death

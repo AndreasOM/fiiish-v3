@@ -1,4 +1,4 @@
-extends Control
+extends Dialog
 
 @export var game: Game = null
 @export var musicToggleButton: ToggleButtonContainer = null
@@ -60,6 +60,9 @@ func _ready() -> void:
 	desc = desc.replace( "[suffix]", suffix )
 	%SettingsInfoRichTextLabel.text = desc
 
+func set_game( game: Game):
+	self.game = game
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -85,6 +88,16 @@ func _on_sound_toggle_button_container_toggled(state: ToggleButtonContainer.Togg
 		ToggleButtonContainer.ToggleState.B:
 			print("Sound toggle to B")
 			game.disableSound()
+
+func toggle( duration: float ):
+	toggle_fade( duration )
+
+func close( duration: float):
+	fade_out( duration )
+
+func open( duration: float):
+	fade_in( duration )
+
 
 func toggle_fade( duration: float ):
 	$SettingsFadeableContainer.toggle_fade( duration )
