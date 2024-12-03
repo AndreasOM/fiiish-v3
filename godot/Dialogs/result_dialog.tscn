@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0rj0pswt334s"]
+
+[ext_resource type="Script" path="res://Scenes/result_dialog.gd" id="1_wlxjo"]
+[ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="2_g40ym"]
+[ext_resource type="Texture2D" uid="uid://uhorwvm6i0mq" path="res://Textures/UI/screen_frame.png" id="3_dssl3"]
+[ext_resource type="PackedScene" uid="uid://ch18db020xqmp" path="res://Scenes/UI/result_row.tscn" id="4_sjgyn"]
+[ext_resource type="Texture2D" uid="uid://l3vyvg8q35ki" path="res://Textures/UI/Buttons/button_fiiish.png" id="5_8gynd"]
+
+[node name="ResultDialog" type="Control" node_paths=PackedStringArray("coinsResultRow", "distanceResultRow", "bestDistanceResultRow", "totalDistanceResultRow")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 940.0
+offset_top = 520.0
+offset_right = 940.0
+offset_bottom = 520.0
+script = ExtResource("1_wlxjo")
+coinsResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/CoinsResultRow")
+distanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/DistanceResultRow")
+bestDistanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/BestDistanceResultRow")
+totalDistanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/TotalDistanceResultRow")
+
+[node name="ResultDialogFadeableContainer" type="CenterContainer" parent="."]
+z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_g40ym")
+
+[node name="TextureRect" type="TextureRect" parent="ResultDialogFadeableContainer"]
+layout_mode = 2
+texture = ExtResource("3_dssl3")
+
+[node name="MarginContainer" type="MarginContainer" parent="ResultDialogFadeableContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 340
+theme_override_constants/margin_top = 240
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 360
+
+[node name="ColorRect" type="ColorRect" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(1, 0.2, 0.2, 0.560784)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+
+[node name="CoinsResultRow" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_sjgyn")]
+layout_mode = 2
+
+[node name="DistanceResultRow" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_sjgyn")]
+layout_mode = 2
+
+[node name="BestDistanceResultRow" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_sjgyn")]
+layout_mode = 2
+
+[node name="TotalDistanceResultRow" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_sjgyn")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="ResultDialogFadeableContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 710
+theme_override_constants/margin_right = 470
+theme_override_constants/margin_bottom = 190
+
+[node name="ColorRect" type="ColorRect" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+layout_mode = 2
+color = Color(0.627451, 0.184314, 0.972549, 0.482353)
+
+[node name="SkillUpgradeButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("5_8gynd")
+
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]

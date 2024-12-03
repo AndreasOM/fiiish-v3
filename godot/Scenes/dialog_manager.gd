@@ -1,8 +1,10 @@
 extends Control
+class_name DialogManager
 
 @export var game: Game = null
 
 var _dialog_configs: Dictionary = {
+	DialogIds.Id.RESULT_DIALOG: preload("res://Dialogs/result_dialog.tscn"),
 	DialogIds.Id.SETTING_DIALOG: preload("res://Dialogs/setting_dialog.tscn"),
 	DialogIds.Id.SKILL_UPGRADE_DIALOG: preload("res://Dialogs/skill_upgrade_dialog.tscn"),
 }
@@ -19,6 +21,8 @@ func _ready() -> void:
 		if dialog == null:
 			push_warning( "%d is not a dialog" % [ id ] )
 			continue
+		#if dialog.has_method( "set_dialog_manager" ):
+		dialog.set_dialog_manager( self )
 		if dialog.has_method( "set_game" ):
 			dialog.set_game( game );
 		dialog.close( 0.0 )
@@ -26,6 +30,7 @@ func _ready() -> void:
 		self.add_child( dialog )
 		_dialogs[ id ] = dialog
 			
+	# open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 
 func _on_skills_upgrade_button_pressed() -> void:
 	print("Skills upgrade button pressed")
@@ -42,6 +47,7 @@ func toggle_dialog( id: DialogIds.Id, duration: float):
 func open_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
+		print("Opening dialog %d" % id)
 		dialog.open( duration )
 	else:
 		push_warning("Dialog %d not found for open" % id )
@@ -56,14 +62,17 @@ func close_dialog( id: DialogIds.Id, duration: float):
 
 func _on_game_state_changed(state: Game.State) -> void:
 	match state:
+		Game.State.DYING:
+			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			open_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		Game.State.RESPAWNING:
-			# $SkillUpgradeDialog.fade_out( 0.3 )
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		Game.State.WAITING_FOR_START:
-			# $SkillUpgradeDialog.fade_out( 0.3 )
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		Game.State.SWIMMING:
-			# $SkillUpgradeDialog.fade_out( 0.3 )
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		_:
 			pass

@@ -51,6 +51,7 @@
 - [x] Task: Create basic DialogManager
 - [x] Task: Use DialogManager to handle SkillUpgradeDialog
 - [x] Task: Use DialogManager to handle SettingDialog
+- [x] Task: Use DialogManager to handle ResultDialog
 
 ### Forgot when
 - [x] Story: Skills
