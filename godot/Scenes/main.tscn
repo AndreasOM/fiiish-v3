@@ -234,6 +234,7 @@ size_flags_vertical = 4
 texture_normal = ExtResource("6_ue6v2")
 
 [node name="ResultDialogFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu"]
+visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 8
@@ -325,9 +326,23 @@ color = Color(0.627451, 0.184314, 0.972549, 0.482353)
 layout_mode = 2
 texture_normal = ExtResource("17_bi6k4")
 
-[node name="SettingsFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu"]
+[node name="SettingDialog" type="Control" parent="UI/InGamePauseMenu" node_paths=PackedStringArray("game", "musicToggleButton", "soundToggleButton")]
 unique_name_in_owner = true
-visible = false
+layout_mode = 2
+anchors_preset = 0
+offset_left = 448.0
+offset_top = 28.0
+offset_right = 448.0
+offset_bottom = 28.0
+script = ExtResource("11_uqoye")
+game = NodePath("../../../Game")
+musicToggleButton = NodePath("SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer")
+soundToggleButton = NodePath("SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer")
+descriptionFile = "res://Resources/description.txt"
+descriptionDemoFile = "res://Resources/description_demo.txt"
+versionFile = "res://Resources/version_info.txt"
+
+[node name="SettingsFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingDialog"]
 z_index = 20
 layout_mode = 1
 anchors_preset = 8
@@ -335,33 +350,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -512.0
-offset_top = -512.0
-offset_right = 512.0
-offset_bottom = 512.0
+offset_right = 1024.0
+offset_bottom = 1024.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_jeb54")
 
-[node name="SettingDialog" type="Control" parent="UI/InGamePauseMenu/SettingsFadeableContainer" node_paths=PackedStringArray("game", "musicToggleButton", "soundToggleButton")]
+[node name="SettingsPanel" type="Panel" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer"]
+visible = false
 layout_mode = 2
-script = ExtResource("11_uqoye")
-game = NodePath("../../../../Game")
-musicToggleButton = NodePath("TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer")
-soundToggleButton = NodePath("TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer")
-descriptionFile = "res://Resources/description.txt"
-descriptionDemoFile = "res://Resources/description_demo.txt"
-versionFile = "res://Resources/version_info.txt"
 
-[node name="TextureRect" type="TextureRect" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog"]
+[node name="TextureRect" type="TextureRect" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer"]
 layout_mode = 2
-offset_left = -512.0
-offset_top = -512.0
-offset_right = 512.0
-offset_bottom = 512.0
 texture = ExtResource("11_x2uk2")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -373,15 +376,15 @@ theme_override_constants/margin_top = 260
 theme_override_constants/margin_right = 140
 theme_override_constants/margin_bottom = 380
 
-[node name="ColorRect" type="ColorRect" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer"]
+[node name="ColorRect" type="ColorRect" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer"]
 visible = false
 layout_mode = 2
 color = Color(1, 0.2, 0.2, 0.560784)
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer"]
 layout_mode = 2
 
-[node name="SettingsTitleRichTextLabel" type="RichTextLabel" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2"]
+[node name="SettingsTitleRichTextLabel" type="RichTextLabel" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -391,7 +394,7 @@ text = "Fiiish! Godot
 fit_content = true
 autowrap_mode = 0
 
-[node name="SettingsInfoRichTextLabel" type="RichTextLabel" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2"]
+[node name="SettingsInfoRichTextLabel" type="RichTextLabel" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -404,35 +407,35 @@ Thanks for playing :)
 fit_content = true
 autowrap_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="MusicToggleButtonContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="MusicToggleButtonContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("6_f48l1")
 
-[node name="MusicOnFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer"]
+[node name="MusicOnFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer"]
 layout_mode = 2
 mouse_filter = 0
 script = ExtResource("9_jeb54")
 
-[node name="MusicOnTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOnFadeableContainer"]
+[node name="MusicOnTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOnFadeableContainer"]
 layout_mode = 2
 texture_normal = ExtResource("12_q0v3a")
 
-[node name="MusicOffFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer"]
+[node name="MusicOffFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer"]
 layout_mode = 2
 script = ExtResource("9_jeb54")
 
-[node name="MusicOffTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOffFadeableContainer"]
+[node name="MusicOffTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOffFadeableContainer"]
 layout_mode = 2
 texture_normal = ExtResource("13_r7qaj")
 
-[node name="DummySoundTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="DummySoundTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
@@ -440,29 +443,25 @@ size_flags_vertical = 4
 texture_normal = ExtResource("10_jcui4")
 script = ExtResource("15_06t81")
 
-[node name="SoundToggleButtonContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="SoundToggleButtonContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 script = ExtResource("6_f48l1")
 
-[node name="SoundOnFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer"]
+[node name="SoundOnFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer"]
 layout_mode = 2
 script = ExtResource("9_jeb54")
 
-[node name="SoundOnTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOnFadeableContainer"]
+[node name="SoundOnTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOnFadeableContainer"]
 layout_mode = 2
 texture_normal = ExtResource("10_jcui4")
 
-[node name="SoundOffFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer"]
+[node name="SoundOffFadeableContainer" type="CenterContainer" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer"]
 layout_mode = 2
 script = ExtResource("9_jeb54")
 
-[node name="SoundOffTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer"]
+[node name="SoundOffTextureButton" type="TextureButton" parent="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer"]
 layout_mode = 2
 texture_normal = ExtResource("16_on8sb")
-
-[node name="SettingsPanel" type="Panel" parent="UI/InGamePauseMenu/SettingsFadeableContainer"]
-visible = false
-layout_mode = 2
 
 [node name="DebugUI" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]
 process_mode = 3
@@ -505,12 +504,12 @@ script = ExtResource("24_6541p")
 [connection signal="pressed" from="UI/InGamePauseMenu/TopLeftMarginContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeB/PauseButtonB" to="UI/InGamePauseMenu/TopLeftMarginContainer/HBoxContainer/PauseToggleButton" method="_on_b_pressed"]
 [connection signal="pressed" from="UI/InGamePauseMenu/TopLeftMarginContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="UI/InGamePauseMenu" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="UI/InGamePauseMenu/ResultDialogFadeableContainer/ResultDialog/TextureRect/MarginContainer2/TextureButton" to="UI/DialogManager" method="_on_skills_upgrade_button_pressed"]
-[connection signal="toggled" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog" method="_on_music_toggle_button_container_toggled"]
-[connection signal="pressed" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOnFadeableContainer/MusicOnTextureButton" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" method="_on_a_pressed"]
-[connection signal="pressed" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOffFadeableContainer/MusicOffTextureButton" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" method="_on_b_pressed"]
-[connection signal="pressed" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/DummySoundTextureButton" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/DummySoundTextureButton" method="_on_pressed"]
-[connection signal="toggled" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog" method="_on_sound_toggle_button_container_toggled"]
-[connection signal="pressed" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOnFadeableContainer/SoundOnTextureButton" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_a_pressed"]
-[connection signal="pressed" from="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer/SoundOffTextureButton" to="UI/InGamePauseMenu/SettingsFadeableContainer/SettingDialog/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_b_pressed"]
+[connection signal="toggled" from="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" to="UI/InGamePauseMenu/SettingDialog" method="_on_music_toggle_button_container_toggled"]
+[connection signal="pressed" from="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOnFadeableContainer/MusicOnTextureButton" to="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" method="_on_a_pressed"]
+[connection signal="pressed" from="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOffFadeableContainer/MusicOffTextureButton" to="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" method="_on_b_pressed"]
+[connection signal="pressed" from="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/DummySoundTextureButton" to="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/DummySoundTextureButton" method="_on_pressed"]
+[connection signal="toggled" from="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" to="UI/InGamePauseMenu/SettingDialog" method="_on_sound_toggle_button_container_toggled"]
+[connection signal="pressed" from="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOnFadeableContainer/SoundOnTextureButton" to="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_a_pressed"]
+[connection signal="pressed" from="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer/SoundOffTextureButton" to="UI/InGamePauseMenu/SettingDialog/SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_b_pressed"]
 [connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
 [connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]

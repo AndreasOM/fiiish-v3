@@ -85,3 +85,12 @@ func _on_sound_toggle_button_container_toggled(state: ToggleButtonContainer.Togg
 		ToggleButtonContainer.ToggleState.B:
 			print("Sound toggle to B")
 			game.disableSound()
+
+func toggle_fade( duration: float ):
+	$SettingsFadeableContainer.toggle_fade( duration )
+
+func fade_in( duration: float ):
+	$SettingsFadeableContainer.fade_in( duration )
+
+func fade_out( duration: float ):
+	$SettingsFadeableContainer.fade_out( duration )
