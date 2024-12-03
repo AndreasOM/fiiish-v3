@@ -3,13 +3,13 @@
 ## In Progress
 
 - [ ] Story: Move all dialogs into dialog manager
+- [ ] Cleanup: Restructure Main Scene
 
 
 ## Todo
 
 ## V3.2.0
 
-- [ ] Cleanup: Restructure Main Scene
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
