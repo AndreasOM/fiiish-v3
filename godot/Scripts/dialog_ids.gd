@@ -2,5 +2,6 @@ class_name DialogIds
 
 enum Id {
 	RESULT_DIALOG,
+	SETTING_DIALOG,
 	SKILL_UPGRADE_DIALOG,
 }

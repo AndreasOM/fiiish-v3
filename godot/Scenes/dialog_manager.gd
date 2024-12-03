@@ -3,6 +3,7 @@ extends Control
 @export var game: Game = null
 
 var _dialog_configs: Dictionary = {
+	DialogIds.Id.SETTING_DIALOG: preload("res://Dialogs/setting_dialog.tscn"),
 	DialogIds.Id.SKILL_UPGRADE_DIALOG: preload("res://Dialogs/skill_upgrade_dialog.tscn"),
 }
 
@@ -29,16 +30,23 @@ func _ready() -> void:
 func _on_skills_upgrade_button_pressed() -> void:
 	print("Skills upgrade button pressed")
 	# $SkillUpgradeDialog.fade_in( 0.3 )
-	_open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+	open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+
+func toggle_dialog( id: DialogIds.Id, duration: float):
+	var dialog = _dialogs.get( id ) as Dialog
+	if dialog != null:
+		dialog.toggle( duration )
+	else:
+		push_warning("Dialog %d not found for toggle" % id )
 	
-func _open_dialog( id: DialogIds.Id, duration: float):
+func open_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
 		dialog.open( duration )
 	else:
 		push_warning("Dialog %d not found for open" % id )
 
-func _close_dialog( id: DialogIds.Id, duration: float):
+func close_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
 		dialog.close( duration )
@@ -50,12 +58,12 @@ func _on_game_state_changed(state: Game.State) -> void:
 	match state:
 		Game.State.RESPAWNING:
 			# $SkillUpgradeDialog.fade_out( 0.3 )
-			_close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 		Game.State.WAITING_FOR_START:
 			# $SkillUpgradeDialog.fade_out( 0.3 )
-			_close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 		Game.State.SWIMMING:
 			# $SkillUpgradeDialog.fade_out( 0.3 )
-			_close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 		_:
 			pass
