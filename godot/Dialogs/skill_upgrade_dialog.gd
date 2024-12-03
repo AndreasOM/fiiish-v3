@@ -1,4 +1,4 @@
-extends Control
+extends Dialog
 
 @export var game: Game = null
 #@export var skill_point_price: int = 200
@@ -19,6 +19,9 @@ func _ready() -> void:
 
 #	print("Skill Point Cost: 240-340 -> %d" % [ t ]) 
 
+func set_game( game: Game):
+	self.game = game
+	
 func _regenerate_skill_upgrade_items():
 	var p = %SkillUpgradeItemContainer
 	for c in p.get_children():
@@ -85,7 +88,13 @@ func _update_all():
 	_update_coins()
 	_update_skill_upgrade_items()
 	_update_skill_point_cost()
-	
+
+func close( duration: float):
+	fade_out( duration )
+
+func open( duration: float):
+	fade_in( duration )
+		
 func fade_out( duration: float ):
 	$FadeableCenterContainer.fade_out( duration )
 	game.save_player()

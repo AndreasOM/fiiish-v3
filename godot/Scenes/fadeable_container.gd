@@ -4,15 +4,24 @@ class_name FadeableContainer
 var _alpha: float = 1.0
 var _alpha_speed: float = 0.0
 
-var _original_z_index = 0
+var _original_z_index = RenderingServer.CANVAS_ITEM_Z_MIN
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("%s z: %d" % [ name, z_index ] )
-	if _original_z_index == 0:
-		_original_z_index = z_index
+	_save_original_z_index()
 	pass # Replace with function body.
 
+func _save_original_z_index():
+	if _original_z_index == RenderingServer.CANVAS_ITEM_Z_MIN:
+		print("Saving original z_index for %s: %d <= %d" % [ name, _original_z_index, z_index ] )
+		_original_z_index = z_index
+
+func _restore_original_z_index():
+	if _original_z_index != RenderingServer.CANVAS_ITEM_Z_MIN:
+		print("Restoring original z_index for %s: %d => %d" % [ name, _original_z_index, z_index ] )
+		z_index = _original_z_index
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -36,7 +45,8 @@ func toggle_fade( duration: float ):
 		fade_out( duration )
 		
 func fade_in( duration: float):
-	z_index = _original_z_index
+	_restore_original_z_index()
+	# z_index = _original_z_index
 	visible = true
 	mouse_filter = MOUSE_FILTER_STOP
 	for c in get_children():
@@ -60,7 +70,6 @@ func fade_out( duration: float):
 		_alpha = 0.0
 		modulate.a = _alpha
 		visible = false
-		if _original_z_index == 0:
-			_original_z_index = z_index
+		_save_original_z_index()
 		z_index = RenderingServer.CANVAS_ITEM_Z_MIN
 	
