@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Task: Use "recycle" icon for skill reset
 
 ## Todo
 
@@ -10,12 +11,11 @@
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
-		- [ ] Task: Make buy skill points stand out as button
-		- [ ] Task: Use "recycle" icon for skill reset
 		- [ ] Task: Add popup when can't afford skill
 		- [ ] Task: Add confirmation popup for skill reset
 		- [ ] Task: Replace background
 		- [ ] Task: Disable buy skill points if not enough coins
+		- [ ] Polish: Experiment with horizontal "header" flow for buying skill points with coins
 		- [ ] Polish: Experiment with vertical flow for buying skill points with coins
 		- [ ] Polish: Improve coin and skill point mini icons
 		- [ ] Polish: Improve buy right mini button
@@ -48,6 +48,8 @@
 ### 2024-12-05
 - [x] Fix: Make closed dialogs invisible
 - [x] Task: Fix/Add coin and skill point icons
+- [x] Task: Make buy skill points stand out as button
+- [x] Polish: Turn reset into real button
 
 ### 2024-12-03
 - [x] Task: Create basic DialogManager
