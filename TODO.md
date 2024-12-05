@@ -2,9 +2,6 @@
 
 ## In Progress
 
-- [ ] Story: Move all dialogs into dialog manager
-- [ ] Cleanup: Restructure Main Scene
-
 
 ## Todo
 
@@ -46,12 +43,16 @@
 
 ## Done
 
+### 2024-12-05
+- [x] Fix: Make closed dialogs invisible
 
 ### 2024-12-03
 - [x] Task: Create basic DialogManager
 - [x] Task: Use DialogManager to handle SkillUpgradeDialog
 - [x] Task: Use DialogManager to handle SettingDialog
 - [x] Task: Use DialogManager to handle ResultDialog
+- [x] Story: Move all dialogs into dialog manager
+- [x] Cleanup: Restructure Main Scene
 
 ### Forgot when
 - [x] Story: Skills

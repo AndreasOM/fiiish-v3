@@ -105,4 +105,5 @@ func fade_out( duration: float ):
 
 
 func _on_skill_upgrade_button_pressed() -> void:
+	print("_on_skill_upgrade_button_pressed")
 	_dialog_manager.open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
