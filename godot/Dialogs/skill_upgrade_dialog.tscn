@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://Dialogs/skill_upgrade_dialog.gd" id="1_k8lgt"]
 [ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="2_e21l8"]
 [ext_resource type="Texture2D" uid="uid://b14w8r43ut34" path="res://Textures/UI/shop_frame.png" id="3_kgy21"]
-[ext_resource type="Texture2D" uid="uid://byyivxx7e4lfo" path="res://Textures/UI/mini_icon_flag.png" id="4_083q7"]
 [ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="4_kmdep"]
 [ext_resource type="Texture2D" uid="uid://c8aebb8lh1op3" path="res://Textures/UI/MiniButtons/mini_button_buy_right.png" id="5_7a8vs"]
 [ext_resource type="PackedScene" uid="uid://br2xttibjn8qo" path="res://Dialogs/SkillUpgradeElements/SkillUpgradeItem.tscn" id="5_r3p2e"]
 [ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="6_sqtww"]
 [ext_resource type="Texture2D" uid="uid://c60q1np4mc5ui" path="res://Textures/UI/MiniButtons/mini_button_buy_right_off.png" id="6_xq7w0"]
 [ext_resource type="Texture2D" uid="uid://ba44xgufi4hjl" path="res://Textures/UI/mini_icon_skill.png" id="6_ya1x5"]
+[ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="8_g1vtg"]
 
 [node name="SkillUpgradeDialog" type="Control"]
 z_index = 10
@@ -60,17 +60,10 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ColorRect" type="ColorRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-color = Color(0.435294, 0.0235294, 0.545098, 0.32549)
-
 [node name="Label" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"SkillsHeaderLabel"
-text = "Skills"
-horizontal_alignment = 1
+text = " Skills"
 
 [node name="SkillPointsHBoxContainer" type="HBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
@@ -150,13 +143,20 @@ texture = ExtResource("4_kmdep")
 
 [node name="ResetSkillPointsButton" type="TextureButton" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("4_083q7")
+size_flags_horizontal = 8
+texture_normal = ExtResource("8_g1vtg")
 
 [node name="SkillResetLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -17.5
+offset_right = 32.5
+offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"SkillsAmountLabel"
