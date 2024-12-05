@@ -107,3 +107,16 @@ func fade_in( duration: float ):
 
 func fade_out( duration: float ):
 	$SettingsFadeableContainer.fade_out( duration )
+
+
+func _on_settings_fadeable_container_on_fading_in() -> void:
+	opening()
+
+func _on_settings_fadeable_container_on_faded_in() -> void:
+	opened()
+
+func _on_settings_fadeable_container_on_fading_out() -> void:
+	closing()
+
+func _on_settings_fadeable_container_on_faded_out() -> void:
+	closed()

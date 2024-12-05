@@ -149,6 +149,10 @@ script = ExtResource("2_vurtc")
 layout_mode = 2
 texture_normal = ExtResource("9_12tk5")
 
+[connection signal="on_faded_in" from="SettingsFadeableContainer" to="." method="_on_settings_fadeable_container_on_faded_in"]
+[connection signal="on_faded_out" from="SettingsFadeableContainer" to="." method="_on_settings_fadeable_container_on_faded_out"]
+[connection signal="on_fading_in" from="SettingsFadeableContainer" to="." method="_on_settings_fadeable_container_on_fading_in"]
+[connection signal="on_fading_out" from="SettingsFadeableContainer" to="." method="_on_settings_fadeable_container_on_fading_out"]
 [connection signal="toggled" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" to="." method="_on_music_toggle_button_container_toggled"]
 [connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOnFadeableContainer/MusicOnTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" method="_on_a_pressed"]
 [connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOffFadeableContainer/MusicOffTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" method="_on_b_pressed"]

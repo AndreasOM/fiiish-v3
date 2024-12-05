@@ -25,6 +25,10 @@ func _ready() -> void:
 		dialog.set_dialog_manager( self )
 		if dialog.has_method( "set_game" ):
 			dialog.set_game( game );
+		dialog.on_closing.connect( on_dialog_closing )
+		dialog.on_closed.connect( on_dialog_closed )
+		dialog.on_opening.connect( on_dialog_opening )
+		dialog.on_opened.connect( on_dialog_opened )
 		dialog.close( 0.0 )
 		# dialog.override_z_index( 0 )
 		self.add_child( dialog )
@@ -32,9 +36,22 @@ func _ready() -> void:
 			
 	# open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 
+func on_dialog_closing( dialog: Dialog ):
+	print( "on_dialog_closing %s" % dialog.name )
+
+func on_dialog_closed( dialog: Dialog ):
+	print( "on_dialog_closed %s" % dialog.name )
+	dialog.visible = false
+
+func on_dialog_opening( dialog: Dialog ):
+	print( "on_dialog_opening %s" % dialog.name )
+	dialog.visible = true
+
+func on_dialog_opened( dialog: Dialog ):
+	print( "on_dialog_opened %s" % dialog.name )
+	
 func _on_skills_upgrade_button_pressed() -> void:
 	print("Skills upgrade button pressed")
-	# $SkillUpgradeDialog.fade_in( 0.3 )
 	open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 
 func toggle_dialog( id: DialogIds.Id, duration: float):
@@ -49,13 +66,16 @@ func open_dialog( id: DialogIds.Id, duration: float):
 	if dialog != null:
 		print("Opening dialog %d" % id)
 		dialog.open( duration )
+		dialog.visible = true
 	else:
 		push_warning("Dialog %d not found for open" % id )
 
 func close_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
+		print("Closing dialog %d" % id)
 		dialog.close( duration )
+		dialog.visible = false
 	else:
 		push_warning("Dialog %d not found for close" % id )
 	
