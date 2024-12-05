@@ -48,7 +48,7 @@ func _update_skill_point_cost():
 	var p = game.get_player()
 	var owned_skill_points = p.gained_skill_points()
 	var cost = _get_price_for_skill_point( owned_skill_points )
-	%SkillCostLabel.text = "%d -> 1" % cost
+	%SkillPointCoinsCostLabel.text = "%d" % cost
 	
 func _update_skill_points():
 	var p = game.get_player()
