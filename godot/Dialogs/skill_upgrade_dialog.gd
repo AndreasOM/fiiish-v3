@@ -101,6 +101,7 @@ func _update_all():
 
 func close( duration: float):
 	fade_out( duration )
+	_dialog_manager.close_dialog( DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG, 0.3 )
 
 func open( duration: float):
 	fade_in( duration )
@@ -172,11 +173,20 @@ func _get_skill_upgrade_item_for_skill_id( id: SkillIds.Id ) -> SkillUpgradeItem
 	return null
 
 
-func _on_reset_skill_points_button_pressed() -> void:
+func _on_skill_reset_confirmed():
 	var p = game.get_player()
 	p.reset_skills()
 	_update_all()
-	# _prepare_fade_in()
+
+func _on_skill_reset_cancelled():
+	pass
+
+func _on_reset_skill_points_button_pressed() -> void:
+	var d = _dialog_manager.open_dialog( DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG, 0.3 )
+	var cd = d as SkillResetConfirmationDialog
+	if cd:
+		cd.cancelled.connect( _on_skill_reset_cancelled )
+		cd.confirmed.connect( _on_skill_reset_confirmed )
 
 func _get_price_for_skill_point( owned_skill_points: int ) -> int:
 	# return 200

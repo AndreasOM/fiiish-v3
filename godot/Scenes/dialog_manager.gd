@@ -7,6 +7,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.RESULT_DIALOG: preload("res://Dialogs/result_dialog.tscn"),
 	DialogIds.Id.SETTING_DIALOG: preload("res://Dialogs/setting_dialog.tscn"),
 	DialogIds.Id.SKILL_UPGRADE_DIALOG: preload("res://Dialogs/skill_upgrade_dialog.tscn"),
+	DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG: preload("res://Dialogs/skill_reset_confirmation_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}
@@ -61,14 +62,16 @@ func toggle_dialog( id: DialogIds.Id, duration: float):
 	else:
 		push_warning("Dialog %d not found for toggle" % id )
 	
-func open_dialog( id: DialogIds.Id, duration: float):
+func open_dialog( id: DialogIds.Id, duration: float) -> Dialog:
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
 		print("Opening dialog %d" % id)
 		dialog.open( duration )
 		dialog.visible = true
+		return dialog
 	else:
 		push_warning("Dialog %d not found for open" % id )
+		return null
 
 func close_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog

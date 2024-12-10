@@ -31,3 +31,16 @@ func opening():
 
 func opened():
 	on_opened.emit( self )
+	
+func _on_fading_in() -> void:
+	opening()
+
+func _on_faded_in() -> void:
+	opened()
+
+func _on_fading_out() -> void:
+	closing()
+
+func _on_faded_out() -> void:
+	closed()
+	
