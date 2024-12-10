@@ -153,6 +153,12 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	if !p.use_skill_points( skill_price, "Buy Skill %s for %d" % [ skill_name, skill_price ] ):
 		print("Couldn't afford skill %s for %d" % [ skill_name, skill_price ] )
 		# :TODO: inform player
+		var d = _dialog_manager.open_dialog( DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG, 0.3 )
+		var cd = d as FiiishConfirmationDialog
+		cd.set_title("Too Expensive")
+		cd.set_description("That would cost %d skill points,\nyou only have %d skill points." % [ skill_price, p.available_skill_points() ] )
+		cd.set_mode( FiiishConfirmationDialog.Mode.CONFIRM )
+
 		return
 		
 	p.set_skill_level( id, level )
