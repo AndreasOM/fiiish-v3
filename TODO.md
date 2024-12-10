@@ -13,9 +13,9 @@
 
 		- [ ] Polish: Improve buy right mini button
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
-		- [ ] Task: Add popup when can't afford skill
 		- [ ] Task: Replace background
 		- [ ] Polish: Improve coin and skill point mini icons
+		- [ ] Cleanup: Use FiiishConfirmationDialog for skill reset confirmation
 
 - [ ] Feature: Cheat Console
 
@@ -48,6 +48,7 @@
 - [x] Task: Disable buy skill points if not enough coins
 - [x] Polish: Experiment with horizontal "header" flow for buying skill points with coins
 - [x] Task: Add confirmation popup for skill reset
+- [x] Task: Add popup when can't afford skill
 
 ### 2024-12-05
 - [x] Fix: Make closed dialogs invisible
