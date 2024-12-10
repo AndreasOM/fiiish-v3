@@ -103,6 +103,7 @@ size_flags_horizontal = 0
 texture = ExtResource("4_kmdep")
 
 [node name="BuySkillPointsButton" type="TextureButton" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointsWithCoinsHBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("5_7a8vs")
 texture_disabled = ExtResource("6_xq7w0")

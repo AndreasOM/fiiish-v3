@@ -43,7 +43,16 @@ func _regenerate_skill_upgrade_items():
 		s.connect("skill_buy_triggered", _on_skill_buy_triggered )
 		
 		p.add_child( sui )
-	
+
+func _update_buy_skill_point_button():
+	var p = game.get_player()
+	var owned_skill_points = p.gained_skill_points()
+	var cost = _get_price_for_skill_point( owned_skill_points )
+	if p.can_afford_coins( cost ):
+		%BuySkillPointsButton.disabled = false
+	else:
+		%BuySkillPointsButton.disabled = true
+		
 func _update_skill_point_cost():
 	var p = game.get_player()
 	var owned_skill_points = p.gained_skill_points()
@@ -88,6 +97,7 @@ func _update_all():
 	_update_coins()
 	_update_skill_upgrade_items()
 	_update_skill_point_cost()
+	_update_buy_skill_point_button()
 
 func close( duration: float):
 	fade_out( duration )

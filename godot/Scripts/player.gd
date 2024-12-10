@@ -158,6 +158,9 @@ func spend_coins( amount: int, _reason: String ) -> bool:
 	_coins -= amount
 	return true
 	
+func can_afford_coins( amount: int ) -> bool:
+	return _coins >= amount	
+	
 func apply_distance( distance: int ):
 	_totalDistance += distance
 	_bestDistance = max(_bestDistance, distance)
