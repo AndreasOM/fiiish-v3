@@ -2,7 +2,7 @@
 
 ## In Progress
 
-- [ ] Task: Use "recycle" icon for skill reset
+
 
 ## Todo
 
@@ -10,15 +10,14 @@
 
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
+		- [ ] Polish: Experiment with horizontal "header" flow for buying skill points with coins
+
+		- [ ] Polish: Improve buy right mini button
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
 		- [ ] Task: Add popup when can't afford skill
 		- [ ] Task: Add confirmation popup for skill reset
 		- [ ] Task: Replace background
-		- [ ] Task: Disable buy skill points if not enough coins
-		- [ ] Polish: Experiment with horizontal "header" flow for buying skill points with coins
-		- [ ] Polish: Experiment with vertical flow for buying skill points with coins
 		- [ ] Polish: Improve coin and skill point mini icons
-		- [ ] Polish: Improve buy right mini button
 
 - [ ] Feature: Cheat Console
 
@@ -29,6 +28,8 @@
 - [ ] Cleanup GameManager
 
 ## Later
+
+- [ ] Task: Use "recycle" icon for skill reset on SkillUpgradeDialog
 
 - [ ] Feature: Main Menu
 - [ ] Feature: Cloud Saves
@@ -44,6 +45,9 @@
 - [ ] #unity Fix WebGL html wrapper template
 
 ## Done
+
+### 2024-12-10
+- [x] Task: Disable buy skill points if not enough coins
 
 ### 2024-12-05
 - [x] Fix: Make closed dialogs invisible
