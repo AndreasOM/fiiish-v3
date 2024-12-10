@@ -40,6 +40,7 @@ func _on_button_pressed( i: int ):
 func _process(_delta: float) -> void:
 #	var tx = 0 + max( 0, current-1 ) * 64 + 32 + 32
 	var tx = 0 + current * 64 + 32 + 32
+	
 	$ScrollContainer.scroll_horizontal = lerp( $ScrollContainer.scroll_horizontal, tx, 0.08 )
 
 func _updateStates():
