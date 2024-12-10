@@ -10,7 +10,6 @@
 
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
-		- [ ] Polish: Experiment with horizontal "header" flow for buying skill points with coins
 
 		- [ ] Polish: Improve buy right mini button
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
@@ -48,6 +47,7 @@
 
 ### 2024-12-10
 - [x] Task: Disable buy skill points if not enough coins
+- [x] Polish: Experiment with horizontal "header" flow for buying skill points with coins
 
 ### 2024-12-05
 - [x] Fix: Make closed dialogs invisible

@@ -48,29 +48,145 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 98
+theme_override_constants/margin_left = 108
 theme_override_constants/margin_top = 120
-theme_override_constants/margin_right = 90
-theme_override_constants/margin_bottom = 140
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 110
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer"]
 layout_mode = 2
 
-[node name="LeftVBoxContainer" type="VBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
+[node name="Label" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"SkillsHeaderLabel"
 text = " Skills"
 
-[node name="SkillPointsHBoxContainer" type="HBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
+[node name="MarginContainer" type="MarginContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 746)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 2
+
+[node name="SkillUpgradeItemContainer" type="VBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="MagnetRangeUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
+layout_mode = 2
+title = "Magnet Range"
+maximum = 5
+skill_id = 1
+
+[node name="MagnetRangeBoostUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
+layout_mode = 2
+title = "Magnet Boost Range "
+maximum = 5
+skill_id = 2
+
+[node name="MagnetDurationBoostUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
+layout_mode = 2
+title = "Magnet Duration Boost"
+maximum = 5
+
+[node name="CoinExplosionUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
+layout_mode = 2
+title = "Coin Explosion"
+maximum = 5
+
+[node name="CoinRainUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
+layout_mode = 2
+title = "Coin Rain"
+maximum = 5
+
+[node name="DummyUpgradeItem1" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
+layout_mode = 2
+title = "Dummy 1"
+maximum = 5
+
+[node name="DummyUpgradeItem2" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
+layout_mode = 2
+title = "Dummy 2"
+maximum = 5
+
+[node name="DummyUpgradeItem3" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
+layout_mode = 2
+title = "Dummy 3"
+maximum = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SkillPointLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/SkillPointsHBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="CoinsLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SkillsAmountLabel"
+text = "200000
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CoinsTextureRect" type="TextureRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_kmdep")
+
+[node name="SkillPointCoinsCostLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SkillsAmountLabel"
+text = "-2000
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CoinTextureRect" type="TextureRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_kmdep")
+
+[node name="BuySkillPointsButton" type="TextureButton" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("5_7a8vs")
+texture_disabled = ExtResource("6_xq7w0")
+
+[node name="SkillPointsLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_type_variation = &"SkillsAmountLabel"
+text = "+1
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SkillPointTextureRect" type="TextureRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_ya1x5")
+
+[node name="SkillPointLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"SkillsAmountLabel"
@@ -78,76 +194,18 @@ text = "9999"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="SkillPointTextureRect" type="TextureRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/SkillPointsHBoxContainer"]
+[node name="SkillPointTextureRect2" type="TextureRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("6_ya1x5")
 
-[node name="BuySkillPointsWithCoinsHBoxContainer" type="HBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
+[node name="ResetSkillPointsButton" type="TextureButton" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-
-[node name="SkillPointCoinsCostLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointsWithCoinsHBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"SkillsAmountLabel"
-text = "2000
-"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="CoinTextureRect" type="TextureRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointsWithCoinsHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("4_kmdep")
-
-[node name="BuySkillPointsButton" type="TextureButton" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointsWithCoinsHBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-texture_normal = ExtResource("5_7a8vs")
-texture_disabled = ExtResource("6_xq7w0")
-
-[node name="SkillPointsLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointsWithCoinsHBoxContainer"]
-visible = false
-layout_mode = 2
-theme_type_variation = &"SkillsAmountLabel"
-text = "1
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SkillPointTextureRect" type="TextureRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointsWithCoinsHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-texture = ExtResource("6_ya1x5")
-
-[node name="CoinsHBoxContainer" type="HBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-
-[node name="CoinsLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/CoinsHBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"SkillsAmountLabel"
-text = "200
-"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="CoinsTextureRect" type="TextureRect" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/CoinsHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("4_kmdep")
-
-[node name="ResetSkillPointsButton" type="TextureButton" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 10
 texture_normal = ExtResource("8_g1vtg")
 
-[node name="SkillResetLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton"]
+[node name="SkillResetLabel" type="Label" parent="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ResetSkillPointsButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -165,62 +223,6 @@ text = "Reset
 "
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 764)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 2
-
-[node name="SkillUpgradeItemContainer" type="VBoxContainer" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-
-[node name="MagnetRangeUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
-layout_mode = 2
-title = "Magnet Range"
-maximum = 5
-skill_id = 1
-
-[node name="MagnetRangeBoostUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
-layout_mode = 2
-title = "Magnet Boost Range "
-maximum = 5
-skill_id = 2
-
-[node name="MagnetDurationBoostUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
-layout_mode = 2
-title = "Magnet Duration Boost"
-maximum = 5
-
-[node name="CoinExplosionUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
-layout_mode = 2
-title = "Coin Explosion"
-maximum = 5
-
-[node name="CoinRainUpgradeItem" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
-layout_mode = 2
-title = "Coin Rain"
-maximum = 5
-
-[node name="DummyUpgradeItem1" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
-layout_mode = 2
-title = "Dummy 1"
-maximum = 5
-
-[node name="DummyUpgradeItem2" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
-layout_mode = 2
-title = "Dummy 2"
-maximum = 5
-
-[node name="DummyUpgradeItem3" parent="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer" instance=ExtResource("5_r3p2e")]
-layout_mode = 2
-title = "Dummy 3"
-maximum = 5
 
 [node name="MarginContainer3" type="MarginContainer" parent="FadeableCenterContainer/TextureRect"]
 layout_mode = 1
@@ -241,8 +243,8 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("6_sqtww")
 
-[connection signal="pressed" from="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/BuySkillPointsWithCoinsHBoxContainer/BuySkillPointsButton" to="." method="_on_buy_skill_point_button_pressed"]
-[connection signal="pressed" from="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/LeftVBoxContainer/ResetSkillPointsButton" to="." method="_on_reset_skill_points_button_pressed"]
-[connection signal="skill_buy_triggered" from="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeUpgradeItem" to="." method="_on_skill_buy_triggered"]
-[connection signal="skill_buy_triggered" from="FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeBoostUpgradeItem" to="." method="_on_skill_buy_triggered"]
+[connection signal="skill_buy_triggered" from="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeUpgradeItem" to="." method="_on_skill_buy_triggered"]
+[connection signal="skill_buy_triggered" from="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeBoostUpgradeItem" to="." method="_on_skill_buy_triggered"]
+[connection signal="pressed" from="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2/BuySkillPointsButton" to="." method="_on_buy_skill_point_button_pressed"]
+[connection signal="pressed" from="FadeableCenterContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/ResetSkillPointsButton" to="." method="_on_reset_skill_points_button_pressed"]
 [connection signal="pressed" from="FadeableCenterContainer/TextureRect/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
