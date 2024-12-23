@@ -10,6 +10,7 @@ var _dialog_configs: Dictionary = {
 #	DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG: preload("res://Dialogs/skill_reset_confirmation_dialog.tscn"),
 	DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG: preload("res://Dialogs/fiiish_confirmation_dialog.tscn"),
 	DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG: preload("res://Dialogs/fiiish_confirmation_dialog.tscn"),
+	DialogIds.Id.DEVELOPER_CONSOLE_DIALOG: preload("res://Dialogs/developer_console_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}

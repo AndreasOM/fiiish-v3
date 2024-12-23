@@ -1,10 +1,29 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://iw1xv475xr8k"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://iw1xv475xr8k"]
 
 [ext_resource type="FontFile" uid="uid://bb2pts3o32ebo" path="res://Fonts/all_things_pink.ttf" id="1_wkw6o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uf88y"]
+bg_color = Color(0.768627, 0.419608, 0.941176, 0.909804)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrv08"]
+bg_color = Color(0.41378, 0.586007, 0.961441, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8oq5r"]
+bg_color = Color(0, 0, 0, 0.501961)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dpako"]
 
 [resource]
+DeveloperConsoleLabel/base_type = &"RichTextLabel"
+DeveloperConsoleLabel/colors/default_color = Color(0, 0.582466, 0, 1)
+DeveloperConsoleLabel/font_sizes/normal_font_size = 32
+DeveloperConsoleLabel/styles/background = SubResource("StyleBoxFlat_uf88y")
+DeveloperConsoleLabel/styles/fill = SubResource("StyleBoxFlat_yrv08")
+DeveloperConsoleLabel/styles/normal = SubResource("StyleBoxFlat_8oq5r")
+DeveloperConsoleLineEdit/base_type = &"LineEdit"
+DeveloperConsoleLineEdit/colors/caret_color = Color(0, 0.564706, 0, 1)
+DeveloperConsoleLineEdit/colors/font_color = Color(0, 0.541176, 0, 1)
+DeveloperConsoleLineEdit/font_sizes/font_size = 32
 HUDPanel/base_type = &"Panel"
 HUDPanel/styles/panel = SubResource("StyleBoxEmpty_dpako")
 HUDScoreLabel/base_type = &"Label"

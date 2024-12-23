@@ -11,15 +11,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("TogglePause"):
-		toggle_pause()
+	pass
+#	if Input.is_action_just_pressed("TogglePause"):
+#		toggle_pause()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("TogglePause"):
+		toggle_pause()
+	
 func toggle_pause():
 	if self.game !=	null:
-		var tree = self.game.get_tree()
-		var was_paused = tree.is_paused()
-		var is_paused = !was_paused
-		tree.set_pause(is_paused)
+		var is_paused = self.game.toogle_pause()
 		if is_paused:
 			%PauseToggleButton.goto_b()
 			var settings_button = %SettingsButtonFade as FadeableContainer
