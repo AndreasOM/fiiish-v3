@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://48rrj6wfvcqm"]
+[gd_scene load_steps=6 format=3 uid="uid://bjc34mirtiy0w"]
 
 [ext_resource type="Script" path="res://Dialogs/fiiish_confirmation_dialog.gd" id="1_3nvp5"]
 [ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="2_2c3hr"]
