@@ -15,9 +15,9 @@
 		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
 		- [ ] Task: Replace background
 		- [ ] Polish: Improve coin and skill point mini icons
-		- [ ] Cleanup: Use FiiishConfirmationDialog for skill reset confirmation
 
 - [ ] Feature: Cheat Console
+- [ ] Fix: Make sure front most dialog is interactable
 
 ## V3.4.0
 
@@ -43,6 +43,9 @@
 - [ ] #unity Fix WebGL html wrapper template
 
 ## Done
+
+### 2024-12-23
+- [x] Cleanup: Use FiiishConfirmationDialog for skill reset confirmation
 
 ### 2024-12-10
 - [x] Task: Disable buy skill points if not enough coins

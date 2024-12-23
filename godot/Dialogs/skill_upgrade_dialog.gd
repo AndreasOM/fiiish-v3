@@ -152,7 +152,6 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	
 	if !p.use_skill_points( skill_price, "Buy Skill %s for %d" % [ skill_name, skill_price ] ):
 		print("Couldn't afford skill %s for %d" % [ skill_name, skill_price ] )
-		# :TODO: inform player
 		var d = _dialog_manager.open_dialog( DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG, 0.3 )
 		var cd = d as FiiishConfirmationDialog
 		cd.set_title("Too Expensive")
@@ -189,7 +188,11 @@ func _on_skill_reset_cancelled():
 
 func _on_reset_skill_points_button_pressed() -> void:
 	var d = _dialog_manager.open_dialog( DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG, 0.3 )
-	var cd = d as SkillResetConfirmationDialog
+	var cd = d as FiiishConfirmationDialog
+	cd.set_title("Reset Skills?	")
+	cd.set_description("This will reset all your skills.\nAre sure?" )
+	cd.set_mode( FiiishConfirmationDialog.Mode.CANCEL_CONFIRM )
+	
 	if cd:
 		cd.cancelled.connect( _on_skill_reset_cancelled )
 		cd.confirmed.connect( _on_skill_reset_confirmed )
