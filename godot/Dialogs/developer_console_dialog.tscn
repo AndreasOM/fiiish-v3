@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://3yx1mbdq1msy"]
+
+[ext_resource type="Script" path="res://Dialogs/developer_console_dialog.gd" id="1_6hvpm"]
+[ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="2_jj1ge"]
+
+[node name="DeveloperConsoleDialog" type="Control"]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_6hvpm")
+
+[node name="FadeableContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("2_jj1ge")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeableContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeableContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"DeveloperConsoleLabel"
+text = "1
+2
+3
+4
+5
+7
+8
+
+
+dsgf
+
+"
+fit_content = true
+scroll_following = true
+
+[node name="LineEdit" type="LineEdit" parent="FadeableContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DeveloperConsoleLineEdit"
+placeholder_text = "Input Command Here"
+
+[connection signal="on_faded_out" from="FadeableContainer" to="." method="_on_fadeable_container_on_faded_out"]
+[connection signal="on_fading_in" from="FadeableContainer" to="." method="_on_fadeable_container_on_fading_in"]
+[connection signal="text_submitted" from="FadeableContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]

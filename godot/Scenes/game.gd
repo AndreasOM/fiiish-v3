@@ -114,6 +114,23 @@ func disableSound():
 	_player.save()
 
 
+func pause():
+	var tree = self.get_tree()
+	if !tree.is_paused():
+		tree.set_pause( true )
+
+func resume():
+	var tree = self.get_tree()
+	if tree.is_paused():
+		tree.set_pause( false )
+	
+func toogle_pause() -> bool:
+	var tree = self.get_tree()
+	var was_paused = tree.is_paused()
+	var is_paused = !was_paused
+	tree.set_pause(is_paused)
+	return is_paused
+
 func _on_game_manager_sound_triggered( soundEffect: SoundEffect ) -> void:
 	if _player.isSoundEnabled():
 		soundManager.trigger_effect( soundEffect )

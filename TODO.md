@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Feature: Cheat Console
 
 
 ## Todo
@@ -16,8 +17,8 @@
 		- [ ] Task: Replace background
 		- [ ] Polish: Improve coin and skill point mini icons
 
-- [ ] Feature: Cheat Console
 - [ ] Fix: Make sure front most dialog is interactable
+- [ ] Cleanup: Move pause/resume handling fully into game
 
 ## V3.4.0
 
@@ -46,6 +47,7 @@
 
 ### 2024-12-23
 - [x] Cleanup: Use FiiishConfirmationDialog for skill reset confirmation
+- [x] Task: Start adding basic developer console
 
 ### 2024-12-10
 - [x] Task: Disable buy skill points if not enough coins

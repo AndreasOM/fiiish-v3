@@ -1,4 +1,4 @@
-extends CenterContainer
+extends Container
 class_name FadeableContainer
 
 var _alpha: float = 1.0

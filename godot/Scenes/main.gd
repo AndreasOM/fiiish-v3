@@ -8,7 +8,9 @@ func _ready() -> void:
 	# DisplayServer.window_set_size( s*Vector2( 1920.0, 1080.0 ) )
 	#get_window().set_size( Vector2i( s*Vector2( 1920.0, 1080.0 ) ) )
 	# get_tree().get_root().size = s*Vector2( 1920.0, 1080.0 )
-	pass # Replace with function body.
+	var dcd = %DialogManager.open_dialog(DialogIds.Id.DEVELOPER_CONSOLE_DIALOG, 0.0)
+	dcd.fade_out( 0.0 )
+	$Game.resume()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

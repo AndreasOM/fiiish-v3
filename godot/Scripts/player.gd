@@ -39,6 +39,13 @@ static func load() -> Player:
 		
 	return player
 	
+func reset():
+	_coins = 0
+	# ....
+	_skill_points_gained = 0
+	_skill_points_used = 0
+	_skills = {}
+	
 func save():
 	var p = get_save_path()
 	print("Saving player to %s" % p)
