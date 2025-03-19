@@ -1,6 +1,6 @@
 [gd_scene load_steps=35 format=3 uid="uid://nm2c8x0fbn5c"]
 
-[ext_resource type="Script" path="res://Scenes/Pickups/pickup.gd" id="1_oaet1"]
+[ext_resource type="Script" uid="uid://bc3c7gr1e1jlb" path="res://Scenes/Pickups/pickup.gd" id="1_oaet1"]
 [ext_resource type="Texture2D" uid="uid://cvunxmqnfssx2" path="res://Textures/Pickups/CoinGreen/coin_green_01.png" id="2_eyan2"]
 [ext_resource type="Texture2D" uid="uid://b2m6816latf1w" path="res://Textures/Pickups/CoinGreen/coin_green_02.png" id="3_880nm"]
 [ext_resource type="Texture2D" uid="uid://dnnr2h804pdw8" path="res://Textures/Pickups/CoinGreen/coin_green_03.png" id="4_62tkw"]

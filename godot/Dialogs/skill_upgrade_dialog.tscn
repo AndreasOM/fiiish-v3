@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dhy67dex6gg8u"]
 
-[ext_resource type="Script" path="res://Dialogs/skill_upgrade_dialog.gd" id="1_k8lgt"]
-[ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="2_e21l8"]
+[ext_resource type="Script" uid="uid://cjb7j1x8e8enx" path="res://Dialogs/skill_upgrade_dialog.gd" id="1_k8lgt"]
+[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_e21l8"]
 [ext_resource type="Texture2D" uid="uid://b14w8r43ut34" path="res://Textures/UI/shop_frame.png" id="3_kgy21"]
 [ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="4_kmdep"]
 [ext_resource type="Texture2D" uid="uid://c8aebb8lh1op3" path="res://Textures/UI/MiniButtons/mini_button_buy_right.png" id="5_7a8vs"]

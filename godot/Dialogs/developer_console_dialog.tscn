@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://3yx1mbdq1msy"]
 
-[ext_resource type="Script" path="res://Dialogs/developer_console_dialog.gd" id="1_6hvpm"]
-[ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="2_jj1ge"]
+[ext_resource type="Script" uid="uid://dotug7l4cn5qh" path="res://Dialogs/developer_console_dialog.gd" id="1_6hvpm"]
+[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_jj1ge"]
 
 [node name="DeveloperConsoleDialog" type="Control"]
 z_index = 1000

@@ -1,32 +1,32 @@
 [gd_scene load_steps=17 format=3 uid="uid://bviw4wx2laqag"]
 
-[ext_resource type="Script" path="res://Scenes/game.gd" id="1_2tnct"]
+[ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
 [ext_resource type="PackedScene" uid="uid://dmcqoohtinyr1" path="res://Scenes/fish.tscn" id="2_ea5sf"]
-[ext_resource type="Shader" path="res://Scenes/background.gdshader" id="2_mc2jp"]
-[ext_resource type="Script" path="res://Scenes/background.gd" id="4_bsinc"]
-[ext_resource type="Script" path="res://Scenes/game_manager.gd" id="4_cqt8y"]
+[ext_resource type="Shader" uid="uid://bmid5iuf1372l" path="res://Scenes/background.gdshader" id="2_mc2jp"]
+[ext_resource type="Script" uid="uid://dh1s3g4js05mi" path="res://Scenes/background.gd" id="4_bsinc"]
+[ext_resource type="Script" uid="uid://d3g2w7bnb45wn" path="res://Scenes/game_manager.gd" id="4_cqt8y"]
 [ext_resource type="Texture2D" uid="uid://c7yh3onttaenq" path="res://Textures/Backgrounds/background_grad.png" id="5_cq2wm"]
-[ext_resource type="Script" path="res://Scenes/game_scaler.gd" id="6_6aaah"]
+[ext_resource type="Script" uid="uid://fpy3byxs3xpj" path="res://Scenes/game_scaler.gd" id="6_6aaah"]
 [ext_resource type="PackedScene" uid="uid://bfbdti018xlkm" path="res://Scenes/Pickups/coin.tscn" id="7_5w3j0"]
-[ext_resource type="Script" path="res://Scenes/sprite_background.gd" id="7_vai64"]
+[ext_resource type="Script" uid="uid://nehtysy3m6tv" path="res://Scenes/sprite_background.gd" id="7_vai64"]
 [ext_resource type="PackedScene" uid="uid://nm2c8x0fbn5c" path="res://Scenes/Pickups/coin_explosion.tscn" id="8_wo164"]
 [ext_resource type="PackedScene" uid="uid://drv8nabn33aa4" path="res://Scenes/Pickups/coin_rain.tscn" id="9_1neft"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="10_40ndf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uo4vc"]
 shader = ExtResource("2_mc2jp")
-shader_parameter/tint = null
+shader_parameter/tint = Vector4(0, 0, 0, 0)
+shader_parameter/gradient = ExtResource("5_cq2wm")
 shader_parameter/offset = 759.835
 shader_parameter/phase = 0.0
-shader_parameter/gradient = ExtResource("5_cq2wm")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_as7ao"]
 shader = ExtResource("2_mc2jp")
-shader_parameter/tint = null
+shader_parameter/tint = Vector4(0, 0, 0, 0)
+shader_parameter/gradient = ExtResource("5_cq2wm")
 shader_parameter/offset = 0.0
 shader_parameter/phase = 0.0
-shader_parameter/gradient = ExtResource("5_cq2wm")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_quh18"]
 size = Vector2(22000, 2200)

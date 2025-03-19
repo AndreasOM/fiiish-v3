@@ -1,6 +1,6 @@
 [gd_scene load_steps=35 format=3 uid="uid://yl2euexbpx4g"]
 
-[ext_resource type="Script" path="res://Scenes/Pickups/pickup.gd" id="1_pgxbg"]
+[ext_resource type="Script" uid="uid://bc3c7gr1e1jlb" path="res://Scenes/Pickups/pickup.gd" id="1_pgxbg"]
 [ext_resource type="Texture2D" uid="uid://boah2yqooe5x4" path="res://Textures/Pickups/Magnet/magnet_01.png" id="2_u0f1h"]
 [ext_resource type="Texture2D" uid="uid://dwrk1elewhmey" path="res://Textures/Pickups/Magnet/magnet_02.png" id="3_pi5yd"]
 [ext_resource type="Texture2D" uid="uid://co8ok2u8yojn3" path="res://Textures/Pickups/Magnet/magnet_03.png" id="4_5tpyu"]

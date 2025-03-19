@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b3sssky7beb2e" path="res://Scenes/main.tscn" id="1_qderd"]
 [ext_resource type="Theme" uid="uid://cehhrcyd281vp" path="res://Stream/stream_theme.tres" id="2_77mxc"]
-[ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="3_js83g"]
+[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="3_js83g"]
 [ext_resource type="Texture2D" uid="uid://jmkymvkmoqku" path="res://Textures/UI/screen_frame_2.png" id="4_1a0hc"]
 
 [node name="Stream" type="Control"]

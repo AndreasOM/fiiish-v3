@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://prkubdda2hay"]
 
 [ext_resource type="Texture2D" uid="uid://owmp1l4nq88w" path="res://Textures/Obstacles/Rocks/rock-b.png" id="1_aaj52"]
-[ext_resource type="Script" path="res://Scenes/Obstacles/obstacle.gd" id="2_8g75w"]
+[ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="2_8g75w"]
 
 [node name="RockB" type="Node2D"]
 z_index = 5

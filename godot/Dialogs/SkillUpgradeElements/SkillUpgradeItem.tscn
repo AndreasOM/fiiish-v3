@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://br2xttibjn8qo"]
 
-[ext_resource type="Script" path="res://Dialogs/SkillUpgradeElements/skill_upgrade_item.gd" id="1_mv3ju"]
+[ext_resource type="Script" uid="uid://d2ftydf7i7pyp" path="res://Dialogs/SkillUpgradeElements/skill_upgrade_item.gd" id="1_mv3ju"]
 [ext_resource type="PackedScene" uid="uid://bilwlijmp22dx" path="res://Dialogs/SkillUpgradeElements/skill_upgrade_item_button.tscn" id="2_iiy6h"]
 
 [node name="SkillUpgradeItem" type="VBoxContainer"]
