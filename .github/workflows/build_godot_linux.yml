@@ -53,7 +53,7 @@ jobs:
           .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
 
       - name: Setup Godot
-        uses: chickensoft-games/setup-godot@v1
+        uses: chickensoft-games/setup-godot@v2
         with:
           version: 4.4.0
           use-dotnet: false
