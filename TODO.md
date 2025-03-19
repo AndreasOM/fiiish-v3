@@ -2,8 +2,6 @@
 
 ## In Progress
 
-- [ ] Update: Update to Godot 4.4
-- [ ] Task: Replace background
 
 ## Todo
 
@@ -23,6 +21,7 @@
 - [ ] Fix: Weird numbers in ResultScreen
 - [ ] Cleanup: Remove pink frame from ResultScreen
 - [ ] Cleanup: Build WebGL version on tag
+- [ ] Polish: Improve shop and confirmation background
 
 ## V3.4.0
 
@@ -52,6 +51,10 @@
 - [+] ☠️ #unity Fix WebGL html wrapper template
 
 ## Done
+
+### 2025-03-19
+- [x] Update: Update to Godot 4.4
+- [x] Task: Replace background
 
 ### 2024-12-23
 - [x] Cleanup: Use FiiishConfirmationDialog for skill reset confirmation
