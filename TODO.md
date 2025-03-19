@@ -33,8 +33,10 @@
 - [ ] Feature: Main Menu
 - [ ] Feature: Cloud Saves
 - [ ] Fix: Cleanup fadeable container with focus on z_index
+- [ ] Task: Have DialogManager ensure correct z_index
 
 ## Future
+- [ ] Task: Have DialogManager create dialogs on the fly
 - [ ] Add leaderboards
 - [+] Create explosion path editor
 - [?] #godot crossfade toggle buttons
