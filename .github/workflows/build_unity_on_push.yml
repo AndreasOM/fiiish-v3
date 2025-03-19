@@ -1,11 +1,11 @@
 name: Build Unity WebGL on push
 on: 
   workflow_dispatch:
-  push:
-    tags:
-      # - "v*"
-    paths:
-      - unity/**
+  #push:
+  #  tags:
+  #    # - "v*"
+  #  paths:
+  #    - unity/**
 
 jobs:
   build:
