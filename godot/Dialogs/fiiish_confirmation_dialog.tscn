@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://by01jraxw5v61" path="res://Dialogs/fiiish_confirmation_dialog.gd" id="1_3nvp5"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_2c3hr"]
-[ext_resource type="Texture2D" uid="uid://cfby2gx3ertc4" path="res://Textures/UI/confirmation_frame.png" id="3_3hkot"]
+[ext_resource type="Texture2D" uid="uid://c68hi10ws5uut" path="res://Textures/UI/confirmation_frame_v2.png" id="3_f3ec8"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="4_1dldt"]
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_8dk8x"]
 
@@ -28,7 +28,7 @@ script = ExtResource("2_2c3hr")
 
 [node name="TextureRect" type="TextureRect" parent="FadeableContainer"]
 layout_mode = 2
-texture = ExtResource("3_3hkot")
+texture = ExtResource("3_f3ec8")
 
 [node name="MarginContainer" type="MarginContainer" parent="FadeableContainer/TextureRect"]
 layout_mode = 1
