@@ -131,6 +131,8 @@ func _ready() -> void:
 		
 	var zones = DirAccess.get_files_at("res://Resources/Zones/")
 	for zn in zones:
+		if !zn.ends_with(".nzne"):
+			continue
 		print("Zones: %s" % zn)
 		var fzn = "res://Resources/Zones/%s" % zn
 		var z = load( fzn )
