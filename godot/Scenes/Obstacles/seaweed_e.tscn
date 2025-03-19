@@ -1,6 +1,6 @@
 [gd_scene load_steps=51 format=3 uid="uid://byx3pgtj0sa7l"]
 
-[ext_resource type="Script" path="res://Scenes/Obstacles/obstacle.gd" id="1_qobqa"]
+[ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_qobqa"]
 [ext_resource type="Texture2D" uid="uid://o4dtqybwjjk4" path="res://Textures/Obstacles/Seaweed/seaweed-e-1.png" id="2_ys8j7"]
 [ext_resource type="Texture2D" uid="uid://dhawfwghvh1l2" path="res://Textures/Obstacles/Seaweed/seaweed-e-2.png" id="3_rlfb5"]
 [ext_resource type="Texture2D" uid="uid://be1woeif2ikg6" path="res://Textures/Obstacles/Seaweed/seaweed-e-3.png" id="4_6706h"]

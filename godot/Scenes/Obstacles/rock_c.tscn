@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbo3xiqqwafmq"]
 
-[ext_resource type="Script" path="res://Scenes/Obstacles/obstacle.gd" id="1_qx64r"]
+[ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_qx64r"]
 [ext_resource type="Texture2D" uid="uid://cr5tp4jli33cg" path="res://Textures/Obstacles/Rocks/rock-c.png" id="2_p1gbn"]
 
 [node name="RockC" type="Node2D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dscdweyjo64pw"]
 
-[ext_resource type="Script" path="res://Scenes/debug_ui.gd" id="1_1cl8q"]
+[ext_resource type="Script" uid="uid://d0bpi3xq7bmy1" path="res://Scenes/debug_ui.gd" id="1_1cl8q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8s4g"]
 draw_center = false

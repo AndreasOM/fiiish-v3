@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://clsiffamxnnmk"]
 
-[ext_resource type="Script" path="res://Scripts/setting_dialog.gd" id="1_ltbb1"]
-[ext_resource type="Script" path="res://Scenes/fadeable_container.gd" id="2_vurtc"]
+[ext_resource type="Script" uid="uid://bosdiehbfaaxv" path="res://Scripts/setting_dialog.gd" id="1_ltbb1"]
+[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_vurtc"]
 [ext_resource type="Texture2D" uid="uid://jmkymvkmoqku" path="res://Textures/UI/screen_frame_2.png" id="3_rxvfp"]
-[ext_resource type="Script" path="res://Scenes/toggle_button_container.gd" id="4_ga2un"]
+[ext_resource type="Script" uid="uid://r7if1ed85xhv" path="res://Scenes/toggle_button_container.gd" id="4_ga2un"]
 [ext_resource type="Texture2D" uid="uid://mldyaktoiolg" path="res://Textures/UI/Buttons/button_music_on.png" id="5_wxbur"]
 [ext_resource type="Texture2D" uid="uid://60y7knc4t6sk" path="res://Textures/UI/Buttons/button_music_off.png" id="6_v38ss"]
 [ext_resource type="Texture2D" uid="uid://cglln6ar6xm5y" path="res://Textures/UI/Buttons/button_sound_on.png" id="7_ly575"]
-[ext_resource type="Script" path="res://Scenes/dummy_sound_texture_button.gd" id="8_xih51"]
+[ext_resource type="Script" uid="uid://by02nscmryiau" path="res://Scenes/dummy_sound_texture_button.gd" id="8_xih51"]
 [ext_resource type="Texture2D" uid="uid://km1hnehrn0d4" path="res://Textures/UI/Buttons/button_sound_off.png" id="9_12tk5"]
 
 [node name="SettingDialog" type="Control" node_paths=PackedStringArray("musicToggleButton", "soundToggleButton")]
