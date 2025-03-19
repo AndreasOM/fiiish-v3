@@ -2,25 +2,33 @@
 
 ## In Progress
 
-- [ ] Feature: Cheat Console
-
+- [ ] Update: Update to Godot 4.4
+- [ ] Task: Replace background
 
 ## Todo
 
 ## V3.2.0
 
+- [ ] Feature: Cheat Console
+
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
 
 		- [ ] Polish: Improve buy right mini button
-		- [ ] Task: Open Skill Upgrade Dialog from Result Dialog
-		- [ ] Task: Replace background
-		- [ ] Polish: Improve coin and skill point mini icons
+		- [?] Task: Open Skill Upgrade Dialog from Result Dialog
+		- [?] Polish: Improve coin and skill point mini icons
 
 - [ ] Fix: Make sure front most dialog is interactable
 - [ ] Cleanup: Move pause/resume handling fully into game
+- [ ] Fix: Weird numbers in ResultScreen
+- [ ] Cleanup: Remove pink frame from ResultScreen
+- [ ] Cleanup: Build WebGL version on tag
 
 ## V3.4.0
+
+- [ ] Feature: iOS version (for Testflight) (Goal: Q2 2025)
+- [ ] Feature: Main Menu
+- [ ] Feature: Leaderboard (incl. backend)
 
 ## Next release
 
@@ -30,20 +38,18 @@
 
 - [ ] Task: Use "recycle" icon for skill reset on SkillUpgradeDialog
 
-- [ ] Feature: Main Menu
 - [ ] Feature: Cloud Saves
 - [ ] Fix: Cleanup fadeable container with focus on z_index
 - [ ] Task: Have DialogManager ensure correct z_index
 
 ## Future
 - [ ] Task: Have DialogManager create dialogs on the fly
-- [ ] Add leaderboards
 - [+] Create explosion path editor
 - [?] #godot crossfade toggle buttons
 - [+] #godot Fix debug camera frame
 - [ ] Add volume slider?
 - [ ] Bonus: Animate Seaweed in code
-- [ ] #unity Fix WebGL html wrapper template
+- [+] ☠️ #unity Fix WebGL html wrapper template
 
 ## Done
 
