@@ -19,7 +19,6 @@
 - [ ] Fix: Make sure front most dialog is interactable
 - [ ] Cleanup: Move pause/resume handling fully into game
 - [ ] Fix: Weird numbers in ResultScreen
-- [ ] Cleanup: Remove pink frame from ResultScreen
 - [ ] Cleanup: Build WebGL version on tag
 - [ ] Polish: Improve shop and confirmation background
 
@@ -51,6 +50,13 @@
 - [+] ☠️ #unity Fix WebGL html wrapper template
 
 ## Done
+
+### 2025-03-19 - After release
+- [x] Cleanup: Remove pink frame from ResultScreen
+
+### V3.1.2-dev - 2025-03-19
+
+Release a quick update to itch.io.
 
 ### 2025-03-19
 - [x] Update: Update to Godot 4.4

@@ -80,6 +80,7 @@ theme_override_constants/margin_right = 470
 theme_override_constants/margin_bottom = 190
 
 [node name="ColorRect" type="ColorRect" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+visible = false
 layout_mode = 2
 color = Color(0.627451, 0.184314, 0.972549, 0.482353)
 
