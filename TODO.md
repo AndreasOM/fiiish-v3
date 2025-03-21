@@ -7,8 +7,6 @@
 
 ## V3.2.0
 
-- [ ] Feature: Cheat Console
-
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
 
@@ -54,6 +52,9 @@
 ### 2025-03-21
 - [x] Fix: Make sure front most dialog is interactable
 - [x] Tweak Dialog lifecycle management
+- [x] Feature: Developer Console
+- [x] Cleanup: Keep focus on DeveloperConsole after submitting
+
 
 ### 2025-03-19 - After release
 - [x] Cleanup: Remove pink frame from ResultScreen
