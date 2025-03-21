@@ -22,7 +22,6 @@ bestDistanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/Marg
 totalDistanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/TotalDistanceResultRow")
 
 [node name="ResultDialogFadeableContainer" type="CenterContainer" parent="."]
-z_index = 10
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,4 +87,8 @@ color = Color(0.627451, 0.184314, 0.972549, 0.482353)
 layout_mode = 2
 texture_normal = ExtResource("5_8gynd")
 
+[connection signal="on_faded_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_in"]
+[connection signal="on_faded_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_out"]
+[connection signal="on_fading_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_in"]
+[connection signal="on_fading_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_out"]
 [connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]

@@ -16,7 +16,6 @@
 		- [?] Task: Open Skill Upgrade Dialog from Result Dialog
 		- [?] Polish: Improve coin and skill point mini icons
 
-- [ ] Fix: Make sure front most dialog is interactable
 - [ ] Cleanup: Move pause/resume handling fully into game
 - [ ] Fix: Weird numbers in ResultScreen
 - [ ] Cleanup: Build WebGL version on tag
@@ -48,8 +47,13 @@
 - [ ] Add volume slider?
 - [ ] Bonus: Animate Seaweed in code
 - [+] ☠️ #unity Fix WebGL html wrapper template
+- [ ] Decide if ConfirmationDialog should block all other input
 
 ## Done
+
+### 2025-03-21
+- [x] Fix: Make sure front most dialog is interactable
+- [x] Tweak Dialog lifecycle management
 
 ### 2025-03-19 - After release
 - [x] Cleanup: Remove pink frame from ResultScreen

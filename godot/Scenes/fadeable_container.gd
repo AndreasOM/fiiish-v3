@@ -25,7 +25,7 @@ func _save_original_z_index():
 func _restore_original_z_index():
 	if _original_z_index != RenderingServer.CANVAS_ITEM_Z_MIN:
 		print("Restoring original z_index for %s: %d => %d" % [ name, _original_z_index, z_index ] )
-		z_index = _original_z_index
+		# z_index = _original_z_index
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 			_alpha_speed = 0.0
 			_alpha = 0.0
 			visible = false
-			z_index = RenderingServer.CANVAS_ITEM_Z_MIN
+			# z_index = RenderingServer.CANVAS_ITEM_Z_MIN
 			on_faded_out.emit()
 		modulate.a = _alpha
 		
@@ -82,7 +82,7 @@ func fade_out( duration: float):
 		modulate.a = _alpha
 		visible = false
 		_save_original_z_index()
-		z_index = RenderingServer.CANVAS_ITEM_Z_MIN
+		# z_index = RenderingServer.CANVAS_ITEM_Z_MIN
 		on_fading_out.emit()
 		on_faded_out.emit()
 	

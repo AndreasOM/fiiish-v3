@@ -8,3 +8,20 @@ enum Id {
 	SKILL_NOT_AFFORDABLE_DIALOG,
 	DEVELOPER_CONSOLE_DIALOG,
 }
+
+static func id_to_name( id: DialogIds.Id ) -> String:
+	match id:
+		DialogIds.Id.RESULT_DIALOG:
+			return "RESULT_DIALOG"
+		DialogIds.Id.SETTING_DIALOG:
+			return "SETTING_DIALOG"
+		DialogIds.Id.SKILL_UPGRADE_DIALOG:
+			return "SKILL_UPGRADE_DIALOG"
+		DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG:
+			return "SKILL_RESET_CONFIRMATION_DIALOG"
+		DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG:
+			return "SKILL_NOT_AFFORDABLE_DIALOG"
+		DialogIds.Id.DEVELOPER_CONSOLE_DIALOG:
+			return "DEVELOPER_CONSOLE_DIALOG"
+		_:
+			return "[UNKNOWN DIALOG]"

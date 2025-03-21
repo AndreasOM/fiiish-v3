@@ -205,3 +205,15 @@ func _get_price_for_skill_point( owned_skill_points: int ) -> int:
 	return ceil(r)
 
 # 1.931E-08*x^4.222
+
+func _on_fadeable_center_container_on_faded_in() -> void:
+	opened()
+
+func _on_fadeable_center_container_on_faded_out() -> void:
+	closed()
+
+func _on_fadeable_center_container_on_fading_in() -> void:
+	opening()
+
+func _on_fadeable_center_container_on_fading_out() -> void:
+	closing()
