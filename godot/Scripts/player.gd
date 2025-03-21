@@ -42,6 +42,10 @@ static func load() -> Player:
 func reset():
 	_coins = 0
 	# ....
+	_lastDistance = 0
+	_totalDistance = 0
+	_bestDistance = 0
+	_playCount = 0
 	_skill_points_gained = 0
 	_skill_points_used = 0
 	_skills = {}
