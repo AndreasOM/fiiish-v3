@@ -33,7 +33,6 @@ descriptionDemoFile = "res://Resources/description_demo.txt"
 versionFile = "res://Resources/version_info.txt"
 
 [node name="SettingsFadeableContainer" type="CenterContainer" parent="."]
-z_index = 20
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

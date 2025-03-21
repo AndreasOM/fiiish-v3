@@ -5,88 +5,132 @@ class_name DialogManager
 
 var _dialog_configs: Dictionary = {
 	DialogIds.Id.RESULT_DIALOG: preload("res://Dialogs/result_dialog.tscn"),
-	DialogIds.Id.SETTING_DIALOG: preload("res://Dialogs/setting_dialog.tscn"),
+#	DialogIds.Id.SETTING_DIALOG: preload("res://Dialogs/setting_dialog.tscn"),
 	DialogIds.Id.SKILL_UPGRADE_DIALOG: preload("res://Dialogs/skill_upgrade_dialog.tscn"),
 #	DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG: preload("res://Dialogs/skill_reset_confirmation_dialog.tscn"),
 	DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG: preload("res://Dialogs/fiiish_confirmation_dialog.tscn"),
 	DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG: preload("res://Dialogs/fiiish_confirmation_dialog.tscn"),
+	DialogIds.Id.SETTING_DIALOG: preload("res://Dialogs/setting_dialog.tscn"),
 	DialogIds.Id.DEVELOPER_CONSOLE_DIALOG: preload("res://Dialogs/developer_console_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}
 
+
+func _instantiate_dialog( id: DialogIds.Id ) -> Dialog:
+	var dc = _dialog_configs.get( id )
+	var d = dc.instantiate()
+	var dialog = d as Dialog
+	if dialog == null:
+		push_warning( "DIALOG_MANAGER: %d is not a dialog" % [ id ] )
+		return null
+	#if dialog.has_method( "set_dialog_manager" ):
+	dialog.set_dialog_manager( self )
+	if dialog.has_method( "set_game" ):
+		dialog.set_game( game );
+	dialog.on_closing.connect( on_dialog_closing )
+	dialog.on_closed.connect( on_dialog_closed )
+	dialog.on_opening.connect( on_dialog_opening )
+	dialog.on_opened.connect( on_dialog_opened )
+	dialog.close( 0.0 )
+	# dialog.override_z_index( 0 )
+	self.add_child( dialog )
+	_dialogs[ id ] = dialog
+	
+	print("DIALOG_MANAGER: dialog instantiated %d -> %s" % [ id, DialogIds.id_to_name( id ) ] )
+	return dialog
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# $SkillUpgradeDialog.fade_out( 0.0 )
-	for id in _dialog_configs.keys():
-		var dc = _dialog_configs.get( id )
-		var d = dc.instantiate()
-		var dialog = d as Dialog
-		if dialog == null:
-			push_warning( "%d is not a dialog" % [ id ] )
-			continue
-		#if dialog.has_method( "set_dialog_manager" ):
-		dialog.set_dialog_manager( self )
-		if dialog.has_method( "set_game" ):
-			dialog.set_game( game );
-		dialog.on_closing.connect( on_dialog_closing )
-		dialog.on_closed.connect( on_dialog_closed )
-		dialog.on_opening.connect( on_dialog_opening )
-		dialog.on_opened.connect( on_dialog_opened )
-		dialog.close( 0.0 )
-		# dialog.override_z_index( 0 )
-		self.add_child( dialog )
-		_dialogs[ id ] = dialog
+	## for id in _dialog_configs.keys():
+	##	self._instatiate_dialog( id )
 			
 	# open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+	pass
 
 func on_dialog_closing( dialog: Dialog ):
-	print( "on_dialog_closing %s" % dialog.name )
+	print( "DIALOG_MANAGER: on_dialog_closing %s" % dialog.name )
 
 func on_dialog_closed( dialog: Dialog ):
-	print( "on_dialog_closed %s" % dialog.name )
+	print( "DIALOG_MANAGER: on_dialog_closed %s" % dialog.name )
 	dialog.visible = false
+	self.remove_child( dialog )
+	var id = _dialogs.find_key( dialog )
+	if id != null:
+		_dialogs.erase( id )
 
 func on_dialog_opening( dialog: Dialog ):
-	print( "on_dialog_opening %s" % dialog.name )
+	print( "DIALOG_MANAGER: on_dialog_opening %s" % dialog.name )
 	dialog.visible = true
 
 func on_dialog_opened( dialog: Dialog ):
-	print( "on_dialog_opened %s" % dialog.name )
+	print( "DIALOG_MANAGER: on_dialog_opened %s" % dialog.name )
 	
 func _on_skills_upgrade_button_pressed() -> void:
-	print("Skills upgrade button pressed")
+	print("DIALOG_MANAGER: Skills upgrade button pressed")
 	open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 
 func toggle_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog
+	if dialog == null:
+		dialog = self.open_dialog(id, 0.3)
 	if dialog != null:
 		dialog.toggle( duration )
 	else:
-		push_warning("Dialog %d not found for toggle" % id )
-	
+		push_warning("DIALOG_MANAGER: Dialog %d not found for toggle" % id )
+
 func open_dialog( id: DialogIds.Id, duration: float) -> Dialog:
+	print("DIALOG_MANAGER: open_dialog %d -> %s" % [ id, DialogIds.id_to_name( id ) ] )
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
-		print("Opening dialog %d" % id)
+		print("DIALOG_MANAGER: Dialog %d already open" % id )
+		push_warning("DIALOG_MANAGER: Dialog %d already open" % id )
+		return dialog
+	dialog = self._instantiate_dialog(id)
+	dialog.open( duration )
+	dialog.visible = true
+	return dialog
+	
+func open_dialog_v1( id: DialogIds.Id, duration: float) -> Dialog:
+	var dialog = _dialogs.get( id ) as Dialog
+	if dialog != null:
+		print("DIALOG_MANAGER: Opening dialog %d" % id)
 		dialog.open( duration )
 		dialog.visible = true
 		return dialog
 	else:
-		push_warning("Dialog %d not found for open" % id )
+		print("DIALOG_MANAGER: Dialog %d not found for open" % id )
+		push_warning("DIALOG_MANAGER: Dialog %d not found for open" % id )
 		return null
 
 func close_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog
+	if dialog == null:
+		print("DIALOG_MANAGER: Dialog %d not found for close" % id )
+		push_warning("DIALOG_MANAGER: Dialog %d not found for close" % id )
+		return
+		
+	dialog.close( duration )
+	
+	## cleanup will be done in on_dialog_closed callback
+	# dialog.visible = false
+	# self.remove_child( dialog )
+	# _dialogs.erase( id )
+
+func close_dialog_v1( id: DialogIds.Id, duration: float):
+	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
-		print("Closing dialog %d" % id)
+		print("DIALOG_MANAGER: Closing dialog %d" % id)
 		dialog.close( duration )
 		dialog.visible = false
 	else:
-		push_warning("Dialog %d not found for close" % id )
+		print("DIALOG_MANAGER: Dialog %d not found for close" % id )
+		push_warning("DIALOG_MANAGER: Dialog %d not found for close" % id )
 	
 
 func _on_game_state_changed(state: Game.State) -> void:
+	print("DIALOG_MANAGER: _on_game_state_changed %d" % state)
 	match state:
 		Game.State.DYING:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
