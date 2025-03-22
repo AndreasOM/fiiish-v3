@@ -13,8 +13,8 @@
 	- [ ] Story: Skill Upgrade Dialog
 
 		- [ ] Polish: Improve buy right mini button
-		- [?] Task: Open Skill Upgrade Dialog from Result Dialog
-		- [?] Polish: Improve coin and skill point mini icons
+		- [+] Task: Open Skill Upgrade Dialog from Result Dialog
+		- [+] Polish: Improve coin and skill point mini icons
 
 - [ ] Cleanup: Move pause/resume handling fully into game
 - [ ] Fix: Weird numbers in ResultScreen
@@ -57,6 +57,7 @@
 - [x] Task: Add Demo variant with reduced content
 - [x] Polish: Auto complete to the shared prefix of candidates
 - [x] Polish: Fade items behind confirmation dialog
+- [x] Polish: Improve buy right mini button a little
 
 ### 2025-03-21
 - [x] Fix: Make sure front most dialog is interactable
