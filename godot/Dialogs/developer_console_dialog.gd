@@ -66,6 +66,7 @@ func _input(event):
 			var l = self.auto_complete( %LineEdit.text )
 			if l != null:
 				%LineEdit.text = l
+				%LineEdit.set_caret_column( l.length() )
 		
 func clear():
 	%RichTextLabel.clear()
@@ -96,10 +97,28 @@ func auto_complete( l: String ):
 			return null
 		1:
 			return candidates[ 0 ]
-		_:	
+		_:
 			for c in candidates:
 				self.add_history( c )
-			return null
+				
+			var c0 = candidates[ 0 ]
+			var longest_prefix = l.length()	
+
+			var sug = c0.left( longest_prefix )
+			
+			var done = false
+			while true:
+				longest_prefix+=1
+				var next_sug = c0.left( longest_prefix )
+				for c in candidates:
+					if !c.begins_with( next_sug ):
+						done = true
+						break
+				if done:
+					break
+				sug = next_sug
+					
+			return sug
 
 func update_history():
 	var h = "\n".join( self._history)
