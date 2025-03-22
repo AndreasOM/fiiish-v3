@@ -8,7 +8,6 @@
 
 ## V3.2.0
 
-- [ ] Polish: Fade items behind confirmation dialog
 
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
@@ -57,6 +56,7 @@
 - [x] Task: Add workflow to build WebGL on tag
 - [x] Task: Add Demo variant with reduced content
 - [x] Polish: Auto complete to the shared prefix of candidates
+- [x] Polish: Fade items behind confirmation dialog
 
 ### 2025-03-21
 - [x] Fix: Make sure front most dialog is interactable
