@@ -43,7 +43,11 @@ jobs:
           BUILD_TYPE="Web-demo"
           echo "BUILD_TYPE=${BUILD_TYPE}" >> $GITHUB_ENV
           VERSION=$(git tag --points-at HEAD)
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          if [[ ${VERSION} -eq "" ]]; then
+            echo "VERSION=v0.0.0" >> $GITHUB_ENV
+          else
+            echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          fi
 
       - name: Fix version info
         run: |
