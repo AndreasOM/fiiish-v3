@@ -2,10 +2,16 @@
 
 ## In Progress
 
+- [ ] Feature: Build Demo WebGL version on tag
+	- [ ] Task: Add workflow to build WebGL on tag
+	- [ ] Task: Add Demo variant with reduced content
 
 ## Todo
 
 ## V3.2.0
+
+- [ ] Polish: Fade items behind confirmation dialog
+- [ ] Polish: Auto complete to the shared prefix of candidates
 
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
@@ -16,7 +22,6 @@
 
 - [ ] Cleanup: Move pause/resume handling fully into game
 - [ ] Fix: Weird numbers in ResultScreen
-- [ ] Cleanup: Build WebGL version on tag
 - [ ] Polish: Improve shop and confirmation background
 
 ## V3.4.0
@@ -36,6 +41,7 @@
 - [ ] Feature: Cloud Saves
 - [ ] Fix: Cleanup fadeable container with focus on z_index
 - [ ] Task: Have DialogManager ensure correct z_index
+- [ ] Bake version info into splash screen
 
 ## Future
 - [ ] Task: Have DialogManager create dialogs on the fly
