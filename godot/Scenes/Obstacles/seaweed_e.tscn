@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://byx3pgtj0sa7l"]
+[gd_scene load_steps=51 format=3 uid="uid://8bwhfk4c2305"]
 
 [ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_qobqa"]
 [ext_resource type="Texture2D" uid="uid://o4dtqybwjjk4" path="res://Textures/Obstacles/Seaweed/seaweed-e-1.png" id="2_ys8j7"]

@@ -120,23 +120,30 @@ func take_current_distance_in_meters() -> int:
 	_distance = 0
 	return d
 	
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	var dirs = DirAccess.get_directories_at("res://Resources/")
-	for d in dirs:
-		print("Dirs: %s" % d)
-	var files = DirAccess.get_files_at("res://Resources/")
-	for f in files:
-		print("Files: %s" % f)
-		
-	var zones = DirAccess.get_files_at("res://Resources/Zones/")
+func _load_zones_from_folder( folder: String ):
+	var zones = DirAccess.get_files_at(folder)
 	for zn in zones:
-		if !zn.ends_with(".nzne"):
+		if !zn.ends_with( ".nzne" ):
 			continue
 		print("Zones: %s" % zn)
-		var fzn = "res://Resources/Zones/%s" % zn
+		var fzn = "%s/%s" % [ folder, zn ]
 		var z = load( fzn )
 		self._zones.push_back(z )
+		
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	# var dirs = DirAccess.get_directories_at("res://Resources/")
+	#for d in dirs:
+	#	print("Dirs: %s" % d)
+	#var files = DirAccess.get_files_at("res://Resources/")
+	#for f in files:
+	#	print("Files: %s" % f)
+		
+	
+	if OS.has_feature("demo"):
+		self._load_zones_from_folder( "res://Resources/Demo-Zones/" )
+	else:
+		self._load_zones_from_folder( "res://Resources/Zones/" )
 	
 	self.push_initial_zones()	
 
@@ -339,7 +346,12 @@ func _pick_next_zone() -> NewZone:
 	var next_zone = null
 	
 	# warning deadlock if all zones are blocked
+	var max_tries = 100
 	while next_zone == null:
+		max_tries -= 1
+		if max_tries <= 0:
+			push_warning("No next zone found")
+			return null
 		next_zone = self._zones.pick_random()
 		if blocked_zones.find( next_zone.name ) >= 0:
 			next_zone = null

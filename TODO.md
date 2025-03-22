@@ -2,9 +2,6 @@
 
 ## In Progress
 
-- [ ] Feature: Build Demo WebGL version on tag
-	- [ ] Task: Add workflow to build WebGL on tag
-	- [ ] Task: Add Demo variant with reduced content
 
 ## Todo
 
@@ -54,6 +51,11 @@
 - [ ] Decide if ConfirmationDialog should block all other input
 
 ## Done
+
+### 2025-03-22
+- [x] Feature: Build Demo WebGL version on tag
+- [x] Task: Add workflow to build WebGL on tag
+- [x] Task: Add Demo variant with reduced content
 
 ### 2025-03-21
 - [x] Fix: Make sure front most dialog is interactable
