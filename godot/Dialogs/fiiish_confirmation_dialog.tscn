@@ -16,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3nvp5")
 
-[node name="FadeableContainer" type="CenterContainer" parent="."]
+[node name="FadeableContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -25,9 +25,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_2c3hr")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="ColorRect" type="ColorRect" parent="FadeableContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.0902, 0.661877, 0.82, 0.25098)
 
 [node name="TextureRect" type="TextureRect" parent="FadeableContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("3_f3ec8")
 
 [node name="MarginContainer" type="MarginContainer" parent="FadeableContainer/TextureRect"]
