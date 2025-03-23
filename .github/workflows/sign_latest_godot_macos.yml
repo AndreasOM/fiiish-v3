@@ -9,7 +9,7 @@ on:
     #  - godot/**
 
 jobs:
-  build:
+  sign:
     runs-on: macos-14
     defaults:
       run:
@@ -19,13 +19,20 @@ jobs:
       - name: Create variables
         run: |
           PROJECT=fiiish-v3
-          echo "PROJECT=${PROJECT}" >> $GITHUB_ENV
           BUILD_TYPE="macOS"
-          echo "BUILD_TYPE=${BUILD_TYPE}" >> $GITHUB_ENV
           LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
-          echo "LATEST_FILE=${LATEST_FILE}" >> $GITHUB_ENV
           S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
-          echo "S3_LATEST_FILE=${S3_LATEST_FILE}" >> $GITHUB_ENV
+          APP_TO_SIGN=${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/fiiish-v3.app
+          #
+          # put into github env
+          #
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "LATEST_FILE=${LATEST_FILE}"
+            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+            echo "APP_TO_SIGN=${APP_TO_SIGN}"
+          } >> $GITHUB_ENV
 
       - name: Get latest reference
         run: |
@@ -47,7 +54,7 @@ jobs:
           ARCHIVE_FILE=${ARCHIVE_NAME}${ARCHIVE_EXT}
           S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${LATEST}
           SIGNED_ARCHIVE_FILE=${ARCHIVE_NAME}-signed.tgz
-          SIGNED_S3_ARCHIVE_FILE=${ARCHIVE_FOLDER}/${SIGNED_ARCHIVE_FILE}
+          SIGNED_S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${ARCHIVE_FOLDER}/${SIGNED_ARCHIVE_FILE}
           #
           # put into github env
           #
@@ -85,6 +92,34 @@ jobs:
           security set-key-partition-list -S "apple-tool:,apple:" -s -k "${keychain_password}" "${keychain_db}"
           security default-keychain -d "user" -s "${keychain_db}"
           security find-identity -v
+
+      - name: Sign .app
+        id: sign0
+        continue-on-error: true
+        run: |
+          ping -c 5 time.apple.com
+          codesign -s ${{ secrets.CODESIGN_CERT_IDENTITY }} -f -v --timestamp --options runtime ${{ env.APP_TO_SIGN }}
+        timeout-minutes: 10
+
+      - name: Sign .app (2nd try)
+        id: sign1
+        continue-on-error: true
+        if: steps.sign0.outcome=='failure'
+        run: |
+          sleep 60
+          ping -c 5 time.apple.com
+          codesign -s ${{ secrets.CODESIGN_CERT_IDENTITY }} -f -v --timestamp --options runtime ${{ env.APP_TO_SIGN }}
+        timeout-minutes: 10
+
+      - name: Set Sign status
+        if: always()
+        run: |
+          if ${{ steps.sign0.outcome=='success' || steps.sign1.outcome=='success' }}; then
+            echo "Successfully signed!"
+          else
+            echo "Failed signing even after retry"
+            exit 1
+          fi
 
       - name: Create Summary
         if: always()
