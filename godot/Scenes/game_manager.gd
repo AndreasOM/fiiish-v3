@@ -79,9 +79,10 @@ var _entity_configs = {
 #var _seaweed_f = preload("res://Scenes/Obstacles/seaweed_f.tscn")
 #var _seaweed_g = preload("res://Scenes/Obstacles/seaweed_g.tscn")
 
-var _zones: Array[ NewZone ] = []
 var _next_zones: Array[ int ] = []
 var _current_zone: NewZone = null
+
+var _zone_manager: ZoneManager = null
 
 enum EntityId {
 	PICKUPCOIN      = 0xe4c651aa,
@@ -119,31 +120,20 @@ func take_current_distance_in_meters() -> int:
 	var d = distance_in_m();
 	_distance = 0
 	return d
+
+		
+func _init() -> void:
+	self._zone_manager = ZoneManager.new()
+	pass
 	
-func _load_zones_from_folder( folder: String ):
-	var zones = DirAccess.get_files_at(folder)
-	for zn in zones:
-		if !zn.ends_with( ".nzne" ):
-			continue
-		print("Zones: %s" % zn)
-		var fzn = "%s/%s" % [ folder, zn ]
-		var z = load( fzn )
-		self._zones.push_back(z )
-		
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# var dirs = DirAccess.get_directories_at("res://Resources/")
-	#for d in dirs:
-	#	print("Dirs: %s" % d)
-	#var files = DirAccess.get_files_at("res://Resources/")
-	#for f in files:
-	#	print("Files: %s" % f)
-		
+	self._zone_manager.set_name( "ZoneManager" )
+	self.add_child( self._zone_manager )
 	
 	if OS.has_feature("demo"):
-		self._load_zones_from_folder( "res://Resources/Demo-Zones/" )
+		self._zone_manager.load_zones_from_folder( "res://Resources/Demo-Zones/" )
 	else:
-		self._load_zones_from_folder( "res://Resources/Zones/" )
+		self._zone_manager.load_zones_from_folder( "res://Resources/Zones/" )
 	
 	self.push_initial_zones()	
 
@@ -152,8 +142,8 @@ func push_initial_zones():
 	# var initial_zones = [ "0000_Start", "0000_ILoveFiiish" ]
 	var initial_zones = [ "0000_ILoveFiiish" ]
 	for iz in initial_zones:
-		for i in range( 0,self._zones.size() ):
-			var z = self._zones[ i ];
+		for i in range( 0, self._zone_manager.zone_count() ):
+			var z = self._zone_manager.get_zone( i );
 			if z.name == iz:
 				self._next_zones.push_back( i )
 	
@@ -352,7 +342,7 @@ func _pick_next_zone() -> NewZone:
 		if max_tries <= 0:
 			push_warning("No next zone found")
 			return null
-		next_zone = self._zones.pick_random()
+		next_zone = self._zone_manager.pick_random()
 		if blocked_zones.find( next_zone.name ) >= 0:
 			next_zone = null
 		
@@ -372,8 +362,8 @@ func spawn_zone():
 	if self._next_zones.size() > 0:
 		next_zone = self._next_zones.pop_front()
 		
-	if next_zone >= 0 && next_zone < self._zones.size():
-		zone = self._zones[ next_zone ]
+	if next_zone >= 0 && next_zone < self._zone_manager.zone_count():
+		zone = self._zone_manager.get_zone( next_zone )
 	else:
 		zone = self._pick_next_zone()
 #	if self._zone != null:

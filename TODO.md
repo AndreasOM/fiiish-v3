@@ -2,28 +2,24 @@
 
 ## In Progress
 
+- [ ] Cleanup GameManager
+	- [ ] Task: Split out ZoneManager from GameManager
 
 
 ## Todo
 
 ## V3.2.0
 
-- [ ] Cleanup GameManager
 
-- [ ] Feature: Skill Upgrades
-	- [ ] Story: Skill Upgrade Dialog
 
-		- [+] Task: Open Skill Upgrade Dialog from Result Dialog
-		- [+] Polish: Improve coin and skill point mini icons
-
-- [?] Cleanup: Move pause/resume handling fully into game
-- [ ] Polish: Improve shop and confirmation background
 
 ## V3.4.0
 
 - [ ] Feature: iOS version (for Testflight) (Goal: Q2 2025)
 - [ ] Feature: Main Menu
 - [ ] Feature: Leaderboard (incl. backend)
+
+- [ ] Polish: Improve shop and confirmation background
 
 ## Next release
 
@@ -40,7 +36,7 @@
 - [ ] Bake version info into splash screen
 
 ## Future
-- [ ] Task: Have DialogManager create dialogs on the fly
+- [+] Task: Have DialogManager create dialogs on the fly
 - [+] Create explosion path editor
 - [?] #godot crossfade toggle buttons
 - [+] #godot Fix debug camera frame
@@ -48,11 +44,16 @@
 - [ ] Bonus: Animate Seaweed in code
 - [+] ☠️ #unity Fix WebGL html wrapper template
 - [ ] Decide if ConfirmationDialog should block all other input
+- [?] Cleanup: Move pause/resume handling fully into game
 
 ## Done
 
 ### 2025-03-23
 - [x] Polish: Improve buy right mini button
+- [x] Feature: Skill Upgrades
+- [x] Story: Skill Upgrade Dialog
+- [+] Task: Open Skill Upgrade Dialog from Result Dialog
+- [+] Polish: Improve coin and skill point mini icons
 
 ### 2025-03-22
 - [x] Feature: Build Demo WebGL version on tag
