@@ -56,8 +56,8 @@ jobs:
       - name: Create Summary
         if: always()
         run: |
-        echo "| ARCHIVE_FILE | ${{ env.ARCHIVE_FILE }} |" >> $GITHUB_STEP_SUMMARY
-        echo "| S3_ARCHIVE_FILE | ${{ env.S3_ARCHIVE_FILE }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ARCHIVE_FILE | ${{ env.ARCHIVE_FILE }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| S3_ARCHIVE_FILE | ${{ env.S3_ARCHIVE_FILE }} |" >> $GITHUB_STEP_SUMMARY
 
 #      - name: Upload -> Download artifact
 #        run: |
