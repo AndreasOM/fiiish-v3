@@ -8,16 +8,15 @@
 
 ## V3.2.0
 
+- [ ] Cleanup GameManager
 
 - [ ] Feature: Skill Upgrades
 	- [ ] Story: Skill Upgrade Dialog
 
-		- [ ] Polish: Improve buy right mini button
 		- [+] Task: Open Skill Upgrade Dialog from Result Dialog
 		- [+] Polish: Improve coin and skill point mini icons
 
-- [ ] Cleanup: Move pause/resume handling fully into game
-- [ ] Fix: Weird numbers in ResultScreen
+- [?] Cleanup: Move pause/resume handling fully into game
 - [ ] Polish: Improve shop and confirmation background
 
 ## V3.4.0
@@ -28,9 +27,10 @@
 
 ## Next release
 
-- [ ] Cleanup GameManager
 
 ## Later
+
+- [ ] Fix: Weird numbers in ResultScreen
 
 - [ ] Task: Use "recycle" icon for skill reset on SkillUpgradeDialog
 
@@ -50,6 +50,9 @@
 - [ ] Decide if ConfirmationDialog should block all other input
 
 ## Done
+
+### 2025-03-23
+- [x] Polish: Improve buy right mini button
 
 ### 2025-03-22
 - [x] Feature: Build Demo WebGL version on tag
