@@ -50,6 +50,7 @@ jobs:
           AWS_DEFAULT_REGION: "eu-west-1"
 
       - name: Unpack artifact
+        run: |
           tar xzvf ${{ env.ARCHIVE_FILE }}
           find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
