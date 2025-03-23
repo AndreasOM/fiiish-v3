@@ -3,6 +3,7 @@ class_name ZoneManager
 
 
 var _zones: Array[ NewZone ] = []
+var _next_zones: Array[ int ] = []
 
 #func _process(delta: float) -> void:
 #	pass
@@ -36,3 +37,25 @@ func pick_random() -> NewZone:
 	assert( self._zones.size() > 0 )
 	return self._zones.pick_random()
 	
+func find_zone_index_by_name( name: String ) -> int:
+	for i in range( 0, self._zones.size() ):
+		var z = self._zones[ i ]
+		if z.name == name:
+			return i
+			
+	return -1
+	
+func push_next_zone( idx: int ):
+	self._next_zones.push_back( idx )	
+	
+func push_next_zone_by_name( name: String ):
+	var idx = self.find_zone_index_by_name( name )
+	if idx >= 0:
+		self.push_next_zone( idx )
+	
+
+func pop_next_zone() -> int:
+	var next_zone = self._next_zones.pop_front()
+	if next_zone == null:
+		return -1
+	return next_zone
