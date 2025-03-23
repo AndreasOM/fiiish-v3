@@ -59,3 +59,18 @@ func pop_next_zone() -> int:
 	if next_zone == null:
 		return -1
 	return next_zone
+	
+func pick_next_zone( blocked_zones: Array [ String ] ):
+	var next_zone = null
+	
+	var max_tries = 100
+	while next_zone == null:
+		max_tries -= 1
+		if max_tries <= 0:
+			push_warning("No next zone found")
+			return null
+		next_zone = self.pick_random()
+		if blocked_zones.find( next_zone.name ) >= 0:
+			next_zone = null
+			
+	return next_zone

@@ -319,29 +319,16 @@ func resume():
 
 
 func _pick_next_zone() -> NewZone:
-	var blocked_zones = [ 
+	var blocked_zones: Array[ String ] = [ 
 		"0000_Start",
 		"0000_ILoveFiiish",
 		"0000_ILoveFiiishAndRust",
 		"8000_MarketingScreenshots",
 		"9998_AssetTest",
 		"9999_Test"
-	]
-	var next_zone = null
-	
-	# warning deadlock if all zones are blocked
-	var max_tries = 100
-	while next_zone == null:
-		max_tries -= 1
-		if max_tries <= 0:
-			push_warning("No next zone found")
-			return null
-		next_zone = self._zone_manager.pick_random()
-		if blocked_zones.find( next_zone.name ) >= 0:
-			next_zone = null
-		
-	return next_zone
-	
+	]	
+	return self._zone_manager.pick_next_zone( blocked_zones )
+
 func spawn_zone():
 	#var xs = [ 1200.0, 1500.0, 1800.0 ]
 	#var y = 410.0
