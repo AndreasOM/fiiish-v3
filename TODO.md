@@ -2,9 +2,6 @@
 
 ## In Progress
 
-- [ ] Cleanup GameManager
-	- [ ] Task: Split out ZoneManager from GameManager
-
 
 ## Todo
 
@@ -20,6 +17,9 @@
 - [ ] Feature: Leaderboard (incl. backend)
 
 - [ ] Polish: Improve shop and confirmation background
+
+- [ ] Polish: Extract Pickup handling from GameManager
+- [ ] Polish: Extract zone spawning from GameManager
 
 ## Next release
 
@@ -54,6 +54,7 @@
 - [x] Story: Skill Upgrade Dialog
 - [+] Task: Open Skill Upgrade Dialog from Result Dialog
 - [+] Polish: Improve coin and skill point mini icons
+- [x] Task: Split out ZoneManager from GameManager
 
 ### 2025-03-22
 - [x] Feature: Build Demo WebGL version on tag
