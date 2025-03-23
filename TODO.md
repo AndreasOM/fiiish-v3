@@ -7,8 +7,8 @@
 
 ## V3.2.0
 
-
-
+- [ ] Playtest!
+- [ ] Task: Change itchio upload to use signed macOS version
 
 ## V3.4.0
 
@@ -55,6 +55,7 @@
 - [+] Task: Open Skill Upgrade Dialog from Result Dialog
 - [+] Polish: Improve coin and skill point mini icons
 - [x] Task: Split out ZoneManager from GameManager
+- [x] Task: Add job to codesign macOS version
 
 ### 2025-03-22
 - [x] Feature: Build Demo WebGL version on tag
