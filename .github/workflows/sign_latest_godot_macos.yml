@@ -123,12 +123,21 @@ jobs:
             exit 1
           fi
 
+      - name: Upload signed artifact
+        run: |
+          aws s3 cp ${{ env.SIGNED_ARCHIVE_FILE }} ${{ env.SIGNED_S3_ARCHIVE_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
       - name: Create Summary
         if: always()
         run: |
           {
-            echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
+            echo "|                        |                                   |"
             echo "| :--------------------- | --------------------------------: |"
+            echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
             echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
             echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
             echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
