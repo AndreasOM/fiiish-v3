@@ -79,7 +79,6 @@ var _entity_configs = {
 #var _seaweed_f = preload("res://Scenes/Obstacles/seaweed_f.tscn")
 #var _seaweed_g = preload("res://Scenes/Obstacles/seaweed_g.tscn")
 
-var _next_zones: Array[ int ] = []
 var _current_zone: NewZone = null
 
 var _zone_manager: ZoneManager = null
@@ -124,7 +123,6 @@ func take_current_distance_in_meters() -> int:
 		
 func _init() -> void:
 	self._zone_manager = ZoneManager.new()
-	pass
 	
 func _ready() -> void:
 	self._zone_manager.set_name( "ZoneManager" )
@@ -142,11 +140,7 @@ func push_initial_zones():
 	# var initial_zones = [ "0000_Start", "0000_ILoveFiiish" ]
 	var initial_zones = [ "0000_ILoveFiiish" ]
 	for iz in initial_zones:
-		for i in range( 0, self._zone_manager.zone_count() ):
-			var z = self._zone_manager.get_zone( i );
-			if z.name == iz:
-				self._next_zones.push_back( i )
-	
+		self._zone_manager.push_next_zone_by_name( iz )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -358,9 +352,7 @@ func spawn_zone():
 		#%Obstacles.add_child(o)
 
 	var zone = null
-	var next_zone = -1
-	if self._next_zones.size() > 0:
-		next_zone = self._next_zones.pop_front()
+	var next_zone = self._zone_manager.pop_next_zone()
 		
 	if next_zone >= 0 && next_zone < self._zone_manager.zone_count():
 		zone = self._zone_manager.get_zone( next_zone )
