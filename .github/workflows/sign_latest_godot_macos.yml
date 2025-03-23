@@ -34,7 +34,7 @@ jobs:
           LATEST=$(cat ${{ env.LATEST_FILE }})
           ARCHIVE_FILE=$( echo ${LATEST} |cut -d'/' -f 3 )
           echo "ARCHIVE_FILE=${ARCHIVE_FILE}" >> $GITHUB_ENV
-          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${ARCHIVE_FILE}
+          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${LATEST}
           echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}" >> $GITHUB_ENV
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
