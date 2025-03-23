@@ -18,11 +18,11 @@ jobs:
     steps:
       - name: Create variables
         run: |
-          PROJECT=fiiish-v3
+          PROJECT="fiiish-v3"
           BUILD_TYPE="macOS"
-          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
-          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
-          APP_TO_SIGN=${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/fiiish-v3.app
+          LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
+          S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
+          APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-v3.app"
           #
           # put into github env
           #
@@ -32,7 +32,7 @@ jobs:
             echo "LATEST_FILE=${LATEST_FILE}"
             echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
             echo "APP_TO_SIGN=${APP_TO_SIGN}"
-          } >> $GITHUB_ENV
+          } >> "$GITHUB_ENV"
 
       - name: Get latest reference
         run: |
@@ -41,27 +41,29 @@ jobs:
           #
           aws s3 cp ${{ env.S3_LATEST_FILE }} ${{ env.LATEST_FILE }}
           # cat ${{ env.LATEST_FILE }}
-          LATEST=$(cat ${{ env.LATEST_FILE }})
+          LATEST=$(cat "${{ env.LATEST_FILE }}")
           #
           # split into parts
           #
-          ARCHIVE_FOLDER=$( dirname ${LATEST} )
-          ARCHIVE_NAME=$( basename ${LATEST} .tgz )
+          ARCHIVE_FOLDER=$( dirname "${LATEST}" )
+          ARCHIVE_NAME=$( basename "${LATEST}" .tgz )
           ARCHIVE_EXT=.tgz
           #
           # combine
           #
-          ARCHIVE_FILE=${ARCHIVE_NAME}${ARCHIVE_EXT}
-          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${LATEST}
-          SIGNED_ARCHIVE_FILE=${ARCHIVE_NAME}-signed.tgz
-          SIGNED_S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${ARCHIVE_FOLDER}/${SIGNED_ARCHIVE_FILE}
+          ARCHIVE_FILE="${ARCHIVE_NAME}${ARCHIVE_EXT}"
+          S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${LATEST}"
+          SIGNED_ARCHIVE_FILE="${ARCHIVE_NAME}-signed.tgz"
+          SIGNED_S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${ARCHIVE_FOLDER}/${SIGNED_ARCHIVE_FILE}"
           #
           # put into github env
           #
-          echo "ARCHIVE_FILE=${ARCHIVE_FILE}" >> $GITHUB_ENV
-          echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}" >> $GITHUB_ENV
-          echo "SIGNED_ARCHIVE_FILE=${SIGNED_ARCHIVE_FILE}" >> $GITHUB_ENV
-          echo "SIGNED_S3_ARCHIVE_FILE=${SIGNED_S3_ARCHIVE_FILE}" >> $GITHUB_ENV
+          {
+            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
+            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"
+            echo "SIGNED_ARCHIVE_FILE=${SIGNED_ARCHIVE_FILE}"
+            echo "SIGNED_S3_ARCHIVE_FILE=${SIGNED_S3_ARCHIVE_FILE}"
+          } >> "$GITHUB_ENV"
 
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -124,10 +126,13 @@ jobs:
       - name: Create Summary
         if: always()
         run: |
-          echo "| ARCHIVE_FILE | ${{ env.ARCHIVE_FILE }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| S3_ARCHIVE_FILE | ${{ env.S3_ARCHIVE_FILE }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| SIGNED_ARCHIVE_FILE | ${{ env.SIGNED_ARCHIVE_FILE }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
+            echo "| :--------------------- | --------------------------------: |"
+            echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
+            echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
+            echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
 
 #      - name: Upload -> Download artifact
 #        run: |
