@@ -3,12 +3,16 @@
 ## In Progress
 
 
+
 ## Todo
 
 ## V3.4.0
 
 - [ ] Feature: iOS version (for Testflight) (Goal: Q2 2025)
 - [ ] Feature: Main Menu
+	- [ ] Task: Add game mode entry to MainMenu
+	- [ ] Task: Add setting to enable MainMenu
+
 - [ ] Feature: Leaderboard (incl. backend)
 
 - [ ] Polish: Improve shop and confirmation background
@@ -44,6 +48,10 @@
 ## Done
 
 ### 2025-03-25 - After release
+- [x] Task: Create minimal MainMenu dialog
+- [x] Task: Open MainMenu
+- [x] Task: Add credits entry to MainMenu
+- [x] Task: Create minimal Credits dialog
 
 ### V3.3.0-rc1 - 2025-03-25
 
