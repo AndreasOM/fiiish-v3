@@ -2,13 +2,12 @@
 
 ## In Progress
 
+- [ ] Task: Change itchio upload to use signed macOS version
 
 ## Todo
 
 ## V3.2.0
 
-- [ ] Playtest!
-- [ ] Task: Change itchio upload to use signed macOS version
 
 ## V3.4.0
 
@@ -47,6 +46,9 @@
 - [?] Cleanup: Move pause/resume handling fully into game
 
 ## Done
+
+### 2025-03-25
+- [x] Playtest!
 
 ### 2025-03-23
 - [x] Polish: Improve buy right mini button
