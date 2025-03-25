@@ -18,6 +18,10 @@ boot_splash/fullsize=false
 boot_splash/image="res://Textures/Loadingscreen/loadingscreen.png"
 config/icon="res://icon.png"
 
+[autoload]
+
+Events="*res://Scripts/Globals/events.gd"
+
 [display]
 
 window/size/viewport_width=1920

@@ -82,7 +82,9 @@ func is_alive() -> bool:
 		
 func _set_state( new_state: Game.State ):
 	state_changed.emit( new_state )
+	Events.broadcast_state_changed( new_state )
 	self.state = new_state
+
 func _goto_swimming():
 	_set_state( Game.State.SWIMMING )
 	%GameManager.spawn_zone()

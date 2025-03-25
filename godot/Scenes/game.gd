@@ -12,6 +12,23 @@ enum State {
 	RESPAWNING,
 }
 
+static func state_to_name( state: Game.State) -> String:
+	match state:
+		Game.State.INITIAL:
+			return "INITIAL"
+		Game.State.WAITING_FOR_START:
+			return "WAITING_FOR_START"
+		Game.State.SWIMMING:
+			return "SWIMMING"
+		Game.State.DYING:
+			return "DYING"
+		Game.State.DEAD:
+			return "DEAD"
+		Game.State.RESPAWNING:
+			return "RESPAWNING"
+		_:
+			return "[UNKNOWN]"
+
 signal zone_changed
 signal state_changed( state: Game.State )
 
