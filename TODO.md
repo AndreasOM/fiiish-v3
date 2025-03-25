@@ -2,12 +2,8 @@
 
 ## In Progress
 
-- [ ] Task: Change itchio upload to use signed macOS version
 
 ## Todo
-
-## V3.2.0
-
 
 ## V3.4.0
 
@@ -47,8 +43,13 @@
 
 ## Done
 
+### 2025-03-25 - After release
+
+### V3.3.0-rc1 - 2025-03-25
+
 ### 2025-03-25
 - [x] Playtest!
+- [x] Task: Change itchio upload to use signed macOS version
 
 ### 2025-03-23
 - [x] Polish: Improve buy right mini button
