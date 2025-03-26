@@ -9,6 +9,7 @@
 ## V3.4.0
 
 - [ ] Feature: iOS version (for Testflight) (Goal: Q2 2025)
+	- Note: `xcodebuild -archivePath "Test.xcarchive" -project fiiish-v3.ipa.xcodeproj -sdk iphoneos  -scheme "fiiish-v3.ipa" -configuration "Release" archive`
 - [ ] Feature: Main Menu
 	- [ ] Task: Add game mode entry to MainMenu
 
