@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 6
+const current_version: int = 7
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -23,6 +23,9 @@ var _skills = {
 
 ## version 6
 var _isMainMenuEnabled: bool = false
+
+## version 7
+var _cheats: Dictionary[ CheatIds.Id, bool ] = {}
 
 static func get_save_path() -> String:
 	return "user://player.data"
@@ -122,6 +125,23 @@ func serialize( s: Serializer ) -> bool:
 
 	_isMainMenuEnabled = s.serialize_bool( _isMainMenuEnabled )
 
+	# version 7
+	if version < 7:
+		return true
+		
+	var cheat_keys = _cheats.keys()
+	var number_of_cheats = cheat_keys.size()
+	number_of_cheats = s.serialize_u16( number_of_cheats )
+	
+	for idx in range(0,number_of_cheats):
+		var k = CheatIds.Id.NONE
+		if idx < cheat_keys.size():
+			k = cheat_keys[ idx ]
+		# print("CHEAT: %d %d/%d" % [ k, idx, number_of_cheats ] )
+		k = s.serialize_u32( k )
+		# print("CHEAT: %d %d/%d" % [ k, idx, number_of_cheats ] )
+		_cheats[ k ] = true
+	
 	return true
 		
 func coins() -> int:
@@ -231,3 +251,13 @@ func disableMainMenu():
 		return
 	_isMainMenuEnabled = false
 	_isDirty = true
+
+func isCheatEnabled( id: CheatIds.Id ) -> bool:
+	return _cheats.has( id )
+	
+func enableCheat( id: CheatIds.Id ):
+	self._cheats[ id ] = true
+
+func disableCheat( id: CheatIds.Id ):
+	self._cheats.erase( id )
+	

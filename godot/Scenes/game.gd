@@ -52,7 +52,13 @@ func _ready() -> void:
 		musicManager.fadeOut( 0.0 )
 		if _player.isMusicEnabled():
 			musicManager.fadeIn( 0.3 )
-		
+			
+	Events.cheats_changed.connect( _on_cheats_changed )
+	self._on_cheats_changed()
+	
+func _on_cheats_changed():
+	var invicible = self._player.isCheatEnabled(	CheatIds.Id.INVINCIBLE )
+	%GameManager.set_invincible( invicible )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

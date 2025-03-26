@@ -1,6 +1,9 @@
 extends Node2D
 class_name Fish
 
+@export var invincible_color: Color = Color.ORANGE_RED
+@export var invincible_hurt_color: Color = Color.DARK_GREEN
+
 signal state_changed( state: Game.State )
 
 # Moved into Game
@@ -44,9 +47,11 @@ var _velocity: Vector2 = Vector2.ZERO
 var _acceleration: Vector2 = Vector2.ZERO
 
 var _is_invincible: bool = false
+var _initial_modulate: Color = Color.WHITE
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_initial_modulate = self.modulate
 	%AnimatedSprite2D.play("swim")
 	
 func set_acceleration( acceleration: Vector2 ):
@@ -133,10 +138,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				self.direction = Direction.DOWN
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if Input.is_key_pressed( KEY_I ):
-		self._is_invincible = !self._is_invincible
-		
+func _process(delta: float) -> void:		
 	if Input.is_key_pressed(KEY_M):
 		self.toggle_mode()
 	match self.state:
@@ -227,6 +229,9 @@ func _physics_process_dying(delta: float) -> void:
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	print("Entered")
 	if self._is_invincible:
+		self.modulate = self.invincible_hurt_color
+		await get_tree().create_timer(0.25).timeout
+		self.modulate = self.invincible_color
 		return
 	_goto_dying()
 	pass # Replace with function body.
@@ -252,3 +257,15 @@ func set_skill_effect_set( ses: SkillEffectSet ):
 
 func get_skill_effect_value( skill_effect_id: SkillEffectIds.Id, default: float):
 	return _skill_effect_set.get_value( skill_effect_id, default)
+
+func set_invincible( invicible: bool ):
+	if self._is_invincible == invicible:
+		return
+	if invicible:
+		self._is_invincible = true
+		print("Fish started being invicible")
+		self.modulate = self.invincible_color
+	else:
+		self._is_invincible = false
+		print("Fish stopped being invicible")
+		self.modulate = self._initial_modulate
