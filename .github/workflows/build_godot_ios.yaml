@@ -97,7 +97,7 @@ jobs:
         run: |
           cd godot
           xcodebuild \
-            -archivePath "${{ env.BUILD_TYPE }}.xcarchive" \
+            -archivePath "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}.xcarchive" \
             -project export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj \
             -sdk iphoneos \
             -scheme "${{ env.PROJECT }}" \
@@ -109,29 +109,38 @@ jobs:
           cd godot
           find . -name "*.plist"
 
-      - name: Fail
+      - name: Upload Archive
         run: |
-          exit -1
-
-      - name: Upload artifact
-        run: |
-          cd godot/export
+          cd godot
+          mkdir -p ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
           echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
-          tar czvf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          mv "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}.xcarchive" "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}"
+          tar czvf ${{ env.ARCHIVE_FILE }} "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}"
           aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "eu-west-1"
 
-      - name: Create latest reference
-        run: |
-          echo ${{ env.LATEST_CONTENT }} > ${{ env.LATEST_FILE }}
-          aws s3 cp ${{ env.LATEST_FILE }} ${{ env.S3_LATEST_FILE }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "eu-west-1"
+##      - name: Upload artifact
+##        run: |
+##          cd godot/export
+##          echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
+##          tar czvf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+##          aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
+##        env:
+##          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+##          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+##          AWS_DEFAULT_REGION: "eu-west-1"
+##
+##      - name: Create latest reference
+##        run: |
+##          echo ${{ env.LATEST_CONTENT }} > ${{ env.LATEST_FILE }}
+##          aws s3 cp ${{ env.LATEST_FILE }} ${{ env.S3_LATEST_FILE }}
+##        env:
+##          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+##          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+##          AWS_DEFAULT_REGION: "eu-west-1"
 
       - name: Create Summary
         if: always()
