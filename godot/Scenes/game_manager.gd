@@ -134,7 +134,13 @@ func _ready() -> void:
 	
 	self.push_initial_zones()	
 
-
+func set_invincible( invicible: bool ):
+	for fi in %Fishes.get_children():
+		var f = fi as Fish
+		if f == null:
+			continue
+		f.set_invincible( invicible )
+	
 func push_initial_zones():
 	# var initial_zones = [ "0000_Start", "0000_ILoveFiiish" ]
 	var initial_zones = [ "0000_ILoveFiiish" ]

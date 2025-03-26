@@ -35,6 +35,7 @@ func _ready() -> void:
 	self._commands.push_back( DeveloperCommandSucceed.new() )
 	self._commands.push_back( DeveloperCommandGiveCoins1000.new() )
 	self._commands.push_back( DeveloperCommandResetPlayer.new() )
+	self._commands.push_back( DeveloperCommandCheatToggleInvincible.new() )
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
