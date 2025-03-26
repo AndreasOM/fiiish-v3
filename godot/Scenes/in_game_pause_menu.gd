@@ -12,6 +12,7 @@ func _ready() -> void:
 	
 	Events.zone_changed.connect( _on_zone_changed )
 	Events.state_changed.connect( _on_state_changed )
+	Events.settings_changed.connect( _on_settings_changed )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -60,17 +61,33 @@ func _on_zone_changed( zone ):
 
 func _on_state_changed( state: Game.State ):
 	# print("State changed -> %d %s" % [ state, Game.state_to_name( state ) ] )
-	match state:
-		Game.State.RESPAWNING:
-			%MainMenuButtonFadeable.fade_in( 0.3 )
-		Game.State.WAITING_FOR_START:
-			%MainMenuButtonFadeable.fade_in( 0.3 )
-		_:
-			%MainMenuButtonFadeable.fade_out( 0.3 )
-			%DialogManager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
-			pass
-
+	self._update_main_menu_button( state )
 
 func _on_main_menu_button_pressed() -> void:
 	print("Toggle main menu")
 	%DialogManager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
+
+func _on_settings_changed():
+	self._update_main_menu_button( self.game.get_state() )
+
+func _update_main_menu_button( state: Game.State ):
+	var should_be_visible: bool = false
+	
+	if game.isMainMenuEnabled():
+		match state:
+			Game.State.RESPAWNING:
+				if game.isMainMenuEnabled():
+					should_be_visible = true
+			Game.State.WAITING_FOR_START:
+				if game.isMainMenuEnabled():
+					should_be_visible = true
+			# _:
+			#	should_be_visible = false
+	# else:
+	#	should_be_visible = false
+
+	if should_be_visible:
+		%MainMenuButtonFadeable.fade_in( 0.3 )
+	else:
+		%MainMenuButtonFadeable.fade_out( 0.3 )
+		%DialogManager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
