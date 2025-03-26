@@ -83,7 +83,17 @@ jobs:
           cd godot
           xcodebuild -list -project export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj
 
-      - name: Create archive
+      - name: Build
+        run: |
+          cd godot
+          xcodebuild \
+            -project export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj \
+            -sdk iphoneos \
+            -scheme "${{ env.PROJECT }}" \
+            -configuration "Release" \
+            build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+      - name: Export Archive
         run: |
           cd godot
           xcodebuild \
@@ -92,7 +102,12 @@ jobs:
             -sdk iphoneos \
             -scheme "${{ env.PROJECT }}" \
             -configuration "Release" \
-            archive
+            archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+      - name: Find plist
+        run: |
+          cd godot
+          find . -name "*.plist"
 
       - name: Fail
         run: |
