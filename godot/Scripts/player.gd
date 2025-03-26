@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 5
+const current_version: int = 6
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -20,6 +20,9 @@ var _skill_points_used: int = 0
 
 var _skills = {
 }
+
+## version 6
+var _isMainMenuEnabled: bool = false
 
 static func get_save_path() -> String:
 	return "user://player.data"
@@ -112,6 +115,13 @@ func serialize( s: Serializer ) -> bool:
 	# :TODO: cleanup old skills
 #	reset_skills()
 #	_skill_points_gained = 0
+
+	# version 6
+	if version < 6:
+		return true
+
+	_isMainMenuEnabled = s.serialize_bool( _isMainMenuEnabled )
+
 	return true
 		
 func coins() -> int:
@@ -203,3 +213,21 @@ func set_skill_level( id: SkillIds.Id, level: int ):
 func reset_skills():
 	_skills = {}
 	_skill_points_used = 0
+
+
+# version 6
+
+func isMainMenuEnabled() -> bool:
+	return _isMainMenuEnabled
+
+func enableMainMenu():
+	if _isMainMenuEnabled:
+		return
+	_isMainMenuEnabled = true
+	_isDirty = true
+
+func disableMainMenu():
+	if !_isMainMenuEnabled:
+		return
+	_isMainMenuEnabled = false
+	_isDirty = true

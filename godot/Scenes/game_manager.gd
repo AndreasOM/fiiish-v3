@@ -103,7 +103,6 @@ enum EntityId {
 	SEAWEEDG        = 0x868a9eda,
 }
 
-
 func coins() -> int:
 	return _coins
 

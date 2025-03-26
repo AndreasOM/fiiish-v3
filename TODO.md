@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Task: Add mouse & touch controls for Fish
 
 
 ## Todo
@@ -13,7 +12,6 @@
 	- [ ] Task: Add cheat to make Fish invincible (bonus: store in Player Prefs)
 - [ ] Feature: Main Menu
 	- [ ] Task: Add game mode entry to MainMenu
-	- [ ] Task: Add setting to enable MainMenu
 
 - [ ] Feature: Leaderboard (incl. backend)
 
@@ -21,6 +19,10 @@
 
 - [ ] Polish: Extract Pickup handling from GameManager
 - [ ] Polish: Extract zone spawning from GameManager
+
+- [ ] Polish: Dim game on pause?
+
+- [ ] Refactor: Move InGamePauseMenu to separate scene
 
 ## Next release
 
@@ -48,6 +50,12 @@
 - [?] Cleanup: Move pause/resume handling fully into game
 
 ## Done
+
+### 2025-03-26
+
+- [x] Task: Add mouse & touch controls for Fish
+- [x] Task: Add setting to enable MainMenu
+
 
 ### 2025-03-25 - After release
 - [x] Task: Create minimal MainMenu dialog

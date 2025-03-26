@@ -3,6 +3,7 @@ extends Dialog
 @export var game: Game = null
 @export var musicToggleButton: ToggleButtonContainer = null
 @export var soundToggleButton: ToggleButtonContainer = null
+@export var mainMenuToggleButton: ToggleButtonContainer = null
 @export var descriptionFile: String
 @export var descriptionDemoFile: String
 @export var versionFile: String
@@ -20,6 +21,11 @@ func _ready() -> void:
 		soundToggleButton.goto_a()
 	else:
 		soundToggleButton.goto_b()
+
+	if player.isMainMenuEnabled():
+		mainMenuToggleButton.goto_a()
+	else:
+		mainMenuToggleButton.goto_b()
 
 	var desc = ""		
 	if OS.has_feature("demo"):
@@ -120,3 +126,16 @@ func _on_settings_fadeable_container_on_fading_out() -> void:
 
 func _on_settings_fadeable_container_on_faded_out() -> void:
 	closed()
+
+
+func _on_main_menu_toggle_button_container_toggled(state: ToggleButtonContainer.ToggleState) -> void:
+	match state:
+		ToggleButtonContainer.ToggleState.A:
+			print("MainMenu toggle to A")
+			game.enableMainMenu()
+			
+		ToggleButtonContainer.ToggleState.B:
+			print("MainMenu toggle to B")
+			game.disableMainMenu()
+
+	Events.broadcast_settings_changed()

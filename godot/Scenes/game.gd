@@ -39,6 +39,9 @@ var _player: Player = Player.new()
 
 var _skill_config_manager: SkillConfigManager = SkillConfigManager.new()
 
+var _state: Game.State = Game.State.INITIAL
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("Game - _ready()")
@@ -76,9 +79,12 @@ func _on_debug_ui_goto_next_zone() -> void:
 func get_game_manager() -> GameManager:
 	return %GameManager
 
+func get_state() -> Game.State:
+	return self._state
 
 func _on_fish_state_changed(state: Game.State) -> void:
 	state_changed.emit( state )
+	self._state = state
 	match state:
 		State.DYING:
 			if _player.isSoundEnabled():
@@ -128,6 +134,17 @@ func enableSound():
 func disableSound():
 	soundManager.fade_out_all( 0.3 )
 	_player.disableSound()
+	_player.save()
+
+func isMainMenuEnabled():
+	return _player.isMainMenuEnabled()
+	
+func enableMainMenu():
+	_player.enableMainMenu()
+	_player.save()
+	
+func disableMainMenu():
+	_player.disableMainMenu()
 	_player.save()
 
 
