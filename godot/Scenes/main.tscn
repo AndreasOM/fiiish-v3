@@ -30,6 +30,7 @@ outline_color = Color(0.038076, 0.0370335, 6.01634e-09, 1)
 [node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
 script = ExtResource("1_w7ipa")
 
 [node name="Game" parent="." node_paths=PackedStringArray("musicManager", "soundManager") instance=ExtResource("1_0flmv")]
@@ -48,6 +49,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 script = ExtResource("3_ypy50")
 game = NodePath("../../Game")
 
@@ -169,6 +171,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("5_rumqw")
 game = NodePath("../../Game")
 

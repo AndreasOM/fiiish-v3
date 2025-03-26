@@ -43,6 +43,8 @@ var _skill_effect_set: SkillEffectSet = SkillEffectSet.new()
 var _velocity: Vector2 = Vector2.ZERO
 var _acceleration: Vector2 = Vector2.ZERO
 
+var _is_invincible: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%AnimatedSprite2D.play("swim")
@@ -114,18 +116,33 @@ func toggle_mode():
 		Mode.TEST:
 			self.mode = Mode.PLAY
 
+func _unhandled_input(event: InputEvent) -> void:
+	match self.state:
+		Game.State.SWIMMING:
+			if event.is_action("swim_down"):
+				if event.is_pressed():
+					self.direction = Direction.DOWN
+				else:
+					self.direction = Direction.UP
+		Game.State.DEAD:
+			if event.is_action_pressed("swim_down"):
+				self._goto_respawning()
+		Game.State.WAITING_FOR_START:
+			if event.is_action_pressed("swim_down"):
+				self._goto_swimming()
+				self.direction = Direction.DOWN
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if Input.is_key_pressed( KEY_I ):
+		self._is_invincible = !self._is_invincible
+		
 	if Input.is_key_pressed(KEY_M):
 		self.toggle_mode()
 	match self.state:
 		Game.State.INITIAL:
 			_set_state(Game.State.WAITING_FOR_START)
 		Game.State.SWIMMING:
-			if Input.is_key_pressed(KEY_SPACE):
-				self.direction = Direction.DOWN
-			else:
-				self.direction = Direction.UP
 			if Input.is_key_pressed(KEY_K):
 				_goto_dying()
 			if _magnet_boost_duration > 0.0:
@@ -134,19 +151,8 @@ func _process(delta: float) -> void:
 					_magnet_boost_duration = 0.0
 					_magnet_range_boost = 1.0
 					_magnet_speed_boost = 1.0
-		# Game.State.DYING:
 
-			
-		Game.State.DEAD:
-			if Input.is_key_pressed(KEY_SPACE):
-				self._goto_respawning()
-		#Game.State.RESPAWNING:
-		#	if !Input.is_key_pressed(KEY_SPACE):
-		#		_set_state( Game.State.WAITING_FOR_START )
-		Game.State.WAITING_FOR_START:
-			if Input.is_key_pressed(KEY_SPACE):
-				self._goto_swimming()
-
+		
 func _physics_process(delta: float) -> void:
 	match self.state:
 		Game.State.RESPAWNING:
@@ -220,6 +226,8 @@ func _physics_process_dying(delta: float) -> void:
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	print("Entered")
+	if self._is_invincible:
+		return
 	_goto_dying()
 	pass # Replace with function body.
 
