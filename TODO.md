@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Task: Add mouse & touch controls for Fish
 
 
 ## Todo
@@ -9,6 +10,7 @@
 ## V3.4.0
 
 - [ ] Feature: iOS version (for Testflight) (Goal: Q2 2025)
+	- [ ] Task: Add cheat to make Fish invincible (bonus: store in Player Prefs)
 - [ ] Feature: Main Menu
 	- [ ] Task: Add game mode entry to MainMenu
 	- [ ] Task: Add setting to enable MainMenu
