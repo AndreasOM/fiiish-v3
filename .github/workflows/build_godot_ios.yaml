@@ -81,12 +81,18 @@ jobs:
       - name: List project
         run: |
           cd godot
-          xcodebuild -list -project export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY }}.xcodeproj
+          xcodebuild -list -project export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj
 
       - name: Create archive
         run: |
           cd godot
-          xcodebuild -archivePath "${{ env.BUILD_TYPE }}.xcarchive" -project export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY }}.xcodeproj -sdk iphoneos  -scheme "iOS" -configuration "Release" archive
+          xcodebuild \
+            -archivePath "${{ env.BUILD_TYPE }}.xcarchive" \
+            -project export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj \
+            -sdk iphoneos \
+            -scheme "iOS" \
+            -configuration "Release" \
+            archive
 
       - name: Fail
         run: |
