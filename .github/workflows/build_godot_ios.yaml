@@ -90,7 +90,7 @@ jobs:
             -archivePath "${{ env.BUILD_TYPE }}.xcarchive" \
             -project export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj \
             -sdk iphoneos \
-            -scheme "iOS" \
+            -scheme "${{ env.PROJECT }}" \
             -configuration "Release" \
             archive
 
