@@ -1,0 +1,121 @@
+name: Push latest iOS to App Store Connect
+on: 
+  workflow_dispatch:
+#  push:
+#    tags:
+#      - "v*"
+#    # We always build on a tag
+#    # paths:
+#    #  - godot/**
+
+# env:
+
+jobs:
+  push:
+    runs-on: macos-14
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Create variables
+        run: |
+          PROJECT="fiiish-v3"
+          BUILD_TYPE="iOS"
+          LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
+          S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
+          #
+          # put into github env
+          #
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "LATEST_FILE=${LATEST_FILE}"
+            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+          } >> "$GITHUB_ENV"
+
+      - name: Get latest reference
+        run: |
+          #
+          # get latest info
+          #
+          aws s3 cp ${{ env.S3_LATEST_FILE }} ${{ env.LATEST_FILE }}
+          # cat ${{ env.LATEST_FILE }}
+          LATEST=$(cat "${{ env.LATEST_FILE }}")
+          #
+          # split into parts
+          #
+          ARCHIVE_FOLDER=$( dirname "${LATEST}" )
+          ARCHIVE_NAME=$( basename "${LATEST}" .tgz )
+          ARCHIVE_EXT=.tgz
+          #
+          # combine
+          #
+          ARCHIVE_FILE="${ARCHIVE_NAME}${ARCHIVE_EXT}"
+          S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${LATEST}"
+          SIGNED_ARCHIVE_FILE="${ARCHIVE_NAME}-signed.tgz"
+          SIGNED_S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${ARCHIVE_FOLDER}/${SIGNED_ARCHIVE_FILE}"
+          #
+          # put into github env
+          #
+          {
+            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
+            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"
+            echo "SIGNED_ARCHIVE_FILE=${SIGNED_ARCHIVE_FILE}"
+            echo "SIGNED_S3_ARCHIVE_FILE=${SIGNED_S3_ARCHIVE_FILE}"
+          } >> "$GITHUB_ENV"
+
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Download *unsigned* artifact
+        run: |
+          aws s3 cp ${{ env.S3_ARCHIVE_FILE }} ${{ env.ARCHIVE_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Unpack artifact
+        run: |
+          tar xzvf ${{ env.ARCHIVE_FILE }}
+          find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+
+      - name: Check version
+        run: |
+          cd fiiish-v3-${{ env.BUILD_TYPE }}
+          VERSION=$(cat version.txt)
+          if [[ -z ${VERSION} ]]
+          then
+            echo "No version"
+            exit 255
+          else
+            echo "version: ${VERSION}"
+            echo "VERSION=${VERSION}" >> "$GITHUB_ENV"            
+          fi
+
+      - name: Install AppStore key
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys/
+          echo ${{ env.APP_STORE_API_PRIVATE_KEY }} | base64 -d -o ~/.appstoreconnect/private_keys/AuthKey_${{ env.APPSTORE_API_KEY_ID }}.p8
+
+      - name: Validate app
+        run: |
+          xcrun altool --validate-app -f fiiish-v3-iOS.xcarchive --type ios --apiKey ${{ env.APPSTORE_API_KEY_ID }} --apiIssuer ${{ env.APPSTORE_ISSUER_ID }}
+        working-directory: fiiish-v3-${{ env.BUILD_TYPE }}
+
+      - name: Create Summary
+        if: always()
+        run: |
+          {
+            echo "|                        |                                   |"
+            echo "| :--------------------- | --------------------------------: |"
+            echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
+            echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
+            echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
+            echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
+            echo "| VERSION                | ${{ env.VERSION }}                |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
