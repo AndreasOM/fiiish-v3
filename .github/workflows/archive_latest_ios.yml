@@ -105,7 +105,7 @@ jobs:
       - name: Install provisioning profile
         run: |
           mkdir -p "~/Library/MobileDevice/Provisioning Profiles"
-          echo ${{ secrets.PROVISIONING_PROFILE }} | base64 -d -o "~/Library/MobileDevice/Provisioning Profiles/githubfiiiishv3.mobileprovision"
+          echo -n ${{ secrets.PROVISIONING_PROFILE }} | base64 -d -o "~/Library/MobileDevice/Provisioning Profiles/githubfiiiishv3.mobileprovision"
           md5 "~/Library/MobileDevice/Provisioning Profiles/githubfiiiishv3.mobileprovision"
 
 #      - name: Sign .xcarchive
