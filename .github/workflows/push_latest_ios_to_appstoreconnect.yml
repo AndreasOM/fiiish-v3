@@ -99,7 +99,7 @@ jobs:
       - name: Install AppStore key
         run: |
           mkdir -p ~/.appstoreconnect/private_keys/
-          echo ${{ env.APP_STORE_API_PRIVATE_KEY }} | base64 -d -o ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
+          echo ${{ secrets.APP_STORE_API_PRIVATE_KEY }} | base64 -d -o ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
           grep  "BEGIN" ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
           ls -l ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
           md5 ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
