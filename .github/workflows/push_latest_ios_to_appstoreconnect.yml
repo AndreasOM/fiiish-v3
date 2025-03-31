@@ -99,11 +99,11 @@ jobs:
       - name: Install AppStore key
         run: |
           mkdir -p ~/.appstoreconnect/private_keys/
-          echo ${{ env.APP_STORE_API_PRIVATE_KEY }} | base64 -d -o ~/.appstoreconnect/private_keys/AuthKey_${{ env.APPSTORE_API_KEY_ID }}.p8
+          echo ${{ env.APP_STORE_API_PRIVATE_KEY }} | base64 -d -o ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
 
       - name: Validate app
         run: |
-          xcrun altool --validate-app -f fiiish-v3-iOS.xcarchive --type ios --apiKey ${{ env.APPSTORE_API_KEY_ID }} --apiIssuer ${{ env.APPSTORE_ISSUER_ID }}
+          xcrun altool --validate-app -f fiiish-v3-iOS.xcarchive --type ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
         working-directory: fiiish-v3-${{ env.BUILD_TYPE }}
 
       - name: Create Summary
