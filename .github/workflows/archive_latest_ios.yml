@@ -102,6 +102,12 @@ jobs:
           mkdir -p ~/.appstoreconnect/private_keys/
           echo ${{ secrets.APP_STORE_API_PRIVATE_KEY }} | base64 -d -o ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
 
+      - name: Install provisioning profile
+        run: |
+          mkdir -p "~/Library/MobileDevice/Provisioning Profiles"
+          echo ${{ secrets.PROVISIONING_PROFILE }} | base64 -d -o "~/Library/MobileDevice/Provisioning Profiles/githubfiiiishv3.mobileprovision"
+          md5 "~/Library/MobileDevice/Provisioning Profiles/githubfiiiishv3.mobileprovision"
+
 #      - name: Sign .xcarchive
 #        id: sign0
 #        continue-on-error: true
