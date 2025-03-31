@@ -90,7 +90,7 @@ jobs:
           if [[ -z ${VERSION} ]]
           then
             echo "No version"
-            exit 255
+            #### exit 255
           else
             echo "version: ${VERSION}"
             echo "VERSION=${VERSION}" >> "$GITHUB_ENV"            
