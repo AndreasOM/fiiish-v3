@@ -113,16 +113,18 @@ jobs:
       - name: Archive .ipa
         run: |
           xcodebuild -version
+          find .
           echo ${{ env.EXPORT_OPTIONS_PLIST }} > export_options.plist
           cat export_options.plist
+          mkdir -p ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
           xcodebuild \
             -exportArchive \
             -archivePath fiiish-v3-iOS.xcarchive \
             -exportOptionsPlist export_options.plist \
-            -exportPath ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }} \
-            -authenticationKeyID ${{ secrets.APPSTORE_API_KEY_ID }} \
-            -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
-            -allowProvisioningUpdates
+            -exportPath ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }} # \
+            # -authenticationKeyID ${{ secrets.APPSTORE_API_KEY_ID }} \
+            # -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
+            # -allowProvisioningUpdates
 
         working-directory: ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
