@@ -10,7 +10,7 @@ on:
 
 jobs:
   sign:
-    runs-on: macos-14
+    runs-on: macos-15
     defaults:
       run:
         # Use bash shells on all platforms.
@@ -23,6 +23,7 @@ jobs:
           LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
           S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
           APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-v3.app"
+          ARCHIVE_TO_SIGN="${PROJECT}-${BUILD_TYPE}/${PROJECT}-${BUILD_TYPE}.xcarchive"
           #
           # put into github env
           #
@@ -32,6 +33,7 @@ jobs:
             echo "LATEST_FILE=${LATEST_FILE}"
             echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
             echo "APP_TO_SIGN=${APP_TO_SIGN}"
+            echo "ARCHIVE_TO_SIGN=${ARCHIVE_TO_SIGN}"
           } >> "$GITHUB_ENV"
 
       - name: Get latest reference
@@ -95,8 +97,17 @@ jobs:
           security default-keychain -d "user" -s "${keychain_db}"
           security find-identity -v
 
+      - name: Sign .xcarchive
+        id: sign0
+        continue-on-error: true
+        run: |
+          ping -c 5 time.apple.com
+          codesign -s ${{ secrets.CODESIGN_CERT_IDENTITY }} -f -v --timestamp --options runtime ${{ env.ARCHIVE_TO_SIGN }}
+        timeout-minutes: 10
+
       - name: Archive .ipa
         run: |
+          xcodebuild -version
           echo ${{ env.EXPORT_OPTIONS_PLIST }} > export_options.plist
           xcodebuild \
             -exportArchive \
