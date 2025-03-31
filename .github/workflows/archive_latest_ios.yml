@@ -85,17 +85,17 @@ jobs:
           tar xzvf ${{ env.ARCHIVE_FILE }}
           find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
-#      - name: Prepare keychain
-#        run: |
-#          keychain_password="$(openssl rand -hex 32)"
-#          security create-keychain -p "${keychain_password}" "the-keychain"
-#          echo "${{ secrets.CODESIGN_CERT }}" | base64 --decode > cert.p12
-#          md5 < cert.p12
-#          keychain_db="${HOME}/Library/Keychains/the-keychain-db"
-#          security import cert.p12 -k "${keychain_db}" -P "${{ secrets.CODESIGN_CERT_PASS }}" -T "$(command -v codesign)"
-#          security set-key-partition-list -S "apple-tool:,apple:" -s -k "${keychain_password}" "${keychain_db}"
-#          security default-keychain -d "user" -s "${keychain_db}"
-#          security find-identity -v
+      - name: Prepare keychain
+        run: |
+          keychain_password="$(openssl rand -hex 32)"
+          security create-keychain -p "${keychain_password}" "the-keychain"
+          echo "${{ secrets.CODESIGN_CERT }}" | base64 --decode > cert.p12
+          md5 < cert.p12
+          keychain_db="${HOME}/Library/Keychains/the-keychain-db"
+          security import cert.p12 -k "${keychain_db}" -P "${{ secrets.CODESIGN_CERT_PASS }}" -T "$(command -v codesign)"
+          security set-key-partition-list -S "apple-tool:,apple:" -s -k "${keychain_password}" "${keychain_db}"
+          security default-keychain -d "user" -s "${keychain_db}"
+          security find-identity -v
 
       - name: Install AppStore key
         run: |
