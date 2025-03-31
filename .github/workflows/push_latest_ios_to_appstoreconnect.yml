@@ -100,7 +100,10 @@ jobs:
         run: |
           mkdir -p ~/.appstoreconnect/private_keys/
           echo ${{ env.APP_STORE_API_PRIVATE_KEY }} | base64 -d -o ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
-
+          grep  "BEGIN" ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
+          ls -l ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
+          md5 ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
+          
       - name: Validate app
         run: |
           xcrun altool --validate-app -f fiiish-v3-iOS.xcarchive --type ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
