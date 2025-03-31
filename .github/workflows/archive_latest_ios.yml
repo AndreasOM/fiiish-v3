@@ -1,0 +1,128 @@
+name: Archive iOS
+on: 
+  workflow_dispatch:
+  #push:
+  #  tags:
+  #    - "v*"
+    # We always build on a tag
+    # paths:
+    #  - godot/**
+
+jobs:
+  sign:
+    runs-on: macos-14
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Create variables
+        run: |
+          PROJECT="fiiish-v3"
+          BUILD_TYPE="iOS"
+          LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
+          S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
+          APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-v3.app"
+          #
+          # put into github env
+          #
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "LATEST_FILE=${LATEST_FILE}"
+            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+            echo "APP_TO_SIGN=${APP_TO_SIGN}"
+          } >> "$GITHUB_ENV"
+
+      - name: Get latest reference
+        run: |
+          #
+          # get latest info
+          #
+          aws s3 cp ${{ env.S3_LATEST_FILE }} ${{ env.LATEST_FILE }}
+          # cat ${{ env.LATEST_FILE }}
+          LATEST=$(cat "${{ env.LATEST_FILE }}")
+          #
+          # split into parts
+          #
+          ARCHIVE_FOLDER=$( dirname "${LATEST}" )
+          ARCHIVE_NAME=$( basename "${LATEST}" .tgz )
+          ARCHIVE_EXT=.tgz
+          #
+          # combine
+          #
+          ARCHIVE_FILE="${ARCHIVE_NAME}${ARCHIVE_EXT}"
+          S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${LATEST}"
+          SIGNED_ARCHIVE_FILE="${ARCHIVE_NAME}-signed.tgz"
+          SIGNED_S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${ARCHIVE_FOLDER}/${SIGNED_ARCHIVE_FILE}"
+          #
+          # put into github env
+          #
+          {
+            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
+            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"
+            echo "SIGNED_ARCHIVE_FILE=${SIGNED_ARCHIVE_FILE}"
+            echo "SIGNED_S3_ARCHIVE_FILE=${SIGNED_S3_ARCHIVE_FILE}"
+          } >> "$GITHUB_ENV"
+
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Download artifact
+        run: |
+          aws s3 cp ${{ env.S3_ARCHIVE_FILE }} ${{ env.ARCHIVE_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Unpack artifact
+        run: |
+          tar xzvf ${{ env.ARCHIVE_FILE }}
+          find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+
+      - name: Prepare keychain
+        run: |
+          keychain_password="$(openssl rand -hex 32)"
+          security create-keychain -p "${keychain_password}" "the-keychain"
+          echo "${{ secrets.CODESIGN_CERT }}" | base64 --decode > cert.p12
+          md5 < cert.p12
+          keychain_db="${HOME}/Library/Keychains/the-keychain-db"
+          security import cert.p12 -k "${keychain_db}" -P "${{ secrets.CODESIGN_CERT_PASS }}" -T "$(command -v codesign)"
+          security set-key-partition-list -S "apple-tool:,apple:" -s -k "${keychain_password}" "${keychain_db}"
+          security default-keychain -d "user" -s "${keychain_db}"
+          security find-identity -v
+
+      - name: Archive .ipa
+        run: |
+          echo ${{ env.EXPORT_OPTIONS_PLIST }} > export_options.plist
+          xcodebuild \
+            -exportArchive \
+            -archivePath fiiish-v3-iOS.xcarchive \
+            -exportOptionsPlist export_options.plist \
+            -exportPath ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+        working-directory: ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+
+      - name: Upload archive
+        run: |
+          cd signed
+          tar czvf ${{ env.SIGNED_ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          aws s3 cp ${{ env.SIGNED_ARCHIVE_FILE }} ${{ env.SIGNED_S3_ARCHIVE_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Create Summary
+        if: always()
+        run: |
+          {
+            echo "|                        |                                   |"
+            echo "| :--------------------- | --------------------------------: |"
+            echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
+            echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
+            echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
+            echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
