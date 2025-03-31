@@ -114,7 +114,7 @@ jobs:
         run: |
           xcodebuild -version
           find .
-          echo ${{ env.EXPORT_OPTIONS_PLIST }} > export_options.plist
+          echo ${{ vars.EXPORT_OPTIONS_PLIST }} > export_options.plist
           cat export_options.plist
           mkdir -p ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
           xcodebuild \
