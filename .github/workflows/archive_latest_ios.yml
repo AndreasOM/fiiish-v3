@@ -97,6 +97,11 @@ jobs:
           security default-keychain -d "user" -s "${keychain_db}"
           security find-identity -v
 
+      - name: Install AppStore key
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys/
+          echo ${{ secrets.APP_STORE_API_PRIVATE_KEY }} | base64 -d -o ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
+
       - name: Sign .xcarchive
         id: sign0
         continue-on-error: true
@@ -109,11 +114,16 @@ jobs:
         run: |
           xcodebuild -version
           echo ${{ env.EXPORT_OPTIONS_PLIST }} > export_options.plist
+          cat export_options.plist
           xcodebuild \
             -exportArchive \
             -archivePath fiiish-v3-iOS.xcarchive \
             -exportOptionsPlist export_options.plist \
-            -exportPath ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+            -exportPath ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }} \
+            -authenticationKeyID ${{ secrets.APPSTORE_API_KEY_ID }} \
+            -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
+            -allowProvisioningUpdates
+
         working-directory: ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
       - name: Upload archive
