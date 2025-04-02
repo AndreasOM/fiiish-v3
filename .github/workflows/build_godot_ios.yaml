@@ -47,7 +47,9 @@ jobs:
             exit 255
           fi
           VERSION=${VERSION#"v"}
-          BUILD_NUMBER=$(date +%Y.%m%d.%H%M%S)
+          # BUILD_NUMBER=$(date +%Y.%m%d.%H%M%S)
+          BUILD_NUMBER=$(date +2025.%y%m%d.%H%M%S)
+          # BUILD_NUMBER=$(date +%s.%y%m%d.%H%M%S)
           #
           # put into github env
           #

@@ -108,9 +108,8 @@ jobs:
           ls -l ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
           md5 ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
           
-      - name: Validate app
+      - name: Upload package
         run: |
-          # xcrun altool --validate-app -f fiiish-v3.ipa --type ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
           xcrun altool \
             --upload-package fiiish-v3.ipa \
             --type ios \
