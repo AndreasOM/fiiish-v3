@@ -93,9 +93,12 @@ jobs:
             #### exit 255
           else
             echo "version: ${VERSION}"
-            echo "VERSION=${VERSION}" >> "$GITHUB_ENV"            
           fi
           BUILD_NUMBER=$(cat build_number.txt)
+          {
+            echo "VERSION=${VERSION}"
+            echo "BUILD_NUMBER=${BUILD_NUMBER}"
+          } >> $GITHUB_ENV
 
       - name: Install AppStore key
         run: |
@@ -112,8 +115,8 @@ jobs:
             --upload-package fiiish-v3.ipa \
             --type ios \
             --apple-id "6743671388" \
-            --bundle-version "${{ env.VERSION }" \
-            --bundle-short-version-string "${{ env.VERSION }" \
+            --bundle-version "${{ env.VERSION }}" \
+            --bundle-short-version-string "${{ env.VERSION }}" \
             --bundle-id "net.omnimad.fiiish-v3" \
             --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
 
