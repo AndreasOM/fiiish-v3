@@ -105,7 +105,7 @@ jobs:
       - name: Install provisioning profile
         run: |
           mkdir -p "~/Library/MobileDevice/Provisioning Profiles"
-          echo -n ${{ secrets.APPLE_PROVISIONING_PROFILE_GHFIISHV3 }} | base64 -d -o "~/Library/MobileDevice/Provisioning Profiles/ghfiishv3.mobileprovision"
+          echo -n ${{ secrets.APPLE_PROVISIONING_PROFILE }} | base64 -d -o "~/Library/MobileDevice/Provisioning Profiles/ghfiiishv320250402.mobileprovision"
 
 #      - name: Sign .xcarchive
 #        id: sign0
