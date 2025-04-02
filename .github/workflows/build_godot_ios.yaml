@@ -99,7 +99,7 @@ jobs:
         run: |
           agvtool new-version -all ${{ env.VERSION }}
 
-        working-directory: export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
+        working-directory: godot/export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
 
       - name: List project
         run: |
