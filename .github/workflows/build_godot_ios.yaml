@@ -42,6 +42,7 @@ jobs:
            VERSION="v0.0.0"
           fi
           if [[ ${VERSION} != v* ]]
+          then
             echo "Invalid version. Use x.y.z"
             exit 255
           fi
