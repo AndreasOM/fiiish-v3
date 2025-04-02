@@ -47,6 +47,7 @@ jobs:
             exit 255
           fi
           VERSION=${VERSION#"v"}
+          BUILD_NUMBER=$(date +%Y.%m%d.%H%M%S)
           #
           # put into github env
           #
@@ -62,6 +63,7 @@ jobs:
             echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
             echo "LATEST_CONTENT=${LATEST_CONTENT}"
             echo "VERSION=${VERSION}"
+            echo "BUILD_NUMBER=${BUILD_NUMBER}"
           } >> $GITHUB_ENV
 
 
@@ -97,8 +99,8 @@ jobs:
 
       - name: Patch version
         run: |
-          agvtool new-version -all ${{ env.VERSION }}
           agvtool new-marketing-version ${{ env.VERSION }}
+          agvtool new-version -all ${{ env.BUILD_NUMBER }}
 
         working-directory: godot/export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
 
@@ -138,6 +140,7 @@ jobs:
           cd godot
           mkdir -p ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
           echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
+          echo ${{ env.BUILD_NUMBER }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/build_number.txt
           mv "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}.xcarchive" "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}"
           tar czvf ${{ env.ARCHIVE_FILE }} "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}"
           aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
@@ -169,4 +172,5 @@ jobs:
           echo "| S3_ARCHIVE_FILE     | \`${{ env.S3_ARCHIVE_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
           echo "| S3_LATEST_FILE      | \`${{ env.S3_LATEST_FILE }}\`      |" >> $GITHUB_STEP_SUMMARY
           echo "| VERSION             | \`${{ env.VERSION }}\`             |" >> $GITHUB_STEP_SUMMARY
+          echo "| BUILD_NUMBER        | \`${{ env.BUILD_NUMBER }}\`        |" >> $GITHUB_STEP_SUMMARY
 
