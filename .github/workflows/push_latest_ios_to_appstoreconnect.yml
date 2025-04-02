@@ -95,6 +95,7 @@ jobs:
             echo "version: ${VERSION}"
             echo "VERSION=${VERSION}" >> "$GITHUB_ENV"            
           fi
+          BUILD_NUMBER=$(cat build_number.txt)
 
       - name: Install AppStore key
         run: |
@@ -131,5 +132,6 @@ jobs:
             echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
             echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
             echo "| VERSION                | ${{ env.VERSION }}                |"
+            echo "| BUILD_NUMBER           | ${{ env.BUILD_NUMBER }}           |"
           } >> "$GITHUB_STEP_SUMMARY"
 

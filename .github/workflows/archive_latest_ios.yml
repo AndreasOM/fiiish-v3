@@ -84,6 +84,12 @@ jobs:
         run: |
           tar xzvf ${{ env.ARCHIVE_FILE }}
           find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          VERSION=$(cat ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt)
+          BUILD_NUMBER=$(cat ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/build_number.txt)
+          {
+            echo "VERSION=${VERSION}"
+            echo "BUILD_NUMBER=${BUILD_NUMBER}"
+          } >> $GITHUB_ENV
 
       - name: Prepare keychain
         run: |
@@ -137,6 +143,7 @@ jobs:
       - name: Copy extra info
         run: |
           cp version.txt ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
+          cp build_number.txt ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
 
         working-directory: ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
@@ -160,4 +167,6 @@ jobs:
             echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
             echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
             echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
+            echo "| VERSION             | \`${{ env.VERSION }}\`             |" >> $GITHUB_STEP_SUMMARY
+            echo "| BUILD_NUMBER        | \`${{ env.BUILD_NUMBER }}\`        |" >> $GITHUB_STEP_SUMMARY
           } >> "$GITHUB_STEP_SUMMARY"
