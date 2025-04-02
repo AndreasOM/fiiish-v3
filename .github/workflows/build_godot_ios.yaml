@@ -1,9 +1,9 @@
 name: Build iOS
 on: 
   workflow_dispatch:
-  #push:
-  #  tags:
-  #    - "v*"
+  push:
+    tags:
+      - "v*"
     # We always build on a tag
     # paths:
     #  - godot/**
@@ -36,11 +36,16 @@ jobs:
           S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
           LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
           VERSION=$(git tag --points-at HEAD)
-          # if [[ ${VERSION} == "" ]]
-          # then
-          #  echo "NO VERSION -- using v0.0.0"
-          #  VERSION="v0.0.0"
-          # fi
+          if [[ ${VERSION} == "" ]]
+          then
+           echo "NO VERSION -- using v0.0.0"
+           VERSION="v0.0.0"
+          fi
+          if [[ ${VERSION} != v* ]]
+            echo "Invalid version. Use x.y.z"
+            exit 255
+          fi
+          VERSION=${VERSION#"v"}
           #
           # put into github env
           #
@@ -88,6 +93,12 @@ jobs:
         run: |
           cd godot
           find export
+
+      - name: Patch version
+        run: |
+          agvtool new-version -all ${{ env.VERSION }}
+
+        working-directory: export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
 
       - name: List project
         run: |
