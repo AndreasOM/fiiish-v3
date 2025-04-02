@@ -128,9 +128,9 @@ jobs:
             -archivePath fiiish-v3-iOS.xcarchive \
             -exportOptionsPlist export_options.plist \
             -exportPath ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }} # \
-            -authenticationKeyID ${{ secrets.APPSTORE_API_KEY_ID }} \
-            -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
-            -allowProvisioningUpdates
+            # -authenticationKeyID ${{ secrets.APPSTORE_API_KEY_ID }} \
+            # -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
+            # -allowProvisioningUpdates
 
         working-directory: ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
