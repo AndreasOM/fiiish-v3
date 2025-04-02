@@ -98,6 +98,7 @@ jobs:
       - name: Patch version
         run: |
           agvtool new-version -all ${{ env.VERSION }}
+          agvtool new-marketing-version ${{ env.VERSION }}
 
         working-directory: godot/export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
 
