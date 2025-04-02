@@ -111,11 +111,11 @@ jobs:
             --upload-package fiiish-v3.ipa \
             --type ios \
             --apple-id "6743671388" \
-            --bundle-version "v0.0.0" \
-            --bundle-short-version-string "v0.0.0" \
+            --bundle-version "${{ env.VERSION }" \
+            --bundle-short-version-string "${{ env.VERSION }" \
             --bundle-id "net.omnimad.fiiish-v3" \
             --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
-            
+
             # --asc-public-id ... \
 
         working-directory: fiiish-v3-${{ env.BUILD_TYPE }}
