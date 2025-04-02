@@ -134,7 +134,7 @@ jobs:
 
         working-directory: ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
-      - name: Copy extra infp
+      - name: Copy extra info
         run: |
           cp version.txt ../signed/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
 
