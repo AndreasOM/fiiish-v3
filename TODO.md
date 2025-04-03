@@ -2,14 +2,15 @@
 
 ## In Progress
 
+- [ ] Bug: Do not open soft keyboard on startup
 
 
 ## Next
 
-- [ ] Bug: Do not open soft keyboard on startup
-- [ ] Polish: Improve shop and confirmation background
-- [ ] Polish: Dim game on pause?
 - [ ] Refactor: Move InGamePauseMenu to separate scene
+
+
+- [ ] Polish: Improve shop and confirmation background
 
 ## Todo
 
@@ -57,6 +58,9 @@
 - [?] Cleanup: Move pause/resume handling fully into game
 
 ## Done
+
+### 2025-04-03
+- [x] Polish: Dim game on pause
 
 ### 2025-04-02
 - [x] Feature: iOS version (for Testflight) (Goal: Q2 2025)

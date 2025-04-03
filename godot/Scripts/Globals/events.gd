@@ -4,6 +4,7 @@ signal state_changed
 signal zone_changed
 signal settings_changed
 signal cheats_changed
+signal game_paused
 
 
 func broadcast_state_changed( state: Game.State ):
@@ -17,3 +18,6 @@ func broadcast_settings_changed( ):
 
 func broadcast_cheats_changed( ):
 	cheats_changed.emit()
+
+func broadcast_game_paused( is_paused: bool ):
+	game_paused.emit( is_paused )
