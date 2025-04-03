@@ -2,6 +2,8 @@
 
 ## In Progress
 
+- [ ] Polish: Rotate on iOS
+
 - [ ] Bug: Do not open soft keyboard on startup
 
 
@@ -19,7 +21,6 @@
 
 - [ ] Task: Allow opening of DeveloperConsole without keyboard
 
-- [ ] Polish: Rotate on iOS
 
 - [ ] Task: Cleanup version info in SettingDialog
 
