@@ -2,15 +2,10 @@
 
 ## In Progress
 
-- [ ] Polish: Rotate on iOS
-
-- [ ] Bug: Do not open soft keyboard on startup
 
 
 
 ## Next
-
-
 
 - [ ] Polish: Improve shop and confirmation background
 
@@ -18,9 +13,6 @@
 
 
 ## V3.4.0
-
-- [ ] Task: Allow opening of DeveloperConsole without keyboard
-
 
 - [ ] Task: Cleanup version info in SettingDialog
 
@@ -32,6 +24,8 @@
 
 - [ ] Polish: Extract Pickup handling from GameManager
 - [ ] Polish: Extract zone spawning from GameManager
+
+- [ ] Task: Allow opening of DeveloperConsole without keyboard
 
 ## Next release
 
@@ -63,6 +57,8 @@
 ### 2025-04-03
 - [x] Polish: Dim game on pause
 - [x] Refactor: Move InGamePauseMenu to separate scene
+- [x] Polish: Rotate on iOS
+- [x] Bug: Do not open soft keyboard on startup (by disabling the DeveloperConsole)
 
 ### 2025-04-02
 - [x] Feature: iOS version (for Testflight) (Goal: Q2 2025)

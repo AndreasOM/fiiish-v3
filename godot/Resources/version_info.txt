@@ -1,4 +1,4 @@
 commit=local
 build=local
-version=v3.0.1
+version=v?.?.?
 suffix=local

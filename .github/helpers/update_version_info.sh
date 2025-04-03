@@ -8,10 +8,12 @@ suffix="local"
 build=${1:-unknown}
 if [ ${version:+1} ]
 then
-	suffix=$(echo ${version}|cut -d'-' -f2)
 	version=$(echo ${version}|cut -d'-' -f1)
+	suffix=""
+	# suffix=$(echo ${version}|cut -d'-' -f2)
 else
 	version=v0.0.0
+	suffix="unknown"
 fi
 echo version ${version}
 echo build ${build}
