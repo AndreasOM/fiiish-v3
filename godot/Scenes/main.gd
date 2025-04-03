@@ -8,9 +8,30 @@ func _ready() -> void:
 	# DisplayServer.window_set_size( s*Vector2( 1920.0, 1080.0 ) )
 	#get_window().set_size( Vector2i( s*Vector2( 1920.0, 1080.0 ) ) )
 	# get_tree().get_root().size = s*Vector2( 1920.0, 1080.0 )
-	var dcd = %DialogManager.open_dialog(DialogIds.Id.DEVELOPER_CONSOLE_DIALOG, 0.0)
-	dcd.fade_out( 0.0 )
-	grab_focus.call_deferred()
+	var enable_developer_console = true
+	match OS.get_name():
+		"Windows":
+			print("Welcome to Windows!")
+		"macOS":
+			print("Welcome to macOS!")
+		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+			print("Welcome to Linux/BSD!")
+		"Android":
+			print("Welcome to Android!")
+		"iOS":
+			print("Welcome to iOS!")
+			enable_developer_console = false
+		"Web":
+			print("Welcome to the Web!")
+			
+	if OS.has_feature("demo"):
+		enable_developer_console = false
+
+	if enable_developer_console:
+		var dcd = %DialogManager.open_dialog(DialogIds.Id.DEVELOPER_CONSOLE_DIALOG, 0.0)
+		dcd.fade_out( 0.0 )
+
+	### grab_focus.call_deferred()
 	$Game.resume()
 
 
