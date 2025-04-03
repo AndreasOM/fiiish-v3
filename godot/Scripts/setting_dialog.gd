@@ -55,7 +55,7 @@ func _ready() -> void:
 	var versionString = "Fiiish! %s" % [ version ]
 	if suffix != "":
 		versionString = "%s-%s" % [ versionString, suffix ]
-	versionString = "%s (Godot)" % [ versionString ]
+	# versionString = "%s (Godot)" % [ versionString ]
 	if OS.has_feature("demo"):
 		versionString = "%s [DEMO]" % [ versionString ]
 	%SettingsTitleRichTextLabel.text = versionString
