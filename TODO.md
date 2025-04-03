@@ -14,7 +14,6 @@
 
 ## V3.4.0
 
-- [ ] Task: Cleanup version info in SettingDialog
 
 - [ ] Feature: Main Menu
 	- [ ] Task: Add game mode entry to MainMenu
@@ -26,6 +25,8 @@
 - [ ] Polish: Extract zone spawning from GameManager
 
 - [ ] Task: Allow opening of DeveloperConsole without keyboard
+
+- [ ] Task: Create wrapper job to upload all latest builds
 
 ## Next release
 
@@ -59,6 +60,7 @@
 - [x] Refactor: Move InGamePauseMenu to separate scene
 - [x] Polish: Rotate on iOS
 - [x] Bug: Do not open soft keyboard on startup (by disabling the DeveloperConsole)
+- [x] Task: Cleanup version info in SettingDialog
 
 ### 2025-04-02
 - [x] Feature: iOS version (for Testflight) (Goal: Q2 2025)
