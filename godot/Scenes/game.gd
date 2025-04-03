@@ -158,17 +158,20 @@ func pause():
 	var tree = self.get_tree()
 	if !tree.is_paused():
 		tree.set_pause( true )
+	Events.broadcast_game_paused( true )
 
 func resume():
 	var tree = self.get_tree()
 	if tree.is_paused():
 		tree.set_pause( false )
+	Events.broadcast_game_paused( false )
 	
 func toogle_pause() -> bool:
 	var tree = self.get_tree()
 	var was_paused = tree.is_paused()
 	var is_paused = !was_paused
 	tree.set_pause(is_paused)
+	Events.broadcast_game_paused( is_paused )
 	return is_paused
 
 func _on_game_manager_sound_triggered( soundEffect: SoundEffect ) -> void:
