@@ -10,6 +10,7 @@ func _ready() -> void:
 	# get_tree().get_root().size = s*Vector2( 1920.0, 1080.0 )
 	var dcd = %DialogManager.open_dialog(DialogIds.Id.DEVELOPER_CONSOLE_DIALOG, 0.0)
 	dcd.fade_out( 0.0 )
+	grab_focus.call_deferred()
 	$Game.resume()
 
 

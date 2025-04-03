@@ -4,25 +4,32 @@
 
 
 
+## Next
+
+- [ ] Bug: Do not open soft keyboard on startup
+- [ ] Polish: Improve shop and confirmation background
+- [ ] Polish: Dim game on pause?
+- [ ] Refactor: Move InGamePauseMenu to separate scene
+
 ## Todo
+
 
 ## V3.4.0
 
-- [ ] Feature: iOS version (for Testflight) (Goal: Q2 2025)
-	- Note: `xcodebuild -archivePath "Test.xcarchive" -project fiiish-v3.ipa.xcodeproj -sdk iphoneos  -scheme "fiiish-v3.ipa" -configuration "Release" archive`
+- [ ] Task: Allow opening of DeveloperConsole without keyboard
+
+- [ ] Polish: Rotate on iOS
+
+- [ ] Task: Cleanup version info in SettingDialog
+
 - [ ] Feature: Main Menu
 	- [ ] Task: Add game mode entry to MainMenu
 
 - [ ] Feature: Leaderboard (incl. backend)
 
-- [ ] Polish: Improve shop and confirmation background
 
 - [ ] Polish: Extract Pickup handling from GameManager
 - [ ] Polish: Extract zone spawning from GameManager
-
-- [ ] Polish: Dim game on pause?
-
-- [ ] Refactor: Move InGamePauseMenu to separate scene
 
 ## Next release
 
@@ -50,6 +57,11 @@
 - [?] Cleanup: Move pause/resume handling fully into game
 
 ## Done
+
+### 2025-04-02
+- [x] Feature: iOS version (for Testflight) (Goal: Q2 2025)
+
+### 2025-03-31
 
 ### 2025-03-26
 
