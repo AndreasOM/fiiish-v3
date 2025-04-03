@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://dxdyfsr3rf56d"]
+
+[ext_resource type="Script" uid="uid://d0l4anar52h5v" path="res://Scenes/in_game_pause_menu.gd" id="1_6l8pp"]
+[ext_resource type="Script" uid="uid://r7if1ed85xhv" path="res://Scenes/toggle_button_container.gd" id="2_gtjiv"]
+[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="3_fdqay"]
+[ext_resource type="Texture2D" uid="uid://bvm6wtn8i6awd" path="res://Textures/UI/Buttons/button_pause.png" id="4_np5cf"]
+[ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_ua4wi"]
+[ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_n1w2s"]
+[ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_4p0q0"]
+
+[node name="InGamePauseMenu" type="Control" node_paths=PackedStringArray("game")]
+process_mode = 3
+z_index = 8
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_6l8pp")
+game = NodePath("")
+
+[node name="TopLeftMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 292.0
+offset_bottom = 160.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopLeftMarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopLeftMarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="PauseToggleButton" type="CenterContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2_gtjiv")
+
+[node name="PauseButtonFadeA" type="CenterContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton"]
+layout_mode = 2
+mouse_filter = 0
+script = ExtResource("3_fdqay")
+
+[node name="PauseButtonA" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeA"]
+layout_mode = 2
+texture_normal = ExtResource("4_np5cf")
+
+[node name="PauseButtonFadeB" type="CenterContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton"]
+layout_mode = 2
+mouse_filter = 0
+script = ExtResource("3_fdqay")
+
+[node name="PauseButtonB" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeB"]
+layout_mode = 2
+texture_normal = ExtResource("5_ua4wi")
+
+[node name="SettingsButtonFade" type="CenterContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("3_fdqay")
+
+[node name="SettingsButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("6_n1w2s")
+
+[node name="MainMenuButtonFadeable" type="CenterContainer" parent="TopLeftMarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("3_fdqay")
+
+[node name="MainMenuButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/MainMenuButtonFadeable"]
+layout_mode = 2
+texture_normal = ExtResource("7_4p0q0")
+
+[connection signal="toggled" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" to="." method="_on_pause_toggle_button_toggled"]
+[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeA/PauseButtonA" to="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" method="_on_a_pressed"]
+[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeB/PauseButtonB" to="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" method="_on_b_pressed"]
+[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/MainMenuButtonFadeable/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
