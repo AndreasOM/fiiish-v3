@@ -2,6 +2,16 @@ name: 🖥️ macOS - 💾 Push latest to itchio
 on: 
   workflow_dispatch:
   workflow_call:
+    inputs:
+      summary_style:
+        description: 'The style for the summary'
+        default: 'full'
+        required: false
+        type: string
+    outputs:
+      version:
+        description: "The version of the build"
+        value: ${{ jobs.push.outputs.version }}
 
 env:
   BUTLER_API_KEY: ${{ secrets.ITCHIO_API_KEY }}
@@ -13,6 +23,8 @@ jobs:
       run:
         # Use bash shells on all platforms.
         shell: bash
+    outputs:
+      version: ${{ steps.check_version.outputs.version }}        
     steps:
       - name: Create variables
         run: |
@@ -80,17 +92,20 @@ jobs:
           find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
       - name: Check version
+        id: check_version
         run: |
           cd fiiish-v3-${{ env.BUILD_TYPE }}
           VERSION=$(cat version.txt)
           if [[ -z ${VERSION} ]]
           then
             echo "No version"
-            exit -1
+            exit 255
           else
             echo "version: ${VERSION}"
             echo "VERSION=${VERSION}" >> "$GITHUB_ENV"            
           fi
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
       - name: Install butler
         uses: jdno/setup-butler@v1
@@ -109,11 +124,19 @@ jobs:
       - name: Create Summary
         if: always()
         run: |
-          {
-            echo "|                        |                                   |"
-            echo "| :--------------------- | --------------------------------: |"
-            echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
-            echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
-            echo "| VERSION                | ${{ env.VERSION }}                |"
-          } >> "$GITHUB_STEP_SUMMARY"
-
+          if [[ "${{ inputs.summary_style }}" == "minimal" ]]
+          then
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
+              echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
