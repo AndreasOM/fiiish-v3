@@ -29,6 +29,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("1_gnhps")
+texture_disabled = ExtResource("3_drwh8")
+texture_focused = ExtResource("4_h7gnu")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="TextureButton"]
 unique_name_in_owner = true
@@ -43,8 +45,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_type_variation = &"MainMenuRichTextLabel"
-text = "Credits
-"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1

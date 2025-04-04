@@ -3,7 +3,7 @@
 ## In Progress
 
 
-
+- [ ] Task: Create LeaderboardElement
 
 ## Next
 
@@ -15,11 +15,16 @@
 ## V3.4.0
 
 
+- [ ] Feature: Leaderboard (excl. backend, local only)
+	- [ ] Task: Create Leaderboard (data/storage)
+	- [ ] Task: Update scores at end of run
+	- [ ] Polish: Open LeaderboardDialog from ResultDialog
+	- [ ] Polish: Visualise new highscore in ResultDialog
+
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
 	- [ ] Bonus: Animated Focused MainMenu entry
 
-- [ ] Feature: Leaderboard (excl. backend, local only)
 
 
 - [ ] Polish: Extract Pickup handling from GameManager
@@ -34,6 +39,8 @@
 
 ## Later
 
+- [ ] Task: Document and refactor Dialog lifecycle
+- [ ] Task: Create generic FrameDialog (e.g. SkillUpgrade and Leaderboard)
 - [ ] Fix: Weird numbers in ResultScreen
 
 - [ ] Task: Use "recycle" icon for skill reset on SkillUpgradeDialog
@@ -57,6 +64,11 @@
 ## Done
 
 ### 2025-04-04
+#### S03E11
+- [x] Task: Create LeaderboardDialog
+- [x] Task: Add https://www.keshikan.net/fonts-e.html to Credits
+
+#### S03E10
 - [x] Task: Create generic MainMenuEntry
 	- Including disabled state
 	- Visualise focused state
@@ -66,6 +78,8 @@
 - [x] Task: Add Leaderboard entry to MainMenu
 - [x] Task: Create wrapped job to build, archive, and upload iOS
 - [x] Task: Create wrapper job to upload all latest builds
+
+
 
 ### 2025-04-03
 - [x] Polish: Dim game on pause

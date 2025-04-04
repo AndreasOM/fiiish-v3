@@ -36,7 +36,7 @@ func _on_quit_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_leader_board_pressed() -> void:
-	pass # Replace with function body.
+	self._dialog_manager.open_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )
 
 func _on_game_mode_pressed() -> void:
 	var mode = self.game.next_game_mode()
