@@ -42,6 +42,8 @@ var _skill_config_manager: SkillConfigManager = SkillConfigManager.new()
 var _state: Game.State = Game.State.INITIAL
 
 
+var _mode: GameModes.Mode = GameModes.Mode.CLASSIC
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("Game - _ready()")
@@ -177,3 +179,8 @@ func toogle_pause() -> bool:
 func _on_game_manager_sound_triggered( soundEffect: SoundEffect ) -> void:
 	if _player.isSoundEnabled():
 		soundManager.trigger_effect( soundEffect )
+
+func next_game_mode():
+	self._mode = GameModes.next( self._mode )
+	
+	return _mode
