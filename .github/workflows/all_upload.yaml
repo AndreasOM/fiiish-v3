@@ -1,0 +1,48 @@
+name: 🪐 All - 💾 Upload Latest
+on: 
+  workflow_dispatch:
+
+jobs:
+  linux_upload:
+    uses: ./.github/workflows/push_latest_godot_linux_to_itchio.yml
+    secrets: inherit
+
+  windows_upload:
+    uses: ./.github/workflows/push_latest_godot_windows_to_itchio.yml
+    secrets: inherit
+
+  macos_sign:
+    uses: ./.github/workflows/sign_latest_godot_macos.yml
+    secrets: inherit
+
+  macos_upload:
+    needs: macos_sign
+    uses: ./.github/workflows/push_latest_godot_macos_to_itchio.yml
+    secrets: inherit
+
+  ios_archive:
+    uses: ./.github/workflows/archive_latest_ios.yml
+    secrets: inherit
+
+  ios_upload:
+    needs: ios_archive
+    uses: ./.github/workflows/push_latest_ios_to_appstoreconnect.yml
+    secrets: inherit
+
+  summary:
+    needs: [linux_upload, windows_upload, macos_upload, ios_upload]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Create Summary
+        if: always()
+        run: |
+          {
+            echo "|                     |                                    |"
+            echo "| :------------------ | ---------------------------------: |"
+          } >> "$GITHUB_STEP_SUMMARY"
+

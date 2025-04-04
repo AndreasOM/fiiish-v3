@@ -2,14 +2,6 @@ name: 📱 iOS - 💾 Push to App Store Connect
 on: 
   workflow_dispatch:
   workflow_call:    
-#  push:
-#    tags:
-#      - "v*"
-#    # We always build on a tag
-#    # paths:
-#    #  - godot/**
-
-# env:
 
 jobs:
   push:

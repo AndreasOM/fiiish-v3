@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Task: Create wrapped job to build, archive, and upload iOS
 
 
 
@@ -15,6 +14,7 @@
 
 ## V3.4.0
 
+- [ ] Task: Create wrapper job to upload all latest builds
 
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
@@ -28,7 +28,7 @@
 
 - [ ] Task: Allow opening of DeveloperConsole without keyboard
 
-- [ ] Task: Create wrapper job to upload all latest builds
+- [ ] Task: Add job to trigger all builds on tag
 
 ## Next release
 
@@ -65,6 +65,7 @@
 - [x] Task: Add game mode entry to MainMenu
 - [x] Task: Add Zone Editor entry (disabled) to MainMenu
 - [x] Task: Add Leaderboard entry to MainMenu
+- [x] Task: Create wrapped job to build, archive, and upload iOS
 
 ### 2025-04-03
 - [x] Polish: Dim game on pause

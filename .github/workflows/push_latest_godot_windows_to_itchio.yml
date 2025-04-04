@@ -1,12 +1,7 @@
-name: Push latest Windows to itchio
+name: 🪟 Windows - 💾 Push latest to itchio
 on: 
   workflow_dispatch:
-#  push:
-#    tags:
-#      - "v*"
-#    # We always build on a tag
-#    # paths:
-#    #  - godot/**
+  workflow_call:
 
 env:
   BUTLER_API_KEY: ${{ secrets.ITCHIO_API_KEY }}

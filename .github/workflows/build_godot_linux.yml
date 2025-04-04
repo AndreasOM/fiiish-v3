@@ -1,4 +1,4 @@
-name: Build Linux
+name: 🐧 Linux - 🔨 Build
 on: 
   workflow_dispatch:
   push:

@@ -1,4 +1,4 @@
-name: Build WebGL on push
+name: 🕸️ WebGL - 🔨 Build on push
 on: 
   workflow_dispatch:
   push:

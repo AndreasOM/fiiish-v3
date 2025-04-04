@@ -1,4 +1,4 @@
-name: Build Windows
+name: 🪟 Windows - 🔨 Build
 on: 
   workflow_dispatch:
   push:
