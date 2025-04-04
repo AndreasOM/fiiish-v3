@@ -44,7 +44,8 @@ jobs:
         if: always()
         run: |
           {
-            echo "|                     |                                    |"
-            echo "| :------------------ | ---------------------------------: |"
+            echo "|                        |                                           |"
+            echo "| :--------------------- | ----------------------------------------: |"
+            echo "| 🐧 Linux Version       | ${{ needs.linux_upload.outputs.version }} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
