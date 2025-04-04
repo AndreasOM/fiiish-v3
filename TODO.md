@@ -16,9 +16,10 @@
 
 
 - [ ] Feature: Main Menu
-	- [ ] Task: Add game mode entry to MainMenu
+	- [ ] Bonus: Animated MainMenu in and out
+	- [ ] Bonus: Animated Focused MainMenu entry
 
-- [ ] Feature: Leaderboard (incl. backend)
+- [ ] Feature: Leaderboard (excl. backend, local only)
 
 
 - [ ] Polish: Extract Pickup handling from GameManager
@@ -54,6 +55,15 @@
 - [?] Cleanup: Move pause/resume handling fully into game
 
 ## Done
+
+### 2025-04-04
+- [x] Task: Create generic MainMenuEntry
+	- Including disabled state
+	- Visualise focused state
+	- Bonus: Allow keyboard & gamepad(?) input
+- [x] Task: Add game mode entry to MainMenu
+- [x] Task: Add Zone Editor entry (disabled) to MainMenu
+- [x] Task: Add Leaderboard entry to MainMenu
 
 ### 2025-04-03
 - [x] Polish: Dim game on pause

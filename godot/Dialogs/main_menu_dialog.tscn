@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwejhqhcnwn2b" path="res://Dialogs/main_menu_dialog.gd" id="1_otu7v"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_ce5h4"]
-[ext_resource type="Texture2D" uid="uid://cxxi48tk2plt2" path="res://Textures/UI/Buttons/button_main_menu_entry.png" id="3_otu7v"]
+[ext_resource type="PackedScene" uid="uid://ljeb1qfapg02" path="res://Dialogs/MainMenu/main_menu_entry.tscn" id="3_otu7v"]
 
 [node name="MainMenuDialog" type="Control"]
 layout_mode = 3
@@ -31,28 +31,39 @@ script = ExtResource("2_ce5h4")
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenuFadeableContainer"]
 layout_mode = 2
 
-[node name="CreditsButton" type="TextureButton" parent="MainMenuFadeableContainer/VBoxContainer"]
+[node name="LeaderBoard" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("3_otu7v")
+id = 1
+label = "Leaderboard"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MainMenuFadeableContainer/VBoxContainer/CreditsButton"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_type_variation = &"MainMenuRichTextLabel"
-text = "Credits
-"
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="GameMode" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+unique_name_in_owner = true
+layout_mode = 2
+id = 1
+label = "Game Mode: Classic"
 
-[connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[node name="ZoneEditor" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+visible = false
+layout_mode = 2
+id = 1
+state = 0
+label = "Zone Editor"
+
+[node name="Credits" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+layout_mode = 2
+id = 1
+label = "Credits"
+
+[node name="Quit" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+layout_mode = 2
+id = 2
+state = 1
+label = "Quit"
+
+[connection signal="on_fading_in" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_in"]
+[connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/LeaderBoard" to="." method="_on_leader_board_pressed"]
+[connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/GameMode" to="." method="_on_game_mode_pressed"]
+[connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/ZoneEditor" to="." method="_on_zone_editor_pressed"]
+[connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
