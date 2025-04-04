@@ -31,7 +31,7 @@ func _ready() -> void:
 		var dcd = %DialogManager.open_dialog(DialogIds.Id.DEVELOPER_CONSOLE_DIALOG, 0.0)
 		dcd.fade_out( 0.0 )
 
-	### grab_focus.call_deferred()
+	# var lbd = %DialogManager.open_dialog(DialogIds.Id.LEADERBOARD_DIALOG, 0.0)
 	$Game.resume()
 
 

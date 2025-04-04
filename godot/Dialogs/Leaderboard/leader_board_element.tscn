@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3bhrqxtn4ffx"]
+
+[ext_resource type="Script" uid="uid://d25coq7obnlf2" path="res://Dialogs/Leaderboard/leader_board_element.gd" id="1_acy28"]
+[ext_resource type="PackedScene" uid="uid://c2xm0vlckmpf" path="res://Dialogs/Leaderboard/leaderboard_entry.tscn" id="1_ycipv"]
+
+[node name="LeaderBoardElement" type="MarginContainer"]
+size_flags_vertical = 3
+script = ExtResource("1_acy28")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="Entries" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeaderboardEntry" parent="ScrollContainer/Entries" instance=ExtResource("1_ycipv")]
+layout_mode = 2
+rank = "1."
+participant = "2025-04-04 20:58"
+score = "123"
+
+[node name="LeaderboardEntry2" parent="ScrollContainer/Entries" instance=ExtResource("1_ycipv")]
+layout_mode = 2
+rank = "2."
+participant = "2025-04-04 20:58"
+score = "111"

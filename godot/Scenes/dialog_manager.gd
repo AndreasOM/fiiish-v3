@@ -14,6 +14,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.DEVELOPER_CONSOLE_DIALOG: preload("res://Dialogs/developer_console_dialog.tscn"),
 	DialogIds.Id.MAIN_MENU_DIALOG: preload("res://Dialogs/main_menu_dialog.tscn"),
 	DialogIds.Id.CREDITS_DIALOG: preload("res://Dialogs/credits_dialog.tscn"),
+	DialogIds.Id.LEADERBOARD_DIALOG: preload("res://Dialogs/leaderboard_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}

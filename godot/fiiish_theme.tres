@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://iw1xv475xr8k"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://iw1xv475xr8k"]
 
 [ext_resource type="FontFile" uid="uid://bb2pts3o32ebo" path="res://Fonts/all_things_pink.ttf" id="1_wkw6o"]
+[ext_resource type="FontFile" uid="uid://mdnqa5lspbji" path="res://Fonts/DSEG7ClassicMini-Regular.ttf" id="2_skut5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uf88y"]
 bg_color = Color(0.768627, 0.419608, 0.941176, 0.909804)
@@ -36,6 +37,12 @@ InfoRichTextLabel/constants/shadow_offset_y = 5
 InfoRichTextLabel/constants/shadow_outline_size = 5
 InfoRichTextLabel/font_sizes/normal_font_size = 32
 InfoRichTextLabel/fonts/normal_font = ExtResource("1_wkw6o")
+LeadboardEntryScoreLabel/base_type = &"Label"
+LeadboardEntryScoreLabel/font_sizes/font_size = 42
+LeadboardEntryScoreLabel/fonts/font = ExtResource("2_skut5")
+LeaderboardEntryLabel/base_type = &"Label"
+LeaderboardEntryLabel/font_sizes/font_size = 48
+LeaderboardEntryLabel/fonts/font = ExtResource("1_wkw6o")
 MainMenuRichTextLabel/base_type = &"RichTextLabel"
 MainMenuRichTextLabel/constants/outline_size = 5
 MainMenuRichTextLabel/font_sizes/normal_font_size = 64

@@ -1,0 +1,77 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2xm0vlckmpf"]
+
+[ext_resource type="Script" uid="uid://bnasd4jkdfait" path="res://Dialogs/Leaderboard/leaderboard_entry.gd" id="1_lp1le"]
+
+[node name="LeaderboardEntry" type="MarginContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -11.5
+offset_right = 400.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lp1le")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="RankLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_type_variation = &"LeaderboardEntryLabel"
+text = "100000000."
+horizontal_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/RankLabel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.11, 0.11, 0.152941)
+
+[node name="ParticipantLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"LeaderboardEntryLabel"
+text = "2025-04-04 20:40"
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/ParticipantLabel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.59, 0.481833, 0, 0.513726)
+
+[node name="ScoreLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
+theme_type_variation = &"LeadboardEntryScoreLabel"
+text = "500"
+horizontal_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/ScoreLabel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.5445, 0.99, 0.643137)
