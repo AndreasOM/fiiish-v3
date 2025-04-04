@@ -1,4 +1,4 @@
-name: iOS 📱 🔨 📦 💾 -  Build Archive Upload
+name: 📱 iOS - 🔨 📦 💾 Build Archive Upload
 on: 
   workflow_dispatch:
   # push:
@@ -18,8 +18,13 @@ jobs:
     uses: ./.github/workflows/archive_latest_ios.yml
     secrets: inherit
 
-  summary:
+  upload:
     needs: archive
+    uses: ./.github/workflows/push_latest_ios_to_appstoreconnect.yml
+    secrets: inherit
+
+  summary:
+    needs: upload
     if: ${{ always() }}
     runs-on: ubuntu-latest
     defaults:
