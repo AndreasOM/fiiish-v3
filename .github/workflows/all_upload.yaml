@@ -6,6 +6,8 @@ jobs:
   linux_upload:
     uses: ./.github/workflows/push_latest_godot_linux_to_itchio.yml
     secrets: inherit
+    with:
+      summary_style: "minimal"
 
   windows_upload:
     uses: ./.github/workflows/push_latest_godot_windows_to_itchio.yml
