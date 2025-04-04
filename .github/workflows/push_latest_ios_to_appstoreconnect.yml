@@ -1,6 +1,7 @@
-name: Push latest iOS to App Store Connect
+name: 📱 iOS - 💾 Push to App Store Connect
 on: 
   workflow_dispatch:
+  workflow_call:    
 #  push:
 #    tags:
 #      - "v*"
@@ -98,7 +99,7 @@ jobs:
           {
             echo "VERSION=${VERSION}"
             echo "BUILD_NUMBER=${BUILD_NUMBER}"
-          } >> $GITHUB_ENV
+          } >> "$GITHUB_ENV"
 
       - name: Install AppStore key
         run: |

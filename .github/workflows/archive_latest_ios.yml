@@ -1,4 +1,4 @@
-name: Archive iOS
+name: 📱 iOS - 📦 Archive
 on: 
   workflow_dispatch:
   workflow_call:

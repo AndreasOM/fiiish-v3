@@ -1,4 +1,4 @@
-name: Build iOS
+name: 📱 iOS - 🔨 Build
 on: 
   workflow_dispatch:
   workflow_call:
