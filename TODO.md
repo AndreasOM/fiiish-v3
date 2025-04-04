@@ -14,7 +14,6 @@
 
 ## V3.4.0
 
-- [ ] Task: Create wrapper job to upload all latest builds
 
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
@@ -66,6 +65,7 @@
 - [x] Task: Add Zone Editor entry (disabled) to MainMenu
 - [x] Task: Add Leaderboard entry to MainMenu
 - [x] Task: Create wrapped job to build, archive, and upload iOS
+- [x] Task: Create wrapper job to upload all latest builds
 
 ### 2025-04-03
 - [x] Polish: Dim game on pause
