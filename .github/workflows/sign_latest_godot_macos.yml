@@ -1,12 +1,7 @@
-name: Sign macOS
+name: 🖥️ macOS - 🖋️ Sign
 on: 
   workflow_dispatch:
-  #push:
-  #  tags:
-  #    - "v*"
-    # We always build on a tag
-    # paths:
-    #  - godot/**
+  workflow_call:
 
 jobs:
   sign:

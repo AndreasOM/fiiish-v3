@@ -1,4 +1,4 @@
-name: Build macOS
+name: 🖥️ macOS - 🔨 Build
 on: 
   workflow_dispatch:
   push:
