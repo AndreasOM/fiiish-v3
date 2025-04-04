@@ -68,6 +68,7 @@ jobs:
             echo "version: ${VERSION}"
           fi
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
       - name: Install butler
         uses: jdno/setup-butler@v1
@@ -93,17 +94,13 @@ jobs:
               echo "|                        |                                   |"
               echo "| :--------------------- | --------------------------------: |"
               echo "| VERSION                | ${{ env.VERSION }}                |"
-              echo "| BUILD_NUMBER           | ${{ env.BUILD_NUMBER }}           |"
             } >> "$GITHUB_STEP_SUMMARY"
           else
             {
               echo "|                        |                                   |"
               echo "| :--------------------- | --------------------------------: |"
-              echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
-              echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
-              echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
-              echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
+              echo "| LATEST_FILE            | ${{ env.LATEST_FILE }}           |"
+              echo "| S3_LATEST_FILE         | ${{ env.S3_LATEST_FILE }}        |"
               echo "| VERSION                | ${{ env.VERSION }}                |"
-              echo "| BUILD_NUMBER           | ${{ env.BUILD_NUMBER }}           |"
             } >> "$GITHUB_STEP_SUMMARY"
           fi

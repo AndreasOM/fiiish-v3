@@ -2,6 +2,16 @@ name: 🪟 Windows - 💾 Push latest to itchio
 on: 
   workflow_dispatch:
   workflow_call:
+    inputs:
+      summary_style:
+        description: 'The style for the summary'
+        default: 'full'
+        required: false
+        type: string
+    outputs:
+      version:
+        description: "The version of the build"
+        value: ${{ jobs.push.outputs.version }}
 
 env:
   BUTLER_API_KEY: ${{ secrets.ITCHIO_API_KEY }}
@@ -13,27 +23,32 @@ jobs:
       run:
         # Use bash shells on all platforms.
         shell: bash
+    outputs:
+      version: ${{ steps.check_version.outputs.version }}        
     steps:
       - name: Create variables
         run: |
           PROJECT=fiiish-v3
-          echo "PROJECT=${PROJECT}" >> $GITHUB_ENV
           BUILD_TYPE="Windows"
-          echo "BUILD_TYPE=${BUILD_TYPE}" >> $GITHUB_ENV
           LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
-          echo "LATEST_FILE=${LATEST_FILE}" >> $GITHUB_ENV
           S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
-          echo "S3_LATEST_FILE=${S3_LATEST_FILE}" >> $GITHUB_ENV
+
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "LATEST_FILE=${LATEST_FILE}"
+            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+          } >> "$GITHUB_ENV"
 
       - name: Download latest from S3
         run: |
-          aws s3 cp ${{ env.S3_LATEST_FILE }} ${{ env.LATEST_FILE }}
+          aws s3 cp "${{ env.S3_LATEST_FILE }}" "${{ env.LATEST_FILE }}"
           cat ${{ env.LATEST_FILE }}
-          LF=s3://artifacts.omnimad.net/$(cat ${{ env.LATEST_FILE }} )
-          aws s3 cp ${LF} .
+          LF=s3://artifacts.omnimad.net/$(cat "${{ env.LATEST_FILE }}" )
+          aws s3 cp "${LF}" .
           # or basename?
-          TGZ=$(echo ${LF} |rev|cut -d'/' -f1 |rev)
-          tar xzf ${TGZ}
+          TGZ=$(echo "${LF}" |rev|cut -d'/' -f1 |rev)
+          tar xzf "${TGZ}"
           cd fiiish-v3-${{ env.BUILD_TYPE }}
           find .
         env:
@@ -42,16 +57,19 @@ jobs:
           AWS_DEFAULT_REGION: "eu-west-1"
 
       - name: Check version
+        id: check_version
         run: |
           cd fiiish-v3-${{ env.BUILD_TYPE }}
           VERSION=$(cat version.txt)
           if [[ -z ${VERSION} ]]
           then
             echo "No version"
-            exit -1
+            exit 255
           else
             echo "version: ${VERSION}"
           fi
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
       - name: Install butler
         uses: jdno/setup-butler@v1
@@ -66,3 +84,24 @@ jobs:
         run: |
           butler push . omni-mad/fiiish-v3:windows-universal --userversion-file=version.txt
         working-directory: fiiish-v3-${{ env.BUILD_TYPE }}
+
+      - name: Create Summary
+        if: always()
+        run: |
+          echo "Summary Style: '${{ inputs.summary_style }}'"
+          if [[ "${{ inputs.summary_style }}" == "minimal" ]]
+          then
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| LATEST_FILE            | ${{ env.LATEST_FILE }}           |"
+              echo "| S3_LATEST_FILE         | ${{ env.S3_LATEST_FILE }}        |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

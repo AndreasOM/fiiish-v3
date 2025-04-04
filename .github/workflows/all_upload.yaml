@@ -12,6 +12,8 @@ jobs:
   windows_upload:
     uses: ./.github/workflows/push_latest_godot_windows_to_itchio.yml
     secrets: inherit
+    with:
+      summary_style: "minimal"
 
   macos_sign:
     uses: ./.github/workflows/sign_latest_godot_macos.yml
@@ -21,6 +23,8 @@ jobs:
     needs: macos_sign
     uses: ./.github/workflows/push_latest_godot_macos_to_itchio.yml
     secrets: inherit
+    with:
+      summary_style: "minimal"
 
   ios_archive:
     uses: ./.github/workflows/archive_latest_ios.yml
@@ -44,8 +48,10 @@ jobs:
         if: always()
         run: |
           {
-            echo "|                        |                                           |"
-            echo "| :--------------------- | ----------------------------------------: |"
-            echo "| 🐧 Linux Version       | ${{ needs.linux_upload.outputs.version }} |"
+            echo "|                        |                                             |"
+            echo "| :--------------------- | ------------------------------------------: |"
+            echo "| 🐧 Linux Version       | ${{ needs.linux_upload.outputs.version }}   |"
+            echo "| 🪟 Windows Version     | ${{ needs.windows_upload.outputs.version }} |"
+            echo "| 🖥️ macOS Version       | ${{ needs.macos_upload.outputs.version }}   |"
           } >> "$GITHUB_STEP_SUMMARY"
 
