@@ -1,0 +1,37 @@
+name: iOS 📱 🔨 📦 💾 -  Build Archive Upload
+on: 
+  workflow_dispatch:
+  # push:
+  #  tags:
+  #    - "v*"
+    # We always build on a tag
+    # paths:
+    #  - godot/**
+
+jobs:
+  build:
+    uses: ./.github/workflows/build_godot_ios.yaml
+    secrets: inherit
+
+  archive:
+    needs: build
+    uses: ./.github/workflows/archive_latest_ios.yml
+    secrets: inherit
+
+  summary:
+    needs: archive
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Create Summary
+        if: always()
+        run: |
+          {
+            echo "|                     |                                    |"
+            echo "| :------------------ | ---------------------------------: |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
