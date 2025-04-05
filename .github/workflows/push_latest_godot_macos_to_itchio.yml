@@ -124,7 +124,10 @@ jobs:
       - name: Create Summary
         if: always()
         run: |
-          if [[ "${{ inputs.summary_style }}" == "minimal" ]]
+          if [[ "${{ inputs.summary_style }}" == "skip" ]]
+          then
+            echo "Skipping summary"
+          elif [[ "${{ inputs.summary_style }}" == "minimal" ]]
           then
             {
               echo "|                        |                                   |"

@@ -2,6 +2,12 @@ name: 📱 iOS - 💾 Push to App Store Connect
 on: 
   workflow_dispatch:
   workflow_call:    
+    inputs:
+      summary_style:
+        description: 'The style for the summary'
+        default: 'full'
+        required: false
+        type: string
 
 jobs:
   push:
@@ -119,14 +125,26 @@ jobs:
       - name: Create Summary
         if: always()
         run: |
-          {
-            echo "|                        |                                   |"
-            echo "| :--------------------- | --------------------------------: |"
-            echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
-            echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
-            echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
-            echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
-            echo "| VERSION                | ${{ env.VERSION }}                |"
-            echo "| BUILD_NUMBER           | ${{ env.BUILD_NUMBER }}           |"
-          } >> "$GITHUB_STEP_SUMMARY"
-
+          if [[ "${{ inputs.summary_style }}" == "skip" ]]
+          then
+            echo "Skipping summary"
+          elif [[ "${{ inputs.summary_style }}" == "minimal" ]]
+          then
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+              echo "| BUILD_NUMBER           | ${{ env.BUILD_NUMBER }}           |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
+              echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
+              echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
+              echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+              echo "| BUILD_NUMBER           | ${{ env.BUILD_NUMBER }}           |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
