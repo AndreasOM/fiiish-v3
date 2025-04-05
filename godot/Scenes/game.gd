@@ -120,6 +120,7 @@ func _credit_last_swim():
 	var distance = %GameManager.take_current_distance_in_meters()
 	_player.apply_distance(distance)
 	
+	_player.update_leaderboards( coins, distance )
 	_player.save();
 
 func save_player():

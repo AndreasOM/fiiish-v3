@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b3bhrqxtn4ffx"]
 
 [ext_resource type="Script" uid="uid://d25coq7obnlf2" path="res://Dialogs/Leaderboard/leader_board_element.gd" id="1_acy28"]
-[ext_resource type="PackedScene" uid="uid://c2xm0vlckmpf" path="res://Dialogs/Leaderboard/leaderboard_entry.tscn" id="1_ycipv"]
+[ext_resource type="PackedScene" uid="uid://c2xm0vlckmpf" path="res://Dialogs/Leaderboard/leaderboard_element_entry.tscn" id="1_ycipv"]
 
 [node name="LeaderBoardElement" type="MarginContainer"]
 size_flags_vertical = 3

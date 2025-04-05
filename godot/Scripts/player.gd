@@ -27,6 +27,9 @@ var _isMainMenuEnabled: bool = false
 ## version 7
 var _cheats: Dictionary[ CheatIds.Id, bool ] = {}
 
+## version 8
+var _leaderboards: Dictionary[ LeaderboardTypes.Type, Leaderboard ] = {}
+
 static func get_save_path() -> String:
 	return "user://player.data"
 	
@@ -261,3 +264,16 @@ func enableCheat( id: CheatIds.Id ):
 func disableCheat( id: CheatIds.Id ):
 	self._cheats.erase( id )
 	
+
+func get_leaderboard( type: LeaderboardTypes.Type ) -> Leaderboard:
+	return self._leaderboards.get( type )
+	
+func update_leaderboards( coins: int, distance: int ):
+	# var dt = Time.get_datetime_dict_from_system()
+	# var p = "%dddd" % [ dt[ "year"]]
+	var p = Time.get_datetime_string_from_system( false, true )
+	var lc = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_COINS, Leaderboard.new( "Local Coins", 20 ) )
+	lc.add_entry( p, coins )
+
+	var ld = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_DISTANCE, Leaderboard.new( "Local Distance", 20 ) )
+	ld.add_entry( p, distance )
