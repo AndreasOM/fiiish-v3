@@ -3,8 +3,6 @@
 ## In Progress
 
 
-- [ ] Task: Create Leaderboard (data/storage)
-
 ## Next
 
 - [ ] Polish: Improve shop and confirmation background
@@ -14,6 +12,7 @@
 
 ## V3.4.0
 
+- [ ] Task: Add serialize for dictionary
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
 	- [ ] Polish: Open LeaderboardDialog from ResultDialog
@@ -22,7 +21,6 @@
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
 	- [ ] Bonus: Animated Focused MainMenu entry
-
 
 
 - [ ] Polish: Extract Pickup handling from GameManager
@@ -65,6 +63,8 @@
 #### S03E012
 - [x] Task: Create LeaderboardElement
 - [x] Task: Update scores at end of run
+- [x] Task: Create Leaderboard (data/storage)
+- [x] Task: Add serialize for array
 
 ### 2025-04-04
 #### S03E11

@@ -114,19 +114,53 @@ func serialize_f32( v: float ) -> float:
 
 func serialize_fixed_string( l: int, v: String ) -> String:
 	if _mode == Mode.Write:
-		push_error("serialize_fixed_string - write mode is not implemented %s" % v )
-		
-	if self._pos + l >= self._data.size():
-		return ""
-		
-	var bytes = PackedByteArray()
-	
-	for i in range(l):
-		var b = self._data.decode_u8( self._pos + i )
-		bytes.push_back( b )
-		# bytes[ i ] = b
+		ensure_space( l )
+		var bytes = v.to_utf8_buffer()
+		var sl = bytes.size()
+		bytes.resize( l )
+		for i in range(sl, l):
+			bytes[ i ] = 0
 
-	var r: String = bytes.get_string_from_utf8()	# :TODO: error handling
-	
-	self._pos += l	
-	return r
+		for i in range(l):
+			self._data.encode_u8( self._pos + i, bytes[ i ] )
+		
+		self._pos += l
+		return v
+	else:
+			
+		if self._pos + l >= self._data.size():
+			return ""
+			
+		var bytes = PackedByteArray()
+		
+		for i in range(l):
+			var b = self._data.decode_u8( self._pos + i )
+			bytes.push_back( b )
+			# bytes[ i ] = b
+
+		bytes.push_back( 0 ) # terminate
+		var r: String = bytes.get_string_from_utf8()	# :TODO: error handling
+		
+		self._pos += l
+		return r
+
+func serialize_array( a: Array, constructor: Callable ) -> Array:
+	var l = a.size()
+	l = self.serialize_u16( l )
+	a.resize( l )
+	for i in range(0, l):
+		if _mode == Mode.Write:
+			var e = a.get( i )
+			if e.has_method( "serialize" ):
+				e.serialize( self )
+			else:
+				push_error( "Can not serialize (write) %s" % e )
+		else:
+			var e = constructor.call()
+			if e.has_method( "serialize" ):
+				e.serialize( self )
+			else:
+				push_error( "Can not serialize (read) %s" % e )
+			a[ i ] = e
+		
+	return a

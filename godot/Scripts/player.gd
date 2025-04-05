@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 7
+const current_version: int = 8
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -144,6 +144,25 @@ func serialize( s: Serializer ) -> bool:
 		k = s.serialize_u32( k )
 		# print("CHEAT: %d %d/%d" % [ k, idx, number_of_cheats ] )
 		_cheats[ k ] = true
+
+	# version 8
+	if version < 8:
+		return true
+
+	var leaderboards_keys = _leaderboards.keys()
+	var number_of_leaderboards = leaderboards_keys.size()
+	number_of_leaderboards = s.serialize_u16( number_of_leaderboards )
+			
+	for idx in range(0,number_of_leaderboards):
+		var k = LeaderboardTypes.Type.NONE
+		var v = Leaderboard.new("NONE")
+		if idx < keys.size():
+			k = leaderboards_keys[ idx ]
+			v = _leaderboards.get( k, 0 )
+		k = s.serialize_u32( k )
+		v.serialize( s )
+		
+		_leaderboards[ k ] = v
 	
 	return true
 		
