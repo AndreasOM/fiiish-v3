@@ -89,7 +89,10 @@ jobs:
         if: always()
         run: |
           echo "Summary Style: '${{ inputs.summary_style }}'"
-          if [[ "${{ inputs.summary_style }}" == "minimal" ]]
+          if [[ "${{ inputs.summary_style }}" == "skip" ]]
+          then
+            echo "Skipping summary"
+          elif [[ "${{ inputs.summary_style }}" == "minimal" ]]
           then
             {
               echo "|                        |                                   |"
