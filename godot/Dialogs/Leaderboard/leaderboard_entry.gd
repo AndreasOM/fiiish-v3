@@ -1,21 +1,14 @@
-@tool
+class_name LeaderboardEntry
 
-extends MarginContainer
-class_name LeaderBoardEntry
+var _participant: String
+var _score: int
 
-@export var rank: String = "" : set = _set_rank
-@export var participant: String = "" : set = _set_participant
-@export var score: String = "" : set = _set_score
+func _init( participant: String, score: int ):
+	self._participant = participant
+	self._score = score
 
+func participant() -> String:
+	return self._participant
 
-func _set_rank( r: String):
-	rank = r
-	%RankLabel.text = rank
-
-func _set_participant( p: String):
-	participant = p
-	%ParticipantLabel.text = p
-
-func _set_score( s: String):
-	score = s
-	%ScoreLabel.text = s
+func score() -> int:
+	return self._score

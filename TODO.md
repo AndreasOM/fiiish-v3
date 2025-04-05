@@ -3,7 +3,7 @@
 ## In Progress
 
 
-- [ ] Task: Create LeaderboardElement
+- [ ] Task: Create Leaderboard (data/storage)
 
 ## Next
 
@@ -16,8 +16,6 @@
 
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
-	- [ ] Task: Create Leaderboard (data/storage)
-	- [ ] Task: Update scores at end of run
 	- [ ] Polish: Open LeaderboardDialog from ResultDialog
 	- [ ] Polish: Visualise new highscore in ResultDialog
 
@@ -62,6 +60,11 @@
 - [?] Cleanup: Move pause/resume handling fully into game
 
 ## Done
+
+### 2025-04-05
+#### S03E012
+- [x] Task: Create LeaderboardElement
+- [x] Task: Update scores at end of run
 
 ### 2025-04-04
 #### S03E11
