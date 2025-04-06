@@ -3,9 +3,6 @@
 ## In Progress
 
 
-- [ ] Polish: Visualise new highscore in ResultDialog
-
-
 ## Next
 
 - [ ] Polish: Improve shop and confirmation background
@@ -18,6 +15,8 @@
 - [ ] Task: Add serialize for dictionary
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
+	- [ ] Polish: Highlight last rank
+	- [ ] Bonus: Special highlight if last rank was first rank
 
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
@@ -30,6 +29,8 @@
 - [ ] Task: Allow opening of DeveloperConsole without keyboard
 
 - [ ] Task: Add job to trigger all builds on tag
+
+- [ ] Polish: Use AnimationPlayer for result display
 
 ## Next release
 
@@ -46,6 +47,7 @@
 - [ ] Fix: Cleanup fadeable container with focus on z_index
 - [ ] Task: Have DialogManager ensure correct z_index
 - [ ] Bake version info into splash screen
+- [ ] Feature: Polish ResultDialog
 
 ## Future
 - [+] Task: Have DialogManager create dialogs on the fly
@@ -64,6 +66,7 @@
 #### S03E013
 - [x] Polish: Open LeaderboardDialog from ResultDialog
 - [x] Task: Add cheat to reset local highscores
+- [x] Polish: Visualise new highscore in ResultDialog
 
 ### 2025-04-05
 #### S03E012

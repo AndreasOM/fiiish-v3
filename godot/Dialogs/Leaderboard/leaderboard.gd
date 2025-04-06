@@ -34,7 +34,7 @@ func set_name( name: String ):
 func name() -> String:
 	return self._name
 
-func add_entry( participant: String, score: int ):
+func add_entry( participant: String, score: int ) -> int:
 	var ne = LeaderboardEntry.new( participant, score )
 	var p = self._entries.size()
 	for i in range( 0, self._entries.size() ):
@@ -47,6 +47,11 @@ func add_entry( participant: String, score: int ):
 	if self._max_entries > 0:
 		while self._entries.size() > self._max_entries:
 			self._entries.pop_back()
+	
+	if p >= self._max_entries:
+		p = -1
+		
+	return p
 
 func entries() -> Array[ LeaderboardEntry ]:
 	return self._entries

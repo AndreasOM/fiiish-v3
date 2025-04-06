@@ -16,18 +16,28 @@ var _bestDistance: int = 0
 var _coinsGained: EasedInteger = null
 var _distanceGained: EasedInteger = null
 
+var _was_best_distance: bool = false
+
+var _coins_start_time: float = 0.0
+var _coins_end_time: float = 0.0
+var _distance_start_time: float = 0.0
+var _distance_end_time: float = 0.0
+
 func _ready() -> void:
 	coinsResultRow.clear()
 	distanceResultRow.clear()
 	bestDistanceResultRow.clear()
 	totalDistanceResultRow.clear()
 
-func set_game( game: Game):
-	self.game = game
+func set_game( g: Game):
+	self.game = g
 
 func _process(delta: float) -> void:
 	if _coinsGained != null:
+		var was_distance_started = _time > self._distance_start_time
 		_time += delta
+		var is_distance_started = _time > self._distance_start_time
+		var distance_started = !was_distance_started && is_distance_started
 		
 		var coinsGained = _coinsGained.get_for_time(_time)
 		if (coinsGained != 0):
@@ -50,14 +60,24 @@ func _process(delta: float) -> void:
 		var bestDistance = max(distance, _bestDistance)
 		bestDistanceResultRow.setTotal("%d m" % bestDistance)
 
+		if distance_started:
+			distanceResultRow.was_best = _was_best_distance
+			bestDistanceResultRow.was_best = _was_best_distance 
+			
 		var totalDistance = _totalDistanceTarget - distanceGained
 		totalDistanceResultRow.setTotal("%d m" % totalDistance)
 
 func _prepare_results():
 	var game_manager = game.get_game_manager()
 	var player = game.get_player()
-	var coins = game_manager.coins()
-	var distance = game_manager.distance_in_m()
+	# var coins = game_manager.coins()
+	# var distance = game_manager.distance_in_m()
+
+	var coins = player.lastCoins()
+	var distance = player.lastDistance()
+
+	var first_ranks = player.get_first_ranks_on_last_leaderboard_update()
+	_was_best_distance = first_ranks.has( LeaderboardTypes.Type.LOCAL_DISTANCE )
 	
 	_time = 0.0
 	var start_time = 0.0
@@ -68,12 +88,22 @@ func _prepare_results():
 	var start_distance = player.totalDistance();
 	_bestDistance = player.bestDistance();
 	
-	_coinsGained = EasedInteger.new(start_time, end_time-0.3*duration, coins, 0,
-		EasedInteger.EasingFunction.IN_OUT_CUBIC)
+	self._coins_start_time = start_time
+	self._coins_end_time = end_time-0.3*duration
+	_coinsGained = EasedInteger.new(
+		self._coins_start_time, self._coins_end_time,
+		coins, 0,
+		EasedInteger.EasingFunction.IN_OUT_CUBIC
+	)
 	_coinsTarget = start_coins + coins
 
-	_distanceGained = EasedInteger.new(start_time+0.3*duration, end_time, distance, 0,
-		EasedInteger.EasingFunction.IN_OUT_CUBIC);
+	self._distance_start_time = start_time+0.3*duration
+	self._distance_end_time = end_time
+	_distanceGained = EasedInteger.new(
+		self._distance_start_time, self._distance_end_time,
+		distance, 0,
+		EasedInteger.EasingFunction.IN_OUT_CUBIC
+	);
 	_distanceTarget = distance;
 	_totalDistanceTarget = start_distance + distance
 	
@@ -81,6 +111,12 @@ func _prepare_results():
 	distanceResultRow.clear()
 	bestDistanceResultRow.clear()
 	totalDistanceResultRow.clear()
+	
+	distanceResultRow.duration = _distance_end_time-_distance_start_time
+	bestDistanceResultRow.duration = _distance_end_time-_distance_start_time
+	# distanceResultRow.was_best = _was_best_distance
+	# bestDistanceResultRow.was_best = _was_best_distance 
+	
 	
 func toggle( duration: float ):
 	toggle_fade( duration )

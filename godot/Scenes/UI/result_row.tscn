@@ -6,13 +6,14 @@
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_obxuq")
+duration = 1.5
 totalLabel = NodePath("TotalLabel")
 currentLabel = NodePath("CurrentLabel")
 
 [node name="TotalLabel" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"ResultLabel"
+theme_type_variation = &"BestResultLabel"
 text = "Total"
 horizontal_alignment = 2
 
