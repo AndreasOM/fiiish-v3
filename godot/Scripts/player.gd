@@ -62,6 +62,7 @@ func reset():
 func reset_local_leaderboards():
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_COINS)
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_DISTANCE)
+	_bestDistance = 0
 	_isDirty = true
 	
 func save():
