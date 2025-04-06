@@ -28,8 +28,12 @@ var _isMainMenuEnabled: bool = false
 var _cheats: Dictionary[ CheatIds.Id, bool ] = {}
 
 ## version 8
-var _leaderboards: Dictionary[ LeaderboardTypes.Type, Leaderboard ] = {}
 
+var _leaderboards: HashMap = HashMap.new(
+	LeaderboardTypes.Type.LOCAL_COINS,
+	func() -> Leaderboard:
+		return Leaderboard.new("NONE")
+)
 
 ## not serialized
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
@@ -37,6 +41,7 @@ var _lastCoins = 0
 
 static func get_save_path() -> String:
 	return "user://player.data"
+	
 	
 static func load() -> Player:
 	var p = get_save_path()
@@ -160,20 +165,7 @@ func serialize( s: Serializer ) -> bool:
 	if version < 8:
 		return true
 
-	var leaderboards_keys = _leaderboards.keys()
-	var number_of_leaderboards = leaderboards_keys.size()
-	number_of_leaderboards = s.serialize_u16( number_of_leaderboards )
-			
-	for idx in range(0,number_of_leaderboards):
-		var k = LeaderboardTypes.Type.NONE
-		var v = Leaderboard.new("NONE")
-		if idx < keys.size():
-			k = leaderboards_keys[ idx ]
-			v = _leaderboards.get( k, 0 )
-		k = s.serialize_u32( k )
-		v.serialize( s )
-		
-		_leaderboards[ k ] = v
+	_leaderboards.serialize( s )
 	
 	return true
 		
@@ -300,7 +292,7 @@ func disableCheat( id: CheatIds.Id ):
 	
 
 func get_leaderboard( type: LeaderboardTypes.Type ) -> Leaderboard:
-	return self._leaderboards.get( type )
+	return self._leaderboards.get_entry( type )
 	
 func update_leaderboards( coins: int, distance: int ) -> Array[ LeaderboardTypes.Type ]:
 	# var dt = Time.get_datetime_dict_from_system()
