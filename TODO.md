@@ -3,6 +3,8 @@
 ## In Progress
 
 
+- [ ] Polish: Visualise new highscore in ResultDialog
+
 
 ## Next
 
@@ -16,7 +18,6 @@
 - [ ] Task: Add serialize for dictionary
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
-	- [ ] Polish: Visualise new highscore in ResultDialog
 
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
