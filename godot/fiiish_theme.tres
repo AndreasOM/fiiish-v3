@@ -14,6 +14,12 @@ bg_color = Color(0, 0, 0, 0.501961)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dpako"]
 
 [resource]
+BestResultLabel/base_type = &"Label"
+BestResultLabel/colors/font_color = Color(0.2924, 0.7181, 0.86, 1)
+BestResultLabel/colors/font_outline_color = Color(0.44, 0.318267, 0.0748, 1)
+BestResultLabel/constants/outline_size = 10
+BestResultLabel/font_sizes/font_size = 64
+BestResultLabel/fonts/font = ExtResource("1_wkw6o")
 DeveloperConsoleLabel/base_type = &"RichTextLabel"
 DeveloperConsoleLabel/colors/default_color = Color(0, 0.582466, 0, 1)
 DeveloperConsoleLabel/font_sizes/normal_font_size = 32
@@ -47,6 +53,7 @@ MainMenuRichTextLabel/constants/outline_size = 5
 MainMenuRichTextLabel/font_sizes/normal_font_size = 64
 MainMenuRichTextLabel/fonts/normal_font = ExtResource("1_wkw6o")
 ResultLabel/base_type = &"Label"
+ResultLabel/colors/font_color = Color(1, 1, 1, 1)
 ResultLabel/font_sizes/font_size = 64
 ResultLabel/fonts/font = ExtResource("1_wkw6o")
 SkillsAmountLabel/base_type = &"Label"

@@ -82,6 +82,7 @@ func is_alive() -> bool:
 	match state:
 		Game.State.WAITING_FOR_START:	return false;
 		Game.State.SWIMMING:        		return true;
+		Game.State.KILLED:           		return false;
 		Game.State.DYING:           		return false;
 		Game.State.DEAD:            		return false;
 		Game.State.RESPAWNING:      		return false;
@@ -96,6 +97,9 @@ func _goto_swimming():
 	_set_state( Game.State.SWIMMING )
 	%GameManager.spawn_zone()
 	%GameManager.resume()
+	
+func _goto_killed() -> void:
+	_set_state( Game.State.KILLED )
 	
 func _goto_dying() -> void:
 	#set_acceleration(Vector2( 0.0, -9.81*100.0 ))
@@ -146,14 +150,16 @@ func _process(delta: float) -> void:
 			_set_state(Game.State.WAITING_FOR_START)
 		Game.State.SWIMMING:
 			if Input.is_key_pressed(KEY_K):
-				_goto_dying()
+				# _goto_dying()
+				_goto_killed()
 			if _magnet_boost_duration > 0.0:
 				_magnet_boost_duration -= delta
 				if _magnet_boost_duration < 0.0:
 					_magnet_boost_duration = 0.0
 					_magnet_range_boost = 1.0
 					_magnet_speed_boost = 1.0
-
+		Game.State.KILLED:
+			_goto_dying()
 		
 func _physics_process(delta: float) -> void:
 	match self.state:
@@ -233,7 +239,8 @@ func _on_area_2d_area_entered(_area: Area2D) -> void:
 		await get_tree().create_timer(0.25).timeout
 		self.modulate = self.invincible_color
 		return
-	_goto_dying()
+	# _goto_dying()
+	_goto_killed()
 	pass # Replace with function body.
 
 #func apply_skills( player: Player, scm: SkillConfigManager ):

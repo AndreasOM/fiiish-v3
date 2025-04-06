@@ -30,6 +30,11 @@ var _cheats: Dictionary[ CheatIds.Id, bool ] = {}
 ## version 8
 var _leaderboards: Dictionary[ LeaderboardTypes.Type, Leaderboard ] = {}
 
+
+## not serialized
+var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
+var _lastCoins = 0
+
 static func get_save_path() -> String:
 	return "user://player.data"
 	
@@ -175,6 +180,9 @@ func serialize( s: Serializer ) -> bool:
 func coins() -> int:
 	return _coins
 	
+func lastCoins() -> int:
+	return _lastCoins
+
 func lastDistance() -> int:
 	return _lastDistance
 	
@@ -219,6 +227,7 @@ func disableSound():
 			
 func give_coins( amount: int ):
 	_coins += amount
+	_lastCoins = amount
 	
 func spend_coins( amount: int, _reason: String ) -> bool:
 	if _coins < amount:
@@ -293,12 +302,23 @@ func disableCheat( id: CheatIds.Id ):
 func get_leaderboard( type: LeaderboardTypes.Type ) -> Leaderboard:
 	return self._leaderboards.get( type )
 	
-func update_leaderboards( coins: int, distance: int ):
+func update_leaderboards( coins: int, distance: int ) -> Array[ LeaderboardTypes.Type ]:
 	# var dt = Time.get_datetime_dict_from_system()
 	# var p = "%dddd" % [ dt[ "year"]]
+	var first_ranks: Array[ LeaderboardTypes.Type ] = []
 	var p = Time.get_datetime_string_from_system( false, true )
 	var lc = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_COINS, Leaderboard.new( "Local Coins", 20 ) )
-	lc.add_entry( p, coins )
+	var coin_rank = lc.add_entry( p, coins )
+	if coin_rank == 0:
+		first_ranks.push_back( LeaderboardTypes.Type.LOCAL_COINS )
 
 	var ld = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_DISTANCE, Leaderboard.new( "Local Distance", 20 ) )
-	ld.add_entry( p, distance )
+	var distance_rank = ld.add_entry( p, distance )
+	if distance_rank == 0:
+		first_ranks.push_back( LeaderboardTypes.Type.LOCAL_DISTANCE )
+
+	self._first_ranks_on_last_leaderboard_update = first_ranks
+	return first_ranks
+
+func get_first_ranks_on_last_leaderboard_update() -> Array[ LeaderboardTypes.Type ]:
+	return self._first_ranks_on_last_leaderboard_update

@@ -7,6 +7,7 @@ enum State {
 	INITIAL,
 	WAITING_FOR_START,
 	SWIMMING,
+	KILLED,
 	DYING,
 	DEAD,
 	RESPAWNING,
@@ -20,6 +21,8 @@ static func state_to_name( state: Game.State) -> String:
 			return "WAITING_FOR_START"
 		Game.State.SWIMMING:
 			return "SWIMMING"
+		Game.State.KILLED:
+			return "KILLED"
 		Game.State.DYING:
 			return "DYING"
 		Game.State.DEAD:
@@ -94,7 +97,8 @@ func _on_fish_state_changed(state: Game.State) -> void:
 	state_changed.emit( state )
 	self._state = state
 	match state:
-		State.DYING:
+		# State.DYING:
+		State.KILLED:
 			if _player.isSoundEnabled():
 				soundManager.trigger_effect( SoundEffect.FISH_DEATH )
 				soundManager.trigger_effect( SoundEffect.BUBBLE_BLAST_LOOP )
