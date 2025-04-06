@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [x] ~Task: Add serialize for dictionary~
 
 
 ## Next
@@ -13,6 +12,10 @@
 
 
 ## V3.4.0
+
+- [ ] Refactor: Move HashMap serialization into HashMap
+- [ ] Refactor: Create HashSet, and use it for Player Cheats
+- [ ] Refactor: Create generic SerializableU16
 
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
@@ -29,7 +32,6 @@
 
 - [ ] Task: Allow opening of DeveloperConsole without keyboard
 
-- [ ] Task: Add job to trigger all builds on tag
 
 - [ ] Polish: Use AnimationPlayer for result display
 
@@ -37,6 +39,8 @@
 
 
 ## Later
+
+- [ ] Task: Add job to trigger all builds on tag (Maybe not?!)
 
 - [ ] Task: Document and refactor Dialog lifecycle
 - [ ] Task: Create generic FrameDialog (e.g. SkillUpgrade and Leaderboard)
@@ -68,6 +72,7 @@
 - [x] Polish: Open LeaderboardDialog from ResultDialog
 - [x] Task: Add cheat to reset local highscores
 - [x] Polish: Visualise new highscore in ResultDialog
+- [+] ~Task: Add serialize for dictionary~ (see next below)
 - [x] Task: Create custom HashMap (based on Dictionary) with serialize method
 
 ### 2025-04-05
