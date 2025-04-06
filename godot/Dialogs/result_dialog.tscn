@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0rj0pswt334s"]
+[gd_scene load_steps=7 format=3 uid="uid://d0rj0pswt334s"]
 
 [ext_resource type="Script" uid="uid://d0npyqj022upw" path="res://Scenes/result_dialog.gd" id="1_wlxjo"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_g40ym"]
 [ext_resource type="Texture2D" uid="uid://uhorwvm6i0mq" path="res://Textures/UI/screen_frame.png" id="3_dssl3"]
 [ext_resource type="PackedScene" uid="uid://ch18db020xqmp" path="res://Scenes/UI/result_row.tscn" id="4_sjgyn"]
 [ext_resource type="Texture2D" uid="uid://l3vyvg8q35ki" path="res://Textures/UI/Buttons/button_fiiish.png" id="5_8gynd"]
+[ext_resource type="Texture2D" uid="uid://liei0p04c4l6" path="res://Textures/UI/Buttons/button_leaderboard.png" id="6_848gl"]
 
 [node name="ResultDialog" type="Control" node_paths=PackedStringArray("coinsResultRow", "distanceResultRow", "bestDistanceResultRow", "totalDistanceResultRow")]
 layout_mode = 3
@@ -73,8 +74,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 710
+theme_override_constants/margin_left = 122
+theme_override_constants/margin_top = 703
 theme_override_constants/margin_right = 470
 theme_override_constants/margin_bottom = 190
 
@@ -83,12 +84,22 @@ visible = false
 layout_mode = 2
 color = Color(0.627451, 0.184314, 0.972549, 0.482353)
 
-[node name="SkillUpgradeButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
 layout_mode = 2
+
+[node name="SkillUpgradeButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 texture_normal = ExtResource("5_8gynd")
+
+[node name="LeaderboardButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("6_848gl")
 
 [connection signal="on_faded_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_in"]
 [connection signal="on_faded_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_out"]
 [connection signal="on_fading_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_in"]
 [connection signal="on_fading_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_out"]
-[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
