@@ -15,8 +15,8 @@
 - [ ] Task: Add serialize for dictionary
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
-	- [ ] Polish: Open LeaderboardDialog from ResultDialog
 	- [ ] Polish: Visualise new highscore in ResultDialog
+	- [ ] Task: Add cheat to reset local highscores
 
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
@@ -58,6 +58,10 @@
 - [?] Cleanup: Move pause/resume handling fully into game
 
 ## Done
+
+### 2025-04-06
+#### S03E013
+- [x] Polish: Open LeaderboardDialog from ResultDialog
 
 ### 2025-04-05
 #### S03E012
