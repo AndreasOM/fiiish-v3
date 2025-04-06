@@ -59,6 +59,11 @@ func reset():
 	_skill_points_used = 0
 	_skills = {}
 	
+func reset_local_leaderboards():
+	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_COINS)
+	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_DISTANCE)
+	_isDirty = true
+	
 func save():
 	var p = get_save_path()
 	print("Saving player to %s" % p)
