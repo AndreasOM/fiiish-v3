@@ -1,4 +1,4 @@
-class_name DeveloperCommandResetPlayer extends DeveloperCommand
+class_name DeveloperCommandGiveCoins1000 extends DeveloperCommand
 
 func syntax() -> String:
 	return "give_coins_1000"

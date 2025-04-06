@@ -3,6 +3,7 @@
 ## In Progress
 
 
+
 ## Next
 
 - [ ] Polish: Improve shop and confirmation background
@@ -16,7 +17,6 @@
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
 	- [ ] Polish: Visualise new highscore in ResultDialog
-	- [ ] Task: Add cheat to reset local highscores
 
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
@@ -62,6 +62,7 @@
 ### 2025-04-06
 #### S03E013
 - [x] Polish: Open LeaderboardDialog from ResultDialog
+- [x] Task: Add cheat to reset local highscores
 
 ### 2025-04-05
 #### S03E012
