@@ -18,8 +18,14 @@ var _skill_points_used: int = 0
 
 ## version 5
 
-var _skills = {
-}
+#var _skills = {
+#}
+
+var _skills: HashMap = HashMap.new(
+	SkillIds.Id.NONE,
+	func() -> SkillLevel:
+		return SkillLevel.new( 0 )
+)
 
 ## version 6
 var _isMainMenuEnabled: bool = false
@@ -67,7 +73,7 @@ func reset():
 	_playCount = 0
 	_skill_points_gained = 0
 	_skill_points_used = 0
-	_skills = {}
+	_skills.clear()
 	
 func reset_local_leaderboards():
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_COINS)
@@ -119,25 +125,8 @@ func serialize( s: Serializer ) -> bool:
 	if version < 5:
 		return true
 		
-	var keys = _skills.keys()
-	var number_of_skills = keys.size()
-	number_of_skills = s.serialize_u16( number_of_skills )
+	_skills.serialize( s )
 	
-	for idx in range(0,number_of_skills):
-		var k = SkillEffectIds.Id.NONE
-		var v = 0
-		if idx < keys.size():
-			k = keys[ idx ]
-			v = _skills.get( k, 0 )
-		k = s.serialize_u32( k )
-		v = s.serialize_u16( v )
-		
-		_skills[ k ] = v
-	
-	# :TODO: cleanup old skills
-#	reset_skills()
-#	_skill_points_gained = 0
-
 	# version 6
 	if version < 6:
 		return true
@@ -254,13 +243,13 @@ func use_skill_points( amount: int, _reason: String ) -> bool:
 	return true
 	
 func get_skill_level( id: SkillIds.Id ) -> int:
-	return _skills.get( id, 0 )
+	return _skills.get_entry( id, SkillLevel.new( 0 ) ).get_value()
 	
 func set_skill_level( id: SkillIds.Id, level: int ):
-	_skills[ id ] = level
+	_skills.set_entry( id, SkillLevel.new( level ) )
 	
 func reset_skills():
-	_skills = {}
+	_skills.clear()
 	_skill_points_used = 0
 
 
