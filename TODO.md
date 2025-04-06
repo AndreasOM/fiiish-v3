@@ -2,6 +2,8 @@
 
 ## In Progress
 
+- [x] ~Task: Add serialize for dictionary~
+
 
 ## Next
 
@@ -12,7 +14,6 @@
 
 ## V3.4.0
 
-- [ ] Task: Add serialize for dictionary
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
 	- [ ] Polish: Highlight last rank
@@ -67,6 +68,7 @@
 - [x] Polish: Open LeaderboardDialog from ResultDialog
 - [x] Task: Add cheat to reset local highscores
 - [x] Polish: Visualise new highscore in ResultDialog
+- [x] Task: Create custom HashMap (based on Dictionary) with serialize method
 
 ### 2025-04-05
 #### S03E012

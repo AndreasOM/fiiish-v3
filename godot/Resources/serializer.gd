@@ -26,7 +26,7 @@ func load_file(path: String) -> bool:
 	return true
 	
 func save_file(path:String) -> bool:
-	
+	# return false
 	#for i in self._data.size():
 	#	var b = self._data[ i ]
 	#	print("%02x" % b )
@@ -164,3 +164,48 @@ func serialize_array( a: Array, constructor: Callable ) -> Array:
 			a[ i ] = e
 		
 	return a
+
+#	var leaderboards_keys = _leaderboards.keys()
+#	var number_of_leaderboards = leaderboards_keys.size()
+#	number_of_leaderboards = s.serialize_u16( number_of_leaderboards )
+			
+#	for idx in range(0,number_of_leaderboards):
+#		var k = LeaderboardTypes.Type.NONE
+#		var v = Leaderboard.new("NONE")
+#		if idx < keys.size():
+#			k = leaderboards_keys[ idx ]
+#			v = _leaderboards.get( k, 0 )
+#		k = s.serialize_u32( k )
+#		v.serialize( s )
+#		
+#		_leaderboards[ k ] = v
+
+func serialize_hash_map( d: HashMap, default_key: int, constructor: Callable ):
+	var l = d.size()
+	l = self.serialize_u16( l )
+	
+	if _mode == Mode.Write:
+#		push_error("serialize_hash_map WRITE not implemented")
+		for k in d.keys():
+			k = self.serialize_u32( k )
+			var v = d.get_entry( k )
+			if v.has_method( "serialize" ):
+				v.serialize( self )
+			else:
+				push_error( "Can not serialize (write) %s" % v )
+			
+			pass
+	else:
+		# d = HashMap.new()
+		d.clear()
+		for i in range(0, l):
+			var k = default_key
+			k = self.serialize_u32( k )
+			var e = constructor.call()
+			if e.has_method( "serialize" ):
+				e.serialize( self )
+			else:
+				push_error( "Can not serialize (read) %s" % e )
+				
+			# d[ k ] = e
+			d.set_entry( k, e )
