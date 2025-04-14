@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Polish: Highlight last rank on local Leaderboard
 
 
 ## Next
@@ -16,7 +15,7 @@
 
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
-	- [ ] Bonus: Special highlight if last rank was first rank
+	- [ ] Bonus: Special highlight if latest rank was first rank
 
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
@@ -71,6 +70,7 @@
 - [x] Refactor: Create SerializableArray, and use it for Leaderboards
 - [x] Refactor: Add ChunkMagic handling to Serializer
 - [x] Refactor: Consider using HashMap for Zone loader
+- [x] Polish: Highlight latest rank on local Leaderboard
 
 ### 2025-04-06
 #### S03E013
