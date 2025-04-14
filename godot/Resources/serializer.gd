@@ -143,3 +143,12 @@ func serialize_fixed_string( l: int, v: String ) -> String:
 		
 		self._pos += l
 		return r
+
+func serialize_chunk_magic( chunk_magic: Array ) -> bool:
+	for m in chunk_magic:
+		var b: int = m;
+		b = self.serialize_u8( b )
+		if b != m:
+			return false
+	
+	return true

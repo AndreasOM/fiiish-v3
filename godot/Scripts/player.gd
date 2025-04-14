@@ -91,15 +91,11 @@ func save():
 	s.save_file(p)
 
 func serialize( s: Serializer ) -> bool:
-	var chunk_magic = [0x4f, 0x4d, 0x46, 0x49, 0x49, 0x49, 0x53, 0x48]
-	
-	for m in chunk_magic:
-		var b: int = m;
-		b = s.serialize_u8( b )
-		if b != m:
-			push_error( "Broken chunk magic")
-			return false
 
+	if !s.serialize_chunk_magic( [0x4f, 0x4d, 0x46, 0x49, 0x49, 0x49, 0x53, 0x48] ):
+		push_error( "Broken chunk magic")
+		return false
+		
 	var version: int = current_version;
 	version = s.serialize_u16( version )
 	if version < oldest_supported_version:

@@ -3,7 +3,6 @@
 ## In Progress
 
 
-
 ## Next
 
 - [ ] Polish: Improve shop and confirmation background
@@ -71,6 +70,7 @@
 - [x] Refactor: Move HashMap serialization into HashMap
 - [x] Refactor: Create HashSet, and use it for Player Cheats
 - [x] Refactor: Create SerializableArray, and use it for Leaderboards
+- [x] Refactor: Add ChunkMagic handling to Serializer
 
 ### 2025-04-06
 #### S03E013

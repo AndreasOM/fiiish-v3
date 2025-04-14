@@ -39,15 +39,10 @@ func _load(_path: String, original_path: String, _use_sub_threads: bool, _cache_
 	if version != 1:
 		push_error("Unsupported version %04x" % version )
 		return n
-		
-	var chunk_magic = [0x46, 0x49, 0x53, 0x48, 0x4e, 0x5a, 0x4e]
-	
-	for m in chunk_magic:
-		var b: int = 0;
-		b = s.serialize_u8( b )
-		if b != m:
-			push_error( "Broken chunk magic")
-			return n
+
+	if !s.serialize_chunk_magic( [0x46, 0x49, 0x53, 0x48, 0x4e, 0x5a, 0x4e] ):
+		push_error( "Broken chunk magic")
+		return false
 
 	var flags = 0;
 	flags = s.serialize_u8( flags )
