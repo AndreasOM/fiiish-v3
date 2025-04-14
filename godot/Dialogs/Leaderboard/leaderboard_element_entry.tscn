@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2xm0vlckmpf"]
+[gd_scene load_steps=3 format=3 uid="uid://c2xm0vlckmpf"]
 
 [ext_resource type="Script" uid="uid://bnasd4jkdfait" path="res://Dialogs/Leaderboard/leaderboard_element_entry.gd" id="1_4b235"]
+[ext_resource type="Script" uid="uid://ci1v0aorwk2ti" path="res://Dialogs/Leaderboard/highlight_label.gd" id="2_7xh3r"]
 
 [node name="LeaderboardEntry" type="MarginContainer"]
 anchors_preset = 8
@@ -15,7 +16,6 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4b235")
-was_latest = true
 duration = 0.6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -28,9 +28,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_type_variation = &"LeaderboardEntryLabel"
-theme_override_colors/font_color = Color(0.257829, 0.605932, 0.865438, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "100000000."
 horizontal_alignment = 2
+script = ExtResource("2_7xh3r")
+variation_normal = &"LeaderboardEntryLabel"
+variation_highlighted = &"BestLeaderboardEntryLabel"
+metadata/_custom_type_script = "uid://ci1v0aorwk2ti"
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/RankLabel"]
 visible = false
@@ -48,8 +52,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = &"LeaderboardEntryLabel"
-theme_override_colors/font_color = Color(0.257829, 0.605932, 0.865438, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "2025-04-04 20:40"
+script = ExtResource("2_7xh3r")
+variation_normal = &"LeaderboardEntryLabel"
+variation_highlighted = &"BestLeaderboardEntryLabel"
+metadata/_custom_type_script = "uid://ci1v0aorwk2ti"
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/ParticipantLabel"]
 visible = false
@@ -67,9 +75,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.75
 theme_type_variation = &"LeadboardEntryScoreLabel"
-theme_override_colors/font_color = Color(0.257829, 0.605932, 0.865438, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "500"
 horizontal_alignment = 2
+script = ExtResource("2_7xh3r")
+variation_normal = &"LeaderboardEntryLabel"
+variation_highlighted = &"BestLeaderboardEntryLabel"
+metadata/_custom_type_script = "uid://ci1v0aorwk2ti"
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/ScoreLabel"]
 visible = false
