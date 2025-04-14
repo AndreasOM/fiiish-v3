@@ -10,6 +10,9 @@ var _entries: SerializableArray = SerializableArray.new(
 		return LeaderboardEntry.new("", 0)
 )
 
+# not serialized!
+var _last_added_entry_position = -1
+
 func _init( name: String, max_entries: int = 0 ):
 	self._name = name
 	self._max_entries = max_entries
@@ -54,7 +57,11 @@ func add_entry( participant: String, score: int ) -> int:
 	if p >= self._max_entries:
 		p = -1
 		
+	self._last_added_entry_position = p
 	return p
 
+func last_added_entry_position() -> int:
+	return self._last_added_entry_position
+	
 func entries() -> SerializableArray:
 	return self._entries

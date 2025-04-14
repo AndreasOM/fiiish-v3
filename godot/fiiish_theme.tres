@@ -14,6 +14,16 @@ bg_color = Color(0, 0, 0, 0.501961)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dpako"]
 
 [resource]
+BestLeaderboardEntryLabel/base_type = &"Label"
+BestLeaderboardEntryLabel/colors/font_color = Color(0.257829, 0.605932, 0.865438, 1)
+BestLeaderboardEntryLabel/colors/font_outline_color = Color(0.676718, 0.375363, 0.0384003, 1)
+BestLeaderboardEntryLabel/constants/outline_size = 10
+BestLeaderboardEntryLabel/font_sizes/font_size = 48
+BestLeaderboardEntryLabel/fonts/font = ExtResource("1_wkw6o")
+BestLeaderboardEntryScore/base_type = &"Label"
+BestLeaderboardEntryScore/colors/font_color = Color(0.460765, 0.706248, 0.997348, 1)
+BestLeaderboardEntryScore/font_sizes/font_size = 48
+BestLeaderboardEntryScore/fonts/font = ExtResource("1_wkw6o")
 BestResultLabel/base_type = &"Label"
 BestResultLabel/colors/font_color = Color(0.2924, 0.7181, 0.86, 1)
 BestResultLabel/colors/font_outline_color = Color(0.44, 0.318267, 0.0748, 1)
@@ -43,9 +53,11 @@ InfoRichTextLabel/constants/shadow_outline_size = 5
 InfoRichTextLabel/font_sizes/normal_font_size = 32
 InfoRichTextLabel/fonts/normal_font = ExtResource("1_wkw6o")
 LeadboardEntryScoreLabel/base_type = &"Label"
+LeadboardEntryScoreLabel/colors/font_color = Color(1, 1, 1, 1)
 LeadboardEntryScoreLabel/font_sizes/font_size = 42
 LeadboardEntryScoreLabel/fonts/font = ExtResource("1_wkw6o")
 LeaderboardEntryLabel/base_type = &"Label"
+LeaderboardEntryLabel/colors/font_color = Color(1, 1, 1, 1)
 LeaderboardEntryLabel/font_sizes/font_size = 48
 LeaderboardEntryLabel/fonts/font = ExtResource("1_wkw6o")
 MainMenuRichTextLabel/base_type = &"RichTextLabel"
