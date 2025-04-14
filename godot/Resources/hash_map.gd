@@ -11,10 +11,25 @@ func _init( default_key: int, default_constructor: Callable ):
 		push_warning("HashMap: default_constructor.is_null()")
 	_default_key = default_key
 	_default_constructor = default_constructor
-	
+
 func serialize( s: Serializer ):
-	s.serialize_hash_map( self, _default_key, _default_constructor )
+	var keys = self.keys()
+	var number = keys.size()
+	number = s.serialize_u16( number )
 	
+	for idx in range(0,number):
+		var k = _default_key
+		var v = _default_constructor.call()
+		if idx < keys.size():
+			k = keys[ idx ]
+			v = self.get_entry( k, v )
+		k = s.serialize_u32( k )
+		if v.has_method( "serialize" ):
+			v.serialize( s )
+		else:
+			push_error( "Can not serialize %s" % v )
+		self.set_entry( k, v )
+
 func size() -> int:
 	return _data.size()
 	

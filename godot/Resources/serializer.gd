@@ -179,33 +179,3 @@ func serialize_array( a: Array, constructor: Callable ) -> Array:
 #		v.serialize( s )
 #		
 #		_leaderboards[ k ] = v
-
-func serialize_hash_map( d: HashMap, default_key: int, constructor: Callable ):
-	var l = d.size()
-	l = self.serialize_u16( l )
-	
-	if _mode == Mode.Write:
-#		push_error("serialize_hash_map WRITE not implemented")
-		for k in d.keys():
-			k = self.serialize_u32( k )
-			var v = d.get_entry( k )
-			if v.has_method( "serialize" ):
-				v.serialize( self )
-			else:
-				push_error( "Can not serialize (write) %s" % v )
-			
-			pass
-	else:
-		# d = HashMap.new()
-		d.clear()
-		for i in range(0, l):
-			var k = default_key
-			k = self.serialize_u32( k )
-			var e = constructor.call()
-			if e.has_method( "serialize" ):
-				e.serialize( self )
-			else:
-				push_error( "Can not serialize (read) %s" % e )
-				
-			# d[ k ] = e
-			d.set_entry( k, e )
