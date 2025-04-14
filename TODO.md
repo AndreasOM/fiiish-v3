@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Refactor: Consider using HashMap for Zone loader
 
 ## Next
 
@@ -12,7 +13,6 @@
 
 ## V3.4.0
 
-- [ ] Refactor: Consider using HashMap for Zone loader
 
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
