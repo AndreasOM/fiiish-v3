@@ -31,7 +31,7 @@ var _skills: HashMap = HashMap.new(
 var _isMainMenuEnabled: bool = false
 
 ## version 7
-var _cheats: Dictionary[ CheatIds.Id, bool ] = {}
+var _cheats: SerializableHashSet = SerializableHashSet.new( CheatIds.Id.NONE )
 
 ## version 8
 
@@ -137,19 +137,8 @@ func serialize( s: Serializer ) -> bool:
 	if version < 7:
 		return true
 		
-	var cheat_keys = _cheats.keys()
-	var number_of_cheats = cheat_keys.size()
-	number_of_cheats = s.serialize_u16( number_of_cheats )
+	_cheats.serialize( s )
 	
-	for idx in range(0,number_of_cheats):
-		var k = CheatIds.Id.NONE
-		if idx < cheat_keys.size():
-			k = cheat_keys[ idx ]
-		# print("CHEAT: %d %d/%d" % [ k, idx, number_of_cheats ] )
-		k = s.serialize_u32( k )
-		# print("CHEAT: %d %d/%d" % [ k, idx, number_of_cheats ] )
-		_cheats[ k ] = true
-
 	# version 8
 	if version < 8:
 		return true
@@ -274,7 +263,7 @@ func isCheatEnabled( id: CheatIds.Id ) -> bool:
 	return _cheats.has( id )
 	
 func enableCheat( id: CheatIds.Id ):
-	self._cheats[ id ] = true
+	self._cheats.add_entry( id )
 
 func disableCheat( id: CheatIds.Id ):
 	self._cheats.erase( id )
