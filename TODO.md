@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Refactor: Consider using HashMap for Zone loader
 
 ## Next
 
@@ -71,6 +70,7 @@
 - [x] Refactor: Create HashSet, and use it for Player Cheats
 - [x] Refactor: Create SerializableArray, and use it for Leaderboards
 - [x] Refactor: Add ChunkMagic handling to Serializer
+- [x] Refactor: Consider using HashMap for Zone loader
 
 ### 2025-04-06
 #### S03E013
