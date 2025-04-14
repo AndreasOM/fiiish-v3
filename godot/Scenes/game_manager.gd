@@ -356,9 +356,9 @@ func spawn_zone():
 		self._current_zone = zone
 		self.zone_changed.emit( zone.name)
 		Events.broadcast_zone_changed( zone )
-		for l in zone.layers:
+		for l in zone.layers.iter():
 			if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
-				for obj in l.objects:
+				for obj in l.objects.iter():
 	
 	
 					var o = null

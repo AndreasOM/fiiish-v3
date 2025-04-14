@@ -83,30 +83,6 @@ func _load(_path: String, original_path: String, _use_sub_threads: bool, _cache_
 		#self.size.x = f.read_f32();
 		#self.size.y = f.read_f32();
 
-	var layer_count = 0
-	layer_count = s.serialize_u16( layer_count )
-
-	for l in range(layer_count):
-		var layer = NewZoneLayer.new()
-		# :TODO: layer.serialize( s )	
-		# var layer_name: String = ""
-		layer.name = s.serialize_fixed_string( 16, layer.name )	
-		# print( "Layer Name: ", layer.name )
-		var object_count = 0
-		object_count = s.serialize_u16( layer_count )
-		for o in range(object_count):
-			var object = NewZoneLayerObject.new()
-			# var o_id = 0;
-			
-			object.id = s.serialize_u16( object.id )
-			object.crc = s.serialize_u32( object.crc )
-			object.pos_x = s.serialize_f32( object.pos_x )
-			object.pos_y = s.serialize_f32( object.pos_y )
-			object.pos_y = -object.pos_y # :HACK:
-			object.rotation = s.serialize_f32( object.rotation )
-			
-			layer.objects.push_back( object )
-		
-		n.layers.push_back( layer )
+	n.layers.serialize( s )
 		
 	return n

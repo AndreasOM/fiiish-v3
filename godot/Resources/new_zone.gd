@@ -7,4 +7,7 @@ var width: float = 0.0
 var height: float = 0.0
 var difficulty: int = 0
 
-var layers: Array[ NewZoneLayer ] = []
+var layers: SerializableArray = SerializableArray.new(
+	func() -> NewZoneLayer:
+		return NewZoneLayer.new() 
+)

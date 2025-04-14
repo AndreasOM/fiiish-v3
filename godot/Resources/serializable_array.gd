@@ -46,3 +46,6 @@ func insert( pos: int, v: Variant ) -> int:
 
 func resize( s: int ) -> int:
 	return _data.resize( s )
+
+func iter() -> SerializableArrayIterator:
+	return SerializableArrayIterator.new( self, 0, self.size(), 1 )
