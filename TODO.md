@@ -2,6 +2,8 @@
 
 ## In Progress
 
+- [ ] Polish: Highlight last rank on local Leaderboard
+
 
 ## Next
 
@@ -13,9 +15,7 @@
 ## V3.4.0
 
 
-
 - [ ] Feature: Leaderboard (excl. backend, local only)
-	- [ ] Polish: Highlight last rank
 	- [ ] Bonus: Special highlight if last rank was first rank
 
 - [ ] Feature: Main Menu

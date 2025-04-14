@@ -14,6 +14,7 @@ func set_leaderboard( leaderboard: Leaderboard, score_formatter: Callable = Call
 	var ee = preload("res://Dialogs/Leaderboard/leaderboard_element_entry.tscn")
 
 	var es = leaderboard.entries()
+	var latest = leaderboard.last_added_entry_position()
 	for i in range(0, es.size()):
 		var e = es.get_entry( i )
 		var ei = ee.instantiate()
@@ -23,6 +24,8 @@ func set_leaderboard( leaderboard: Leaderboard, score_formatter: Callable = Call
 			ei.score = "%d" % e.score()
 		else:
 			ei.score = score_formatter.call( e.score() )
+			
+		ei.was_latest = latest == i
 			
 		%Entries.add_child(ei)
 		
