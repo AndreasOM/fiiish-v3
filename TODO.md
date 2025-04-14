@@ -13,7 +13,6 @@
 
 ## V3.4.0
 
-- [ ] Refactor: Create SerializableArray, and use it for Leaderboards
 - [ ] Refactor: Consider using HashMap for Zone loader
 
 
@@ -71,6 +70,7 @@
 #### S03E14
 - [x] Refactor: Move HashMap serialization into HashMap
 - [x] Refactor: Create HashSet, and use it for Player Cheats
+- [x] Refactor: Create SerializableArray, and use it for Leaderboards
 
 ### 2025-04-06
 #### S03E013

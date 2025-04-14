@@ -143,39 +143,3 @@ func serialize_fixed_string( l: int, v: String ) -> String:
 		
 		self._pos += l
 		return r
-
-func serialize_array( a: Array, constructor: Callable ) -> Array:
-	var l = a.size()
-	l = self.serialize_u16( l )
-	a.resize( l )
-	for i in range(0, l):
-		if _mode == Mode.Write:
-			var e = a.get( i )
-			if e.has_method( "serialize" ):
-				e.serialize( self )
-			else:
-				push_error( "Can not serialize (write) %s" % e )
-		else:
-			var e = constructor.call()
-			if e.has_method( "serialize" ):
-				e.serialize( self )
-			else:
-				push_error( "Can not serialize (read) %s" % e )
-			a[ i ] = e
-		
-	return a
-
-#	var leaderboards_keys = _leaderboards.keys()
-#	var number_of_leaderboards = leaderboards_keys.size()
-#	number_of_leaderboards = s.serialize_u16( number_of_leaderboards )
-			
-#	for idx in range(0,number_of_leaderboards):
-#		var k = LeaderboardTypes.Type.NONE
-#		var v = Leaderboard.new("NONE")
-#		if idx < keys.size():
-#			k = leaderboards_keys[ idx ]
-#			v = _leaderboards.get( k, 0 )
-#		k = s.serialize_u32( k )
-#		v.serialize( s )
-#		
-#		_leaderboards[ k ] = v

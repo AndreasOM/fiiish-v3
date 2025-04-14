@@ -15,7 +15,7 @@ func set_leaderboard( leaderboard: Leaderboard, score_formatter: Callable = Call
 
 	var es = leaderboard.entries()
 	for i in range(0, es.size()):
-		var e = es.get( i )
+		var e = es.get_entry( i )
 		var ei = ee.instantiate()
 		ei.rank = "%d." % ( i + 1 )
 		ei.participant = e.participant()

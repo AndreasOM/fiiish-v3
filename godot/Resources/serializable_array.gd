@@ -1,0 +1,48 @@
+class_name SerializableArray
+
+var _data: Array = []
+var _default_constructor: Callable = Callable()
+
+func _init( default_constructor: Callable ):
+	_default_constructor = default_constructor
+
+func serialize( s: Serializer ):
+	var l = self.size()
+	l = s.serialize_u16( l )
+	self.resize( l )
+	for i in range(0, l):
+		var	v = self.get_entry( i )
+		if v == null:
+			v = _default_constructor.call()
+		if v.has_method( "serialize" ):
+			v.serialize( s )
+		else:
+			push_error( "Can not serialize %s" % v )
+		self.set_entry( i, v )
+
+func size() -> int:
+	return _data.size()
+	
+func clear():
+	_data.clear()
+	
+func has( value: int ):
+	return _data.has( value )
+
+func get_entry( idx: int ) -> Variant:
+	return _data.get( idx )
+	
+func set_entry( idx: int, v: Variant ):
+	_data.set( idx, v )
+	
+func push_back( v: Variant ):
+	_data.push_back( v )
+	
+func pop_back() -> Variant:
+	return _data.pop_back()
+	
+func insert( pos: int, v: Variant ) -> int:
+	return _data.insert( pos, v )
+
+func resize( s: int ) -> int:
+	return _data.resize( s )
