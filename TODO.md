@@ -13,8 +13,6 @@
 
 ## V3.4.0
 
-- [ ] Refactor: Create HashSet, and use it for Player Cheats
-- [ ] Refactor: Create generic SerializableU16
 - [ ] Refactor: Create SerializableArray, and use it for Leaderboards
 - [ ] Refactor: Consider using HashMap for Zone loader
 
@@ -65,12 +63,14 @@
 - [+] ☠️ #unity Fix WebGL html wrapper template
 - [ ] Decide if ConfirmationDialog should block all other input
 - [?] Cleanup: Move pause/resume handling fully into game
+- [?] Refactor: Create generic SerializableU16
 
 ## Done
 
 ### 2025-04-14
 #### S03E14
 - [x] Refactor: Move HashMap serialization into HashMap
+- [x] Refactor: Create HashSet, and use it for Player Cheats
 
 ### 2025-04-06
 #### S03E013
