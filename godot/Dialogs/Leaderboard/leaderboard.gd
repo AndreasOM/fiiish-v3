@@ -5,7 +5,10 @@ const oldest_supported_version: int = 1
 
 var _name: String = ""
 var _max_entries: int = 0
-var _entries: Array[ LeaderboardEntry ] = []
+var _entries: SerializableArray = SerializableArray.new(
+	func() -> LeaderboardEntry:
+		return LeaderboardEntry.new("", 0)
+)
 
 func _init( name: String, max_entries: int = 0 ):
 	self._name = name
@@ -24,7 +27,7 @@ func serialize( s: Serializer ) -> bool:
 	var leaderboard_entry_constructor = func() -> LeaderboardEntry:
 		return LeaderboardEntry.new( "", 0 )
 
-	_entries = s.serialize_array( _entries, leaderboard_entry_constructor )
+	_entries.serialize( s )
 	
 	return false
 		
@@ -38,7 +41,7 @@ func add_entry( participant: String, score: int ) -> int:
 	var ne = LeaderboardEntry.new( participant, score )
 	var p = self._entries.size()
 	for i in range( 0, self._entries.size() ):
-		var e = self._entries.get( i )
+		var e = self._entries.get_entry( i )
 		if score > e.score():
 			p = i
 			break
@@ -53,5 +56,5 @@ func add_entry( participant: String, score: int ) -> int:
 		
 	return p
 
-func entries() -> Array[ LeaderboardEntry ]:
+func entries() -> SerializableArray:
 	return self._entries
