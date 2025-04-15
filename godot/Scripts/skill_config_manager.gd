@@ -150,7 +150,7 @@ func _init():
 	self.add( sc )
 
 func add( skill_config: SkillConfig ):
-	var id = skill_config.skill_id
+	var id = skill_config.skill_id()
 	self._skills[ id ] = skill_config
 	if !_skill_ids.has( id ):
 		_skill_ids.push_back( id )

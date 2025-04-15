@@ -13,15 +13,15 @@ func _init( default_key: int, default_constructor: Callable ):
 	_default_constructor = default_constructor
 
 func serialize( s: Serializer ):
-	var keys = self.keys()
-	var number = keys.size()
+	var the_keys = self.keys()
+	var number = the_keys.size()
 	number = s.serialize_u16( number )
 	
 	for idx in range(0,number):
 		var k = _default_key
 		var v = _default_constructor.call()
-		if idx < keys.size():
-			k = keys[ idx ]
+		if idx < the_keys.size():
+			k = the_keys[ idx ]
 			v = self.get_entry( k, v )
 		k = s.serialize_u32( k )
 		if v.has_method( "serialize" ):

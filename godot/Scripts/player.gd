@@ -268,13 +268,13 @@ func disableCheat( id: CheatIds.Id ):
 func get_leaderboard( type: LeaderboardTypes.Type ) -> Leaderboard:
 	return self._leaderboards.get_entry( type )
 	
-func update_leaderboards( coins: int, distance: int ) -> Array[ LeaderboardTypes.Type ]:
+func update_leaderboards( new_coins: int, distance: int ) -> Array[ LeaderboardTypes.Type ]:
 	# var dt = Time.get_datetime_dict_from_system()
 	# var p = "%dddd" % [ dt[ "year"]]
 	var first_ranks: Array[ LeaderboardTypes.Type ] = []
 	var p = Time.get_datetime_string_from_system( false, true )
 	var lc = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_COINS, Leaderboard.new( "Local Coins", 20 ) )
-	var coin_rank = lc.add_entry( p, coins )
+	var coin_rank = lc.add_entry( p, new_coins )
 	if coin_rank == 0:
 		first_ranks.push_back( LeaderboardTypes.Type.LOCAL_COINS )
 

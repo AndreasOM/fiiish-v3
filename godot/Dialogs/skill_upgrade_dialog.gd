@@ -37,7 +37,7 @@ func _regenerate_skill_upgrade_items():
 			continue
 		var sui = _skill_upgrade_item_scene.instantiate()
 		var s = sui as SkillUpgradeItem
-		s.skill_id = sc.skill_id
+		s.skill_id = sc.skill_id()
 		s.title = sc.name
 		s.maximum = sc.get_upgrade_levels()
 		s.connect("skill_buy_triggered", _on_skill_buy_triggered )

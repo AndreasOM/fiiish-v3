@@ -31,8 +31,12 @@ func _get_preferred_theme() -> Theme:
 		var theme = load(p) as Theme
 		if theme != null:
 			return theme
-			
-	return EditorInterface.get_editor_theme()
+
+	#if Engine.is_editor_hint():
+	#	return EditorInterface.get_editor_theme()
+	
+	push_warning("No theme found for %s" % self.name )	
+	return null
 	
 func _get_property_list() -> Array[Dictionary]:
 	var theme = _get_preferred_theme()
@@ -73,10 +77,15 @@ func _ready():
 
 func set_highlighted( h: bool ):
 	highlighted = h
-	if get_tree() != null:
+	if is_inside_tree():
+	# if get_tree() != null:
 		_update_look()
 
 func _update_look():
+	if !is_inside_tree():
+		push_warning("Not inside tree")
+		return
+		
 	var tree = get_tree()
 	var theme = _get_preferred_theme()
 	
