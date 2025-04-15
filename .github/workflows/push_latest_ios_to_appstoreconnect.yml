@@ -8,6 +8,13 @@ on:
         default: 'full'
         required: false
         type: string
+    outputs:
+      version:
+        description: "The version of the build"
+        value: ${{ jobs.push.outputs.version }}
+      build_number:
+        description: "The build number of the build"
+        value: ${{ jobs.push.outputs.build_number }}
 
 jobs:
   push:
@@ -16,6 +23,9 @@ jobs:
       run:
         # Use bash shells on all platforms.
         shell: bash
+    outputs:
+      version: ${{ steps.check_version.outputs.version }}        
+      build_number: ${{ steps.check_version.outputs.build_number }}        
     steps:
       - name: Create variables
         run: |
@@ -83,6 +93,7 @@ jobs:
           find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
       - name: Check version
+        id: check_version
         run: |
           cd fiiish-v3-${{ env.BUILD_TYPE }}
           VERSION=$(cat version.txt)
@@ -94,6 +105,8 @@ jobs:
             echo "version: ${VERSION}"
           fi
           BUILD_NUMBER=$(cat build_number.txt)
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "build_number=${BUILD_NUMBER}" >> "$GITHUB_OUTPUT"
           {
             echo "VERSION=${VERSION}"
             echo "BUILD_NUMBER=${BUILD_NUMBER}"
