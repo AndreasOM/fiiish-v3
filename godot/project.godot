@@ -34,7 +34,7 @@ window/handheld/orientation=4
 
 [gui]
 
-theme/custom="res://fiiish_theme.tres"
+theme/custom="uid://iw1xv475xr8k"
 
 [input]
 
