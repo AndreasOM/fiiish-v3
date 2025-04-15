@@ -7,14 +7,14 @@ func _init( default_key: int ):
 	_default_key = default_key
 
 func serialize( s: Serializer ):
-	var keys = self.keys()
-	var number = keys.size()
+	var the_keys = self.keys()
+	var number = the_keys.size()
 	number = s.serialize_u16( number )
 	
 	for idx in range(0,number):
 		var k = _default_key
-		if idx < keys.size():
-			k = keys[ idx ]
+		if idx < the_keys.size():
+			k = the_keys[ idx ]
 		k = s.serialize_u32( k )
 		self.add_entry( k )
 

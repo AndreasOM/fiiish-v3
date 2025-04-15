@@ -13,8 +13,8 @@ var _entries: SerializableArray = SerializableArray.new(
 # not serialized!
 var _last_added_entry_position = -1
 
-func _init( name: String, max_entries: int = 0 ):
-	self._name = name
+func _init( n: String, max_entries: int = 0 ):
+	self._name = n
 	self._max_entries = max_entries
 
 func serialize( s: Serializer ) -> bool:
@@ -27,15 +27,12 @@ func serialize( s: Serializer ) -> bool:
 	_name = s.serialize_fixed_string( 32, _name )
 	_max_entries = s.serialize_u16( _max_entries )
 	
-	var leaderboard_entry_constructor = func() -> LeaderboardEntry:
-		return LeaderboardEntry.new( "", 0 )
-
 	_entries.serialize( s )
 	
 	return false
 		
-func set_name( name: String ):
-	self._name = name
+func set_name( n: String ):
+	self._name = n
 	
 func name() -> String:
 	return self._name

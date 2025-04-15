@@ -16,13 +16,13 @@ func _init( sa: SerializableArray, start, stop, increment):
 func should_continue():
 	return (_current < _stop)
 
-func _iter_init(arg):
+func _iter_init(_arg):
 	return should_continue()
 
-func _iter_next(arg):
+func _iter_next(_arg):
 	_current += _increment
 	return should_continue()
 
-func _iter_get(arg):
+func _iter_get(_arg):
 	return _sa.get_entry( _current )
 		

@@ -6,9 +6,9 @@ const oldest_supported_version: int = 1
 var _participant: String
 var _score: int
 
-func _init( participant: String, score: int ):
-	self._participant = participant
-	self._score = score
+func _init( p: String, s: int ):
+	self._participant = p
+	self._score = s
 
 func serialize( s: Serializer ):
 	var version: int = current_version;

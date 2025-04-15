@@ -22,10 +22,8 @@
 	- [ ] Bonus: Animated Focused MainMenu entry
 
 
-- [ ] Polish: Extract Pickup handling from GameManager
-- [ ] Polish: Extract zone spawning from GameManager
-
-- [ ] Task: Allow opening of DeveloperConsole without keyboard
+- [ ] Refactor: Extract Pickup handling from GameManager
+- [ ] Refactor: Extract zone spawning from GameManager
 
 
 - [ ] Polish: Use AnimationPlayer for result display
@@ -34,6 +32,8 @@
 
 
 ## Later
+
+- [ ] Task: Allow opening of DeveloperConsole without keyboard
 
 - [ ] Task: Add job to trigger all builds on tag (Maybe not?!)
 
