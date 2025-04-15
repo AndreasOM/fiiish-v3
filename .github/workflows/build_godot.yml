@@ -2,7 +2,7 @@ name: Build WebGL - manually
 on: 
   workflow_dispatch:
   push:
-    tags:
+    # tags:
       # - "v*"
     paths:
       - godot/**
@@ -22,6 +22,15 @@ jobs:
             .github
             godot
           fetch-depth: 1
+      - name: Create variables
+        run: |
+          PROJECT=fiiish-v3
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "COMMIT_HASH=${COMMIT_HASH}"
+          } >> "$GITHUB_ENV"
+
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
@@ -57,7 +66,19 @@ jobs:
           cd godot
           aws s3 sync export/webgl-demo/ s3://games.omnimad.net/alpha/fiiish-v3/
           aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/fiiish-v3/*"
+          echo "PLAY_URL=https://games.omnimad.net/alpha/fiiish-v3/fiiish-v3.html" >> "$GITHUB_ENV"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Create Summary
+        if: always()
+        run: |
+          {
+            echo "|                     |                                    |"
+            echo "| :------------------ | ---------------------------------: |"
+            echo "| PROJECT             | ${{ env.PROJECT }}                |"
+            echo "| COMMIT_HASH         | ${{ env.COMMIT_HASH }}             |"
+            echo "| PLAY_URL            | ${{ env.PLAY_URL }}                |"
+          } >> "$GITHUB_STEP_SUMMARY"
