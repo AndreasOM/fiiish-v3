@@ -66,6 +66,7 @@
 # 2025-05-15
 #### S03E15
 - [x] Polish: Use drop down menu to select HighlightLabel theme type variation
+- [x] Refactor: Create reusable ThemeTypeVariationTween and use it for HighlightLabels
 
 
 ### 2025-04-14

@@ -16,8 +16,9 @@ bg_color = Color(0, 0, 0, 0.501961)
 [resource]
 BestLeaderboardEntryLabel/base_type = &"Label"
 BestLeaderboardEntryLabel/colors/font_color = Color(0.257829, 0.605932, 0.865438, 1)
-BestLeaderboardEntryLabel/colors/font_outline_color = Color(0.676718, 0.375363, 0.0384003, 1)
-BestLeaderboardEntryLabel/constants/outline_size = 10
+BestLeaderboardEntryLabel/colors/font_outline_color = Color(0.144097, 0.0673742, 0.00294196, 1)
+BestLeaderboardEntryLabel/colors/font_shadow_color = Color(0.226306, 0.154037, 0.606791, 1)
+BestLeaderboardEntryLabel/constants/outline_size = 5
 BestLeaderboardEntryLabel/font_sizes/font_size = 48
 BestLeaderboardEntryLabel/fonts/font = ExtResource("1_wkw6o")
 BestLeaderboardEntryScore/base_type = &"Label"
