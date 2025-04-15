@@ -3,7 +3,6 @@
 ## In Progress
 
 
-
 ## Next
 
 - [ ] Polish: Improve shop and confirmation background
@@ -13,6 +12,7 @@
 
 ## V3.4.0
 
+- [ ] Bug: Leaderboard not always receiving latest run
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
 	- [ ] Bonus: Special highlight if latest rank was first rank
@@ -62,6 +62,11 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+# 2025-05-15
+#### S03E15
+- [x] Polish: Use drop down menu to select HighlightLabel theme type variation
+
 
 ### 2025-04-14
 #### S03E14
