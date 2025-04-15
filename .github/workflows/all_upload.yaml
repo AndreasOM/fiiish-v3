@@ -54,10 +54,11 @@ jobs:
         if: always()
         run: |
           {
-            echo "|                        |                                             |"
-            echo "| :--------------------- | ------------------------------------------: |"
-            echo "| 🐧 Linux Version       | ${{ needs.linux_upload.outputs.version }}   |"
-            echo "| 🪟 Windows Version     | ${{ needs.windows_upload.outputs.version }} |"
-            echo "| 🖥️ macOS Version       | ${{ needs.macos_upload.outputs.version }}   |"
+            echo "|                               |                                             |"
+            echo "| :---------------------------- | ------------------------------------------: |"
+            echo "| 🐧 Linux Version              | ${{ needs.linux_upload.outputs.version }}   |"
+            echo "| 🪟 Windows Version            | ${{ needs.windows_upload.outputs.version }} |"
+            echo "| 🖥️ macOS Version              | ${{ needs.macos_upload.outputs.version }}   |"
+            echo "| 📱 iOS Version - Build Number | ${{ needs.ios_upload.outputs.version }} - ${{ needs.ios_upload.outputs.build_number }}    |"
           } >> "$GITHUB_STEP_SUMMARY"
 
