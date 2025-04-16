@@ -89,6 +89,8 @@ func is_alive() -> bool:
 	return false
 		
 func _set_state( new_state: Game.State ):
+	if new_state == self.state:
+		return
 	state_changed.emit( new_state )
 	Events.broadcast_state_changed( new_state )
 	self.state = new_state
@@ -233,7 +235,10 @@ func _physics_process_dying(delta: float) -> void:
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
-	print("Entered")
+	if !self.is_alive():
+		# do not double kill
+		return
+	# print("Entered in state %s" % self.state)
 	if self._is_invincible:
 		self.modulate = self.invincible_hurt_color
 		await get_tree().create_timer(0.25).timeout
@@ -241,7 +246,6 @@ func _on_area_2d_area_entered(_area: Area2D) -> void:
 		return
 	# _goto_dying()
 	_goto_killed()
-	pass # Replace with function body.
 
 #func apply_skills( player: Player, scm: SkillConfigManager ):
 #	var id = SkillIds.Id.MAGNET_RANGE_FACTOR

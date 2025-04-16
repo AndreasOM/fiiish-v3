@@ -58,7 +58,10 @@ func on_dialog_closing( dialog: Dialog ):
 func on_dialog_closed( dialog: Dialog ):
 	print( "DIALOG_MANAGER: on_dialog_closed %s" % dialog.name )
 	dialog.visible = false
-	self.remove_child( dialog )
+	if dialog.get_parent_control() == self:
+		self.remove_child( dialog )
+	else:
+		print("WARN: dialog is not a child of DialogManager")
 	var id = _dialogs.find_key( dialog )
 	if id != null:
 		_dialogs.erase( id )
@@ -88,7 +91,7 @@ func open_dialog( id: DialogIds.Id, duration: float) -> Dialog:
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
 		print("DIALOG_MANAGER: Dialog %d already open" % id )
-		push_warning("DIALOG_MANAGER: Dialog %d already open" % id )
+		# push_warning("DIALOG_MANAGER: Dialog %d already open" % id )
 		return dialog
 	dialog = self._instantiate_dialog(id)
 	dialog.open( duration )
@@ -111,7 +114,7 @@ func close_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog == null:
 		print("DIALOG_MANAGER: Dialog %d not found for close" % id )
-		push_warning("DIALOG_MANAGER: Dialog %d not found for close" % id )
+		# push_warning("DIALOG_MANAGER: Dialog %d not found for close" % id )
 		return
 		
 	dialog.close( duration )
