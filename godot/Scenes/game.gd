@@ -104,6 +104,7 @@ func _on_fish_state_changed(state: Game.State) -> void:
 				soundManager.trigger_effect( SoundEffect.BUBBLE_BLAST_LOOP )
 			_credit_last_swim()
 			%GameManager.kill_pickups()
+			%ScreenShakeNode2D.trigger()
 		State.RESPAWNING:
 			soundManager.fade_out_effect( SoundEffect.FISH_DEATH, 0.3 )
 			soundManager.fade_out_effect( SoundEffect.BUBBLE_BLAST_LOOP, 0.3 )
