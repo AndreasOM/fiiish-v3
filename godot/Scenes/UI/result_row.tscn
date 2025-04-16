@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ch18db020xqmp"]
+[gd_scene load_steps=3 format=3 uid="uid://ch18db020xqmp"]
 
 [ext_resource type="Script" uid="uid://bucuurxo7hnn0" path="res://Scenes/result_row.gd" id="1_obxuq"]
+[ext_resource type="Script" uid="uid://ci1v0aorwk2ti" path="res://Dialogs/Leaderboard/highlight_label.gd" id="2_bugu7"]
 
 [node name="ResultRow" type="HBoxContainer" node_paths=PackedStringArray("totalLabel", "currentLabel")]
 size_flags_horizontal = 3
@@ -9,13 +10,23 @@ script = ExtResource("1_obxuq")
 duration = 1.5
 totalLabel = NodePath("TotalLabel")
 currentLabel = NodePath("CurrentLabel")
+was_best = true
 
 [node name="TotalLabel" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"BestResultLabel"
+theme_type_variation = &"ResultLabel"
+theme_override_colors/font_color = Color(0.2924, 0.7181, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.44, 0.318267, 0.0748, 1)
+theme_override_constants/outline_size = 10
 text = "Total"
 horizontal_alignment = 2
+script = ExtResource("2_bugu7")
+highlighted = true
+transition_duration = 0.3
+variation_normal = &"ResultLabel"
+variation_highlighted = &"BestResultLabel"
+metadata/_custom_type_script = "uid://ci1v0aorwk2ti"
 
 [node name="CurrentLabel" type="Label" parent="."]
 layout_mode = 2
