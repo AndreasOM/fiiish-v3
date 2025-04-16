@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=21 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
 [ext_resource type="PackedScene" uid="uid://dmcqoohtinyr1" path="res://Scenes/fish.tscn" id="2_ea5sf"]
 [ext_resource type="Shader" uid="uid://bmid5iuf1372l" path="res://Scenes/background.gdshader" id="2_mc2jp"]
+[ext_resource type="Script" uid="uid://cb63gnefbs5gt" path="res://Scenes/screen_shake_node_2d.gd" id="3_1phco"]
 [ext_resource type="Script" uid="uid://dh1s3g4js05mi" path="res://Scenes/background.gd" id="4_bsinc"]
 [ext_resource type="Script" uid="uid://d3g2w7bnb45wn" path="res://Scenes/game_manager.gd" id="4_cqt8y"]
 [ext_resource type="Texture2D" uid="uid://c7yh3onttaenq" path="res://Textures/Backgrounds/background_grad.png" id="5_cq2wm"]
@@ -13,6 +14,95 @@
 [ext_resource type="PackedScene" uid="uid://nm2c8x0fbn5c" path="res://Scenes/Pickups/coin_explosion.tscn" id="8_wo164"]
 [ext_resource type="PackedScene" uid="uid://drv8nabn33aa4" path="res://Scenes/Pickups/coin_rain.tscn" id="9_1neft"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="10_40ndf"]
+
+[sub_resource type="Animation" id="Animation_1phco"]
+resource_name = "Shake"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2, 2, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.233333, 9.5, 60, -0.0388889, 3.58974, 0.0333333, -3.07692, -40, -0.0333333, 2.5, 0.0444444, -3.33333, 25.5, -0.0444444, -1.95556, 0.0388889, 1.71111, -16.5, -0.0388889, 0.798246, 0.0666667, -1.36842, 9.5, -0.0666667, -2.05882, 0.0277778, 0.857843, 1.5, -0.0277778, 2.08333, 0, 0),
+"times": PackedFloat32Array(0, 0.233333, 0.433333, 0.633333, 0.766667, 0.866667, 1)
+}
+
+[sub_resource type="Animation" id="Animation_nb51f"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%ScreenShakeNode2D/..:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%ScreenShakeNode2D/..:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nnt18"]
+_data = {
+&"RESET": SubResource("Animation_nb51f"),
+&"Shake": SubResource("Animation_1phco")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uo4vc"]
 shader = ExtResource("2_mc2jp")
@@ -39,7 +129,17 @@ process_mode = 3
 position = Vector2(960, 512)
 script = ExtResource("6_6aaah")
 
-[node name="Background" type="TextureRect" parent="GameScaler"]
+[node name="ScreenShakeNode2D" type="Node2D" parent="GameScaler"]
+unique_name_in_owner = true
+script = ExtResource("3_1phco")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameScaler/ScreenShakeNode2D"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_nnt18")
+}
+
+[node name="Background" type="TextureRect" parent="GameScaler/ScreenShakeNode2D"]
 process_mode = 1
 material = SubResource("ShaderMaterial_uo4vc")
 anchors_preset = 8
@@ -47,9 +147,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -512.0
+offset_left = -1536.0
 offset_top = -512.0
-offset_right = 512.0
+offset_right = 1536.0
 offset_bottom = 512.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -61,11 +161,11 @@ gradientTexture = ExtResource("5_cq2wm")
 offset = 759.835
 phase = 0.0
 
-[node name="GameNode2D" type="Node2D" parent="GameScaler"]
+[node name="GameNode2D" type="Node2D" parent="GameScaler/ScreenShakeNode2D"]
 unique_name_in_owner = true
 process_mode = 1
 
-[node name="Background" type="Sprite2D" parent="GameScaler/GameNode2D"]
+[node name="Background" type="Sprite2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 visible = false
 z_index = 1
 texture_repeat = 2
@@ -77,64 +177,64 @@ script = ExtResource("7_vai64")
 gradientTexture = ExtResource("5_cq2wm")
 phase = 0.0
 
-[node name="Fishes" type="Node2D" parent="GameScaler/GameNode2D"]
+[node name="Fishes" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 unique_name_in_owner = true
 
-[node name="Fish" parent="GameScaler/GameNode2D/Fishes" instance=ExtResource("2_ea5sf")]
+[node name="Fish" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Fishes" instance=ExtResource("2_ea5sf")]
 unique_name_in_owner = true
 
-[node name="Obstacles" type="Node2D" parent="GameScaler/GameNode2D"]
+[node name="Obstacles" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 unique_name_in_owner = true
 
-[node name="Pickups" type="Node2D" parent="GameScaler/GameNode2D"]
+[node name="Pickups" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 unique_name_in_owner = true
 
-[node name="CoinRain" parent="GameScaler/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("9_1neft")]
+[node name="CoinRain" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("9_1neft")]
 position = Vector2(0, -200)
 game_manager = NodePath("../../Managers/GameManager")
 
-[node name="Coin" parent="GameScaler/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("7_5w3j0")]
+[node name="Coin" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("7_5w3j0")]
 position = Vector2(-258, -8)
 game_manager = NodePath("../../Managers/GameManager")
 
-[node name="CoinExplosion" parent="GameScaler/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("8_wo164")]
+[node name="CoinExplosion" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("8_wo164")]
 position = Vector2(0, 100)
 game_manager = NodePath("../../Managers/GameManager")
 
-[node name="Managers" type="Node" parent="GameScaler/GameNode2D"]
+[node name="Managers" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 
-[node name="GameManager" type="Node" parent="GameScaler/GameNode2D/Managers" node_paths=PackedStringArray("game_zone")]
+[node name="GameManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers" node_paths=PackedStringArray("game_zone")]
 unique_name_in_owner = true
 script = ExtResource("4_cqt8y")
 left_boundary = -2200.0
 zone_spawn_offset = 1500.0
 game_zone = NodePath("../../Helpers/Area2D/GameZone")
 
-[node name="Helpers" type="Node2D" parent="GameScaler/GameNode2D"]
+[node name="Helpers" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 
-[node name="Area2D" type="Area2D" parent="GameScaler/GameNode2D/Helpers"]
+[node name="Area2D" type="Area2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Helpers"]
 collision_layer = 4
 collision_mask = 0
 
-[node name="GameZone" type="CollisionShape2D" parent="GameScaler/GameNode2D/Helpers/Area2D"]
+[node name="GameZone" type="CollisionShape2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Helpers/Area2D"]
 unique_name_in_owner = true
 position = Vector2(8800, 0)
 shape = SubResource("RectangleShape2D_quh18")
 disabled = true
 
-[node name="Markers" type="Node2D" parent="GameScaler/GameNode2D"]
+[node name="Markers" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 visible = false
 
-[node name="Bottom" type="Sprite2D" parent="GameScaler/GameNode2D/Markers"]
+[node name="Bottom" type="Sprite2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Markers"]
 position = Vector2(0, 512)
 texture = ExtResource("10_40ndf")
 
-[node name="Top" type="Sprite2D" parent="GameScaler/GameNode2D/Markers"]
+[node name="Top" type="Sprite2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Markers"]
 position = Vector2(0, -512)
 texture = ExtResource("10_40ndf")
 
-[connection signal="state_changed" from="." to="GameScaler/Background" method="_on_game_state_changed"]
-[connection signal="state_changed" from="." to="GameScaler/GameNode2D/Background" method="_on_game_state_changed"]
-[connection signal="state_changed" from="GameScaler/GameNode2D/Fishes/Fish" to="." method="_on_fish_state_changed"]
-[connection signal="sound_triggered" from="GameScaler/GameNode2D/Managers/GameManager" to="." method="_on_game_manager_sound_triggered"]
-[connection signal="zone_changed" from="GameScaler/GameNode2D/Managers/GameManager" to="." method="_on_game_manager_zone_changed"]
+[connection signal="state_changed" from="." to="GameScaler/ScreenShakeNode2D/Background" method="_on_game_state_changed"]
+[connection signal="state_changed" from="." to="GameScaler/ScreenShakeNode2D/GameNode2D/Background" method="_on_game_state_changed"]
+[connection signal="state_changed" from="GameScaler/ScreenShakeNode2D/GameNode2D/Fishes/Fish" to="." method="_on_fish_state_changed"]
+[connection signal="sound_triggered" from="GameScaler/ScreenShakeNode2D/GameNode2D/Managers/GameManager" to="." method="_on_game_manager_sound_triggered"]
+[connection signal="zone_changed" from="GameScaler/ScreenShakeNode2D/GameNode2D/Managers/GameManager" to="." method="_on_game_manager_zone_changed"]

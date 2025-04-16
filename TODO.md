@@ -12,11 +12,6 @@
 
 ## V3.4.0
 
-
-- [ ] Experiment: Add screen shake on death
-
-- [ ] Feature: Leaderboard (excl. backend, local only)
-
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
 	- [ ] Bonus: Animated Focused MainMenu entry
@@ -67,7 +62,9 @@
 #### S03E16
 - [x] Bonus: Special highlight if latest rank was first rank
 - [x] Bug: Leaderboard not always receiving latest run correctly
+- [x] Feature: Leaderboard (excl. backend, local only)
 - [x] Polish: Use ThemeTypeVariationTween for new best on ResultDialog
+- [x] Experiment: Add screen shake on death
 
 ### 2025-05-15
 #### S03E15
