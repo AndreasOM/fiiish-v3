@@ -12,10 +12,11 @@
 
 ## V3.4.0
 
-- [ ] Bug: Leaderboard not always receiving latest run
+- [ ] Bug: Leaderboard not always receiving latest run correctly
+
+- [ ] Polish: Use ThemeTypeVariationTween for new best on ResultDialog
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
-	- [ ] Bonus: Special highlight if latest rank was first rank
 
 - [ ] Feature: Main Menu
 	- [ ] Bonus: Animated MainMenu in and out
@@ -63,7 +64,11 @@
 
 ## Done
 
-# 2025-05-15
+### 2025-05-16
+#### S03E16
+- [x] Bonus: Special highlight if latest rank was first rank
+
+### 2025-05-15
 #### S03E15
 - [x] Polish: Use drop down menu to select HighlightLabel theme type variation
 - [x] Refactor: Create reusable ThemeTypeVariationTween and use it for HighlightLabels
