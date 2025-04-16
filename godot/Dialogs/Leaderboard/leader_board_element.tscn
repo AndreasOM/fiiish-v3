@@ -1,11 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3bhrqxtn4ffx"]
+[gd_scene load_steps=8 format=3 uid="uid://b3bhrqxtn4ffx"]
 
 [ext_resource type="Script" uid="uid://d25coq7obnlf2" path="res://Dialogs/Leaderboard/leader_board_element.gd" id="1_acy28"]
 [ext_resource type="PackedScene" uid="uid://c2xm0vlckmpf" path="res://Dialogs/Leaderboard/leaderboard_element_entry.tscn" id="1_ycipv"]
+[ext_resource type="Texture2D" uid="uid://ds5y514dnn1y3" path="res://Textures/UI/sparkle_star.png" id="3_em07u"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_inmd3"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_obacj"]
+offsets = PackedFloat32Array(0, 0.733083, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.784314, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h7sqa"]
+gradient = SubResource("Gradient_obacj")
+use_hdr = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oll7c"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 60.0
+initial_velocity_min = 252.1
+initial_velocity_max = 447.9
+gravity = Vector3(0, 1500, 0)
+color_ramp = SubResource("GradientTexture1D_h7sqa")
+hue_variation_min = -2.23517e-08
+hue_variation_max = 1.0
+turbulence_enabled = true
+turbulence_influence_min = 0.05
+turbulence_influence_max = 0.05
 
 [node name="LeaderBoardElement" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 script = ExtResource("1_acy28")
+was_new_best = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
@@ -28,3 +63,19 @@ rank = "2."
 participant = "2025-04-04 20:58"
 score = "111"
 was_latest = true
+
+[node name="ParticlePositionControl" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlePositionControl"]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_inmd3")
+position = Vector2(0, -5)
+amount = 32
+texture = ExtResource("3_em07u")
+lifetime = 1.5
+explosiveness = 0.4
+fixed_fps = 0
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_oll7c")

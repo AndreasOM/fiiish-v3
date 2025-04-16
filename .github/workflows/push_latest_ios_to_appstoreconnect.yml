@@ -105,8 +105,10 @@ jobs:
             echo "version: ${VERSION}"
           fi
           BUILD_NUMBER=$(cat build_number.txt)
-          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "build_number=${BUILD_NUMBER}" >> "$GITHUB_OUTPUT"
+          {
+            echo "version=v${VERSION}"
+            echo "build_number=${BUILD_NUMBER}"
+          } >> "$GITHUB_OUTPUT"
           {
             echo "VERSION=${VERSION}"
             echo "BUILD_NUMBER=${BUILD_NUMBER}"

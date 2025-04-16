@@ -1,9 +1,22 @@
+@tool
+
 extends MarginContainer
 class_name LeaderBoardElement
 
+@export var was_new_best: bool = false : set = set_was_new_best
+
+func set_was_new_best( b: bool ):
+	was_new_best = b
+	_update_particles()
+
 func _ready():
 	self._clear_existing_entries()
+	_update_particles()
 
+func _update_particles():
+	if %GPUParticles2D != null:
+		%GPUParticles2D.emitting = was_new_best
+		
 func _clear_existing_entries():
 	for c in %Entries.get_children():
 		%Entries.remove_child(c)
@@ -29,3 +42,4 @@ func set_leaderboard( leaderboard: Leaderboard, score_formatter: Callable = Call
 			
 		%Entries.add_child(ei)
 		
+		self.set_was_new_best( latest == 0 )
