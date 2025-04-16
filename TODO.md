@@ -12,9 +12,9 @@
 
 ## V3.4.0
 
-- [ ] Bug: Leaderboard not always receiving latest run correctly
-
 - [ ] Polish: Use ThemeTypeVariationTween for new best on ResultDialog
+
+- [ ] Experiment: Add screen shake on death
 
 - [ ] Feature: Leaderboard (excl. backend, local only)
 
@@ -67,6 +67,7 @@
 ### 2025-05-16
 #### S03E16
 - [x] Bonus: Special highlight if latest rank was first rank
+- [x] Bug: Leaderboard not always receiving latest run correctly
 
 ### 2025-05-15
 #### S03E15
