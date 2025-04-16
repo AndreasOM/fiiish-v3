@@ -34,10 +34,10 @@ func set_game( g: Game):
 
 func _process(delta: float) -> void:
 	if _coinsGained != null:
-		var was_distance_started = _time > self._distance_start_time
+		var was_distance_ended = _time > self._distance_end_time - 1.5
 		_time += delta
-		var is_distance_started = _time > self._distance_start_time
-		var distance_started = !was_distance_started && is_distance_started
+		var is_distance_ended = _time > self._distance_end_time - 1.5
+		var distance_ended = !was_distance_ended && is_distance_ended
 		
 		var coinsGained = _coinsGained.get_for_time(_time)
 		if (coinsGained != 0):
@@ -60,15 +60,19 @@ func _process(delta: float) -> void:
 		var bestDistance = max(distance, _bestDistance)
 		bestDistanceResultRow.setTotal("%d m" % bestDistance)
 
-		if distance_started:
+		if distance >= bestDistance:
 			distanceResultRow.was_best = _was_best_distance
 			bestDistanceResultRow.was_best = _was_best_distance 
+			
+		#if distance_ended:
+		#	distanceResultRow.was_best = _was_best_distance
+		#	bestDistanceResultRow.was_best = _was_best_distance 
 			
 		var totalDistance = _totalDistanceTarget - distanceGained
 		totalDistanceResultRow.setTotal("%d m" % totalDistance)
 
 func _prepare_results():
-	var game_manager = game.get_game_manager()
+	# var game_manager = game.get_game_manager()
 	var player = game.get_player()
 	# var coins = game_manager.coins()
 	# var distance = game_manager.distance_in_m()
@@ -86,7 +90,8 @@ func _prepare_results():
 
 	var start_coins = player.coins();
 	var start_distance = player.totalDistance();
-	_bestDistance = player.bestDistance();
+	# _bestDistance = player.bestDistance();
+	_bestDistance = player.prev_best_distance();
 	
 	self._coins_start_time = start_time
 	self._coins_end_time = end_time-0.3*duration

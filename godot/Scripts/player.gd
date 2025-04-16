@@ -45,6 +45,8 @@ var _leaderboards: HashMap = HashMap.new(
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
 var _lastCoins = 0
 
+var _prev_best_distance = 0
+
 static func get_save_path() -> String:
 	return "user://player.data"
 	
@@ -70,6 +72,7 @@ func reset():
 	_lastDistance = 0
 	_totalDistance = 0
 	_bestDistance = 0
+	_prev_best_distance = 0
 	_playCount = 0
 	_skill_points_gained = 0
 	_skill_points_used = 0
@@ -79,6 +82,7 @@ func reset_local_leaderboards():
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_COINS)
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_DISTANCE)
 	_bestDistance = 0
+	_prev_best_distance = 0
 	_isDirty = true
 	
 func save():
@@ -155,6 +159,9 @@ func lastDistance() -> int:
 func totalDistance() -> int:
 	return _totalDistance
 	
+func prev_best_distance() -> int:
+	return _prev_best_distance
+	
 func bestDistance() -> int:
 	return _bestDistance
 	
@@ -207,6 +214,7 @@ func can_afford_coins( amount: int ) -> bool:
 	
 func apply_distance( distance: int ):
 	_totalDistance += distance
+	_prev_best_distance = _bestDistance
 	_bestDistance = max(_bestDistance, distance)
 	_lastDistance = distance;
 	

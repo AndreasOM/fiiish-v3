@@ -12,7 +12,6 @@
 
 ## V3.4.0
 
-- [ ] Polish: Use ThemeTypeVariationTween for new best on ResultDialog
 
 - [ ] Experiment: Add screen shake on death
 
@@ -68,6 +67,7 @@
 #### S03E16
 - [x] Bonus: Special highlight if latest rank was first rank
 - [x] Bug: Leaderboard not always receiving latest run correctly
+- [x] Polish: Use ThemeTypeVariationTween for new best on ResultDialog
 
 ### 2025-05-15
 #### S03E15
