@@ -1,11 +1,9 @@
 class_name EntityConfig
 
-const EntityType = preload("res://Scripts/entity_type.gd").EntityType
-
-var entity_type: EntityType = EntityType.NONE
+var entity_type: EntityTypes.Id = EntityTypes.Id.NONE
 var resource: Resource = null
 
-func _init( t: EntityType, r: Resource ):
+func _init( t: EntityTypes.Id, r: Resource ):
 	entity_type = t
 	resource = r
 	
