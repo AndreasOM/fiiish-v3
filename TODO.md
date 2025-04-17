@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Refactor: Extract Pickup handling from GameManager
 
 ## Next
 
@@ -16,15 +17,17 @@
 	- [ ] Bonus: Animated MainMenu in and out
 	- [ ] Bonus: Animated Focused MainMenu entry
 
-
-- [ ] Refactor: Extract Pickup handling from GameManager
 - [ ] Refactor: Extract zone spawning from GameManager
-
 
 - [ ] Polish: Use AnimationPlayer for result display
 
+## V3.6.0
+
+- [ ] Feature: Zone Editor
+
 ## Next release
 
+- [ ] Feature: Achievements
 
 ## Later
 
