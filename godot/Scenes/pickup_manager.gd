@@ -22,6 +22,33 @@ func _process(delta: float) -> void:
 	if _special_coin_cooldown > 0.0:
 		_special_coin_cooldown = max( 0.0, _special_coin_cooldown - delta )
 
+func spawn_explosion( position: Vector2, fish: Fish ):
+	position.x += 50.0	
+	var count: int = floor(fish.get_skill_effect_value( SkillEffectIds.Id.COIN_EXPLOSION_AMOUNT, 1.0 ))
+	
+	for i in count:
+		var p = _instantiate_coin( fish )
+		if p == null:
+			continue
+		
+		p.game_manager = self.game_manager
+		p.position = position
+		%Pickups.add_child(p)
+		
+		var pickup = p as Pickup
+		if pickup != null:
+			var v = Vector2.RIGHT
+			var cone = 0.5
+			var a = ( i+0.5 ) * ( ( cone*3.14 )/count ) + (1.5+0.5*cone)*3.14 + randf_range( -0.1, 0.1 )
+			var r = randf_range( 1.0, 1.5 )
+			v = v.rotated( a )
+			v *= 500.0 * r
+			v.x += self.game_manager.movement_x
+			pickup.set_velocity( v )
+			pickup.set_target_velocity( Vector2.ZERO, 1.0 * r )
+			pickup.disable_magnetic_for_seconds( 1.0 )
+
+
 func spawn_coins( count: int, fish: Fish ):
 	for i in count:
 		var p = _instantiate_coin( fish )

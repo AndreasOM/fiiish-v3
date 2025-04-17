@@ -143,7 +143,7 @@ func _physics_process_pickups(delta_time: float) -> void:
 						_coin_rain_duration += f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_DURATION, 0.0 )
 						_coin_rain_coins_per_second = f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_COINS_PER_SECOND, 0.0 )
 					PickupEffect.EXPLOSION:
-						spawn_explosion( pp, f )
+						self.pickup_manager.spawn_explosion( pp, f )
 					_: pass
 				sound_triggered.emit( p.soundEffect() )
 				_coins += p.coin_value()
@@ -168,33 +168,7 @@ func _physics_process_pickups(delta_time: float) -> void:
 			if cc > 0:
 				_coin_rain_counter -= cc
 				self.pickup_manager.spawn_coins(cc, f)
-	
-func spawn_explosion( position: Vector2, fish: Fish ):
-	position.x += 50.0	
-	var count: int = floor(fish.get_skill_effect_value( SkillEffectIds.Id.COIN_EXPLOSION_AMOUNT, 1.0 ))
-	
-	for i in count:
-		var p = self.pickup_manager._instantiate_coin( fish )
-		if p == null:
-			continue
-		
-		p.game_manager = self
-		p.position = position
-		%Pickups.add_child(p)
-		
-		var pickup = p as Pickup
-		if pickup != null:
-			var v = Vector2.RIGHT
-			var cone = 0.5
-			var a = ( i+0.5 ) * ( ( cone*3.14 )/count ) + (1.5+0.5*cone)*3.14 + randf_range( -0.1, 0.1 )
-			var r = randf_range( 1.0, 1.5 )
-			v = v.rotated( a )
-			v *= 500.0 * r
-			v.x += movement_x
-			pickup.set_velocity( v )
-			pickup.set_target_velocity( Vector2.ZERO, 1.0 * r )
-			pickup.disable_magnetic_for_seconds( 1.0 )
-			
+				
 func pause():
 	self._paused = true
 
