@@ -46,23 +46,23 @@ var current_zone_width: float:
 			return 0.0
 
 var _entity_configs = {
-	EntityId.PICKUPCOIN: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin.tscn") ),
-	EntityId.PICKUPRAIN: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin_rain.tscn") ),
-	EntityId.PICKUPEXPLOSION: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin_explosion.tscn") ),
-	EntityId.PICKUPMAGNET: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/magnet.tscn") ),
-	EntityId.ROCKA: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_a.tscn") ),
-	EntityId.ROCKB: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_b.tscn") ),
-	EntityId.ROCKC: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_c.tscn") ),
-	EntityId.ROCKD: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_d.tscn") ),
-	EntityId.ROCKE: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_e.tscn") ),
-	EntityId.ROCKF: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_f.tscn") ),
-	EntityId.SEAWEEDA: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_a.tscn") ),
-	EntityId.SEAWEEDB: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_b.tscn") ),
-	EntityId.SEAWEEDC: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_c.tscn") ),
-	EntityId.SEAWEEDD: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_d.tscn") ),
-	EntityId.SEAWEEDE: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_e.tscn") ),
-	EntityId.SEAWEEDF: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_f.tscn") ),
-	EntityId.SEAWEEDG: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_g.tscn") ),
+	EntityId.Id.PICKUPCOIN: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin.tscn") ),
+	EntityId.Id.PICKUPRAIN: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin_rain.tscn") ),
+	EntityId.Id.PICKUPEXPLOSION: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin_explosion.tscn") ),
+	EntityId.Id.PICKUPMAGNET: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/magnet.tscn") ),
+	EntityId.Id.ROCKA: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_a.tscn") ),
+	EntityId.Id.ROCKB: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_b.tscn") ),
+	EntityId.Id.ROCKC: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_c.tscn") ),
+	EntityId.Id.ROCKD: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_d.tscn") ),
+	EntityId.Id.ROCKE: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_e.tscn") ),
+	EntityId.Id.ROCKF: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_f.tscn") ),
+	EntityId.Id.SEAWEEDA: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_a.tscn") ),
+	EntityId.Id.SEAWEEDB: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_b.tscn") ),
+	EntityId.Id.SEAWEEDC: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_c.tscn") ),
+	EntityId.Id.SEAWEEDD: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_d.tscn") ),
+	EntityId.Id.SEAWEEDE: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_e.tscn") ),
+	EntityId.Id.SEAWEEDF: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_f.tscn") ),
+	EntityId.Id.SEAWEEDG: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_g.tscn") ),
 }
 
 #var _rock_a = preload("res://Scenes/Obstacles/rock_a.tscn")
@@ -82,26 +82,6 @@ var _entity_configs = {
 var _current_zone: NewZone = null
 
 var _zone_manager: ZoneManager = null
-
-enum EntityId {
-	PICKUPCOIN      = 0xe4c651aa,
-	PICKUPRAIN      = 0x06fd4c5a,
-	PICKUPEXPLOSION = 0xf75fd92f,
-	PICKUPMAGNET    = 0x235a41dd,	
-	ROCKA           = 0xd058353c,
-	ROCKB           = 0x49516486,
-	ROCKC           = 0x3e565410,
-	ROCKD           = 0xa032c1b3,
-	ROCKE           = 0xd735f125,
-	ROCKF           = 0x4e3ca09f,
-	SEAWEEDA        = 0x6fe93bef,
-	SEAWEEDB        = 0xf6e06a55,
-	SEAWEEDC        = 0x81e75ac3,
-	SEAWEEDD        = 0x1f83cf60,
-	SEAWEEDE        = 0x6884fff6,
-	SEAWEEDF        = 0xf18dae4c,
-	SEAWEEDG        = 0x868a9eda,
-}
 
 func coins() -> int:
 	return _coins
@@ -270,7 +250,7 @@ func _log_special_coin():
 			_special_coin_cooldown = 10.0
 			_special_coin_streak = 0
 	
-func _pick_coin( fish: Fish ) -> EntityId:
+func _pick_coin( fish: Fish ) -> EntityId.Id:
 	var luck_factor = max( 0.0, 1.0-0.1*_special_coins_spawned )
 	var rain_coin_probability = fish.get_skill_effect_value( SkillEffectIds.Id.RAIN_COIN_PROBABILITY, 0.0 )
 	var explosion_coin_probability = fish.get_skill_effect_value( SkillEffectIds.Id.EXPLOSION_COIN_PROBABILITY, 0.0 )
@@ -283,16 +263,16 @@ func _pick_coin( fish: Fish ) -> EntityId:
 		_log_special_coin()
 		_special_coins_spawned += 1
 		_time_since_last_special_coin = 0.0
-		return EntityId.PICKUPEXPLOSION
+		return EntityId.Id.PICKUPEXPLOSION
 
 	r = randf()
 	if r < rain_coin_probability*luck_factor:
 		_log_special_coin()
 		_special_coins_spawned += 1
 		_time_since_last_special_coin = 0.0
-		return EntityId.PICKUPRAIN
+		return EntityId.Id.PICKUPRAIN
 		
-	return EntityId.PICKUPCOIN
+	return EntityId.Id.PICKUPCOIN
 	
 func _instantiate_coin( fish: Fish ) -> Object:
 		var coin_entity_id = _pick_coin( fish )
