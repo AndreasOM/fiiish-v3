@@ -2,7 +2,8 @@
 
 ## In Progress
 
-- [ ] Refactor: Extract Pickup handling from GameManager
+- [ ] Refactor: Extract zone spawning from GameManager
+
 
 ## Next
 
@@ -17,7 +18,6 @@
 	- [ ] Bonus: Animated MainMenu in and out
 	- [ ] Bonus: Animated Focused MainMenu entry
 
-- [ ] Refactor: Extract zone spawning from GameManager
 
 - [ ] Polish: Use AnimationPlayer for result display
 
@@ -60,6 +60,10 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-04-17
+#### S03E17
+- [x] Refactor: Extract Pickup handling from GameManager
 
 ### 2025-05-16
 #### S03E16
