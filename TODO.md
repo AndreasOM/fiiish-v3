@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Refactor: Extract zone spawning from GameManager
 
 
 ## Next
@@ -64,6 +63,7 @@
 ### 2025-04-17
 #### S03E17
 - [x] Refactor: Extract Pickup handling from GameManager
+- [x] Refactor: Extract zone spawning from GameManager
 
 ### 2025-05-16
 #### S03E16
