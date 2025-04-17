@@ -1,8 +1,6 @@
 extends Node
 class_name PickupManager
 
-const PickupEffect = preload("res://Scripts/pickup_effect.gd").PickupEffect
-
 var _special_coins_spawned: float = 0.0
 var _time_since_last_special_coin: float = 0.0
 var _special_coin_streak: int = 0
@@ -74,13 +72,13 @@ func _physics_process_fish_attraction( delta: float ) -> void:
 			if ls < pickup_range_sqr:
 				p.collect()
 				match p.effect():
-					PickupEffect.MAGNET:
+					PickupEffectIds.Id.MAGNET:
 						f.trigger_magnet_boost()
-					PickupEffect.RAIN:
+					PickupEffectIds.Id.RAIN:
 						var duration := f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_DURATION, 0.0 )
 						var coins_per_second := f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_COINS_PER_SECOND, 0.0 )
 						extend_coin_rain( duration, coins_per_second )
-					PickupEffect.EXPLOSION:
+					PickupEffectIds.Id.EXPLOSION:
 						spawn_explosion( pp, f )
 					_: pass
 				self.game_manager.trigger_sound( p.soundEffect() )
