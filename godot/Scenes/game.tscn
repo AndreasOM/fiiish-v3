@@ -214,9 +214,11 @@ game_zone = NodePath("../../Helpers/Area2D/GameZone")
 entity_config_manager = NodePath("../EntityConfigManager")
 pickup_manager = NodePath("../PickupManager")
 
-[node name="PickupManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers"]
+[node name="PickupManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers" node_paths=PackedStringArray("game_manager", "entity_config_manager")]
 unique_name_in_owner = true
 script = ExtResource("14_nb51f")
+game_manager = NodePath("../GameManager")
+entity_config_manager = NodePath("../EntityConfigManager")
 
 [node name="EntityConfigManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers"]
 unique_name_in_owner = true
