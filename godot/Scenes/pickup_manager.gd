@@ -1,6 +1,8 @@
 extends Node
 class_name PickupManager
 
+const PickupEffect = preload("res://Scripts/pickup_effect.gd").PickupEffect
+
 var _special_coins_spawned: float = 0.0
 var _time_since_last_special_coin: float = 0.0
 var _special_coin_streak: int = 0
@@ -46,7 +48,54 @@ func _physics_process(delta: float) -> void:
 	if self.game_manager.is_paused():
 		return
 
+	_physics_process_fish_attraction( delta )
 	_physics_process_coins( delta )
+
+func _physics_process_fish_attraction( delta: float ) -> void:
+	for fi in %Fishes.get_children():
+		var f = fi as Fish
+		if f == null:
+			continue
+		if !f.is_alive():
+			continue
+		var pickup_range_sqr = f.pickup_range() * f.pickup_range();
+		var magnet_range_sqr = f.magnet_range() * f.magnet_range();
+		var magnet_speed = f.magnet_speed();
+		var fp = f.position
+		
+		for p in %Pickups.get_children():
+			if !p.is_alive():
+				continue
+	
+			var pp = p.position
+			var delta_pos = pp - fp
+			var ls = delta_pos.length_squared()
+			
+			if ls < pickup_range_sqr:
+				p.collect()
+				match p.effect():
+					PickupEffect.MAGNET:
+						f.trigger_magnet_boost()
+					PickupEffect.RAIN:
+						var duration := f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_DURATION, 0.0 )
+						var coins_per_second := f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_COINS_PER_SECOND, 0.0 )
+						extend_coin_rain( duration, coins_per_second )
+					PickupEffect.EXPLOSION:
+						spawn_explosion( pp, f )
+					_: pass
+				self.game_manager.trigger_sound( p.soundEffect() )
+				self.game_manager.give_coins( p.coin_value() )
+				p.queue_free()
+				p.get_parent().remove_child( p )
+			elif ls < magnet_range_sqr:
+				if !p.is_magnetic():
+					continue
+				var speed = -magnet_speed * delta;
+				var l = sqrt(ls);
+				speed = max( -l, speed ) 
+				delta_pos = delta_pos.normalized()
+				delta_pos = speed * delta_pos;
+				p.position += delta_pos;
 
 func _physics_process_coins(delta: float) -> void:
 	for fi in %Fishes.get_children():

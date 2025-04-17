@@ -106,58 +106,9 @@ func _process(delta: float) -> void:
 #		_coins += 100
 			
 
-func _physics_process(delta: float) -> void:
-	if !_paused:
-		_physics_process_pickups(delta)
-
-func _physics_process_pickups(delta_time: float) -> void:
-	for fi in %Fishes.get_children():
-		var f = fi as Fish
-		if f == null:
-			continue
-		if !f.is_alive():
-			continue
-		var pickup_range_sqr = f.pickup_range() * f.pickup_range();
-		var magnet_range_sqr = f.magnet_range() * f.magnet_range();
-		var magnet_speed = f.magnet_speed();
-		var fp = f.position
-		
-		for p in %Pickups.get_children():
-			if !p.is_alive():
-				continue
-	
-			var pp = p.position
-			var delta = pp - fp
-			var ls = delta.length_squared()
-			
-			if ls < pickup_range_sqr:
-				# :TODO: pickup
-				p.collect()
-				match p.effect():
-					PickupEffect.MAGNET:
-						f.trigger_magnet_boost()
-						#f.apply_magnet_boost( 3.0, 10.0, 1.5 )
-					# :TODO: to be continued...
-					PickupEffect.RAIN:
-						var duration := f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_DURATION, 0.0 )
-						var coins_per_second := f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_COINS_PER_SECOND, 0.0 )
-						self.pickup_manager.extend_coin_rain( duration, coins_per_second )
-					PickupEffect.EXPLOSION:
-						self.pickup_manager.spawn_explosion( pp, f )
-					_: pass
-				sound_triggered.emit( p.soundEffect() )
-				_coins += p.coin_value()
-				p.queue_free()
-				p.get_parent().remove_child( p )
-			elif ls < magnet_range_sqr:
-				if !p.is_magnetic():
-					continue
-				var speed = -magnet_speed * delta_time;
-				var l = sqrt(ls);
-				speed = max( -l, speed ) 
-				delta = delta.normalized()
-				delta = speed * delta;
-				p.position += delta;
+#func _physics_process(delta: float) -> void:
+#	if !_paused:
+#		_physics_process_pickups(delta)
 				
 func pause():
 	self._paused = true
@@ -242,3 +193,9 @@ func goto_next_zone():
 	print("Next Zone")
 	self.cleanup()
 	self.spawn_zone()
+
+func trigger_sound( fx: SoundEffect ) -> void:
+	sound_triggered.emit( fx )
+
+func give_coins( amount: int ) -> void:
+	self._coins += amount
