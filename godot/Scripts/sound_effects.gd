@@ -1,4 +1,5 @@
-enum SoundEffect {
+class_name SoundEffects
+enum Id {
 	NONE,
 	PICKED_COIN,
 	FISH_DEATH,
