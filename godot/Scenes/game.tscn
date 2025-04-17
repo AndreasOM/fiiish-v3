@@ -205,13 +205,14 @@ game_manager = NodePath("../../Managers/GameManager")
 
 [node name="Managers" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 
-[node name="GameManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers" node_paths=PackedStringArray("game_zone", "entity_config_manager")]
+[node name="GameManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers" node_paths=PackedStringArray("game_zone", "entity_config_manager", "pickup_manager")]
 unique_name_in_owner = true
 script = ExtResource("4_cqt8y")
 left_boundary = -2200.0
 zone_spawn_offset = 1500.0
 game_zone = NodePath("../../Helpers/Area2D/GameZone")
 entity_config_manager = NodePath("../EntityConfigManager")
+pickup_manager = NodePath("../PickupManager")
 
 [node name="PickupManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers"]
 unique_name_in_owner = true
