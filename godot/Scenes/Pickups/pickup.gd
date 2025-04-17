@@ -1,13 +1,12 @@
 extends Node2D
 class_name Pickup
 
-const PickupEffect = preload("res://Scripts/pickup_effect.gd").PickupEffect
 const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
 
 @export var game_manager: GameManager = null
 
 @export var _coin_value: int = 0
-@export var _effect: PickupEffect = PickupEffect.NONE
+@export var _effect: PickupEffectIds.Id = PickupEffectIds.Id.NONE
 @export var _soundEffect: SoundEffect = SoundEffect.NONE
 
 var _velocity: Vector2 = Vector2.ZERO
@@ -47,7 +46,7 @@ func disable_magnetic_for_seconds( duration: float ):
 func collect():
 	pass
 
-func effect() -> PickupEffect:
+func effect() -> PickupEffectIds.Id:
 	return _effect
 
 func soundEffect() -> SoundEffect:
