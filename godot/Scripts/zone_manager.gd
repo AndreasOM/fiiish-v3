@@ -1,8 +1,6 @@
 extends Node
 class_name ZoneManager
 
-const EntityType = preload("res://Scripts/entity_type.gd").EntityType
-
 @export var game_manager: GameManager = null
 @export var entity_config_manager: EntityConfigManager = null
 
@@ -76,9 +74,9 @@ func spawn_zone():
 						o.position = Vector2( obj.pos_x + self.game_manager.zone_spawn_offset, obj.pos_y )
 						o.rotation_degrees = obj.rotation
 						match ec.entity_type:
-							EntityType.OBSTACLE:
+							EntityTypes.Id.OBSTACLE:
 								%Obstacles.add_child(o)
-							EntityType.PICKUP:
+							EntityTypes.Id.PICKUP:
 								%Pickups.add_child(o)
 							_ :
 								pass

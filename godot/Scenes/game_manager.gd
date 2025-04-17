@@ -1,10 +1,7 @@
 extends Node
 class_name GameManager
 
-const EntityType = preload("res://Scripts/entity_type.gd").EntityType
 const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
-
-# signal zone_changed
 
 signal sound_triggered( SoundEffect )
 
