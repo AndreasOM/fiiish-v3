@@ -6,8 +6,28 @@ var _time_since_last_special_coin: float = 0.0
 var _special_coin_streak: int = 0
 var _special_coin_cooldown: float = 0.0
 
+var _coin_rain_duration: float = 0.0
+var _coin_rain_coins_per_second: float = 0.0
+var _coin_rain_counter: float = 0.0
+
 @export var game_manager: GameManager = null
 @export var entity_config_manager: EntityConfigManager = null
+
+func cleanup():
+	for p in %Pickups.get_children():
+		%Pickups.remove_child(p)
+		p.queue_free()
+
+func kill_all() -> void:
+	var g = Vector2( 0.0, 9.81*100.0 )
+	for pi in %Pickups.get_children():
+		var p = pi as Pickup
+		if p == null:
+			continue
+		p.set_acceleration( g )
+
+func prepare_respawn():
+	_coin_rain_duration = 0.0
 
 func _process(delta: float) -> void:
 
@@ -21,6 +41,29 @@ func _process(delta: float) -> void:
 
 	if _special_coin_cooldown > 0.0:
 		_special_coin_cooldown = max( 0.0, _special_coin_cooldown - delta )
+
+func _physics_process(delta: float) -> void:
+	if self.game_manager.is_paused():
+		return
+
+	_physics_process_coins( delta )
+
+func _physics_process_coins(delta: float) -> void:
+	for fi in %Fishes.get_children():
+		var f = fi as Fish
+		if f == null:
+			continue
+		if !f.is_alive():
+			continue
+		if _coin_rain_duration > 0.0:
+			var t = min( delta, _coin_rain_duration )
+			_coin_rain_counter += t * _coin_rain_coins_per_second
+			_coin_rain_duration -= delta
+			
+			var cc = floor(_coin_rain_counter)
+			if cc > 0:
+				_coin_rain_counter -= cc
+				spawn_coins(cc, f)
 
 func spawn_explosion( position: Vector2, fish: Fish ):
 	position.x += 50.0	
@@ -48,6 +91,9 @@ func spawn_explosion( position: Vector2, fish: Fish ):
 			pickup.set_target_velocity( Vector2.ZERO, 1.0 * r )
 			pickup.disable_magnetic_for_seconds( 1.0 )
 
+func extend_coin_rain( duration: float, cps: float ):
+	_coin_rain_duration += duration
+	_coin_rain_coins_per_second = cps
 
 func spawn_coins( count: int, fish: Fish ):
 	for i in count:
