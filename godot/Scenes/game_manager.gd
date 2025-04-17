@@ -40,7 +40,7 @@ var current_zone_width: float:
 
 var _current_zone: NewZone = null
 
-var _zone_manager: ZoneManager = null
+var _zone_config_manager: ZoneConfigManager = null
 
 func is_paused() -> bool:
 	return self._paused
@@ -63,16 +63,16 @@ func take_current_distance_in_meters() -> int:
 
 		
 func _init() -> void:
-	self._zone_manager = ZoneManager.new()
+	self._zone_config_manager = ZoneConfigManager.new()
 	
 func _ready() -> void:
-	self._zone_manager.set_name( "ZoneManager" )
-	self.add_child( self._zone_manager )
+	self._zone_config_manager.set_name( "ZoneConfigManager" )
+	self.add_child( self._zone_config_manager )
 	
 	if OS.has_feature("demo"):
-		self._zone_manager.load_zones_from_folder( "res://Resources/Demo-Zones/" )
+		self._zone_config_manager.load_zones_from_folder( "res://Resources/Demo-Zones/" )
 	else:
-		self._zone_manager.load_zones_from_folder( "res://Resources/Zones/" )
+		self._zone_config_manager.load_zones_from_folder( "res://Resources/Zones/" )
 	
 	self.push_initial_zones()	
 
@@ -87,7 +87,7 @@ func push_initial_zones():
 	# var initial_zones = [ "0000_Start", "0000_ILoveFiiish" ]
 	var initial_zones = [ "0000_ILoveFiiish" ]
 	for iz in initial_zones:
-		self._zone_manager.push_next_zone_by_name( iz )
+		self._zone_config_manager.push_next_zone_by_name( iz )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -125,7 +125,7 @@ func _pick_next_zone() -> NewZone:
 		"9998_AssetTest",
 		"9999_Test"
 	]	
-	return self._zone_manager.pick_next_zone( blocked_zones )
+	return self._zone_config_manager.pick_next_zone( blocked_zones )
 
 func spawn_zone():
 	#var xs = [ 1200.0, 1500.0, 1800.0 ]
@@ -137,10 +137,10 @@ func spawn_zone():
 		#%Obstacles.add_child(o)
 
 	var zone = null
-	var next_zone = self._zone_manager.pop_next_zone()
+	var next_zone = self._zone_config_manager.pop_next_zone()
 		
-	if next_zone >= 0 && next_zone < self._zone_manager.zone_count():
-		zone = self._zone_manager.get_zone( next_zone )
+	if next_zone >= 0 && next_zone < self._zone_config_manager.zone_count():
+		zone = self._zone_config_manager.get_zone( next_zone )
 	else:
 		zone = self._pick_next_zone()
 #	if self._zone != null:

@@ -1,5 +1,5 @@
 extends Node
-class_name ZoneManager
+class_name ZoneConfigManager
 
 
 var _zones: Array[ NewZone ] = []
