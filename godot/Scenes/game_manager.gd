@@ -24,6 +24,8 @@ signal sound_triggered( SoundEffect )
 
 @export var game_zone: CollisionShape2D = null
 
+@export var entity_config_manager: EntityConfigManager = null
+
 var _coin_rain_duration: float = 0.0
 var _coin_rain_coins_per_second: float = 0.0
 var _coin_rain_counter: float = 0.0
@@ -44,40 +46,6 @@ var current_zone_width: float:
 			return self._current_zone.width
 		else:
 			return 0.0
-
-var _entity_configs = {
-	EntityId.Id.PICKUPCOIN: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin.tscn") ),
-	EntityId.Id.PICKUPRAIN: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin_rain.tscn") ),
-	EntityId.Id.PICKUPEXPLOSION: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/coin_explosion.tscn") ),
-	EntityId.Id.PICKUPMAGNET: EntityConfig.new( EntityType.PICKUP, preload("res://Scenes/Pickups/magnet.tscn") ),
-	EntityId.Id.ROCKA: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_a.tscn") ),
-	EntityId.Id.ROCKB: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_b.tscn") ),
-	EntityId.Id.ROCKC: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_c.tscn") ),
-	EntityId.Id.ROCKD: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_d.tscn") ),
-	EntityId.Id.ROCKE: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_e.tscn") ),
-	EntityId.Id.ROCKF: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/rock_f.tscn") ),
-	EntityId.Id.SEAWEEDA: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_a.tscn") ),
-	EntityId.Id.SEAWEEDB: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_b.tscn") ),
-	EntityId.Id.SEAWEEDC: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_c.tscn") ),
-	EntityId.Id.SEAWEEDD: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_d.tscn") ),
-	EntityId.Id.SEAWEEDE: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_e.tscn") ),
-	EntityId.Id.SEAWEEDF: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_f.tscn") ),
-	EntityId.Id.SEAWEEDG: EntityConfig.new( EntityType.OBSTACLE, preload("res://Scenes/Obstacles/seaweed_g.tscn") ),
-}
-
-#var _rock_a = preload("res://Scenes/Obstacles/rock_a.tscn")
-#var _rock_b = preload("res://Scenes/Obstacles/rock_b.tscn")
-#var _rock_c = preload("res://Scenes/Obstacles/rock_c.tscn")
-#var _rock_d = preload("res://Scenes/Obstacles/rock_d.tscn")
-#var _rock_e = preload("res://Scenes/Obstacles/rock_e.tscn")
-#var _rock_f = preload("res://Scenes/Obstacles/rock_f.tscn")
-#var _seaweed_a = preload("res://Scenes/Obstacles/seaweed_a.tscn")
-#var _seaweed_b = preload("res://Scenes/Obstacles/seaweed_b.tscn")
-#var _seaweed_c = preload("res://Scenes/Obstacles/seaweed_c.tscn")
-#var _seaweed_d = preload("res://Scenes/Obstacles/seaweed_d.tscn")
-#var _seaweed_e = preload("res://Scenes/Obstacles/seaweed_e.tscn")
-#var _seaweed_f = preload("res://Scenes/Obstacles/seaweed_f.tscn")
-#var _seaweed_g = preload("res://Scenes/Obstacles/seaweed_g.tscn")
 
 var _current_zone: NewZone = null
 
@@ -276,7 +244,7 @@ func _pick_coin( fish: Fish ) -> EntityId.Id:
 	
 func _instantiate_coin( fish: Fish ) -> Object:
 		var coin_entity_id = _pick_coin( fish )
-		var coin_ec = _entity_configs.get( coin_entity_id )
+		var coin_ec = entity_config_manager.get_entry( coin_entity_id )
 		if coin_ec == null:
 			return null
 		var p = coin_ec.resource.instantiate()
@@ -342,7 +310,7 @@ func spawn_zone():
 	
 	
 					var o = null
-					var ec = _entity_configs.get( obj.crc )
+					var ec = entity_config_manager.get_entry( obj.crc )
 					if ec != null:
 						o = ec.resource.instantiate()
 						o.game_manager = self

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=23 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://drv8nabn33aa4" path="res://Scenes/Pickups/coin_rain.tscn" id="9_1neft"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="10_40ndf"]
 [ext_resource type="Script" uid="uid://cv5hi8str0mwa" path="res://Scenes/pickup_manager.gd" id="14_nb51f"]
+[ext_resource type="Script" uid="uid://coptt7xb8x3f3" path="res://Scripts/entity_config_manager.gd" id="15_nnt18"]
 
 [sub_resource type="Animation" id="Animation_1phco"]
 resource_name = "Shake"
@@ -204,15 +205,21 @@ game_manager = NodePath("../../Managers/GameManager")
 
 [node name="Managers" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 
-[node name="GameManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers" node_paths=PackedStringArray("game_zone")]
+[node name="GameManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers" node_paths=PackedStringArray("game_zone", "entity_config_manager")]
 unique_name_in_owner = true
 script = ExtResource("4_cqt8y")
 left_boundary = -2200.0
 zone_spawn_offset = 1500.0
 game_zone = NodePath("../../Helpers/Area2D/GameZone")
+entity_config_manager = NodePath("../EntityConfigManager")
 
 [node name="PickupManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers"]
+unique_name_in_owner = true
 script = ExtResource("14_nb51f")
+
+[node name="EntityConfigManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers"]
+unique_name_in_owner = true
+script = ExtResource("15_nnt18")
 
 [node name="Helpers" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 
