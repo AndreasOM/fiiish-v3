@@ -4,7 +4,7 @@ class_name GameManager
 const EntityType = preload("res://Scripts/entity_type.gd").EntityType
 const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
 
-signal zone_changed
+# signal zone_changed
 
 signal sound_triggered( SoundEffect )
 
@@ -25,20 +25,11 @@ signal sound_triggered( SoundEffect )
 
 @export var entity_config_manager: EntityConfigManager = null
 @export var pickup_manager: PickupManager = null
+@export var zone_manager: ZoneManager = null
 
 var _coins: int = 0
 var _distance: float = 0.0
 var _paused: bool = true
-var current_zone_progress: float = 0.0
-
-var current_zone_width: float:
-	get:
-		if self._current_zone != null:
-			return self._current_zone.width
-		else:
-			return 0.0
-
-var _current_zone: NewZone = null
 
 var _zone_config_manager: ZoneConfigManager = null
 
@@ -64,7 +55,7 @@ func take_current_distance_in_meters() -> int:
 		
 func _init() -> void:
 	self._zone_config_manager = ZoneConfigManager.new()
-	
+
 func _ready() -> void:
 	self._zone_config_manager.set_name( "ZoneConfigManager" )
 	self.add_child( self._zone_config_manager )
@@ -74,7 +65,10 @@ func _ready() -> void:
 	else:
 		self._zone_config_manager.load_zones_from_folder( "res://Resources/Zones/" )
 	
-	self.push_initial_zones()	
+	self.zone_manager.set_zone_config_manager( self._zone_config_manager )
+
+	self.push_initial_zones()
+
 
 func set_invincible( invicible: bool ):
 	for fi in %Fishes.get_children():
@@ -91,11 +85,6 @@ func push_initial_zones():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	self.current_zone_progress += movement_x * delta
-	if self._current_zone != null:
-		if self.current_zone_progress >= self._current_zone.width:
-			self.spawn_zone()
-			pass
 	_distance += self.movement_x * delta
 
 #	if Input.is_key_pressed(KEY_D):
@@ -115,68 +104,11 @@ func pause():
 func resume():
 	self._paused = false
 
+func spawn_zone() -> void:
+	self.zone_manager.spawn_zone()
 
-func _pick_next_zone() -> NewZone:
-	var blocked_zones: Array[ String ] = [ 
-		"0000_Start",
-		"0000_ILoveFiiish",
-		"0000_ILoveFiiishAndRust",
-		"8000_MarketingScreenshots",
-		"9998_AssetTest",
-		"9999_Test"
-	]	
-	return self._zone_config_manager.pick_next_zone( blocked_zones )
-
-func spawn_zone():
-	#var xs = [ 1200.0, 1500.0, 1800.0 ]
-	#var y = 410.0
-	#for x in xs:
-		#var o = _rock_b.instantiate()
-		#o.game_manager = self
-		#o.position = Vector2( x, y )
-		#%Obstacles.add_child(o)
-
-	var zone = null
-	var next_zone = self._zone_config_manager.pop_next_zone()
-		
-	if next_zone >= 0 && next_zone < self._zone_config_manager.zone_count():
-		zone = self._zone_config_manager.get_zone( next_zone )
-	else:
-		zone = self._pick_next_zone()
-#	if self._zone != null:
-	if zone != null:
-		self.current_zone_progress = 0.0
-		self._current_zone = zone
-		self.zone_changed.emit( zone.name)
-		Events.broadcast_zone_changed( zone )
-		for l in zone.layers.iter():
-			if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
-				for obj in l.objects.iter():
-	
-	
-					var o = null
-					var ec = entity_config_manager.get_entry( obj.crc )
-					if ec != null:
-						o = ec.resource.instantiate()
-						o.game_manager = self
-						o.position = Vector2( obj.pos_x + self.zone_spawn_offset, obj.pos_y )
-						o.rotation_degrees = obj.rotation
-						match ec.entity_type:
-							EntityType.OBSTACLE:
-								%Obstacles.add_child(o)
-							EntityType.PICKUP:
-								%Pickups.add_child(o)
-							_ :
-								pass
-						#print( o )
-					else:
-						print("Unhandled CRC: %08x" % obj.crc)
-						
 func cleanup() -> void:
-	for o in %Obstacles.get_children():
-		%Obstacles.remove_child(o)
-		o.queue_free()
-
+	self.zone_manager.cleanup()
 	self.pickup_manager.cleanup()
 
 func kill_pickups() -> void:
@@ -191,10 +123,16 @@ func prepare_respawn() -> void:
 func goto_next_zone():
 	print("Next Zone")
 	self.cleanup()
-	self.spawn_zone()
+	self.zone_manager.spawn_zone()
 
 func trigger_sound( fx: SoundEffect ) -> void:
 	sound_triggered.emit( fx )
 
 func give_coins( amount: int ) -> void:
 	self._coins += amount
+
+func get_current_zone_progress() -> float:
+	return self.zone_manager.current_zone_progress
+
+func get_current_zone_width() -> float:
+	return self.zone_manager.current_zone_width
