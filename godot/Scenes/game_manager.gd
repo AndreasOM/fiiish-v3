@@ -1,9 +1,7 @@
 extends Node
 class_name GameManager
 
-const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
-
-signal sound_triggered( SoundEffect )
+signal sound_triggered( soundEffects_Id )
 
 @export var movement_x: float = 240.0:
 	get:
@@ -122,8 +120,8 @@ func goto_next_zone():
 	self.cleanup()
 	self.zone_manager.spawn_zone()
 
-func trigger_sound( fx: SoundEffect ) -> void:
-	sound_triggered.emit( fx )
+func trigger_sound( soundEffect_Id: SoundEffects.Id ) -> void:
+	sound_triggered.emit( soundEffect_Id )
 
 func give_coins( amount: int ) -> void:
 	self._coins += amount

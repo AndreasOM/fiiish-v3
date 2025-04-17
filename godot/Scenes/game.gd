@@ -1,7 +1,6 @@
 extends Node
 class_name Game
 
-const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
 
 enum State {
 	INITIAL,
@@ -95,14 +94,14 @@ func _on_fish_state_changed(state: Game.State) -> void:
 		# State.DYING:
 		State.KILLED:
 			if _player.isSoundEnabled():
-				soundManager.trigger_effect( SoundEffect.FISH_DEATH )
-				soundManager.trigger_effect( SoundEffect.BUBBLE_BLAST_LOOP )
+				soundManager.trigger_effect( SoundEffects.Id.FISH_DEATH )
+				soundManager.trigger_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP )
 			_credit_last_swim()
 			%GameManager.kill_pickups()
 			%ScreenShakeNode2D.trigger()
 		State.RESPAWNING:
-			soundManager.fade_out_effect( SoundEffect.FISH_DEATH, 0.3 )
-			soundManager.fade_out_effect( SoundEffect.BUBBLE_BLAST_LOOP, 0.3 )
+			soundManager.fade_out_effect( SoundEffects.Id.FISH_DEATH, 0.3 )
+			soundManager.fade_out_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP, 0.3 )
 		State.WAITING_FOR_START:
 			var f = %Fish as Fish
 			if f != null:
@@ -177,7 +176,7 @@ func toogle_pause() -> bool:
 	Events.broadcast_game_paused( is_paused )
 	return is_paused
 
-func _on_game_manager_sound_triggered( soundEffect: SoundEffect ) -> void:
+func _on_game_manager_sound_triggered( soundEffect: SoundEffects.Id ) -> void:
 	if _player.isSoundEnabled():
 		soundManager.trigger_effect( soundEffect )
 

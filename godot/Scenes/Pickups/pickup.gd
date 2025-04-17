@@ -1,13 +1,11 @@
 extends Node2D
 class_name Pickup
 
-const SoundEffect = preload("res://Scripts/sound_effect.gd").SoundEffect
-
 @export var game_manager: GameManager = null
 
 @export var _coin_value: int = 0
 @export var _effect: PickupEffectIds.Id = PickupEffectIds.Id.NONE
-@export var _soundEffect: SoundEffect = SoundEffect.NONE
+@export var _soundEffect: SoundEffects.Id = SoundEffects.Id.NONE
 
 var _velocity: Vector2 = Vector2.ZERO
 
@@ -49,7 +47,7 @@ func collect():
 func effect() -> PickupEffectIds.Id:
 	return _effect
 
-func soundEffect() -> SoundEffect:
+func soundEffect() -> SoundEffects.Id:
 	return _soundEffect
 
 func coin_value() -> int:
