@@ -8,7 +8,7 @@ signal goto_next_zone
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%DebugCamerCheckButton.button_pressed = %CameraDebugPanel.visible
-	pass # Replace with function body.
+	Events.zone_changed.connect( _on_zone_changed )
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,9 +16,9 @@ func _process(_delta: float) -> void:
 	if self.game !=	null:
 		var game_manager = self.game.get_game_manager()
 		if game_manager != null:
-			var zx = game_manager.current_zone_progress
+			var zx = game_manager.get_current_zone_progress()
 			%CurrentZoneProgressLabel.text = "%5.2f" % zx
-			var zw = game_manager.current_zone_width
+			var zw = game_manager.get_current_zone_width()
 			%CurrentZoneWidthLabel.text = "%5.2f" % zw
 			%CurrentZoneProgressBar.value = ( zx/zw ) * 100.0 
 			# print( "%5.2f" % ( zx/zw ) )
@@ -70,7 +70,7 @@ func _on_button_normal_pressed() -> void:
 	%ZoomSlider.value = 1.0
 
 
-func _on_game_zone_changed( zone_name: String ) -> void:
+func _on_zone_changed( zone_name: String ) -> void:
 	print( "Zone: ", zone_name )
 	%CurrentZoneLabel.text = zone_name
 	pass # Replace with function body.

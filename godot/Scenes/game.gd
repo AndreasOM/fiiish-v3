@@ -32,7 +32,6 @@ static func state_to_name( state: Game.State) -> String:
 		_:
 			return "[UNKNOWN]"
 
-signal zone_changed
 signal state_changed( state: Game.State )
 
 @export var musicManager: MusicManager = null
@@ -78,10 +77,6 @@ func get_skill_config_manager() -> SkillConfigManager:
 func _on_debug_ui_zoom_changed( value: float ) -> void:
 	%GameNode2D.scale.x = value
 	%GameNode2D.scale.y = value
-
-func _on_game_manager_zone_changed( zone_name: String ) -> void:
-	self.zone_changed.emit( zone_name )
-
 
 func _on_debug_ui_goto_next_zone() -> void:
 	%GameManager.goto_next_zone()

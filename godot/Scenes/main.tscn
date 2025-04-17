@@ -239,6 +239,5 @@ script = ExtResource("23_l5um0")
 script = ExtResource("24_6541p")
 
 [connection signal="state_changed" from="Game" to="UI/DialogManager" method="_on_game_state_changed"]
-[connection signal="zone_changed" from="Game" to="UI/DebugUI" method="_on_game_zone_changed"]
 [connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
 [connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
