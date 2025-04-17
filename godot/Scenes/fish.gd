@@ -266,7 +266,7 @@ func set_skill_effect_set( ses: SkillEffectSet ):
 	print("Magnet Range Factor %f" % _magnet_range_factor )
 	print("Magnet Speed Factor %f" % _magnet_speed_factor )
 
-func get_skill_effect_value( skill_effect_id: SkillEffectIds.Id, default: float):
+func get_skill_effect_value( skill_effect_id: SkillEffectIds.Id, default: float) -> float:
 	return _skill_effect_set.get_value( skill_effect_id, default)
 
 func set_invincible( invicible: bool ):

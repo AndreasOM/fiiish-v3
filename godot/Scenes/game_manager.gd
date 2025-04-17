@@ -27,10 +27,6 @@ signal sound_triggered( SoundEffect )
 @export var entity_config_manager: EntityConfigManager = null
 @export var pickup_manager: PickupManager = null
 
-var _coin_rain_duration: float = 0.0
-var _coin_rain_coins_per_second: float = 0.0
-var _coin_rain_counter: float = 0.0
-
 var _coins: int = 0
 var _distance: float = 0.0
 var _paused: bool = true
@@ -46,6 +42,9 @@ var current_zone_width: float:
 var _current_zone: NewZone = null
 
 var _zone_manager: ZoneManager = null
+
+func is_paused() -> bool:
+	return self._paused
 
 func coins() -> int:
 	return _coins
@@ -140,8 +139,9 @@ func _physics_process_pickups(delta_time: float) -> void:
 						#f.apply_magnet_boost( 3.0, 10.0, 1.5 )
 					# :TODO: to be continued...
 					PickupEffect.RAIN:
-						_coin_rain_duration += f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_DURATION, 0.0 )
-						_coin_rain_coins_per_second = f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_COINS_PER_SECOND, 0.0 )
+						var duration := f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_DURATION, 0.0 )
+						var coins_per_second := f.get_skill_effect_value( SkillEffectIds.Id.COIN_RAIN_COINS_PER_SECOND, 0.0 )
+						self.pickup_manager.extend_coin_rain( duration, coins_per_second )
 					PickupEffect.EXPLOSION:
 						self.pickup_manager.spawn_explosion( pp, f )
 					_: pass
@@ -158,16 +158,6 @@ func _physics_process_pickups(delta_time: float) -> void:
 				delta = delta.normalized()
 				delta = speed * delta;
 				p.position += delta;
-				
-		if _coin_rain_duration > 0.0:
-			var t = min( delta_time, _coin_rain_duration )
-			_coin_rain_counter += t * _coin_rain_coins_per_second
-			_coin_rain_duration -= delta_time
-			
-			var cc = floor(_coin_rain_counter)
-			if cc > 0:
-				_coin_rain_counter -= cc
-				self.pickup_manager.spawn_coins(cc, f)
 				
 func pause():
 	self._paused = true
@@ -232,27 +222,20 @@ func spawn_zone():
 					else:
 						print("Unhandled CRC: %08x" % obj.crc)
 						
-func cleanup():
+func cleanup() -> void:
 	for o in %Obstacles.get_children():
 		%Obstacles.remove_child(o)
 		o.queue_free()
 
-	for p in %Pickups.get_children():
-		%Pickups.remove_child(p)
-		p.queue_free()
+	self.pickup_manager.cleanup()
 
-func kill_pickups():
-	var g = Vector2( 0.0, 9.81*100.0 )
-	for pi in %Pickups.get_children():
-		var p = pi as Pickup
-		if p == null:
-			continue
-		p.set_acceleration( g )
+func kill_pickups() -> void:
+	self.pickup_manager.kill_all()
 	
-func prepare_respawn():
+func prepare_respawn() -> void:
 	_coins = 0
-	_coin_rain_duration = 0.0
 	_distance = 0.0
+	self.pickup_manager.prepare_respawn()
 	self.push_initial_zones()
 	
 func goto_next_zone():
