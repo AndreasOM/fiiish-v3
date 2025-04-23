@@ -14,15 +14,20 @@
 ## V3.4.0
 
 - [ ] Feature: Main Menu
-	- [ ] Bonus: Animated MainMenu in and out
 	- [ ] Bonus: Animated Focused MainMenu entry
 
 
 - [ ] Polish: Use AnimationPlayer for result display
 
-## V3.6.0
+## V3.6.0 - ETA: 05/25
 
 - [ ] Feature: Zone Editor
+
+## V3.8.0 - ETA: 06/25
+
+## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
+
+
 
 ## Next release
 
@@ -59,6 +64,11 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-04-23
+#### S03E18
+- [x] Animate MainMenu in and out
+- [x] Minor tweaks to Dialog lifecycle
 
 ### 2025-04-17
 #### S03E17

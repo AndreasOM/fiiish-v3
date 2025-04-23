@@ -1,19 +1,48 @@
+@tool
+
 extends Dialog
 class_name MainMenuDialog
 
+@export_tool_button( "FadeIn" ) var fade_in_action = _fade_in.bind()
+@export_tool_button( "FadeOut" ) var fade_out_action = _fade_out
+@export var fade_duration: float = 1.5
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+
+
 var game: Game = null
 
+func _fade_in() -> void:
+	if self.animation_player == null:
+		self.animation_player = %AnimationPlayer
+	# fade_in( fade_duration )
+	open( fade_duration )
+	
+
+func _fade_out() -> void:
+	
+	if self.animation_player == null:
+		self.animation_player = %AnimationPlayer
+	# fade_out( fade_duration )
+	close( fade_duration )
+	
 func set_game( game: Game ):
 	self.game = game
 	
 func toggle( duration: float ):
-	toggle_fade( duration )
+	# toggle_fade( duration )
+	toggle_fade( fade_duration )
 
 func close( duration: float):
 	fade_out( duration )
+#	if duration > 0.0:
+#		self.animation_player.play( &"FadeIn", -1.0, -1.0/fade_duration, false )
 
 func open( duration: float):
 	fade_in( duration )
+#	if duration > 0.0:
+#		$AnimationPlayer.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
 
 func toggle_fade( duration: float ):
 	$MainMenuFadeableContainer.toggle_fade( duration )
@@ -43,5 +72,16 @@ func _on_game_mode_pressed() -> void:
 	var name = GameModes.get_name_for_mode( mode )
 	%GameMode.label = "GameMode: %s" % name
 
-func _on_main_menu_fadeable_container_on_fading_in() -> void:
+func _on_main_menu_fadeable_container_on_fading_in( duration: float ) -> void:
 	%LeaderBoard.grab_focus.call_deferred()
+	if duration > 0.0 && self.animation_player != null:
+		self.animation_player.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
+
+
+func _on_main_menu_fadeable_container_on_fading_out( duration: float ) -> void:
+	if duration > 0.0 && self.animation_player != null:
+		self.animation_player.play( &"FadeIn", -1.0, -1.0/fade_duration, true )
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	var frames = Engine.get_frames_drawn()
+	print( "Animation Finished: %s (%d)" % [ anim_name, frames ] )

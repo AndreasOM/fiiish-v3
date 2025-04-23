@@ -1,6 +1,7 @@
 extends Control
 
 @export var game: Game = null
+@export var fade_time: float = 0.3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -65,7 +66,7 @@ func _on_state_changed( state: Game.State ):
 
 func _on_main_menu_button_pressed() -> void:
 	print("Toggle main menu")
-	%DialogManager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
+	%DialogManager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
 
 func _on_settings_changed():
 	self._update_main_menu_button( self.game.get_state() )
