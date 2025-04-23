@@ -27,7 +27,11 @@ enum State {
 @export var texture_disabled: Texture2D = null
 @export var texture_focused: Texture2D = null
 
+@export var focus_duration: float = 0.33
+
 signal pressed
+
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func _set_label( _label: String ):
 	label = _label
@@ -56,3 +60,11 @@ func _on_texture_button_pressed() -> void:
 
 func _on_focus_entered() -> void:
 	%TextureButton.grab_focus.call_deferred()
+
+
+func _on_texture_button_focus_entered() -> void:
+	self.animation_player.play( "Focused", -1.0, 1.0/self.focus_duration, false )
+
+
+func _on_texture_button_focus_exited() -> void:
+	self.animation_player.play( "Focused", -1.0, -1.0/self.focus_duration, true )
