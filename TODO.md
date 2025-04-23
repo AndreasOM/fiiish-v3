@@ -3,7 +3,6 @@
 ## In Progress
 
 
-
 ## Next
 
 - [ ] Polish: Improve shop and confirmation background
@@ -13,8 +12,6 @@
 
 ## V3.4.0
 
-- [ ] Feature: Main Menu
-	- [ ] Bonus: Animated Focused MainMenu entry
 
 
 - [ ] Polish: Use AnimationPlayer for result display
@@ -69,6 +66,8 @@
 #### S03E18
 - [x] Animate MainMenu in and out
 - [x] Minor tweaks to Dialog lifecycle
+- [x] Animate Focused MainMenu entry
+- [x] Feature: Main Menu
 
 ### 2025-04-17
 #### S03E17
