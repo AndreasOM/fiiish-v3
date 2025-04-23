@@ -1,5 +1,8 @@
+@tool 
 extends Container
 class_name FadeableContainer
+
+@export var apply_alpha: bool = true
 
 var _alpha: float = 1.0
 var _alpha_speed: float = 0.0
@@ -40,9 +43,13 @@ func _process(delta: float) -> void:
 			_alpha_speed = 0.0
 			_alpha = 0.0
 			visible = false
+			var frames = Engine.get_frames_drawn()
+			print("Invisble: %s (%d)" % [ self.get_parent_control().name, frames ] )
 			# z_index = RenderingServer.CANVAS_ITEM_Z_MIN
 			on_faded_out.emit()
-		modulate.a = _alpha
+
+		if self.apply_alpha:
+			modulate.a = _alpha
 		
 
 func toggle_fade( duration: float ):
@@ -60,12 +67,13 @@ func fade_in( duration: float):
 		c.mouse_filter = MOUSE_FILTER_STOP
 	if duration > 0.0:
 		_alpha_speed = 1.0 / duration
-		on_fading_in.emit()
+		on_fading_in.emit( duration )
 	else:
 		print("%s fast fade in" % name)
 		_alpha = 1.0
-		modulate.a = _alpha
-		on_fading_in.emit()
+		if self.apply_alpha:
+			modulate.a = _alpha
+		on_fading_in.emit( duration )
 		on_faded_in.emit()
 	
 func fade_out( duration: float):
@@ -75,14 +83,15 @@ func fade_out( duration: float):
 	_alpha_speed = -1.0 / duration
 	if duration > 0.0:
 		_alpha_speed = -1.0 / duration
-		on_fading_out.emit()
+		on_fading_out.emit( duration )
 	else:
 		print("%s fast fade out" % name)
 		_alpha = 0.0
-		modulate.a = _alpha
+		if self.apply_alpha:
+			modulate.a = _alpha
 		visible = false
 		_save_original_z_index()
 		# z_index = RenderingServer.CANVAS_ITEM_Z_MIN
-		on_fading_out.emit()
+		on_fading_out.emit( duration )
 		on_faded_out.emit()
 	

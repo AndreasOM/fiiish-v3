@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_n1w2s"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_4p0q0"]
 
-[node name="InGamePauseMenu" type="Control" node_paths=PackedStringArray("game")]
+[node name="InGamePauseMenu" type="Control"]
 process_mode = 3
 z_index = 8
 layout_mode = 3
@@ -19,7 +19,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_6l8pp")
-game = NodePath("")
 
 [node name="TopLeftMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -50,10 +50,10 @@ func _on_fadeable_panel_container_on_faded_in() -> void:
 func _on_fadeable_panel_container_on_faded_out() -> void:
 	closed()
 
-func _on_fadeable_panel_container_on_fading_in() -> void:
+func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
 	opening()
 
-func _on_fadeable_panel_container_on_fading_out() -> void:
+func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
 	closing()
 
 func _on_coins_texture_button_pressed() -> void:

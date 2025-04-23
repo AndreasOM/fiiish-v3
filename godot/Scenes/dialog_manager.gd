@@ -80,7 +80,8 @@ func _on_skills_upgrade_button_pressed() -> void:
 func toggle_dialog( id: DialogIds.Id, duration: float):
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog == null:
-		dialog = self.open_dialog(id, 0.3)
+		# dialog = self.open_dialog(id, 0.3)
+		dialog = self._instantiate_dialog(id)
 	if dialog != null:
 		dialog.toggle( duration )
 	else:

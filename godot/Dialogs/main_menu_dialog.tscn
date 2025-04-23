@@ -1,35 +1,109 @@
-[gd_scene load_steps=4 format=3 uid="uid://ce5wjojgn8rrg"]
+[gd_scene load_steps=7 format=3 uid="uid://ce5wjojgn8rrg"]
 
 [ext_resource type="Script" uid="uid://dwejhqhcnwn2b" path="res://Dialogs/main_menu_dialog.gd" id="1_otu7v"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_ce5h4"]
 [ext_resource type="PackedScene" uid="uid://ljeb1qfapg02" path="res://Dialogs/MainMenu/main_menu_entry.tscn" id="3_otu7v"]
 
+[sub_resource type="Animation" id="Animation_otu7v"]
+resource_name = "FadeIn"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(-2160, -0.25, 0, 0.25, 0, 219.242, -0.127778, -276, 0.0388889, 84, 0, -0.1, 5.18551, 0, 0),
+"times": PackedFloat32Array(0, 0.766667, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2, 0),
+"points": PackedFloat32Array(-0.032251, -0.0431222, -0.601305, 0.0333333, 0.464807, 1.06336, -0.0333333, 0, 0.166667, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.1, 0.4, 1)
+}
+
+[sub_resource type="Animation" id="Animation_ce5h4"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-2160, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxp64"]
+_data = {
+&"FadeIn": SubResource("Animation_otu7v"),
+&"RESET": SubResource("Animation_ce5h4")
+}
+
 [node name="MainMenuDialog" type="Control"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_top = -2160.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_otu7v")
+fade_duration = 0.66
 metadata/_custom_type_script = "uid://crap0ddpji4x7"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_gxp64")
+}
 
 [node name="MainMenuFadeableContainer" type="CenterContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -262.0
+offset_right = 384.0
+offset_bottom = 262.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 script = ExtResource("2_ce5h4")
+apply_alpha = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenuFadeableContainer"]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="LeaderBoard" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
 unique_name_in_owner = true
@@ -61,7 +135,9 @@ id = 2
 state = 1
 label = "Quit"
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="on_fading_in" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_in"]
+[connection signal="on_fading_out" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_out"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/LeaderBoard" to="." method="_on_leader_board_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/GameMode" to="." method="_on_game_mode_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/ZoneEditor" to="." method="_on_zone_editor_pressed"]

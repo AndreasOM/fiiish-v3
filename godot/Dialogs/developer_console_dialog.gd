@@ -172,7 +172,7 @@ func inc_command_history_current():
 		self._command_history_current += 1
 	# print("DEVELOPER_CONSOLE: %d ++ => %d" % [ o, self._command_history_current ] )
 	
-func _on_fadeable_container_on_fading_in() -> void:
+func _on_fadeable_container_on_fading_in( _duration: float ) -> void:
 	self.visible = true
 	self._block_input = true
 	self.game.pause()
