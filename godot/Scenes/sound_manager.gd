@@ -25,6 +25,8 @@ func _ready() -> void:
 	_add_sound_player( SoundEffects.Id.PICKED_COIN, 50, 0.025, false, "res://Sound/picked_coin.wav" )
 	_add_sound_player( SoundEffects.Id.FISH_DEATH, 1, 1.0, false, "res://Sound/fiish_death.wav" )
 	_add_sound_player( SoundEffects.Id.BUBBLE_BLAST_LOOP, 1, 1.0, true, "res://Sound/bubble_blast_loop.wav" )
+	_add_sound_player( SoundEffects.Id.PICKED_COIN_LOOP, 1, 1.0, true, "res://Sound/picked_coin.wav" )
+	_add_sound_player( SoundEffects.Id.DISTANCE_COUNT_LOOP, 1, 1.0, true, "res://Sound/distance_count_loop.wav" )
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

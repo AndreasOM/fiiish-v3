@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Polish: Use AnimationPlayer for result display
 
 ## Next
 
@@ -30,6 +29,9 @@
 - [ ] Feature: Achievements
 
 ## Later
+
+- [ ] Polish: Create sound loop for distance counting
+- [ ] Polish: Create sound loop for coin counting
 
 - [ ] Polish: ThemeTypeVariationTween should remove overrides when finished
 - [ ] Task: Allow opening of DeveloperConsole without keyboard
@@ -66,6 +68,7 @@
 #### S03E19
 - [x] Polish: Improve shop and confirmation background
 - [x] Tweak: Avoid clearing Leaderboard (test) entries in editor
+- [x] Polish: Use AnimationPlayer for result display
 
 ### 2025-04-23
 #### S03E18

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0rj0pswt334s"]
+[gd_scene load_steps=10 format=3 uid="uid://d0rj0pswt334s"]
 
 [ext_resource type="Script" uid="uid://d0npyqj022upw" path="res://Scenes/result_dialog.gd" id="1_wlxjo"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_g40ym"]
@@ -6,6 +6,76 @@
 [ext_resource type="PackedScene" uid="uid://ch18db020xqmp" path="res://Scenes/UI/result_row.tscn" id="4_sjgyn"]
 [ext_resource type="Texture2D" uid="uid://l3vyvg8q35ki" path="res://Textures/UI/Buttons/button_fiiish.png" id="5_8gynd"]
 [ext_resource type="Texture2D" uid="uid://liei0p04c4l6" path="res://Textures/UI/Buttons/button_leaderboard.png" id="6_848gl"]
+
+[sub_resource type="Animation" id="Animation_848gl"]
+resource_name = "CountUp"
+length = 3.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:anim_coin_percentage")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:anim_distance_percentage")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1, 3)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:animation_step")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 3, 2, 4]
+}
+
+[sub_resource type="Animation" id="Animation_m8h2f"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:anim_coin_percentage")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation_step")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m8h2f"]
+_data = {
+&"CountUp": SubResource("Animation_848gl"),
+&"RESET": SubResource("Animation_m8h2f")
+}
 
 [node name="ResultDialog" type="Control" node_paths=PackedStringArray("coinsResultRow", "distanceResultRow", "bestDistanceResultRow", "totalDistanceResultRow")]
 layout_mode = 3
@@ -21,6 +91,12 @@ coinsResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginConta
 distanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/DistanceResultRow")
 bestDistanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/BestDistanceResultRow")
 totalDistanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/TotalDistanceResultRow")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_m8h2f")
+}
 
 [node name="ResultDialogFadeableContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -57,15 +133,21 @@ layout_mode = 2
 
 [node name="CoinsResultRow" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_sjgyn")]
 layout_mode = 2
+was_best = false
 
 [node name="DistanceResultRow" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_sjgyn")]
 layout_mode = 2
+duration = 5.88882
+was_best = false
 
 [node name="BestDistanceResultRow" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_sjgyn")]
 layout_mode = 2
+duration = 5.88882
+was_best = false
 
 [node name="TotalDistanceResultRow" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_sjgyn")]
 layout_mode = 2
+was_best = false
 
 [node name="MarginContainer2" type="MarginContainer" parent="ResultDialogFadeableContainer/TextureRect"]
 layout_mode = 1
