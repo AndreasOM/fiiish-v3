@@ -67,6 +67,9 @@ func _on_cheats_changed():
 func _process(_delta: float) -> void:
 	pass
 
+func get_sound_manager() -> SoundManager:
+	return self.soundManager
+	
 func get_player() -> Player:
 	return _player
 	
@@ -95,13 +98,13 @@ func _on_fish_state_changed(state: Game.State) -> void:
 		State.KILLED:
 			if _player.isSoundEnabled():
 				soundManager.trigger_effect( SoundEffects.Id.FISH_DEATH )
-				soundManager.trigger_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP )
+				# soundManager.trigger_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP )
 			_credit_last_swim()
 			%GameManager.kill_pickups()
 			%ScreenShakeNode2D.trigger()
 		State.RESPAWNING:
 			soundManager.fade_out_effect( SoundEffects.Id.FISH_DEATH, 0.3 )
-			soundManager.fade_out_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP, 0.3 )
+			# soundManager.fade_out_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP, 0.3 )
 		State.WAITING_FOR_START:
 			var f = %Fish as Fish
 			if f != null:

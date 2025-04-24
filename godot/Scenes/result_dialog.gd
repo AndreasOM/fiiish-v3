@@ -2,6 +2,14 @@
 
 extends Dialog
 
+enum AnimationStep {
+	NONE,
+	START_COINS,
+	STOP_COINS,
+	DISTANCE_START,
+	DISTANCE_STOP,
+}
+
 @export var game: Game = null
 
 @export var coinsResultRow: ResultRow = null
@@ -10,23 +18,43 @@ extends Dialog
 @export var totalDistanceResultRow: ResultRow = null
 
 @export_tool_button("Prepare Demo Results") var prepare_demo_results_action = _prepare_demo_results
+@export_tool_button("Prepare High Demo Results") var prepare_high_demo_results_action = _prepare_high_demo_results
 
-var _time: float = 0.0
-var _coinsTarget: int = 0
-var _distanceTarget: int = 0
-var _totalDistanceTarget: int = 0
+@export var animation_step: AnimationStep = AnimationStep.NONE  : set = _set_animation_step
+@export var anim_coin_percentage: float = 0.0
+@export var anim_distance_percentage: float = 0.0
+
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+
+var _start_coins: int = 0
+var _new_coins: int = 0
+
+var _start_distance: int = 0
+var _new_distance: int = 0
+
 var _bestDistance: int = 0
 	
-var _coinsGained: EasedInteger = null
-var _distanceGained: EasedInteger = null
-
 var _was_best_distance: bool = false
 
-var _coins_start_time: float = 0.0
-var _coins_end_time: float = 0.0
-var _distance_start_time: float = 0.0
-var _distance_end_time: float = 0.0
-
+func _set_animation_step( step: AnimationStep ) -> void:
+	var sound_manager := self.game.get_sound_manager()
+	if sound_manager == null:
+		return
+	match step:
+		AnimationStep.START_COINS:
+			sound_manager.trigger_effect( SoundEffects.Id.PICKED_COIN_LOOP )
+			pass
+		AnimationStep.STOP_COINS:
+			sound_manager.fade_out_effect( SoundEffects.Id.PICKED_COIN_LOOP, 0.3 )
+			pass
+		AnimationStep.DISTANCE_START:
+			sound_manager.trigger_effect( SoundEffects.Id.DISTANCE_COUNT_LOOP )
+		AnimationStep.DISTANCE_STOP:
+			sound_manager.fade_out_effect( SoundEffects.Id.DISTANCE_COUNT_LOOP, 0.3 )
+		_:
+			pass
+	animation_step = step
+	
 func _ready() -> void:
 	coinsResultRow.clear()
 	distanceResultRow.clear()
@@ -36,61 +64,42 @@ func _ready() -> void:
 func set_game( g: Game):
 	self.game = g
 
-func _process(delta: float) -> void:
-	if _coinsGained != null:
-		var was_distance_ended = _time > self._distance_end_time - 1.5
-		_time += delta
-		var is_distance_ended = _time > self._distance_end_time - 1.5
-		var distance_ended = !was_distance_ended && is_distance_ended
-		
-		var coinsGained = _coinsGained.get_for_time(_time)
-		if (coinsGained != 0):
-			coinsResultRow.setCurrent("%d" % coinsGained)
-		else:
-			coinsResultRow.setCurrent("")
+func _process(_delta: float) -> void:
+	var total_coins = _start_coins + self.anim_coin_percentage * _new_coins
+	coinsResultRow.setTotal( "%d" % total_coins )
+	var current_coins = ( 1.0 - self.anim_coin_percentage ) * _new_coins
+	if current_coins > 0:
+		coinsResultRow.setCurrent( "%d" % current_coins )
+	else:
+		coinsResultRow.setCurrent("")
 
-		var coins = _coinsTarget - coinsGained
-		coinsResultRow.setTotal("%d" % coins)
-		
-		var distanceGained = _distanceGained.get_for_time(_time)
-		if (distanceGained != 0):
-			distanceResultRow.setCurrent( "%d m" % distanceGained )
-		else:
-			distanceResultRow.setCurrent("")
+	var distance = self.anim_distance_percentage * _new_distance
+	distanceResultRow.setTotal( "%d m" % distance )
+	var current_distance = ( 1.0 - self.anim_distance_percentage ) * _new_distance
+	if current_distance > 0:
+		distanceResultRow.setCurrent( "%d m" % current_distance )
+	else:
+		distanceResultRow.setCurrent("")
 
-		var distance = _distanceTarget - distanceGained
-		distanceResultRow.setTotal("%d m" % distance)
-
-		var bestDistance = max(distance, _bestDistance)
-		bestDistanceResultRow.setTotal("%d m" % bestDistance)
-
-		if distance >= bestDistance:
-			#print("New best distance %d" % distance)
-			distanceResultRow.was_best = _was_best_distance
-			bestDistanceResultRow.was_best = _was_best_distance
-		#else:
-			#print("---")
-			
-		#if distance_ended:
-		#	distanceResultRow.was_best = _was_best_distance
-		#	bestDistanceResultRow.was_best = _was_best_distance 
-			
-		var totalDistance = _totalDistanceTarget - distanceGained
-		totalDistanceResultRow.setTotal("%d m" % totalDistance)
+	var total_distance = _start_distance + self.anim_distance_percentage * _new_distance
+	totalDistanceResultRow.setTotal( "%d m" % total_distance )
+	
+	var bestDistance = max(distance, _bestDistance)
+	bestDistanceResultRow.setTotal("%d m" % bestDistance)
+	
+	var best = distance >= bestDistance && _was_best_distance
+	distanceResultRow.was_best = best
+	bestDistanceResultRow.was_best = best
+	
+	return
 
 func _prepare_results():
-	# var game_manager = game.get_game_manager()
 	var player = game.get_player()
-	# var coins = game_manager.coins()
-	# var distance = game_manager.distance_in_m()
-
 	var coins = player.lastCoins()
 	var distance = player.lastDistance()
-
 	var first_ranks = player.get_first_ranks_on_last_leaderboard_update()
 	var start_coins = player.coins();
 	var start_distance = player.totalDistance();
-	# _bestDistance = player.bestDistance();
 	_bestDistance = player.prev_best_distance();
 	
 	self._prepare_results_from(
@@ -108,42 +117,30 @@ func _prepare_results_from(
 	start_coins: int,
 	start_distance: int,
 ) -> void:
+	self._start_coins = start_coins
+	self._new_coins = coins
+	
+	self._start_distance = start_distance
+	self._new_distance = distance
+
 	_was_best_distance = first_ranks.has( LeaderboardTypes.Type.LOCAL_DISTANCE )
 
-	_time = 0.0
-	var start_time = 0.0
 	var duration = 4.0*log( max(coins, distance) )/log(10)+1.3
-	var end_time = start_time + duration
+	var anim_duration = 3.0
+	var speed = anim_duration / duration
+	
+	# print("Duration: %f %s" % [ duration, speed ] )
+	self.animation_player.play( "CountUp" , -1.0, speed, false )
+
+	return
 
 	
-	self._coins_start_time = start_time
-	self._coins_end_time = end_time-0.3*duration
-	_coinsGained = EasedInteger.new(
-		self._coins_start_time, self._coins_end_time,
-		coins, 0,
-		EasedInteger.EasingFunction.IN_OUT_CUBIC
-	)
-	_coinsTarget = start_coins + coins
-
-	self._distance_start_time = start_time+0.3*duration
-	self._distance_end_time = end_time
-	_distanceGained = EasedInteger.new(
-		self._distance_start_time, self._distance_end_time,
-		distance, 0,
-		EasedInteger.EasingFunction.IN_OUT_CUBIC
-	);
-	_distanceTarget = distance;
-	_totalDistanceTarget = start_distance + distance
+# :TODO: decide if we need this?!
+#	coinsResultRow.clear()
+#	distanceResultRow.clear()
+#	bestDistanceResultRow.clear()
+#	totalDistanceResultRow.clear()
 	
-	coinsResultRow.clear()
-	distanceResultRow.clear()
-	bestDistanceResultRow.clear()
-	totalDistanceResultRow.clear()
-	
-	distanceResultRow.duration = _distance_end_time-_distance_start_time
-	bestDistanceResultRow.duration = _distance_end_time-_distance_start_time
-	# distanceResultRow.was_best = _was_best_distance
-	# bestDistanceResultRow.was_best = _was_best_distance 
 	
 func _prepare_demo_results() -> void:
 	var coins = 50
@@ -161,13 +158,28 @@ func _prepare_demo_results() -> void:
 		start_coins,
 		start_distance,
 	)
+
+func _prepare_high_demo_results() -> void:
+	var coins = 500
+	var distance = 60000
+	var first_ranks: Array[ LeaderboardTypes.Type ] = [ LeaderboardTypes.Type.LOCAL_DISTANCE ]
+	
+	var start_coins = 10
+	var start_distance = 100
+	_bestDistance = 10000;
+	
+	self._prepare_results_from(
+		coins,
+		distance,
+		first_ranks,
+		start_coins,
+		start_distance,
+	)
 	
 func toggle( duration: float ):
 	toggle_fade( duration )
 
 func close( duration: float):
-	if _coinsGained != null:
-		_coinsGained = null
 	fade_out( duration )
 
 func open( duration: float):
