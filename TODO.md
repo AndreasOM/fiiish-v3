@@ -31,6 +31,7 @@
 
 ## Later
 
+- [ ] Polish: ThemeTypeVariationTween should remove overrides when finished
 - [ ] Task: Allow opening of DeveloperConsole without keyboard
 
 - [ ] Task: Add job to trigger all builds on tag (Maybe not?!)
@@ -64,6 +65,7 @@
 ### 2025-04-24
 #### S03E19
 - [x] Polish: Improve shop and confirmation background
+- [x] Tweak: Avoid clearing Leaderboard (test) entries in editor
 
 ### 2025-04-23
 #### S03E18
