@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://by01jraxw5v61" path="res://Dialogs/fiiish_confirmation_dialog.gd" id="1_3nvp5"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_2c3hr"]
-[ext_resource type="Texture2D" uid="uid://c68hi10ws5uut" path="res://Textures/UI/confirmation_frame_v2.png" id="3_f3ec8"]
+[ext_resource type="Texture2D" uid="uid://cymc0ea0o55th" path="res://Textures/UI/confirmation_frame_v3.png" id="3_f3ec8"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="4_1dldt"]
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_8dk8x"]
 
@@ -46,9 +46,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 110
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 100
+theme_override_constants/margin_left = 70
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 70
 theme_override_constants/margin_bottom = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FadeableContainer/TextureRect/MarginContainer"]

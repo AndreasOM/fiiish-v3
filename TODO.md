@@ -5,7 +5,6 @@
 
 ## Next
 
-- [ ] Polish: Improve shop and confirmation background
 
 ## Todo
 
@@ -61,6 +60,10 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-04-24
+#### S03E19
+- [x] Polish: Improve shop and confirmation background
 
 ### 2025-04-23
 #### S03E18
