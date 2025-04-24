@@ -10,7 +10,9 @@ func set_was_new_best( b: bool ):
 	_update_particles()
 
 func _ready():
-	self._clear_existing_entries()
+	if !Engine.is_editor_hint():
+		# in editor keep for testing
+		self._clear_existing_entries()
 	_update_particles()
 
 func _update_particles():
