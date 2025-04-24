@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cjb7j1x8e8enx" path="res://Dialogs/skill_upgrade_dialog.gd" id="1_k8lgt"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_e21l8"]
-[ext_resource type="Texture2D" uid="uid://jjbmq7g2jsyx" path="res://Textures/UI/shop_frame_v2.png" id="3_ohic6"]
+[ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="3_ohic6"]
 [ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="4_kmdep"]
 [ext_resource type="Texture2D" uid="uid://c8aebb8lh1op3" path="res://Textures/UI/MiniButtons/mini_button_buy_right.png" id="5_7a8vs"]
 [ext_resource type="PackedScene" uid="uid://br2xttibjn8qo" path="res://Dialogs/SkillUpgradeElements/SkillUpgradeItem.tscn" id="5_r3p2e"]

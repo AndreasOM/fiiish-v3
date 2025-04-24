@@ -8,12 +8,29 @@ offset_right = 500.0
 offset_bottom = 103.0
 script = ExtResource("1_mv3ju")
 
-[node name="SkillNameLabel" type="Label" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer"]
+custom_minimum_size = Vector2(800, 35)
+layout_mode = 2
+color = Color(0.752518, 0.420614, 0.121328, 0.764706)
+
+[node name="SkillNameLabel" type="Label" parent="CenterContainer/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -17.5
+offset_right = 185.0
+offset_bottom = 17.5
+grow_vertical = 2
 theme_type_variation = &"SkillsNameLabel"
 text = "Collection Range"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
@@ -43,3 +60,8 @@ layout_mode = 2
 
 [node name="SkillUpgradeItemButton5" parent="ScrollContainer/HBoxContainer" instance=ExtResource("2_iiy6h")]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+color = Color(0.262745, 0.54902, 0.729412, 0.576471)
