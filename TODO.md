@@ -3,6 +3,7 @@
 ## In Progress
 
 
+
 ## Next
 
 
@@ -11,7 +12,8 @@
 
 ## V3.4.0
 
-- [ ] Bonus: Rework Background
+- [ ] Ready?!
+- [ ] Refactor: Split Background into Background and FiiishBackground
 
 
 ## V3.6.0 - ETA: 05/25
@@ -69,6 +71,7 @@
 - [x] Polish: Improve shop and confirmation background
 - [x] Tweak: Avoid clearing Leaderboard (test) entries in editor
 - [x] Polish: Use AnimationPlayer for result display
+- [x] Bonus: Rework Background
 
 ### 2025-04-23
 #### S03E18
