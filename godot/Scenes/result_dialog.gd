@@ -1,3 +1,5 @@
+@tool
+
 extends Dialog
 
 @export var game: Game = null
@@ -6,6 +8,8 @@ extends Dialog
 @export var distanceResultRow: ResultRow = null
 @export var bestDistanceResultRow: ResultRow = null
 @export var totalDistanceResultRow: ResultRow = null
+
+@export_tool_button("Prepare Demo Results") var prepare_demo_results_action = _prepare_demo_results
 
 var _time: float = 0.0
 var _coinsTarget: int = 0
@@ -61,8 +65,11 @@ func _process(delta: float) -> void:
 		bestDistanceResultRow.setTotal("%d m" % bestDistance)
 
 		if distance >= bestDistance:
+			#print("New best distance %d" % distance)
 			distanceResultRow.was_best = _was_best_distance
-			bestDistanceResultRow.was_best = _was_best_distance 
+			bestDistanceResultRow.was_best = _was_best_distance
+		#else:
+			#print("---")
 			
 		#if distance_ended:
 		#	distanceResultRow.was_best = _was_best_distance
@@ -81,17 +88,33 @@ func _prepare_results():
 	var distance = player.lastDistance()
 
 	var first_ranks = player.get_first_ranks_on_last_leaderboard_update()
-	_was_best_distance = first_ranks.has( LeaderboardTypes.Type.LOCAL_DISTANCE )
+	var start_coins = player.coins();
+	var start_distance = player.totalDistance();
+	# _bestDistance = player.bestDistance();
+	_bestDistance = player.prev_best_distance();
 	
+	self._prepare_results_from(
+		coins,
+		distance,
+		first_ranks,
+		start_coins,
+		start_distance,
+	)
+
+func _prepare_results_from(
+	coins: int,
+	distance: int,
+	first_ranks:Array[ LeaderboardTypes.Type ],
+	start_coins: int,
+	start_distance: int,
+) -> void:
+	_was_best_distance = first_ranks.has( LeaderboardTypes.Type.LOCAL_DISTANCE )
+
 	_time = 0.0
 	var start_time = 0.0
 	var duration = 4.0*log( max(coins, distance) )/log(10)+1.3
 	var end_time = start_time + duration
 
-	var start_coins = player.coins();
-	var start_distance = player.totalDistance();
-	# _bestDistance = player.bestDistance();
-	_bestDistance = player.prev_best_distance();
 	
 	self._coins_start_time = start_time
 	self._coins_end_time = end_time-0.3*duration
@@ -122,6 +145,22 @@ func _prepare_results():
 	# distanceResultRow.was_best = _was_best_distance
 	# bestDistanceResultRow.was_best = _was_best_distance 
 	
+func _prepare_demo_results() -> void:
+	var coins = 50
+	var distance = 60
+	var first_ranks: Array[ LeaderboardTypes.Type ] = [ LeaderboardTypes.Type.LOCAL_DISTANCE ]
+	
+	var start_coins = 100
+	var start_distance = 1000
+	_bestDistance = 20;
+	
+	self._prepare_results_from(
+		coins,
+		distance,
+		first_ranks,
+		start_coins,
+		start_distance,
+	)
 	
 func toggle( duration: float ):
 	toggle_fade( duration )

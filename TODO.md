@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Polish: Use AnimationPlayer for result display
 
 ## Next
 
@@ -11,9 +12,8 @@
 
 ## V3.4.0
 
+- [ ] Bonus: Rework Background
 
-
-- [ ] Polish: Use AnimationPlayer for result display
 
 ## V3.6.0 - ETA: 05/25
 

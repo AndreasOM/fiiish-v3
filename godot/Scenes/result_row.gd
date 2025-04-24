@@ -1,3 +1,5 @@
+@tool
+
 extends HBoxContainer
 class_name ResultRow
 
@@ -19,6 +21,7 @@ func _set_was_best( b: bool ):
 	var needs_update = was_best != b
 	was_best = b
 	if needs_update:
+		print("needs_update")
 		_update_look()
 
 func _update_look():
