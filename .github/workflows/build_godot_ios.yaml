@@ -17,62 +17,62 @@ jobs:
         # Use bash shells on all platforms.
         shell: bash
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github
-            godot
-          fetch-depth: 1
-      - name: Create variables
-        run: |
-          PROJECT=fiiish-v3
-          COMMIT_HASH=$(git rev-parse --short HEAD)
-          COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
-          ARCHIVE_FILE=fiiish-v3-ios-${COMMIT_DATE}.tgz
-          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
-          BUILD_TYPE="iOS"
-          BINARY=${PROJECT}.app
-          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
-          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
-          LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
-          VERSION=$(git tag --points-at HEAD)
-          if [[ ${VERSION} == "" ]]
-          then
-           echo "NO VERSION -- using v0.0.0"
-           VERSION="v0.0.0"
-          fi
-          if [[ ${VERSION} != v* ]]
-          then
-            echo "Invalid version. Use x.y.z"
-            exit 255
-          fi
-          VERSION=${VERSION#"v"}
-          # BUILD_NUMBER=$(date +%Y.%m%d.%H%M%S)
-          BUILD_NUMBER=$(date +2025.%y%m%d.%H%M%S)
-          # BUILD_NUMBER=$(date +%s.%y%m%d.%H%M%S)
-          #
-          # put into github env
-          #
-          {
-            echo "PROJECT=${PROJECT}"
-            echo "COMMIT_HASH=${COMMIT_HASH}"
-            echo "COMMIT_DATE=${COMMIT_DATE}"
-            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
-            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"
-            echo "BUILD_TYPE=${BUILD_TYPE}"
-            echo "BINARY=${BINARY}"
-            echo "LATEST_FILE=${LATEST_FILE}"
-            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
-            echo "LATEST_CONTENT=${LATEST_CONTENT}"
-            echo "VERSION=${VERSION}"
-            echo "BUILD_NUMBER=${BUILD_NUMBER}"
-          } >> "$GITHUB_ENV"
-
-
-      - name: Fix version info
-        run: |
-          .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#        with:
+#          sparse-checkout: |
+#            .github
+#            godot
+#          fetch-depth: 1
+#      - name: Create variables
+#        run: |
+#          PROJECT=fiiish-v3
+#          COMMIT_HASH=$(git rev-parse --short HEAD)
+#          COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
+#          ARCHIVE_FILE=fiiish-v3-ios-${COMMIT_DATE}.tgz
+#          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
+#          BUILD_TYPE="iOS"
+#          BINARY=${PROJECT}.app
+#          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
+#          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
+#          LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
+#          VERSION=$(git tag --points-at HEAD)
+#          if [[ ${VERSION} == "" ]]
+#          then
+#           echo "NO VERSION -- using v0.0.0"
+#           VERSION="v0.0.0"
+#          fi
+#          if [[ ${VERSION} != v* ]]
+#          then
+#            echo "Invalid version. Use x.y.z"
+#            exit 255
+#          fi
+#          VERSION=${VERSION#"v"}
+#          # BUILD_NUMBER=$(date +%Y.%m%d.%H%M%S)
+#          BUILD_NUMBER=$(date +2025.%y%m%d.%H%M%S)
+#          # BUILD_NUMBER=$(date +%s.%y%m%d.%H%M%S)
+#          #
+#          # put into github env
+#          #
+#          {
+#            echo "PROJECT=${PROJECT}"
+#            echo "COMMIT_HASH=${COMMIT_HASH}"
+#            echo "COMMIT_DATE=${COMMIT_DATE}"
+#            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
+#            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"
+#            echo "BUILD_TYPE=${BUILD_TYPE}"
+#            echo "BINARY=${BINARY}"
+#            echo "LATEST_FILE=${LATEST_FILE}"
+#            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+#            echo "LATEST_CONTENT=${LATEST_CONTENT}"
+#            echo "VERSION=${VERSION}"
+#            echo "BUILD_NUMBER=${BUILD_NUMBER}"
+#          } >> "$GITHUB_ENV"
+#
+#
+#      - name: Fix version info
+#        run: |
+#          .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
 
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
@@ -82,11 +82,17 @@ jobs:
           include-templates: true
       - name: Verify setup
         run: |
+          xcode-select --print-path
+          find /Applications -maxdepth 2
           which godot
           file "$(which godot)"
           uname -a
           godot --version
 
+      - name: Bail
+        run: |
+          exit 1
+          
       - name: Open project for import
         run: |
           cd godot
