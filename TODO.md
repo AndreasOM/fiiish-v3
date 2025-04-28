@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Bonus: Make FiiishBackground testable in editor
 
 ## Next
 
@@ -72,6 +71,7 @@
 - [x] Fix iOS builds. Update runners to macos-15
 - [x] Polish: Make ResultDialog Audio mutable via settings
 - [x] Refactor: Split Background into Background and FiiishBackground
+- [x] Bonus: Make FiiishBackground testable in editor
 
 ### 2025-04-24
 #### S03E19

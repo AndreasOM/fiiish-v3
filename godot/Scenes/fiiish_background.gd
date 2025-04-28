@@ -9,14 +9,32 @@ enum Mode {
 }
 @export var mode: Mode = Mode.V1
 
-@export var gradient_texture_swimming: Texture2D = null
+@export var gradient_texture_swimming: Texture2D = null : set = _set_gradient_texture_swimming
 @export var gradient_texture_dying: Texture2D = null
-@export var gradient_texture_respawning: Texture2D = null
+@export var gradient_texture_respawning: Texture2D = null : set = _set_gradient_texture_respawning
+
+@export_tool_button("Die") var die_button_action = _on_game_state_changed.bind( Game.State.DYING )
+@export_tool_button("Respawn") var respawn_button_action = _on_game_state_changed.bind( Game.State.RESPAWNING )
+@export_tool_button("Wait For Start") var wait_for_start_button_action = _on_game_state_changed.bind( Game.State.WAITING_FOR_START )
 
 var _phaseMin: float = 0.0
 var _phaseMax: float = 0.0
 var _time: float = 0.0
-		
+
+func _set_gradient_texture_swimming( t: Texture2D ) -> void:
+	gradient_texture_swimming = t
+	self.gradient_texture_a = t
+
+func _set_gradient_texture_respawning( t: Texture2D ) -> void:
+	gradient_texture_respawning = t
+	self.gradient_texture_b = t
+	
+func _enter_tree() -> void:
+	if Engine.is_editor_hint():
+		self.gradient_texture_a = gradient_texture_swimming
+		self.gradient_texture_b = gradient_texture_respawning
+		self.ab_mix = 0.0
+
 func _ready() -> void:
 	_phaseMin = 0.0
 	_phaseMax = 0.0
