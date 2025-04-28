@@ -2,7 +2,7 @@
 
 ## In Progress
 
-
+- [ ] Bonus: Make FiiishBackground testable in editor
 
 ## Next
 
@@ -14,7 +14,6 @@
 
 - [ ] Ready?!
 - [ ] Polish: Add better sound loops for ResultDialog
-- [ ] Refactor: Split Background into Background and FiiishBackground
 
 
 ## V3.6.0 - ETA: 05/25
@@ -72,6 +71,7 @@
 #### S03E20
 - [x] Fix iOS builds. Update runners to macos-15
 - [x] Polish: Make ResultDialog Audio mutable via settings
+- [x] Refactor: Split Background into Background and FiiishBackground
 
 ### 2025-04-24
 #### S03E19
