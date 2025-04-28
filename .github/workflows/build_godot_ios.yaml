@@ -91,7 +91,7 @@ jobs:
 
       - name: Switch Xcode Version
         run: |
-          xcode-select -s /Applications/Xcode_16.2.0.app
+          sudo xcode-select --switch /Applications/Xcode_16.2.0.app
           xcode-select --print-path
 
 #      - name: Bail
