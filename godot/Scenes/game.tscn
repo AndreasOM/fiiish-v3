@@ -116,7 +116,7 @@ shader_parameter/tint = Vector4(0, 0, 0, 0)
 shader_parameter/gradient_a = ExtResource("9_7nbq1")
 shader_parameter/gradient_b = ExtResource("10_7nbq1")
 shader_parameter/offset = 0.0
-shader_parameter/phase = 0.5
+shader_parameter/phase = 0.0
 shader_parameter/ab_mix = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_as7ao"]
