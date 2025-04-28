@@ -11,8 +11,8 @@
 
 ## V3.4.0
 
-- [ ] Ready?!
-- [ ] Polish: Add better sound loops for ResultDialog
+- [x] Ready?!
+	- [ ] Test: v3.3.20
 
 
 ## V3.6.0 - ETA: 05/25
@@ -32,6 +32,7 @@
 
 ## Later
 
+- [+] Polish: Add better sound loops for ResultDialog
 - [ ] Polish: Create sound loop for distance counting
 - [ ] Polish: Create sound loop for coin counting
 
