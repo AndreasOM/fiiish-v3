@@ -13,12 +13,14 @@
 ## V3.4.0
 
 - [ ] Ready?!
+- [ ] Polish: Add better sound loops for ResultDialog
 - [ ] Refactor: Split Background into Background and FiiishBackground
 
 
 ## V3.6.0 - ETA: 05/25
 
 - [ ] Feature: Zone Editor
+- [ ] #reach Feature: Achievements
 
 ## V3.8.0 - ETA: 06/25
 
@@ -65,6 +67,11 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-04-28
+#### S03E20
+- [x] Fix iOS builds. Update runners to macos-15
+- [x] Polish: Make ResultDialog Audio mutable via settings
 
 ### 2025-04-24
 #### S03E19
