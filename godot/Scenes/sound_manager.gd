@@ -10,6 +10,15 @@ var _sound_players: Dictionary[ SoundEffects.Id, SoundPlayer ] = {
 
 var _soundPlayerScene = preload("res://Scenes/sound_player.tscn")
 
+var _enabled: bool = true
+
+func enable() -> void:
+	_enabled = true
+	
+func disable( duration: float = 0.3 ) -> void:
+	_enabled = false
+	self.fade_out_all( duration )
+	
 func _add_sound_player( soundEffect: SoundEffects.Id, amount: int, minSeperation: float, loop: bool, clip: String ):
 	#var player: SoundPlayer = preload("res://Scenes/sound_player.tscn")
 	var player: SoundPlayer = _soundPlayerScene.instantiate()
@@ -59,7 +68,9 @@ func fadeOut( duration: float):
 		return
 	_fadeSpeed = -1.0/duration
 
-func trigger_effect( soundEffect: SoundEffects.Id ):
+func trigger_effect( soundEffect: SoundEffects.Id ) -> void:
+	if !self._enabled:
+		return
 	var player = _sound_players.get( soundEffect )
 	if player:
 		player.trigger()

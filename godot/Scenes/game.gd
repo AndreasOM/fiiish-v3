@@ -55,6 +55,10 @@ func _ready() -> void:
 		musicManager.fadeOut( 0.0 )
 		if _player.isMusicEnabled():
 			musicManager.fadeIn( 0.3 )
+		if _player.isSoundEnabled():
+			soundManager.enable()
+		else:
+			soundManager.disable( 0.0 )
 			
 	Events.cheats_changed.connect( _on_cheats_changed )
 	self._on_cheats_changed()
@@ -96,9 +100,8 @@ func _on_fish_state_changed(state: Game.State) -> void:
 	match state:
 		# State.DYING:
 		State.KILLED:
-			if _player.isSoundEnabled():
-				soundManager.trigger_effect( SoundEffects.Id.FISH_DEATH )
-				# soundManager.trigger_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP )
+			soundManager.trigger_effect( SoundEffects.Id.FISH_DEATH )
+			# soundManager.trigger_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP )
 			_credit_last_swim()
 			%GameManager.kill_pickups()
 			%ScreenShakeNode2D.trigger()
@@ -139,11 +142,12 @@ func disableMusic():
 	_player.save()
 
 func enableSound():
+	soundManager.enable()
 	_player.enableSound()
 	_player.save()
 	
 func disableSound():
-	soundManager.fade_out_all( 0.3 )
+	soundManager.disable( 0.3 )
 	_player.disableSound()
 	_player.save()
 
@@ -180,8 +184,7 @@ func toogle_pause() -> bool:
 	return is_paused
 
 func _on_game_manager_sound_triggered( soundEffect: SoundEffects.Id ) -> void:
-	if _player.isSoundEnabled():
-		soundManager.trigger_effect( soundEffect )
+	soundManager.trigger_effect( soundEffect )
 
 func next_game_mode():
 	self._mode = GameModes.next( self._mode )
