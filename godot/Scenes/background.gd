@@ -8,7 +8,7 @@ class_name GradientBackground
 @export var gradient_texture_b: Texture2D = null : set = set_gradient_texture_b
 
 @export var offset: float = 0.0 : set = set_shader_offset
-@export var phase: float = 0.5 : set = set_phase
+@export var phase: float = 0.0 : set = set_phase
 @export var ab_mix: float = 0.0 : set = set_ab_mix
 
 func set_shader_offset( o: float ) -> void:
