@@ -113,8 +113,10 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uo4vc"]
 shader = ExtResource("2_mc2jp")
 shader_parameter/tint = Vector4(0, 0, 0, 0)
+shader_parameter/gradient_a = ExtResource("9_7nbq1")
+shader_parameter/gradient_b = ExtResource("10_7nbq1")
 shader_parameter/offset = 0.0
-shader_parameter/phase = 0.0
+shader_parameter/phase = 0.5
 shader_parameter/ab_mix = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_as7ao"]
@@ -153,9 +155,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -1536.0
+offset_left = -512.0
 offset_top = -512.0
-offset_right = 1536.0
+offset_right = 512.0
 offset_bottom = 512.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -166,8 +168,8 @@ mode = 1
 gradient_texture_swimming = ExtResource("9_7nbq1")
 gradient_texture_dying = ExtResource("10_exi56")
 gradient_texture_respawning = ExtResource("10_7nbq1")
-phase = 0.0
-ab_mix = null
+gradient_texture_a = ExtResource("9_7nbq1")
+gradient_texture_b = ExtResource("10_7nbq1")
 
 [node name="GameNode2D" type="Node2D" parent="GameScaler/ScreenShakeNode2D"]
 unique_name_in_owner = true
