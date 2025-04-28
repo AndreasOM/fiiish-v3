@@ -74,6 +74,12 @@ jobs:
         run: |
           .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
 
+      - name: Switch Xcode Version
+        run: |
+          # find /Applications -maxdepth 2
+          sudo xcode-select --switch /Applications/Xcode_16.2.0.app
+          xcode-select --print-path
+
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
@@ -83,20 +89,10 @@ jobs:
       - name: Verify setup
         run: |
           xcode-select --print-path
-          find /Applications -maxdepth 2
           which godot
           file "$(which godot)"
           uname -a
           godot --version
-
-      - name: Switch Xcode Version
-        run: |
-          sudo xcode-select --switch /Applications/Xcode_16.2.0.app
-          xcode-select --print-path
-
-#      - name: Bail
-#        run: |
-#          exit 1
 
       - name: Open project for import
         run: |
