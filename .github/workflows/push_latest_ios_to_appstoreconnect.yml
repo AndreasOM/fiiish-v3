@@ -18,7 +18,7 @@ on:
 
 jobs:
   push:
-    runs-on: macos-14
+    runs-on: macos-15
     defaults:
       run:
         # Use bash shells on all platforms.
