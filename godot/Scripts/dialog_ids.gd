@@ -10,6 +10,7 @@ enum Id {
 	MAIN_MENU_DIALOG,
 	CREDITS_DIALOG,
 	LEADERBOARD_DIALOG,
+	ZONE_EDITOR_MENU_DIALOG,
 }
 
 static func id_to_name( id: DialogIds.Id ) -> String:
@@ -32,5 +33,7 @@ static func id_to_name( id: DialogIds.Id ) -> String:
 			return "CREDITS_DIALOG"
 		DialogIds.Id.LEADERBOARD_DIALOG:
 			return "LEADERBOARD_DIALOG"
+		DialogIds.Id.ZONE_EDITOR_MENU_DIALOG:
+			return "ZONE_EDITOR_MENU_DIALOG"
 		_:
 			return "[UNKNOWN DIALOG]"

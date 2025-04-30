@@ -118,10 +118,8 @@ id = 1
 label = "Game Mode: Classic"
 
 [node name="ZoneEditor" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
-visible = false
 layout_mode = 2
 id = 1
-state = 0
 label = "Zone Editor"
 
 [node name="Credits" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]

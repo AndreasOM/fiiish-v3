@@ -24,6 +24,7 @@ enum Direction {
 enum Mode {
 	PLAY,
 	TEST,
+	EDIT,
 }
 
 var state: Game.State = Game.State.INITIAL
@@ -127,6 +128,12 @@ func toggle_mode():
 		Mode.TEST:
 			self.mode = Mode.PLAY
 
+func goto_edit_mode() -> void:
+	self.mode = Mode.EDIT
+
+func goto_play_mode() -> void:
+	self.mode = Mode.PLAY
+
 func _unhandled_input(event: InputEvent) -> void:
 	match self.state:
 		Game.State.SWIMMING:
@@ -144,7 +151,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				self.direction = Direction.DOWN
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:		
+func _process(delta: float) -> void:
+	match self.mode:
+		Mode.PLAY:
+			self._process_mode_play( delta )
+		_:
+			pass
+	
+func _process_mode_play(delta: float) -> void:		
 	if Input.is_key_pressed(KEY_M):
 		self.toggle_mode()
 	match self.state:
