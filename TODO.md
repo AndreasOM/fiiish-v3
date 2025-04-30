@@ -4,10 +4,12 @@
 
 - [ ] Epic: GameMode - Edit
 	- [ ] Task: Handle Zone Edit enabled where needed
-	- [ ] Task: Hide Game HUD in Zone Editor ?!
-
+	- [ ] Task: Hide Game HUD in Zone Editor ?! (After minimap)
+	- [ ] Task: Remove despawning in Zone Editor
 
 ## Next
+
+- [ ] Epic: Minimap (with Scrolling)
 
 
 ## Todo
@@ -19,8 +21,9 @@
 - [ ] Refactor: Make GameManager movement_x the actual movement, and not the speed
 - [ ] Task: Handle Pause correctly in Zone Editor
 
+- [ ] Hack: Load "I Love Fiiish" zone when going into Zone Editor
+
 - [ ] Feature: Zone Editor
-	- [ ] Epic: Minimap (with Scrolling)
 	- [ ] Epic: Zone Selection and Loading
 	- [ ] Epic: Zone Saving
 	- [ ] * Epic: Zone Sharing
@@ -32,8 +35,8 @@
 
 - [ ] Polish: Add Fading to ZoneEditorMenuDialog
 
-- [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 - [ ] #reach Feature: Achievements
+- [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
 - [ ] Refactor: Turn InGamePauseMenu into a Dialog
 - [ ] Polish: Add outline for coins and distance in HUD
