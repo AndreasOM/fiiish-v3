@@ -5,10 +5,12 @@ signal sound_triggered( soundEffects_Id )
 @export var play_movement_x: float = 240.0
 @export var game: Game = null
 
+var _move_x: float = 0.0
+
 var movement_x: float = 240.0:
 	get:
 		if game.is_in_zone_editor():
-			return 0.0
+			return self._move_x
 		else:
 			if self._paused:
 				return 0.0
@@ -139,6 +141,10 @@ func get_current_zone_progress() -> float:
 func get_current_zone_width() -> float:
 	return self.zone_manager.current_zone_width
 	
+func set_move_x( x: float ) -> void:
+	self._move_x = x
+#	print( "Move X: %f" % self._move_x )
+
 func _on_zone_edit_enabled() -> void:
 	for fi in %Fishes.get_children():
 		var f = fi as Fish
