@@ -5,7 +5,6 @@
 - [ ] Epic: GameMode - Edit
 	- [ ] Task: Handle Zone Edit enabled where needed
 	- [ ] Task: Hide Game HUD in Zone Editor ?!
-	- [ ] Task: Add drag and move to Zone Editor
 
 
 ## Next
@@ -18,6 +17,7 @@
 
 - [ ] Bug: Sometime we can collect pickups in Zone Editor
 - [ ] Refactor: Make GameManager movement_x the actual movement, and not the speed
+- [ ] Task: Handle Pause correctly in Zone Editor
 
 - [ ] Feature: Zone Editor
 	- [ ] Epic: Minimap (with Scrolling)
@@ -97,6 +97,7 @@
 - [x] Task: Add clear info about being in Zone Editor to ZoneEditorMenuDialog
 - [x] Task: Add placeholder for Menu in ZoneEditorMenuDialog
 - [x] Task: Move zone in Zone Editor with keys (A <- -> D). Fast scroll via SHIFT.
+- [x] Task: Add drag and move to Zone Editor
 
 ### V3.4.0 - 2025-04-30
 
