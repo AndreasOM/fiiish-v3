@@ -16,6 +16,9 @@
 
 ## V3.6.0 - ETA: 05/25
 
+- [ ] Bug: Sometime we can collect pickups in Zone Editor
+- [ ] Refactor: Make GameManager movement_x the actual movement, and not the speed
+
 - [ ] Feature: Zone Editor
 	- [ ] Epic: Minimap (with Scrolling)
 	- [ ] Epic: Zone Selection and Loading
@@ -93,6 +96,7 @@
 - [x] Task: Hide InGamePauseMenu when in Zone Editor
 - [x] Task: Add clear info about being in Zone Editor to ZoneEditorMenuDialog
 - [x] Task: Add placeholder for Menu in ZoneEditorMenuDialog
+- [x] Task: Move zone in Zone Editor with keys (A <- -> D). Fast scroll via SHIFT.
 
 ### V3.4.0 - 2025-04-30
 

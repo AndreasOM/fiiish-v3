@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=28 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://cv5hi8str0mwa" path="res://Scenes/pickup_manager.gd" id="14_nb51f"]
 [ext_resource type="Script" uid="uid://coptt7xb8x3f3" path="res://Scripts/entity_config_manager.gd" id="15_nnt18"]
 [ext_resource type="Script" uid="uid://32lm25osk3am" path="res://Scripts/zone_manager.gd" id="16_ewbju"]
+[ext_resource type="Script" uid="uid://y0fdutn7vexh" path="res://Scenes/zone_editor_manager.gd" id="20_exi56"]
 
 [sub_resource type="Animation" id="Animation_nb51f"]
 length = 0.001
@@ -239,6 +240,11 @@ unique_name_in_owner = true
 script = ExtResource("16_ewbju")
 game_manager = NodePath("../GameManager")
 entity_config_manager = NodePath("../EntityConfigManager")
+
+[node name="ZoneEditorManager" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Managers"]
+unique_name_in_owner = true
+process_mode = 4
+script = ExtResource("20_exi56")
 
 [node name="Helpers" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 
