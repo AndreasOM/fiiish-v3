@@ -198,6 +198,7 @@ texture = ExtResource("10_ee4r6")
 stretch_mode = 6
 
 [node name="InGamePauseMenu" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("11_k12tt")]
+unique_name_in_owner = true
 game = NodePath("../../Game")
 
 [node name="DebugUI" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]

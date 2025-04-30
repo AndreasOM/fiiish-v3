@@ -2,13 +2,18 @@ extends Node
 class_name GameManager
 
 signal sound_triggered( soundEffects_Id )
+@export var play_movement_x: float = 240.0
+@export var game: Game = null
 
-@export var movement_x: float = 240.0:
+var movement_x: float = 240.0:
 	get:
-		if self._paused:
+		if game.is_in_zone_editor():
 			return 0.0
 		else:
-			return movement_x
+			if self._paused:
+				return 0.0
+			else:
+				return play_movement_x
 
 @export var pixels_per_meter: float = 100.0
 
@@ -64,6 +69,8 @@ func _ready() -> void:
 
 	self.push_initial_zones()
 
+	Events.zone_edit_enabled.connect( _on_zone_edit_enabled )
+	Events.zone_edit_disabled.connect( _on_zone_edit_disabled )
 
 func set_invincible( invicible: bool ):
 	for fi in %Fishes.get_children():
@@ -131,3 +138,17 @@ func get_current_zone_progress() -> float:
 
 func get_current_zone_width() -> float:
 	return self.zone_manager.current_zone_width
+	
+func _on_zone_edit_enabled() -> void:
+	for fi in %Fishes.get_children():
+		var f = fi as Fish
+		if f == null:
+			continue
+		f.goto_edit_mode()
+
+func _on_zone_edit_disabled() -> void:
+	for fi in %Fishes.get_children():
+		var f = fi as Fish
+		if f == null:
+			continue
+		f.goto_play_mode()

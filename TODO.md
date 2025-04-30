@@ -2,6 +2,11 @@
 
 ## In Progress
 
+- [ ] Epic: GameMode - Edit
+	- [ ] Task: Handle Zone Edit enabled where needed
+	- [ ] Task: Hide Game HUD in Zone Editor ?!
+	- [ ] Task: Add drag and move to Zone Editor
+
 
 ## Next
 
@@ -9,16 +14,29 @@
 ## Todo
 
 
-## V3.4.0
-
-- [x] Ready?!
-	- [ ] Test: v3.3.20
-
-
 ## V3.6.0 - ETA: 05/25
 
 - [ ] Feature: Zone Editor
+	- [ ] Epic: Minimap (with Scrolling)
+	- [ ] Epic: Zone Selection and Loading
+	- [ ] Epic: Zone Saving
+	- [ ] * Epic: Zone Sharing
+	- [ ] * Epic: Zone Importing
+	- [ ] Epic: Zone Editing
+	- [ ] Epic: Zone Testing
+	- [ ] Epic: Zone Properties
+	- [ ] Epic: Create new button style for ZoneEditor
+
+- [ ] Polish: Add Fading to ZoneEditorMenuDialog
+
+- [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 - [ ] #reach Feature: Achievements
+
+- [ ] Refactor: Turn InGamePauseMenu into a Dialog
+- [ ] Polish: Add outline for coins and distance in HUD
+- [ ] Polish: Replace Leaderboard background
+- [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
+- [ ] Polish:
 
 ## V3.8.0 - ETA: 06/25
 
@@ -66,6 +84,17 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-04-30
+#### S04E01
+- [x] Release v3.4.0
+- [x] Task: Add Zone Editor to Main Menu
+- [x] Task: Add Quit to Main Menu in Zone Editor (ZoneEditorMenuDialog)
+- [x] Task: Hide InGamePauseMenu when in Zone Editor
+- [x] Task: Add clear info about being in Zone Editor to ZoneEditorMenuDialog
+- [x] Task: Add placeholder for Menu in ZoneEditorMenuDialog
+
+### V3.4.0 - 2025-04-30
 
 ### 2025-04-28
 #### S03E20

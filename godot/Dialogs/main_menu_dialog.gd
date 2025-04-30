@@ -55,7 +55,8 @@ func fade_out( duration: float ):
 
 
 func _on_zone_editor_pressed() -> void:
-	pass # Replace with function body.
+	game.goto_zone_editor()
+	_dialog_manager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
 
 func _on_credits_pressed() -> void:
 	print("Credits pressed")
