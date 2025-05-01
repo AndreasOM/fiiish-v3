@@ -2,6 +2,8 @@
 
 ## In Progress
 
+- [ ] Epic: Minimap (with Scrolling)
+
 - [ ] Epic: GameMode - Edit
 	- [ ] Task: Handle Zone Edit enabled where needed
 	- [ ] Task: Hide Game HUD in Zone Editor ?! (After minimap)
@@ -9,7 +11,6 @@
 
 ## Next
 
-- [ ] Epic: Minimap (with Scrolling)
 
 
 ## Todo

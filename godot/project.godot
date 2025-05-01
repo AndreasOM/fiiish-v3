@@ -98,6 +98,7 @@ zone_editor_move_speed_2={
 
 [layer_names]
 
+2d_render/layer_10="MiniMap"
 2d_physics/layer_1="Fishes"
 2d_physics/layer_2="Obstacles"
 2d_physics/layer_3="GameZone"

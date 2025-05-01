@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=29 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://coptt7xb8x3f3" path="res://Scripts/entity_config_manager.gd" id="15_nnt18"]
 [ext_resource type="Script" uid="uid://32lm25osk3am" path="res://Scripts/zone_manager.gd" id="16_ewbju"]
 [ext_resource type="Script" uid="uid://y0fdutn7vexh" path="res://Scenes/zone_editor_manager.gd" id="20_exi56"]
+[ext_resource type="Script" uid="uid://waxxwomc132l" path="res://Scenes/mini_map_node_2d.gd" id="22_7t8sx"]
 
 [sub_resource type="Animation" id="Animation_nb51f"]
 length = 0.001
@@ -134,12 +135,15 @@ size = Vector2(22000, 2200)
 script = ExtResource("1_2tnct")
 
 [node name="GameScaler" type="Node2D" parent="."]
+unique_name_in_owner = true
 process_mode = 3
+visibility_layer = 513
 position = Vector2(960, 512)
 script = ExtResource("6_6aaah")
 
 [node name="ScreenShakeNode2D" type="Node2D" parent="GameScaler"]
 unique_name_in_owner = true
+visibility_layer = 513
 script = ExtResource("3_1phco")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameScaler/ScreenShakeNode2D"]
@@ -175,6 +179,7 @@ gradient_texture_b = ExtResource("10_7nbq1")
 [node name="GameNode2D" type="Node2D" parent="GameScaler/ScreenShakeNode2D"]
 unique_name_in_owner = true
 process_mode = 1
+visibility_layer = 513
 
 [node name="Background" type="Sprite2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 visible = false
@@ -188,29 +193,36 @@ script = ExtResource("7_vai64")
 gradientTexture = ExtResource("5_cq2wm")
 phase = 0.0
 
-[node name="Fishes" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
+[node name="Entities" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
+visibility_layer = 513
+
+[node name="Fishes" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Entities"]
 unique_name_in_owner = true
 
-[node name="Fish" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Fishes" instance=ExtResource("2_ea5sf")]
+[node name="Fish" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Entities/Fishes" instance=ExtResource("2_ea5sf")]
 unique_name_in_owner = true
 
-[node name="Obstacles" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
+[node name="Obstacles" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Entities"]
 unique_name_in_owner = true
 
-[node name="Pickups" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
+[node name="Pickups" type="Node2D" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Entities"]
 unique_name_in_owner = true
+visibility_layer = 513
 
-[node name="CoinRain" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("9_1neft")]
+[node name="CoinRain" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Entities/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("9_1neft")]
+visibility_layer = 513
 position = Vector2(0, -200)
-game_manager = NodePath("../../Managers/GameManager")
+game_manager = NodePath("../../../Managers/GameManager")
 
-[node name="Coin" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("7_5w3j0")]
+[node name="Coin" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Entities/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("7_5w3j0")]
+visibility_layer = 513
 position = Vector2(-258, -8)
-game_manager = NodePath("../../Managers/GameManager")
+game_manager = NodePath("../../../Managers/GameManager")
 
-[node name="CoinExplosion" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("8_wo164")]
+[node name="CoinExplosion" parent="GameScaler/ScreenShakeNode2D/GameNode2D/Entities/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("8_wo164")]
+visibility_layer = 513
 position = Vector2(0, 100)
-game_manager = NodePath("../../Managers/GameManager")
+game_manager = NodePath("../../../Managers/GameManager")
 
 [node name="Managers" type="Node" parent="GameScaler/ScreenShakeNode2D/GameNode2D"]
 
@@ -269,7 +281,36 @@ texture = ExtResource("10_40ndf")
 position = Vector2(0, -512)
 texture = ExtResource("10_40ndf")
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0.64615, 0.807397, 0.124524, 0.266667)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer"]
+visibility_layer = 513
+z_index = 1000
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="MarginContainer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_cull_mask = 4293919232
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="MiniMapNode2D" type="Node2D" parent="MarginContainer/SubViewportContainer/SubViewport" node_paths=PackedStringArray("node")]
+visibility_layer = 513
+script = ExtResource("22_7t8sx")
+node = NodePath("../../../../GameScaler/ScreenShakeNode2D/GameNode2D/Entities")
+
 [connection signal="state_changed" from="." to="GameScaler/ScreenShakeNode2D/FiiishBackground" method="_on_game_state_changed"]
 [connection signal="state_changed" from="." to="GameScaler/ScreenShakeNode2D/GameNode2D/Background" method="_on_game_state_changed"]
-[connection signal="state_changed" from="GameScaler/ScreenShakeNode2D/GameNode2D/Fishes/Fish" to="." method="_on_fish_state_changed"]
+[connection signal="state_changed" from="GameScaler/ScreenShakeNode2D/GameNode2D/Entities/Fishes/Fish" to="." method="_on_fish_state_changed"]
 [connection signal="sound_triggered" from="GameScaler/ScreenShakeNode2D/GameNode2D/Managers/GameManager" to="." method="_on_game_manager_sound_triggered"]

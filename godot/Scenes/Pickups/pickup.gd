@@ -90,3 +90,7 @@ func _physics_process(delta: float) -> void:
 				position.x += wo
 			else:
 				queue_free()
+
+func draw_minimap( n: Node2D, scale: float ) -> void:
+	n.draw_circle( self.global_position, 15.0, Color.YELLOW, false, 3.0 )
+	

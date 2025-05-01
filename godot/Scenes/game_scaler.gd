@@ -1,6 +1,6 @@
 extends Node2D
-
-
+class_name GameScaler
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	get_parent().get_viewport().connect("size_changed", _on_viewport_resize)
