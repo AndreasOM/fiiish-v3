@@ -281,7 +281,7 @@ texture = ExtResource("10_40ndf")
 position = Vector2(0, -512)
 texture = ExtResource("10_40ndf")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MiniMapMarginContainer" type="MarginContainer" parent="."]
 z_index = 1000
 anchors_preset = 5
 anchor_left = 0.5
@@ -293,16 +293,16 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+[node name="ColorRect" type="ColorRect" parent="MiniMapMarginContainer"]
 layout_mode = 2
 color = Color(0.084, 0.1736, 0.42, 0.847059)
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MiniMapMarginContainer"]
 visibility_layer = 513
 layout_mode = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="MarginContainer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="MiniMapMarginContainer/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 2
@@ -310,10 +310,30 @@ canvas_cull_mask = 4293919232
 size = Vector2i(960, 135)
 render_target_update_mode = 4
 
-[node name="MiniMapNode2D" type="Node2D" parent="MarginContainer/SubViewportContainer/SubViewport" node_paths=PackedStringArray("node")]
+[node name="MiniMapNode2D" type="Node2D" parent="MiniMapMarginContainer/SubViewportContainer/SubViewport" node_paths=PackedStringArray("node")]
 visibility_layer = 513
 script = ExtResource("22_7t8sx")
 node = NodePath("../../../../GameScaler/ScreenShakeNode2D/GameNode2D/Entities")
+
+[node name="MipMapPanelContainer" type="PanelContainer" parent="."]
+visible = false
+z_index = 1000
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -480.0
+offset_right = 480.0
+offset_bottom = 135.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="ColorRect" parent="MipMapPanelContainer"]
+layout_mode = 2
+color = Color(0.3104, 0.563247, 0.97, 0.690196)
+
+[node name="MiniMapNode2D" type="Node2D" parent="MipMapPanelContainer/ColorRect" node_paths=PackedStringArray("node")]
+visibility_layer = 513
+script = ExtResource("22_7t8sx")
+node = NodePath("../../../GameScaler/ScreenShakeNode2D/GameNode2D/Entities")
 
 [connection signal="state_changed" from="." to="GameScaler/ScreenShakeNode2D/FiiishBackground" method="_on_game_state_changed"]
 [connection signal="state_changed" from="." to="GameScaler/ScreenShakeNode2D/GameNode2D/Background" method="_on_game_state_changed"]
