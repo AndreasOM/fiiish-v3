@@ -282,27 +282,32 @@ position = Vector2(0, -512)
 texture = ExtResource("10_40ndf")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+z_index = 1000
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -480.0
+offset_right = 480.0
+offset_bottom = 135.0
 grow_horizontal = 2
-grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
-color = Color(0.64615, 0.807397, 0.124524, 0.266667)
+color = Color(0.084, 0.1736, 0.42, 0.847059)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer"]
 visibility_layer = 513
-z_index = 1000
 layout_mode = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="MarginContainer/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
+canvas_item_default_texture_filter = 2
 canvas_cull_mask = 4293919232
-size = Vector2i(1920, 1080)
+size = Vector2i(960, 135)
 render_target_update_mode = 4
 
 [node name="MiniMapNode2D" type="Node2D" parent="MarginContainer/SubViewportContainer/SubViewport" node_paths=PackedStringArray("node")]

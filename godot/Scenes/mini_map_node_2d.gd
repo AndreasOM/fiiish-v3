@@ -36,8 +36,12 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	# print("MiniMapNode2D _draw()")
 	if self.node != null:
-		var scale = self.game_scaler.scale.y
-		self._draw_tree( self.node, scale )
+		# :TODO: !!!
+		# var scale = (1.0/self.game_scaler.scale.y) * 0.25  * (1.0/1.0)
+		# var scale = (1.0/self.game_scaler.scale.y) * 0.25  * (1.0/1.0)
+		var scale = 1.0 * 0.125  * (1.0/1.0)
+		
+		self._draw_tree( self.node, scale, false )
 
 func _play_tree( t: Node2D ) -> void:
 	for c in t.get_children():
@@ -47,13 +51,19 @@ func _play_tree( t: Node2D ) -> void:
 			
 		self._play_tree( c )
 		
-func _draw_tree( t: Node2D, scale: float ) -> void:
+func _draw_tree( t: Node2D, scale: float, rot180: bool ) -> void:
+	if wrapf( t.rotation_degrees, 0.0, 360.0 ) == 180.0:
+		rot180 = !rot180
+		
 	for c in t.get_children():
 		#print("MiniMapNode2D child")
-		if c as Fish != null:
-			var f = c as Fish
-			# print("MiniMapNode2D - drawing fish")
-			self.draw_circle( f.global_position, 50.0, Color.ORANGE, false, 5.0 )
+		if false: # :HACK:
+			pass
+#		elif c as Fish != null:
+#			var f = c as Fish
+#			# print("MiniMapNode2D - drawing fish")
+#			self.draw_circle( f.global_position*scale, 50.0*scale, Color.ORANGE, false, 5.0 )
+#			continue
 
 #		elif c as Pickup != null:
 #			var p = c as Pickup
@@ -61,5 +71,44 @@ func _draw_tree( t: Node2D, scale: float ) -> void:
 #			self.draw_circle( p.global_position, 15.0, Color.YELLOW, false, 3.0 )
 		elif c.has_method( &"draw_minimap" ):
 			c.draw_minimap( self, scale )
+			continue
+		elif c as Sprite2D != null:
+			var s = c as Sprite2D
+			var tex = s.texture
+			var size = tex.get_size() #*scale
+			var flip = 1.0
+			#if wrapf( c.rotation_degrees, 0.0, 360.0 ) == 180.0:
+			if rot180:
+				flip = -1.0
+			var r = Rect2( (c.global_position - 0.5*size)*scale, flip*size*scale )
+			# var t2dr = Transform2D.IDENTITY.rotated( deg_to_rad( 45.0 ) )
+			# r *= t2dr
+			var transpose = false
+			var color = Color.WHITE
+			self.draw_texture_rect( tex, r, false, color, transpose )
+			#var rd = n.rotation_degrees
+			#n.rotation_degrees += 45
+			#n.draw_texture(t, self.global_position, Color.YELLOW )
+			#n.rotation_degrees = rd
+			# t.draw( n, self.global_position, Color.PINK )
+			# t.draw( n, Vector2.ZERO, Color.PINK )
 			
-		self._draw_tree( c, scale )
+		elif c as AnimatedSprite2D != null:
+			var s = c as AnimatedSprite2D
+			var anim = s.animation
+			var idx = s.frame
+			var sf = s.sprite_frames
+			var tex = sf.get_frame_texture(anim, idx)
+			# t.draw( n, self.global_position, Color.PINK )
+			# n.draw_texture( t, self.global_position, Color.DODGER_BLUE )
+			var size = tex.get_size()
+			var flip = 1.0
+			if wrapf( self.rotation_degrees, 0.0, 360.0 ) == 180.0:
+				flip = -1.0
+			var r = Rect2( (c.global_position - 0.5*size)*scale, flip*size*scale )
+			var transpose = false
+			var color = Color.WHITE
+			self.draw_texture_rect( tex, r, false, color, transpose )
+
+			
+		self._draw_tree( c, scale, rot180 )
