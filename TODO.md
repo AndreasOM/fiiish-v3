@@ -3,6 +3,10 @@
 ## In Progress
 
 - [ ] Epic: Minimap (with Scrolling)
+	- [ ] Bug: Fix MiniMap scaling
+	- [ ] Task: Add Minimap offset
+	- [ ] Task: Turn Minimap into Dialog
+	- [ ] Task: Only show MiniMap in ZoneEditor
 
 - [ ] Epic: GameMode - Edit
 	- [ ] Task: Handle Zone Edit enabled where needed
@@ -35,7 +39,7 @@
 	- [ ] Epic: Create new button style for ZoneEditor
 
 - [ ] Polish: Add Fading to ZoneEditorMenuDialog
-
+- [ ] Polish: Fix rotation in minimap renderer
 - [ ] #reach Feature: Achievements
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
@@ -91,6 +95,10 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-05-01
+#### S0402
+- [ ] Task: Create basic MiniMap rendering
 
 ### 2025-04-30
 #### S04E01

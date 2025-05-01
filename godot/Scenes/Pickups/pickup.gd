@@ -91,6 +91,8 @@ func _physics_process(delta: float) -> void:
 			else:
 				queue_free()
 
-func draw_minimap( n: Node2D, scale: float ) -> void:
-	n.draw_circle( self.global_position, 15.0, Color.YELLOW, false, 3.0 )
+#func draw_minimap( n: Node2D, scale: float ) -> void:
+#	var radius = 15.0
+#	n.draw_circle( (self.global_position)*scale, radius*scale, Color.YELLOW, false, 3.0 )
+#	#n.draw_circle( (self.global_position -0.5* Vector2(radius,radius))*scale, radius*scale, Color.YELLOW, false, 3.0 )
 	
