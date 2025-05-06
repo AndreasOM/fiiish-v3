@@ -1,3 +1,5 @@
+@tool
+
 extends Node2D
 class_name GameScaler
 	
@@ -40,6 +42,7 @@ func _fix_size():
 	position.x = 960.0 * ar
 	position.y = 512*new_scale
 
+	print("new_scale %f" % new_scale)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

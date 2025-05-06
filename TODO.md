@@ -1,5 +1,8 @@
 # Todo
 
+- [ ] Bug: Fix background repeat (inside viewport)
+- [ ] Bug: Fix mouse input inside viewport
+
 ## In Progress
 
 - [ ] Epic: Minimap (with Scrolling)
@@ -96,9 +99,13 @@
 
 ## Done
 
+### 2025-05-06
+#### S04E03
+- [x] Task: Rework MiniMap using world_2d
+
 ### 2025-05-01
 #### S0402
-- [ ] Task: Create basic MiniMap rendering
+- [x] Task: Create basic MiniMap rendering
 
 ### 2025-04-30
 #### S04E01

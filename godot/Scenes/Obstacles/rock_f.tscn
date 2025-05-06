@@ -4,17 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://cl4pckr7huisy" path="res://Textures/Obstacles/Rocks/rock-f.png" id="2_0m7oi"]
 
 [node name="RockF" type="Node2D"]
+visibility_layer = 513
 z_index = 5
 script = ExtResource("1_ntd2n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 513
 texture = ExtResource("2_0m7oi")
 
 [node name="Area2D" type="Area2D" parent="."]
+visibility_layer = 513
 collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+visibility_layer = 513
 position = Vector2(51, 63)
 scale = Vector2(2.49519, 1.57917)
 polygon = PackedVector2Array(-32.4625, -205.804, -25.2486, -199.472, -18.8362, -171.609, -1.20231, -151.345, 12.8247, -63.9576, 22.0424, -48.7598, 34.8671, 6.96568, 57.711, 51.926, 58.1118, 129.182, -98.9905, 127.915, -92.1773, 87.3877, -85.765, -14.5646, -58.9133, -74.7228, -54.5049, -123.483, -40.0771, -164.01)

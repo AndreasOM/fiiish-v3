@@ -136,6 +136,7 @@ radius = 14.864
 height = 55.2587
 
 [node name="Fish" type="Node2D"]
+visibility_layer = 513
 z_index = 4
 position = Vector2(-512, 0)
 script = ExtResource("2_2pnpt")
@@ -145,6 +146,12 @@ unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_tvc8b")
 animation = &"swim"
 frame_progress = 0.78931
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visibility_layer = 512
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.86, 0.41452, 0.1376, 1)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
