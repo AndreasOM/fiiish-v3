@@ -1,6 +1,5 @@
 # Todo
 
-- [ ] Bug: Fix background repeat (inside viewport)
 - [ ] Bug: Fix mouse input inside viewport
 
 ## In Progress
@@ -106,6 +105,7 @@
 ### 2025-05-01
 #### S0402
 - [x] Task: Create basic MiniMap rendering
+- [x] Bug: Fix background repeat (inside viewport)
 
 ### 2025-04-30
 #### S04E01
