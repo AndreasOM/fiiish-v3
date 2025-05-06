@@ -134,7 +134,19 @@ func goto_edit_mode() -> void:
 func goto_play_mode() -> void:
 	self.mode = Mode.PLAY
 
+#func go_up() -> void:
+#	self.direction = Direction.UP
+
+#func go_down() -> void:
+#	self.direction = Direction.DOWN
+	
+#func _input(event):
+	## print("Fish _input %s" % event)
+	#if event is InputEventMouse and event.is_action_pressed("click"):
+		#print("Fish Click")
+		
 func _unhandled_input(event: InputEvent) -> void:
+	# print( "Fish _unhandled_input %s" % event)
 	match self.state:
 		Game.State.SWIMMING:
 			if event.is_action("swim_down"):
