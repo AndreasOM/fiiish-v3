@@ -52,6 +52,9 @@ func _play_tree( t: Node2D ) -> void:
 		self._play_tree( c )
 		
 func _draw_tree( t: Node2D, scale: float, rot180: bool ) -> void:
+	if !t.visible:
+		return
+
 	if wrapf( t.rotation_degrees, 0.0, 360.0 ) == 180.0:
 		rot180 = !rot180
 		
@@ -110,5 +113,5 @@ func _draw_tree( t: Node2D, scale: float, rot180: bool ) -> void:
 			var color = Color.WHITE
 			self.draw_texture_rect( tex, r, false, color, transpose )
 
-			
-		self._draw_tree( c, scale, rot180 )
+		if c as Node2D != null:
+			self._draw_tree( c, scale, rot180 )

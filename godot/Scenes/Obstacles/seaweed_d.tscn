@@ -203,19 +203,23 @@ animations = [{
 }]
 
 [node name="SeaweedD" type="Node2D"]
+visibility_layer = 513
 z_index = 5
 script = ExtResource("1_thteg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+visibility_layer = 513
 sprite_frames = SubResource("SpriteFrames_t10rm")
 frame_progress = 0.96019
 
 [node name="Area2D" type="Area2D" parent="."]
+visibility_layer = 513
 collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+visibility_layer = 513
 position = Vector2(51, 63)
 scale = Vector2(2.49519, 1.57917)
 polygon = PackedVector2Array(-20.4393, -77.2558, -15.2293, -37.3614, -12.4239, 2.53297, -14.8285, 53.1925, -23.2447, 52.5593, -26.0501, 6.96568, -29.2563, -22.1635, -25.6493, -69.0236, -23.2447, -102.586)

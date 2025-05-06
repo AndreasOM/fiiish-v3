@@ -139,12 +139,14 @@ animations = [{
 }]
 
 [node name="Coin" type="Node2D"]
+visibility_layer = 513
 script = ExtResource("1_okegm")
 _coin_value = 1
 _soundEffect = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+visibility_layer = 513
 z_index = 3
 sprite_frames = SubResource("SpriteFrames_ve1ih")
 frame_progress = 0.384995
