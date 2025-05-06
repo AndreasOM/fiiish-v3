@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=29 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://coptt7xb8x3f3" path="res://Scripts/entity_config_manager.gd" id="15_nnt18"]
 [ext_resource type="Script" uid="uid://32lm25osk3am" path="res://Scripts/zone_manager.gd" id="16_ewbju"]
 [ext_resource type="Script" uid="uid://y0fdutn7vexh" path="res://Scenes/zone_editor_manager.gd" id="20_exi56"]
-[ext_resource type="Script" uid="uid://waxxwomc132l" path="res://Scenes/mini_map_node_2d.gd" id="22_7t8sx"]
 [ext_resource type="Script" uid="uid://bixc32h4ugqfv" path="res://Scenes/mini_map_panel_container.gd" id="23_vm72l"]
 
 [sub_resource type="Animation" id="Animation_nb51f"]
@@ -148,6 +147,7 @@ stretch = true
 [node name="GameSubViewport" type="SubViewport" parent="GameSubViewportContainer"]
 unique_name_in_owner = true
 handle_input_locally = false
+canvas_item_default_texture_filter = 2
 canvas_cull_mask = 4294966783
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
@@ -300,61 +300,6 @@ texture = ExtResource("10_40ndf")
 visibility_layer = 513
 position = Vector2(0, -512)
 texture = ExtResource("10_40ndf")
-
-[node name="MiniMapMarginContainer" type="MarginContainer" parent="."]
-visible = false
-z_index = 1000
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -480.0
-offset_right = 480.0
-offset_bottom = 135.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="ColorRect" type="ColorRect" parent="MiniMapMarginContainer"]
-layout_mode = 2
-color = Color(0.084, 0.1736, 0.42, 0.847059)
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="MiniMapMarginContainer"]
-visibility_layer = 513
-layout_mode = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="MiniMapMarginContainer/SubViewportContainer"]
-transparent_bg = true
-handle_input_locally = false
-canvas_item_default_texture_filter = 2
-canvas_cull_mask = 4293919232
-size = Vector2i(2, 2)
-render_target_update_mode = 0
-
-[node name="MiniMapNode2D" type="Node2D" parent="MiniMapMarginContainer/SubViewportContainer/SubViewport" node_paths=PackedStringArray("node")]
-visibility_layer = 513
-script = ExtResource("22_7t8sx")
-node = NodePath("../../../../GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Entities")
-
-[node name="MipMapPanelContainer" type="PanelContainer" parent="."]
-visible = false
-z_index = 1000
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -480.0
-offset_right = 480.0
-offset_bottom = 135.0
-grow_horizontal = 2
-
-[node name="ColorRect" type="ColorRect" parent="MipMapPanelContainer"]
-layout_mode = 2
-color = Color(0.3104, 0.563247, 0.97, 0.690196)
-
-[node name="MiniMapNode2D" type="Node2D" parent="MipMapPanelContainer/ColorRect" node_paths=PackedStringArray("node")]
-visibility_layer = 513
-script = ExtResource("22_7t8sx")
-node = NodePath("../../../GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Entities")
 
 [node name="MiniMapPanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("source")]
 anchors_preset = 5

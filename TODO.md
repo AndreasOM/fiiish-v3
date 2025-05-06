@@ -1,6 +1,5 @@
 # Todo
 
-- [ ] Bug: Fix mouse input inside viewport
 
 ## In Progress
 
@@ -101,11 +100,12 @@
 ### 2025-05-06
 #### S04E03
 - [x] Task: Rework MiniMap using world_2d
+- [x] Bug: Fix background repeat (inside viewport)
+- [x] Bug: Fix mouse input inside viewport
 
 ### 2025-05-01
 #### S0402
 - [x] Task: Create basic MiniMap rendering
-- [x] Bug: Fix background repeat (inside viewport)
 
 ### 2025-04-30
 #### S04E01

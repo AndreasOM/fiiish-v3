@@ -1,6 +1,7 @@
 extends Node
 class_name Game
 
+#@onready var fish: Fish = %Fish
 
 enum State {
 	INITIAL,
@@ -209,3 +210,7 @@ func next_game_mode():
 	self._mode = GameModes.next( self._mode )
 	
 	return _mode
+
+func _unhandled_input(event: InputEvent) -> void:
+	# What the Elf?!
+	%GameSubViewport.push_input( event )
