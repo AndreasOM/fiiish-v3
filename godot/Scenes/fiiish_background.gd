@@ -59,7 +59,9 @@ func _process(delta: float) -> void:
 		const eight_hours = 8*60*60
 		if _time > eight_hours:
 			_time -= eight_hours
-		offset += 0.5*(1.0/1024.0)*%GameManager.movement_x*delta
+		var m = %GameManager.movement
+		offset += 0.5*(1.0/1024.0)*m.x
+		#offset += 0.5*(1.0/1024.0)*%GameManager.movement_x*delta
 		match self.mode:
 			Mode.V1:
 				self._process_mode_v1()

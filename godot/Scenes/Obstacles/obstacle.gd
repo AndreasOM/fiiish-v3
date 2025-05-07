@@ -9,13 +9,12 @@ func _ready() -> void:
 		as2d.play("default")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if self.game_manager != null:
-		var mx = self.game_manager.movement_x
-		self.transform.origin.x -= mx * delta
+		var m = self.game_manager.movement
+		self.transform.origin.x -= m.x
+		#var mx = self.game_manager.movement_x
+		#self.transform.origin.x -= mx * delta
 		if position.x < self.game_manager.left_boundary:
 			var wo = self.game_manager.left_boundary_wrap_offset
 			if wo > 0:

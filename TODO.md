@@ -4,6 +4,9 @@
 ## In Progress
 
 
+- [ ] Task: Limit ZoneEditor movement to Zone size.
+- [ ] Hack: Load "I Love Fiiish" zone when going into Zone Editor
+
 
 ## Next
 
@@ -15,6 +18,9 @@
 
 ## V3.6.0 - ETA: 05/25
 
+- [ ] Refactor: Switch Fish to use `_process` instead of `_physics_process`
+- [ ] Refactor: Switch PickupManager to use `_process` instead of `_physics_process`
+
 - [ ] Epic: Minimap (with Scrolling)
 	- [ ] Bug: Fix MiniMap scaling
 	- [ ] Task: Add Minimap offset
@@ -24,10 +30,8 @@
 	- [ ] Task: Hide Game HUD in Zone Editor ?! (After minimap)
 	- [ ] Task: Remove despawning in Zone Editor
 
-- [ ] Refactor: Make GameManager movement_x the actual movement, and not the speed
 - [ ] Task: Handle Pause correctly in Zone Editor
 
-- [ ] Hack: Load "I Love Fiiish" zone when going into Zone Editor
 
 - [ ] Feature: Zone Editor
 	- [ ] Epic: Zone Selection and Loading
@@ -105,6 +109,7 @@
 - [x] Polish: Fix Leaderboard background, and removed duplicate
 - [x] Bug: Make ThemeTypeVariationTween cleanup at end
 - [x] Task: Disable pickup processing in ZoneEditor
+- [x] Refactor: Make GameManager movement_x/movement the actual movement, and not the speed
 
 ### 2025-05-06
 #### S04E03

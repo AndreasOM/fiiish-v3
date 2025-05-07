@@ -133,7 +133,10 @@ func spawn_explosion( position: Vector2, fish: Fish ):
 			var r = randf_range( 1.0, 1.5 )
 			v = v.rotated( a )
 			v *= 500.0 * r
-			v.x += self.game_manager.movement_x
+			# forward speed of explosion
+			v.x += 240.0
+			#v.x += self.game_manager.play_movement.x
+			#v.x += self.game_manager.movement_x
 			pickup.set_velocity( v )
 			pickup.set_target_velocity( Vector2.ZERO, 1.0 * r )
 			pickup.disable_magnetic_for_seconds( 1.0 )

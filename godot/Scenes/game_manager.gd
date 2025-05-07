@@ -2,20 +2,10 @@ extends Node
 class_name GameManager
 
 signal sound_triggered( soundEffects_Id )
-@export var play_movement_x: float = 240.0
 @export var game: Game = null
+@export var play_movement: Vector2 = Vector2( 240.0, 0.0 )
 
-var _move_x: float = 0.0
-
-var movement_x: float = 240.0:
-	get:
-		if game.is_in_zone_editor():
-			return self._move_x
-		else:
-			if self._paused:
-				return 0.0
-			else:
-				return play_movement_x
+var movement: Vector2 = Vector2( 0.0, 0.0 )
 
 @export var pixels_per_meter: float = 100.0
 
@@ -92,7 +82,22 @@ func push_initial_zones():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	_distance += self.movement_x * delta
+	_distance += self.movement.x
+	# _distance += self.movement_x * delta
+
+	if game.is_in_zone_editor():
+		# self.movement = Vector2.ZERO
+		# handled by set_move
+		pass
+	else:
+		if self._paused:
+			self.movement = Vector2.ZERO
+			#var frame = Engine.get_frames_drawn()
+			#print( "GameManager [%d](%f) %f %f" % [ frame, delta, self.movement.x, self.play_movement.x ])
+		else:
+			self.movement = play_movement * delta
+			#var frame = Engine.get_frames_drawn()
+			#print( "GameManager [%d](%f) %f %f" % [ frame, delta, self.movement.x, self.play_movement.x ])
 
 #	if Input.is_key_pressed(KEY_D):
 #		_distance += 100 * pixels_per_meter
@@ -143,10 +148,9 @@ func get_current_zone_progress() -> float:
 
 func get_current_zone_width() -> float:
 	return self.zone_manager.current_zone_width
-	
-func set_move_x( x: float ) -> void:
-	self._move_x = x
-#	print( "Move X: %f" % self._move_x )
+
+func set_move( m: Vector2 ) -> void:
+	self.movement = m
 
 func _on_zone_edit_enabled() -> void:
 	for fi in %Fishes.get_children():
