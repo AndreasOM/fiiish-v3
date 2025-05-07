@@ -31,9 +31,17 @@ func _ready() -> void:
 		var dcd = %DialogManager.open_dialog(DialogIds.Id.DEVELOPER_CONSOLE_DIALOG, 0.0)
 		dcd.fade_out( 0.0 )
 
+	
+	
 	# var lbd = %DialogManager.open_dialog(DialogIds.Id.LEADERBOARD_DIALOG, 0.0)
 	$Game.resume()
+	
+	self.open_initial_dialogs()
 
+func open_initial_dialogs() -> void:
+	# %DialogManager.open_dialog( DialogIds.Id.MINI_MAP_DIALOG, 0.0 )
+	
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
