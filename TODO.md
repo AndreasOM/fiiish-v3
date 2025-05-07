@@ -3,7 +3,6 @@
 
 ## In Progress
 
-- [ ] Polish: Fix Leaderboard background
 
 
 ## Next
@@ -103,6 +102,7 @@
 #### S04E04
 - [x] Task: Turn Minimap into Dialog
 - [x] Task: Only show MiniMap in ZoneEditor
+- [x] Polish: Fix Leaderboard background, and removed duplicate
 
 ### 2025-05-06
 #### S04E03
