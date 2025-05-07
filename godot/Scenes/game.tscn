@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://coptt7xb8x3f3" path="res://Scripts/entity_config_manager.gd" id="15_nnt18"]
 [ext_resource type="Script" uid="uid://32lm25osk3am" path="res://Scripts/zone_manager.gd" id="16_ewbju"]
 [ext_resource type="Script" uid="uid://y0fdutn7vexh" path="res://Scenes/zone_editor_manager.gd" id="20_exi56"]
-[ext_resource type="Script" uid="uid://bixc32h4ugqfv" path="res://Scenes/mini_map_panel_container.gd" id="23_vm72l"]
+[ext_resource type="PackedScene" uid="uid://dm2ddgnytoha6" path="res://Dialogs/MiniMap/mini_map_sub_viewport_container.tscn" id="22_7t8sx"]
 
 [sub_resource type="Animation" id="Animation_nb51f"]
 length = 0.001
@@ -301,7 +301,8 @@ visibility_layer = 513
 position = Vector2(0, -512)
 texture = ExtResource("10_40ndf")
 
-[node name="MiniMapPanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("source")]
+[node name="MiniMapPanelContainer" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -309,27 +310,15 @@ offset_left = -483.0
 offset_right = 477.0
 offset_bottom = 135.0
 grow_horizontal = 2
-script = ExtResource("23_vm72l")
-source = NodePath("../GameSubViewportContainer/GameSubViewport/GameScaler")
 
 [node name="ColorRect" type="ColorRect" parent="MiniMapPanelContainer"]
+visible = false
 layout_mode = 2
 color = Color(0.2673, 0.61101, 0.81, 0.392157)
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="MiniMapPanelContainer"]
+[node name="MiniMapSubViewportContainer" parent="MiniMapPanelContainer" node_paths=PackedStringArray("source") instance=ExtResource("22_7t8sx")]
 layout_mode = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="MiniMapPanelContainer/SubViewportContainer"]
-unique_name_in_owner = true
-transparent_bg = true
-handle_input_locally = false
-canvas_item_default_texture_filter = 2
-canvas_cull_mask = 512
-size = Vector2i(960, 135)
-size_2d_override = Vector2i(7680, 1080)
-size_2d_override_stretch = true
-render_target_update_mode = 4
+source = NodePath("../../GameSubViewportContainer/GameSubViewport/GameScaler")
 
 [connection signal="state_changed" from="." to="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/FiiishBackground" method="_on_game_state_changed"]
 [connection signal="state_changed" from="." to="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Background" method="_on_game_state_changed"]

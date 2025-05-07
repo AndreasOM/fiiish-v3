@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8b37roqri0fh"]
+
+[ext_resource type="Script" uid="uid://djytbufye6okv" path="res://Scenes/mini_map_dialog.gd" id="1_0qp1s"]
+[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_4aoyc"]
+[ext_resource type="PackedScene" uid="uid://dm2ddgnytoha6" path="res://Dialogs/MiniMap/mini_map_sub_viewport_container.tscn" id="3_rj50v"]
+
+[node name="MiniMapDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -492.0
+offset_right = 492.0
+offset_bottom = 228.0
+grow_horizontal = 2
+script = ExtResource("1_0qp1s")
+metadata/_custom_type_script = "uid://crap0ddpji4x7"
+
+[node name="FadeablePanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_4aoyc")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
+layout_mode = 2
+
+[node name="MiniMapSubViewportContainer" parent="FadeablePanelContainer/MarginContainer" instance=ExtResource("3_rj50v")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
+[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
+[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
+[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]

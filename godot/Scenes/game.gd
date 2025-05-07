@@ -2,6 +2,7 @@ extends Node
 class_name Game
 
 #@onready var fish: Fish = %Fish
+@onready var game_scaler: GameScaler = %GameScaler
 
 enum State {
 	INITIAL,
@@ -78,13 +79,17 @@ func is_in_zone_editor() -> bool:
 	return self._is_in_zone_editor
 	
 func goto_zone_editor() -> void:
+	%DialogManager.open_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
+	
 	if self._is_in_zone_editor:
 		push_warning( "Tried to open zone editor from zone editor")
 		return
 	self._is_in_zone_editor = true
 	Events.broadcast_zone_edit_enabled()
-	
+
 func close_zone_editor() -> void:
+	%DialogManager.close_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
+	
 	if !self._is_in_zone_editor:
 		push_warning( "Tried to close zone editor without zone editor")
 		return
@@ -99,6 +104,9 @@ func get_player() -> Player:
 	
 func get_skill_config_manager() -> SkillConfigManager:
 	return _skill_config_manager
+
+func get_world_2d() -> World2D:
+	return self.game_scaler.get_world_2d()
 
 func _on_debug_ui_zoom_changed( value: float ) -> void:
 	%GameNode2D.scale.x = value

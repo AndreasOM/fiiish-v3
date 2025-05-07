@@ -16,6 +16,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.CREDITS_DIALOG: preload("res://Dialogs/credits_dialog.tscn"),
 	DialogIds.Id.LEADERBOARD_DIALOG: preload("res://Dialogs/leaderboard_dialog.tscn"),
 	DialogIds.Id.ZONE_EDITOR_MENU_DIALOG: preload("res://Dialogs/zone_editor_menu_dialog.tscn"),
+	DialogIds.Id.MINI_MAP_DIALOG: preload("res://Dialogs/mini_map_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}
@@ -54,7 +55,12 @@ func _ready() -> void:
 	
 	Events.zone_edit_enabled.connect( _on_zone_edit_enabled )
 	Events.zone_edit_disabled.connect( _on_zone_edit_disabled )
-	pass
+	
+	for c in self.get_children():
+		var dialog = c as Dialog
+		if dialog != null:
+			if dialog.has_method( "set_game" ):
+				dialog.set_game( game );
 
 func on_dialog_closing( dialog: Dialog ):
 	print( "DIALOG_MANAGER: on_dialog_closing %s" % dialog.name )

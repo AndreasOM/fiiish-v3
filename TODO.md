@@ -3,19 +3,21 @@
 
 ## In Progress
 
+- [ ] Polish: Fix Leaderboard background
+
+
+## Next
+
+- [ ] Bug: Make ThemeTypeVariationTween cleanup at end
+
 - [ ] Epic: Minimap (with Scrolling)
 	- [ ] Bug: Fix MiniMap scaling
 	- [ ] Task: Add Minimap offset
-	- [ ] Task: Turn Minimap into Dialog
-	- [ ] Task: Only show MiniMap in ZoneEditor
 
 - [ ] Epic: GameMode - Edit
 	- [ ] Task: Handle Zone Edit enabled where needed
 	- [ ] Task: Hide Game HUD in Zone Editor ?! (After minimap)
 	- [ ] Task: Remove despawning in Zone Editor
-
-## Next
-
 
 
 ## Todo
@@ -96,6 +98,11 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-05-07
+#### S04E04
+- [x] Task: Turn Minimap into Dialog
+- [x] Task: Only show MiniMap in ZoneEditor
 
 ### 2025-05-06
 #### S04E03

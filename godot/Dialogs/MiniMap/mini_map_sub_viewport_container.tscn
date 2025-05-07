@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm2ddgnytoha6"]
+
+[ext_resource type="Script" uid="uid://28vyeh7j6r11" path="res://Scenes/mini_map_sub_viewport_container.gd" id="1_mfe6r"]
+
+[node name="MiniMapSubViewportContainer" type="SubViewportContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+script = ExtResource("1_mfe6r")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 2
+canvas_cull_mask = 512
+size = Vector2i(2, 2)
+size_2d_override = Vector2i(7680, 1080)
+size_2d_override_stretch = true
+render_target_update_mode = 4
