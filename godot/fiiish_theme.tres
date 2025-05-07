@@ -59,6 +59,7 @@ LeadboardEntryScoreLabel/font_sizes/font_size = 42
 LeadboardEntryScoreLabel/fonts/font = ExtResource("1_wkw6o")
 LeaderboardEntryLabel/base_type = &"Label"
 LeaderboardEntryLabel/colors/font_color = Color(1, 1, 1, 1)
+LeaderboardEntryLabel/colors/font_shadow_color = Color(0.0825, 0.055, 0.22, 1)
 LeaderboardEntryLabel/font_sizes/font_size = 48
 LeaderboardEntryLabel/fonts/font = ExtResource("1_wkw6o")
 MainMenuRichTextLabel/base_type = &"RichTextLabel"

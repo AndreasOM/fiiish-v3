@@ -7,7 +7,6 @@
 
 ## Next
 
-- [ ] Bug: Make ThemeTypeVariationTween cleanup at end
 
 - [ ] Epic: Minimap (with Scrolling)
 	- [ ] Bug: Fix MiniMap scaling
@@ -103,6 +102,7 @@
 - [x] Task: Turn Minimap into Dialog
 - [x] Task: Only show MiniMap in ZoneEditor
 - [x] Polish: Fix Leaderboard background, and removed duplicate
+- [x] Bug: Make ThemeTypeVariationTween cleanup at end
 
 ### 2025-05-06
 #### S04E03

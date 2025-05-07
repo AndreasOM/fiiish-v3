@@ -15,10 +15,7 @@ was_best = true
 [node name="TotalLabel" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"ResultLabel"
-theme_override_colors/font_color = Color(0.2924, 0.7181, 0.86, 1)
-theme_override_colors/font_outline_color = Color(0.44, 0.318267, 0.0748, 1)
-theme_override_constants/outline_size = 10
+theme_type_variation = &"BestResultLabel"
 text = "Total"
 horizontal_alignment = 2
 script = ExtResource("2_bugu7")
