@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 		_special_coin_cooldown = max( 0.0, _special_coin_cooldown - delta )
 
 func _physics_process(delta: float) -> void:
-	if self.game_manager.is_paused():
+	if !self.game_manager.should_process_pickups():
 		return
 
 	_physics_process_fish_attraction( delta )

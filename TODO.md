@@ -8,6 +8,13 @@
 ## Next
 
 
+
+
+## Todo
+
+
+## V3.6.0 - ETA: 05/25
+
 - [ ] Epic: Minimap (with Scrolling)
 	- [ ] Bug: Fix MiniMap scaling
 	- [ ] Task: Add Minimap offset
@@ -17,13 +24,6 @@
 	- [ ] Task: Hide Game HUD in Zone Editor ?! (After minimap)
 	- [ ] Task: Remove despawning in Zone Editor
 
-
-## Todo
-
-
-## V3.6.0 - ETA: 05/25
-
-- [ ] Bug: Sometime we can collect pickups in Zone Editor
 - [ ] Refactor: Make GameManager movement_x the actual movement, and not the speed
 - [ ] Task: Handle Pause correctly in Zone Editor
 
@@ -39,6 +39,7 @@
 	- [ ] Epic: Zone Properties
 	- [ ] Epic: Create new button style for ZoneEditor
 
+- [ ] Polish: Visualise magnet range in ZoneEditor
 - [ ] Polish: Add Fading to ZoneEditorMenuDialog
 - [ ] Polish: Fix rotation in minimap renderer
 - [ ] #reach Feature: Achievements
@@ -103,6 +104,7 @@
 - [x] Task: Only show MiniMap in ZoneEditor
 - [x] Polish: Fix Leaderboard background, and removed duplicate
 - [x] Bug: Make ThemeTypeVariationTween cleanup at end
+- [x] Task: Disable pickup processing in ZoneEditor
 
 ### 2025-05-06
 #### S04E03
