@@ -28,10 +28,17 @@ func _process(delta: float) -> void:
 	self._mouse_x = lerpf( self._mouse_x, 0.0, 0.1 )
 	move_x += self._mouse_x * ( 1.0/delta)
 	
-	self._game_manager.set_move_x( move_x )
-	
 	move_x *= delta
-	self._game_manager.set_move( Vector2( move_x, 0.0 ) )
+	# var offset_x = self._offset_x
+	# offset_x += move_x
+	# var zone_width = 5000.0
+	var zone_width = self._game_manager.zone_manager.current_zone_width
+	zone_width += self._game_manager.zone_spawn_offset
+	var offset_x = clampf( self._offset_x + move_x, 0.0, zone_width )
+	var actual_move_x = offset_x - self._offset_x
+	self._offset_x = offset_x
+	print("offset_x %f += %f of %f" % [ offset_x, actual_move_x, zone_width])
+	self._game_manager.set_move( Vector2( actual_move_x, 0.0 ) )
 
 func _unhandled_input(event: InputEvent) -> void:
 	var mouse_event = event as InputEventMouseMotion
@@ -48,6 +55,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 func _on_zone_edit_enabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	self._offset_x = 0.0
+	# should be load_zone( name )
+	self._game_manager.zone_manager.spawn_zone( false )
 
 func _on_zone_edit_disabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_DISABLED
+	self._game_manager.cleanup()

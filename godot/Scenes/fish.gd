@@ -98,7 +98,7 @@ func _set_state( new_state: Game.State ):
 
 func _goto_swimming():
 	_set_state( Game.State.SWIMMING )
-	%GameManager.spawn_zone()
+	%GameManager.spawn_zone( true )
 	%GameManager.resume()
 	
 func _goto_killed() -> void:
@@ -144,8 +144,15 @@ func goto_play_mode() -> void:
 	## print("Fish _input %s" % event)
 	#if event is InputEventMouse and event.is_action_pressed("click"):
 		#print("Fish Click")
-		
+
 func _unhandled_input(event: InputEvent) -> void:
+	match self.mode:
+		Mode.PLAY:
+			self._unhandled_input_mode_play( event )
+		_:
+			pass
+
+func _unhandled_input_mode_play(event: InputEvent) -> void:
 	# print( "Fish _unhandled_input %s" % event)
 	match self.state:
 		Game.State.SWIMMING:
