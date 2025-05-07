@@ -37,6 +37,9 @@ var _zone_config_manager: ZoneConfigManager = null
 
 func is_paused() -> bool:
 	return self._paused
+	
+func should_process_pickups() -> bool:
+	return !self._paused && !game.is_in_zone_editor()
 
 func coins() -> int:
 	return _coins
