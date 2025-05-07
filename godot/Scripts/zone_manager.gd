@@ -16,7 +16,8 @@ var current_zone_width: float:
 var _current_zone: NewZone = null
 
 func _process(delta: float) -> void:
-	self.current_zone_progress += self.game_manager.movement_x * delta
+	self.current_zone_progress += self.game_manager.movement.x
+	#self.current_zone_progress += self.game_manager.movement_x * delta
 	if self._current_zone != null:
 		if self.current_zone_progress >= self._current_zone.width:
 			self.spawn_zone()

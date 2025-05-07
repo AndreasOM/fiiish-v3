@@ -7,6 +7,8 @@ class_name ZoneEditorManager
 
 var _mouse_x: float = 0.0
 
+var _offset_x: float = 0.0
+
 func _ready():
 	Events.zone_edit_enabled.connect(_on_zone_edit_enabled)
 	Events.zone_edit_disabled.connect(_on_zone_edit_disabled)
@@ -27,6 +29,9 @@ func _process(delta: float) -> void:
 	move_x += self._mouse_x * ( 1.0/delta)
 	
 	self._game_manager.set_move_x( move_x )
+	
+	move_x *= delta
+	self._game_manager.set_move( Vector2( move_x, 0.0 ) )
 
 func _unhandled_input(event: InputEvent) -> void:
 	var mouse_event = event as InputEventMouseMotion

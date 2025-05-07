@@ -68,13 +68,15 @@ func _process(delta: float) -> void:
 		var p = _velocity_change_time / _velocity_change_duration
 		_velocity = _start_velocity.lerp( _target_velocity, p )
 
-func _physics_process(delta: float) -> void:
 	_velocity += _acceleration * delta;
 	
 	if self.game_manager != null:
-		var m = Vector2( -self.game_manager.movement_x, 0.0 )
-		m += _velocity
-		m *= delta
+		var m = self.game_manager.movement
+		var v = _velocity * delta
+		m = v - m
+		#var m = Vector2( -self.game_manager.movement_x, 0.0 )
+		#m += _velocity
+		#m *= delta
 		# var mx = self.game_manager.movement_x
 		# self.transform.origin.x -= mx * delta
 		self.transform.origin += m 

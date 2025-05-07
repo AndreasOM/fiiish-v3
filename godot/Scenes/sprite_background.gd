@@ -34,7 +34,8 @@ func _process(delta: float) -> void:
 		
 	if !Engine.is_editor_hint():
 		_time += delta
-		bg_offset += 0.5*(1.0/1024.0)*%GameManager.movement_x*delta
+		bg_offset += 0.5*(1.0/1024.0)*%GameManager.movement.x
+		# bg_offset += 0.5*(1.0/1024.0)*%GameManager.movement_x*delta
 		var d = _phaseMax - _phaseMin
 
 		var targetPhase = (0.5 + 0.5 * sin(0.5 * _time)) * d + _phaseMin
