@@ -15,6 +15,6 @@ handle_input_locally = false
 canvas_item_default_texture_filter = 2
 canvas_cull_mask = 512
 size = Vector2i(2, 2)
-size_2d_override = Vector2i(7680, 1080)
+size_2d_override = Vector2i(1080, 1080)
 size_2d_override_stretch = true
 render_target_update_mode = 4

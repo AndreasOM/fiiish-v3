@@ -3,6 +3,9 @@ class_name ThemeTypeVariationTween
 
 var _tween: Tween = null
 
+var _added_color_overrides: Dictionary[ String, bool ] = {}
+var _added_constant_overrides: Dictionary[ String, bool ] = {}
+
 func set_highlighted( 
 	control: Control,
 	tween: Tween,
@@ -42,6 +45,10 @@ func set_highlighted(
 	
 	if !any_tweens:
 		tween.kill()
+		
+	tween.set_parallel( false )
+	tween.tween_callback( self.cleanup.bind( control, variation_normal, variation_highlighted, highlighted ) )
+	
 	return any_tweens
 
 func get_theme_property_list_for_variations( theme: Theme, variations: Array[ StringName ] ) -> Array[ NodePath ]:
@@ -117,16 +124,23 @@ func tween_color_property(
 	var colors = theme.get_color_list( variation )
 	print( colors )
 	var has_color = colors.has( name )
-	if has_color:
-		var color = control.get_theme_color( name, variation)
-		control.add_theme_color_override(name, current_color)
-		tween.tween_property(control, path, color, duration)
-		# print( "Tweening [color] %s (%s) to %s" % [ name, variation, color ])
-		return true
-	else:
-		# print("WARN: no color for %s" %[ path ])
-		control.remove_theme_color_override( name )
-		return false
+	#if has_color:
+		#var color = control.get_theme_color( name, variation)
+		#control.add_theme_color_override(name, current_color)
+		#tween.tween_property(control, path, color, duration)
+		## print( "Tweening [color] %s (%s) to %s" % [ name, variation, color ])
+		#return true
+	#else:
+		## print("WARN: no color for %s" %[ path ])
+		#control.remove_theme_color_override( name )
+		#return false
+
+	var color = control.get_theme_color( name, variation)
+	control.add_theme_color_override(name, current_color)
+	self._added_color_overrides[ name ] = true
+	tween.tween_property(control, path, color, duration)
+	# print( "Tweening [color] %s (%s) to %s" % [ name, variation, color ])
+	return true
 
 func tween_constant_property( 
 	control: Control,
@@ -144,13 +158,43 @@ func tween_constant_property(
 	var constants = theme.get_constant_list( variation )
 	print( constants )
 	var has_constant = constants.has( name )
-	if has_constant:
-		var constant = control.get_theme_constant( name, variation)
-		control.add_theme_constant_override(name, current_constant)
-		tween.tween_property(control, path, constant, duration)
-		# print( "Tweening [constant] %s (%s) to %s" % [ name, variation, constant ])
-		return true
-	else:
-		# print("WARN: no constant for %s" %[ path ])
-		control.remove_theme_constant_override( name )
-		return false
+	#if has_constant:
+		#var constant = control.get_theme_constant( name, variation)
+		#control.add_theme_constant_override(name, current_constant)
+		#tween.tween_property(control, path, constant, duration)
+		## print( "Tweening [constant] %s (%s) to %s" % [ name, variation, constant ])
+		#return true
+	#else:
+		## print("WARN: no constant for %s" %[ path ])
+		#control.remove_theme_constant_override( name )
+		#return false
+
+	var constant = control.get_theme_constant( name, variation)
+	control.add_theme_constant_override(name, current_constant)
+	self._added_constant_overrides[ name ] = true
+	tween.tween_property(control, path, constant, duration)
+	# print( "Tweening [constant] %s (%s) to %s" % [ name, variation, constant ])
+	return true
+
+func cleanup(
+	control: Control,
+	variation_normal: StringName, 
+	variation_highlighted: StringName,
+	highlighted: bool,
+) -> void:
+	print("Cleanup")
+	var variation = variation_normal
+	if highlighted:
+		variation = variation_highlighted
+		
+	control.theme_type_variation = variation
+	
+	for co in self._added_color_overrides.keys():
+		control.remove_theme_color_override( co )
+
+	self._added_color_overrides.clear()
+
+	for co in self._added_constant_overrides.keys():
+		control.remove_theme_constant_override( co )
+		
+	self._added_constant_overrides.clear()
