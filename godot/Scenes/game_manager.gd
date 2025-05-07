@@ -116,8 +116,8 @@ func pause():
 func resume():
 	self._paused = false
 
-func spawn_zone() -> void:
-	self.zone_manager.spawn_zone()
+func spawn_zone( autospawn_on_zone_end: bool = false ) -> void:
+	self.zone_manager.spawn_zone( autospawn_on_zone_end )
 
 func cleanup() -> void:
 	self.zone_manager.cleanup()

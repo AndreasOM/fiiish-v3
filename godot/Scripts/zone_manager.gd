@@ -15,12 +15,15 @@ var current_zone_width: float:
 
 var _current_zone: NewZone = null
 
+var _autospawn_on_zone_end: bool = true
+
 func _process(delta: float) -> void:
 	self.current_zone_progress += self.game_manager.movement.x
 	#self.current_zone_progress += self.game_manager.movement_x * delta
 	if self._current_zone != null:
-		if self.current_zone_progress >= self._current_zone.width:
-			self.spawn_zone()
+		if self._autospawn_on_zone_end:
+			if self.current_zone_progress >= self._current_zone.width:
+				self.spawn_zone()
 
 func set_zone_config_manager( zcm: ZoneConfigManager ) -> void:
 	self._zone_config_manager = zcm
@@ -41,7 +44,7 @@ func _pick_next_zone() -> NewZone:
 	]	
 	return self._zone_config_manager.pick_next_zone( blocked_zones )
 
-func spawn_zone():
+func spawn_zone( autospawn_on_zone_end: bool = false ):
 	#var xs = [ 1200.0, 1500.0, 1800.0 ]
 	#var y = 410.0
 	#for x in xs:
@@ -50,6 +53,7 @@ func spawn_zone():
 		#o.position = Vector2( x, y )
 		#%Obstacles.add_child(o)
 
+	self._autospawn_on_zone_end = autospawn_on_zone_end
 	var zone = null
 	var next_zone = self._zone_config_manager.pop_next_zone()
 		

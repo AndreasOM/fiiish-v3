@@ -4,14 +4,12 @@
 ## In Progress
 
 
-- [ ] Task: Limit ZoneEditor movement to Zone size.
-- [ ] Hack: Load "I Love Fiiish" zone when going into Zone Editor
-
-
 ## Next
 
-
-
+- [ ] Task: Remove despawning in Zone Editor
+- [ ] Task: Do full cleanup when leaving ZoneEditor
+- [ ] Task: Remember last edited zone, and offset
+- [ ] Task: ZoneManager allow loading of specific zone
 
 ## Todo
 
@@ -28,7 +26,6 @@
 - [ ] Epic: GameMode - Edit
 	- [ ] Task: Handle Zone Edit enabled where needed
 	- [ ] Task: Hide Game HUD in Zone Editor ?! (After minimap)
-	- [ ] Task: Remove despawning in Zone Editor
 
 - [ ] Task: Handle Pause correctly in Zone Editor
 
@@ -53,7 +50,6 @@
 - [ ] Polish: Add outline for coins and distance in HUD
 - [ ] Polish: Replace Leaderboard background
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
-- [ ] Polish:
 
 ## V3.8.0 - ETA: 06/25
 
@@ -110,6 +106,8 @@
 - [x] Bug: Make ThemeTypeVariationTween cleanup at end
 - [x] Task: Disable pickup processing in ZoneEditor
 - [x] Refactor: Make GameManager movement_x/movement the actual movement, and not the speed
+- [x] Task: Limit ZoneEditor movement to Zone size.
+- [x] Hack: Spawn random zone when going into ZoneEditor. Probably: "I Love Fiiish" zone
 
 ### 2025-05-06
 #### S04E03
