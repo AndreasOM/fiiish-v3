@@ -3,12 +3,12 @@
 
 ## In Progress
 
-
+- [ ] Task: Add name to file mapping in ZoneManager
 
 ## Next
 
-- [ ] Task: Remember last edited zone, and offset
 - [ ] Task: ZoneManager allow loading of specific zone
+- [ ] Task: Remember last edited zone in ZoneEdit
 
 ## Todo
 
@@ -104,6 +104,7 @@
 - [x] Task: Remove despawning in Zone Editor
 - [x] Polish: Use MipMap for Background
 - [x] Task: Make Fish goto Dying (without result) when leaving ZoneEditor
+- [x] Task: Remember last offset in ZoneEditor (player save)
 
 ### 2025-05-07
 #### S04E04
