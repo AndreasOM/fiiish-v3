@@ -172,6 +172,7 @@ libraries = {
 
 [node name="FiiishBackground" type="TextureRect" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D"]
 process_mode = 1
+texture_filter = 4
 material = SubResource("ShaderMaterial_uo4vc")
 anchors_preset = 8
 anchor_left = 0.5
