@@ -6,9 +6,9 @@ extends Node2D
 #func _ready():
 #	self._orig_pos = self.position
 	
-func _process(delta: float) -> void:		
-	if Input.is_key_pressed(KEY_S):
-		self.trigger()
+#func _process(delta: float) -> void:
+#	if Input.is_key_pressed(KEY_S):
+#		self.trigger()
 
 func trigger():
 	var duration = 0.125
