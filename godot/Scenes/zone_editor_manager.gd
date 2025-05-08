@@ -11,6 +11,7 @@ var _mouse_x: float = 0.0
 var _offset_x: float = 0.0
 
 var _pending_offset_from_load: Vector2 = Vector2.ZERO
+var _zone_filename: String = ""
 
 func _ready():
 	Events.zone_edit_enabled.connect(_on_zone_edit_enabled)
@@ -79,8 +80,14 @@ func _on_zone_edit_enabled() -> void:
 	
 	self._pending_offset_from_load = offset
 	
-	# should be load_zone( name )
-	self._game_manager.zone_manager.spawn_zone( false )
+	var filename = zes.get_last_zone_filename()
+	
+	# :HACK: until we have a load dialog
+	if filename == "":
+		filename = "classic-5001_Anchor.nzne"
+	self._zone_filename = filename
+	
+	self._game_manager.zone_manager.load_and_spawn_zone( filename )
 
 func _on_zone_edit_disabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_DISABLED
@@ -91,4 +98,5 @@ func _on_zone_edit_disabled() -> void:
 	var player = self._game_manager.game.get_player()
 	var zes = player.get_zone_editor_save()
 	zes.set_offset( Vector2( self._offset_x, 0.0 ) )
+	zes.set_last_zone_filename( self._zone_filename )
 	self._game_manager.game.save_player()

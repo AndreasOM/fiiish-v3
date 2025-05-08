@@ -60,6 +60,45 @@ func _pick_next_zone() -> NewZone:
 	]	
 	return self._zone_config_manager.pick_next_zone( blocked_zones )
 
+func _spawn_zone_internal( zone: NewZone ) -> void:
+	self.current_zone_progress = 0.0
+	self._current_zone = zone
+	Events.broadcast_zone_changed( zone )
+	for l in zone.layers.iter():
+		if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
+			for obj in l.objects.iter():
+
+
+				var o = null
+				var ec = entity_config_manager.get_entry( obj.crc )
+				if ec != null:
+					o = ec.resource.instantiate()
+					o.game_manager = self.game_manager
+					o.position = Vector2( obj.pos_x + self.game_manager.zone_spawn_offset, obj.pos_y )
+					o.rotation_degrees = obj.rotation
+					match ec.entity_type:
+						EntityTypes.Id.OBSTACLE:
+							%Obstacles.add_child(o)
+						EntityTypes.Id.PICKUP:
+							%Pickups.add_child(o)
+						_ :
+							pass
+					#print( o )
+				else:
+					print("Unhandled CRC: %08x" % obj.crc)
+
+func load_and_spawn_zone( filename: String ) -> bool:
+	var i = self._zone_config_manager.find_zone_index_by_filename( filename )
+	if i < 0:
+		push_warning("Zone %s not found" % filename)
+		return false
+
+	var zone = self._zone_config_manager.get_zone( i )
+	self._spawn_zone_internal( zone )
+	
+	self._autospawn_on_zone_end = false
+	return true
+	
 func spawn_zone( autospawn_on_zone_end: bool = false ):
 	#var xs = [ 1200.0, 1500.0, 1800.0 ]
 	#var y = 410.0
@@ -79,28 +118,4 @@ func spawn_zone( autospawn_on_zone_end: bool = false ):
 		zone = self._pick_next_zone()
 #	if self._zone != null:
 	if zone != null:
-		self.current_zone_progress = 0.0
-		self._current_zone = zone
-		Events.broadcast_zone_changed( zone )
-		for l in zone.layers.iter():
-			if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
-				for obj in l.objects.iter():
-	
-	
-					var o = null
-					var ec = entity_config_manager.get_entry( obj.crc )
-					if ec != null:
-						o = ec.resource.instantiate()
-						o.game_manager = self.game_manager
-						o.position = Vector2( obj.pos_x + self.game_manager.zone_spawn_offset, obj.pos_y )
-						o.rotation_degrees = obj.rotation
-						match ec.entity_type:
-							EntityTypes.Id.OBSTACLE:
-								%Obstacles.add_child(o)
-							EntityTypes.Id.PICKUP:
-								%Pickups.add_child(o)
-							_ :
-								pass
-						#print( o )
-					else:
-						print("Unhandled CRC: %08x" % obj.crc)
+		self._spawn_zone_internal( zone )
