@@ -100,3 +100,11 @@ func _on_zone_edit_disabled() -> void:
 	zes.set_offset( Vector2( self._offset_x, 0.0 ) )
 	zes.set_last_zone_filename( self._zone_filename )
 	self._game_manager.game.save_player()
+
+func select_zone( filename: String ) -> void:
+	if filename != self._zone_filename:
+		self._zone_filename = filename
+		self._game_manager.cleanup()
+		self._game_manager.zone_manager.load_and_spawn_zone( filename )
+		self._offset_x = 0.0
+		print( "Switched to Zone %s" % filename )

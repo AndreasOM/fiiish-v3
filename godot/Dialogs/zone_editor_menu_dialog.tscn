@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyddvv17y3dmy"]
+[gd_scene load_steps=8 format=3 uid="uid://dyddvv17y3dmy"]
 
 [ext_resource type="Script" uid="uid://cdced8n48ndm" path="res://Dialogs/zone_editor_menu_dialog.gd" id="1_ssmqt"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="2_4w7ob"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="5_kkhx4"]
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_ace3m"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_66sxi"]
+[ext_resource type="Texture2D" uid="uid://c1kyb7ia7ta4x" path="res://Textures/UI/Buttons/button_sub_menu_entry.png" id="7_htgnp"]
 
 [node name="ZoneEditorMenuDialog" type="Control"]
 process_mode = 3
@@ -81,29 +82,50 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource("3_jmev3")
 
 [node name="MainMenuButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable"]
 layout_mode = 2
 texture_normal = ExtResource("7_66sxi")
 
-[node name="TodoTextureRect" type="TextureRect" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="SubMenuVBoxContainer" type="VBoxContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 visible = false
-self_modulate = Color(0.58443, 0.2394, 0.63, 1)
-custom_minimum_size = Vector2(384, 128)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("5_kkhx4")
 
-[node name="TodoLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/TodoTextureRect"]
+[node name="LoadButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("7_htgnp")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/LoadButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"MainMenuRichTextLabel"
+text = "Load"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TodoButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+self_modulate = Color(0.78, 0.3198, 0.32747, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("7_htgnp")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/TodoButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 theme_type_variation = &"MainMenuRichTextLabel"
 text = ":TODO:"
 horizontal_alignment = 1
@@ -112,3 +134,4 @@ vertical_alignment = 1
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]

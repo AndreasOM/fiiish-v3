@@ -16,4 +16,17 @@ func _on_settings_button_pressed() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
-	%TodoTextureRect.visible = !%TodoTextureRect.visible
+	%SubMenuVBoxContainer.visible = !%SubMenuVBoxContainer.visible
+
+
+func _on_load_button_pressed() -> void:
+	var d = self._dialog_manager.open_dialog( DialogIds.Id.ZONE_SELECT_DIALOG, 0.3 )
+	var zsd = d as ZoneSelectDialog
+	if zsd != null:
+		zsd.zone_selected.connect( _on_zone_select_dialog_zone_selected )
+	%SubMenuVBoxContainer.visible = false
+
+func _on_zone_select_dialog_zone_selected( filename: String ) -> void:
+	print( "Zone Selected %s" % filename )
+	self._dialog_manager.close_dialog( DialogIds.Id.ZONE_SELECT_DIALOG, 0.3 )
+	self._dialog_manager.game.select_zone( filename )

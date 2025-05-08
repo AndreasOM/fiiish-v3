@@ -6,6 +6,7 @@
 
 ## Next
 
+- [ ] Task: Dynamically fill the Zone Selection Dialog
 
 ## Todo
 
@@ -105,6 +106,8 @@
 - [x] Task: Add name to file mapping in ZoneManager
 - [x] Task: ZoneManager allow loading of specific zone
 - [x] Task: Remember last edited zone in ZoneEdit
+- [x] Task: Add Menu entry in ZoneEditor to Load a zone
+- [x] Task: Create Zone Selection Dialog - very basic first draft
 
 ### 2025-05-07
 #### S04E04
