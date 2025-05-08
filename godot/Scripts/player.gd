@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 8
+const current_version: int = 9
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -40,6 +40,10 @@ var _leaderboards: HashMap = HashMap.new(
 	func() -> Leaderboard:
 		return Leaderboard.new("NONE")
 )
+
+## version 9
+
+var _zone_editor_save: ZoneEditorSave = ZoneEditorSave.new()
 
 ## not serialized
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
@@ -144,6 +148,12 @@ func serialize( s: Serializer ) -> bool:
 		return true
 
 	_leaderboards.serialize( s )
+	
+	# version 9:
+	if version < 9:
+		return true
+		
+	_zone_editor_save.serialize( s )
 	
 	return true
 		
@@ -296,3 +306,6 @@ func update_leaderboards( new_coins: int, distance: int ) -> Array[ LeaderboardT
 
 func get_first_ranks_on_last_leaderboard_update() -> Array[ LeaderboardTypes.Type ]:
 	return self._first_ranks_on_last_leaderboard_update
+
+func get_zone_editor_save() -> ZoneEditorSave:
+	return self._zone_editor_save
