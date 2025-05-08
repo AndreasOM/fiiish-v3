@@ -153,6 +153,8 @@ func _on_game_state_changed(state: Game.State) -> void:
 		# Game.State.DEAD:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 			open_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
+		Game.State.DYING_WITHOUT_RESULT:
+			pass
 		Game.State.RESPAWNING:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 			close_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )

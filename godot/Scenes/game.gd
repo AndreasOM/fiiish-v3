@@ -10,6 +10,7 @@ enum State {
 	SWIMMING,
 	KILLED,
 	DYING,
+	DYING_WITHOUT_RESULT,
 	DEAD,
 	RESPAWNING,
 }
@@ -26,6 +27,8 @@ static func state_to_name( state: Game.State) -> String:
 			return "KILLED"
 		Game.State.DYING:
 			return "DYING"
+		Game.State.DYING_WITHOUT_RESULT:
+			return "DYING_WITHOUT_RESULT"
 		Game.State.DEAD:
 			return "DEAD"
 		Game.State.RESPAWNING:

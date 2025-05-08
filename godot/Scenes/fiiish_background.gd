@@ -107,6 +107,11 @@ func _on_game_state_changed_mode_v1(state: Game.State):
 			_phaseMin = 112.0/128.0
 			_phaseMax = 112.0/128.0
 			# print("Dying %f - %f" % [ _phaseMin, _phaseMax ] )
+		Game.State.DYING_WITHOUT_RESULT:
+			# (112.0 / 128.0, 112.0 / 128.0)
+			_phaseMin = 112.0/128.0
+			_phaseMax = 112.0/128.0
+			# print("Dying (without result) %f - %f" % [ _phaseMin, _phaseMax ] )
 			
 		Game.State.DEAD:
 			# (112.0 / 128.0, 112.0 / 128.0)
@@ -133,6 +138,11 @@ func _on_game_state_changed_mode_loop(state: Game.State):
 		Game.State.SWIMMING:
 			pass
 		Game.State.DYING:
+			self.gradient_texture_a = self.gradient_texture_swimming
+			self.gradient_texture_b = self.gradient_texture_dying
+			var tween = create_tween()
+			tween.tween_property( self, "ab_mix", 1.0, 3.0 )
+		Game.State.DYING_WITHOUT_RESULT:
 			self.gradient_texture_a = self.gradient_texture_swimming
 			self.gradient_texture_b = self.gradient_texture_dying
 			var tween = create_tween()

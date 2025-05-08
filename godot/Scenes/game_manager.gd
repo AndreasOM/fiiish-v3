@@ -123,6 +123,13 @@ func cleanup() -> void:
 	self.zone_manager.cleanup()
 	self.pickup_manager.cleanup()
 
+func goto_dying_without_result() -> void:
+	for fi in %Fishes.get_children():
+		var f = fi as Fish
+		if f == null:
+			continue
+		f._goto_dying_without_result()
+	
 func kill_pickups() -> void:
 	self.pickup_manager.kill_all()
 	
