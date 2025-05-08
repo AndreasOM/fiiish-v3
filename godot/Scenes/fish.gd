@@ -84,6 +84,7 @@ func is_alive() -> bool:
 		Game.State.WAITING_FOR_START:	return false;
 		Game.State.SWIMMING:        		return true;
 		Game.State.KILLED:           		return false;
+		Game.State.DYING_WITHOUT_RESULT:	return false;
 		Game.State.DYING:           		return false;
 		Game.State.DEAD:            		return false;
 		Game.State.RESPAWNING:      		return false;
@@ -108,6 +109,13 @@ func _goto_dying() -> void:
 	#set_acceleration(Vector2( 0.0, -9.81*100.0 ))
 	set_acceleration(Vector2( 0.0, -9.81*50.0 ))
 	_set_state( Game.State.DYING )
+	%GameManager.pause()
+	%AnimatedSprite2D.play("dying")
+
+func _goto_dying_without_result() -> void:
+	#set_acceleration(Vector2( 0.0, -9.81*100.0 ))
+	set_acceleration(Vector2( 0.0, -9.81*50.0 ))
+	_set_state( Game.State.DYING_WITHOUT_RESULT )
 	%GameManager.pause()
 	%AnimatedSprite2D.play("dying")
 
@@ -207,6 +215,8 @@ func _physics_process(delta: float) -> void:
 			_physics_process_respawning(delta)
 		Game.State.SWIMMING:
 			_physics_process_swimming(delta)
+		Game.State.DYING_WITHOUT_RESULT:
+			_physics_process_dying(delta)
 		Game.State.DYING:
 			_physics_process_dying(delta)
 		#Game.State.DEAD:
@@ -269,7 +279,10 @@ func _physics_process_dying(delta: float) -> void:
 		print("Finished dying (off screen)")
 		_velocity = Vector2.ZERO
 		_acceleration = Vector2.ZERO
-		_set_state( Game.State.DEAD )
+		if self.state == Game.State.DYING_WITHOUT_RESULT:
+			self._goto_respawning()
+		else:
+			_set_state( Game.State.DEAD )
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
