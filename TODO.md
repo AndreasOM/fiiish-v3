@@ -3,10 +3,10 @@
 
 ## In Progress
 
-- [ ] Task: Remove despawning in Zone Editor
 
 ## Next
 
+- [ ] Polish: Use MipMap for Background
 - [ ] Task: Do full cleanup when leaving ZoneEditor
 - [ ] Task: Remember last edited zone, and offset
 - [ ] Task: ZoneManager allow loading of specific zone
@@ -102,6 +102,7 @@
 ### 2025-05-08
 #### S04E05
 - [x] Task: Move Fish up & down in ZoneEditor
+- [x] Task: Remove despawning in Zone Editor
 
 ### 2025-05-07
 #### S04E04

@@ -15,12 +15,6 @@ func _process(delta: float) -> void:
 		self.transform.origin.x -= m.x
 		#var mx = self.game_manager.movement_x
 		#self.transform.origin.x -= mx * delta
-		if position.x < self.game_manager.left_boundary:
-			var wo = self.game_manager.left_boundary_wrap_offset
-			if wo > 0:
-				position.x += wo
-			else:
-				queue_free()
 
 func NOPE_draw_minimap( n: Node2D, scale: float ) -> void:
 	for c in self.get_children():
