@@ -225,3 +225,6 @@ func next_game_mode():
 func _unhandled_input(event: InputEvent) -> void:
 	# What the Elf?!
 	%GameSubViewport.push_input( event )
+
+func select_zone( filename: String ) -> void:
+	%ZoneEditorManager.select_zone( filename )
