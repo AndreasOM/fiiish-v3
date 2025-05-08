@@ -24,6 +24,22 @@ func _process(delta: float) -> void:
 		if self._autospawn_on_zone_end:
 			if self.current_zone_progress >= self._current_zone.width:
 				self.spawn_zone()
+	
+	if !self.game_manager.game.is_in_zone_editor():
+		self._despawn_offscreen_obstacles()
+	
+func _despawn_offscreen_obstacles() -> void:
+	for o in %Obstacles.get_children():
+		var n = o as Node2D
+		if n == null:
+			continue
+		if n.position.x < self.game_manager.left_boundary:
+			var wo = self.game_manager.left_boundary_wrap_offset
+			if wo > 0:
+				n.position.x += wo
+			else:
+				%Obstacles.remove_child(n)
+				n.queue_free()
 
 func set_zone_config_manager( zcm: ZoneConfigManager ) -> void:
 	self._zone_config_manager = zcm

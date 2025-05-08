@@ -42,6 +42,28 @@ func _process(delta: float) -> void:
 	if _special_coin_cooldown > 0.0:
 		_special_coin_cooldown = max( 0.0, _special_coin_cooldown - delta )
 
+	if !self.game_manager.game.is_in_zone_editor():
+		self._despawn_offscreen_pickups()
+
+func _despawn_offscreen_pickups() -> void:
+	var cs: CollisionShape2D = self.game_manager.game_zone
+	var s: Shape2D = cs.shape
+	var r: Rect2 = s.get_rect()
+	
+	for p in %Pickups.get_children():
+		var n = p as Node2D
+		if n == null:
+			continue
+
+		if !r.has_point( n.position ):
+		#if position.x < self.game_manager.left_boundary:
+			var wo = self.game_manager.left_boundary_wrap_offset
+			if wo > 0:
+				n.position.x += wo
+			else:
+				%Pickups.remove_child(p)
+				p.queue_free()
+
 func _physics_process(delta: float) -> void:
 	if !self.game_manager.should_process_pickups():
 		return

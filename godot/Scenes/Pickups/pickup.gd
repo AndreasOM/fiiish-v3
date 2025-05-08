@@ -80,18 +80,6 @@ func _process(delta: float) -> void:
 		# var mx = self.game_manager.movement_x
 		# self.transform.origin.x -= mx * delta
 		self.transform.origin += m 
-		# :TODO: use Area2D
-		var cs: CollisionShape2D = self.game_manager.game_zone
-		var s: Shape2D = cs.shape
-		var r: Rect2 = s.get_rect()
-		
-		if !r.has_point( position ):
-		#if position.x < self.game_manager.left_boundary:
-			var wo = self.game_manager.left_boundary_wrap_offset
-			if wo > 0:
-				position.x += wo
-			else:
-				queue_free()
 
 #func draw_minimap( n: Node2D, scale: float ) -> void:
 #	var radius = 15.0
