@@ -2,6 +2,7 @@ extends Node
 class_name ZoneEditorManager
 
 @export var scroll_speed: float = 240.0
+@export var vertical_speed: float = 240.0
 
 @onready var _game_manager: GameManager = %GameManager
 
@@ -37,8 +38,15 @@ func _process(delta: float) -> void:
 	var offset_x = clampf( self._offset_x + move_x, 0.0, zone_width )
 	var actual_move_x = offset_x - self._offset_x
 	self._offset_x = offset_x
-	print("offset_x %f += %f of %f" % [ offset_x, actual_move_x, zone_width])
+	# print("offset_x %f += %f of %f" % [ offset_x, actual_move_x, zone_width])
 	self._game_manager.set_move( Vector2( actual_move_x, 0.0 ) )
+
+	# up & down
+	var dy = Input.get_axis("zone_editor_up","zone_editor_down")
+	
+	dy *= self.vertical_speed
+	dy *= delta
+	self._game_manager.move_fish( Vector2( 0.0, dy ) )
 
 func _unhandled_input(event: InputEvent) -> void:
 	var mouse_event = event as InputEventMouseMotion

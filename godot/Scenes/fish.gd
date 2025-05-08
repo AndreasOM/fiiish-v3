@@ -134,6 +134,11 @@ func goto_edit_mode() -> void:
 func goto_play_mode() -> void:
 	self.mode = Mode.PLAY
 
+func move( v: Vector2 ) -> void:
+	# maybe only in EDIT mode?!
+	# :TODO: limit to screen?
+	self.transform.origin += v
+
 #func go_up() -> void:
 #	self.direction = Direction.UP
 

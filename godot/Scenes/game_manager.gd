@@ -151,6 +151,13 @@ func get_current_zone_width() -> float:
 
 func set_move( m: Vector2 ) -> void:
 	self.movement = m
+	
+func move_fish( v: Vector2 ) -> void:
+	for fi in %Fishes.get_children():
+		var f = fi as Fish
+		if f == null:
+			continue
+		f.move( v )
 
 func _on_zone_edit_enabled() -> void:
 	for fi in %Fishes.get_children():

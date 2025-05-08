@@ -3,10 +3,10 @@
 
 ## In Progress
 
+- [ ] Task: Remove despawning in Zone Editor
 
 ## Next
 
-- [ ] Task: Remove despawning in Zone Editor
 - [ ] Task: Do full cleanup when leaving ZoneEditor
 - [ ] Task: Remember last edited zone, and offset
 - [ ] Task: ZoneManager allow loading of specific zone
@@ -50,6 +50,7 @@
 - [ ] Polish: Add outline for coins and distance in HUD
 - [ ] Polish: Replace Leaderboard background
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
+- [ ] Polish: Limit Fish movement in ZoneEditor
 
 ## V3.8.0 - ETA: 06/25
 
@@ -97,6 +98,10 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-05-08
+#### S04E05
+- [x] Task: Move Fish up & down in ZoneEditor
 
 ### 2025-05-07
 #### S04E04
