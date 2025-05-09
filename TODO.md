@@ -4,8 +4,6 @@
 ## In Progress
 
 
-- [ ] Epic: Zone Selection and Loading
-	- [ ] Task: Save current zone from ZoneEditor
 
 ## Next
 
@@ -30,7 +28,7 @@
 
 
 - [ ] Feature: Zone Editor
-	- [ ] Epic: Zone Saving
+	- [ ] * Epic: Zone Management (deleting & renaming?!)
 	- [ ] * Epic: Zone Sharing
 	- [ ] * Epic: Zone Importing
 	- [ ] Epic: Zone Editing
@@ -102,6 +100,9 @@
 #### S04E06
 - [x] Task: Dynamically fill the Zone Selection Dialog
 - [x] Task: Allow entering a new filename in the ZoneSelectDialog (Save As)
+- [x] Epic: Zone Selection and Loading
+- [x] Task: Save current zone from ZoneEditor
+- [x] Epic: Zone Saving
 
 ### 2025-05-08
 #### S04E05

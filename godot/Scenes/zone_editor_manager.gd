@@ -13,12 +13,15 @@ var _offset_x: float = 0.0
 var _pending_offset_from_load: Vector2 = Vector2.ZERO
 var _zone_filename: String = ""
 
+var _dx: float = 0.0
+var _dy: float = 0.0
+
 func _ready():
 	Events.zone_edit_enabled.connect(_on_zone_edit_enabled)
 	Events.zone_edit_disabled.connect(_on_zone_edit_disabled)
 	
 func _process(delta: float) -> void:
-	var dx = Input.get_axis("left","right")
+	var dx = _dx
 	var move_x = 0.0
 	if dx != 0.0:
 		# print("ZoneEditorManager - dx %f" % dx )
@@ -46,13 +49,17 @@ func _process(delta: float) -> void:
 	self._game_manager.set_move( Vector2( actual_move_x, 0.0 ) )
 
 	# up & down
-	var dy = Input.get_axis("zone_editor_up","zone_editor_down")
+	#var dy = Input.get_axis("zone_editor_up","zone_editor_down")
 	
+	var dy = self._dy
 	dy *= self.vertical_speed
 	dy *= delta
 	self._game_manager.move_fish( Vector2( 0.0, dy ) )
 
 func _unhandled_input(event: InputEvent) -> void:
+	self._dx = Input.get_axis("left","right")
+	self._dy = Input.get_axis("zone_editor_up","zone_editor_down")
+	
 	var mouse_event = event as InputEventMouseMotion
 	if mouse_event != null:
 		if mouse_event.button_mask == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
@@ -84,10 +91,16 @@ func _on_zone_edit_enabled() -> void:
 	
 	# :HACK: until we have a load dialog
 	if filename == "":
-		filename = "classic-5001_Anchor.nzne"
-	self._zone_filename = filename
+		self._game_manager.zone_manager.cleanup()
+	else:
+		if filename.begins_with("user-"):
+			var f = filename.trim_prefix( "user-" )
+			self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
+			print( "ZoneEditorManager: Reload Zone %s" % filename )
+		self._game_manager.zone_manager.load_and_spawn_zone( filename )
+		self._zone_filename = filename
+		print("ZoneEditorManager: Loaded from %s - width %f" % [ filename, self._game_manager.zone_manager.current_zone_width ] )
 	
-	self._game_manager.zone_manager.load_and_spawn_zone( filename )
 
 func _on_zone_edit_disabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_DISABLED
@@ -102,13 +115,35 @@ func _on_zone_edit_disabled() -> void:
 	self._game_manager.game.save_player()
 
 func select_zone( filename: String ) -> void:
-	if filename != self._zone_filename:
+	#if filename != self._zone_filename:
 		self._zone_filename = filename
 		self._game_manager.cleanup()
+		if filename.begins_with("user-"):
+			var f = filename.trim_prefix( "user-" )
+			self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
+			print( "ZoneEditorManager: Reload Zone %s" % filename )
 		self._game_manager.zone_manager.load_and_spawn_zone( filename )
 		self._offset_x = 0.0
-		print( "Switched to Zone %s" % filename )
+		print( "ZoneEditorManager: Switched to Zone %s" % filename )
 
 func select_save_zone( filename: String ) -> void:
-	# :TODO: create file if it doesn't exist	
-	self._zone_filename = filename
+	if filename.begins_with("user-"): # Note: If not needed, but we might want to trace, and inform
+		filename = filename.trim_prefix( "user-" )
+		
+	if !filename.ends_with(".nzne"):
+		filename = "%s.nzne" % filename
+		
+	# :TODO: create file if it doesn't exist
+	var new_zone: NewZone = NewZone.new()
+	
+	self._game_manager.zone_manager.add_current_to_new_zone( new_zone, self._offset_x )
+
+	var p = "user://zones/%s" % filename
+	var s = Serializer.new()
+	if !new_zone.serialize( s ):
+		push_warning("Failed serializing NewZone");
+	else:
+		s.save_file(p)
+		print("ZoneEditorManager: Saved to %s - width %f" % [ filename, new_zone.width ] )
+	
+	self._zone_filename = "user-%s" % filename

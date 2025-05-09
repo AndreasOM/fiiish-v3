@@ -9,3 +9,6 @@ var objects: SerializableArray = SerializableArray.new(
 func serialize( s: Serializer ):
 	self.name = s.serialize_fixed_string( 16, self.name )	
 	self.objects.serialize( s )
+
+func add_object( o: NewZoneLayerObject ) -> void:
+	self.objects.push_back( o )

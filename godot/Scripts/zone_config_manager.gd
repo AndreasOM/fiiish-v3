@@ -25,6 +25,19 @@ func load_zones_from_folder( folder: String, prefix: String = "" ):
 		self._zone_filenames_to_zones[ name ] = self._zones.size()
 		self._zones.push_back( z )
 
+func reload_zone( folder: String, filename: String, prefix: String = "" ):
+	if prefix != "":
+		prefix = "%s-" % prefix
+	var fzn = "%s/%s" % [ folder, filename ]
+	var z = ResourceLoader.load( fzn, "", ResourceLoader.CacheMode.CACHE_MODE_IGNORE_DEEP )
+	var name = "%s%s" % [ prefix, filename ]
+	var i = self.find_zone_index_by_filename( name )
+	if i < 0:
+		self._zone_filenames_to_zones[ name ] = self._zones.size()
+		self._zones.push_back( z )
+	else:
+		self._zones[ i ] = z
+	
 func zone_count() -> int:
 	return self._zones.size()
 	
