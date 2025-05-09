@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdtqm8y17kfpc"]
+
+[ext_resource type="Script" uid="uid://bk5cs8tqbfk06" path="res://Dialogs/ZoneSelection/zone_naming_element.gd" id="1_y6aoh"]
+[ext_resource type="Texture2D" uid="uid://cxxi48tk2plt2" path="res://Textures/UI/Buttons/button_main_menu_entry.png" id="2_l2oal"]
+
+[node name="ZoneNamingElement" type="MarginContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_y6aoh")
+
+[node name="TextureButton" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_l2oal")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureButton/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleRichTextLabel" type="RichTextLabel" parent="TextureButton/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_type_variation = &"ZoneSelectionElementFilenameRichTextLabel"
+text = ":TODO:"
+vertical_alignment = 1
+
+[node name="FilenameLineEdit" type="LineEdit" parent="TextureButton/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DeveloperConsoleLineEdit"
+placeholder_text = "Filename"
+max_length = 32
+
+[connection signal="text_submitted" from="TextureButton/MarginContainer/VBoxContainer/FilenameLineEdit" to="." method="_on_filename_line_edit_text_submitted"]

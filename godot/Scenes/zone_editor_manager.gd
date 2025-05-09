@@ -108,3 +108,7 @@ func select_zone( filename: String ) -> void:
 		self._game_manager.zone_manager.load_and_spawn_zone( filename )
 		self._offset_x = 0.0
 		print( "Switched to Zone %s" % filename )
+
+func select_save_zone( filename: String ) -> void:
+	# :TODO: create file if it doesn't exist	
+	self._zone_filename = filename
