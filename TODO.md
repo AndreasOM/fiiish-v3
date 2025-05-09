@@ -105,6 +105,7 @@
 - [x] Epic: Zone Saving
 - [x] Task: Enable user zone in demo version
 - [x] Cleanup: Remove a lot of errors and warnings
+- [x] Bug: Ensure user zones folder exists
 
 ### 2025-05-08
 #### S04E05
