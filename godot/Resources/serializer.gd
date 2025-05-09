@@ -30,8 +30,12 @@ func save_file(path:String) -> bool:
 	#for i in self._data.size():
 	#	var b = self._data[ i ]
 	#	print("%02x" % b )
-		
+
 	var f = FileAccess.open(path, FileAccess.WRITE)
+	if f == null:
+		var e = FileAccess.get_open_error()
+		push_warning( "Failed to open %s for WRITE: %s" % [ path, e ] )
+		return false
 	self._data.resize( self._pos )
 	f.store_buffer( self._data )
 	
