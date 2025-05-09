@@ -5,9 +5,9 @@ var _skill_id: SkillIds.Id = SkillIds.Id.NONE
 var name: String = "[UNKNOWN]"
 var levels: Dictionary = {}
 
-func _init( skill_id: SkillIds.Id, name: String ) -> void:
-	self._skill_id = skill_id
-	self.name = name
+func _init( id: SkillIds.Id, skill_name: String ) -> void:
+	self._skill_id = id
+	self.name = skill_name
 	
 func skill_id() -> SkillIds.Id:
 	return self._skill_id

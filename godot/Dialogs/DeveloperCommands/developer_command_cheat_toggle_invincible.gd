@@ -3,7 +3,7 @@ class_name DeveloperCommandCheatToggleInvincible extends DeveloperCommand
 func syntax() -> String:
 	return "cheat_toggle_invincible"
 	
-func run( input: String, game: Game ) -> bool:
+func run( _input: String, game: Game ) -> bool:
 	var cheat_id = CheatIds.Id.INVINCIBLE;
 	var player = game.get_player()
 	

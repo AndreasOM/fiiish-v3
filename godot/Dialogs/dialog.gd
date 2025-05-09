@@ -11,14 +11,14 @@ var _dialog_manager: DialogManager = null
 func set_dialog_manager( dialog_manager: DialogManager ):
 	_dialog_manager = dialog_manager
 	
-func toggle( duration: float ):
+func toggle( _duration: float ):
 	push_warning("Toggle not implemented for dialog %s" % self.name )
 	pass
 	
-func close( duration: float ):
+func close( _duration: float ):
 	pass
 	
-func open( duration: float ):
+func open( _duration: float ):
 	pass
 
 func closing():

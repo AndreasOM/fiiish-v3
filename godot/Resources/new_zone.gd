@@ -52,20 +52,20 @@ func serialize( s: Serializer ) -> bool:
 	
 	return true
 
-func get_layer( name: String ): # -> NewZoneLayer:
+func get_layer( layer_name: String ): # -> NewZoneLayer:
 	for l in self.layers.iter():
-		if l.name == name:
+		if l.name == layer_name:
 			return l
 	
 	return null
 	
-func ensure_layer( name: String ) -> NewZoneLayer:
-	var l = self.get_layer( name )
+func ensure_layer( layer_name: String ) -> NewZoneLayer:
+	var l = self.get_layer( layer_name )
 	if l != null:
 		return l
 	
 	l = NewZoneLayer.new()
-	l.name = name
+	l.name = layer_name
 	
 	self.layers.push_back( l )
 	

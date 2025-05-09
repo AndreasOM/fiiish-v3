@@ -41,9 +41,12 @@ func ensure_space( c: int ):
 	var s = _data.size()
 	var p = self._pos
 	
-	if p+c > s:
-		var ns = max(s,1)*2
-		print("Resizing serializer to ", ns)
+	var ns = s
+	while p+c > ns:
+		ns = max(ns,1)*2
+		
+	if ns != s:	
+		print("Resizing serializer to %d to fit %d = %d+%d" % [ ns, p+c, p, c ])
 		_data.resize( ns )
 
 func serialize_bool( v: bool ) -> bool:

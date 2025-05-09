@@ -8,8 +8,8 @@ extends Dialog
 func _ready() -> void:
 	self._update_viewport()
 	
-func set_game( game: Game ) -> void:
-	self.game = game
+func set_game( g: Game ) -> void:
+	self.game = g
 	self._update_viewport()
 
 func _update_viewport() -> void:

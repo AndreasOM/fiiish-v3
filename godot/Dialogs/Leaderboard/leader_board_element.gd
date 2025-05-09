@@ -4,6 +4,7 @@ extends MarginContainer
 class_name LeaderBoardElement
 
 @export var was_new_best: bool = false : set = set_was_new_best
+@onready var gpu_particles_2d: GPUParticles2D = %GPUParticles2D
 
 func set_was_new_best( b: bool ):
 	was_new_best = b
@@ -16,8 +17,8 @@ func _ready():
 	_update_particles()
 
 func _update_particles():
-	if %GPUParticles2D != null:
-		%GPUParticles2D.emitting = was_new_best
+	if gpu_particles_2d != null:
+		gpu_particles_2d.emitting = was_new_best
 		
 func _clear_existing_entries():
 	for c in %Entries.get_children():

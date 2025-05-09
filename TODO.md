@@ -103,6 +103,8 @@
 - [x] Epic: Zone Selection and Loading
 - [x] Task: Save current zone from ZoneEditor
 - [x] Epic: Zone Saving
+- [x] Task: Enable user zone in demo version
+- [x] Cleanup: Remove a lot of errors and warnings
 
 ### 2025-05-08
 #### S04E05

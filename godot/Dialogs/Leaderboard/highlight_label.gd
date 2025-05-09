@@ -28,9 +28,9 @@ func _get_preferred_theme() -> Theme:
 
 	var p = ProjectSettings.get_setting("gui/theme/custom")
 	if p is String && p != "":
-		var theme = load(p) as Theme
-		if theme != null:
-			return theme
+		var t2 = load(p) as Theme
+		if t2 != null:
+			return t2
 
 	#if Engine.is_editor_hint():
 	#	return EditorInterface.get_editor_theme()
@@ -39,8 +39,8 @@ func _get_preferred_theme() -> Theme:
 	return null
 	
 func _get_property_list() -> Array[Dictionary]:
-	var theme = _get_preferred_theme()
-	var variations = theme.get_type_variation_list( "Label" )
+	var t = _get_preferred_theme()
+	var variations = t.get_type_variation_list( "Label" )
 	return [
 		{
 			name = "transition_duration",
@@ -83,11 +83,11 @@ func set_highlighted( h: bool ):
 
 func _update_look():
 	if !is_inside_tree():
-		push_warning("Not inside tree")
+		#push_warning("Not inside tree")
 		return
 		
 	var tree = get_tree()
-	var theme = _get_preferred_theme()
+	var ttheme = _get_preferred_theme()
 	
 	if tree != null && self.tween != null:
 		var t = tree.create_tween()
@@ -96,7 +96,7 @@ func _update_look():
 		self.tween.set_highlighted(
 			self,
 			t,
-			theme,
+			ttheme,
 			self.variation_normal,
 			self.variation_highlighted,
 			self.transition_duration,

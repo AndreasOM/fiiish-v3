@@ -24,8 +24,8 @@ func fade_out( duration: float ):
 func fade_in( duration: float ):
 	%FadeableContainer.fade_in( duration )
 
-func set_game( game: Game ):
-	self.game = game
+func set_game( g: Game ):
+	self.game = g
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,7 +40,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_developer_console"):
 		print("Tilde")
 		%FadeableContainer.toggle_fade( 0.1 )

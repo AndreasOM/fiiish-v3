@@ -123,7 +123,7 @@ func tween_color_property(
 	# var has_color = theme.has_color( "font_color", variation )
 	var colors = theme.get_color_list( variation )
 	print( colors )
-	var has_color = colors.has( name )
+	#var has_color = colors.has( name )
 	#if has_color:
 		#var color = control.get_theme_color( name, variation)
 		#control.add_theme_color_override(name, current_color)
@@ -157,7 +157,7 @@ func tween_constant_property(
 	
 	var constants = theme.get_constant_list( variation )
 	print( constants )
-	var has_constant = constants.has( name )
+	#var has_constant = constants.has( name )
 	#if has_constant:
 		#var constant = control.get_theme_constant( name, variation)
 		#control.add_theme_constant_override(name, current_constant)

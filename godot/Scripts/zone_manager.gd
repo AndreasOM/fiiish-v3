@@ -17,7 +17,7 @@ var _current_zone: NewZone = null
 
 var _autospawn_on_zone_end: bool = true
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	self.current_zone_progress += self.game_manager.movement.x
 	#self.current_zone_progress += self.game_manager.movement_x * delta
 	if self._current_zone != null:
