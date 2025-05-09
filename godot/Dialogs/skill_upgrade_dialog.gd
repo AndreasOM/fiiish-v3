@@ -19,8 +19,8 @@ func _ready() -> void:
 
 #	print("Skill Point Cost: 240-340 -> %d" % [ t ]) 
 
-func set_game( game: Game):
-	self.game = game
+func set_game( g: Game):
+	self.game = g
 	
 func _regenerate_skill_upgrade_items():
 	var p = %SkillUpgradeItemContainer

@@ -56,7 +56,7 @@ func _on_settings_button_pressed():
 func _on_pause_toggle_button_toggled( _state: ToggleButtonContainer.ToggleState ) -> void:
 	toggle_pause()
 	
-func _on_zone_changed( zone ):
+func _on_zone_changed( _zone ):
 	# print("Zone changed!")
 	pass
 

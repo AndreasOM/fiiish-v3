@@ -65,7 +65,7 @@ func _fix_size():
 		size.x = 1024*repeat
 		position.x = -0.5*size.x
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 #	material.set_shader_parameter("offset", offset)
 #	material.set_shader_parameter("phase", phase)
 #	material.set_shader_parameter("ab_mix", ab_mix)

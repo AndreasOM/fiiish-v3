@@ -3,5 +3,5 @@ class_name DeveloperCommand
 func syntax() -> String:
 	return ""
 
-func run( input: String, game: Game ) -> bool:
+func run( _input: String, _game: Game ) -> bool:
 	return false

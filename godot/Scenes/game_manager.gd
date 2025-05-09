@@ -59,7 +59,8 @@ func _ready() -> void:
 		self._zone_config_manager.load_zones_from_folder( "res://Resources/Demo-Zones/", "classic" )
 	else:
 		self._zone_config_manager.load_zones_from_folder( "res://Resources/Zones/", "classic" )
-		self._zone_config_manager.load_zones_from_folder( "user://zones/", "user" )
+
+	self._zone_config_manager.load_zones_from_folder( "user://zones/", "user" )
 	
 	self.zone_manager.set_zone_config_manager( self._zone_config_manager )
 

@@ -11,8 +11,8 @@ extends Node2D
 #		self.trigger()
 
 func trigger():
-	var duration = 0.125
-	var distance = 5
+	#var duration = 0.125
+	#var distance = 5
 	#if self._is_shaking:
 	#	return
 	#self._is_shaking = true

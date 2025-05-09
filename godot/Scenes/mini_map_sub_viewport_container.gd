@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func _fix_size() -> void:
 	# print( "MiniMap _fix_size")
-	var size = self.sub_viewport.size
-	var scale = 1080.0/size.y
+	var vp_size = self.sub_viewport.size
+	var new_scale = 1080.0/size.y
 	
-	self.sub_viewport.size_2d_override = size * scale
+	self.sub_viewport.size_2d_override = vp_size * new_scale

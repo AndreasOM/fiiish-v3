@@ -66,8 +66,8 @@ func _ready() -> void:
 	desc = desc.replace( "[suffix]", suffix )
 	%SettingsInfoRichTextLabel.text = desc
 
-func set_game( game: Game):
-	self.game = game
+func set_game( g: Game):
+	self.game = g
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

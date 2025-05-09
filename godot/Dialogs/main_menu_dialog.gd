@@ -27,10 +27,10 @@ func _fade_out() -> void:
 	# fade_out( fade_duration )
 	close( fade_duration )
 	
-func set_game( game: Game ):
-	self.game = game
+func set_game( g: Game ):
+	self.game = g
 	
-func toggle( duration: float ):
+func toggle( _duration: float ):
 	# toggle_fade( duration )
 	toggle_fade( fade_duration )
 
@@ -70,8 +70,8 @@ func _on_leader_board_pressed() -> void:
 
 func _on_game_mode_pressed() -> void:
 	var mode = self.game.next_game_mode()
-	var name = GameModes.get_name_for_mode( mode )
-	%GameMode.label = "GameMode: %s" % name
+	var mode_name = GameModes.get_name_for_mode( mode )
+	%GameMode.label = "GameMode: %s" % mode_name
 
 func _on_main_menu_fadeable_container_on_fading_in( duration: float ) -> void:
 	%LeaderBoard.grab_focus.call_deferred()

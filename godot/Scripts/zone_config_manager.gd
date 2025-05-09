@@ -21,8 +21,8 @@ func load_zones_from_folder( folder: String, prefix: String = "" ):
 		print("Zones: %s" % zn)
 		var fzn = "%s/%s" % [ folder, zn ]
 		var z = load( fzn )
-		var name = "%s%s" % [ prefix, zn ]
-		self._zone_filenames_to_zones[ name ] = self._zones.size()
+		var zone_name = "%s%s" % [ prefix, zn ]
+		self._zone_filenames_to_zones[ zone_name ] = self._zones.size()
 		self._zones.push_back( z )
 
 func reload_zone( folder: String, filename: String, prefix: String = "" ):
@@ -30,10 +30,10 @@ func reload_zone( folder: String, filename: String, prefix: String = "" ):
 		prefix = "%s-" % prefix
 	var fzn = "%s/%s" % [ folder, filename ]
 	var z = ResourceLoader.load( fzn, "", ResourceLoader.CacheMode.CACHE_MODE_IGNORE_DEEP )
-	var name = "%s%s" % [ prefix, filename ]
-	var i = self.find_zone_index_by_filename( name )
+	var zone_name = "%s%s" % [ prefix, filename ]
+	var i = self.find_zone_index_by_filename( zone_name )
 	if i < 0:
-		self._zone_filenames_to_zones[ name ] = self._zones.size()
+		self._zone_filenames_to_zones[ zone_name ] = self._zones.size()
 		self._zones.push_back( z )
 	else:
 		self._zones[ i ] = z
@@ -56,10 +56,10 @@ func pick_random() -> NewZone:
 	assert( self._zones.size() > 0 )
 	return self._zones.pick_random()
 	
-func find_zone_index_by_name( name: String ) -> int:
+func find_zone_index_by_name( zone_name: String ) -> int:
 	for i in range( 0, self._zones.size() ):
 		var z = self._zones[ i ]
-		if z.name == name:
+		if z.name == zone_name:
 			return i
 			
 	return -1
@@ -79,8 +79,8 @@ func get_zone_filenames() -> Array[ String ]:
 func push_next_zone( idx: int ):
 	self._next_zones.push_back( idx )	
 	
-func push_next_zone_by_name( name: String ):
-	var idx = self.find_zone_index_by_name( name )
+func push_next_zone_by_name( zone_name: String ):
+	var idx = self.find_zone_index_by_name( zone_name )
 	if idx >= 0:
 		self.push_next_zone( idx )
 	
