@@ -70,9 +70,9 @@ func _on_button_normal_pressed() -> void:
 	%ZoomSlider.value = 1.0
 
 
-func _on_zone_changed( zone_name: String ) -> void:
-	print( "Zone: ", zone_name )
-	%CurrentZoneLabel.text = zone_name
+func _on_zone_changed( zone: NewZone ) -> void:
+	print( "Zone: ", zone.name )
+	%CurrentZoneLabel.text = zone.name
 	pass # Replace with function body.
 
 

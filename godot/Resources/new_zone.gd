@@ -12,14 +12,14 @@ var layers: SerializableArray = SerializableArray.new(
 )
 
 func serialize( s: Serializer ) -> bool:
-	var magic: int = 0;
+	var magic: int = 0x4f53;
 	magic = s.serialize_u16( magic );
 	
 	if magic != 0x4f53:
 		push_error("Broken zone magic %04x" % magic )
 		return false
 
-	var version: int = 0;
+	var version: int = 1;
 	version = s.serialize_u16( version );
 	
 	if version != 1:
@@ -30,14 +30,14 @@ func serialize( s: Serializer ) -> bool:
 		push_error( "Broken zone chunk magic")
 		return false
 
-	var flags = 0;
+	var flags = 0x45;
 	flags = s.serialize_u8( flags )
 
 	if flags != 0x45:	# 'E'
 		push_error( "Compression/flags '%c' not supported for zone." % flags)
 		return false
 	
-	var chunk_version: int = 0;
+	var chunk_version: int = 2;
 	chunk_version = s.serialize_u32( chunk_version );
 #
 	if chunk_version != 2:
@@ -51,3 +51,25 @@ func serialize( s: Serializer ) -> bool:
 	self.layers.serialize( s )
 	
 	return true
+
+func get_layer( name: String ): # -> NewZoneLayer:
+	for l in self.layers.iter():
+		if l.name == name:
+			return l
+	
+	return null
+	
+func ensure_layer( name: String ) -> NewZoneLayer:
+	var l = self.get_layer( name )
+	if l != null:
+		return l
+	
+	l = NewZoneLayer.new()
+	l.name = name
+	
+	self.layers.push_back( l )
+	
+	return l
+
+	
+	

@@ -87,5 +87,5 @@ TitleRichtTextLabel/font_sizes/normal_font_size = 48
 TitleRichtTextLabel/fonts/normal_font = ExtResource("1_wkw6o")
 ZoneSelectionElementFilenameRichTextLabel/base_type = &"RichTextLabel"
 ZoneSelectionElementFilenameRichTextLabel/constants/outline_size = 5
-ZoneSelectionElementFilenameRichTextLabel/font_sizes/normal_font_size = 40
+ZoneSelectionElementFilenameRichTextLabel/font_sizes/normal_font_size = 48
 ZoneSelectionElementFilenameRichTextLabel/fonts/normal_font = ExtResource("1_wkw6o")

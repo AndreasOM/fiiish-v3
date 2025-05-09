@@ -1,3 +1,4 @@
+class_name Obstacle
 extends Node2D
 
 var game_manager: GameManager = null
