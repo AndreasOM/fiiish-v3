@@ -54,6 +54,15 @@ func find_zone_index_by_name( name: String ) -> int:
 func find_zone_index_by_filename( filename: String ) -> int:
 	return self._zone_filenames_to_zones.get( filename, -1)
 		
+func get_zone_by_filename( filename: String ):
+	var i = self.find_zone_index_by_filename( filename )
+	if i < 0:
+		return null
+	return self.get_zone( i )
+		
+func get_zone_filenames() -> Array[ String ]:
+	return self._zone_filenames_to_zones.keys()
+	
 func push_next_zone( idx: int ):
 	self._next_zones.push_back( idx )	
 	

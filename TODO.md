@@ -6,7 +6,6 @@
 
 ## Next
 
-- [ ] Task: Dynamically fill the Zone Selection Dialog
 
 ## Todo
 
@@ -61,6 +60,7 @@
 
 ## Later
 
+- [ ] Polish: Cleanup ZoneSelectDialog
 - [+] Polish: Add better sound loops for ResultDialog
 - [ ] Polish: Create sound loop for distance counting
 - [ ] Polish: Create sound loop for coin counting
@@ -95,6 +95,10 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-05-09
+#### S04E06
+- [x] Task: Dynamically fill the Zone Selection Dialog
 
 ### 2025-05-08
 #### S04E05
