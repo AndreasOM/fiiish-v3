@@ -91,7 +91,6 @@ texture_normal = ExtResource("7_66sxi")
 
 [node name="SubMenuVBoxContainer" type="VBoxContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="LoadButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
@@ -109,6 +108,24 @@ grow_vertical = 2
 mouse_filter = 1
 theme_type_variation = &"MainMenuRichTextLabel"
 text = "Load"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SaveAsButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("7_htgnp")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/SaveAsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"MainMenuRichTextLabel"
+text = "Save as..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -135,3 +152,4 @@ vertical_alignment = 1
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/SaveAsButton" to="." method="_on_save_as_button_pressed"]
