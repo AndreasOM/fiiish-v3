@@ -3,7 +3,41 @@ extends Dialog
 
 signal zone_selected
 
+const ZONE_SELECTION_ELEMENT = preload("res://Dialogs/ZoneSelection/zone_selection_element.tscn")
+@onready var elements: VBoxContainer = %Elements
+
+func _ready() -> void:
+	pass
+	
+func _update_zones() -> void:
+	for c in %Elements.get_children():
+		%Elements.remove_child( c )
+		c.queue_free()
+		
+	var game = self._dialog_manager.game
+	var zone_config_manager: ZoneConfigManager = game.get_game_manager().get_zone_config_manager()
+
+	var zone_filenames = zone_config_manager.get_zone_filenames()
+	for zf in zone_filenames:
+		var filename = zf
+		var zone = zone_config_manager.get_zone_by_filename( filename )
+		var title = zone.name
+		self._add_selection( title, filename )
+
+	#self._add_selection("Tunnel", "classic-0010_Tunnel.nzne" )
+	#self._add_selection("Funnel", "classic-0020_Funnel.nzne" )
+	
+
+func _add_selection( title: String, filename: String ) -> void:
+	var zse: ZoneSelectionElement = ZONE_SELECTION_ELEMENT.instantiate()
+	zse.title = title
+	zse.filename = filename
+	zse.selected.connect( _on_zone_selection_element_selected )
+	%Elements.add_child( zse )
+	
+	
 func open( duration: float):
+	self._update_zones()
 	fade_in( duration )
 
 func close( duration: float):
@@ -43,3 +77,11 @@ func _on_i_love_fiiish_texture_button_pressed() -> void:
 
 func _on_close_button_pressed() -> void:
 	self.close( 0.3 )
+
+func _on_zone_selection_element_selected( e: ZoneSelectionElement ) -> void:
+	var f = e.filename
+	self.zone_selected.emit( f )
+
+func _on_tunnel_selection_element_selected( e: ZoneSelectionElement ) -> void:
+	var f = e.filename
+	self.zone_selected.emit( f )

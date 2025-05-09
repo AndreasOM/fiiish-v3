@@ -179,3 +179,6 @@ func _on_zone_edit_disabled() -> void:
 		if f == null:
 			continue
 		f.goto_play_mode()
+
+func get_zone_config_manager() -> ZoneConfigManager:
+	return self._zone_config_manager
