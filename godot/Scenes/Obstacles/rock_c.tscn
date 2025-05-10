@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbo3xiqqwafmq"]
+[gd_scene load_steps=4 format=3 uid="uid://bbo3xiqqwafmq"]
 
 [ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_qx64r"]
 [ext_resource type="Texture2D" uid="uid://cr5tp4jli33cg" path="res://Textures/Obstacles/Rocks/rock-c.png" id="2_p1gbn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ri2ao"]
+size = Vector2(97, 352)
 
 [node name="RockC" type="Node2D"]
 visibility_layer = 513
@@ -20,3 +23,12 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 visibility_layer = 513
 polygon = PackedVector2Array(-2, -176, -8, -175, -40, -40, -40, -6, -66.5, 66.5, -72.5, 186.5, 74.4, 186.5, 54, 33.9, 30.8, -15)
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="PickingShape" type="CollisionShape2D" parent="Area2D2"]
+unique_name_in_owner = true
+position = Vector2(-2.5, 9)
+shape = SubResource("RectangleShape2D_ri2ao")
+disabled = true
+debug_color = Color(0.83, 0.784627, 0.1494, 0.419608)

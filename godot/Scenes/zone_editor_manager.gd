@@ -5,6 +5,9 @@ class_name ZoneEditorManager
 @export var vertical_speed: float = 240.0
 
 @onready var _game_manager: GameManager = %GameManager
+@onready var debug_cursor_sprite_2d: Sprite2D = %DebugCursorSprite2D
+@onready var _game_scaler: GameScaler = %GameScaler
+@onready var cursor_ray_cast_2d: RayCast2D = %CursorRayCast2D
 
 var _mouse_x: float = 0.0
 
@@ -15,6 +18,8 @@ var _zone_filename: String = ""
 
 var _dx: float = 0.0
 var _dy: float = 0.0
+
+var _hovered_objects: Dictionary[ Node2D, Vector2 ] = {}
 
 func _ready():
 	Events.zone_edit_enabled.connect(_on_zone_edit_enabled)
@@ -62,6 +67,108 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	var mouse_event = event as InputEventMouseMotion
 	if mouse_event != null:
+		var mouse_motion_event = mouse_event as InputEventMouseMotion
+		if mouse_motion_event != null:
+			var tr = self._game_scaler.transform
+			tr = tr.affine_inverse()
+			var p = mouse_motion_event.position
+			p = tr * p
+			self.debug_cursor_sprite_2d.position = p
+			self.cursor_ray_cast_2d.position = p
+			var cs = CollisionShape2D.new()
+			var circle = CircleShape2D.new()
+			cs.shape = circle
+			
+			var max_radius = 32.0 # for testing: 256.0
+			var max_objects = 2 # Note: Other values than 1 not well tested
+			circle.radius = max_radius
+			
+			# var step_factor = 0.5
+			var step_size = max_radius / 2.0
+			var objects: Array[ Node2D ] = [] # start with everything
+#			while step_factor > ( 1.0/64.0 ):
+			while step_size >= 1.0:
+				var new_objects = self._game_manager.zone_manager.get_objects_colliding( p, cs, objects )
+				
+		#		for o in objects:
+		#			#print("%s" % o)
+		#			if !_hovered_objects.has( o ):
+		#				_hovered_objects[ o ] = o.scale
+		#				o.scale = Vector2(1.5, 1.5)
+		#		
+		#		for ho in _hovered_objects.keys():
+		#			if !objects.has( ho ):
+		#				var s = _hovered_objects[ ho ]
+		#				ho.scale = s
+		#				_hovered_objects.erase( ho )
+						
+				#print( "radius %f, step_size %f (%d)" % [ circle.radius, step_size, objects.size() ])
+					
+				match new_objects.size():
+					0:
+						# none found
+						if circle.radius == max_radius:
+							# even at biggest search
+							break
+						else:
+							# we had some before
+							step_size *= 0.5
+							circle.radius += step_size
+							step_size *= 0.5
+					1:
+						# found
+						objects = new_objects
+						break
+					var n when n <= max_objects:
+						objects = new_objects
+						break
+					_:
+						# found more than 1
+						circle.radius -= step_size
+						step_size *= 0.5
+						objects = new_objects
+						# continue # not needed since we loop forever
+					
+			# end of while true
+			#print( "Found at radius %f, step_size %f (%d)" % [ circle.radius, step_size, objects.size() ])
+			
+			#objects.clear()
+			if self.cursor_ray_cast_2d.is_colliding():
+				var co = self.cursor_ray_cast_2d.get_collider()
+				var ow = co.owner # :danger: we assume internals here
+				#print("co %s <- %s" % [ co, ow ])
+				objects.push_back( ow )
+				#max_objects += 1
+				
+			if objects.size() > 0 && objects.size() <= max_objects:
+				for o in objects:
+					#print("%s" % o)
+					if o == null:
+						# how
+						continue
+					if !_hovered_objects.has( o ):
+						_hovered_objects[ o ] = o.scale
+						o.scale = Vector2(1.5, 1.5)
+				
+			var to_erase: Array[ Node2D ] = []
+			for ho in _hovered_objects.keys():
+				if ho == null:
+					# how?
+					continue
+				if !objects.has( ho ):
+					var s = _hovered_objects[ ho ]
+					ho.scale = s
+					to_erase.push_back( ho )
+					# bad idea! _hovered_objects.erase( ho )
+					
+			for ho in to_erase:
+				_hovered_objects.erase( ho )
+
+			# print( "Found %d" % objects.size() )
+# would be nice :(
+#		match mouse_event:
+#			is InputEventMouseMotion var mouse_motion_event:
+#				pass
 		if mouse_event.button_mask == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
 			self._mouse_x = -mouse_event.relative.x
 			#print("ZoneEditorManager - _unhandled_input InputEventMouseMotion %s" % event )
@@ -101,6 +208,7 @@ func _on_zone_edit_enabled() -> void:
 		self._zone_filename = filename
 		print("ZoneEditorManager: Loaded from %s - width %f" % [ filename, self._game_manager.zone_manager.current_zone_width ] )
 	
+	# self.debug_cursor_sprite_2d.visible = true
 
 func _on_zone_edit_disabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_DISABLED
@@ -114,6 +222,11 @@ func _on_zone_edit_disabled() -> void:
 	zes.set_last_zone_filename( self._zone_filename )
 	self._game_manager.game.save_player()
 
+	self.debug_cursor_sprite_2d.visible = false
+	
+	# cleanup
+	self._hovered_objects.clear()
+
 func select_zone( filename: String ) -> void:
 	#if filename != self._zone_filename:
 		self._zone_filename = filename
@@ -125,6 +238,9 @@ func select_zone( filename: String ) -> void:
 		self._game_manager.zone_manager.load_and_spawn_zone( filename )
 		self._offset_x = 0.0
 		print( "ZoneEditorManager: Switched to Zone %s" % filename )
+	# cleanup
+		self._hovered_objects.clear()
+
 
 func select_save_zone( filename: String ) -> void:
 	if filename.begins_with("user-"): # Note: If not needed, but we might want to trace, and inform

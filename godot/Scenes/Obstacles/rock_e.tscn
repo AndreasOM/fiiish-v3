@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bunnrd3m6b1bd"]
+[gd_scene load_steps=4 format=3 uid="uid://bunnrd3m6b1bd"]
 
 [ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_hh0h6"]
 [ext_resource type="Texture2D" uid="uid://d3gtsjwtcys2s" path="res://Textures/Obstacles/Rocks/rock-e.png" id="2_i6i8h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek1lp"]
+size = Vector2(111, 477)
 
 [node name="RockE" type="Node2D"]
 visibility_layer = 513
@@ -22,3 +25,12 @@ visibility_layer = 513
 position = Vector2(51, 63)
 scale = Vector2(2.49519, 1.57917)
 polygon = PackedVector2Array(-27.6532, -134.881, -26.4509, -187.44, -22.844, -211.504, -17.2332, -189.973, -17.2332, -171.609, -13.6262, -155.778, -9.61851, -39.8944, -4.00771, -31.6622, 0.801542, 70.2901, 8.01542, 87.3877, 12.8247, 137.414, -50.4972, 138.047, -48.0925, 33.5619, -34.0655, -7.59893, -31.6609, -127.282)
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="PickingShape" type="CollisionShape2D" parent="Area2D2"]
+unique_name_in_owner = true
+position = Vector2(4.5, 31.5)
+shape = SubResource("RectangleShape2D_ek1lp")
+disabled = true
+debug_color = Color(0.83, 0.784627, 0.1494, 0.419608)
