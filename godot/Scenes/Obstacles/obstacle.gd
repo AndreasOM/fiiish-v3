@@ -2,7 +2,6 @@ class_name Obstacle
 extends Node2D
 
 var game_manager: GameManager = null
-@onready var picking_shape: CollisionShape2D = %PickingShape
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +16,3 @@ func _process(_delta: float) -> void:
 		self.transform.origin.x -= m.x
 		#var mx = self.game_manager.movement_x
 		#self.transform.origin.x -= mx * delta
-
-func get_picking_shape() -> CollisionShape2D:
-	return self.picking_shape

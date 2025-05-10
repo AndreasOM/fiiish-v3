@@ -81,39 +81,26 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			var max_radius = 32.0 # for testing: 256.0
 			var max_objects = 2 # Note: Other values than 1 not well tested
-			circle.radius = max_radius
+			var radius = max_radius
 			
 			# var step_factor = 0.5
 			var step_size = max_radius / 2.0
 			var objects: Array[ Node2D ] = [] # start with everything
 #			while step_factor > ( 1.0/64.0 ):
 			while step_size >= 1.0:
-				var new_objects = self._game_manager.zone_manager.get_objects_colliding( p, cs, objects )
-				
-		#		for o in objects:
-		#			#print("%s" % o)
-		#			if !_hovered_objects.has( o ):
-		#				_hovered_objects[ o ] = o.scale
-		#				o.scale = Vector2(1.5, 1.5)
-		#		
-		#		for ho in _hovered_objects.keys():
-		#			if !objects.has( ho ):
-		#				var s = _hovered_objects[ ho ]
-		#				ho.scale = s
-		#				_hovered_objects.erase( ho )
-						
-				#print( "radius %f, step_size %f (%d)" % [ circle.radius, step_size, objects.size() ])
-					
+				#var new_objects = self._game_manager.zone_manager.get_objects_colliding( p, cs, objects )
+				var new_objects = self._game_manager.zone_manager.get_pickups_in_radius( p, radius, objects )
+									
 				match new_objects.size():
 					0:
 						# none found
-						if circle.radius == max_radius:
+						if radius == max_radius:
 							# even at biggest search
 							break
 						else:
 							# we had some before
 							step_size *= 0.5
-							circle.radius += step_size
+							radius += step_size
 							step_size *= 0.5
 					1:
 						# found
@@ -124,19 +111,17 @@ func _unhandled_input(event: InputEvent) -> void:
 						break
 					_:
 						# found more than 1
-						circle.radius -= step_size
+						radius -= step_size
 						step_size *= 0.5
 						objects = new_objects
 						# continue # not needed since we loop forever
 					
 			# end of while true
-			#print( "Found at radius %f, step_size %f (%d)" % [ circle.radius, step_size, objects.size() ])
 			
-			#objects.clear()
 			if self.cursor_ray_cast_2d.is_colliding():
+				objects.clear()
 				var co = self.cursor_ray_cast_2d.get_collider()
 				var ow = co.owner # :danger: we assume internals here
-				#print("co %s <- %s" % [ co, ow ])
 				objects.push_back( ow )
 				#max_objects += 1
 				
