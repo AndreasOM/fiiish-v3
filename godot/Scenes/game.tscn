@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=32 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
 [ext_resource type="PackedScene" uid="uid://dmcqoohtinyr1" path="res://Scenes/fish.tscn" id="2_ea5sf"]
 [ext_resource type="Shader" uid="uid://bmid5iuf1372l" path="res://Scenes/background.gdshader" id="2_mc2jp"]
 [ext_resource type="Script" uid="uid://cb63gnefbs5gt" path="res://Scenes/screen_shake_node_2d.gd" id="3_1phco"]
+[ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="3_mg4q0"]
 [ext_resource type="Script" uid="uid://d3g2w7bnb45wn" path="res://Scenes/game_manager.gd" id="4_cqt8y"]
 [ext_resource type="Texture2D" uid="uid://c7yh3onttaenq" path="res://Textures/Backgrounds/background_grad.png" id="5_cq2wm"]
 [ext_resource type="Script" uid="uid://fpy3byxs3xpj" path="res://Scenes/game_scaler.gd" id="6_6aaah"]
@@ -22,6 +23,12 @@
 [ext_resource type="Script" uid="uid://32lm25osk3am" path="res://Scripts/zone_manager.gd" id="16_ewbju"]
 [ext_resource type="Script" uid="uid://y0fdutn7vexh" path="res://Scenes/zone_editor_manager.gd" id="20_exi56"]
 [ext_resource type="PackedScene" uid="uid://dm2ddgnytoha6" path="res://Dialogs/MiniMap/mini_map_sub_viewport_container.tscn" id="22_7t8sx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mg4q0"]
+radius = 303.444
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vm72l"]
+radius = 72.159
 
 [sub_resource type="Animation" id="Animation_nb51f"]
 length = 0.001
@@ -158,6 +165,36 @@ process_mode = 3
 visibility_layer = 513
 position = Vector2(960, 540)
 script = ExtResource("6_6aaah")
+
+[node name="CursorRayCast2D" type="RayCast2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler"]
+unique_name_in_owner = true
+z_index = 50
+scale = Vector2(0.948148, 0.948148)
+target_position = Vector2(16, 16)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="DebugCursorSprite2D" type="Sprite2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(0.8745, 0.99, 0, 0.858824)
+z_index = 10
+texture = ExtResource("3_mg4q0")
+
+[node name="Area2D" type="Area2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler/DebugCursorSprite2D"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler/DebugCursorSprite2D/Area2D"]
+shape = SubResource("CircleShape2D_mg4q0")
+debug_color = Color(0.923173, 0.179684, 0.528602, 0.42)
+
+[node name="Area2D2" type="Area2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler/DebugCursorSprite2D"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler/DebugCursorSprite2D/Area2D2"]
+shape = SubResource("CircleShape2D_vm72l")
 
 [node name="ScreenShakeNode2D" type="Node2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler"]
 unique_name_in_owner = true

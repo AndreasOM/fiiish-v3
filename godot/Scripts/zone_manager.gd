@@ -169,3 +169,60 @@ func add_current_to_new_zone( new_zone: NewZone, offset_x: float ) -> void:
 			max_x = maxf( obj.pos_x, max_x )
 
 	new_zone.width = max_x
+
+func get_objects_colliding( position: Vector2, shape: CollisionShape2D, candidates: Array[ Node2D ] ) -> Array[ Node2D ]:
+	var circle_shape := shape.shape as CircleShape2D
+	var radius := circle_shape.radius if circle_shape != null else 0.0
+	var radius_sqr = radius*radius
+	
+	if candidates.is_empty():
+		for c in %Pickups.get_children():
+			var n = c as Node2D
+			if n == null:
+				continue
+			candidates.push_back( n )
+		for c in %Obstacles.get_children():
+			var n = c as Node2D
+			if n == null:
+				continue
+			candidates.push_back( n )
+		
+	var objects: Array[ Node2D ] = []
+	
+#	var printed = false
+	#for c in %Pickups.get_children():
+	for c in candidates:
+		var n = c as Node2D
+		if n == null:
+			continue
+			
+		var s = null
+		var cs = null # :TODO: collision shape of c
+		if false && n.has_method( "get_picking_shape"):
+			cs = n.get_picking_shape() as CollisionShape2D
+			if cs != null:
+				# :TODO:
+				s = cs.shape
+
+			
+		if s != null:
+			# :TODO:
+			var s2d: Shape2D = s as Shape2D
+			
+			var t1 = Transform2D( n.rotation, n.position ) # :TODO: fix rotation
+			var t2 = Transform2D( 0.0, position )
+			
+			if s2d.collide(t1, shape.shape, t2):
+				objects.push_back( n )
+		else:
+			# var p = n.global_position
+			var p = n.position
+			var d = p - position
+			var l_sqr = d.length_squared()
+#			if !printed && l_sqr < 6773214.0:
+#				print( "Checking %s - %s => %s => %f < %f" % [ p, position, d, l_sqr, radius_sqr ] )
+#				printed = true
+			if l_sqr < radius_sqr:
+				objects.push_back( n )
+			
+	return objects
