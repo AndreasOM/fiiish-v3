@@ -3,6 +3,8 @@
 
 ## In Progress
 
+- [ ] Epic: Zone Editing
+	- [ ] Task: Select objects in ZoneEditor
 
 
 ## Next
@@ -31,7 +33,6 @@
 	- [ ] * Epic: Zone Management (deleting & renaming?!)
 	- [ ] * Epic: Zone Sharing
 	- [ ] * Epic: Zone Importing
-	- [ ] Epic: Zone Editing
 	- [ ] Epic: Zone Testing
 	- [ ] Epic: Zone Properties
 	- [ ] Epic: Create new button style for ZoneEditor
@@ -95,6 +96,10 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-05-10
+#### S04E07
+- [x] Polish: Force enable linear mip maps on seaweed
 
 ### 2025-05-09
 #### S04E06
