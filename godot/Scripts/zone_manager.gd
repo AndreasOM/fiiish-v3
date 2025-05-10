@@ -170,6 +170,32 @@ func add_current_to_new_zone( new_zone: NewZone, offset_x: float ) -> void:
 
 	new_zone.width = max_x
 
+func get_pickups_in_radius( position: Vector2, radius: float, candidates: Array[ Node2D ] ) -> Array[ Node2D ]:
+	var radius_sqr = radius*radius
+	
+	if candidates.is_empty():
+		for c in %Pickups.get_children():
+			var n = c as Node2D
+			if n == null:
+				continue
+			candidates.push_back( n )
+		
+	var objects: Array[ Node2D ] = []
+	
+	for c in candidates:
+		var n = c as Node2D
+		if n == null:
+			continue
+			
+		var p = n.position
+		var d = p - position
+		var l_sqr = d.length_squared()
+		if l_sqr < radius_sqr:
+			objects.push_back( n )
+			
+	return objects
+
+# :deprecated: older experiment for reference only
 func get_objects_colliding( position: Vector2, shape: CollisionShape2D, candidates: Array[ Node2D ] ) -> Array[ Node2D ]:
 	var circle_shape := shape.shape as CircleShape2D
 	var radius := circle_shape.radius if circle_shape != null else 0.0
