@@ -79,67 +79,39 @@ func _unhandled_input(event: InputEvent) -> void:
 			var circle = CircleShape2D.new()
 			cs.shape = circle
 			
-			var max_radius = 32.0 # for testing: 256.0
-			var max_objects = 2 # Note: Other values than 1 not well tested
+			var max_radius = 24.0 # for testing: 256.0
+			var max_objects = 1
 			var radius = max_radius
 			
-			# var step_factor = 0.5
-			var step_size = max_radius / 2.0
-			var objects: Array[ Node2D ] = [] # start with everything
-#			while step_factor > ( 1.0/64.0 ):
-			while step_size >= 1.0:
-				#var new_objects = self._game_manager.zone_manager.get_objects_colliding( p, cs, objects )
-				var new_objects = self._game_manager.zone_manager.get_pickups_in_radius( p, radius, objects )
-									
-				match new_objects.size():
-					0:
-						# none found
-						if radius == max_radius:
-							# even at biggest search
-							break
-						else:
-							# we had some before
-							step_size *= 0.5
-							radius += step_size
-							step_size *= 0.5
-					1:
-						# found
-						objects = new_objects
-						break
-					var n when n <= max_objects:
-						objects = new_objects
-						break
-					_:
-						# found more than 1
-						radius -= step_size
-						step_size *= 0.5
-						objects = new_objects
-						# continue # not needed since we loop forever
-					
-			# end of while true
+			var new_objects := self._game_manager.zone_manager.get_pickups_in_radius( p, radius )
+
+			var tuple_objects = []
+			for k in new_objects.keys():
+				var v = new_objects[ k ]
+				tuple_objects.push_back( [k,v] )
+			
+			tuple_objects.sort_custom(func(a, b): return a[1] < b[1])
+			
+			var limit = min( max_objects, tuple_objects.size() )
+			
+			var objects: Array[ Node2D ] = []
+			for i in range( limit ):
+				var e = tuple_objects[ i ]
+				objects.push_back( e[ 0 ] )
 			
 			if self.cursor_ray_cast_2d.is_colliding():
-				objects.clear()
 				var co = self.cursor_ray_cast_2d.get_collider()
 				var ow = co.owner # :danger: we assume internals here
 				objects.push_back( ow )
-				#max_objects += 1
 				
-			if objects.size() > 0 && objects.size() <= max_objects:
+			if objects.size() > 0:
 				for o in objects:
-					#print("%s" % o)
-					if o == null:
-						# how
-						continue
 					if !_hovered_objects.has( o ):
 						_hovered_objects[ o ] = o.scale
 						o.scale = Vector2(1.5, 1.5)
 				
 			var to_erase: Array[ Node2D ] = []
 			for ho in _hovered_objects.keys():
-				if ho == null:
-					# how?
-					continue
 				if !objects.has( ho ):
 					var s = _hovered_objects[ ho ]
 					ho.scale = s

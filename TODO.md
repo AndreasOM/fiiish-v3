@@ -5,6 +5,7 @@
 
 - [ ] Epic: Zone Editing
 	- [ ] Task: Select objects in ZoneEditor
+		- [ ] Polish: Check collsion even when not moving the mouse (e.g. a/d left/right)
 
 
 ## Next
@@ -100,6 +101,7 @@
 ### 2025-05-10
 #### S04E07
 - [x] Polish: Force enable linear mip maps on seaweed
+- [x] Task: Experiment with multiple selection methods, and settle on distance (pickups) and raycast (obstacles)
 
 ### 2025-05-09
 #### S04E06
