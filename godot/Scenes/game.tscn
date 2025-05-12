@@ -149,6 +149,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 stretch = true
 
 [node name="GameSubViewport" type="SubViewport" parent="GameSubViewportContainer"]
@@ -222,6 +223,7 @@ offset_right = 1536.0
 offset_bottom = 512.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_48x5b")
 stretch_mode = 1
 script = ExtResource("10_7t8sx")
