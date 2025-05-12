@@ -155,28 +155,15 @@ func _find_object_at_cursor( ) -> Node2D:
 		return n
 		
 	var max_radius = 24.0
-#	var max_objects = 1
-	var radius = max_radius
-	
-	var new_objects := self._game_manager.zone_manager.get_pickups_in_radius( self.cursor_ray_cast_2d.position, radius )
 
-	var tuple_objects = []
-	for k in new_objects.keys():
-		var v = new_objects[ k ]
-		tuple_objects.push_back( [k,v] )
-	
-	tuple_objects.sort_custom(func(a, b): return a[1] < b[1])
-
+	var tuple_objects = self._game_manager.zone_manager.get_pickups_in_radius_sorted_by_distance(
+															self.cursor_ray_cast_2d.position,
+															max_radius,
+															1
+						)
 	if !tuple_objects.is_empty():
 		return tuple_objects[ 0 ][ 0 ]
 			
-#	var limit = min( max_objects, tuple_objects.size() )
-	
-#	var objects: Array[ Node2D ] = []
-#	for i in range( limit ):
-#		var e = tuple_objects[ i ]
-#		objects.push_back( e[ 0 ] )
-	
 	return null
 	
 func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
