@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://756pnhs8ekwg"]
+
+[ext_resource type="Script" uid="uid://b7t2enra2wnvq" path="res://Dialogs/ZoneEditor/zone_editor_tool_button.gd" id="1_rw5ak"]
+[ext_resource type="Script" uid="uid://r7if1ed85xhv" path="res://Scenes/toggle_button_container.gd" id="1_x1b33"]
+[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_rw5ak"]
+[ext_resource type="Texture2D" uid="uid://dtt0e2fw6ckhx" path="res://Textures/UI/Buttons/button.png" id="3_mtdsg"]
+
+[node name="ZoneEditorToolButton" type="CenterContainer"]
+offset_right = 128.0
+offset_bottom = 128.0
+script = ExtResource("1_rw5ak")
+
+[node name="ToggleButtonContainer" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("1_x1b33")
+metadata/_custom_type_script = "uid://r7if1ed85xhv"
+
+[node name="DeleteFadebaleButtonA" type="CenterContainer" parent="ToggleButtonContainer"]
+layout_mode = 2
+script = ExtResource("2_rw5ak")
+
+[node name="DeleteButtonA" type="TextureButton" parent="ToggleButtonContainer/DeleteFadebaleButtonA"]
+layout_mode = 2
+texture_normal = ExtResource("3_mtdsg")
+
+[node name="LabelA" type="Label" parent="ToggleButtonContainer/DeleteFadebaleButtonA/DeleteButtonA"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = ":Label:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeleteFadebaleButtonB" type="CenterContainer" parent="ToggleButtonContainer"]
+layout_mode = 2
+script = ExtResource("2_rw5ak")
+
+[node name="DeleteButtonB" type="TextureButton" parent="ToggleButtonContainer/DeleteFadebaleButtonB"]
+modulate = Color(0.310617, 0.310617, 0.310617, 1)
+layout_mode = 2
+texture_normal = ExtResource("3_mtdsg")
+
+[node name="LabelB" type="Label" parent="ToggleButtonContainer/DeleteFadebaleButtonB/DeleteButtonB"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = ":Label:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="toggled" from="ToggleButtonContainer" to="." method="_on_toggle_button_container_toggled"]
+[connection signal="pressed" from="ToggleButtonContainer/DeleteFadebaleButtonA/DeleteButtonA" to="ToggleButtonContainer" method="_on_a_pressed"]
+[connection signal="pressed" from="ToggleButtonContainer/DeleteFadebaleButtonB/DeleteButtonB" to="ToggleButtonContainer" method="_on_b_pressed"]

@@ -3,6 +3,7 @@
 
 ## In Progress
 
+
 - [ ] Epic: Zone Editing
 	- [ ] Task: Select objects in ZoneEditor
 		- [ ] Polish: Check collsion even when not moving the mouse (e.g. a/d left/right)
@@ -97,6 +98,10 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-05-12
+#### S04E08
+- [x] Task: Create ZoneEditorToolsDialog
 
 ### 2025-05-10
 #### S04E07

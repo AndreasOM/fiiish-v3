@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=22 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dcp8oon8do0fa" path="res://Dialogs/leaderboard_dialog.tscn" id="14_h1bgf"]
 [ext_resource type="PackedScene" uid="uid://c8b37roqri0fh" path="res://Dialogs/mini_map_dialog.tscn" id="15_b3802"]
 [ext_resource type="PackedScene" uid="uid://bje75nfqnj6ts" path="res://Dialogs/zone_select_dialog.tscn" id="16_fevyy"]
+[ext_resource type="PackedScene" uid="uid://duckwsw8cl6o8" path="res://Dialogs/ZoneEditor/zone_editor_tools_dialog.tscn" id="17_hibaj"]
 [ext_resource type="AudioStream" uid="uid://d2u0kcl8pn3o2" path="res://Music/theme-00.mp3" id="22_n5j80"]
 [ext_resource type="Script" uid="uid://ef1ug6bg1c75" path="res://Scenes/music_manager.gd" id="23_l5um0"]
 [ext_resource type="Script" uid="uid://bpux614qj5uam" path="res://Scenes/sound_manager.gd" id="24_6541p"]
@@ -201,6 +202,7 @@ stretch_mode = 6
 
 [node name="InGamePauseMenu" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("11_k12tt")]
 unique_name_in_owner = true
+offset_bottom = -794.0
 game = NodePath("../../Game")
 
 [node name="DebugUI" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]
@@ -235,6 +237,10 @@ layout_mode = 1
 game = NodePath("../../../Game")
 
 [node name="ZoneSelectDialog" parent="UI/DialogManager" instance=ExtResource("16_fevyy")]
+visible = false
+layout_mode = 1
+
+[node name="ZoneEditorToolsDialog" parent="UI/DialogManager" instance=ExtResource("17_hibaj")]
 visible = false
 layout_mode = 1
 
