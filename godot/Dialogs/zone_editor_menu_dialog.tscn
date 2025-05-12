@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dyddvv17y3dmy"]
+[gd_scene load_steps=9 format=3 uid="uid://dyddvv17y3dmy"]
 
 [ext_resource type="Script" uid="uid://cdced8n48ndm" path="res://Dialogs/zone_editor_menu_dialog.gd" id="1_ssmqt"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="2_4w7ob"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_ace3m"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_66sxi"]
 [ext_resource type="Texture2D" uid="uid://c1kyb7ia7ta4x" path="res://Textures/UI/Buttons/button_sub_menu_entry.png" id="7_htgnp"]
+[ext_resource type="Script" uid="uid://yvc5t2j67ltg" path="res://Dialogs/cursor_offset_button.gd" id="8_3ni0a"]
 
 [node name="ZoneEditorMenuDialog" type="Control"]
 process_mode = 3
@@ -132,6 +133,29 @@ text = "Save as..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CursorOffsetButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("7_htgnp")
+script = ExtResource("8_3ni0a")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/CursorOffsetButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"MainMenuRichTextLabel"
+text = "CrsO: 0.0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="TodoButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
 self_modulate = Color(0.78, 0.3198, 0.32747, 1)
 layout_mode = 2
@@ -156,3 +180,4 @@ vertical_alignment = 1
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/SaveAsButton" to="." method="_on_save_as_button_pressed"]
+[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/CursorOffsetButton" to="." method="_on_cursor_offset_button_pressed"]

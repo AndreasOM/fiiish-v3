@@ -25,6 +25,9 @@ var _hovered_objects: Dictionary[ Node2D, Vector2 ] = {}
 var _selected_object: Node2D = null
 var _selected_object_original_scale: Vector2 = Vector2.ONE
 
+var _cursor_offset_index: int = 0
+const _CURSOR_OFFSETS: Array[ float ] = [ 0.0, 10.0, 20.0, 40.0 ]
+
 func _ready():
 	Events.zone_edit_enabled.connect(_on_zone_edit_enabled)
 	Events.zone_edit_disabled.connect(_on_zone_edit_disabled)
@@ -80,6 +83,8 @@ func _update_cursor_position( mouse_event: InputEventMouse ) -> void:
 	tr = tr.affine_inverse()
 	var p = mouse_event.position
 	p = tr * p
+	var cursor_offset = self._CURSOR_OFFSETS[ self._cursor_offset_index ]
+	p += cursor_offset*Vector2( -1.0, -1.0 )
 	self.debug_cursor_sprite_2d.position = p
 	self.cursor_ray_cast_2d.position = p
 	
@@ -194,10 +199,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if mouse_button_event != null:
 		self._handle_mouse_button( mouse_button_event )
 	elif mouse_motion_event != null:
-#		if _mouse_hover_enabled && mouse_motion_event.button_mask != MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
-#			self._handle_mouse_hover(mouse_motion_event)
-#		else:
-#			_update_cursor_position( mouse_motion_event )
+		if _mouse_hover_enabled && mouse_motion_event.button_mask != MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
+			self._handle_mouse_hover(mouse_motion_event)
+		else:
+			_update_cursor_position( mouse_motion_event )
 		pass
 	else:
 		print("event %s" % event)
@@ -292,3 +297,7 @@ func select_save_zone( filename: String ) -> void:
 		print("ZoneEditorManager: Saved to %s - width %f" % [ filename, new_zone.width ] )
 	
 	self._zone_filename = "user-%s" % filename
+
+func set_cursor_offset( old_cursor_offset: float ) -> float:
+	self._cursor_offset_index = ( self._cursor_offset_index + 1 ) % self._CURSOR_OFFSETS.size()
+	return self._CURSOR_OFFSETS[ self._cursor_offset_index ]
