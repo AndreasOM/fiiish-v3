@@ -22,6 +22,7 @@ var _dy: float = 0.0
 
 var _hovered_objects: Dictionary[ Node2D, Vector2 ] = {}
 
+var _select_press_position: Vector2 = Vector2.ZERO
 var _selected_object: Node2D = null
 var _selected_object_original_scale: Vector2 = Vector2.ONE
 
@@ -89,6 +90,9 @@ func _update_cursor_position( mouse_event: InputEventMouse ) -> void:
 	self.cursor_ray_cast_2d.position = p
 	
 func _handle_mouse_hover( mouse_motion_event: InputEventMouseMotion ) -> void:
+	if !_mouse_hover_enabled:
+		return
+		
 	var tr = self._game_scaler.transform
 	tr = tr.affine_inverse()
 	var p = mouse_motion_event.position
@@ -178,17 +182,19 @@ func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
 	
 	## select on release
 	if mouse_button_event.pressed == false:
-		var n = _find_object_at_cursor()
-		if n != null:
-			
-			if n != self._selected_object:		# new/changed selection
-				_deselect_object()
-				_select_object( n )
-			else:								# same selection
-				_deselect_object()
-				n.queue_free()	# :HACK:
+		var mouse_delta: Vector2 = self.debug_cursor_sprite_2d.position - self._select_press_position
+		var d = mouse_delta.length_squared()
+		if d < 10.0:	# only select if we didn't move to far
+			var n = _find_object_at_cursor()
+			if n != null:
+				if n != self._selected_object:		# new/changed selection
+					_deselect_object()
+					_select_object( n )
+				else:								# same selection
+					_deselect_object()
+					n.queue_free()	# :HACK:
 	else:
-		pass
+		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 	
 func _unhandled_input(event: InputEvent) -> void:
 	self._dx = Input.get_axis("left","right")
@@ -199,19 +205,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if mouse_button_event != null:
 		self._handle_mouse_button( mouse_button_event )
 	elif mouse_motion_event != null:
-		if _mouse_hover_enabled && mouse_motion_event.button_mask != MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
+		if mouse_motion_event.button_mask != MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
 			self._handle_mouse_hover(mouse_motion_event)
 		else:
 			_update_cursor_position( mouse_motion_event )
+			self._mouse_x = -mouse_motion_event.relative.x
 		pass
 	else:
 		print("event %s" % event)
-			
-##		if mouse_event.button_mask == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
-##			self._mouse_x = -mouse_event.relative.x
-##			#print("ZoneEditorManager - _unhandled_input InputEventMouseMotion %s" % event )
-##		return
-	
+
 func _on_zone_edit_enabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	# autoload
