@@ -9,6 +9,7 @@ class_name ZoneEditorManager
 @onready var _game_scaler: GameScaler = %GameScaler
 @onready var cursor_ray_cast_2d: RayCast2D = %CursorRayCast2D
 
+var _mouse_hover_enabled = false
 var _mouse_x: float = 0.0
 
 var _offset_x: float = 0.0
@@ -21,11 +22,24 @@ var _dy: float = 0.0
 
 var _hovered_objects: Dictionary[ Node2D, Vector2 ] = {}
 
+var _selected_object: Node2D = null
+var _selected_object_original_scale: Vector2 = Vector2.ONE
+
 func _ready():
 	Events.zone_edit_enabled.connect(_on_zone_edit_enabled)
 	Events.zone_edit_disabled.connect(_on_zone_edit_disabled)
 	
+	
+func _process_selected_object(delta: float) -> void:
+	if self._selected_object == null:
+		return
+	var t = 4.0*0.001*Time.get_ticks_msec()
+	var s = 1.0 + abs(0.2*sin( t ))
+	self._selected_object.scale = lerp(s*self._selected_object_original_scale,self._selected_object.scale, 0.9)
+	
 func _process(delta: float) -> void:
+	self._process_selected_object( delta )
+	
 	var dx = _dx
 	var move_x = 0.0
 	if dx != 0.0:
@@ -61,80 +75,150 @@ func _process(delta: float) -> void:
 	dy *= delta
 	self._game_manager.move_fish( Vector2( 0.0, dy ) )
 
+func _update_cursor_position( mouse_event: InputEventMouse ) -> void:
+	var tr = self._game_scaler.transform
+	tr = tr.affine_inverse()
+	var p = mouse_event.position
+	p = tr * p
+	self.debug_cursor_sprite_2d.position = p
+	self.cursor_ray_cast_2d.position = p
+	
+func _handle_mouse_hover( mouse_motion_event: InputEventMouseMotion ) -> void:
+	var tr = self._game_scaler.transform
+	tr = tr.affine_inverse()
+	var p = mouse_motion_event.position
+	p = tr * p
+	
+	var cs = CollisionShape2D.new()
+	var circle = CircleShape2D.new()
+	cs.shape = circle
+	
+	var max_radius = 24.0 # for testing: 256.0
+	var max_objects = 1
+	var radius = max_radius
+	
+	var new_objects := self._game_manager.zone_manager.get_pickups_in_radius( p, radius )
+
+	var tuple_objects = []
+	for k in new_objects.keys():
+		var v = new_objects[ k ]
+		tuple_objects.push_back( [k,v] )
+	
+	tuple_objects.sort_custom(func(a, b): return a[1] < b[1])
+	
+	var limit = min( max_objects, tuple_objects.size() )
+	
+	var objects: Array[ Node2D ] = []
+	for i in range( limit ):
+		var e = tuple_objects[ i ]
+		objects.push_back( e[ 0 ] )
+	
+	if self.cursor_ray_cast_2d.is_colliding():
+		var co = self.cursor_ray_cast_2d.get_collider()
+		var ow = co.owner # :danger: we assume internals here
+		objects.push_back( ow )
+		
+	if objects.size() > 0:
+		for o in objects:
+			if !_hovered_objects.has( o ):
+				_hovered_objects[ o ] = o.scale
+				o.scale = Vector2(1.5, 1.5)
+		
+	var to_erase: Array[ Node2D ] = []
+	for ho in _hovered_objects.keys():
+		if !objects.has( ho ):
+			var s = _hovered_objects[ ho ]
+			ho.scale = s
+			to_erase.push_back( ho )
+			# bad idea! _hovered_objects.erase( ho )
+			
+	for ho in to_erase:
+		_hovered_objects.erase( ho )
+
+	# print( "Found %d" % objects.size() )
+	
+func _select_object( n: Node2D ) -> void:
+	self._selected_object = n
+	self._selected_object_original_scale = n.scale
+	
+func _deselect_object() -> void:
+	if self._selected_object == null:
+		return
+	self._selected_object.scale = self._selected_object_original_scale
+	self._selected_object = null
+
+func _find_object_at_cursor( ) -> Node2D:
+	if self.cursor_ray_cast_2d.is_colliding():
+		var co = self.cursor_ray_cast_2d.get_collider()
+		var ow = co.owner # :danger: we assume internals here
+		var n = ow as Node2D
+		return n
+		
+	var max_radius = 24.0
+#	var max_objects = 1
+	var radius = max_radius
+	
+	var new_objects := self._game_manager.zone_manager.get_pickups_in_radius( self.cursor_ray_cast_2d.position, radius )
+
+	var tuple_objects = []
+	for k in new_objects.keys():
+		var v = new_objects[ k ]
+		tuple_objects.push_back( [k,v] )
+	
+	tuple_objects.sort_custom(func(a, b): return a[1] < b[1])
+
+	if !tuple_objects.is_empty():
+		return tuple_objects[ 0 ][ 0 ]
+			
+#	var limit = min( max_objects, tuple_objects.size() )
+	
+#	var objects: Array[ Node2D ] = []
+#	for i in range( limit ):
+#		var e = tuple_objects[ i ]
+#		objects.push_back( e[ 0 ] )
+	
+	return null
+	
+func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
+	self._update_cursor_position( mouse_button_event )
+	if mouse_button_event.button_index != MOUSE_BUTTON_LEFT:
+		return
+	
+	## select on release
+	if mouse_button_event.pressed == false:
+		var n = _find_object_at_cursor()
+		if n != null:
+			
+			if n != self._selected_object:		# new/changed selection
+				_deselect_object()
+				_select_object( n )
+			else:								# same selection
+				_deselect_object()
+				n.queue_free()	# :HACK:
+	else:
+		pass
+	
 func _unhandled_input(event: InputEvent) -> void:
 	self._dx = Input.get_axis("left","right")
 	self._dy = Input.get_axis("zone_editor_up","zone_editor_down")
 	
-	var mouse_event = event as InputEventMouseMotion
-	if mouse_event != null:
-		var mouse_motion_event = mouse_event as InputEventMouseMotion
-		if mouse_motion_event != null:
-			var tr = self._game_scaler.transform
-			tr = tr.affine_inverse()
-			var p = mouse_motion_event.position
-			p = tr * p
-			self.debug_cursor_sprite_2d.position = p
-			self.cursor_ray_cast_2d.position = p
-			var cs = CollisionShape2D.new()
-			var circle = CircleShape2D.new()
-			cs.shape = circle
+	var mouse_button_event := event as InputEventMouseButton
+	var mouse_motion_event := event as InputEventMouseMotion
+	if mouse_button_event != null:
+		self._handle_mouse_button( mouse_button_event )
+	elif mouse_motion_event != null:
+#		if _mouse_hover_enabled && mouse_motion_event.button_mask != MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
+#			self._handle_mouse_hover(mouse_motion_event)
+#		else:
+#			_update_cursor_position( mouse_motion_event )
+		pass
+	else:
+		print("event %s" % event)
 			
-			var max_radius = 24.0 # for testing: 256.0
-			var max_objects = 1
-			var radius = max_radius
-			
-			var new_objects := self._game_manager.zone_manager.get_pickups_in_radius( p, radius )
-
-			var tuple_objects = []
-			for k in new_objects.keys():
-				var v = new_objects[ k ]
-				tuple_objects.push_back( [k,v] )
-			
-			tuple_objects.sort_custom(func(a, b): return a[1] < b[1])
-			
-			var limit = min( max_objects, tuple_objects.size() )
-			
-			var objects: Array[ Node2D ] = []
-			for i in range( limit ):
-				var e = tuple_objects[ i ]
-				objects.push_back( e[ 0 ] )
-			
-			if self.cursor_ray_cast_2d.is_colliding():
-				var co = self.cursor_ray_cast_2d.get_collider()
-				var ow = co.owner # :danger: we assume internals here
-				objects.push_back( ow )
-				
-			if objects.size() > 0:
-				for o in objects:
-					if !_hovered_objects.has( o ):
-						_hovered_objects[ o ] = o.scale
-						o.scale = Vector2(1.5, 1.5)
-				
-			var to_erase: Array[ Node2D ] = []
-			for ho in _hovered_objects.keys():
-				if !objects.has( ho ):
-					var s = _hovered_objects[ ho ]
-					ho.scale = s
-					to_erase.push_back( ho )
-					# bad idea! _hovered_objects.erase( ho )
-					
-			for ho in to_erase:
-				_hovered_objects.erase( ho )
-
-			# print( "Found %d" % objects.size() )
-# would be nice :(
-#		match mouse_event:
-#			is InputEventMouseMotion var mouse_motion_event:
-#				pass
-		if mouse_event.button_mask == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
-			self._mouse_x = -mouse_event.relative.x
-			#print("ZoneEditorManager - _unhandled_input InputEventMouseMotion %s" % event )
-		return
-	#print("ZoneEditorManager - _unhandled_input %s" % event )
-#	if event.is_action_pressed("left"):
-#		print("ZoneEditorManager - LEFT" )
-#	if event.is_action_pressed("right"):
-#		print("ZoneEditorManager - RIGHT" )
+##		if mouse_event.button_mask == MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
+##			self._mouse_x = -mouse_event.relative.x
+##			#print("ZoneEditorManager - _unhandled_input InputEventMouseMotion %s" % event )
+##		return
 	
 func _on_zone_edit_enabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -183,6 +267,7 @@ func _on_zone_edit_disabled() -> void:
 	
 	# cleanup
 	self._hovered_objects.clear()
+	self._selected_object = null
 
 func select_zone( filename: String ) -> void:
 	#if filename != self._zone_filename:
