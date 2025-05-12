@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://duckwsw8cl6o8"]
+
+[ext_resource type="Script" uid="uid://b5ud2rj55s160" path="res://Scenes/zone_editor_tools_dialog.gd" id="1_ucsjx"]
+[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_6sbcy"]
+[ext_resource type="PackedScene" uid="uid://756pnhs8ekwg" path="res://Dialogs/ZoneEditor/zone_editor_tool_button.tscn" id="3_1ypek"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdsj5"]
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+
+[node name="ZoneEditorToolsDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -557.0
+offset_right = 146.0
+grow_vertical = 0
+script = ExtResource("1_ucsjx")
+metadata/_custom_type_script = "uid://crap0ddpji4x7"
+
+[node name="FadeablePanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -556.0
+offset_right = 160.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pdsj5")
+script = ExtResource("2_6sbcy")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="DeleteZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_1ypek")]
+unique_name_in_owner = true
+layout_mode = 2
+label = "Delete!"
+
+[node name="MoveZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_1ypek")]
+unique_name_in_owner = true
+layout_mode = 2
+label = "Move"
+
+[node name="SpawnZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_1ypek")]
+unique_name_in_owner = true
+layout_mode = 2
+label = "Spawn"
+
+[node name="SelectZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_1ypek")]
+unique_name_in_owner = true
+layout_mode = 2
+label = "Select"
+
+[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
+[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
+[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
+[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
+[connection signal="selected" from="FadeablePanelContainer/MarginContainer/VBoxContainer/DeleteZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="selected" from="FadeablePanelContainer/MarginContainer/VBoxContainer/MoveZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="selected" from="FadeablePanelContainer/MarginContainer/VBoxContainer/SpawnZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="selected" from="FadeablePanelContainer/MarginContainer/VBoxContainer/SelectZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]

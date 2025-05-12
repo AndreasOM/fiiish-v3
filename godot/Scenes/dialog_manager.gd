@@ -18,6 +18,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.ZONE_EDITOR_MENU_DIALOG: preload("res://Dialogs/zone_editor_menu_dialog.tscn"),
 	DialogIds.Id.MINI_MAP_DIALOG: preload("res://Dialogs/mini_map_dialog.tscn"),
 	DialogIds.Id.ZONE_SELECT_DIALOG: preload("res://Dialogs/zone_select_dialog.tscn"),
+	DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG: preload("res://Dialogs/ZoneEditor/zone_editor_tools_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}
@@ -172,7 +173,9 @@ func _on_zone_edit_enabled() -> void:
 	# :HACK:
 	%InGamePauseMenu.visible = false
 	self.open_dialog( DialogIds.Id.ZONE_EDITOR_MENU_DIALOG, 0.3 )
+	self.open_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
 
 func _on_zone_edit_disabled() -> void:
 	%InGamePauseMenu.visible = true
 	self.close_dialog( DialogIds.Id.ZONE_EDITOR_MENU_DIALOG, 0.3 )
+	self.close_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )

@@ -14,7 +14,7 @@ enum ToggleState {
 	None,
 }
 
-signal toggled( ToggleState )
+signal toggled( state: ToggleState )
 
 	
 func _ready() -> void:
