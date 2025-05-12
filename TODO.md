@@ -3,7 +3,6 @@
 
 ## In Progress
 
-- [ ] Task: Add selection cursor offset to ZoneEditor on touch devices
 - [ ] Task: Re-add scrolling through zone in ZoneEditor
 
 
@@ -115,6 +114,7 @@
 - [x] Task: Select objects in ZoneEditor
 - [x] Task: Delete objects in ZoneEditor :HACK:
 - [x] Cleanup: Add helper to ZoneManager to get pickups sorted by distance
+- [x] Task: Add selection cursor offset to ZoneEditor on touch devices
 
 ### 2025-05-10
 #### S04E07

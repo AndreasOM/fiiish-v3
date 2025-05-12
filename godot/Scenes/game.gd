@@ -3,6 +3,7 @@ class_name Game
 
 #@onready var fish: Fish = %Fish
 @onready var game_scaler: GameScaler = %GameScaler
+@onready var zone_editor_manager: ZoneEditorManager = %ZoneEditorManager
 
 enum State {
 	INITIAL,
