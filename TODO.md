@@ -3,7 +3,6 @@
 
 ## In Progress
 
-- [ ] Task: Improve highlighting of selected object in ZoneEditor
 
 - [ ] Task: Connect ZoneEditorToolsDialog to ZoneEditorManager
 
@@ -25,6 +24,7 @@
 ## V3.6.0 - ETA: 05/25
 
 - [ ] Refactor: Switch Fish to use `_process` instead of `_physics_process`
+	- [ ] Bug: Did the fish get slower?
 - [ ] Refactor: Switch PickupManager to use `_process` instead of `_physics_process`
 
 - [ ] Epic: Minimap (with Scrolling)
@@ -114,6 +114,7 @@
 - [x] Cleanup: Add helper to ZoneManager to get pickups sorted by distance
 - [x] Task: Add selection cursor offset to ZoneEditor on touch devices
 - [x] Task: Re-add scrolling through zone in ZoneEditor
+- [x] Task: Improve highlighting of selected object in ZoneEditor
 
 ### 2025-05-10
 #### S04E07
