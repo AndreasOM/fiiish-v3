@@ -3,7 +3,10 @@
 
 ## In Progress
 
+- [ ] Task: Add selection cursor offset to ZoneEditor on touch devices
 - [ ] Task: Re-add scrolling through zone in ZoneEditor
+
+
 
 - [ ] Task: Add history for tracking ZoneEditor edits to ZoneManager
 - [ ] Task: Add delete_object to ZoneManager
@@ -12,13 +15,11 @@
 
 - [ ] Epic: Zone Editing
 	- [ ] Task: Improve highlighting of selected object in ZoneEditor
-	- [ ] Cleanup: Add helper to ZoneManager to get pickups sorted by distance
 	- [ ] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 
 ## Next
 
-- [ ] Task: Add selection cursor offset to ZoneEditor on touch devices
 
 
 ## Todo
@@ -113,6 +114,7 @@
 - [x] Task: Create ZoneEditorToolsDialog
 - [x] Task: Select objects in ZoneEditor
 - [x] Task: Delete objects in ZoneEditor :HACK:
+- [x] Cleanup: Add helper to ZoneManager to get pickups sorted by distance
 
 ### 2025-05-10
 #### S04E07

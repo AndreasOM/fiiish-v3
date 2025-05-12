@@ -170,6 +170,22 @@ func add_current_to_new_zone( new_zone: NewZone, offset_x: float ) -> void:
 
 	new_zone.width = max_x
 
+func get_pickups_in_radius_sorted_by_distance( position: Vector2, radius: float, max_objects: int ) -> Array:
+	var pickups := self.get_pickups_in_radius( position, radius )
+	
+	var sorted_pickups = []		# key = node, value = distance
+	for k in pickups.keys():
+		var distance = pickups[ k ]
+		sorted_pickups.push_back( [k,distance] )
+	
+	# sort by distance, closest first
+	sorted_pickups.sort_custom(func(a, b): return a[1] < b[1])
+
+	var limit = min( max_objects, sorted_pickups.size() )
+	sorted_pickups.resize( limit )
+	
+	return sorted_pickups
+	
 func get_pickups_in_radius( position: Vector2, radius: float ) -> Dictionary[ Node2D, float ]:
 	var radius_sqr = radius*radius
 	
