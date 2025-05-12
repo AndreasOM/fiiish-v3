@@ -25,6 +25,7 @@ var _hovered_objects: Dictionary[ Node2D, Vector2 ] = {}
 var _select_press_position: Vector2 = Vector2.ZERO
 var _selected_object: Node2D = null
 var _selected_object_original_scale: Vector2 = Vector2.ONE
+var _selected_object_original_modulate: Color = Color.WHITE
 
 var _cursor_offset_index: int = 0
 const _CURSOR_OFFSETS: Array[ float ] = [ 0.0, 10.0, 20.0, 40.0 ]
@@ -37,9 +38,16 @@ func _ready():
 func _process_selected_object(delta: float) -> void:
 	if self._selected_object == null:
 		return
-	var t = 4.0*0.001*Time.get_ticks_msec()
-	var s = 1.0 + abs(0.2*sin( t ))
-	self._selected_object.scale = lerp(s*self._selected_object_original_scale,self._selected_object.scale, 0.9)
+	var t = 0.001*Time.get_ticks_msec()
+	# var s = 1.0 + abs(0.2*sin( 4*t ))
+	# self._selected_object.scale = lerp(s*self._selected_object_original_scale,self._selected_object.scale, 0.9)
+	
+	var m = Color.WHITE
+	m.a = clampf( 0.95 + 0.25*sin( 12.0*t ), 0.0, 1.0 )
+	m.r = clampf( 1.25 + 1.0*sin( 6.0*t + 1.0 ), 0.0, 1.0 )
+	m.g = clampf( 1.25 + 1.0*sin( 6.0*t + 2.0 ), 0.0, 1.0 )
+	m.b = clampf( 1.25 + 1.0*sin( 6.0*t + 3.0 ), 0.0, 1.0 )
+	self._selected_object.modulate = m
 	
 func _process(delta: float) -> void:
 	self._process_selected_object( delta )
@@ -149,11 +157,13 @@ func _handle_mouse_hover( mouse_motion_event: InputEventMouseMotion ) -> void:
 func _select_object( n: Node2D ) -> void:
 	self._selected_object = n
 	self._selected_object_original_scale = n.scale
+	self._selected_object_original_modulate = n.modulate
 	
 func _deselect_object() -> void:
 	if self._selected_object == null:
 		return
 	self._selected_object.scale = self._selected_object_original_scale
+	self._selected_object.modulate = self._selected_object_original_modulate
 	self._selected_object = null
 
 func _find_object_at_cursor( ) -> Node2D:
