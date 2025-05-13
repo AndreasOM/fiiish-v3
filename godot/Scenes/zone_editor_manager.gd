@@ -12,7 +12,7 @@ signal command_history_size_changed( size: int )
 @onready var cursor_ray_cast_2d: RayCast2D = %CursorRayCast2D
 @onready var zone_manager: ZoneManager = %ZoneManager
 
-var _mouse_hover_enabled = false
+var _mouse_hover_enabled = false # Note: Hover mode currently not really implemented
 var _mouse_x: float = 0.0
 
 var _offset_x: float = 0.0

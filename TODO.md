@@ -3,8 +3,9 @@
 
 ## In Progress
 
+
 - [ ] Epic: Zone Editing
-	- [ ] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
+
 
 ## Next
 
@@ -15,9 +16,6 @@
 
 ## V3.6.0 - ETA: 05/25
 
-- [ ] Refactor: Switch Fish to use `_process` instead of `_physics_process`
-	- [ ] Bug: Did the fish get slower?
-- [ ] Refactor: Switch PickupManager to use `_process` instead of `_physics_process`
 
 - [ ] Epic: Minimap (with Scrolling)
 	- [ ] Bug: Fix MiniMap scaling
@@ -64,6 +62,8 @@
 
 ## Later
 
+- [?] Bug: Did the fish get slower?
+- [ ] Task: Add solid hover to ZoneEditor
 - [ ] Polish: Cleanup ZoneSelectDialog
 - [+] Polish: Add better sound loops for ResultDialog
 - [ ] Polish: Create sound loop for distance counting
@@ -98,6 +98,9 @@
 - [?] Cleanup: Move pause/resume handling fully into game
 - [?] Refactor: Create generic SerializableU16
 
+## Obsolete / Won't do
+- [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
+
 ## Done
 
 ### 2025-05-13
@@ -106,6 +109,8 @@
 - [x] Task: Add history for tracking ZoneEditor edits to ZoneEditorCommandHandler
 - [x] Task: Add delete (object) to ZoneEditorCommandHandler
 - [x] Task: Add Undo to ZoneEditorCommandHandler
+- [x] Refactor: Switch PickupManager to use `_process` instead of `_physics_process`
+- [x] Refactor: Switch Fish to use `_process` instead of `_physics_process`
 
 ### 2025-05-12
 #### S04E08
