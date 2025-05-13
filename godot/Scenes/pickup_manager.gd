@@ -45,6 +45,13 @@ func _process(delta: float) -> void:
 	if !self.game_manager.game.is_in_zone_editor():
 		self._despawn_offscreen_pickups()
 
+# func _physics_process(delta: float) -> void:
+	if !self.game_manager.should_process_pickups():
+		return
+
+	_process_fish_attraction( delta )
+	_process_coins( delta )
+
 func _despawn_offscreen_pickups() -> void:
 	var cs: CollisionShape2D = self.game_manager.game_zone
 	var s: Shape2D = cs.shape
@@ -64,14 +71,8 @@ func _despawn_offscreen_pickups() -> void:
 				%Pickups.remove_child(p)
 				p.queue_free()
 
-func _physics_process(delta: float) -> void:
-	if !self.game_manager.should_process_pickups():
-		return
 
-	_physics_process_fish_attraction( delta )
-	_physics_process_coins( delta )
-
-func _physics_process_fish_attraction( delta: float ) -> void:
+func _process_fish_attraction( delta: float ) -> void:
 	for fi in %Fishes.get_children():
 		var f = fi as Fish
 		if f == null:
@@ -117,7 +118,7 @@ func _physics_process_fish_attraction( delta: float ) -> void:
 				delta_pos = speed * delta_pos;
 				p.position += delta_pos;
 
-func _physics_process_coins(delta: float) -> void:
+func _process_coins(delta: float) -> void:
 	for fi in %Fishes.get_children():
 		var f = fi as Fish
 		if f == null:

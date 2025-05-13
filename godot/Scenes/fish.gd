@@ -189,6 +189,7 @@ func _process(delta: float) -> void:
 			self._process_mode_play( delta )
 		_:
 			pass
+	self._process_always( delta )
 	
 func _process_mode_play(delta: float) -> void:		
 	if Input.is_key_pressed(KEY_M):
@@ -209,16 +210,16 @@ func _process_mode_play(delta: float) -> void:
 		Game.State.KILLED:
 			_goto_dying()
 		
-func _physics_process(delta: float) -> void:
+func _process_always(delta: float) -> void:
 	match self.state:
 		Game.State.RESPAWNING:
-			_physics_process_respawning(delta)
+			_process_respawning(delta)
 		Game.State.SWIMMING:
-			_physics_process_swimming(delta)
+			_process_swimming(delta)
 		Game.State.DYING_WITHOUT_RESULT:
-			_physics_process_dying(delta)
+			_process_dying(delta)
 		Game.State.DYING:
-			_physics_process_dying(delta)
+			_process_dying(delta)
 		#Game.State.DEAD:
 		#Game.State.RESPAWNING:
 		#Game.State.WAITING_FOR_START:
@@ -235,14 +236,14 @@ func _get_angle_range_for_y( y: float ) -> Array[float]:
 	else:
 		return [ -m, limit ]
 
-func _physics_process_respawning(delta: float) -> void:
+func _process_respawning(delta: float) -> void:
 	self.transform.origin.x += 256.0 * delta
 	if self.transform.origin.x >= -512.0:
 		_set_state( Game.State.WAITING_FOR_START )
 		
 
 
-func _physics_process_swimming(delta: float) -> void:
+func _process_swimming(delta: float) -> void:
 	if self.mode != Mode.PLAY:
 		return
 		
@@ -266,7 +267,7 @@ func _physics_process_swimming(delta: float) -> void:
 	
 	self.transform.origin.y += dy
  	
-func _physics_process_dying(delta: float) -> void:
+func _process_dying(delta: float) -> void:
 	# print("Dying: %s" % %AnimatedSprite2D.global_position)
 	_velocity += _acceleration * delta
 	# self.transform.origin.y -= 192.0 * delta

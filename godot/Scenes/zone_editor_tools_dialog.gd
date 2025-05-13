@@ -65,6 +65,5 @@ func _on_undo_button_pressed() -> void:
 	self.undo_button.disabled = new_size == 0
 		
 func on_command_history_size_changed( new_size: int ) -> void:
-	print("History size: %d" % new_size)
-	
+#	print("History size: %d" % new_size)
 	self.undo_button.disabled = new_size == 0
