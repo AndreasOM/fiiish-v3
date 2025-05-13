@@ -13,6 +13,7 @@ offset_left = -492.0
 offset_right = 492.0
 offset_bottom = 228.0
 grow_horizontal = 2
+mouse_filter = 2
 script = ExtResource("1_0qp1s")
 metadata/_custom_type_script = "uid://crap0ddpji4x7"
 
@@ -24,11 +25,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("2_4aoyc")
 metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MiniMapSubViewportContainer" parent="FadeablePanelContainer/MarginContainer" instance=ExtResource("3_rj50v")]
 unique_name_in_owner = true

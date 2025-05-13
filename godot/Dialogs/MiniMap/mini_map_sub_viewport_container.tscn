@@ -5,6 +5,7 @@
 [node name="MiniMapSubViewportContainer" type="SubViewportContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 stretch = true
 script = ExtResource("1_mfe6r")
 

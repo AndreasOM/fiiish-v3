@@ -4,17 +4,21 @@
 ## In Progress
 
 
-- [ ] Epic: Zone Editing
-
 
 ## Next
 
+- [ ] Task: Ensure ZoneEditorCommandHandler can handle undo of deleted objects -- don't keep node references
+- [ ] Epic: Zone Editing
+	- [ ] Task: Add Object spawning to ZoneEditor
+	- [ ] Task: Allow clearing of Zone in ZoneEditor
+	- [ ] Task: Add Object rotating to ZoneEditor
 
 
 ## Todo
 
 
 ## V3.6.0 - ETA: 05/25
+
 
 
 - [ ] Epic: Minimap (with Scrolling)
@@ -111,6 +115,7 @@
 - [x] Task: Add Undo to ZoneEditorCommandHandler
 - [x] Refactor: Switch PickupManager to use `_process` instead of `_physics_process`
 - [x] Refactor: Switch Fish to use `_process` instead of `_physics_process`
+- [x] Task: Add Object moving to ZoneEditor
 
 ### 2025-05-12
 #### S04E08
