@@ -176,7 +176,11 @@ func _on_zone_edit_enabled() -> void:
 	var dialog = self.open_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
 	var tools_dialog = dialog as ZoneEditorToolsDialog
 	if tools_dialog != null:
+		var tid = tools_dialog.last_selected_tool_id
+		self._on_zone_editor_tool_selected( tid )
 		tools_dialog.tool_selected.connect( _on_zone_editor_tool_selected )
+		tools_dialog.undo_pressed.connect( _on_zoned_editor_undo_pressed )
+		self.game.zone_editor_manager.command_history_size_changed.connect( _on_zone_editor_manager_command_history_size_changed )
 
 func _on_zone_edit_disabled() -> void:
 	%InGamePauseMenu.visible = true
@@ -185,3 +189,11 @@ func _on_zone_edit_disabled() -> void:
 
 func _on_zone_editor_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 	self.game._on_zone_editor_tool_selected( tool_id )
+
+func _on_zoned_editor_undo_pressed() -> void:
+	self.game._on_zone_editor_undo_pressed()
+
+func _on_zone_editor_manager_command_history_size_changed( size: int ) -> void:
+	var tools_dialog = _dialogs.get( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG ) as ZoneEditorToolsDialog
+	if tools_dialog != null:
+		tools_dialog.on_command_history_size_changed( size )

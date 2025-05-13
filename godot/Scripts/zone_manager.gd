@@ -4,6 +4,8 @@ class_name ZoneManager
 @export var game_manager: GameManager = null
 @export var entity_config_manager: EntityConfigManager = null
 
+var _zone_offset_x: float = 0.0
+
 var _zone_config_manager: ZoneConfigManager = null
 var current_zone_progress: float = 0.0
 var current_zone_width: float:
@@ -60,6 +62,29 @@ func _pick_next_zone() -> NewZone:
 	]	
 	return self._zone_config_manager.pick_next_zone( blocked_zones )
 
+func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float ) -> bool:
+	var o = null
+	var ec = entity_config_manager.get_entry( nzlo.crc )
+	if ec != null:
+		o = ec.resource.instantiate()
+		o.set_meta( "fiiish_nzlo_crc", nzlo.crc )
+		o.game_manager = self.game_manager
+		o.position = Vector2( nzlo.pos_x + spawn_offset, nzlo.pos_y )
+		o.rotation_degrees = nzlo.rotation
+		match ec.entity_type:
+			EntityTypes.Id.OBSTACLE:
+				%Obstacles.add_child(o)
+			EntityTypes.Id.PICKUP:
+				%Pickups.add_child(o)
+			_ :
+				pass
+		#print( o )
+		return true
+	else:
+		print("Unhandled CRC: %08x" % nzlo.crc)
+	
+	return false
+	
 func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> void:
 	self.current_zone_progress = 0.0
 	self._current_zone = zone
@@ -67,26 +92,11 @@ func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> void:
 	for l in zone.layers.iter():
 		if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
 			for obj in l.objects.iter():
-
-
-				var o = null
-				var ec = entity_config_manager.get_entry( obj.crc )
-				if ec != null:
-					o = ec.resource.instantiate()
-					o.set_meta( "fiiish_nzlo_crc", obj.crc )
-					o.game_manager = self.game_manager
-					o.position = Vector2( obj.pos_x + spawn_offset, obj.pos_y )
-					o.rotation_degrees = obj.rotation
-					match ec.entity_type:
-						EntityTypes.Id.OBSTACLE:
-							%Obstacles.add_child(o)
-						EntityTypes.Id.PICKUP:
-							%Pickups.add_child(o)
-						_ :
-							pass
-					#print( o )
-				else:
-					print("Unhandled CRC: %08x" % obj.crc)
+				var nzlo := obj as NewZoneLayerObject
+				if nzlo == null:
+					push_warning("Tried to spawn non NewZoneLayerObject")
+					continue
+				self.spawn_new_zone_layer_object( nzlo, spawn_offset )
 
 func load_and_spawn_zone( filename: String ) -> bool:
 	var i = self._zone_config_manager.find_zone_index_by_filename( filename )
@@ -123,41 +133,46 @@ func spawn_zone( autospawn_on_zone_end: bool = false ):
 	else:
 		push_warning("No zone found to spawn")
 
+func create_new_zone_layer_object_from_node( node: Node2D, offset_x: float ) -> NewZoneLayerObject:
+	var crc = node.get_meta( "fiiish_nzlo_crc"  )
+	if crc == null:
+		return null
+	var o = node as Obstacle
+	if o != null:
+		var nzlo = NewZoneLayerObject.new()
+		nzlo.id = 0xffff
+		nzlo.crc = crc
+		nzlo.pos_x = node.position.x + offset_x
+		nzlo.pos_y = node.position.y
+		nzlo.rotation = node.rotation_degrees
+		return nzlo
+	
+	var p = node as Pickup
+	if p != null:
+		var nzlo = NewZoneLayerObject.new()
+		nzlo.id = 0xffff
+		nzlo.crc = crc
+		nzlo.pos_x = node.position.x + offset_x
+		nzlo.pos_y = node.position.y
+		nzlo.rotation = node.rotation_degrees
+		return nzlo
+	
+	return null
+	
+	
+func add_children_to_new_zone_layer( node: Node2D, layer: NewZoneLayer, offset_x ) -> void:
+	for c in node.get_children():
+		var nzlo = self.create_new_zone_layer_object_from_node( c, offset_x )
+		if nzlo == null:
+			continue
+		layer.add_object( nzlo )
+	
 func add_current_to_new_zone( new_zone: NewZone, offset_x: float ) -> void:
 	var obstacle_layer = new_zone.ensure_layer( "Obstacles" )
-	for c in %Obstacles.get_children():
-		var crc = c.get_meta( "fiiish_nzlo_crc"  )
-		if crc == null:
-			continue
-		var o = c as Obstacle
-		if o == null:
-			continue
-		var nzlo = NewZoneLayerObject.new()
-		nzlo.id = 0xffff
-		nzlo.crc = crc
-		nzlo.pos_x = o.position.x + offset_x
-		nzlo.pos_y = o.position.y
-		nzlo.rotation = o.rotation_degrees
-		
-		obstacle_layer.add_object( nzlo )
-
+	self.add_children_to_new_zone_layer( %Obstacles, obstacle_layer, offset_x )
+			
 	var pickup_layer = new_zone.ensure_layer( "Pickups_00" )
-	for c in %Pickups.get_children():
-		var crc = c.get_meta( "fiiish_nzlo_crc"  )
-		if crc == null:
-			continue
-		var o = c as Pickup
-		if o == null:
-			continue
-		var nzlo = NewZoneLayerObject.new()
-		nzlo.id = 0xffff
-		nzlo.crc = crc
-		nzlo.pos_x = o.position.x + offset_x
-		nzlo.pos_y = o.position.y
-		nzlo.rotation = o.rotation_degrees
-		
-		pickup_layer.add_object( nzlo )
-		
+	self.add_children_to_new_zone_layer( %Pickups, pickup_layer, offset_x )
 
 	# :HACK:		
 	# find object furthest to the right
@@ -269,3 +284,13 @@ func get_objects_colliding( position: Vector2, shape: CollisionShape2D, candidat
 				objects.push_back( n )
 			
 	return objects
+
+
+func get_zone_offset_x() -> float:
+	return self._zone_offset_x
+	
+func set_zone_offset_x( x: float ) -> void:
+	self._zone_offset_x = x
+	
+func add_zone_offset_x( x: float ) -> void:
+	self._zone_offset_x += x

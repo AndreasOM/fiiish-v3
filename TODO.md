@@ -3,15 +3,8 @@
 
 ## In Progress
 
-
-
-- [ ] Task: Add history for tracking ZoneEditor edits to ZoneManager
-- [ ] Task: Add delete_object to ZoneManager
-- [ ] Task: Add Undo to ZoneManager
-
 - [ ] Epic: Zone Editing
 	- [ ] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
-
 
 ## Next
 
@@ -110,6 +103,9 @@
 ### 2025-05-13
 #### S04E09
 - [x] Task: Connect ZoneEditorToolsDialog to ZoneEditorManager
+- [x] Task: Add history for tracking ZoneEditor edits to ZoneEditorCommandHandler
+- [x] Task: Add delete (object) to ZoneEditorCommandHandler
+- [x] Task: Add Undo to ZoneEditorCommandHandler
 
 ### 2025-05-12
 #### S04E08
