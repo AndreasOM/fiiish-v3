@@ -1,6 +1,8 @@
 extends Node
 class_name ZoneEditorManager
 
+signal command_history_size_changed( size: int )
+
 @export var scroll_speed: float = 240.0
 @export var vertical_speed: float = 240.0
 @export var tool_id: ZoneEditorToolIds.Id = ZoneEditorToolIds.Id.SELECT : set = set_tool_id
@@ -8,6 +10,7 @@ class_name ZoneEditorManager
 @onready var debug_cursor_sprite_2d: Sprite2D = %DebugCursorSprite2D
 @onready var _game_scaler: GameScaler = %GameScaler
 @onready var cursor_ray_cast_2d: RayCast2D = %CursorRayCast2D
+@onready var zone_manager: ZoneManager = %ZoneManager
 
 var _mouse_hover_enabled = false
 var _mouse_x: float = 0.0
@@ -29,6 +32,8 @@ var _selected_object_original_modulate: Color = Color.WHITE
 
 var _cursor_offset_index: int = 0
 const _CURSOR_OFFSETS: Array[ float ] = [ 0.0, 10.0, 20.0, 40.0 ]
+
+var _zone_editor_command_handler: ZoneEditorCommandHandler = null
 
 func set_tool_id( tid: ZoneEditorToolIds.Id ) -> void:
 	tool_id = tid
@@ -81,6 +86,8 @@ func _process(delta: float) -> void:
 	self._offset_x = offset_x
 	# print("offset_x %f += %f of %f" % [ offset_x, actual_move_x, zone_width])
 	self._game_manager.set_move( Vector2( actual_move_x, 0.0 ) )
+	
+	self._game_manager.zone_manager.add_zone_offset_x( actual_move_x )
 
 	# up & down
 	#var dy = Input.get_axis("zone_editor_up","zone_editor_down")
@@ -207,7 +214,10 @@ func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
 					match self.tool_id:
 						ZoneEditorToolIds.Id.DELETE:
 							_deselect_object()
-							n.queue_free()	# :HACK:
+							self._zone_editor_command_handler.add_command_delete( n )
+							var size = self._zone_editor_command_handler.command_history_size()
+							self.command_history_size_changed.emit( size )
+							
 						_:
 							# :TODO:
 							pass
@@ -262,8 +272,14 @@ func _on_zone_edit_enabled() -> void:
 		print("ZoneEditorManager: Loaded from %s - width %f" % [ filename, self._game_manager.zone_manager.current_zone_width ] )
 	
 	# self.debug_cursor_sprite_2d.visible = true
+	
+	self._zone_editor_command_handler = ZoneEditorCommandHandler.new( self.zone_manager )
+	var size = self._zone_editor_command_handler.command_history_size() # probably 0 -- unless we implement reloading
+	self.command_history_size_changed.emit( size )
 
 func _on_zone_edit_disabled() -> void:
+	self._zone_editor_command_handler = null
+	
 	self.process_mode = Node.PROCESS_MODE_DISABLED
 	# self._game_manager.cleanup()
 	self._game_manager.goto_dying_without_result()
@@ -325,3 +341,13 @@ func set_cursor_offset( old_cursor_offset: float ) -> float:
 func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 	self.tool_id = tool_id
 	# :TODO: finish current work if needed
+
+func on_undo_pressed() -> void:
+	self._zone_editor_command_handler.undo()
+	var size = self._zone_editor_command_handler.command_history_size()
+	self.command_history_size_changed.emit( size )
+
+func command_history_size() -> int:
+	if self._zone_editor_command_handler == null:
+		return 0
+	return self._zone_editor_command_handler.command_history_size()

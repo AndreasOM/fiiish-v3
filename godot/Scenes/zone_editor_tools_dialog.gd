@@ -2,14 +2,19 @@ class_name ZoneEditorToolsDialog
 extends Dialog
 
 signal tool_selected( tool_id: ZoneEditorToolIds.Id )
+signal undo_pressed()
 
-@onready var buttons: VBoxContainer = %Buttons
+@onready var tool_buttons: VBoxContainer = %ToolButtons
+@onready var undo_button: TextureButton = %UndoButton
 
+var last_selected_tool_id: ZoneEditorToolIds.Id = ZoneEditorToolIds.Id.SELECT
 func _ready() -> void:
-	self._update_buttons( ZoneEditorToolIds.Id.SELECT )
-
+	self._update_buttons( self.last_selected_tool_id  )
+	self.tool_selected.emit( self.last_selected_tool_id )
+	self.undo_button.disabled = true
+	
 func _update_buttons( active_tid: ZoneEditorToolIds.Id ) -> void:
-	for c in self.buttons.get_children():
+	for c in self.tool_buttons.get_children():
 		var b = c as ZoneEditorToolButton
 		if b == null:
 			continue
@@ -50,6 +55,16 @@ func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
 
 
 func _on_zone_editor_tool_button_selected(tool_button: ZoneEditorToolButton) -> void:
-	var selected_tid = tool_button.tool_id
-	self._update_buttons( selected_tid )
-	self.tool_selected.emit( selected_tid )
+	self.last_selected_tool_id = tool_button.tool_id
+	self._update_buttons( self.last_selected_tool_id )
+	self.tool_selected.emit( self.last_selected_tool_id )
+
+func _on_undo_button_pressed() -> void:
+	self.undo_pressed.emit()
+	var new_size = self._dialog_manager.game.zone_editor_command_history_size()
+	self.undo_button.disabled = new_size == 0
+		
+func on_command_history_size_changed( new_size: int ) -> void:
+	print("History size: %d" % new_size)
+	
+	self.undo_button.disabled = new_size == 0
