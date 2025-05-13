@@ -3,24 +3,9 @@ extends Dialog
 
 signal tool_selected( tool_id: ZoneEditorToolIds.Id )
 
-@onready var delete_zone_editor_tool_button: ZoneEditorToolButton = %DeleteZoneEditorToolButton
-@onready var move_zone_editor_tool_button: ZoneEditorToolButton = %MoveZoneEditorToolButton
-@onready var spawn_zone_editor_tool_button: ZoneEditorToolButton = %SpawnZoneEditorToolButton
-@onready var select_zone_editor_tool_button: ZoneEditorToolButton = %SelectZoneEditorToolButton
 @onready var buttons: VBoxContainer = %Buttons
 
-#var _tool_buttons: Dictionary[ ZoneEditorToolIds.Id, ZoneEditorToolButton ] = {}
 func _ready() -> void:
-#	_tool_buttons[ZoneEditorToolIds.Id.DELETE] = self.delete_zone_editor_tool_button
-#	_tool_buttons[ZoneEditorToolIds.Id.MOVE] = self.move_zone_editor_tool_button
-#	_tool_buttons[ZoneEditorToolIds.Id.SPAWN] = self.spawn_zone_editor_tool_button
-#	_tool_buttons[ZoneEditorToolIds.Id.SELECT] = self.select_zone_editor_tool_button
-	
-#	for tb in self._tool_buttons.values():
-#		tb.make_inactive()
-
-#	self._tool_buttons[ ZoneEditorToolIds.Id.SELECT ].make_active()
-
 	self._update_buttons( ZoneEditorToolIds.Id.SELECT )
 
 func _update_buttons( active_tid: ZoneEditorToolIds.Id ) -> void:
