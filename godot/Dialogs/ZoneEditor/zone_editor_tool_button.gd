@@ -3,6 +3,7 @@ extends CenterContainer
 
 signal selected( tool_button: ZoneEditorToolButton)
 
+@export var tool_id: ZoneEditorToolIds.Id = ZoneEditorToolIds.Id.SELECT
 @export var label: String = ""
 @onready var label_a: Label = %LabelA
 @onready var label_b: Label = %LabelB

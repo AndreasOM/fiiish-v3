@@ -41,25 +41,29 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="DeleteZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_1ypek")]
+[node name="Buttons" type="VBoxContainer" parent="FadeablePanelContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="DeleteZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/Buttons" instance=ExtResource("3_1ypek")]
+unique_name_in_owner = true
+layout_mode = 2
+tool_id = 3
 label = "Delete!"
 
-[node name="MoveZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_1ypek")]
+[node name="MoveZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/Buttons" instance=ExtResource("3_1ypek")]
 unique_name_in_owner = true
 layout_mode = 2
+tool_id = 1
 label = "Move"
 
-[node name="SpawnZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_1ypek")]
+[node name="SpawnZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/Buttons" instance=ExtResource("3_1ypek")]
 unique_name_in_owner = true
 layout_mode = 2
+tool_id = 2
 label = "Spawn"
 
-[node name="SelectZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_1ypek")]
+[node name="SelectZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/Buttons" instance=ExtResource("3_1ypek")]
 unique_name_in_owner = true
 layout_mode = 2
 label = "Select"
@@ -68,7 +72,7 @@ label = "Select"
 [connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
 [connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
 [connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
-[connection signal="selected" from="FadeablePanelContainer/MarginContainer/VBoxContainer/DeleteZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
-[connection signal="selected" from="FadeablePanelContainer/MarginContainer/VBoxContainer/MoveZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
-[connection signal="selected" from="FadeablePanelContainer/MarginContainer/VBoxContainer/SpawnZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
-[connection signal="selected" from="FadeablePanelContainer/MarginContainer/VBoxContainer/SelectZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="selected" from="FadeablePanelContainer/MarginContainer/Buttons/DeleteZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="selected" from="FadeablePanelContainer/MarginContainer/Buttons/MoveZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="selected" from="FadeablePanelContainer/MarginContainer/Buttons/SpawnZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="selected" from="FadeablePanelContainer/MarginContainer/Buttons/SelectZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]

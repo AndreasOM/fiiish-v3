@@ -4,7 +4,6 @@
 ## In Progress
 
 
-- [ ] Task: Connect ZoneEditorToolsDialog to ZoneEditorManager
 
 - [ ] Task: Add history for tracking ZoneEditor edits to ZoneManager
 - [ ] Task: Add delete_object to ZoneManager
@@ -54,9 +53,11 @@
 
 - [ ] Refactor: Turn InGamePauseMenu into a Dialog
 - [ ] Polish: Add outline for coins and distance in HUD
-- [ ] Polish: Replace Leaderboard background
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
 - [ ] Polish: Limit Fish movement in ZoneEditor
+- [ ] Refactor: Create reusable FramedDialog
+
+- [+] Polish: Replace Leaderboard background
 
 ## V3.8.0 - ETA: 06/25
 
@@ -105,6 +106,10 @@
 - [?] Refactor: Create generic SerializableU16
 
 ## Done
+
+### 2025-05-13
+#### S04E09
+- [x] Task: Connect ZoneEditorToolsDialog to ZoneEditorManager
 
 ### 2025-05-12
 #### S04E08
