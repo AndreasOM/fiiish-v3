@@ -173,9 +173,15 @@ func _on_zone_edit_enabled() -> void:
 	# :HACK:
 	%InGamePauseMenu.visible = false
 	self.open_dialog( DialogIds.Id.ZONE_EDITOR_MENU_DIALOG, 0.3 )
-	self.open_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
+	var dialog = self.open_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
+	var tools_dialog = dialog as ZoneEditorToolsDialog
+	if tools_dialog != null:
+		tools_dialog.tool_selected.connect( _on_zone_editor_tool_selected )
 
 func _on_zone_edit_disabled() -> void:
 	%InGamePauseMenu.visible = true
 	self.close_dialog( DialogIds.Id.ZONE_EDITOR_MENU_DIALOG, 0.3 )
 	self.close_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
+
+func _on_zone_editor_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
+	self.game._on_zone_editor_tool_selected( tool_id )

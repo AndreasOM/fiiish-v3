@@ -11,9 +11,11 @@ func _on_close_button_pressed() -> void:
 
 func open( _duration: float ) -> void:
 	sub_menu_v_box_container.visible = false
-	cursor_offset_button.connect("pressed", _on_cursor_offset_button_pressed )
+#	cursor_offset_button.connect("pressed", _on_cursor_offset_button_pressed )
 	
 func close( _duration: float ) -> void:
+#	if self.cursor_offset_button != null:
+#		cursor_offset_button.disconnect( "pressed", _on_cursor_offset_button_pressed )
 	closed()
 
 

@@ -3,7 +3,7 @@ class_name ZoneEditorManager
 
 @export var scroll_speed: float = 240.0
 @export var vertical_speed: float = 240.0
-
+@export var tool_id: ZoneEditorToolIds.Id = ZoneEditorToolIds.Id.SELECT : set = set_tool_id
 @onready var _game_manager: GameManager = %GameManager
 @onready var debug_cursor_sprite_2d: Sprite2D = %DebugCursorSprite2D
 @onready var _game_scaler: GameScaler = %GameScaler
@@ -30,6 +30,9 @@ var _selected_object_original_modulate: Color = Color.WHITE
 var _cursor_offset_index: int = 0
 const _CURSOR_OFFSETS: Array[ float ] = [ 0.0, 10.0, 20.0, 40.0 ]
 
+func set_tool_id( tid: ZoneEditorToolIds.Id ) -> void:
+	tool_id = tid
+	
 func _ready():
 	Events.zone_edit_enabled.connect(_on_zone_edit_enabled)
 	Events.zone_edit_disabled.connect(_on_zone_edit_disabled)
@@ -201,8 +204,13 @@ func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
 					_deselect_object()
 					_select_object( n )
 				else:								# same selection
-					_deselect_object()
-					n.queue_free()	# :HACK:
+					match self.tool_id:
+						ZoneEditorToolIds.Id.DELETE:
+							_deselect_object()
+							n.queue_free()	# :HACK:
+						_:
+							# :TODO:
+							pass
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 	
@@ -313,3 +321,7 @@ func select_save_zone( filename: String ) -> void:
 func set_cursor_offset( old_cursor_offset: float ) -> float:
 	self._cursor_offset_index = ( self._cursor_offset_index + 1 ) % self._CURSOR_OFFSETS.size()
 	return self._CURSOR_OFFSETS[ self._cursor_offset_index ]
+
+func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
+	self.tool_id = tool_id
+	# :TODO: finish current work if needed

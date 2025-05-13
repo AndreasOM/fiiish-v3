@@ -232,3 +232,7 @@ func select_zone( filename: String ) -> void:
 
 func select_save_zone( filename: String ) -> void:
 	%ZoneEditorManager.select_save_zone( filename )
+
+func _on_zone_editor_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
+	self.zone_editor_manager.on_tool_selected( tool_id )
+	
