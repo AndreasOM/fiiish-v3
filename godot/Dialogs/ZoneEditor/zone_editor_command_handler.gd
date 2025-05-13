@@ -21,8 +21,11 @@ func add_command( command: ZoneEditorCommand ) -> void:
 		self._command_history.push_back( command )
 	
 func add_command_delete( node: Node2D ) -> void:
-	node.queue_free()	# :HACK:
 	var command = ZoneEditorCommandDelete.new( node )
+	self.add_command( command )
+
+func add_command_move( node: Node2D, move: Vector2 ) -> void:
+	var command = ZoneEditorCommandMove.new( node, move )
 	self.add_command( command )
 
 class ZoneEditorCommand:
@@ -64,3 +67,22 @@ class ZoneEditorCommandDelete:
 		var zone_offset_x = zone_manager.current_zone_progress
 		var spawn_offset = self._zone_offset_x - zone_offset_x
 		return zone_manager.spawn_new_zone_layer_object( self._nzlo, spawn_offset )
+
+class ZoneEditorCommandMove:
+	extends ZoneEditorCommand
+
+	var _node: Node2D
+	var _move: Vector2
+	
+	func _init( n: Node2D, m: Vector2 ):
+		self._node = n
+		self._move = m
+
+	func run(zone_manager: ZoneManager) -> bool:
+		if self._node != null:
+			self._node.position += self._move
+		return true
+		
+	func undo(zone_manager: ZoneManager) -> bool:
+		self._node.position -= self._move
+		return true

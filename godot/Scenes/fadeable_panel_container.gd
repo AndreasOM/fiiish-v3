@@ -55,9 +55,9 @@ func fade_in( duration: float):
 	_restore_original_z_index()
 	# z_index = _original_z_index
 	visible = true
-	mouse_filter = MOUSE_FILTER_STOP
-	for c in get_children():
-		c.mouse_filter = MOUSE_FILTER_STOP
+#	mouse_filter = MOUSE_FILTER_STOP
+#	for c in get_children():
+#		c.mouse_filter = MOUSE_FILTER_STOP
 	if duration > 0.0:
 		_alpha_speed = 1.0 / duration
 		on_fading_in.emit( duration )
@@ -69,9 +69,9 @@ func fade_in( duration: float):
 		on_faded_in.emit()
 	
 func fade_out( duration: float):
-	mouse_filter = MOUSE_FILTER_IGNORE
-	for c in get_children():
-		c.mouse_filter = MOUSE_FILTER_IGNORE
+#	mouse_filter = MOUSE_FILTER_IGNORE
+#	for c in get_children():
+#		c.mouse_filter = MOUSE_FILTER_IGNORE
 	_alpha_speed = -1.0 / duration
 	if duration > 0.0:
 		_alpha_speed = -1.0 / duration

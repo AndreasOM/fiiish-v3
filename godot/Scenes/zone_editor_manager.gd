@@ -30,6 +30,12 @@ var _selected_object: Node2D = null
 var _selected_object_original_scale: Vector2 = Vector2.ONE
 var _selected_object_original_modulate: Color = Color.WHITE
 
+var _move_start_position: Vector2 = Vector2.ZERO
+var _move_start_offset_x: float = 0.0
+var _move_object_start_position: Vector2 = Vector2.ZERO
+
+var _last_cursor_position: Vector2 = Vector2.ZERO
+
 var _cursor_offset_index: int = 0
 const _CURSOR_OFFSETS: Array[ float ] = [ 0.0, 10.0, 20.0, 40.0 ]
 
@@ -96,6 +102,18 @@ func _process(delta: float) -> void:
 	dy *= self.vertical_speed
 	dy *= delta
 	self._game_manager.move_fish( Vector2( 0.0, dy ) )
+
+	match self.tool_id:
+		#ZoneEditorToolIds.Id.DELETE:
+		#	self._process_for_delete( delta )
+		ZoneEditorToolIds.Id.MOVE:
+			self._process_for_move( delta )
+		_:
+			# :TODO:
+			pass
+
+func _process_for_move( _delta: float ) -> void:
+	self._update_selected_object_position_for_move()
 
 func _update_cursor_position( mouse_event: InputEventMouse ) -> void:
 	var tr = self._game_scaler.transform
@@ -194,12 +212,8 @@ func _find_object_at_cursor( ) -> Node2D:
 		return tuple_objects[ 0 ][ 0 ]
 			
 	return null
-	
-func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
-	self._update_cursor_position( mouse_button_event )
-	if mouse_button_event.button_index != MOUSE_BUTTON_LEFT:
-		return
-	
+
+func _handle_mouse_button_for_delete( mouse_button_event: InputEventMouseButton ) -> void:
 	## select on release
 	if mouse_button_event.pressed == false:
 		var mouse_delta: Vector2 = self.debug_cursor_sprite_2d.position - self._select_press_position
@@ -211,18 +225,89 @@ func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
 					_deselect_object()
 					_select_object( n )
 				else:								# same selection
-					match self.tool_id:
-						ZoneEditorToolIds.Id.DELETE:
-							_deselect_object()
-							self._zone_editor_command_handler.add_command_delete( n )
-							var size = self._zone_editor_command_handler.command_history_size()
-							self.command_history_size_changed.emit( size )
-							
-						_:
-							# :TODO:
-							pass
+					_deselect_object()
+					self._zone_editor_command_handler.add_command_delete( n )
+					var size = self._zone_editor_command_handler.command_history_size()
+					self.command_history_size_changed.emit( size )
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
+
+func _handle_mouse_button_for_move( mouse_button_event: InputEventMouseButton ) -> void:
+	## select on release
+	if mouse_button_event.pressed == false:
+		var mouse_delta: Vector2 = self.debug_cursor_sprite_2d.position - self._select_press_position
+		var d = mouse_delta.length_squared()
+		if d < 10.0:	# only select if we didn't move to far
+			if self._selected_object == null:
+				var n = _find_object_at_cursor()
+				if n != null:
+					_select_object( n )
+					self._move_start_position = self.debug_cursor_sprite_2d.position
+					self._move_start_offset_x = self.zone_manager.current_zone_progress
+					self._move_object_start_position = self._selected_object.position
+			else:
+				var move = self.debug_cursor_sprite_2d.position - self._move_start_position
+				### add offset change
+				var delta_x = self.zone_manager.current_zone_progress - self._move_start_offset_x
+				move.x += delta_x
+				self._selected_object.position = self._move_object_start_position
+				self._selected_object.position.x -= delta_x
+				self._zone_editor_command_handler.add_command_move( self._selected_object, move )
+				_deselect_object()
+				var size = self._zone_editor_command_handler.command_history_size()
+				self.command_history_size_changed.emit( size )
+				
+	else:
+		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
+
+func _handle_mouse_motion( mouse_motion_event: InputEventMouseMotion ) -> void:
+	var tr = self._game_scaler.transform
+	tr = tr.affine_inverse()
+	var cursor_position = mouse_motion_event.position
+	cursor_position = tr * cursor_position
+	self._last_cursor_position = cursor_position
+	
+#	match self.tool_id:
+		#ZoneEditorToolIds.Id.DELETE:
+		#	self._handle_mouse_motion_for_delete( mouse_motion_event )
+		#ZoneEditorToolIds.Id.MOVE:
+		#	self._handle_mouse_motion_for_move( mouse_motion_event )
+#		_:
+#			# :TODO:
+#			pass
+	
+
+func _update_selected_object_position_for_move() -> void:
+	if self._selected_object == null:
+		return
+
+	var cursor_position = self._last_cursor_position
+	
+	var total_delta = cursor_position - self._move_start_position
+	var offset_x_delta = self._offset_x - self._move_start_offset_x
+	total_delta.x == offset_x_delta
+	var object_target_position = self._move_object_start_position + total_delta
+	var move = object_target_position - self._selected_object.position
+	
+	self._selected_object.position += move
+	
+#func _handle_mouse_motion_for_move( _mouse_motion_event: InputEventMouseMotion ) -> void:
+#	# self._update_selected_object_position_for_move()
+#	pass
+
+func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
+	self._update_cursor_position( mouse_button_event )
+	if mouse_button_event.button_index != MOUSE_BUTTON_LEFT:
+		return
+	match self.tool_id:
+		ZoneEditorToolIds.Id.DELETE:
+			self._handle_mouse_button_for_delete( mouse_button_event )
+		ZoneEditorToolIds.Id.MOVE:
+			self._handle_mouse_button_for_move( mouse_button_event )
+		_:
+			# :TODO:
+			pass
+	
 	
 func _unhandled_input(event: InputEvent) -> void:
 	self._dx = Input.get_axis("left","right")
@@ -233,6 +318,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if mouse_button_event != null:
 		self._handle_mouse_button( mouse_button_event )
 	elif mouse_motion_event != null:
+		self._handle_mouse_motion( mouse_motion_event )
 		if mouse_motion_event.button_mask != MouseButtonMask.MOUSE_BUTTON_MASK_LEFT:
 			self._handle_mouse_hover(mouse_motion_event)
 		else:
