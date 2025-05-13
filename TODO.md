@@ -9,9 +9,9 @@
 
 - [ ] Task: Ensure ZoneEditorCommandHandler can handle undo of deleted objects -- don't keep node references
 - [ ] Epic: Zone Editing
-	- [ ] Task: Add Object spawning to ZoneEditor
 	- [ ] Task: Allow clearing of Zone in ZoneEditor
 	- [ ] Task: Add Object rotating to ZoneEditor
+	- [ ] Task: Add Object spawning to ZoneEditor
 
 
 ## Todo
@@ -19,18 +19,11 @@
 
 ## V3.6.0 - ETA: 05/25
 
-
-
-- [ ] Epic: Minimap (with Scrolling)
-	- [ ] Bug: Fix MiniMap scaling
-	- [ ] Task: Add Minimap offset
-
 - [ ] Epic: GameMode - Edit
 	- [ ] Task: Handle Zone Edit enabled where needed
 	- [ ] Task: Hide Game HUD in Zone Editor ?! (After minimap)
 
 - [ ] Task: Handle Pause correctly in Zone Editor
-
 
 - [ ] Feature: Zone Editor
 	- [ ] * Epic: Zone Management (deleting & renaming?!)
@@ -42,7 +35,6 @@
 
 - [ ] Polish: Visualise magnet range in ZoneEditor
 - [ ] Polish: Add Fading to ZoneEditorMenuDialog
-- [ ] Polish: Fix rotation in minimap renderer
 - [ ] #reach Feature: Achievements
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
@@ -53,6 +45,7 @@
 - [ ] Refactor: Create reusable FramedDialog
 
 - [+] Polish: Replace Leaderboard background
+- [+] Polish: Fix rotation in minimap renderer
 
 ## V3.8.0 - ETA: 06/25
 
@@ -66,6 +59,8 @@
 
 ## Later
 
+- [ ] Bug: Fix MiniMap scaling
+- [ ] Task: Add Minimap offset
 - [?] Bug: Did the fish get slower?
 - [ ] Task: Add solid hover to ZoneEditor
 - [ ] Polish: Cleanup ZoneSelectDialog
@@ -116,6 +111,7 @@
 - [x] Refactor: Switch PickupManager to use `_process` instead of `_physics_process`
 - [x] Refactor: Switch Fish to use `_process` instead of `_physics_process`
 - [x] Task: Add Object moving to ZoneEditor
+- [x] Epic: Minimap (with Scrolling)
 
 ### 2025-05-12
 #### S04E08
