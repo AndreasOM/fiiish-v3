@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://buv6imywf7fa1"]
+
+[ext_resource type="PackedScene" uid="uid://nm2c8x0fbn5c" path="res://Scenes/Pickups/coin_explosion.tscn" id="1_g141t"]
+[ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_xxhj4"]
+
+[resource]
+script = ExtResource("2_xxhj4")
+name = "Explosion"
+entity_id = 4150253871
+entity_type = 1
+resource = ExtResource("1_g141t")

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://1bxcpc8d1h1e"]
+
+[ext_resource type="PackedScene" uid="uid://drv8nabn33aa4" path="res://Scenes/Pickups/coin_rain.tscn" id="1_0370i"]
+[ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_xtf82"]
+
+[resource]
+script = ExtResource("2_xtf82")
+name = "Rain"
+entity_id = 117263450
+entity_type = 1
+resource = ExtResource("1_0370i")
+metadata/_custom_type_script = "uid://l4mx22800uyt"
