@@ -4,11 +4,12 @@
 ## In Progress
 
 
+- [ ] Task: Add Rotation tool to ZoneEditor
+
 ## Next
 
 - [ ] Epic: Zone Editing
 	- [ ] Task: Allow clearing of Zone in ZoneEditor
-	- [ ] Task: Add Object rotating to ZoneEditor
 	- [ ] Task: Add Object spawning to ZoneEditor
 
 
@@ -103,6 +104,7 @@
 ### 2025-05-14
 #### S04E10
 - [x] Task: Ensure ZoneEditorCommandHandler can handle undo of deleted objects -- use node ids instead of references
+- [x] Task: Add Object rotating to ZoneEditor
 
 ### 2025-05-13
 #### S04E09

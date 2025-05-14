@@ -33,6 +33,7 @@ var _selected_object_original_modulate: Color = Color.WHITE
 var _move_start_position: Vector2 = Vector2.ZERO
 var _move_start_offset_x: float = 0.0
 var _move_object_start_position: Vector2 = Vector2.ZERO
+var _move_object_start_rotation_degrees: float = 0.0
 
 var _last_cursor_position: Vector2 = Vector2.ZERO
 
@@ -62,6 +63,9 @@ func _process_selected_object(delta: float) -> void:
 	m.g = clampf( 1.25 + 1.0*sin( 6.0*t + 2.0 ), 0.0, 1.0 )
 	m.b = clampf( 1.25 + 1.0*sin( 6.0*t + 3.0 ), 0.0, 1.0 )
 	self._selected_object.modulate = m
+	
+	if Input.is_action_just_pressed( "zone_editor_rotate" ):
+		self._selected_object.rotation_degrees += 90.0
 	
 func _process(delta: float) -> void:
 	self._process_selected_object( delta )
@@ -245,6 +249,7 @@ func _handle_mouse_button_for_move( mouse_button_event: InputEventMouseButton ) 
 					self._move_start_position = self.debug_cursor_sprite_2d.position
 					self._move_start_offset_x = self.zone_manager.current_zone_progress
 					self._move_object_start_position = self._selected_object.position
+					self._move_object_start_rotation_degrees = self._selected_object.rotation_degrees
 			else:
 				var move = self.debug_cursor_sprite_2d.position - self._move_start_position
 				### add offset change
@@ -252,7 +257,9 @@ func _handle_mouse_button_for_move( mouse_button_event: InputEventMouseButton ) 
 				move.x += delta_x
 				self._selected_object.position = self._move_object_start_position
 				self._selected_object.position.x -= delta_x
-				self._zone_editor_command_handler.add_command_move( self._selected_object, move )
+				var rotation = self._selected_object.rotation_degrees - self._move_object_start_rotation_degrees
+				self._selected_object.rotation_degrees = self._move_object_start_rotation_degrees
+				self._zone_editor_command_handler.add_command_move( self._selected_object, move, rotation )
 				_deselect_object()
 				var size = self._zone_editor_command_handler.command_history_size()
 				self.command_history_size_changed.emit( size )
@@ -427,8 +434,15 @@ func set_cursor_offset( old_cursor_offset: float ) -> float:
 	return self._CURSOR_OFFSETS[ self._cursor_offset_index ]
 
 func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
+	match self.tool_id:
+		ZoneEditorToolIds.Id.MOVE:
+			self._selected_object.position = self._move_object_start_position
+			self._selected_object.rotation_degrees = self._move_object_start_rotation_degrees
+			pass
+		_:
+			pass
+	self._deselect_object()
 	self.tool_id = tool_id
-	# :TODO: finish current work if needed
 
 func on_undo_pressed() -> void:
 	self._zone_editor_command_handler.undo()
