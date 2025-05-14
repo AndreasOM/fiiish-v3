@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://duckwsw8cl6o8"]
+[gd_scene load_steps=8 format=3 uid="uid://duckwsw8cl6o8"]
 
 [ext_resource type="Script" uid="uid://b5ud2rj55s160" path="res://Scenes/zone_editor_tools_dialog.gd" id="1_ucsjx"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_6sbcy"]
 [ext_resource type="PackedScene" uid="uid://756pnhs8ekwg" path="res://Dialogs/ZoneEditor/zone_editor_tool_button.tscn" id="3_1ypek"]
 [ext_resource type="Texture2D" uid="uid://dtt0e2fw6ckhx" path="res://Textures/UI/Buttons/button.png" id="4_6sbcy"]
+[ext_resource type="Script" uid="uid://f7kr8cd0vq5g" path="res://Dialogs/ZoneEditor/entity_select_button.gd" id="5_0u0x8"]
 [ext_resource type="Texture2D" uid="uid://b25nrfgmj4jvh" path="res://Textures/UI/Buttons/button_disabled.png" id="5_1ypek"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdsj5"]
@@ -30,6 +31,7 @@ anchor_bottom = 1.0
 offset_top = -556.0
 offset_right = 160.0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pdsj5")
 script = ExtResource("2_6sbcy")
 metadata/_custom_type_script = "uid://ckhevounoe7f4"
@@ -38,6 +40,7 @@ metadata/_custom_type_script = "uid://ckhevounoe7f4"
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -45,6 +48,7 @@ theme_override_constants/margin_bottom = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ToolButtons" type="VBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -82,6 +86,25 @@ label = "Select"
 [node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+
+[node name="EntitySelectButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("4_6sbcy")
+script = ExtResource("5_0u0x8")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "Coin"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -133,5 +156,7 @@ vertical_alignment = 1
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/RotateZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/SpawnZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/SelectZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="entity_changed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectButton" to="." method="_on_entity_select_button_entity_changed"]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectButton" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectButton" method="_on_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/UndoButton" to="." method="_on_undo_button_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/RedoButton" to="." method="_on_redo_pressed"]

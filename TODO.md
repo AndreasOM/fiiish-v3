@@ -6,11 +6,13 @@
 
 ## Next
 
-- [ ] Epic: Zone Editing
-	- [ ] Task: Allow to change which Object will be Spawned in ZoneEditor
 
+- [ ] Epic: Zone Testing
 
 ## Todo
+
+- [ ] Epic: Zone Editing
+	- [ ] Task: Add better Spawn Object selection to ZoneEditor
 
 
 ## V3.6.0 - ETA: 05/25
@@ -25,7 +27,6 @@
 	- [ ] * Epic: Zone Management (deleting & renaming?!)
 	- [ ] * Epic: Zone Sharing
 	- [ ] * Epic: Zone Importing
-	- [ ] Epic: Zone Testing
 	- [ ] Epic: Zone Properties
 	- [ ] Epic: Create new button style for ZoneEditor
 
@@ -110,6 +111,7 @@
 - [x] Task: Add 1-step Object spawning to ZoneEditor
 - [x] Task: Add 2-step Object spawning to ZoneEditor
 - [x] Task: Add Redo to ZoneEditor
+- [x] Task: Allow to change which Object will be Spawned in ZoneEditor
 
 ### 2025-05-13
 #### S04E09

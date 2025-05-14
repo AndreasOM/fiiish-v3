@@ -18,4 +18,5 @@ enum Id {
 	SEAWEEDE        = 0x6884fff6,
 	SEAWEEDF        = 0xf18dae4c,
 	SEAWEEDG        = 0x868a9eda,
+	INVALID			= 0xffffffff,
 }
