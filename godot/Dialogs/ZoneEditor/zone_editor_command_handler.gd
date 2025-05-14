@@ -25,9 +25,9 @@ func add_command_delete( node: Node2D ) -> void:
 	var command = ZoneEditorCommandDelete.new( node_id )
 	self.add_command( command )
 
-func add_command_move( node: Node2D, move: Vector2 ) -> void:
+func add_command_move( node: Node2D, move: Vector2, rotate_degrees: float ) -> void:
 	var node_id = self._zone_manager.ensure_object_id( node )
-	var command = ZoneEditorCommandMove.new( node_id, move )
+	var command = ZoneEditorCommandMove.new( node_id, move, rotate_degrees )
 	self.add_command( command )
 
 class ZoneEditorCommand:
@@ -78,11 +78,13 @@ class ZoneEditorCommandMove:
 	# var _node: Node2D
 	var _node_id: int
 	var _move: Vector2
+	var _rotate_degrees: float
 	
-	func _init( id: int, m: Vector2 ):
+	func _init( id: int, m: Vector2, rotate_degrees: float ):
 		#self._node = n
 		self._node_id = id
 		self._move = m
+		self._rotate_degrees = rotate_degrees
 
 	func run(zone_manager: ZoneManager) -> bool:
 		var node = zone_manager.find_object_by_id( self._node_id )
@@ -90,6 +92,7 @@ class ZoneEditorCommandMove:
 			return false
 			
 		node.position += self._move
+		node.rotation_degrees += self._rotate_degrees
 		return true
 		
 	func undo(zone_manager: ZoneManager) -> bool:
@@ -97,4 +100,5 @@ class ZoneEditorCommandMove:
 		if node == null:
 			return false
 		node.position -= self._move
+		node.rotation_degrees -= self._rotate_degrees
 		return true
