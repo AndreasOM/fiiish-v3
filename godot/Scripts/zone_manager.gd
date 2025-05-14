@@ -63,11 +63,38 @@ func _pick_next_zone() -> NewZone:
 	]	
 	return self._zone_config_manager.pick_next_zone( blocked_zones )
 
+func _spawn_object( ec: EntityConfig, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Node2D:
+	var o = ec.resource.instantiate()
+	o.game_manager = self.game_manager
+	o.position = Vector2( position.x + spawn_offset, position.y )
+	o.rotation_degrees = rotation_degrees
+	match ec.entity_type:
+		EntityTypes.Id.OBSTACLE:
+			%Obstacles.add_child(o)
+		EntityTypes.Id.PICKUP:
+			%Pickups.add_child(o)
+		_ :
+			# !!!!
+			pass
+	
+	return o
+	
+func spawn_object_from_crc( crc: int, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Node2D:
+	var ec = entity_config_manager.get_entry( crc )
+	if ec == null:
+		push_warning("Entity config for 0x%08x not found" % crc)
+		return null
+	var o = self._spawn_object( ec, position, rotation_degrees, spawn_offset )
+	o.set_meta( "fiiish_nzlo_crc", crc )
+	
+	return o
+	
 func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float ) -> bool:
 	var o = null
 	var ec = entity_config_manager.get_entry( nzlo.crc )
 	if ec != null:
-		o = ec.resource.instantiate()
+		var pos = Vector2( nzlo.pos_x, nzlo.pos_y )
+		o = self._spawn_object( ec, pos, nzlo.rotation, spawn_offset )
 		o.set_meta( "fiiish_nzlo_crc", nzlo.crc )
 		if nzlo.id != 0xffff:
 			o.set_meta( "fiiish_nzlo_id", nzlo.id )
@@ -75,17 +102,6 @@ func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float 
 				print("Updated next object id 0x%04x" % self._next_object_id )
 				self._next_object_id = nzlo.id + 1
 				
-		o.game_manager = self.game_manager
-		o.position = Vector2( nzlo.pos_x + spawn_offset, nzlo.pos_y )
-		o.rotation_degrees = nzlo.rotation
-		match ec.entity_type:
-			EntityTypes.Id.OBSTACLE:
-				%Obstacles.add_child(o)
-			EntityTypes.Id.PICKUP:
-				%Pickups.add_child(o)
-			_ :
-				pass
-		#print( o )
 		return true
 	else:
 		print("Unhandled CRC: %08x" % nzlo.crc)
