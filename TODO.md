@@ -4,7 +4,6 @@
 ## In Progress
 
 
-- [ ] Task: Add Rotation tool to ZoneEditor
 
 ## Next
 
@@ -105,6 +104,7 @@
 #### S04E10
 - [x] Task: Ensure ZoneEditorCommandHandler can handle undo of deleted objects -- use node ids instead of references
 - [x] Task: Add Object rotating to ZoneEditor
+- [x] Task: Add Rotation tool to ZoneEditor
 
 ### 2025-05-13
 #### S04E09

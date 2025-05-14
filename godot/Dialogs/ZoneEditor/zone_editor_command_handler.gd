@@ -1,5 +1,7 @@
 class_name ZoneEditorCommandHandler
 
+signal command_history_size_changed( new_size: int )
+
 var _zone_manager: ZoneManager
 
 var _command_history: Array[ ZoneEditorCommand ] = []
@@ -14,11 +16,14 @@ func undo() -> bool:
 	if _command_history.is_empty():
 		return false
 	var command = _command_history.pop_back()
-	return command.undo( self._zone_manager )
+	var r = command.undo( self._zone_manager )
+	self.command_history_size_changed.emit( self._command_history.size() )
+	return r
 
 func add_command( command: ZoneEditorCommand ) -> void:
 	if command.run( self._zone_manager ):
 		self._command_history.push_back( command )
+		self.command_history_size_changed.emit( self._command_history.size() )
 	
 func add_command_delete( node: Node2D ) -> void:
 	var node_id = self._zone_manager.ensure_object_id( node )
