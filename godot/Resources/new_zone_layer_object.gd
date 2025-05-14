@@ -1,6 +1,6 @@
 class_name NewZoneLayerObject
 
-var id: int = 0
+var id: int = 0xffff
 var crc: int = 0
 var pos_x: float = 0.0
 var pos_y: float = 0.0
@@ -8,6 +8,7 @@ var rotation: float = 0.0
 
 func serialize( s: Serializer ):
 	self.id = s.serialize_u16( self.id )
+	# print("NZLO id: 0x%04x" % self.id)
 	self.crc = s.serialize_u32( self.crc )
 	self.pos_x = s.serialize_f32( self.pos_x )
 	self.pos_y = -self.pos_y # :HACK:

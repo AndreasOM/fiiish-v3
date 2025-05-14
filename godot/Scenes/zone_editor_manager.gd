@@ -353,6 +353,7 @@ func _on_zone_edit_enabled() -> void:
 			var f = filename.trim_prefix( "user-" )
 			self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
 			print( "ZoneEditorManager: Reload Zone %s" % filename )
+		self._game_manager.zone_manager.reset_object_ids()
 		self._game_manager.zone_manager.load_and_spawn_zone( filename )
 		self._zone_filename = filename
 		print("ZoneEditorManager: Loaded from %s - width %f" % [ filename, self._game_manager.zone_manager.current_zone_width ] )
@@ -391,6 +392,7 @@ func select_zone( filename: String ) -> void:
 			var f = filename.trim_prefix( "user-" )
 			self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
 			print( "ZoneEditorManager: Reload Zone %s" % filename )
+		self._game_manager.zone_manager.reset_object_ids()
 		self._game_manager.zone_manager.load_and_spawn_zone( filename )
 		self._offset_x = 0.0
 		print( "ZoneEditorManager: Switched to Zone %s" % filename )
