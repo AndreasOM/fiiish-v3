@@ -231,8 +231,6 @@ func _handle_mouse_button_for_delete( mouse_button_event: InputEventMouseButton 
 				else:								# same selection
 					_deselect_object()
 					self._zone_editor_command_handler.add_command_delete( n )
-					var size = self._zone_editor_command_handler.command_history_size()
-					self.command_history_size_changed.emit( size )
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
@@ -261,9 +259,20 @@ func _handle_mouse_button_for_move( mouse_button_event: InputEventMouseButton ) 
 				self._selected_object.rotation_degrees = self._move_object_start_rotation_degrees
 				self._zone_editor_command_handler.add_command_move( self._selected_object, move, rotation )
 				_deselect_object()
-				var size = self._zone_editor_command_handler.command_history_size()
-				self.command_history_size_changed.emit( size )
 				
+	else:
+		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
+
+func _handle_mouse_button_for_rotate( mouse_button_event: InputEventMouseButton ) -> void:
+	## select on release
+	if mouse_button_event.pressed == false:
+		var mouse_delta: Vector2 = self.debug_cursor_sprite_2d.position - self._select_press_position
+		var d = mouse_delta.length_squared()
+		if d < 10.0:	# only select if we didn't move to far
+			var n = _find_object_at_cursor()
+			if n != null:
+				var rotation = 90.0
+				self._zone_editor_command_handler.add_command_move( n, Vector2.ZERO, rotation )
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
@@ -311,6 +320,8 @@ func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
 			self._handle_mouse_button_for_delete( mouse_button_event )
 		ZoneEditorToolIds.Id.MOVE:
 			self._handle_mouse_button_for_move( mouse_button_event )
+		ZoneEditorToolIds.Id.ROTATE:
+			self._handle_mouse_button_for_rotate( mouse_button_event )
 		_:
 			# :TODO:
 			pass
@@ -370,6 +381,7 @@ func _on_zone_edit_enabled() -> void:
 	self._zone_editor_command_handler = ZoneEditorCommandHandler.new( self.zone_manager )
 	var size = self._zone_editor_command_handler.command_history_size() # probably 0 -- unless we implement reloading
 	self.command_history_size_changed.emit( size )
+	self._zone_editor_command_handler.command_history_size_changed.connect( _on_command_history_size_changed )
 
 func _on_zone_edit_disabled() -> void:
 	self._zone_editor_command_handler = null
@@ -436,9 +448,9 @@ func set_cursor_offset( old_cursor_offset: float ) -> float:
 func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 	match self.tool_id:
 		ZoneEditorToolIds.Id.MOVE:
-			self._selected_object.position = self._move_object_start_position
-			self._selected_object.rotation_degrees = self._move_object_start_rotation_degrees
-			pass
+			if self._selected_object != null:
+				self._selected_object.position = self._move_object_start_position
+				self._selected_object.rotation_degrees = self._move_object_start_rotation_degrees
 		_:
 			pass
 	self._deselect_object()
@@ -446,10 +458,11 @@ func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 
 func on_undo_pressed() -> void:
 	self._zone_editor_command_handler.undo()
-	var size = self._zone_editor_command_handler.command_history_size()
-	self.command_history_size_changed.emit( size )
 
 func command_history_size() -> int:
 	if self._zone_editor_command_handler == null:
 		return 0
 	return self._zone_editor_command_handler.command_history_size()
+
+func _on_command_history_size_changed( new_size: int ) -> void:
+	self.command_history_size_changed.emit( new_size )
