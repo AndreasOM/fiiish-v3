@@ -32,9 +32,11 @@ func get_id_by_index( idx: int ) -> EntityId.Id:
 	return self._configs.keys()[ idx ]
 
 func load_entites_from_folder( folder: String ):
-	var entities = DirAccess.get_files_at(folder)
+	var entities = ResourceLoader.list_directory( folder )
+	# var entities = DirAccess.get_files_at(folder)
 	for en in entities:
 		if !en.ends_with( ".tres" ):
+			print("Not a resource %s" % en)
 			continue
 		print("Entity: %s" % en)
 		var fen = "%s/%s" % [ folder, en ]
