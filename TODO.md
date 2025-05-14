@@ -3,7 +3,6 @@
 
 ## In Progress
 
-- [ ] Bug: Wipe undo buffer on zone change in ZoneEditor
 
 
 ## Next
@@ -109,6 +108,7 @@
 - [x] Task: Add Object rotating to ZoneEditor
 - [x] Task: Add Rotation tool to ZoneEditor
 - [x] Task: Allow clearing of Zone in ZoneEditor
+- [x] Bug: Wipe undo buffer on zone change and clear in ZoneEditor
 
 ### 2025-05-13
 #### S04E09

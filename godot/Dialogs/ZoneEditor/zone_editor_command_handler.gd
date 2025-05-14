@@ -9,6 +9,10 @@ var _command_history: Array[ ZoneEditorCommand ] = []
 func _init( zone_manager: ZoneManager ):
 	self._zone_manager = zone_manager
 	
+func clear_history() -> void:
+	self._command_history.clear()
+	self.command_history_size_changed.emit( 0 )
+	
 func command_history_size() -> int:
 	return self._command_history.size()
 

@@ -417,6 +417,8 @@ func select_zone( filename: String ) -> void:
 		print( "ZoneEditorManager: Switched to Zone %s" % filename )
 	# cleanup
 		self._hovered_objects.clear()
+		self._deselect_object()
+		self._zone_editor_command_handler.clear_history()
 
 
 func select_save_zone( filename: String ) -> void:
@@ -468,4 +470,6 @@ func _on_command_history_size_changed( new_size: int ) -> void:
 	self.command_history_size_changed.emit( new_size )
 
 func clear_zone() -> void:
+	self._deselect_object()
 	self._game_manager.cleanup()
+	self._zone_editor_command_handler.clear_history()
