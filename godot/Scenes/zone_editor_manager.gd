@@ -466,3 +466,6 @@ func command_history_size() -> int:
 
 func _on_command_history_size_changed( new_size: int ) -> void:
 	self.command_history_size_changed.emit( new_size )
+
+func clear_zone() -> void:
+	self._game_manager.cleanup()
