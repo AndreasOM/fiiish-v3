@@ -39,6 +39,10 @@ func add_command_move( node: Node2D, move: Vector2, rotate_degrees: float ) -> v
 	var command = ZoneEditorCommandMove.new( node_id, move, rotate_degrees )
 	self.add_command( command )
 
+func add_command_spawn( crc: int, position: Vector2, rotate_degrees: float ) -> void:
+	var command = ZoneEditorCommandSpawn.new( crc, position, rotate_degrees )
+	self.add_command( command )
+
 class ZoneEditorCommand:
 	func run(zone_manager: ZoneManager) -> bool:
 		return false
@@ -110,4 +114,37 @@ class ZoneEditorCommandMove:
 			return false
 		node.position -= self._move
 		node.rotation_degrees -= self._rotate_degrees
+		return true
+
+class ZoneEditorCommandSpawn:
+	extends ZoneEditorCommand
+
+	var _crc: int
+	var _position: Vector2
+	var _rotate_degrees: float
+	var _node_id: int = 0xffff
+	
+	func _init( crc: int, position: Vector2, rotate_degrees: float ):
+		#self._node = n
+		self._crc = crc
+		self._position = position
+		self._rotate_degrees = rotate_degrees
+
+	func run(zone_manager: ZoneManager) -> bool:
+		# :WIP:
+		var spawn_offset = 0.0
+		var node = zone_manager.spawn_object_from_crc( self._crc, self._position, self._rotate_degrees, spawn_offset)
+		if node == null:
+			return false
+
+		self._node_id = zone_manager.ensure_object_id( node )
+		return true
+		
+	func undo(zone_manager: ZoneManager) -> bool:
+		if self._node_id == 0xffff:
+			return false
+		var node = zone_manager.find_object_by_id( self._node_id )
+		if node == null:
+			return false
+		node.queue_free()
 		return true

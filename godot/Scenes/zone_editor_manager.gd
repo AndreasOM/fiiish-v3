@@ -35,6 +35,8 @@ var _move_start_offset_x: float = 0.0
 var _move_object_start_position: Vector2 = Vector2.ZERO
 var _move_object_start_rotation_degrees: float = 0.0
 
+var _spawn_object_crc: int = EntityId.Id.PICKUPCOIN
+
 var _last_cursor_position: Vector2 = Vector2.ZERO
 
 var _cursor_offset_index: int = 0
@@ -276,6 +278,17 @@ func _handle_mouse_button_for_rotate( mouse_button_event: InputEventMouseButton 
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
+func _handle_mouse_button_for_spawn( mouse_button_event: InputEventMouseButton ) -> void:
+	## select on release
+	if mouse_button_event.pressed == false:
+		var mouse_delta: Vector2 = self.debug_cursor_sprite_2d.position - self._select_press_position
+		var d = mouse_delta.length_squared()
+		if d < 10.0:	# only select if we didn't move to far
+			var rotation = 0.0
+			self._zone_editor_command_handler.add_command_spawn( self._spawn_object_crc, self._select_press_position, rotation )
+	else:
+		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
+
 func _handle_mouse_motion( mouse_motion_event: InputEventMouseMotion ) -> void:
 	var tr = self._game_scaler.transform
 	tr = tr.affine_inverse()
@@ -322,6 +335,8 @@ func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
 			self._handle_mouse_button_for_move( mouse_button_event )
 		ZoneEditorToolIds.Id.ROTATE:
 			self._handle_mouse_button_for_rotate( mouse_button_event )
+		ZoneEditorToolIds.Id.SPAWN:
+			self._handle_mouse_button_for_spawn( mouse_button_event )
 		_:
 			# :TODO:
 			pass
