@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://dufd27el0hnaa"]
+
+[ext_resource type="PackedScene" uid="uid://bktaxcudnu01i" path="res://Scenes/Obstacles/seaweed_b.tscn" id="1_at582"]
+[ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_lkugx"]
+
+[resource]
+script = ExtResource("2_lkugx")
+name = "SeaWeedB"
+entity_id = 4141902421
+entity_type = 2
+resource = ExtResource("1_at582")
+metadata/_custom_type_script = "uid://l4mx22800uyt"

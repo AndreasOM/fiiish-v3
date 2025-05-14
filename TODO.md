@@ -112,6 +112,7 @@
 - [x] Task: Add 2-step Object spawning to ZoneEditor
 - [x] Task: Add Redo to ZoneEditor
 - [x] Task: Allow to change which Object will be Spawned in ZoneEditor
+- [x] Refactor: Use resources to configure entities
 
 ### 2025-05-13
 #### S04E09

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://df2t5pgx0ihuv"]
+
+[ext_resource type="PackedScene" uid="uid://prkubdda2hay" path="res://Scenes/Obstacles/rock_b.tscn" id="1_yemq5"]
+[ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_efrnb"]
+
+[resource]
+script = ExtResource("2_efrnb")
+name = "RockB"
+entity_id = 1230070918
+entity_type = 2
+resource = ExtResource("1_yemq5")
+metadata/_custom_type_script = "uid://l4mx22800uyt"

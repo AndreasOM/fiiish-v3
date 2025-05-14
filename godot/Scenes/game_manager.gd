@@ -52,6 +52,9 @@ func _init() -> void:
 	self._zone_config_manager = ZoneConfigManager.new()
 
 func _ready() -> void:
+	
+	self.entity_config_manager.load_entites_from_folder( "res://Resources/Entities/" )
+	
 	self._zone_config_manager.set_name( "ZoneConfigManager" )
 	self.add_child( self._zone_config_manager )
 	
