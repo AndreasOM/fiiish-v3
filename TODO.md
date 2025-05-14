@@ -3,8 +3,6 @@
 
 ## In Progress
 
-- [ ] Task: Add 2-step Object spawning to ZoneEditor
-
 
 ## Next
 
@@ -110,6 +108,7 @@
 - [x] Task: Allow clearing of Zone in ZoneEditor
 - [x] Bug: Wipe undo buffer on zone change and clear in ZoneEditor
 - [x] Task: Add 1-step Object spawning to ZoneEditor
+- [x] Task: Add 2-step Object spawning to ZoneEditor
 
 ### 2025-05-13
 #### S04E09

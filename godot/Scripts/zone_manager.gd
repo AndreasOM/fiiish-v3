@@ -90,23 +90,17 @@ func spawn_object_from_crc( crc: int, position: Vector2, rotation_degrees: float
 	return o
 	
 func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float ) -> bool:
-	var o = null
-	var ec = entity_config_manager.get_entry( nzlo.crc )
-	if ec != null:
-		var pos = Vector2( nzlo.pos_x, nzlo.pos_y )
-		o = self._spawn_object( ec, pos, nzlo.rotation, spawn_offset )
-		o.set_meta( "fiiish_nzlo_crc", nzlo.crc )
-		if nzlo.id != 0xffff:
-			o.set_meta( "fiiish_nzlo_id", nzlo.id )
-			if nzlo.id >= self._next_object_id:
-				print("Updated next object id 0x%04x" % self._next_object_id )
-				self._next_object_id = nzlo.id + 1
-				
-		return true
-	else:
-		print("Unhandled CRC: %08x" % nzlo.crc)
-	
-	return false
+	var position = Vector2( nzlo.pos_x, nzlo.pos_y )
+	var o = self.spawn_object_from_crc( nzlo.crc, position, nzlo.rotation, spawn_offset )
+	if o == null:
+		return false
+	if nzlo.id != 0xffff:
+		o.set_meta( "fiiish_nzlo_id", nzlo.id )
+		if nzlo.id >= self._next_object_id:
+			print("Updated next object id 0x%04x" % self._next_object_id )
+			self._next_object_id = nzlo.id + 1
+		
+	return true
 	
 func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> void:
 	self.current_zone_progress = 0.0

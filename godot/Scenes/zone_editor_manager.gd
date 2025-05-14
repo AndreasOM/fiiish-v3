@@ -114,11 +114,17 @@ func _process(delta: float) -> void:
 		#	self._process_for_delete( delta )
 		ZoneEditorToolIds.Id.MOVE:
 			self._process_for_move( delta )
+		ZoneEditorToolIds.Id.SPAWN:
+			self._process_for_spawn( delta )
 		_:
 			# :TODO:
 			pass
 
 func _process_for_move( _delta: float ) -> void:
+	self._update_selected_object_position_for_move()
+
+func _process_for_spawn( _delta: float ) -> void:
+	# re-use!
 	self._update_selected_object_position_for_move()
 
 func _update_cursor_position( mouse_event: InputEventMouse ) -> void:
@@ -284,8 +290,17 @@ func _handle_mouse_button_for_spawn( mouse_button_event: InputEventMouseButton )
 		var mouse_delta: Vector2 = self.debug_cursor_sprite_2d.position - self._select_press_position
 		var d = mouse_delta.length_squared()
 		if d < 10.0:	# only select if we didn't move to far
-			var rotation = 0.0
-			self._zone_editor_command_handler.add_command_spawn( self._spawn_object_crc, self._select_press_position, rotation )
+			if self._selected_object == null:
+				var rotation = 0.0
+				var spawn_offset = 0.0
+				var node = self._game_manager.zone_manager.spawn_object_from_crc( self._spawn_object_crc, self._select_press_position, rotation, spawn_offset )
+				self._selected_object = node
+			else:
+				var rotation = self._selected_object.rotation_degrees
+				var position = self._selected_object.position
+				self._zone_editor_command_handler.add_command_spawn( self._spawn_object_crc, position, rotation )
+				self._selected_object.queue_free()
+				self._deselect_object()
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
