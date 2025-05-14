@@ -4,6 +4,7 @@ class_name Game
 #@onready var fish: Fish = %Fish
 @onready var game_scaler: GameScaler = %GameScaler
 @onready var zone_editor_manager: ZoneEditorManager = %ZoneEditorManager
+@onready var entity_config_manager: EntityConfigManager = %EntityConfigManager
 
 enum State {
 	INITIAL,
@@ -244,3 +245,6 @@ func _on_zone_editor_redo_pressed() -> void:
 	
 func zone_editor_command_history_size() -> int:
 	return self.zone_editor_manager.command_history_size()
+
+func _on_zone_editor_spawn_entity_changed( id: EntityId.Id ) -> void:
+	self.zone_editor_manager.on_spawn_entity_changed( id )

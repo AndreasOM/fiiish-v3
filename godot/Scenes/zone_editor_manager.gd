@@ -296,9 +296,10 @@ func _handle_mouse_button_for_spawn( mouse_button_event: InputEventMouseButton )
 				var node = self._game_manager.zone_manager.spawn_object_from_crc( self._spawn_object_crc, self._select_press_position, rotation, spawn_offset )
 				self._selected_object = node
 			else:
+				var crc = self._selected_object.get_meta("fiiish_nzlo_crc")
 				var rotation = self._selected_object.rotation_degrees
 				var position = self._selected_object.position
-				self._zone_editor_command_handler.add_command_spawn( self._spawn_object_crc, position, rotation )
+				self._zone_editor_command_handler.add_command_spawn( crc, position, rotation )
 				self._selected_object.queue_free()
 				self._deselect_object()
 	else:
@@ -482,6 +483,9 @@ func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 			if self._selected_object != null:
 				self._selected_object.position = self._move_object_start_position
 				self._selected_object.rotation_degrees = self._move_object_start_rotation_degrees
+		ZoneEditorToolIds.Id.SPAWN:
+			if self._selected_object != null:
+				self._selected_object.queue_free()
 		_:
 			pass
 	self._deselect_object()
@@ -505,3 +509,6 @@ func clear_zone() -> void:
 	self._deselect_object()
 	self._game_manager.cleanup()
 	self._zone_editor_command_handler.clear_history()
+
+func on_spawn_entity_changed( id: EntityId.Id ) -> void:
+	self._spawn_object_crc = id

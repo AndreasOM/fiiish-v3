@@ -1,6 +1,7 @@
 class_name ZoneEditorToolsDialog
 extends Dialog
 
+signal spawn_entity_changed( id: EntityId.Id)
 signal tool_selected( tool_id: ZoneEditorToolIds.Id )
 signal undo_pressed()
 signal redo_pressed()
@@ -8,6 +9,7 @@ signal redo_pressed()
 @onready var tool_buttons: VBoxContainer = %ToolButtons
 @onready var undo_button: TextureButton = %UndoButton
 @onready var redo_button: TextureButton = %RedoButton
+@onready var entity_select_button: EntitySelectButton = %EntitySelectButton
 
 var last_selected_tool_id: ZoneEditorToolIds.Id = ZoneEditorToolIds.Id.SELECT
 func _ready() -> void:
@@ -28,6 +30,7 @@ func _update_buttons( active_tid: ZoneEditorToolIds.Id ) -> void:
 	
 func open( duration: float):
 	fade_in( duration )
+	self.entity_select_button.entity_config_manager = self._dialog_manager.game.entity_config_manager
 
 func close( duration: float):
 	fade_out( duration )
@@ -74,3 +77,7 @@ func on_command_history_size_changed( history_size: int, future_size: int ) -> v
 #	print("History size: %d" % new_size)
 	self.undo_button.disabled = history_size == 0
 	self.redo_button.disabled = future_size == 0
+
+
+func _on_entity_select_button_entity_changed(id: EntityId.Id) -> void:
+	self.spawn_entity_changed.emit( id )
