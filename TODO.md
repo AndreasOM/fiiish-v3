@@ -4,10 +4,8 @@
 ## In Progress
 
 
-
 ## Next
 
-- [ ] Task: Ensure ZoneEditorCommandHandler can handle undo of deleted objects -- don't keep node references
 - [ ] Epic: Zone Editing
 	- [ ] Task: Allow clearing of Zone in ZoneEditor
 	- [ ] Task: Add Object rotating to ZoneEditor
@@ -101,6 +99,10 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+### 2025-05-14
+#### S04E10
+- [x] Task: Ensure ZoneEditorCommandHandler can handle undo of deleted objects -- use node ids instead of references
 
 ### 2025-05-13
 #### S04E09

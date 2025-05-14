@@ -18,6 +18,7 @@ var current_zone_width: float:
 var _current_zone: NewZone = null
 
 var _autospawn_on_zone_end: bool = true
+var _next_object_id = 1
 
 func _process(_delta: float) -> void:
 	self.current_zone_progress += self.game_manager.movement.x
@@ -68,6 +69,12 @@ func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float 
 	if ec != null:
 		o = ec.resource.instantiate()
 		o.set_meta( "fiiish_nzlo_crc", nzlo.crc )
+		if nzlo.id != 0xffff:
+			o.set_meta( "fiiish_nzlo_id", nzlo.id )
+			if nzlo.id >= self._next_object_id:
+				print("Updated next object id 0x%04x" % self._next_object_id )
+				self._next_object_id = nzlo.id + 1
+				
 		o.game_manager = self.game_manager
 		o.position = Vector2( nzlo.pos_x + spawn_offset, nzlo.pos_y )
 		o.rotation_degrees = nzlo.rotation
@@ -137,10 +144,14 @@ func create_new_zone_layer_object_from_node( node: Node2D, offset_x: float ) -> 
 	var crc = node.get_meta( "fiiish_nzlo_crc"  )
 	if crc == null:
 		return null
+	var id = node.get_meta( "fiiish_nzlo_id"  )
+	if id == null:
+		id = 0xffff
+	
 	var o = node as Obstacle
 	if o != null:
 		var nzlo = NewZoneLayerObject.new()
-		nzlo.id = 0xffff
+		nzlo.id = id
 		nzlo.crc = crc
 		nzlo.pos_x = node.position.x + offset_x
 		nzlo.pos_y = node.position.y
@@ -150,7 +161,7 @@ func create_new_zone_layer_object_from_node( node: Node2D, offset_x: float ) -> 
 	var p = node as Pickup
 	if p != null:
 		var nzlo = NewZoneLayerObject.new()
-		nzlo.id = 0xffff
+		nzlo.id = id
 		nzlo.crc = crc
 		nzlo.pos_x = node.position.x + offset_x
 		nzlo.pos_y = node.position.y
@@ -294,3 +305,37 @@ func set_zone_offset_x( x: float ) -> void:
 	
 func add_zone_offset_x( x: float ) -> void:
 	self._zone_offset_x += x
+
+func reset_object_ids() -> void:
+	print("Reset object ids")
+	self._next_object_id = 1
+
+func ensure_object_id( node: Node2D ) -> int:
+	var id = node.get_meta("fiiish_nzlo_id")
+	if id != null:
+		return id
+	if self._next_object_id >= 0xffff:
+		push_warning("Too many objects")
+		return 0xffff
+	id = self._next_object_id
+	self._next_object_id += 1
+	node.set_meta("fiiish_nzlo_id", id)
+	print("Generated new object id 0x%04x" % id )
+	return id
+
+func find_object_by_id( id: int ) -> Node2D:
+	for c in %Obstacles.get_children():
+		var o = c as Obstacle
+		if o == null:
+			continue
+		if id == o.get_meta("fiiish_nzlo_id"):
+			return o
+
+	for c in %Pickups.get_children():
+		var p = c as Pickup
+		if p == null:
+			continue
+		if id == p.get_meta("fiiish_nzlo_id"):
+			return p
+
+	return null
