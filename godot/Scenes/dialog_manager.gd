@@ -180,6 +180,7 @@ func _on_zone_edit_enabled() -> void:
 		self._on_zone_editor_tool_selected( tid )
 		tools_dialog.tool_selected.connect( _on_zone_editor_tool_selected )
 		tools_dialog.undo_pressed.connect( _on_zoned_editor_undo_pressed )
+		tools_dialog.redo_pressed.connect( _on_zoned_editor_redo_pressed )
 		self.game.zone_editor_manager.command_history_size_changed.connect( _on_zone_editor_manager_command_history_size_changed )
 
 func _on_zone_edit_disabled() -> void:
@@ -193,7 +194,10 @@ func _on_zone_editor_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 func _on_zoned_editor_undo_pressed() -> void:
 	self.game._on_zone_editor_undo_pressed()
 
-func _on_zone_editor_manager_command_history_size_changed( size: int ) -> void:
+func _on_zoned_editor_redo_pressed() -> void:
+	self.game._on_zone_editor_redo_pressed()
+
+func _on_zone_editor_manager_command_history_size_changed( history_size: int, future_size: int ) -> void:
 	var tools_dialog = _dialogs.get( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG ) as ZoneEditorToolsDialog
 	if tools_dialog != null:
-		tools_dialog.on_command_history_size_changed( size )
+		tools_dialog.on_command_history_size_changed( history_size, future_size )
