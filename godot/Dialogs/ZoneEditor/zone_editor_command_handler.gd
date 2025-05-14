@@ -131,7 +131,6 @@ class ZoneEditorCommandSpawn:
 		self._rotate_degrees = rotate_degrees
 
 	func run(zone_manager: ZoneManager) -> bool:
-		# :WIP:
 		var spawn_offset = 0.0
 		var node = zone_manager.spawn_object_from_crc( self._crc, self._position, self._rotate_degrees, spawn_offset)
 		if node == null:
