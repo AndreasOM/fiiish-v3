@@ -57,6 +57,9 @@ func _on_zone_select_dialog_zone_selected( zsd: ZoneSelectDialog, filename: Stri
 		ZoneSelectDialog.Mode.SAVE_AS:
 			self._dialog_manager.game.select_save_zone( filename )
 
+func _on_clear_button_pressed() -> void:
+	self._dialog_manager.game.zone_editor_manager.clear_zone()
+
 
 func _on_cursor_offset_button_pressed() -> void:
 	# self.cursor_offset_pressed.emit( self.cursor_offset_button.cursor_offset )

@@ -3,13 +3,14 @@
 
 ## In Progress
 
+- [ ] Bug: Wipe undo buffer on zone change in ZoneEditor
 
 
 ## Next
 
 - [ ] Epic: Zone Editing
-	- [ ] Task: Allow clearing of Zone in ZoneEditor
 	- [ ] Task: Add Object spawning to ZoneEditor
+	- [ ] Task: Add Redo to ZoneEditor
 
 
 ## Todo
@@ -57,6 +58,8 @@
 
 ## Later
 
+
+- [ ] Task: Add confirmation to Clear in ZoneEditor
 - [ ] Bug: Fix MiniMap scaling
 - [ ] Task: Add Minimap offset
 - [?] Bug: Did the fish get slower?
@@ -105,6 +108,7 @@
 - [x] Task: Ensure ZoneEditorCommandHandler can handle undo of deleted objects -- use node ids instead of references
 - [x] Task: Add Object rotating to ZoneEditor
 - [x] Task: Add Rotation tool to ZoneEditor
+- [x] Task: Allow clearing of Zone in ZoneEditor
 
 ### 2025-05-13
 #### S04E09
