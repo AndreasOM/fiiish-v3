@@ -1,7 +1,7 @@
 extends Node
 class_name ZoneEditorManager
 
-signal command_history_size_changed( size: int )
+signal command_history_size_changed( history_size: int, future_size: int )
 
 @export var scroll_speed: float = 240.0
 @export var vertical_speed: float = 240.0
@@ -409,8 +409,7 @@ func _on_zone_edit_enabled() -> void:
 	# self.debug_cursor_sprite_2d.visible = true
 	
 	self._zone_editor_command_handler = ZoneEditorCommandHandler.new( self.zone_manager )
-	var size = self._zone_editor_command_handler.command_history_size() # probably 0 -- unless we implement reloading
-	self.command_history_size_changed.emit( size )
+	self.command_history_size_changed.emit( 0, 0 )
 	self._zone_editor_command_handler.command_history_size_changed.connect( _on_command_history_size_changed )
 
 func _on_zone_edit_disabled() -> void:
@@ -491,13 +490,16 @@ func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 func on_undo_pressed() -> void:
 	self._zone_editor_command_handler.undo()
 
+func on_redo_pressed() -> void:
+	self._zone_editor_command_handler.redo()
+
 func command_history_size() -> int:
 	if self._zone_editor_command_handler == null:
 		return 0
 	return self._zone_editor_command_handler.command_history_size()
 
-func _on_command_history_size_changed( new_size: int ) -> void:
-	self.command_history_size_changed.emit( new_size )
+func _on_command_history_size_changed( history_size: int, future_size: int ) -> void:
+	self.command_history_size_changed.emit( history_size, future_size )
 
 func clear_zone() -> void:
 	self._deselect_object()

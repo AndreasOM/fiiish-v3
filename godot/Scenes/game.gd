@@ -239,5 +239,8 @@ func _on_zone_editor_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 func _on_zone_editor_undo_pressed() -> void:
 	self.zone_editor_manager.on_undo_pressed()
 	
+func _on_zone_editor_redo_pressed() -> void:
+	self.zone_editor_manager.on_redo_pressed()
+	
 func zone_editor_command_history_size() -> int:
 	return self.zone_editor_manager.command_history_size()

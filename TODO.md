@@ -7,7 +7,7 @@
 ## Next
 
 - [ ] Epic: Zone Editing
-	- [ ] Task: Add Redo to ZoneEditor
+	- [ ] Task: Allow to change which Object will be Spawned in ZoneEditor
 
 
 ## Todo
@@ -109,6 +109,7 @@
 - [x] Bug: Wipe undo buffer on zone change and clear in ZoneEditor
 - [x] Task: Add 1-step Object spawning to ZoneEditor
 - [x] Task: Add 2-step Object spawning to ZoneEditor
+- [x] Task: Add Redo to ZoneEditor
 
 ### 2025-05-13
 #### S04E09
