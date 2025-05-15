@@ -154,9 +154,7 @@ func create_new_zone_layer_object_from_node( node: Node2D, offset_x: float ) -> 
 	var crc = node.get_meta( "fiiish_nzlo_crc"  )
 	if crc == null:
 		return null
-	var id = node.get_meta( "fiiish_nzlo_id"  )
-	if id == null:
-		id = 0xffff
+	var id = node.get_meta( "fiiish_nzlo_id", 0xffff  )
 	
 	var o = node as Obstacle
 	if o != null:
@@ -321,8 +319,8 @@ func reset_object_ids() -> void:
 	self._next_object_id = 1
 
 func ensure_object_id( node: Node2D ) -> int:
-	var id = node.get_meta("fiiish_nzlo_id")
-	if id != null:
+	var id = node.get_meta("fiiish_nzlo_id", 0xffff)
+	if id != 0xffff:
 		return id
 	if self._next_object_id >= 0xffff:
 		push_warning("Too many objects")
@@ -334,18 +332,22 @@ func ensure_object_id( node: Node2D ) -> int:
 	return id
 
 func find_object_by_id( id: int ) -> Node2D:
+	if id == 0xffff:
+		push_warning("Tried to search for invalid object id 0x%04x" % id)
+		return null
+
 	for c in %Obstacles.get_children():
 		var o = c as Obstacle
 		if o == null:
 			continue
-		if id == o.get_meta("fiiish_nzlo_id"):
+		if id == o.get_meta("fiiish_nzlo_id", 0xffff):
 			return o
 
 	for c in %Pickups.get_children():
 		var p = c as Pickup
 		if p == null:
 			continue
-		if id == p.get_meta("fiiish_nzlo_id"):
+		if id == p.get_meta("fiiish_nzlo_id", 0xffff):
 			return p
 
 	return null
