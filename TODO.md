@@ -6,7 +6,6 @@
 
 ## Next
 
-- [ ] Bug: get_meta with default null throws errors when meta doesn't exist
 - [ ] Cleanup: Check for DirAccess.get_files_at usage to find files at runtime
 
 - [ ] Epic: Zone Testing
@@ -103,6 +102,10 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+### 2025-05-15
+#### S04E11
+- [x] Bug: get_meta with default null throws errors when meta doesn't exist
 
 ### 2025-05-14
 #### S04E10
