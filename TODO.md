@@ -3,10 +3,10 @@
 
 ## In Progress
 
+- [ ] Cleanup: Check for DirAccess.get_files_at usage to find files at runtime
 
 ## Next
 
-- [ ] Cleanup: Check for DirAccess.get_files_at usage to find files at runtime
 
 - [ ] Epic: Zone Testing
 
@@ -106,6 +106,7 @@
 ### 2025-05-15
 #### S04E11
 - [x] Bug: get_meta with default null throws errors when meta doesn't exist
+- [x] Cleanup: Remove ResourceTables Addon
 
 ### 2025-05-14
 #### S04E10
