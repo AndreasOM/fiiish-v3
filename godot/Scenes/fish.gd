@@ -4,7 +4,7 @@ class_name Fish
 @export var invincible_color: Color = Color.ORANGE_RED
 @export var invincible_hurt_color: Color = Color.DARK_GREEN
 
-signal state_changed( state: Game.State )
+signal state_changed( state: Fish.State )
 
 # Moved into Game
 #enum State {
@@ -14,6 +14,17 @@ signal state_changed( state: Game.State )
 #	DEAD,
 #	RESPAWNING,
 #}
+# And split back here again
+enum State {
+	INITIAL,
+	WAITING_FOR_START,
+	SWIMMING,
+	KILLED,
+	DYING,
+	DYING_WITHOUT_RESULT,
+	DEAD,
+	RESPAWNING,
+}
 
 enum Direction {
 	UP,
@@ -27,7 +38,7 @@ enum Mode {
 	EDIT,
 }
 
-var state: Game.State = Game.State.INITIAL
+var state: Fish.State = Fish.State.INITIAL
 var direction: Direction = Direction.NEUTRAL
 var mode: Mode = Mode.PLAY
 
@@ -80,47 +91,47 @@ func trigger_magnet_boost():
 #	_magnet_boost_duration = duration
 	
 func is_alive() -> bool:
-	match state:
-		Game.State.WAITING_FOR_START:	return false;
-		Game.State.SWIMMING:        		return true;
-		Game.State.KILLED:           		return false;
-		Game.State.DYING_WITHOUT_RESULT:	return false;
-		Game.State.DYING:           		return false;
-		Game.State.DEAD:            		return false;
-		Game.State.RESPAWNING:      		return false;
+	match self.state:
+		Fish.State.WAITING_FOR_START:	return false;
+		Fish.State.SWIMMING:        		return true;
+		Fish.State.KILLED:           		return false;
+		Fish.State.DYING_WITHOUT_RESULT:	return false;
+		Fish.State.DYING:           		return false;
+		Fish.State.DEAD:            		return false;
+		Fish.State.RESPAWNING:      		return false;
 	return false
 		
-func _set_state( new_state: Game.State ):
+func _set_state( new_state: Fish.State ):
 	if new_state == self.state:
 		return
-	state_changed.emit( new_state )
-	Events.broadcast_state_changed( new_state )
 	self.state = new_state
+	state_changed.emit( new_state )
+	Events.broadcast_fish_state_changed( new_state )
 
 func _goto_swimming():
-	_set_state( Game.State.SWIMMING )
+	_set_state( Fish.State.SWIMMING )
 #	%GameManager.spawn_zone( true )
 #	%GameManager.resume()
 	
 func _goto_killed() -> void:
-	_set_state( Game.State.KILLED )
+	_set_state( Fish.State.KILLED )
 	
 func _goto_dying() -> void:
 	#set_acceleration(Vector2( 0.0, -9.81*100.0 ))
 	set_acceleration(Vector2( 0.0, -9.81*50.0 ))
-	_set_state( Game.State.DYING )
+	_set_state( Fish.State.DYING )
 	%GameManager.pause()
 	%AnimatedSprite2D.play("dying")
 
 func _goto_dying_without_result() -> void:
 	#set_acceleration(Vector2( 0.0, -9.81*100.0 ))
 	set_acceleration(Vector2( 0.0, -9.81*50.0 ))
-	_set_state( Game.State.DYING_WITHOUT_RESULT )
+	_set_state( Fish.State.DYING_WITHOUT_RESULT )
 	%GameManager.pause()
 	%AnimatedSprite2D.play("dying")
 
 func _goto_respawning():
-	_set_state( Game.State.RESPAWNING )
+	_set_state( Fish.State.RESPAWNING )
 	self.transform.origin.y = 0.0
 	self.transform.origin.x = -1200.0
 	self.rotation_degrees = 0.0
@@ -168,16 +179,16 @@ func _unhandled_input(event: InputEvent) -> void:
 func _unhandled_input_mode_play(event: InputEvent) -> void:
 	# print( "Fish _unhandled_input %s" % event)
 	match self.state:
-		Game.State.SWIMMING:
+		Fish.State.SWIMMING:
 			if event.is_action("swim_down"):
 				if event.is_pressed():
 					self.direction = Direction.DOWN
 				else:
 					self.direction = Direction.UP
-		Game.State.DEAD:
+		Fish.State.DEAD:
 			if event.is_action_pressed("swim_down"):
 				self._goto_respawning()
-		Game.State.WAITING_FOR_START:
+		Fish.State.WAITING_FOR_START:
 			if event.is_action_pressed("swim_down"):
 				self._goto_swimming()
 				self.direction = Direction.DOWN
@@ -195,9 +206,9 @@ func _process_mode_play(delta: float) -> void:
 	if Input.is_key_pressed(KEY_M):
 		self.toggle_mode()
 	match self.state:
-		Game.State.INITIAL:
-			_set_state(Game.State.WAITING_FOR_START)
-		Game.State.SWIMMING:
+		Fish.State.INITIAL:
+			_set_state(Fish.State.WAITING_FOR_START)
+		Fish.State.SWIMMING:
 			if Input.is_key_pressed(KEY_K):
 				# _goto_dying()
 				_goto_killed()
@@ -207,22 +218,22 @@ func _process_mode_play(delta: float) -> void:
 					_magnet_boost_duration = 0.0
 					_magnet_range_boost = 1.0
 					_magnet_speed_boost = 1.0
-		Game.State.KILLED:
+		Fish.State.KILLED:
 			_goto_dying()
 		
 func _process_always(delta: float) -> void:
 	match self.state:
-		Game.State.RESPAWNING:
+		Fish.State.RESPAWNING:
 			_process_respawning(delta)
-		Game.State.SWIMMING:
+		Fish.State.SWIMMING:
 			_process_swimming(delta)
-		Game.State.DYING_WITHOUT_RESULT:
+		Fish.State.DYING_WITHOUT_RESULT:
 			_process_dying(delta)
-		Game.State.DYING:
+		Fish.State.DYING:
 			_process_dying(delta)
-		#Game.State.DEAD:
-		#Game.State.RESPAWNING:
-		#Game.State.WAITING_FOR_START:
+		#Fish.State.DEAD:
+		#Fish.State.RESPAWNING:
+		#Fish.State.WAITING_FOR_START:
 
 func _get_angle_range_for_y( y: float ) -> Array[float]:
 	var limit: float = 35.0
@@ -239,7 +250,7 @@ func _get_angle_range_for_y( y: float ) -> Array[float]:
 func _process_respawning(delta: float) -> void:
 	self.transform.origin.x += 256.0 * delta
 	if self.transform.origin.x >= -512.0:
-		_set_state( Game.State.WAITING_FOR_START )
+		_set_state( Fish.State.WAITING_FOR_START )
 		
 
 
@@ -280,10 +291,10 @@ func _process_dying(delta: float) -> void:
 		print("Finished dying (off screen)")
 		_velocity = Vector2.ZERO
 		_acceleration = Vector2.ZERO
-		if self.state == Game.State.DYING_WITHOUT_RESULT:
+		if self.state == Fish.State.DYING_WITHOUT_RESULT:
 			self._goto_respawning()
 		else:
-			_set_state( Game.State.DEAD )
+			_set_state( Fish.State.DEAD )
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:

@@ -2,6 +2,7 @@ extends Control
 
 @export var game: Game = null
 @export var fade_time: float = 0.3
+@onready var exit_button_fadeable: FadeableContainer = %ExitButtonFadeable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,10 +11,13 @@ func _ready() -> void:
 	## %SettingDialog.fade_out( 0.0 )
 	## # %SettingsFadeableContainer.fade_out( 0.0 )
 	%MainMenuButtonFadeable.fade_out( 0.0 )
+	self.exit_button_fadeable.fade_out( 0.0 )
 	
 	Events.zone_changed.connect( _on_zone_changed )
-	Events.state_changed.connect( _on_state_changed )
+	Events.game_state_changed.connect( _on_game_state_changed )
 	Events.settings_changed.connect( _on_settings_changed )
+	Events.zone_test_enabled.connect( _on_zone_test_enabled )
+	Events.zone_test_disabled.connect( _on_zone_test_disabled )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -60,7 +64,7 @@ func _on_zone_changed( _zone ):
 	# print("Zone changed!")
 	pass
 
-func _on_state_changed( state: Game.State ):
+func _on_game_state_changed( state: Game.State ):
 	# print("State changed -> %d %s" % [ state, Game.state_to_name( state ) ] )
 	self._update_main_menu_button( state )
 
@@ -92,3 +96,13 @@ func _update_main_menu_button( state: Game.State ):
 	else:
 		%MainMenuButtonFadeable.fade_out( 0.3 )
 		%DialogManager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
+
+
+func _on_zone_test_enabled( _filename: String ) -> void:
+	self.exit_button_fadeable.fade_in(0.3)
+
+func _on_zone_test_disabled() -> void:
+	self.exit_button_fadeable.fade_out(0.3)
+
+func _on_exit_button_pressed() -> void:
+	game.goto_zone_editor()

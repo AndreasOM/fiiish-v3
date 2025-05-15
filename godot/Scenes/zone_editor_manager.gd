@@ -414,6 +414,7 @@ func _on_zone_edit_enabled() -> void:
 	self._zone_editor_command_handler.command_history_size_changed.connect( _on_command_history_size_changed )
 
 	self._game_manager.clear_test_zone_filename()
+	Events.broadcast_zone_test_disabled()
 
 func _on_zone_edit_disabled() -> void:
 	self._zone_editor_command_handler = null
@@ -543,6 +544,7 @@ func test_zone() -> void:
 		self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
 		
 	self._game_manager.set_test_zone_filename( self._zone_filename )
+	Events.broadcast_zone_test_enabled( self._zone_filename )
 	var game = self._game_manager.game
 	game.close_zone_editor()
 		
