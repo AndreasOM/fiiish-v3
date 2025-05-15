@@ -126,27 +126,53 @@ func get_game_manager() -> GameManager:
 func get_state() -> Game.State:
 	return self._state
 
-func _on_fish_state_changed(state: Game.State) -> void:
-	state_changed.emit( state )
+func _set_state( state: Game.State ) -> void:
+	if self._state == state:
+		return
 	self._state = state
+	self.state_changed.emit( state )
+	Events.broadcast_game_state_changed( state )
+	
+func _on_fish_state_changed(state: Fish.State) -> void:
+	# state_changed.emit( state )
+	
 	match state:
-		# State.DYING:
-		State.KILLED:
+		Fish.State.INITIAL:
+			self._set_state( Game.State.INITIAL )
+		Fish.State.SWIMMING:
+			self._set_state( Game.State.SWIMMING )
+		Fish.State.DYING_WITHOUT_RESULT:
+			self._set_state( Game.State.DYING_WITHOUT_RESULT )
+		Fish.State.DEAD:
+			self._set_state( Game.State.DEAD )
+		Fish.State.DYING:
+			if !%GameManager.has_test_zone():
+				self._set_state( Game.State.DYING )
+			else:
+				%GameManager.goto_dying_without_result()
+		Fish.State.KILLED:
 			soundManager.trigger_effect( SoundEffects.Id.FISH_DEATH )
 			# soundManager.trigger_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP )
-			_credit_last_swim()
 			%GameManager.kill_pickups()
 			%ScreenShakeNode2D.trigger()
-		State.RESPAWNING:
+			if !%GameManager.has_test_zone():
+				_credit_last_swim()
+#			else:
+#				self.goto_zone_editor()
+			
+			self._set_state( Game.State.KILLED )
+		Fish.State.RESPAWNING:
 			soundManager.fade_out_effect( SoundEffects.Id.FISH_DEATH, 0.3 )
 			# soundManager.fade_out_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP, 0.3 )
-		State.WAITING_FOR_START:
+			self._set_state( Game.State.RESPAWNING )
+		Fish.State.WAITING_FOR_START:
 			var f = %Fish as Fish
 			if f != null:
 				var ses = SkillEffectSet.new()
 				ses.apply_skills( _player, _skill_config_manager )
 				# f.apply_skills( _player, _skill_config_manager )
 				f.set_skill_effect_set( ses )
+			self._set_state( Game.State.WAITING_FOR_START )
 		_:
 			pass
 

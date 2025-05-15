@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxdyfsr3rf56d"]
+[gd_scene load_steps=9 format=3 uid="uid://dxdyfsr3rf56d"]
 
 [ext_resource type="Script" uid="uid://d0l4anar52h5v" path="res://Scenes/in_game_pause_menu.gd" id="1_6l8pp"]
 [ext_resource type="Script" uid="uid://r7if1ed85xhv" path="res://Scenes/toggle_button_container.gd" id="2_gtjiv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_ua4wi"]
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_n1w2s"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_4p0q0"]
+[ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="8_gtjiv"]
 
 [node name="InGamePauseMenu" type="Control"]
 process_mode = 3
@@ -19,13 +20,29 @@ offset_left = -1.0
 offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_6l8pp")
+
+[node name="ExitButtonFadeable" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 149.0
+offset_top = 149.0
+offset_right = 276.0
+offset_bottom = 276.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+script = ExtResource("3_fdqay")
+
+[node name="ExitButton" type="TextureButton" parent="ExitButtonFadeable"]
+layout_mode = 2
+texture_normal = ExtResource("8_gtjiv")
 
 [node name="TopLeftMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 offset_right = 292.0
 offset_bottom = 160.0
+mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -33,11 +50,13 @@ theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TopLeftMarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TopLeftMarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="PauseToggleButton" type="CenterContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -86,6 +105,7 @@ script = ExtResource("3_fdqay")
 layout_mode = 2
 texture_normal = ExtResource("7_4p0q0")
 
+[connection signal="pressed" from="ExitButtonFadeable/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="toggled" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" to="." method="_on_pause_toggle_button_toggled"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeA/PauseButtonA" to="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" method="_on_a_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeB/PauseButtonB" to="TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" method="_on_b_pressed"]

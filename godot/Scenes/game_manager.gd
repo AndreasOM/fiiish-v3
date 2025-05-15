@@ -72,7 +72,7 @@ func _ready() -> void:
 
 	self.push_initial_zones()
 
-	Events.state_changed.connect( _on_fish_state_changed )
+	Events.fish_state_changed.connect( _on_fish_state_changed )
 	Events.zone_finished.connect( _on_zone_finished )
 
 	Events.zone_edit_enabled.connect( _on_zone_edit_enabled )
@@ -184,9 +184,9 @@ func move_fish( v: Vector2 ) -> void:
 			continue
 		f.move( v )
 
-func _on_fish_state_changed( state: Game.State ) -> void:
+func _on_fish_state_changed( state: Fish.State ) -> void:
 	match state:
-		Game.State.SWIMMING:
+		Fish.State.SWIMMING:
 			var autospawn = self._test_zone_filename.is_empty()
 			self.spawn_zone( autospawn )
 			self.resume()
@@ -220,3 +220,6 @@ func set_test_zone_filename( filename: String ) -> void:
 	
 func clear_test_zone_filename( ) -> void:
 	self._test_zone_filename = ""
+
+func has_test_zone() -> bool:
+	return !self._test_zone_filename.is_empty()

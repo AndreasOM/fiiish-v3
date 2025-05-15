@@ -149,7 +149,7 @@ func close_dialog_v1( id: DialogIds.Id, duration: float):
 	
 
 func _on_game_state_changed(state: Game.State) -> void:
-	print("DIALOG_MANAGER: _on_game_state_changed %d" % state)
+	print("DIALOG_MANAGER: _on_game_state_changed %d -> %s" % [ state, game.state_to_name( state ) ] )
 	match state:
 		Game.State.DYING:
 		# Game.State.DEAD:
