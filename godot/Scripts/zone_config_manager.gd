@@ -12,7 +12,8 @@ var _zone_filenames_to_zones: Dictionary[ String, int ] = {}
 
 
 func load_zones_from_folder( folder: String, prefix: String = "" ):
-	var zones = DirAccess.get_files_at(folder)
+	#var zones = DirAccess.get_files_at(folder)
+	var zones = ResourceLoader.list_directory( folder )
 	if prefix != "":
 		prefix = "%s-" % prefix
 	for zn in zones:
