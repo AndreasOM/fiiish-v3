@@ -6,6 +6,8 @@
 
 ## Next
 
+- [ ] Bug: get_meta with default null throws errors when meta doesn't exist
+- [ ] Cleanup: Check for DirAccess.get_files_at usage to find files at runtime
 
 - [ ] Epic: Zone Testing
 
@@ -30,6 +32,7 @@
 	- [ ] Epic: Zone Properties
 	- [ ] Epic: Create new button style for ZoneEditor
 
+- [ ] Polish: Unselect object in Delete mode when clicking on _nothing_ in ZoneEditor
 - [ ] Polish: Visualise magnet range in ZoneEditor
 - [ ] Polish: Add Fading to ZoneEditorMenuDialog
 - [ ] #reach Feature: Achievements
