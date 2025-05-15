@@ -25,6 +25,8 @@ var _paused: bool = true
 
 var _zone_config_manager: ZoneConfigManager = null
 
+var _test_zone_filename: String = ""
+
 func is_paused() -> bool:
 	return self._paused
 	
@@ -69,6 +71,9 @@ func _ready() -> void:
 	self.zone_manager.set_zone_config_manager( self._zone_config_manager )
 
 	self.push_initial_zones()
+
+	Events.state_changed.connect( _on_fish_state_changed )
+	Events.zone_finished.connect( _on_zone_finished )
 
 	Events.zone_edit_enabled.connect( _on_zone_edit_enabled )
 	Events.zone_edit_disabled.connect( _on_zone_edit_disabled )
@@ -143,11 +148,18 @@ func prepare_respawn() -> void:
 	_coins = 0
 	_distance = 0.0
 	self.pickup_manager.prepare_respawn()
-	self.push_initial_zones()
+	self._zone_config_manager.clear_next_zones()
+	if self._test_zone_filename.is_empty():
+		self.push_initial_zones()
+	else:
+		self._zone_config_manager.push_next_zone_by_filename( self._test_zone_filename )
 	
 func goto_next_zone():
+	# probably not used for a long time
 	print("Next Zone")
 	self.cleanup()
+	if !self._test_zone_filename.is_empty():
+		self._zone_config_manager.push_next_zone_by_filename( self._test_zone_filename )
 	self.zone_manager.spawn_zone()
 
 func trigger_sound( soundEffect_Id: SoundEffects.Id ) -> void:
@@ -172,6 +184,20 @@ func move_fish( v: Vector2 ) -> void:
 			continue
 		f.move( v )
 
+func _on_fish_state_changed( state: Game.State ) -> void:
+	match state:
+		Game.State.SWIMMING:
+			var autospawn = self._test_zone_filename.is_empty()
+			self.spawn_zone( autospawn )
+			self.resume()
+		_:
+			pass
+	
+func _on_zone_finished() -> void:
+	if !self._test_zone_filename.is_empty():
+		self._zone_config_manager.push_next_zone_by_filename( self._test_zone_filename )
+		self.zone_manager.spawn_zone( false )
+		
 func _on_zone_edit_enabled() -> void:
 	for fi in %Fishes.get_children():
 		var f = fi as Fish
@@ -188,3 +214,9 @@ func _on_zone_edit_disabled() -> void:
 
 func get_zone_config_manager() -> ZoneConfigManager:
 	return self._zone_config_manager
+
+func set_test_zone_filename( filename: String ) -> void:
+	self._test_zone_filename = filename
+	
+func clear_test_zone_filename( ) -> void:
+	self._test_zone_filename = ""

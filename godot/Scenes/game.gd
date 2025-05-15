@@ -84,21 +84,20 @@ func is_in_zone_editor() -> bool:
 	return self._is_in_zone_editor
 	
 func goto_zone_editor() -> void:
-	%DialogManager.open_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
-	
 	if self._is_in_zone_editor:
 		push_warning( "Tried to open zone editor from zone editor")
 		return
 	self._is_in_zone_editor = true
+	%DialogManager.open_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
 	Events.broadcast_zone_edit_enabled()
 
 func close_zone_editor() -> void:
-	%DialogManager.close_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
-	
 	if !self._is_in_zone_editor:
 		push_warning( "Tried to close zone editor without zone editor")
 		return
 	self._is_in_zone_editor = false
+	%DialogManager.close_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
+	%DialogManager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 	Events.broadcast_zone_edit_disabled()
 	
 func get_sound_manager() -> SoundManager:

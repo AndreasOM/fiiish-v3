@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dyddvv17y3dmy"]
+[gd_scene load_steps=10 format=3 uid="uid://dyddvv17y3dmy"]
 
 [ext_resource type="Script" uid="uid://cdced8n48ndm" path="res://Dialogs/zone_editor_menu_dialog.gd" id="1_ssmqt"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="2_4w7ob"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="3_jmev3"]
 [ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="5_kkhx4"]
+[ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_rct3w"]
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_ace3m"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_66sxi"]
 [ext_resource type="Texture2D" uid="uid://c1kyb7ia7ta4x" path="res://Textures/UI/Buttons/button_sub_menu_entry.png" id="7_htgnp"]
@@ -58,6 +59,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("6_ace3m")
+
+[node name="ZoneTestButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_rct3w")
 
 [node name="TextureRect" type="TextureRect" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
 visible = false
@@ -198,6 +203,7 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/ZoneTestButton" to="." method="_on_zone_test_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
 [connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]

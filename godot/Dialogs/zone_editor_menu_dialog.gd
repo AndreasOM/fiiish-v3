@@ -5,7 +5,7 @@ class_name ZoneEditorMenuDialog
 @onready var cursor_offset_button: CursorOffsetButton = %CursorOffsetButton
 
 func _on_close_button_pressed() -> void:
-	self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
+#	self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 	var game = self._dialog_manager.game
 	game.close_zone_editor()
 
@@ -65,3 +65,7 @@ func _on_cursor_offset_button_pressed() -> void:
 	# self.cursor_offset_pressed.emit( self.cursor_offset_button.cursor_offset )
 	var cursor_offset = self._dialog_manager.game.zone_editor_manager.set_cursor_offset( self.cursor_offset_button.cursor_offset )
 	self.cursor_offset_button.cursor_offset = cursor_offset
+
+
+func _on_zone_test_button_pressed() -> void:
+	self._dialog_manager.game.zone_editor_manager.test_zone()
