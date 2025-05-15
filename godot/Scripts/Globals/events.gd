@@ -1,7 +1,8 @@
 extends Node
 
-signal state_changed
+signal state_changed( state: Game.State )
 signal zone_changed
+signal zone_finished
 signal settings_changed
 signal cheats_changed
 signal game_paused
@@ -16,6 +17,9 @@ func broadcast_state_changed( state: Game.State ):
 func broadcast_zone_changed( zone ):
 	zone_changed.emit( zone )
 	
+func broadcast_zone_finished():
+	zone_finished.emit()
+
 func broadcast_settings_changed( ):
 	settings_changed.emit()
 

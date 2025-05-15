@@ -77,14 +77,21 @@ func get_zone_by_filename( filename: String ):
 func get_zone_filenames() -> Array[ String ]:
 	return self._zone_filenames_to_zones.keys()
 	
+func clear_next_zones():
+	self._next_zones.clear()
+	
 func push_next_zone( idx: int ):
-	self._next_zones.push_back( idx )	
+	self._next_zones.push_back( idx )
 	
 func push_next_zone_by_name( zone_name: String ):
 	var idx = self.find_zone_index_by_name( zone_name )
 	if idx >= 0:
 		self.push_next_zone( idx )
-	
+
+func push_next_zone_by_filename( zone_filename: String ):
+	var idx = self.find_zone_index_by_filename( zone_filename )
+	if idx >= 0:
+		self.push_next_zone( idx )
 
 func pop_next_zone() -> int:
 	var next_zone = self._next_zones.pop_front()

@@ -99,8 +99,8 @@ func _set_state( new_state: Game.State ):
 
 func _goto_swimming():
 	_set_state( Game.State.SWIMMING )
-	%GameManager.spawn_zone( true )
-	%GameManager.resume()
+#	%GameManager.spawn_zone( true )
+#	%GameManager.resume()
 	
 func _goto_killed() -> void:
 	_set_state( Game.State.KILLED )

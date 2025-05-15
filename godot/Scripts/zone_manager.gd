@@ -24,8 +24,9 @@ func _process(_delta: float) -> void:
 	self.current_zone_progress += self.game_manager.movement.x
 	#self.current_zone_progress += self.game_manager.movement_x * delta
 	if self._current_zone != null:
-		if self._autospawn_on_zone_end:
-			if self.current_zone_progress >= self._current_zone.width:
+		if self.current_zone_progress >= self._current_zone.width:
+			Events.broadcast_zone_finished()
+			if self._autospawn_on_zone_end:
 				self.spawn_zone( true )
 	
 	if !self.game_manager.game.is_in_zone_editor():

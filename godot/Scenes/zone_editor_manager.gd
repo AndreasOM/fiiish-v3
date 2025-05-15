@@ -413,6 +413,8 @@ func _on_zone_edit_enabled() -> void:
 	self.command_history_size_changed.emit( 0, 0 )
 	self._zone_editor_command_handler.command_history_size_changed.connect( _on_command_history_size_changed )
 
+	self._game_manager.clear_test_zone_filename()
+
 func _on_zone_edit_disabled() -> void:
 	self._zone_editor_command_handler = null
 	
@@ -432,6 +434,9 @@ func _on_zone_edit_disabled() -> void:
 	# cleanup
 	self._hovered_objects.clear()
 	self._selected_object = null
+
+	# NO!
+	# self._game_manager.clear_test_zone_filename()
 
 func select_zone( filename: String ) -> void:
 	#if filename != self._zone_filename:
@@ -458,20 +463,26 @@ func select_save_zone( filename: String ) -> void:
 	if !filename.ends_with(".nzne"):
 		filename = "%s.nzne" % filename
 		
-	# :TODO: create file if it doesn't exist
-	var new_zone: NewZone = NewZone.new()
+	if !self._save_zone( filename ):
+		# push_warning("")
+		return
 	
+	self._zone_filename = "user-%s" % filename
+
+func _save_zone( filename: String ) -> bool:
+	var new_zone: NewZone = NewZone.new()
 	self._game_manager.zone_manager.add_current_to_new_zone( new_zone, self._offset_x )
 
 	var p = "user://zones/%s" % filename
 	var s = Serializer.new()
 	if !new_zone.serialize( s ):
 		push_warning("Failed serializing NewZone");
-	else:
-		s.save_file(p)
-		print("ZoneEditorManager: Saved to %s - width %f" % [ filename, new_zone.width ] )
+		return false
+
+	s.save_file(p)
+	print("ZoneEditorManager: Saved to %s - width %f" % [ filename, new_zone.width ] )
 	
-	self._zone_filename = "user-%s" % filename
+	return true
 
 func set_cursor_offset( old_cursor_offset: float ) -> float:
 	self._cursor_offset_index = ( self._cursor_offset_index + 1 ) % self._CURSOR_OFFSETS.size()
@@ -512,3 +523,26 @@ func clear_zone() -> void:
 
 func on_spawn_entity_changed( id: EntityId.Id ) -> void:
 	self._spawn_object_crc = id
+
+func test_zone() -> void:
+	# :WIP:
+	if self._zone_filename == null || self._zone_filename.is_empty():
+		push_warning("Tried to test zone that was never saved")
+		return
+		
+	var filename = self._zone_filename
+	if filename.begins_with("user-"): # Note: If not needed, but we might want to trace, and inform
+		filename = filename.trim_prefix( "user-" )
+		
+	if !self._save_zone( filename ):
+		push_warning("Saving zone %s for testing failed!" % self._zone_filename)
+		return
+		
+	if self._zone_filename.begins_with("user-"):
+		var f = self._zone_filename.trim_prefix( "user-" )
+		self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
+		
+	self._game_manager.set_test_zone_filename( self._zone_filename )
+	var game = self._game_manager.game
+	game.close_zone_editor()
+		
