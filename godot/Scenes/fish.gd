@@ -322,7 +322,7 @@ func _on_area_2d_area_entered(_area: Area2D) -> void:
 #
 #	print("Magnet Range Factor %f" % _magnet_range_factor )
 
-func set_skill_effect_set( ses: SkillEffectSet ):
+func set_skill_effect_set( ses: SkillEffectSet ) -> void:
 	_skill_effect_set = ses
 	_magnet_range_factor = _skill_effect_set.get_value( SkillEffectIds.Id.MAGNET_RANGE, 1.0 )
 	_magnet_speed_factor = _skill_effect_set.get_value( SkillEffectIds.Id.MAGNET_SPEED, 1.0 )

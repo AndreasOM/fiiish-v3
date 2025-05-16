@@ -19,6 +19,8 @@ var movement: Vector2 = Vector2( 0.0, 0.0 )
 @export var pickup_manager: PickupManager = null
 @export var zone_manager: ZoneManager = null
 
+@onready var fish_manager: FishManager = %FishManager
+
 var _coins: int = 0
 var _distance: float = 0.0
 var _paused: bool = true
@@ -75,15 +77,8 @@ func _ready() -> void:
 	Events.fish_state_changed.connect( _on_fish_state_changed )
 	Events.zone_finished.connect( _on_zone_finished )
 
-	Events.zone_edit_enabled.connect( _on_zone_edit_enabled )
-	Events.zone_edit_disabled.connect( _on_zone_edit_disabled )
-
 func set_invincible( invicible: bool ):
-	for fi in %Fishes.get_children():
-		var f = fi as Fish
-		if f == null:
-			continue
-		f.set_invincible( invicible )
+	self.fish_manager.set_invincible( invicible )
 	
 func push_initial_zones():
 	# var initial_zones = [ "0000_Start", "0000_ILoveFiiish" ]
@@ -135,11 +130,7 @@ func cleanup() -> void:
 	self.pickup_manager.cleanup()
 
 func goto_dying_without_result() -> void:
-	for fi in %Fishes.get_children():
-		var f = fi as Fish
-		if f == null:
-			continue
-		f._goto_dying_without_result()
+	self.fish_manager.goto_dying_without_result()
 	
 func kill_pickups() -> void:
 	self.pickup_manager.kill_all()
@@ -178,11 +169,7 @@ func set_move( m: Vector2 ) -> void:
 	self.movement = m
 	
 func move_fish( v: Vector2 ) -> void:
-	for fi in %Fishes.get_children():
-		var f = fi as Fish
-		if f == null:
-			continue
-		f.move( v )
+	self.fish_manager.move_fish( v )
 
 func _on_fish_state_changed( state: Fish.State ) -> void:
 	match state:
@@ -197,20 +184,6 @@ func _on_zone_finished() -> void:
 	if !self._test_zone_filename.is_empty():
 		self._zone_config_manager.push_next_zone_by_filename( self._test_zone_filename )
 		self.zone_manager.spawn_zone( false )
-		
-func _on_zone_edit_enabled() -> void:
-	for fi in %Fishes.get_children():
-		var f = fi as Fish
-		if f == null:
-			continue
-		f.goto_edit_mode()
-
-func _on_zone_edit_disabled() -> void:
-	for fi in %Fishes.get_children():
-		var f = fi as Fish
-		if f == null:
-			continue
-		f.goto_play_mode()
 
 func get_zone_config_manager() -> ZoneConfigManager:
 	return self._zone_config_manager
