@@ -4,17 +4,17 @@ extends GradientBackground
 class_name FiiishBackground
 
 enum Mode {
-	V1,
+	# V1, -> removed
 	LOOP,
 }
-@export var mode: Mode = Mode.V1
+@export var mode: Mode = Mode.LOOP
 
 @export var gradient_texture_swimming: Texture2D = null : set = _set_gradient_texture_swimming
 @export var gradient_texture_dying: Texture2D = null
 @export var gradient_texture_respawning: Texture2D = null : set = _set_gradient_texture_respawning
 
-@export_tool_button("Die") var die_button_action = _on_game_state_changed.bind( Game.State.DYING )
-@export_tool_button("Respawn") var respawn_button_action = _on_game_state_changed.bind( Game.State.RESPAWNING )
+#@export_tool_button("Die") var die_button_action = _on_game_state_changed.bind( Game.State.DYING )
+#@export_tool_button("Respawn") var respawn_button_action = _on_game_state_changed.bind( Game.State.RESPAWNING )
 @export_tool_button("Wait For Start") var wait_for_start_button_action = _on_game_state_changed.bind( Game.State.WAITING_FOR_START )
 
 var _phaseMin: float = 0.0
@@ -63,18 +63,18 @@ func _process(delta: float) -> void:
 		offset += 0.5*(1.0/1024.0)*m.x
 		#offset += 0.5*(1.0/1024.0)*%GameManager.movement_x*delta
 		match self.mode:
-			Mode.V1:
-				self._process_mode_v1()
+#			Mode.V1:
+#				self._process_mode_v1()
 			Mode.LOOP:
 				self._process_mode_loop()
 		
 	super( delta )
 
-func _process_mode_v1() -> void:
-	var d = _phaseMax - _phaseMin
+#func _process_mode_v1() -> void:
+#	var d = _phaseMax - _phaseMin
 
-	var targetPhase = (0.5 + 0.5 * sin(0.5 * _time)) * d + _phaseMin
-	phase = lerpf(phase,targetPhase,0.01)
+#	var targetPhase = (0.5 + 0.5 * sin(0.5 * _time)) * d + _phaseMin
+#	phase = lerpf(phase,targetPhase,0.01)
 
 func _process_mode_loop() -> void:
 	var targetPhase = _time * ( 1.0/ 12.8 )
@@ -84,43 +84,10 @@ func _process_mode_loop() -> void:
 
 func _on_game_state_changed(state: Game.State) -> void:
 	match self.mode:
-		Mode.V1:
-			self._on_game_state_changed_mode_v1(state)
+#		Mode.V1:
+#			self._on_game_state_changed_mode_v1(state)
 		Mode.LOOP:
 			self._on_game_state_changed_mode_loop(state)
-		_:
-			pass
-			
-func _on_game_state_changed_mode_v1(state: Game.State):
-	match state:
-		Game.State.WAITING_FOR_START:
-			# (16.0 / 128.0, 96.0 / 128.0)
-			_phaseMin = 16.0/128.0
-			_phaseMax = 96.0/128.0
-			super.set_phase( 0.0 )
-		Game.State.SWIMMING:
-			# (16.0 / 128.0, 96.0 / 128.0)
-			_phaseMin = 16.0/128.0
-			_phaseMax = 96.0/128.0
-		Game.State.DYING:
-			# (112.0 / 128.0, 112.0 / 128.0)
-			_phaseMin = 112.0/128.0
-			_phaseMax = 112.0/128.0
-			# print("Dying %f - %f" % [ _phaseMin, _phaseMax ] )
-		Game.State.DYING_WITHOUT_RESULT:
-			# (112.0 / 128.0, 112.0 / 128.0)
-			_phaseMin = 112.0/128.0
-			_phaseMax = 112.0/128.0
-			# print("Dying (without result) %f - %f" % [ _phaseMin, _phaseMax ] )
-			
-		Game.State.DEAD:
-			# (112.0 / 128.0, 112.0 / 128.0)
-			_phaseMin = 112.0/128.0
-			_phaseMax = 112.0/128.0
-		Game.State.RESPAWNING:
-			# (127.0 / 128.0, 127.0 / 128.0)	
-			_phaseMin = 127.0/128.0
-			_phaseMax = 127.0/128.0
 		_:
 			pass
 
@@ -136,21 +103,13 @@ func _on_game_state_changed_mode_loop(state: Game.State):
 			var tween = create_tween()
 			tween.tween_property( self, "ab_mix", 0.0, 3.0 )
 		Game.State.SWIMMING:
-			pass
-		Game.State.DYING:
-			self.gradient_texture_a = self.gradient_texture_swimming
-			self.gradient_texture_b = self.gradient_texture_dying
-			var tween = create_tween()
-			tween.tween_property( self, "ab_mix", 1.0, 3.0 )
-		Game.State.DYING_WITHOUT_RESULT:
-			self.gradient_texture_a = self.gradient_texture_swimming
-			self.gradient_texture_b = self.gradient_texture_dying
-			var tween = create_tween()
-			tween.tween_property( self, "ab_mix", 1.0, 3.0 )
-			
+			pass			
 		Game.State.DEAD:
-			pass
-		Game.State.RESPAWNING:
+			self.gradient_texture_a = self.gradient_texture_swimming
+			self.gradient_texture_b = self.gradient_texture_dying
+			var tween = create_tween()
+			tween.tween_property( self, "ab_mix", 1.0, 3.0 )
+		Game.State.PREPARING_FOR_START:
 			self.gradient_texture_a = self.gradient_texture_respawning
 			self.gradient_texture_b = self.gradient_texture_dying
 			var tween = create_tween()

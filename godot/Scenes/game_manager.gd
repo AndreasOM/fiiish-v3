@@ -74,7 +74,7 @@ func _ready() -> void:
 
 	self.push_initial_zones()
 
-	Events.fish_state_changed.connect( _on_fish_state_changed )
+	Events.game_state_changed.connect( _on_game_state_changed )
 	Events.zone_finished.connect( _on_zone_finished )
 
 func set_invincible( invicible: bool ):
@@ -129,8 +129,8 @@ func cleanup() -> void:
 	self.zone_manager.cleanup()
 	self.pickup_manager.cleanup()
 
-func goto_dying_without_result() -> void:
-	self.fish_manager.goto_dying_without_result()
+func kill_all_fishes() -> void:
+	self.fish_manager.kill_all_fishes()
 	
 func kill_pickups() -> void:
 	self.pickup_manager.kill_all()
@@ -171,9 +171,9 @@ func set_move( m: Vector2 ) -> void:
 func move_fish( v: Vector2 ) -> void:
 	self.fish_manager.move_fish( v )
 
-func _on_fish_state_changed( state: Fish.State ) -> void:
+func _on_game_state_changed( state: Game.State ) -> void:
 	match state:
-		Fish.State.SWIMMING:
+		Game.State.SWIMMING:
 			var autospawn = self._test_zone_filename.is_empty()
 			self.spawn_zone( autospawn )
 			self.resume()

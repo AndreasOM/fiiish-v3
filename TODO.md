@@ -3,7 +3,6 @@
 
 ## In Progress
 
-- [ ] Cleanup: Improve Fish management with FishManager
 
 - [ ] Epic: Zone Testing
 
@@ -102,6 +101,10 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+### 2025-05-16
+#### S04E12
+- [x] Cleanup: Improve Fish management with FishManager
 
 ### 2025-05-15
 #### S04E11

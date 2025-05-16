@@ -1,6 +1,5 @@
 extends Node
 
-signal fish_state_changed( state: Fish.State )
 signal game_state_changed( state: Game.State )
 signal zone_changed
 signal zone_finished
@@ -13,14 +12,9 @@ signal zone_edit_disabled
 signal zone_test_enabled( filename: String )
 signal zone_test_disabled
 
-
-func broadcast_fish_state_changed( state: Fish.State ):
-	fish_state_changed.emit( state )
-
 func broadcast_game_state_changed( state: Game.State ):
 	game_state_changed.emit( state )
 
-	
 func broadcast_zone_changed( zone ):
 	zone_changed.emit( zone )
 	

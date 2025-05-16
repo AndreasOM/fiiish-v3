@@ -80,7 +80,7 @@ func _update_main_menu_button( state: Game.State ):
 	
 	if game.isMainMenuEnabled():
 		match state:
-			Game.State.RESPAWNING:
+			Game.State.PREPARING_FOR_START:
 				if game.isMainMenuEnabled():
 					should_be_visible = true
 			Game.State.WAITING_FOR_START:

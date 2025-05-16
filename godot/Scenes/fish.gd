@@ -5,23 +5,14 @@ class_name Fish
 @export var invincible_hurt_color: Color = Color.DARK_GREEN
 
 signal state_changed( state: Fish.State )
+signal request_respawn( fish: Fish )
 
-# Moved into Game
-#enum State {
-#	WAITING_FOR_START,
-#	SWIMMING,
-#	DYING,
-#	DEAD,
-#	RESPAWNING,
-#}
-# And split back here again
 enum State {
 	INITIAL,
 	WAITING_FOR_START,
 	SWIMMING,
 	KILLED,
 	DYING,
-	DYING_WITHOUT_RESULT,
 	DEAD,
 	RESPAWNING,
 }
@@ -95,9 +86,18 @@ func is_alive() -> bool:
 		Fish.State.WAITING_FOR_START:	return false;
 		Fish.State.SWIMMING:        		return true;
 		Fish.State.KILLED:           		return false;
-		Fish.State.DYING_WITHOUT_RESULT:	return false;
 		Fish.State.DYING:           		return false;
 		Fish.State.DEAD:            		return false;
+		Fish.State.RESPAWNING:      		return false;
+	return false
+		
+func is_dead() -> bool:
+	match self.state:
+		Fish.State.WAITING_FOR_START:		return false;
+		Fish.State.SWIMMING:        		return false;
+		Fish.State.KILLED:           		return false;
+		Fish.State.DYING:           		return false;
+		Fish.State.DEAD:            		return true;
 		Fish.State.RESPAWNING:      		return false;
 	return false
 		
@@ -106,12 +106,11 @@ func _set_state( new_state: Fish.State ):
 		return
 	self.state = new_state
 	state_changed.emit( new_state )
-	Events.broadcast_fish_state_changed( new_state )
 
 func _goto_swimming():
 	_set_state( Fish.State.SWIMMING )
-#	%GameManager.spawn_zone( true )
-#	%GameManager.resume()
+	if Input.is_action_pressed("swim_down"):
+		self.direction = Direction.DOWN
 	
 func _goto_killed() -> void:
 	_set_state( Fish.State.KILLED )
@@ -120,14 +119,6 @@ func _goto_dying() -> void:
 	#set_acceleration(Vector2( 0.0, -9.81*100.0 ))
 	set_acceleration(Vector2( 0.0, -9.81*50.0 ))
 	_set_state( Fish.State.DYING )
-	%GameManager.pause()
-	%AnimatedSprite2D.play("dying")
-
-func _goto_dying_without_result() -> void:
-	#set_acceleration(Vector2( 0.0, -9.81*100.0 ))
-	set_acceleration(Vector2( 0.0, -9.81*50.0 ))
-	_set_state( Fish.State.DYING_WITHOUT_RESULT )
-	%GameManager.pause()
 	%AnimatedSprite2D.play("dying")
 
 func _goto_respawning():
@@ -135,8 +126,6 @@ func _goto_respawning():
 	self.transform.origin.y = 0.0
 	self.transform.origin.x = -1200.0
 	self.rotation_degrees = 0.0
-	%GameManager.cleanup()
-	%GameManager.prepare_respawn()
 	%AnimatedSprite2D.play("swim")
 		
 
@@ -187,10 +176,10 @@ func _unhandled_input_mode_play(event: InputEvent) -> void:
 					self.direction = Direction.UP
 		Fish.State.DEAD:
 			if event.is_action_pressed("swim_down"):
-				self._goto_respawning()
+				self.request_respawn.emit( self )
 		Fish.State.WAITING_FOR_START:
 			if event.is_action_pressed("swim_down"):
-				self._goto_swimming()
+				self.request_respawn.emit( self )
 				self.direction = Direction.DOWN
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -210,7 +199,6 @@ func _process_mode_play(delta: float) -> void:
 			_set_state(Fish.State.WAITING_FOR_START)
 		Fish.State.SWIMMING:
 			if Input.is_key_pressed(KEY_K):
-				# _goto_dying()
 				_goto_killed()
 			if _magnet_boost_duration > 0.0:
 				_magnet_boost_duration -= delta
@@ -227,8 +215,6 @@ func _process_always(delta: float) -> void:
 			_process_respawning(delta)
 		Fish.State.SWIMMING:
 			_process_swimming(delta)
-		Fish.State.DYING_WITHOUT_RESULT:
-			_process_dying(delta)
 		Fish.State.DYING:
 			_process_dying(delta)
 		#Fish.State.DEAD:
@@ -251,8 +237,6 @@ func _process_respawning(delta: float) -> void:
 	self.transform.origin.x += 256.0 * delta
 	if self.transform.origin.x >= -512.0:
 		_set_state( Fish.State.WAITING_FOR_START )
-		
-
 
 func _process_swimming(delta: float) -> void:
 	if self.mode != Mode.PLAY:
@@ -291,10 +275,7 @@ func _process_dying(delta: float) -> void:
 		print("Finished dying (off screen)")
 		_velocity = Vector2.ZERO
 		_acceleration = Vector2.ZERO
-		if self.state == Fish.State.DYING_WITHOUT_RESULT:
-			self._goto_respawning()
-		else:
-			_set_state( Fish.State.DEAD )
+		_set_state( Fish.State.DEAD )
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
@@ -307,20 +288,7 @@ func _on_area_2d_area_entered(_area: Area2D) -> void:
 		await get_tree().create_timer(0.25).timeout
 		self.modulate = self.invincible_color
 		return
-	# _goto_dying()
 	_goto_killed()
-
-#func apply_skills( player: Player, scm: SkillConfigManager ):
-#	var id = SkillIds.Id.MAGNET_RANGE_FACTOR
-#	var magnet_level = player.get_skill_level( id )
-#	var skill_level_config = scm.get_skill_level_config( id, magnet_level )
-#	if skill_level_config != null:
-#		var effect_value = skill_level_config.get_effect( SkillEffectIds.Id.MAGNET_RANGE_FACTOR, 1.0 )
-#		_magnet_range_factor = effect_value
-#	else:
-#		_magnet_range_factor = 1.0
-#
-#	print("Magnet Range Factor %f" % _magnet_range_factor )
 
 func set_skill_effect_set( ses: SkillEffectSet ) -> void:
 	_skill_effect_set = ses
