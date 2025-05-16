@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=33 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://32lm25osk3am" path="res://Scripts/zone_manager.gd" id="16_ewbju"]
 [ext_resource type="Script" uid="uid://y0fdutn7vexh" path="res://Scenes/zone_editor_manager.gd" id="20_exi56"]
 [ext_resource type="PackedScene" uid="uid://dm2ddgnytoha6" path="res://Dialogs/MiniMap/mini_map_sub_viewport_container.tscn" id="22_7t8sx"]
+[ext_resource type="Script" uid="uid://clqfja48atfba" path="res://Scenes/fish_manager.gd" id="22_vm72l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mg4q0"]
 radius = 303.444
@@ -259,7 +260,6 @@ unique_name_in_owner = true
 visibility_layer = 513
 
 [node name="Fish" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Entities/Fishes" instance=ExtResource("2_ea5sf")]
-unique_name_in_owner = true
 
 [node name="Obstacles" type="Node2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Entities"]
 unique_name_in_owner = true
@@ -314,6 +314,10 @@ entity_config_manager = NodePath("../EntityConfigManager")
 unique_name_in_owner = true
 process_mode = 4
 script = ExtResource("20_exi56")
+
+[node name="FishManager" type="Node" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Managers"]
+unique_name_in_owner = true
+script = ExtResource("22_vm72l")
 
 [node name="Helpers" type="Node2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D"]
 

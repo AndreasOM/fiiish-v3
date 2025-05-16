@@ -5,6 +5,7 @@ class_name Game
 @onready var game_scaler: GameScaler = %GameScaler
 @onready var zone_editor_manager: ZoneEditorManager = %ZoneEditorManager
 @onready var entity_config_manager: EntityConfigManager = %EntityConfigManager
+@onready var fish_manager: FishManager = %FishManager
 
 enum State {
 	INITIAL,
@@ -166,12 +167,13 @@ func _on_fish_state_changed(state: Fish.State) -> void:
 			# soundManager.fade_out_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP, 0.3 )
 			self._set_state( Game.State.RESPAWNING )
 		Fish.State.WAITING_FOR_START:
-			var f = %Fish as Fish
-			if f != null:
-				var ses = SkillEffectSet.new()
-				ses.apply_skills( _player, _skill_config_manager )
-				# f.apply_skills( _player, _skill_config_manager )
-				f.set_skill_effect_set( ses )
+			var ses = SkillEffectSet.new()
+			ses.apply_skills( _player, _skill_config_manager )
+			self.fish_manager.set_skill_effect_set( ses )
+#			var f = %Fish as Fish
+#			if f != null:
+#				# f.apply_skills( _player, _skill_config_manager )
+#				f.set_skill_effect_set( ses )
 			self._set_state( Game.State.WAITING_FOR_START )
 		_:
 			pass

@@ -3,6 +3,8 @@
 
 ## In Progress
 
+- [ ] Cleanup: Improve Fish management with FishManager
+
 - [ ] Epic: Zone Testing
 
 ## Next
