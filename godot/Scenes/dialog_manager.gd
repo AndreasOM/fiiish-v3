@@ -151,13 +151,15 @@ func close_dialog_v1( id: DialogIds.Id, duration: float):
 func _on_game_state_changed(state: Game.State) -> void:
 	print("DIALOG_MANAGER: _on_game_state_changed %d -> %s" % [ state, game.state_to_name( state ) ] )
 	match state:
-		Game.State.DYING:
-		# Game.State.DEAD:
+		# Game.State.DYING:
+		Game.State.DEAD:
+#			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+#			open_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
+			pass
+		Game.State.RESULT:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 			open_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
-		Game.State.DYING_WITHOUT_RESULT:
-			pass
-		Game.State.RESPAWNING:
+		Game.State.PREPARING_FOR_START:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 			close_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		Game.State.WAITING_FOR_START:

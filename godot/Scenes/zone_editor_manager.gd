@@ -421,7 +421,8 @@ func _on_zone_edit_disabled() -> void:
 	
 	self.process_mode = Node.PROCESS_MODE_DISABLED
 	# self._game_manager.cleanup()
-	self._game_manager.goto_dying_without_result()
+	# self._game_manager.goto_dying_without_result()
+	# self._game_manager.kill_all_fishes()
 	
 	# autosave
 	var player = self._game_manager.game.get_player()
