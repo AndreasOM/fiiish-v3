@@ -7,6 +7,9 @@
 
 ## Next
 
+- [ ] Task: Add Save button to ZoneEditorMenuDialog
+- [ ] Task: Add Reload button to ZoneEditorMenuDialog
+- [ ] Task: Visualise Zone width in ZoneEditor
 
 
 ## Todo
@@ -16,7 +19,6 @@
 	- [ ] Task: Add Select tool to ZoneEditor
 - [ ] Epic: Zone Properties
 	- [ ] Task: Add Entity Properties dialog to ZoneEditor
-	- [ ] Task: Add Zone Properties dialog to ZoneEditor
 
 - [ ] Epic: Zone Testing
 	- [ ] Polish: Move Zone Testing quit button to Zone Properties dialog
@@ -118,6 +120,7 @@
 ### 2025-05-19
 #### S04E13
 - [x] Polish: Unselect object in Delete mode when clicking on _nothing_ in ZoneEditor
+- [x] Task: Add Zone Properties dialog to ZoneEditor
 
 ### 2025-05-16
 #### S04E12

@@ -25,6 +25,7 @@ script = ExtResource("1_6l8pp")
 
 [node name="ExitButtonFadeable" type="CenterContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 offset_left = 149.0
 offset_top = 149.0

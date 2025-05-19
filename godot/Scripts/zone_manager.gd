@@ -45,6 +45,9 @@ func _despawn_offscreen_obstacles() -> void:
 				%Obstacles.remove_child(n)
 				n.queue_free()
 
+func get_current_zone() -> NewZone:
+	return self._current_zone
+	
 func set_zone_config_manager( zcm: ZoneConfigManager ) -> void:
 	self._zone_config_manager = zcm
 

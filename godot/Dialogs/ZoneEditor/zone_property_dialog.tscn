@@ -1,0 +1,164 @@
+[gd_scene load_steps=6 format=3 uid="uid://doghgr1k4hp3p"]
+
+[ext_resource type="Script" uid="uid://yonakomfcua6" path="res://Scenes/zone_property_dialog.gd" id="1_agb66"]
+[ext_resource type="Texture2D" uid="uid://dfnpoemp6ik7l" path="res://Textures/UI/frame_v3.png" id="2_0yrt0"]
+[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_4dx1e"]
+[ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="3_4dx1e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0yrt0"]
+
+[node name="ZonePropertyDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_agb66")
+metadata/_custom_type_script = "uid://crap0ddpji4x7"
+
+[node name="FadeablePanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0yrt0")
+script = ExtResource("2_4dx1e")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 144
+
+[node name="CenterContainer" type="CenterContainer" parent="FadeablePanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="FadeablePanelContainer/MarginContainer/CenterContainer"]
+self_modulate = Color(1, 1, 1, 0.8)
+custom_minimum_size = Vector2(352, 282)
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("2_0yrt0")
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
+
+[node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "Name:"
+
+[node name="NameLineEdit" type="LineEdit" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DeveloperConsoleLineEdit"
+placeholder_text = "Zone Name"
+max_length = 64
+emoji_menu_enabled = false
+
+[node name="DifficultyLabel" type="Label" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "Difficulty:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DifficultyValueLabel" type="Label" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="DifficultySlider" type="HSlider" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+rounded = true
+
+[node name="WidthLabel" type="Label" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "Width:"
+
+[node name="WidthLineEdit" type="LineEdit" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DeveloperConsoleLineEdit"
+placeholder_text = "Width"
+max_length = 64
+emoji_menu_enabled = false
+virtual_keyboard_type = 2
+
+[node name="StopTestingButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 64.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_4dx1e")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/StopTestingButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"SmallLabel"
+text = "Stop Testing"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
+[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
+[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
+[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
+[connection signal="text_submitted" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/NameLineEdit" to="." method="_on_name_line_edit_text_submitted"]
+[connection signal="drag_ended" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/DifficultySlider" to="." method="_on_difficulty_slider_drag_ended"]
+[connection signal="value_changed" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/DifficultySlider" to="." method="_on_difficulty_slider_value_changed"]
+[connection signal="text_submitted" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/WidthLineEdit" to="." method="_on_width_line_edit_text_submitted"]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/StopTestingButton" to="." method="_on_stop_testing_button_pressed"]

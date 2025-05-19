@@ -19,6 +19,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.MINI_MAP_DIALOG: preload("res://Dialogs/mini_map_dialog.tscn"),
 	DialogIds.Id.ZONE_SELECT_DIALOG: preload("res://Dialogs/zone_select_dialog.tscn"),
 	DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG: preload("res://Dialogs/ZoneEditor/zone_editor_tools_dialog.tscn"),
+	DialogIds.Id.ZONE_PROPERTY_DIALOG: preload("res://Dialogs/ZoneEditor/zone_property_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}
@@ -186,10 +187,36 @@ func _on_zone_edit_enabled() -> void:
 		tools_dialog.spawn_entity_changed.connect( _on_zone_editor_spawn_entity_changed )
 		self.game.zone_editor_manager.command_history_size_changed.connect( _on_zone_editor_manager_command_history_size_changed )
 
+	var zone_property_dialog = self.open_dialog( DialogIds.Id.ZONE_PROPERTY_DIALOG, 0.3 ) as ZonePropertyDialog
+	if zone_property_dialog != null:
+		zone_property_dialog.set_stop_testing_enabled( false )
+		zone_property_dialog.zone_editing_enabled = true
+		
+		zone_property_dialog.zone_name_submitted.connect( self.game.zone_editor_manager.on_zone_name_submitted )
+		self.game.zone_editor_manager.zone_name_changed.connect( zone_property_dialog.on_zone_name_changed )
+		zone_property_dialog.on_zone_name_changed( self.game.zone_editor_manager.get_zone_name() )
+		
+		zone_property_dialog.difficulty_changed.connect( self.game.zone_editor_manager.on_zone_difficulty_changed )
+		self.game.zone_editor_manager.zone_difficulty_changed.connect( zone_property_dialog.on_zone_difficulty_changed )
+		zone_property_dialog.on_zone_difficulty_changed( self.game.zone_editor_manager.get_zone_difficulty() )
+	
+		zone_property_dialog.zone_width_changed.connect( self.game.zone_editor_manager.on_zone_width_changed )
+		self.game.zone_editor_manager.zone_width_changed.connect( zone_property_dialog.on_zone_width_changed )
+		zone_property_dialog.on_zone_width_changed( self.game.zone_editor_manager.get_zone_width() )
+
 func _on_zone_edit_disabled() -> void:
 	%InGamePauseMenu.visible = true
 	self.close_dialog( DialogIds.Id.ZONE_EDITOR_MENU_DIALOG, 0.3 )
 	self.close_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
+	
+	if !self.game.get_game_manager().has_test_zone():
+		self.close_dialog( DialogIds.Id.ZONE_PROPERTY_DIALOG, 0.3 )
+	else:
+		var dialog = _dialogs.get( DialogIds.Id.ZONE_PROPERTY_DIALOG ) as Dialog
+		var zone_property_dialog = dialog as ZonePropertyDialog
+		if zone_property_dialog != null:
+			zone_property_dialog.set_stop_testing_enabled( true )
+			zone_property_dialog.zone_editing_enabled = false
 
 func _on_zone_editor_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 	self.game._on_zone_editor_tool_selected( tool_id )
