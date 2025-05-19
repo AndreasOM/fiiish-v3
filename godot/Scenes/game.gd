@@ -322,6 +322,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func select_zone( filename: String ) -> void:
 	%ZoneEditorManager.select_zone( filename )
 
+func reload_zone( ) -> void:
+	%ZoneEditorManager.reload_zone( )
+
+func save_zone( ) -> void:
+	%ZoneEditorManager.save_zone( )
+
 func select_save_zone( filename: String ) -> void:
 	%ZoneEditorManager.select_save_zone( filename )
 

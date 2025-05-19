@@ -438,8 +438,11 @@ func _on_zone_edit_disabled() -> void:
 
 func select_zone( filename: String ) -> void:
 	self._zone_filename = filename
-
 	self._load_zone( self._zone_filename )
+
+func reload_zone() -> bool:
+	var r = self._load_zone( self._zone_filename )
+	return r
 
 func _load_zone( filename: String ) -> bool:
 	self._game_manager.cleanup()
@@ -472,6 +475,14 @@ func _load_zone( filename: String ) -> bool:
 	self._zone_editor_command_handler.clear_history()
 
 	return true
+
+func save_zone() -> bool:
+	if !self._zone_filename.begins_with("user-"):
+		return false
+	var filename = self._zone_filename.trim_prefix( "user-" )
+	
+	var r = self._save_zone( filename )
+	return r
 
 func select_save_zone( filename: String ) -> void:
 	if filename.begins_with("user-"): # Note: If not needed, but we might want to trace, and inform

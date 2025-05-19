@@ -175,7 +175,6 @@ func _on_game_state_changed(state: Game.State) -> void:
 func _on_zone_edit_enabled() -> void:
 	# :HACK:
 	%InGamePauseMenu.visible = false
-	self.open_dialog( DialogIds.Id.ZONE_EDITOR_MENU_DIALOG, 0.3 )
 	var dialog = self.open_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
 	var tools_dialog = dialog as ZoneEditorToolsDialog
 	if tools_dialog != null:
@@ -186,6 +185,8 @@ func _on_zone_edit_enabled() -> void:
 		tools_dialog.redo_pressed.connect( _on_zoned_editor_redo_pressed )
 		tools_dialog.spawn_entity_changed.connect( _on_zone_editor_spawn_entity_changed )
 		self.game.zone_editor_manager.command_history_size_changed.connect( _on_zone_editor_manager_command_history_size_changed )
+
+	self.open_dialog( DialogIds.Id.ZONE_EDITOR_MENU_DIALOG, 0.3 )
 
 	var zone_property_dialog = self.open_dialog( DialogIds.Id.ZONE_PROPERTY_DIALOG, 0.3 ) as ZonePropertyDialog
 	if zone_property_dialog != null:
