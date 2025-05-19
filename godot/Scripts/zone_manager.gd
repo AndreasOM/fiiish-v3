@@ -55,6 +55,9 @@ func cleanup() -> void:
 	for o in %Obstacles.get_children():
 		%Obstacles.remove_child(o)
 		o.queue_free()
+	for a in %Areas.get_children():
+		%Areas.remove_child(a)
+		a.queue_free()
 
 func _pick_next_zone() -> NewZone:
 	var blocked_zones: Array[ String ] = [ 
@@ -67,21 +70,28 @@ func _pick_next_zone() -> NewZone:
 	]	
 	return self._zone_config_manager.pick_next_zone( blocked_zones )
 
-func _spawn_object( ec: EntityConfig, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Node2D:
-	var o = ec.resource.instantiate()
-	o.game_manager = self.game_manager
-	o.position = Vector2( position.x + spawn_offset, position.y )
-	o.rotation_degrees = rotation_degrees
+func _spawn_object( ec: EntityConfig, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Entity:
+	var o: Node = ec.resource.instantiate()
+	var e = o as Entity
+	if e == null:
+		o.queue_free()
+		return null
+		
+	e.game_manager = self.game_manager
+	e.position = Vector2( position.x + spawn_offset, position.y )
+	e.rotation_degrees = rotation_degrees
 	match ec.entity_type:
 		EntityTypes.Id.OBSTACLE:
-			%Obstacles.add_child(o)
+			%Obstacles.add_child(e)
 		EntityTypes.Id.PICKUP:
-			%Pickups.add_child(o)
+			%Pickups.add_child(e)
+		EntityTypes.Id.AREA:
+			%Areas.add_child(e)
 		_ :
 			# !!!!
 			pass
 	
-	return o
+	return e
 	
 func spawn_object_from_crc( crc: int, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Node2D:
 	var ec = entity_config_manager.get_entry( crc )
@@ -89,8 +99,10 @@ func spawn_object_from_crc( crc: int, position: Vector2, rotation_degrees: float
 		push_warning("Entity config for 0x%08x not found" % crc)
 		return null
 	var o = self._spawn_object( ec, position, rotation_degrees, spawn_offset )
+	if o == null:
+		return null
+		
 	o.set_meta( "fiiish_nzlo_crc", crc )
-	
 	return o
 	
 func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float ) -> bool:
@@ -118,6 +130,10 @@ func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> void:
 					push_warning("Tried to spawn non NewZoneLayerObject")
 					continue
 				self.spawn_new_zone_layer_object( nzlo, spawn_offset )
+		elif l.name == "Debug" || l.name == "Pickups_Debug":
+			pass
+		else:
+			print("Skipping layer %s" % l.name )
 
 func load_and_spawn_zone( filename: String ) -> bool:
 	var i = self._zone_config_manager.find_zone_index_by_filename( filename )

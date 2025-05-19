@@ -50,6 +50,8 @@ const _CURSOR_OFFSETS: Array[ float ] = [ 0.0, 10.0, 20.0, 40.0 ]
 
 var _zone_editor_command_handler: ZoneEditorCommandHandler = null
 
+var _right_boundary_entity: Entity = null
+
 func set_tool_id( tid: ZoneEditorToolIds.Id ) -> void:
 	tool_id = tid
 	
@@ -463,6 +465,15 @@ func _load_zone( filename: String ) -> bool:
 		self._zone_difficulty = 0
 		self._zone_width = 0
 	
+	# :HACK:
+	var lb_pos = Vector2.ZERO
+	self._game_manager.zone_manager.spawn_object_from_crc( EntityId.Id.LEFT_BOUNDARY_ENTITY, lb_pos, 0.0, 0.0 )
+	var rb_pos = Vector2( self._zone_width - self._offset_x, 0.0 )
+	var n = self._game_manager.zone_manager.spawn_object_from_crc( EntityId.Id.RIGHT_BOUNDARY_ENTITY, rb_pos, 0.0, 0.0 )
+	var e = n as Entity
+	if e != null:
+		self._right_boundary_entity = e
+
 	self.zone_name_changed.emit( self._zone_name )
 	self.zone_difficulty_changed.emit( self._zone_difficulty )
 	self.zone_width_changed.emit( self._zone_width )
@@ -506,7 +517,10 @@ func _save_zone( filename: String ) -> bool:
 	if new_zone.width < self._zone_width:
 		new_zone.width = self._zone_width
 	else:
-		self.zone_width_changed.emit( new_zone.width )
+		self._zone_width = new_zone.width
+		self.zone_width_changed.emit( self._zone_width )
+		if self._right_boundary_entity != null:
+			self._right_boundary_entity.position = Vector2( self._zone_width - self._offset_x, 0.0 )
 
 	var p = "user://zones/%s" % filename
 	var s = Serializer.new()
@@ -596,6 +610,8 @@ func get_zone_difficulty() -> int:
 
 func on_zone_width_changed( width: int ) -> void:
 	self._zone_width = width
+	if self._right_boundary_entity != null:
+		self._right_boundary_entity.position = Vector2( self._zone_width - self._offset_x, 0.0 )
 	
 func get_zone_width() -> int:
 	return self._zone_width
