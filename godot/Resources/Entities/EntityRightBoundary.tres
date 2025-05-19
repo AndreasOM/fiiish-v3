@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://dyx6xmsqf4sss"]
+
+[ext_resource type="PackedScene" uid="uid://djq5mvw6h6f12" path="res://Scenes/Areas/right_boundary_entity.tscn" id="1_aiijb"]
+[ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_dpewg"]
+
+[resource]
+script = ExtResource("2_dpewg")
+name = "RightBoundary"
+entity_id = 780626898
+entity_type = 3
+resource = ExtResource("1_aiijb")
+metadata/_custom_type_script = "uid://l4mx22800uyt"

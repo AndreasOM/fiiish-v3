@@ -1,7 +1,5 @@
-extends Node2D
+extends Entity
 class_name Pickup
-
-@export var game_manager: GameManager = null
 
 @export var _coin_value: int = 0
 @export var _effect: PickupEffectIds.Id = PickupEffectIds.Id.NONE

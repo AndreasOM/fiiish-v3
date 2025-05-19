@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://dcx0q2uuua8x4"]
+
+[ext_resource type="PackedScene" uid="uid://b2bpbf3bii25w" path="res://Scenes/Areas/left_boundary_entity.tscn" id="1_j0j7n"]
+[ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_o1g1l"]
+
+[resource]
+script = ExtResource("2_o1g1l")
+name = "LeftBoundary"
+entity_id = 2664454688
+entity_type = 3
+resource = ExtResource("1_j0j7n")
+metadata/_custom_type_script = "uid://l4mx22800uyt"

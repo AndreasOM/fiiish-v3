@@ -4,4 +4,5 @@ enum Id {
 	NONE,
 	PICKUP,
 	OBSTACLE,
+	AREA,
 }

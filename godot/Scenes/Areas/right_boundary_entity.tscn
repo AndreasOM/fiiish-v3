@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://djq5mvw6h6f12"]
+
+[ext_resource type="Script" uid="uid://corxhl1ug6q" path="res://Scenes/Areas/boundary_entity.gd" id="1_47871"]
+[ext_resource type="Texture2D" uid="uid://cm21uyipbr60s" path="res://Textures/Entities/areax.png" id="2_jdjga"]
+
+[node name="RightBoundaryEntity" type="Node2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_47871")
+
+[node name="RightArea" type="Sprite2D" parent="."]
+self_modulate = Color(0.72, 0.4824, 0.4824, 0.458824)
+texture_repeat = 2
+texture = ExtResource("2_jdjga")
+centered = false
+offset = Vector2(0, -128)
+
+[node name="RightArea2" type="Sprite2D" parent="."]
+self_modulate = Color(0.51, 0, 0, 0.490196)
+texture_repeat = 2
+scale = Vector2(0.1, 1)
+texture = ExtResource("2_jdjga")
+centered = false
+offset = Vector2(0, -128)

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2bpbf3bii25w"]
+
+[ext_resource type="Script" uid="uid://corxhl1ug6q" path="res://Scenes/Areas/boundary_entity.gd" id="1_6c675"]
+[ext_resource type="Texture2D" uid="uid://cm21uyipbr60s" path="res://Textures/Entities/areax.png" id="1_h4nv4"]
+
+[node name="LeftBoundaryEntity" type="Node2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_6c675")
+
+[node name="LeftArea" type="Sprite2D" parent="."]
+self_modulate = Color(0.365284, 0.609763, 0.561387, 0.458824)
+texture_repeat = 2
+texture = ExtResource("1_h4nv4")
+centered = false
+offset = Vector2(-256, -128)
+
+[node name="LeftArea2" type="Sprite2D" parent="."]
+self_modulate = Color(0.109758, 0.304373, 0.2073, 0.490196)
+texture_repeat = 2
+scale = Vector2(0.1, 1)
+texture = ExtResource("1_h4nv4")
+centered = false
+offset = Vector2(-256, -128)

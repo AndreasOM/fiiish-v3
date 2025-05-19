@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bviw4wx2laqag"]
+[gd_scene load_steps=31 format=3 uid="uid://bviw4wx2laqag"]
 
 [ext_resource type="Script" uid="uid://yehucwrhaej7" path="res://Scenes/game.gd" id="1_2tnct"]
 [ext_resource type="Texture2D" uid="uid://pw1wpxwlque7" path="res://Textures/Backgrounds/background.png" id="1_48x5b"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="10_40ndf"]
 [ext_resource type="Texture2D" uid="uid://btwf4kgvulmu7" path="res://Textures/Backgrounds/background_grad-loop-dying.png" id="10_exi56"]
 [ext_resource type="Script" uid="uid://cv5hi8str0mwa" path="res://Scenes/pickup_manager.gd" id="14_nb51f"]
+[ext_resource type="PackedScene" uid="uid://b2bpbf3bii25w" path="res://Scenes/Areas/left_boundary_entity.tscn" id="15_mg4q0"]
 [ext_resource type="Script" uid="uid://coptt7xb8x3f3" path="res://Scripts/entity_config_manager.gd" id="15_nnt18"]
 [ext_resource type="Script" uid="uid://32lm25osk3am" path="res://Scripts/zone_manager.gd" id="16_ewbju"]
 [ext_resource type="Script" uid="uid://y0fdutn7vexh" path="res://Scenes/zone_editor_manager.gd" id="20_exi56"]
@@ -258,6 +259,12 @@ game_manager = NodePath("../../../Managers/GameManager")
 [node name="CoinExplosion" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Entities/Pickups" node_paths=PackedStringArray("game_manager") instance=ExtResource("8_wo164")]
 position = Vector2(0, 100)
 game_manager = NodePath("../../../Managers/GameManager")
+
+[node name="Areas" type="Node2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Entities"]
+unique_name_in_owner = true
+
+[node name="LeftBoundaryEntity" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D/Entities/Areas" instance=ExtResource("15_mg4q0")]
+visible = false
 
 [node name="Managers" type="Node" parent="GameSubViewportContainer/GameSubViewport/GameScaler/ScreenShakeNode2D/GameNode2D"]
 

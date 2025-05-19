@@ -7,7 +7,8 @@
 
 ## Next
 
-- [ ] Task: Visualise Zone width in ZoneEditor
+- [ ] Task: Update ZoneBoundaries in realtime in ZoneEditor
+- [ ] Task: Enforce ZoneBoundaries in ZoneEditor
 
 
 ## Todo
@@ -121,6 +122,7 @@
 - [x] Task: Add Zone Properties dialog to ZoneEditor
 - [x] Task: Add Save button to ZoneEditorMenuDialog
 - [x] Task: Add Reload button to ZoneEditorMenuDialog
+- [x] Task: Visualise Zone width in ZoneEditor
 
 ### 2025-05-16
 #### S04E12
