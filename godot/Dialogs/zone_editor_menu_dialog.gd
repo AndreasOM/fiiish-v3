@@ -37,6 +37,12 @@ func _on_load_button_pressed() -> void:
 		zsd.update_zones()
 	%SubMenuVBoxContainer.visible = false
 
+func _on_reload_button_pressed() -> void:
+	self._dialog_manager.game.reload_zone()
+
+func _on_save_button_pressed() -> void:
+	self._dialog_manager.game.save_zone()
+
 func _on_save_as_button_pressed() -> void:
 	var d = self._dialog_manager.open_dialog( DialogIds.Id.ZONE_SELECT_DIALOG, 0.3 )
 	var zsd = d as ZoneSelectDialog

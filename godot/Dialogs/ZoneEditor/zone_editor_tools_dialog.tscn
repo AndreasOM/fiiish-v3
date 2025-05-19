@@ -53,6 +53,7 @@ mouse_filter = 2
 [node name="ToolButtons" type="VBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 
 [node name="DeleteZoneEditorToolButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons" instance=ExtResource("3_1ypek")]
 unique_name_in_owner = true
@@ -86,6 +87,7 @@ label = "Select"
 [node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="EntitySelectButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -108,6 +110,7 @@ vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="UndoButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -122,7 +125,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 theme_type_variation = &"MediumLabel"
 text = "Undo"
 horizontal_alignment = 1
@@ -141,7 +143,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 theme_type_variation = &"MediumLabel"
 text = "Redo"
 horizontal_alignment = 1

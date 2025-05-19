@@ -7,8 +7,6 @@
 
 ## Next
 
-- [ ] Task: Add Save button to ZoneEditorMenuDialog
-- [ ] Task: Add Reload button to ZoneEditorMenuDialog
 - [ ] Task: Visualise Zone width in ZoneEditor
 
 
@@ -121,6 +119,8 @@
 #### S04E13
 - [x] Polish: Unselect object in Delete mode when clicking on _nothing_ in ZoneEditor
 - [x] Task: Add Zone Properties dialog to ZoneEditor
+- [x] Task: Add Save button to ZoneEditorMenuDialog
+- [x] Task: Add Reload button to ZoneEditorMenuDialog
 
 ### 2025-05-16
 #### S04E12
