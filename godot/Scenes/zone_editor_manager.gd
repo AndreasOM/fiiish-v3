@@ -2,6 +2,9 @@ extends Node
 class_name ZoneEditorManager
 
 signal command_history_size_changed( history_size: int, future_size: int )
+signal zone_name_changed( zone_name: String )
+signal zone_difficulty_changed( difficulty: int )
+signal zone_width_changed( width: int )
 
 @export var scroll_speed: float = 240.0
 @export var vertical_speed: float = 240.0
@@ -19,6 +22,9 @@ var _offset_x: float = 0.0
 
 var _pending_offset_from_load: Vector2 = Vector2.ZERO
 var _zone_filename: String = ""
+var _zone_name: String = ""
+var _zone_difficulty: int = 0
+var _zone_width: int = 0
 
 var _dx: float = 0.0
 var _dy: float = 0.0
@@ -381,42 +387,30 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_zone_edit_enabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	self._zone_editor_command_handler = ZoneEditorCommandHandler.new( self.zone_manager )
+	self.command_history_size_changed.emit( 0, 0 ) # ?? redundant?
+	self._zone_editor_command_handler.command_history_size_changed.connect( _on_command_history_size_changed )
+
 	# autoload
 	var player = self._game_manager.game.get_player()
 	var zes = player.get_zone_editor_save()
 	var offset = zes.get_offset()
 	
-	self._offset_x = 0.0
-	
-	# self._offset_x = offset.x
-	# Don't! Would be execution order dependend!
-	# self._game_manager.set_move( offset )
-	
-	self._pending_offset_from_load = offset
-	
 	var filename = zes.get_last_zone_filename()
 	
-	# :HACK: until we have a load dialog
 	if filename == "":
 		self._game_manager.zone_manager.cleanup()
 	else:
-		if filename.begins_with("user-"):
-			var f = filename.trim_prefix( "user-" )
-			self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
-			print( "ZoneEditorManager: Reload Zone %s" % filename )
-		self._game_manager.zone_manager.reset_object_ids()
-		self._game_manager.zone_manager.load_and_spawn_zone( filename )
+		self._load_zone( filename )
 		self._zone_filename = filename
-		print("ZoneEditorManager: Loaded from %s - width %f" % [ filename, self._game_manager.zone_manager.current_zone_width ] )
 	
-	# self.debug_cursor_sprite_2d.visible = true
-	
-	self._zone_editor_command_handler = ZoneEditorCommandHandler.new( self.zone_manager )
-	self.command_history_size_changed.emit( 0, 0 )
-	self._zone_editor_command_handler.command_history_size_changed.connect( _on_command_history_size_changed )
+	self._pending_offset_from_load = offset
 
 	self._game_manager.clear_test_zone_filename()
 	Events.broadcast_zone_test_disabled()
+	# self.debug_cursor_sprite_2d.visible = true
+
 
 func _on_zone_edit_disabled() -> void:
 	self._zone_editor_command_handler = null
@@ -443,22 +437,41 @@ func _on_zone_edit_disabled() -> void:
 	# self._game_manager.clear_test_zone_filename()
 
 func select_zone( filename: String ) -> void:
-	#if filename != self._zone_filename:
-		self._zone_filename = filename
-		self._game_manager.cleanup()
-		if filename.begins_with("user-"):
-			var f = filename.trim_prefix( "user-" )
-			self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
-			print( "ZoneEditorManager: Reload Zone %s" % filename )
-		self._game_manager.zone_manager.reset_object_ids()
-		self._game_manager.zone_manager.load_and_spawn_zone( filename )
-		self._offset_x = 0.0
-		print( "ZoneEditorManager: Switched to Zone %s" % filename )
-	# cleanup
-		self._hovered_objects.clear()
-		self._deselect_object()
-		self._zone_editor_command_handler.clear_history()
+	self._zone_filename = filename
 
+	self._load_zone( self._zone_filename )
+
+func _load_zone( filename: String ) -> bool:
+	self._game_manager.cleanup()
+	if filename.begins_with("user-"):
+		var f = filename.trim_prefix( "user-" )
+		self._game_manager.get_zone_config_manager().reload_zone( "user://zones", f, "user")
+		print( "ZoneEditorManager: Reload Zone %s" % filename )
+	self._game_manager.zone_manager.reset_object_ids()
+	self._game_manager.zone_manager.load_and_spawn_zone( filename )
+
+	var current_zone = self._game_manager.zone_manager.get_current_zone()
+	if current_zone != null:
+		self._zone_name = current_zone.name
+		self._zone_difficulty = current_zone.difficulty
+		self._zone_width = current_zone.width
+	else:
+		self._zone_name = ""
+		self._zone_difficulty = 0
+		self._zone_width = 0
+	
+	self.zone_name_changed.emit( self._zone_name )
+	self.zone_difficulty_changed.emit( self._zone_difficulty )
+	self.zone_width_changed.emit( self._zone_width )
+	self._offset_x = 0.0
+
+	print( "ZoneEditorManager: Switched to Zone %s" % filename )
+	# cleanup
+	self._hovered_objects.clear()
+	self._deselect_object()
+	self._zone_editor_command_handler.clear_history()
+
+	return true
 
 func select_save_zone( filename: String ) -> void:
 	if filename.begins_with("user-"): # Note: If not needed, but we might want to trace, and inform
@@ -475,7 +488,14 @@ func select_save_zone( filename: String ) -> void:
 
 func _save_zone( filename: String ) -> bool:
 	var new_zone: NewZone = NewZone.new()
+	
 	self._game_manager.zone_manager.add_current_to_new_zone( new_zone, self._offset_x )
+	new_zone.name = self._zone_name
+	new_zone.difficulty = self._zone_difficulty
+	if new_zone.width < self._zone_width:
+		new_zone.width = self._zone_width
+	else:
+		self.zone_width_changed.emit( new_zone.width )
 
 	var p = "user://zones/%s" % filename
 	var s = Serializer.new()
@@ -551,3 +571,20 @@ func test_zone() -> void:
 	var game = self._game_manager.game
 	game.close_zone_editor()
 		
+func on_zone_name_submitted( new_name: String ) -> void:
+	self._zone_name = new_name
+	
+func get_zone_name() -> String:
+	return self._zone_name
+
+func on_zone_difficulty_changed( difficulty: int ) -> void:
+	self._zone_difficulty = difficulty
+	
+func get_zone_difficulty() -> int:
+	return self._zone_difficulty
+
+func on_zone_width_changed( width: int ) -> void:
+	self._zone_width = width
+	
+func get_zone_width() -> int:
+	return self._zone_width

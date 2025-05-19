@@ -16,8 +16,8 @@ func _ready() -> void:
 	Events.zone_changed.connect( _on_zone_changed )
 	Events.game_state_changed.connect( _on_game_state_changed )
 	Events.settings_changed.connect( _on_settings_changed )
-	Events.zone_test_enabled.connect( _on_zone_test_enabled )
-	Events.zone_test_disabled.connect( _on_zone_test_disabled )
+#	Events.zone_test_enabled.connect( _on_zone_test_enabled )
+#	Events.zone_test_disabled.connect( _on_zone_test_disabled )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -98,11 +98,11 @@ func _update_main_menu_button( state: Game.State ):
 		%DialogManager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
 
 
-func _on_zone_test_enabled( _filename: String ) -> void:
-	self.exit_button_fadeable.fade_in(0.3)
+#func _on_zone_test_enabled( _filename: String ) -> void:
+#	self.exit_button_fadeable.fade_in(0.3)
 
-func _on_zone_test_disabled() -> void:
-	self.exit_button_fadeable.fade_out(0.3)
+#func _on_zone_test_disabled() -> void:
+#	self.exit_button_fadeable.fade_out(0.3)
 
 func _on_exit_button_pressed() -> void:
 	game.goto_zone_editor()
