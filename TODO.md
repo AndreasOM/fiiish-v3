@@ -4,33 +4,39 @@
 ## In Progress
 
 
-- [ ] Epic: Zone Testing
 
 ## Next
+
 
 
 ## Todo
 
 - [ ] Epic: Zone Editing
 	- [ ] Task: Add better Spawn Object selection to ZoneEditor
+	- [ ] Task: Add Select tool to ZoneEditor
+- [ ] Epic: Zone Properties
+	- [ ] Task: Add Entity Properties dialog to ZoneEditor
+	- [ ] Task: Add Zone Properties dialog to ZoneEditor
+
+- [ ] Epic: Zone Testing
+	- [ ] Polish: Move Zone Testing quit button to Zone Properties dialog
+
+- [ ] Cleanup: Fixup background fading with new transitions
+- [ ] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
+
 
 
 ## V3.6.0 - ETA: 05/25
 
 - [ ] Epic: GameMode - Edit
-	- [ ] Task: Handle Zone Edit enabled where needed
-	- [ ] Task: Hide Game HUD in Zone Editor ?! (After minimap)
+	- [?] Task: Handle Zone Edit enabled where needed
+	- [?] Task: Hide Game HUD in Zone Editor ?! (After minimap)
 
-- [ ] Task: Handle Pause correctly in Zone Editor
+- [?] Task: Handle Pause correctly in Zone Editor
 
 - [ ] Feature: Zone Editor
-	- [ ] * Epic: Zone Management (deleting & renaming?!)
-	- [ ] * Epic: Zone Sharing
-	- [ ] * Epic: Zone Importing
-	- [ ] Epic: Zone Properties
-	- [ ] Epic: Create new button style for ZoneEditor
+	- [+] Epic: Create new button style for ZoneEditor
 
-- [ ] Polish: Unselect object in Delete mode when clicking on _nothing_ in ZoneEditor
 - [ ] Polish: Visualise magnet range in ZoneEditor
 - [ ] Polish: Add Fading to ZoneEditorMenuDialog
 - [ ] #reach Feature: Achievements
@@ -46,6 +52,12 @@
 - [+] Polish: Fix rotation in minimap renderer
 
 ## V3.8.0 - ETA: 06/25
+
+- [ ] Feature: Zone Editor
+	- [ ] * Epic: Zone Management (deleting & renaming?!)
+	- [ ] * Epic: Zone Sharing
+	- [ ] * Epic: Zone Importing
+	- [ ] Epic: Create new button style for ZoneEditor
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
@@ -101,6 +113,11 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+
+### 2025-05-19
+#### S04E13
+- [x] Polish: Unselect object in Delete mode when clicking on _nothing_ in ZoneEditor
 
 ### 2025-05-16
 #### S04E12
