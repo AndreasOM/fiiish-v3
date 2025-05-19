@@ -239,6 +239,8 @@ func _handle_mouse_button_for_delete( mouse_button_event: InputEventMouseButton 
 				else:								# same selection
 					_deselect_object()
 					self._zone_editor_command_handler.add_command_delete( n )
+			else:
+				_deselect_object()
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
