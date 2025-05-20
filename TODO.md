@@ -9,21 +9,35 @@
 
 ## Todo
 
-- [ ] Epic: Zone Editing
-	- [ ] Task: Add better Spawn Object selection to ZoneEditor
-	- [ ] Task: Add Select tool to ZoneEditor
-- [ ] Epic: Zone Properties
-	- [ ] Task: Add Entity Properties dialog to ZoneEditor
 
-- [ ] Epic: Zone Testing
-	- [ ] Polish: Move Zone Testing quit button to Zone Properties dialog
 
 - [ ] Cleanup: Fixup background fading with new transitions
 - [ ] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
 
 
-
 ## V3.6.0 - ETA: 05/25
+
+
+- [ ] #reach Feature: Achievements
+- [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
+
+- [ ] Refactor: Turn InGamePauseMenu into a Dialog
+- [ ] Polish: Add outline for coins and distance in HUD
+- [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
+- [ ] Refactor: Create reusable FramedDialog
+
+- [ ] Polish: Visualise magnet range in ZoneEditor
+
+- [+] Polish: Replace Leaderboard background
+- [+] Polish: Fix rotation in minimap renderer
+
+### Maybe pushed to next release
+
+- [ ] Epic: Zone Editing
+	- [ ] Task: Add better Spawn Object selection to ZoneEditor
+	- [ ] Task: Add Select tool to ZoneEditor
+- [ ] Epic: Zone Properties
+	- [ ] Task: Add Entity Properties dialog to ZoneEditor
 
 - [ ] Epic: GameMode - Edit
 	- [?] Task: Handle Zone Edit enabled where needed
@@ -34,19 +48,7 @@
 - [ ] Feature: Zone Editor
 	- [+] Epic: Create new button style for ZoneEditor
 
-- [ ] Polish: Visualise magnet range in ZoneEditor
-- [ ] Polish: Add Fading to ZoneEditorMenuDialog
-- [ ] #reach Feature: Achievements
-- [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
-
-- [ ] Refactor: Turn InGamePauseMenu into a Dialog
-- [ ] Polish: Add outline for coins and distance in HUD
-- [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
 - [ ] Polish: Limit Fish movement in ZoneEditor
-- [ ] Refactor: Create reusable FramedDialog
-
-- [+] Polish: Replace Leaderboard background
-- [+] Polish: Fix rotation in minimap renderer
 
 ## V3.8.0 - ETA: 06/25
 
@@ -118,6 +120,7 @@
 - [x] Task: Skip Areas when selection the Entity to be spawned in ZoneEditor
 - [x] Bug: Ensure unique IDs when loading a zone in ZoneEditor
 - [x] Bug: Fix Redo in ZoneEditor -- ensure Redo of Spawn will reuse ID
+- [x] Polish: Add Fading to ZoneEditorMenuDialog
 
 
 ### 2025-05-19
@@ -127,6 +130,8 @@
 - [x] Task: Add Save button to ZoneEditorMenuDialog
 - [x] Task: Add Reload button to ZoneEditorMenuDialog
 - [x] Task: Visualise Zone width in ZoneEditor
+- [x] Epic: Zone Testing
+- [x] Polish: Move Zone Testing quit button to Zone Properties dialog
 
 ### 2025-05-16
 #### S04E12
