@@ -7,8 +7,7 @@
 
 ## Next
 
-
-- [ ] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
+- [ ] Refactor: Turn InGamePauseMenu into a Dialog
 
 
 ## Todo
@@ -22,8 +21,6 @@
 - [ ] #reach Feature: Achievements
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
-- [ ] Refactor: Turn InGamePauseMenu into a Dialog
-- [ ] Polish: Add outline for coins and distance in HUD
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
 - [ ] Refactor: Create reusable FramedDialog
 
@@ -31,6 +28,7 @@
 
 - [+] Polish: Replace Leaderboard background
 - [+] Polish: Fix rotation in minimap renderer
+- [?] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
 
 ### Maybe pushed to next release
 
@@ -69,6 +67,7 @@
 
 ## Later
 
+- [ ] Polish: Unify theme to have consistent style
 - [ ] Polish: Use queue to handle background transitions
 - [ ] Cleanup: Ensure consistent naming of Entities
 - [ ] Task: Add confirmation to Clear in ZoneEditor
@@ -124,6 +123,7 @@
 - [x] Bug: Fix Redo in ZoneEditor -- ensure Redo of Spawn will reuse ID
 - [x] Polish: Add Fading to ZoneEditorMenuDialog
 - [x] Cleanup: Fixup background fading with new transitions
+- [x] Polish: Add outline for coins and distance in HUD
 
 
 ### 2025-05-19
