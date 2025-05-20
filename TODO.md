@@ -4,11 +4,9 @@
 ## In Progress
 
 
-
 ## Next
 
 - [ ] Bug: Fix Redo in ZoneEditor
-- [ ] Bug: Ensure unique IDs when loading a zone in ZoneEditor
 
 ## Todo
 
@@ -119,6 +117,7 @@
 - [x] Task: Update right ZoneBoundary in realtime in ZoneEditor
 - [x] Task: Enforce ZoneBoundaries in ZoneEditor
 - [x] Task: Skip Areas when selection the Entity to be spawned in ZoneEditor
+- [x] Bug: Ensure unique IDs when loading a zone in ZoneEditor
 
 
 ### 2025-05-19

@@ -333,6 +333,29 @@ func get_objects_colliding( position: Vector2, shape: CollisionShape2D, candidat
 			
 	return objects
 
+func ensure_unique_entity_ids() -> int:
+	var children = %Pickups.get_children()
+	children.append_array( %Obstacles.get_children() )
+	
+	var duplicate_count = 0
+	var seen_ids: Dictionary[ int, int ] = {}
+	
+	for c in children:
+		var e = c as Entity
+		if e == null:
+			continue
+		var id = e.get_meta("fiiish_nzlo_id", 0xffff)
+		if id == 0xffff:
+			continue
+		
+		if seen_ids.has( id ):
+			# seens_ids[ id ] += 1
+			self._assign_next_object_id( e )
+			duplicate_count += 1
+		else:
+			seen_ids[ id ] = 1
+		
+	return duplicate_count
 
 func get_zone_offset_x() -> float:
 	return self._zone_offset_x
@@ -347,18 +370,22 @@ func reset_object_ids() -> void:
 	print("Reset object ids")
 	self._next_object_id = 1
 
-func ensure_object_id( node: Node2D ) -> int:
-	var id = node.get_meta("fiiish_nzlo_id", 0xffff)
-	if id != 0xffff:
-		return id
+func _assign_next_object_id( node: Node2D ) -> int:
 	if self._next_object_id >= 0xffff:
 		push_warning("Too many objects")
 		return 0xffff
-	id = self._next_object_id
+	var id = self._next_object_id
 	self._next_object_id += 1
 	node.set_meta("fiiish_nzlo_id", id)
 	print("Generated new object id 0x%04x" % id )
 	return id
+	
+func ensure_object_id( node: Node2D ) -> int:
+	var id = node.get_meta("fiiish_nzlo_id", 0xffff)
+	if id != 0xffff:
+		return id
+	
+	return self._assign_next_object_id( node )
 
 func find_object_by_id( id: int ) -> Node2D:
 	if id == 0xffff:
