@@ -1,6 +1,7 @@
-extends Control
+class_name InGamePauseDialog
+extends Dialog
 
-@export var game: Game = null
+#@export var game: Game = null
 @export var fade_time: float = 0.3
 @onready var exit_button_fadeable: FadeableContainer = %ExitButtonFadeable
 
@@ -19,6 +20,31 @@ func _ready() -> void:
 #	Events.zone_test_enabled.connect( _on_zone_test_enabled )
 #	Events.zone_test_disabled.connect( _on_zone_test_disabled )
 
+
+func open( duration: float ) -> void:
+	fade_in( duration )
+	
+func close( duration: float ) -> void:
+	fade_out( duration )
+
+func fade_out( duration: float ):
+	%FadeablePanelContainer.fade_out( duration )
+
+func fade_in( duration: float ):
+	%FadeablePanelContainer.fade_in( duration )
+
+func _on_fadeable_panel_container_on_faded_in() -> void:
+	opened()
+
+func _on_fadeable_panel_container_on_faded_out() -> void:
+	closed()
+
+func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
+	opening()
+
+func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
+	closing()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
@@ -30,8 +56,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle_pause()
 	
 func toggle_pause():
-	if self.game !=	null:
-		var is_paused = self.game.toogle_pause()
+	if self._dialog_manager.game !=	null:
+		var is_paused = self._dialog_manager.game.toogle_pause()
 		if is_paused:
 			%PauseToggleButton.goto_b()
 			var settings_button = %SettingsButtonFade as FadeableContainer
@@ -44,7 +70,7 @@ func toggle_pause():
 			## :TODO:
 			## %SettingDialog.fade_out( 0.3 )
 			## # %SettingsFadeableContainer.fade_out( 0.3 )
-			%DialogManager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
+			self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 			var settings_button = %SettingsButtonFade as FadeableContainer
 			if settings_button:
 				settings_button.fade_out( 0.3 )
@@ -55,7 +81,7 @@ func _on_settings_button_pressed():
 	print("Settings Button pressed")
 	## # %SettingsFadeableContainer.toggle_fade( 0.3 )
 	## %SettingDialog.toggle_fade( 0.3 )
-	%DialogManager.toggle_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
+	self._dialog_manager.toggle_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 
 func _on_pause_toggle_button_toggled( _state: ToggleButtonContainer.ToggleState ) -> void:
 	toggle_pause()
@@ -70,21 +96,26 @@ func _on_game_state_changed( state: Game.State ):
 
 func _on_main_menu_button_pressed() -> void:
 	print("Toggle main menu")
-	%DialogManager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
+	self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
 
 func _on_settings_changed():
-	self._update_main_menu_button( self.game.get_state() )
+	if !self.visible:
+		return
+	self._update_main_menu_button( self._dialog_manager.game.get_state() )
 
 func _update_main_menu_button( state: Game.State ):
+	if self._dialog_manager == null:
+		return
+		
 	var should_be_visible: bool = false
 	
-	if game.isMainMenuEnabled():
+	if self._dialog_manager.game.isMainMenuEnabled():
 		match state:
 			Game.State.PREPARING_FOR_START:
-				if game.isMainMenuEnabled():
+				if self._dialog_manager.game.isMainMenuEnabled():
 					should_be_visible = true
 			Game.State.WAITING_FOR_START:
-				if game.isMainMenuEnabled():
+				if self._dialog_manager.game.isMainMenuEnabled():
 					should_be_visible = true
 			# _:
 			#	should_be_visible = false
@@ -95,7 +126,7 @@ func _update_main_menu_button( state: Game.State ):
 		%MainMenuButtonFadeable.fade_in( 0.3 )
 	else:
 		%MainMenuButtonFadeable.fade_out( 0.3 )
-		%DialogManager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
+		self._dialog_manager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
 
 
 #func _on_zone_test_enabled( _filename: String ) -> void:
@@ -105,4 +136,4 @@ func _update_main_menu_button( state: Game.State ):
 #	self.exit_button_fadeable.fade_out(0.3)
 
 func _on_exit_button_pressed() -> void:
-	game.goto_zone_editor()
+	self._dialog_manager.game.goto_zone_editor()
