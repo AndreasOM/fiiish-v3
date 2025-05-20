@@ -25,6 +25,7 @@ var _zone_filename: String = ""
 var _zone_name: String = ""
 var _zone_difficulty: int = 0
 var _zone_width: int = 0
+var _zone_minimum_width: int = 0
 
 var _dx: float = 0.0
 var _dy: float = 0.0
@@ -247,6 +248,7 @@ func _handle_mouse_button_for_delete( mouse_button_event: InputEventMouseButton 
 				else:								# same selection
 					_deselect_object()
 					self._zone_editor_command_handler.add_command_delete( n )
+					self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
 			else:
 				_deselect_object()
 	else:
@@ -278,6 +280,10 @@ func _handle_mouse_button_for_move( mouse_button_event: InputEventMouseButton ) 
 				self._zone_editor_command_handler.add_command_move( self._selected_object, move, rotation )
 				_deselect_object()
 				
+				self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+				if self._zone_minimum_width > self._zone_width:
+					self.set_zone_width( self._zone_minimum_width )
+				
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
@@ -291,6 +297,9 @@ func _handle_mouse_button_for_rotate( mouse_button_event: InputEventMouseButton 
 			if n != null:
 				var rotation = 90.0
 				self._zone_editor_command_handler.add_command_move( n, Vector2.ZERO, rotation )
+				self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+				if self._zone_minimum_width > self._zone_width:
+					self.set_zone_width( self._zone_minimum_width )
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
@@ -312,6 +321,10 @@ func _handle_mouse_button_for_spawn( mouse_button_event: InputEventMouseButton )
 				self._zone_editor_command_handler.add_command_spawn( crc, position, rotation )
 				self._selected_object.queue_free()
 				self._deselect_object()
+				
+				self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+				if self._zone_minimum_width > self._zone_width:
+					self.set_zone_width( self._zone_minimum_width )
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
@@ -454,6 +467,10 @@ func _load_zone( filename: String ) -> bool:
 		print( "ZoneEditorManager: Reload Zone %s" % filename )
 	self._game_manager.zone_manager.reset_object_ids()
 	self._game_manager.zone_manager.load_and_spawn_zone( filename )
+	
+	self._offset_x = 0.0
+
+	self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
 
 	var current_zone = self._game_manager.zone_manager.get_current_zone()
 	if current_zone != null:
@@ -477,7 +494,6 @@ func _load_zone( filename: String ) -> bool:
 	self.zone_name_changed.emit( self._zone_name )
 	self.zone_difficulty_changed.emit( self._zone_difficulty )
 	self.zone_width_changed.emit( self._zone_width )
-	self._offset_x = 0.0
 
 	print( "ZoneEditorManager: Switched to Zone %s" % filename )
 	# cleanup
@@ -508,19 +524,32 @@ func select_save_zone( filename: String ) -> void:
 	
 	self._zone_filename = "user-%s" % filename
 
+func set_zone_width( width: float ) -> void:
+	if width == self._zone_width:
+		return
+		
+	self._zone_width = maxf( width, self._zone_minimum_width )
+	if self._right_boundary_entity != null:
+		self._right_boundary_entity.position = Vector2( self._zone_width - self._offset_x, 0.0 )
+	self.zone_width_changed.emit( self._zone_width )
+	
 func _save_zone( filename: String ) -> bool:
 	var new_zone: NewZone = NewZone.new()
+
+#	self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
 	
 	self._game_manager.zone_manager.add_current_to_new_zone( new_zone, self._offset_x )
 	new_zone.name = self._zone_name
 	new_zone.difficulty = self._zone_difficulty
-	if new_zone.width < self._zone_width:
+	if floorf(new_zone.width) <= self._zone_width:
 		new_zone.width = self._zone_width
 	else:
-		self._zone_width = new_zone.width
-		self.zone_width_changed.emit( self._zone_width )
-		if self._right_boundary_entity != null:
-			self._right_boundary_entity.position = Vector2( self._zone_width - self._offset_x, 0.0 )
+		push_warning("Tried save zone that is not wide enough %d > %d" % [ new_zone.width, self._zone_width ])
+#	else:
+#		self._zone_width = new_zone.width
+#		self.zone_width_changed.emit( self._zone_width )
+#		if self._right_boundary_entity != null:
+#			self._right_boundary_entity.position = Vector2( self._zone_width - self._offset_x, 0.0 )
 
 	var p = "user://zones/%s" % filename
 	var s = Serializer.new()
@@ -552,10 +581,18 @@ func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 	self.tool_id = tool_id
 
 func on_undo_pressed() -> void:
-	self._zone_editor_command_handler.undo()
+	if self._zone_editor_command_handler.undo():
+		self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+		if self._zone_minimum_width > self._zone_width:
+			self.set_zone_width( self._zone_minimum_width )
+	
 
 func on_redo_pressed() -> void:
-	self._zone_editor_command_handler.redo()
+	if self._zone_editor_command_handler.redo():
+		self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+		if self._zone_minimum_width > self._zone_width:
+			self.set_zone_width( self._zone_minimum_width )
+
 
 func command_history_size() -> int:
 	if self._zone_editor_command_handler == null:
@@ -609,9 +646,7 @@ func get_zone_difficulty() -> int:
 	return self._zone_difficulty
 
 func on_zone_width_changed( width: int ) -> void:
-	self._zone_width = width
-	if self._right_boundary_entity != null:
-		self._right_boundary_entity.position = Vector2( self._zone_width - self._offset_x, 0.0 )
+	self.set_zone_width( width )
 	
 func get_zone_width() -> int:
 	return self._zone_width

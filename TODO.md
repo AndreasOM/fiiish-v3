@@ -7,9 +7,9 @@
 
 ## Next
 
-- [ ] Task: Update ZoneBoundaries in realtime in ZoneEditor
 - [ ] Task: Enforce ZoneBoundaries in ZoneEditor
-
+- [ ] Task: Skip Areas when selection the Entity to be spawned in ZoneEditor
+- [ ] Bug: Fix Redo in ZoneEditor
 
 ## Todo
 
@@ -114,6 +114,10 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+### 2025-05-20
+#### S04E14
+- [x] Task: Update right ZoneBoundary in realtime in ZoneEditor
 
 
 ### 2025-05-19
