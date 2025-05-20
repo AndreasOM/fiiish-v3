@@ -7,7 +7,6 @@
 
 ## Next
 
-- [ ] Task: Enforce ZoneBoundaries in ZoneEditor
 - [ ] Task: Skip Areas when selection the Entity to be spawned in ZoneEditor
 - [ ] Bug: Fix Redo in ZoneEditor
 
@@ -131,6 +130,7 @@
 ### 2025-05-16
 #### S04E12
 - [x] Cleanup: Improve Fish management with FishManager
+- [x] Task: Enforce ZoneBoundaries in ZoneEditor
 
 ### 2025-05-15
 #### S04E11
