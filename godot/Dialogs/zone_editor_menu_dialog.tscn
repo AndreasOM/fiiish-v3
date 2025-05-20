@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyddvv17y3dmy"]
+[gd_scene load_steps=13 format=3 uid="uid://dyddvv17y3dmy"]
 
 [ext_resource type="Script" uid="uid://cdced8n48ndm" path="res://Dialogs/zone_editor_menu_dialog.gd" id="1_ssmqt"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="2_4w7ob"]
@@ -9,6 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_66sxi"]
 [ext_resource type="Texture2D" uid="uid://c1kyb7ia7ta4x" path="res://Textures/UI/Buttons/button_sub_menu_entry.png" id="7_htgnp"]
 [ext_resource type="Script" uid="uid://yvc5t2j67ltg" path="res://Dialogs/cursor_offset_button.gd" id="8_3ni0a"]
+[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="8_kw77y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kw77y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_427qg"]
 
 [node name="ZoneEditorMenuDialog" type="Control"]
 process_mode = 3
@@ -17,7 +22,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -137.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -25,109 +29,136 @@ size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_ssmqt")
 
-[node name="TopLeftMarginContainer" type="MarginContainer" parent="."]
+[node name="FadeablePanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-offset_right = 292.0
-offset_bottom = 160.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kw77y")
+script = ExtResource("8_kw77y")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="TopLeftMarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
+layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TopLeftMarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/TopLeftMarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TopLeftMarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+mouse_filter = 2
 
-[node name="CloseButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CloseButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("2_4w7ob")
 
-[node name="SettingsButtonFade" type="CenterContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SettingsButtonFade" type="CenterContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 0
 script = ExtResource("3_jmev3")
 
-[node name="SettingsButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade"]
+[node name="SettingsButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("6_ace3m")
 
-[node name="ZoneTestButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ZoneTestButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_rct3w")
 
-[node name="TextureRect" type="TextureRect" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
 visible = false
 self_modulate = Color(0.686275, 1, 0, 1)
 custom_minimum_size = Vector2(384, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 0
 texture = ExtResource("5_kkhx4")
 
-[node name="ZoneEditorLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
+[node name="ZoneEditorLabel" type="RichTextLabel" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_type_variation = &"MainMenuRichTextLabel"
 text = "Zone Editor"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TopLeftMarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="MainMenuButtonFadeable" type="CenterContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="MainMenuButtonFadeable" type="CenterContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 0
 script = ExtResource("3_jmev3")
 
-[node name="MainMenuButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable"]
+[node name="MainMenuButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable"]
 layout_mode = 2
 texture_normal = ExtResource("7_66sxi")
 
-[node name="SubMenuVBoxContainer" type="VBoxContainer" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="MenuFadeablePanelContainer" type="PanelContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_427qg")
+script = ExtResource("8_kw77y")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
-[node name="ClearButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+[node name="SubMenuVBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ClearButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer"]
 self_modulate = Color(1, 0.6, 0.6, 0.996078)
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("7_htgnp")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/ClearButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/ClearButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 theme_type_variation = &"MainMenuRichTextLabel"
 text = "Clear"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LoadButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+[node name="LoadButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("7_htgnp")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/LoadButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/LoadButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -140,12 +171,12 @@ text = "Load"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ReloadButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+[node name="ReloadButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("7_htgnp")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/ReloadButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/ReloadButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -158,12 +189,12 @@ text = "Reload"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SaveButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+[node name="SaveButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("7_htgnp")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/SaveButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/SaveButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -176,12 +207,12 @@ text = "Save"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SaveAsButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+[node name="SaveAsButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("7_htgnp")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/SaveAsButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/SaveAsButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -194,14 +225,14 @@ text = "Save as..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CursorOffsetButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+[node name="CursorOffsetButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("7_htgnp")
 script = ExtResource("8_3ni0a")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/CursorOffsetButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/CursorOffsetButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -217,14 +248,14 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TodoButton" type="TextureButton" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer"]
+[node name="TodoButton" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer"]
 visible = false
 self_modulate = Color(0.78, 0.3198, 0.32747, 1)
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("7_htgnp")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/TodoButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/TodoButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -237,13 +268,17 @@ text = ":TODO:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer/ZoneTestButton" to="." method="_on_zone_test_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/SaveAsButton" to="." method="_on_save_as_button_pressed"]
-[connection signal="pressed" from="TopLeftMarginContainer/VBoxContainer/HBoxContainer2/SubMenuVBoxContainer/CursorOffsetButton" to="." method="_on_cursor_offset_button_pressed"]
+[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
+[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
+[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
+[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/ZoneTestButton" to="." method="_on_zone_test_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MainMenuButtonFadeable/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/SaveAsButton" to="." method="_on_save_as_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer2/MenuFadeablePanelContainer/SubMenuVBoxContainer/CursorOffsetButton" to="." method="_on_cursor_offset_button_pressed"]
