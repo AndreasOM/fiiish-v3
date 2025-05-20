@@ -460,7 +460,10 @@ func _load_zone( filename: String ) -> bool:
 		print( "ZoneEditorManager: Reload Zone %s" % filename )
 	self._game_manager.zone_manager.reset_object_ids()
 	self._game_manager.zone_manager.load_and_spawn_zone( filename )
-	
+	var duplicate_count = self._game_manager.zone_manager.ensure_unique_entity_ids()
+	if duplicate_count > 0:
+		push_warning("Zone %s had %d duplicate IDs" % [ filename, duplicate_count ])
+		
 	self._offset_x = 0.0
 
 	self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
