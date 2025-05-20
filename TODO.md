@@ -6,7 +6,6 @@
 
 ## Next
 
-- [ ] Bug: Fix Redo in ZoneEditor
 
 ## Todo
 
@@ -118,6 +117,7 @@
 - [x] Task: Enforce ZoneBoundaries in ZoneEditor
 - [x] Task: Skip Areas when selection the Entity to be spawned in ZoneEditor
 - [x] Bug: Ensure unique IDs when loading a zone in ZoneEditor
+- [x] Bug: Fix Redo in ZoneEditor -- ensure Redo of Spawn will reuse ID
 
 
 ### 2025-05-19

@@ -387,6 +387,10 @@ func ensure_object_id( node: Node2D ) -> int:
 	
 	return self._assign_next_object_id( node )
 
+func set_entity_id( node: Node2D, id: int ) -> void:
+	# :TODO: avoid duplicates?
+	node.set_meta("fiiish_nzlo_id", id)
+	
 func find_object_by_id( id: int ) -> Node2D:
 	if id == 0xffff:
 		push_warning("Tried to search for invalid object id 0x%04x" % id)

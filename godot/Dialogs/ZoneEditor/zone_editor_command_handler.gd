@@ -151,8 +151,11 @@ class ZoneEditorCommandSpawn:
 		var node = zone_manager.spawn_object_from_crc( self._crc, self._position, self._rotate_degrees, spawn_offset)
 		if node == null:
 			return false
-
-		self._node_id = zone_manager.ensure_object_id( node )
+		
+		if self._node_id == 0xffff:
+			self._node_id = zone_manager.ensure_object_id( node )
+		else:
+			zone_manager.set_entity_id( node, self._node_id )
 		return true
 		
 	func undo(zone_manager: ZoneManager) -> bool:
