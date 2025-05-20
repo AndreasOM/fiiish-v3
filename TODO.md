@@ -7,8 +7,8 @@
 
 ## Next
 
-- [ ] Task: Skip Areas when selection the Entity to be spawned in ZoneEditor
 - [ ] Bug: Fix Redo in ZoneEditor
+- [ ] Bug: Ensure unique IDs when loading a zone in ZoneEditor
 
 ## Todo
 
@@ -117,6 +117,8 @@
 ### 2025-05-20
 #### S04E14
 - [x] Task: Update right ZoneBoundary in realtime in ZoneEditor
+- [x] Task: Enforce ZoneBoundaries in ZoneEditor
+- [x] Task: Skip Areas when selection the Entity to be spawned in ZoneEditor
 
 
 ### 2025-05-19
@@ -130,7 +132,6 @@
 ### 2025-05-16
 #### S04E12
 - [x] Cleanup: Improve Fish management with FishManager
-- [x] Task: Enforce ZoneBoundaries in ZoneEditor
 
 ### 2025-05-15
 #### S04E11
