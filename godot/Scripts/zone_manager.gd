@@ -206,6 +206,19 @@ func add_children_to_new_zone_layer( node: Node2D, layer: NewZoneLayer, offset_x
 			continue
 		layer.add_object( nzlo )
 	
+func get_max_pos_x_on_layer( layer_node: Node2D ) -> float:
+	var max_x = -9999.9
+	for c in layer_node.get_children():
+		max_x = maxf( c.position.x, max_x )
+		
+	return max_x
+	
+func get_max_pos_x() -> float:
+	var obstacles_max_x = self.get_max_pos_x_on_layer( %Obstacles )
+	var pickups_max_x = self.get_max_pos_x_on_layer( %Pickups )
+	var max_x = maxf( obstacles_max_x, pickups_max_x )
+	return max_x
+	
 func add_current_to_new_zone( new_zone: NewZone, offset_x: float ) -> void:
 	var obstacle_layer = new_zone.ensure_layer( "Obstacles" )
 	self.add_children_to_new_zone_layer( %Obstacles, obstacle_layer, offset_x )
@@ -213,16 +226,12 @@ func add_current_to_new_zone( new_zone: NewZone, offset_x: float ) -> void:
 	var pickup_layer = new_zone.ensure_layer( "Pickups_00" )
 	self.add_children_to_new_zone_layer( %Pickups, pickup_layer, offset_x )
 
-	# :HACK:		
-	# find object furthest to the right
-	var max_x = -9999.9
-	for l in new_zone.layers.iter():
-		var layer = l as NewZoneLayer
-		for o in layer.objects.iter():
-			var obj = o as NewZoneLayerObject
-			max_x = maxf( obj.pos_x, max_x )
-
+	var max_x = self.calculate_zone_width( offset_x )
 	new_zone.width = max_x
+
+func calculate_zone_width( offset_x: float ) -> float:
+	var max_x = self.get_max_pos_x() + offset_x
+	return max_x
 
 func get_pickups_in_radius_sorted_by_distance( position: Vector2, radius: float, max_objects: int ) -> Array:
 	var pickups := self.get_pickups_in_radius( position, radius )

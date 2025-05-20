@@ -85,6 +85,9 @@ class ZoneEditorCommandDelete:
 		self._nzlo = nzlo
 		# self._zone_offset_x = zone_manager.get_zone_offset_x()
 		self._zone_offset_x = zone_manager.current_zone_progress
+		var p = node.get_parent()
+		if p != null:
+			p.remove_child( node )
 		node.queue_free()
 		return true
 		
