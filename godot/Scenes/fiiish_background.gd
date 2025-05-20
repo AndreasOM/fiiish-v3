@@ -21,6 +21,8 @@ var _phaseMin: float = 0.0
 var _phaseMax: float = 0.0
 var _time: float = 0.0
 
+var _tween: Tween = null
+
 func _set_gradient_texture_swimming( t: Texture2D ) -> void:
 	gradient_texture_swimming = t
 	self.gradient_texture_a = t
@@ -94,26 +96,46 @@ func _on_game_state_changed(state: Game.State) -> void:
 func _on_game_state_changed_mode_loop(state: Game.State):
 	match state:
 		Game.State.WAITING_FOR_START:
-			self.gradient_texture_a = self.gradient_texture_swimming
-			self.gradient_texture_b = self.gradient_texture_respawning
 			if self.ab_mix > 0.0:
 				push_warning("Switched to WAITING_FOR_START to fast %f" % self.ab_mix )
+				self.ab_mix = 0.0
+			self.gradient_texture_a = self.gradient_texture_respawning
+			self.gradient_texture_b = self.gradient_texture_swimming
 				
-			ab_mix = 1.0 - self.ab_mix
-			var tween = create_tween()
-			tween.tween_property( self, "ab_mix", 0.0, 3.0 )
+			if self._tween != null:
+				self._tween.kill()
+			self._tween = create_tween()
+			self._tween.tween_property( self, "ab_mix", 1.0, 1.5 )
 		Game.State.SWIMMING:
-			pass			
+			if self.ab_mix < 1.0:
+				push_warning("Switched to SWIMMING to fast %f" % self.ab_mix )
+				self.ab_mix = 1.0
+			self.gradient_texture_a = self.gradient_texture_swimming
+			self.gradient_texture_b = self.gradient_texture_swimming
+			if self._tween != null:
+				self._tween.kill()
+			
+			self.ab_mix = 0.0
 		Game.State.DEAD:
+			if self.ab_mix > 0.0:
+				push_warning("Switched to DEAD to fast %f" % self.ab_mix )
+				self.ab_mix = 0.0
 			self.gradient_texture_a = self.gradient_texture_swimming
 			self.gradient_texture_b = self.gradient_texture_dying
-			var tween = create_tween()
-			tween.tween_property( self, "ab_mix", 1.0, 3.0 )
+			if self._tween != null:
+				self._tween.kill()
+			self._tween = create_tween()
+			self._tween.tween_property( self, "ab_mix", 1.0, 1.5 )
 		Game.State.PREPARING_FOR_START:
+			if self.ab_mix < 1.0:
+				push_warning("Switched to PREPARING_FOR_START to fast %f" % self.ab_mix )
+				self.ab_mix = 1.0
 			self.gradient_texture_a = self.gradient_texture_respawning
 			self.gradient_texture_b = self.gradient_texture_dying
-			var tween = create_tween()
-			tween.tween_property( self, "ab_mix", 0.0, 1.0 )
+			if self._tween != null:
+				self._tween.kill()
+			self._tween = create_tween()
+			self._tween.tween_property( self, "ab_mix", 0.0, 1.5 )
 			
 		_:
 			pass

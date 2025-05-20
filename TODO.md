@@ -4,15 +4,16 @@
 ## In Progress
 
 
+
 ## Next
+
+
+- [ ] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
 
 
 ## Todo
 
 
-
-- [ ] Cleanup: Fixup background fading with new transitions
-- [ ] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
 
 
 ## V3.6.0 - ETA: 05/25
@@ -68,6 +69,7 @@
 
 ## Later
 
+- [ ] Polish: Use queue to handle background transitions
 - [ ] Cleanup: Ensure consistent naming of Entities
 - [ ] Task: Add confirmation to Clear in ZoneEditor
 - [ ] Bug: Fix MiniMap scaling
@@ -121,6 +123,7 @@
 - [x] Bug: Ensure unique IDs when loading a zone in ZoneEditor
 - [x] Bug: Fix Redo in ZoneEditor -- ensure Redo of Spawn will reuse ID
 - [x] Polish: Add Fading to ZoneEditorMenuDialog
+- [x] Cleanup: Fixup background fading with new transitions
 
 
 ### 2025-05-19
