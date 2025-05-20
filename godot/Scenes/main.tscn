@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=21 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://clhdpyyankssp" path="res://Scenes/pause_overlay.gd" id="8_hibaj"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="9_ee4r6"]
 [ext_resource type="Texture2D" uid="uid://c3je32g403rvw" path="res://Textures/UI/pause_overlay.png" id="10_ee4r6"]
-[ext_resource type="PackedScene" uid="uid://dxdyfsr3rf56d" path="res://Scenes/in_game_pause_menu.tscn" id="11_k12tt"]
 [ext_resource type="PackedScene" uid="uid://dcp8oon8do0fa" path="res://Dialogs/leaderboard_dialog.tscn" id="14_h1bgf"]
 [ext_resource type="PackedScene" uid="uid://bje75nfqnj6ts" path="res://Dialogs/zone_select_dialog.tscn" id="16_fevyy"]
 [ext_resource type="PackedScene" uid="uid://duckwsw8cl6o8" path="res://Dialogs/ZoneEditor/zone_editor_tools_dialog.tscn" id="17_hibaj"]
@@ -206,11 +205,6 @@ color = Color(0.08, 0.08, 0.08, 0.819608)
 layout_mode = 2
 texture = ExtResource("10_ee4r6")
 stretch_mode = 6
-
-[node name="InGamePauseMenu" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("11_k12tt")]
-unique_name_in_owner = true
-offset_bottom = -794.0
-game = NodePath("../../Game")
 
 [node name="DebugUI" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]
 process_mode = 3

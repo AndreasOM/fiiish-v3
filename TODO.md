@@ -7,7 +7,6 @@
 
 ## Next
 
-- [ ] Refactor: Turn InGamePauseMenu into a Dialog
 
 
 ## Todo
@@ -25,6 +24,8 @@
 - [ ] Refactor: Create reusable FramedDialog
 
 - [ ] Polish: Visualise magnet range in ZoneEditor
+
+- [ ] Polish: Check why Pause Overlay is broken
 
 - [+] Polish: Replace Leaderboard background
 - [+] Polish: Fix rotation in minimap renderer
@@ -124,7 +125,7 @@
 - [x] Polish: Add Fading to ZoneEditorMenuDialog
 - [x] Cleanup: Fixup background fading with new transitions
 - [x] Polish: Add outline for coins and distance in HUD
-
+- [x] Refactor: Turn InGamePauseMenu into a Dialog
 
 ### 2025-05-19
 #### S04E13

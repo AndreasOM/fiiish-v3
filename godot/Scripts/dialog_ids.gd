@@ -15,6 +15,7 @@ enum Id {
 	ZONE_SELECT_DIALOG,
 	ZONE_EDITOR_TOOLS_DIALOG,
 	ZONE_PROPERTY_DIALOG,
+	IN_GAME_PAUSE_DIALOG,
 }
 
 static func id_to_name( id: DialogIds.Id ) -> String:
@@ -47,5 +48,7 @@ static func id_to_name( id: DialogIds.Id ) -> String:
 			return "ZONE_EDITOR_TOOLS_DIALOG"
 		DialogIds.Id.ZONE_PROPERTY_DIALOG:
 			return "ZONE_PROPERTY_DIALOG"
+		DialogIds.Id.IN_GAME_PAUSE_DIALOG:
+			return "IN_GAME_PAUSE_DIALOG"
 		_:
 			return "[UNKNOWN DIALOG]"

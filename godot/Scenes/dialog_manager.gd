@@ -20,6 +20,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.ZONE_SELECT_DIALOG: preload("res://Dialogs/zone_select_dialog.tscn"),
 	DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG: preload("res://Dialogs/ZoneEditor/zone_editor_tools_dialog.tscn"),
 	DialogIds.Id.ZONE_PROPERTY_DIALOG: preload("res://Dialogs/ZoneEditor/zone_property_dialog.tscn"),
+	DialogIds.Id.IN_GAME_PAUSE_DIALOG: preload("res://Scenes/in_game_pause_menu.tscn"),
 }
 
 var _dialogs: Dictionary = {}
@@ -173,8 +174,9 @@ func _on_game_state_changed(state: Game.State) -> void:
 			pass
 
 func _on_zone_edit_enabled() -> void:
-	# :HACK:
-	%InGamePauseMenu.visible = false
+	# %InGamePauseMenu.visible = false
+	self.close_dialog( DialogIds.Id.IN_GAME_PAUSE_DIALOG, 0.3 )
+
 	var dialog = self.open_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
 	var tools_dialog = dialog as ZoneEditorToolsDialog
 	if tools_dialog != null:
@@ -206,7 +208,9 @@ func _on_zone_edit_enabled() -> void:
 		zone_property_dialog.on_zone_width_changed( self.game.zone_editor_manager.get_zone_width() )
 
 func _on_zone_edit_disabled() -> void:
-	%InGamePauseMenu.visible = true
+	# %InGamePauseMenu.visible = true
+	self.open_dialog( DialogIds.Id.IN_GAME_PAUSE_DIALOG, 0.3 )
+
 	self.close_dialog( DialogIds.Id.ZONE_EDITOR_MENU_DIALOG, 0.3 )
 	self.close_dialog( DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG, 0.3 )
 	
