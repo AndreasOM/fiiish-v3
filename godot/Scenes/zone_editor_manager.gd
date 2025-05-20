@@ -351,24 +351,10 @@ func _update_selected_object_position_for_move() -> void:
 
 	var cursor_position = self._last_cursor_position
 	var total_delta = cursor_position - self._move_start_position
-	# var offset_x_delta = self._offset_x - self._move_start_offset_x
-	# total_delta.x == offset_x_delta
 	var object_target_position = self._move_object_start_position + total_delta
 	
 	object_target_position.x = maxf( -self._offset_x, object_target_position.x )
-	# var move = object_target_position - self._selected_object.position
-	# self._selected_object.position += move
-	# =>
 	self._selected_object.position = object_target_position
-	
-	# m = t - p
-	# p = p + m
-	# => p = p + t - p
-	# => p = t
-	
-#func _handle_mouse_motion_for_move( _mouse_motion_event: InputEventMouseMotion ) -> void:
-#	# self._update_selected_object_position_for_move()
-#	pass
 
 func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
 	self._update_cursor_position( mouse_button_event )
