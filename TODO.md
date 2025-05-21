@@ -3,8 +3,6 @@
 
 ## In Progress
 
-- [ ] Task: Rework AchievementConfig
-- [ ] Task: Use prerequisite Achievements when checking Achievements
 
 ## Next
 
@@ -130,6 +128,8 @@
 - [x] Epic: Track Achievements
 - [x] Task: Serialize Achievements
 - [x] Task: Create SerializableString
+- [x] Task: Rework AchievementConfig
+- [x] Task: Use prerequisite Achievements when checking Achievements
 
 ### 2025-05-20
 #### S04E14

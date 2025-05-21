@@ -4,18 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://byyivxx7e4lfo" path="res://Textures/UI/mini_icon_flag.png" id="2_jc517"]
 [ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_dk6o2"]
 
-[sub_resource type="Resource" id="Resource_cw5nc"]
+[sub_resource type="Resource" id="Resource_3wdqu"]
 script = ExtResource("1_3wdqu")
-prereq_achievement_id = ""
+prereq_achievement_ids = Array[String]([])
 prereq_counters = Dictionary[int, int]({
-2: 20
+2: 10
 })
 metadata/_custom_type_script = "uid://847eoiqj5nwn"
 
 [resource]
 script = ExtResource("3_dk6o2")
-id = "SignleRunDistance1"
+id = "SingleRunDistance1"
 name = "Single Run Distance 1"
 icon = ExtResource("2_jc517")
-completion_conditions = SubResource("Resource_cw5nc")
+completion_condition = SubResource("Resource_3wdqu")
 metadata/_custom_type_script = "uid://dtt8w7uij10vl"

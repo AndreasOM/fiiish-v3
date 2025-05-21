@@ -6,9 +6,9 @@
 
 [sub_resource type="Resource" id="Resource_r1prg"]
 script = ExtResource("1_r1prg")
-prereq_achievement_id = ""
+prereq_achievement_ids = Array[String]([])
 prereq_counters = Dictionary[int, int]({
-1: 10
+1: 100
 })
 metadata/_custom_type_script = "uid://847eoiqj5nwn"
 
@@ -17,5 +17,5 @@ script = ExtResource("3_puscx")
 id = "TotalCoins1"
 name = "Total Coins 1"
 icon = ExtResource("2_r1prg")
-completion_conditions = SubResource("Resource_r1prg")
+completion_condition = SubResource("Resource_r1prg")
 metadata/_custom_type_script = "uid://dtt8w7uij10vl"
