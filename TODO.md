@@ -18,6 +18,15 @@
 
 
 - [ ] #reach Feature: Achievements
+	- [ ] Epic: Track Achievements
+		- [ ] Task: Add Counters
+		- [ ] Task: Handle and update Achievements
+		- [ ] Task: Serialize Achievements
+	- [ ] Epic: Visualise Achievements
+	- [ ] Epic: Add Rewards for Achievements, e.g. unlock Features
+
+	- [ ] Epic: Define and configure Achievements and Rewards
+
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
@@ -114,6 +123,11 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+### 2025-05-21
+#### S04E15
+- [x] Task: Allow Achievements to be configured
+- [x] Task: Configure some example Achievements
 
 ### 2025-05-20
 #### S04E14

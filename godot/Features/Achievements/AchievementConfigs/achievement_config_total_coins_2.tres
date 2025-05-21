@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dnbixgl4qromg"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_vw4ne"]
+[ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="2_ikrxl"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_vbfom"]
+
+[sub_resource type="Resource" id="Resource_r1prg"]
+script = ExtResource("1_vw4ne")
+prereq_achievement_id = "TotalCoins1"
+prereq_achievement_counters = Dictionary[int, int]({
+1: 100
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_vbfom")
+id = "TotalCoins2"
+name = "Total Coins 2"
+icon = ExtResource("2_ikrxl")
+completion_conditions = SubResource("Resource_r1prg")
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"
