@@ -26,7 +26,7 @@ func size() -> int:
 func clear():
 	_data.clear()
 	
-func has( value: int ):
+func has( value: Variant ):
 	return _data.has( value )
 
 func get_entry( idx: int ) -> Variant:

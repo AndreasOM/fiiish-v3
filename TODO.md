@@ -3,7 +3,8 @@
 
 ## In Progress
 
-
+- [ ] Task: Rework AchievementConfig
+- [ ] Task: Use prerequisite Achievements when checking Achievements
 
 ## Next
 
@@ -18,8 +19,6 @@
 
 
 - [ ] #reach Feature: Achievements
-	- [ ] Epic: Track Achievements
-		- [ ] Task: Serialize Achievements
 	- [ ] Epic: Visualise Achievements
 	- [ ] Epic: Add Rewards for Achievements, e.g. unlock Features
 
@@ -128,6 +127,9 @@
 - [x] Task: Configure some example Achievements
 - [x] Task: Add Counters
 - [x] Task: Handle and update Achievements
+- [x] Epic: Track Achievements
+- [x] Task: Serialize Achievements
+- [x] Task: Create SerializableString
 
 ### 2025-05-20
 #### S04E14

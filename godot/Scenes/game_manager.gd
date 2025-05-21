@@ -84,6 +84,11 @@ func _ready() -> void:
 	Events.game_state_changed.connect( _on_game_state_changed )
 	Events.zone_finished.connect( _on_zone_finished )
 
+func player_changed( player: Player ) -> void:
+	if self._achievement_manager != null:
+		for a in player.achievements():
+			self._achievement_manager.mark_achievement_collected( a )
+
 func set_invincible( invicible: bool ):
 	self.fish_manager.set_invincible( invicible )
 	
@@ -111,15 +116,17 @@ func _process(delta: float) -> void:
 			self.movement = play_movement * delta
 			#var frame = Engine.get_frames_drawn()
 			#print( "GameManager [%d](%f) %f %f" % [ frame, delta, self.movement.x, self.play_movement.x ])
-			var d = distance_in_m();
-			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.DISTANCE_IN_SINGLE_RUN, d )
-			var old_d = self.game.get_player().totalDistance()
-			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_DISTANCE, old_d + d )
-			var c = coins()
-			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.COINS_IN_SINGLE_RUN, c )
-			var total_c = self.game.get_player().total_coins()
-			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_COINS, total_c + c )
-			self._achievement_manager._process( delta )
+			
+			if !self.has_test_zone():
+				var d = distance_in_m();
+				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.DISTANCE_IN_SINGLE_RUN, d )
+				var old_d = self.game.get_player().totalDistance()
+				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_DISTANCE, old_d + d )
+				var c = coins()
+				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.COINS_IN_SINGLE_RUN, c )
+				var total_c = self.game.get_player().total_coins()
+				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_COINS, total_c + c )
+				self._achievement_manager._process( delta )
 
 #	if Input.is_key_pressed(KEY_D):
 #		_distance += 100 * pixels_per_meter
@@ -213,6 +220,16 @@ func get_achievement_manager() -> AchievementManager:
 func get_achievement_counter_manager() -> AchievementCounterManager:
 	return self._achievement_counter_manager
 
+func collect_achievements( player: Player ) -> bool:
+	var completed_achievements = self._achievement_manager.get_completed_achievments()
+	if completed_achievements.is_empty():
+		return false
+	
+	for ca in completed_achievements:
+		self._achievement_manager.collect_achievement( ca )
+	player.give_achievements( completed_achievements )
+	return true
+	
 func set_test_zone_filename( filename: String ) -> void:
 	self._test_zone_filename = filename
 	

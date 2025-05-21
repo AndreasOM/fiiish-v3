@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 10
+const current_version: int = 11
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -48,9 +48,17 @@ var _zone_editor_save: ZoneEditorSave = ZoneEditorSave.new()
 ## version 10
 var _total_coins = 0
 
+## version 11
+
+var _achievements: SerializableArray = SerializableArray.new(
+	func() -> SerializableString:
+		return SerializableString.new()
+)
+
 ## not serialized
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
 var _lastCoins = 0
+var _last_achievements: Array[ String ] = []
 
 var _prev_best_distance = 0
 
@@ -85,6 +93,9 @@ func reset():
 	_skill_points_used = 0
 	_skills.clear()
 	_total_coins = 0
+	_achievements.clear()
+	_last_achievements.clear()
+	self._isDirty = true
 	
 func reset_local_leaderboards():
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_COINS)
@@ -164,6 +175,11 @@ func serialize( s: Serializer ) -> bool:
 		return true
 		
 	self._total_coins = s.serialize_u32( self._total_coins )
+	
+	if version < 11:
+		return true
+		
+	self._achievements.serialize( s )
 	
 	return true
 		
@@ -323,3 +339,20 @@ func get_first_ranks_on_last_leaderboard_update() -> Array[ LeaderboardTypes.Typ
 
 func get_zone_editor_save() -> ZoneEditorSave:
 	return self._zone_editor_save
+
+func give_achievements( achievements: Array[ String ] ) -> void:
+	self._last_achievements = achievements
+	for a in achievements:
+		var s = SerializableString.new( a )
+		if !self._achievements.has( s ):
+			self._achievements.push_back( s )
+			self._isDirty = true
+
+func achievements() -> Array[ String ]:
+	var r: Array[ String ] = []
+	for a in self._achievements.iter():
+		var s = a.to_string()
+		if s != null:
+			r.push_back( s )
+	
+	return r
