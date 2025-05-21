@@ -31,18 +31,31 @@ func _process( _delta: float ) -> void:
 		var cfg = config_manager.get_config( k )
 		if cfg == null:
 			continue
-		var state = self._achievements.get( cfg.name, AchievementState.UNKNOWN )
+		var state = self._achievements.get( cfg.id, AchievementState.UNKNOWN )
 		match state:
 			AchievementState.COMPLETED:
 				continue
 			AchievementState.COLLECTED:
 				continue
 		print("Checking Achievement %s" % cfg.name)
-		if self._check_condition_counters( cfg.completion_conditions, counter_manager):
-			print("Completed Achievement %s" % cfg.name)
-			self._achievements[ cfg.name ] = AchievementState.COMPLETED
+		if !self._check_condition_prereq_achievements( cfg.completion_condition, counter_manager ):
+			continue
+		if !self._check_condition_counters( cfg.completion_condition, counter_manager):
+			continue
+		print("Completed Achievement %s" % cfg.name)
+		self._achievements[ cfg.id ] = AchievementState.COMPLETED
 			
-	
+func _check_condition_prereq_achievements( condition: AchievementCondition, counter_manager: AchievementCounterManager ) -> bool:
+	for id in condition.prereq_achievement_ids:
+		var s = self._achievements.get( id, AchievementState.UNKNOWN )
+		match s:
+			AchievementState.COMPLETED:
+				continue
+			AchievementState.COLLECTED:
+				continue
+		return false
+	return true
+
 func _check_condition_counters( condition: AchievementCondition, counter_manager: AchievementCounterManager ) -> bool:
 	for id in condition.prereq_counters.keys():
 		var needed_value = condition.prereq_counters.get( id, null)
