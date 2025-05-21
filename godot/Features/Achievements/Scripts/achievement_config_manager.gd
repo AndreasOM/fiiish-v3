@@ -27,3 +27,8 @@ func reload() -> void:
 
 	print( "Loaded %d achievement configs." % self._configs.size() )
 	
+func get_keys() -> Array[ String ]:
+	return self._configs.keys()
+	
+func get_config( id: String ) -> AchievementConfig:
+	return self._configs.get( id, null )

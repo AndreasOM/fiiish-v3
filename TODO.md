@@ -19,8 +19,6 @@
 
 - [ ] #reach Feature: Achievements
 	- [ ] Epic: Track Achievements
-		- [ ] Task: Add Counters
-		- [ ] Task: Handle and update Achievements
 		- [ ] Task: Serialize Achievements
 	- [ ] Epic: Visualise Achievements
 	- [ ] Epic: Add Rewards for Achievements, e.g. unlock Features
@@ -128,6 +126,8 @@
 #### S04E15
 - [x] Task: Allow Achievements to be configured
 - [x] Task: Configure some example Achievements
+- [x] Task: Add Counters
+- [x] Task: Handle and update Achievements
 
 ### 2025-05-20
 #### S04E14
