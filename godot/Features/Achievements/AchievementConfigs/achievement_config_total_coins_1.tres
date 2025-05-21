@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_r1prg"]
 script = ExtResource("1_r1prg")
 prereq_achievement_id = ""
-prereq_achievement_counters = Dictionary[int, int]({
+prereq_counters = Dictionary[int, int]({
 1: 10
 })
 metadata/_custom_type_script = "uid://847eoiqj5nwn"

@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 9
+const current_version: int = 10
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -45,6 +45,9 @@ var _leaderboards: HashMap = HashMap.new(
 
 var _zone_editor_save: ZoneEditorSave = ZoneEditorSave.new()
 
+## version 10
+var _total_coins = 0
+
 ## not serialized
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
 var _lastCoins = 0
@@ -81,6 +84,7 @@ func reset():
 	_skill_points_gained = 0
 	_skill_points_used = 0
 	_skills.clear()
+	_total_coins = 0
 	
 func reset_local_leaderboards():
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_COINS)
@@ -154,9 +158,18 @@ func serialize( s: Serializer ) -> bool:
 		return true
 		
 	_zone_editor_save.serialize( s )
+
+	# version 10:
+	if version < 10:
+		return true
+		
+	self._total_coins = s.serialize_u32( self._total_coins )
 	
 	return true
 		
+func total_coins() -> int:
+	return self._total_coins
+	
 func coins() -> int:
 	return _coins
 	
@@ -211,6 +224,7 @@ func disableSound():
 func give_coins( amount: int ):
 	_coins += amount
 	_lastCoins = amount
+	self._total_coins += amount
 	
 func spend_coins( amount: int, _reason: String ) -> bool:
 	if _coins < amount:

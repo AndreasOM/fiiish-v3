@@ -27,6 +27,8 @@ var _paused: bool = true
 
 var _zone_config_manager: ZoneConfigManager = null
 var _achievement_config_manager: AchievementConfigManager = null
+var _achievement_counter_manager: AchievementCounterManager = null
+var _achievement_manager: AchievementManager = null
 
 var _test_zone_filename: String = ""
 
@@ -56,6 +58,9 @@ func take_current_distance_in_meters() -> int:
 func _init() -> void:
 	self._zone_config_manager = ZoneConfigManager.new()
 	self._achievement_config_manager = AchievementConfigManager.new()
+	self._achievement_counter_manager = AchievementCounterManager.new()
+	self._achievement_manager = AchievementManager.new()
+	self._achievement_manager.game_manager = self
 
 func _ready() -> void:
 	
@@ -106,6 +111,15 @@ func _process(delta: float) -> void:
 			self.movement = play_movement * delta
 			#var frame = Engine.get_frames_drawn()
 			#print( "GameManager [%d](%f) %f %f" % [ frame, delta, self.movement.x, self.play_movement.x ])
+			var d = distance_in_m();
+			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.DISTANCE_IN_SINGLE_RUN, d )
+			var old_d = self.game.get_player().totalDistance()
+			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_DISTANCE, old_d + d )
+			var c = coins()
+			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.COINS_IN_SINGLE_RUN, c )
+			var total_c = self.game.get_player().total_coins()
+			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_COINS, total_c + c )
+			self._achievement_manager._process( delta )
 
 #	if Input.is_key_pressed(KEY_D):
 #		_distance += 100 * pixels_per_meter
@@ -192,6 +206,12 @@ func get_zone_config_manager() -> ZoneConfigManager:
 
 func get_achievement_config_manager() -> AchievementConfigManager:
 	return self._achievement_config_manager
+	
+func get_achievement_manager() -> AchievementManager:
+	return self._achievement_manager
+	
+func get_achievement_counter_manager() -> AchievementCounterManager:
+	return self._achievement_counter_manager
 
 func set_test_zone_filename( filename: String ) -> void:
 	self._test_zone_filename = filename
