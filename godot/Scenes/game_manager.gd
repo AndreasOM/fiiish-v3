@@ -26,6 +26,7 @@ var _distance: float = 0.0
 var _paused: bool = true
 
 var _zone_config_manager: ZoneConfigManager = null
+var _achievement_config_manager: AchievementConfigManager = null
 
 var _test_zone_filename: String = ""
 
@@ -54,6 +55,7 @@ func take_current_distance_in_meters() -> int:
 		
 func _init() -> void:
 	self._zone_config_manager = ZoneConfigManager.new()
+	self._achievement_config_manager = AchievementConfigManager.new()
 
 func _ready() -> void:
 	
@@ -187,6 +189,9 @@ func _on_zone_finished() -> void:
 
 func get_zone_config_manager() -> ZoneConfigManager:
 	return self._zone_config_manager
+
+func get_achievement_config_manager() -> AchievementConfigManager:
+	return self._achievement_config_manager
 
 func set_test_zone_filename( filename: String ) -> void:
 	self._test_zone_filename = filename
