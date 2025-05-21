@@ -19,7 +19,7 @@ func reload() -> void:
 		if cfg == null:
 			continue
 		print("Achievement Config: %s" % cn)
-		var n = cfg.name
+		var n = cfg.id
 		if self._configs.has( n ):
 			push_warning("Duplicate achievement config %s from %s" % [ n, cn ])
 			continue

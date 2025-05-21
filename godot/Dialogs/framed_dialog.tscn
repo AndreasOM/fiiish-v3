@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://bodpbn4iu132i"]
+
+[ext_resource type="Script" uid="uid://dat4drno0xxi" path="res://Scenes/framed_dialog.gd" id="1_7aclb"]
+[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_mvk17"]
+[ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="3_g8cyo"]
+[ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="4_i4txi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3pmx8"]
+
+[node name="FramedDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7aclb")
+
+[node name="FadeablePanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3pmx8")
+script = ExtResource("2_mvk17")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="TextureRect" type="TextureRect" parent="FadeablePanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_g8cyo")
+
+[node name="TitleContainer" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 92
+theme_override_constants/margin_top = 52
+theme_override_constants/margin_right = 92
+theme_override_constants/margin_bottom = 914
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/TextureRect/TitleContainer"]
+layout_mode = 2
+color = Color(0.813419, 4.88046e-05, 0.618908, 0.521569)
+
+[node name="CenterContainer" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 92
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 92
+theme_override_constants/margin_bottom = 122
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/TextureRect/CenterContainer"]
+layout_mode = 2
+color = Color(0.12, 0.413333, 1, 0.521569)
+
+[node name="BottomContainer" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 92
+theme_override_constants/margin_top = 908
+theme_override_constants/margin_right = 92
+theme_override_constants/margin_bottom = 40
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/TextureRect/BottomContainer"]
+layout_mode = 2
+color = Color(0.487258, 0.315395, 0.953013, 0.521569)
+
+[node name="ButtonContainer" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 80
+
+[node name="CloseButton" type="TextureButton" parent="FadeablePanelContainer/TextureRect/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("4_i4txi")

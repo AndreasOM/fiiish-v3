@@ -9,6 +9,7 @@ enum Id {
 	ZONE_EDITOR,
 	CREDITS,
 	QUIT,
+	ACHIEVEMENTS,
 }
 
 enum State {

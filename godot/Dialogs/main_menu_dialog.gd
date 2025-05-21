@@ -86,3 +86,8 @@ func _on_main_menu_fadeable_container_on_fading_out( duration: float ) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	var frames = Engine.get_frames_drawn()
 	print( "Animation Finished: %s (%d)" % [ anim_name, frames ] )
+
+
+func _on_achievements_pressed() -> void:
+	self._dialog_manager.close_dialog(DialogIds.Id.MAIN_MENU_DIALOG, 0.3)
+	self._dialog_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
