@@ -1,17 +1,11 @@
 class_name AchievementManager
 extends Node
 
-enum AchievementState {
-	UNKNOWN,
-	COMPLETED,
-	COLLECTED,
-}
-
 @export var game_manager: GameManager = null
 
 var _last_version: int = 0
 
-var _achievements: Dictionary[ String, AchievementState ] = {}
+var _achievements: Dictionary[ String, AchievementStates.State ] = {}
 
 func _process( _delta: float ) -> void:
 	if self.game_manager == null:
@@ -31,11 +25,11 @@ func _process( _delta: float ) -> void:
 		var cfg = config_manager.get_config( k )
 		if cfg == null:
 			continue
-		var state = self._achievements.get( cfg.id, AchievementState.UNKNOWN )
+		var state = self._achievements.get( cfg.id, AchievementStates.State.UNKNOWN )
 		match state:
-			AchievementState.COMPLETED:
+			AchievementStates.State.COMPLETED:
 				continue
-			AchievementState.COLLECTED:
+			AchievementStates.State.COLLECTED:
 				continue
 		print("Checking Achievement %s" % cfg.name)
 		if !self._check_condition_prereq_achievements( cfg.completion_condition, counter_manager ):
@@ -43,15 +37,15 @@ func _process( _delta: float ) -> void:
 		if !self._check_condition_counters( cfg.completion_condition, counter_manager):
 			continue
 		print("Completed Achievement %s" % cfg.name)
-		self._achievements[ cfg.id ] = AchievementState.COMPLETED
+		self._achievements[ cfg.id ] = AchievementStates.State.COMPLETED
 			
 func _check_condition_prereq_achievements( condition: AchievementCondition, counter_manager: AchievementCounterManager ) -> bool:
 	for id in condition.prereq_achievement_ids:
-		var s = self._achievements.get( id, AchievementState.UNKNOWN )
+		var s = self._achievements.get( id, AchievementStates.State.UNKNOWN )
 		match s:
-			AchievementState.COMPLETED:
+			AchievementStates.State.COMPLETED:
 				continue
-			AchievementState.COLLECTED:
+			AchievementStates.State.COLLECTED:
 				continue
 		return false
 	return true
@@ -70,27 +64,29 @@ func get_completed_achievments() -> Array[ String ]:
 	var r: Array[ String ] = []
 	
 	for k in self._achievements.keys():
-		var s = self._achievements.get( k, AchievementState.UNKNOWN )
-		if s == AchievementState.COMPLETED:
+		var s = self._achievements.get( k, AchievementStates.State.UNKNOWN )
+		if s == AchievementStates.State.COMPLETED:
 			r.push_back( k )
 			
 	return r
 
 
 func mark_achievement_collected( id: String ) -> void:
-	self._achievements[ id ] = AchievementState.COLLECTED
+	self._achievements[ id ] = AchievementStates.State.COLLECTED
 
 func collect_achievement( id: String ) -> bool:
-	var s = self._achievements.get( id, AchievementState.UNKNOWN )
+	var s = self._achievements.get( id, AchievementStates.State.UNKNOWN )
 	match s:
-		AchievementState.UNKNOWN:
+		AchievementStates.State.UNKNOWN:
 			return false
-		AchievementState.COLLECTED:
+		AchievementStates.State.COLLECTED:
 			return false
-		AchievementState.COMPLETED:
-			self._achievements[ id ] = AchievementState.COLLECTED
+		AchievementStates.State.COMPLETED:
+			self._achievements[ id ] = AchievementStates.State.COLLECTED
 			return false
 			
 	return false
 	
+func get_achievement_state( id: String ) -> AchievementStates.State:
+	return self._achievements.get( id, AchievementStates.State.UNKNOWN )
 	

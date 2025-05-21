@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=22 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c3je32g403rvw" path="res://Textures/UI/pause_overlay.png" id="10_ee4r6"]
 [ext_resource type="PackedScene" uid="uid://dcp8oon8do0fa" path="res://Dialogs/leaderboard_dialog.tscn" id="14_h1bgf"]
 [ext_resource type="PackedScene" uid="uid://bje75nfqnj6ts" path="res://Dialogs/zone_select_dialog.tscn" id="16_fevyy"]
+[ext_resource type="PackedScene" uid="uid://b8rtyjkttskm8" path="res://Features/Achievements/Dialogs/achievement_dialog.tscn" id="17_ee4r6"]
 [ext_resource type="PackedScene" uid="uid://duckwsw8cl6o8" path="res://Dialogs/ZoneEditor/zone_editor_tools_dialog.tscn" id="17_hibaj"]
 [ext_resource type="PackedScene" uid="uid://doghgr1k4hp3p" path="res://Dialogs/ZoneEditor/zone_property_dialog.tscn" id="17_pdsj5"]
 [ext_resource type="AudioStream" uid="uid://d2u0kcl8pn3o2" path="res://Music/theme-00.mp3" id="22_n5j80"]
@@ -241,6 +242,10 @@ visible = false
 layout_mode = 1
 
 [node name="ZonePropertyDialogHardCoded" parent="UI/DialogManager" instance=ExtResource("17_pdsj5")]
+visible = false
+layout_mode = 1
+
+[node name="AchievementDialogHardCoded" parent="UI/DialogManager" instance=ExtResource("17_ee4r6")]
 visible = false
 layout_mode = 1
 

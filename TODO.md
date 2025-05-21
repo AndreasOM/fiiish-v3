@@ -10,6 +10,9 @@
 
 ## Todo
 
+- [ ] Epic: Visualise Achievements
+	- [ ] Task: Add button to ResultDialog to go to AchievementsDialog
+	- [ ] Task: Add Toasts for Achievements
 
 
 
@@ -17,15 +20,15 @@
 
 
 - [ ] #reach Feature: Achievements
-	- [ ] Epic: Visualise Achievements
 	- [ ] Epic: Add Rewards for Achievements, e.g. unlock Features
-
+		- [ ] Task: Collect Achievment Rewards in AchievementDialog
+	- [ ] Polish: Sort Achievements -- by TBD
+	- [ ] Task: Create consistent style for Achievement Icons
 	- [ ] Epic: Define and configure Achievements and Rewards
 
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
-- [ ] Refactor: Create reusable FramedDialog
 
 - [ ] Polish: Visualise magnet range in ZoneEditor
 
@@ -34,6 +37,7 @@
 - [+] Polish: Replace Leaderboard background
 - [+] Polish: Fix rotation in minimap renderer
 - [?] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
+- [ ] 😭 Refactor: Create reusable FramedDialog 
 
 ### Maybe pushed to next release
 
@@ -130,6 +134,7 @@
 - [x] Task: Create SerializableString
 - [x] Task: Rework AchievementConfig
 - [x] Task: Use prerequisite Achievements when checking Achievements
+- [x] Task: Add AchievementsDialog
 
 ### 2025-05-20
 #### S04E14

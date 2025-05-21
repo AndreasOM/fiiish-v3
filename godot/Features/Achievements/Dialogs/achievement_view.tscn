@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5q30klywas4u"]
+
+[ext_resource type="PackedScene" uid="uid://duvsrjs7gyn8p" path="res://Features/Achievements/achievement_element.tscn" id="1_5n55d"]
+[ext_resource type="Script" uid="uid://b21av4xl5t8bk" path="res://Features/Achievements/Dialogs/achievement_view.gd" id="1_fyoyl"]
+
+[node name="AchievementView" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_fyoyl")
+metadata/_custom_type_script = "uid://b21av4xl5t8bk"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+offset_right = 825.0
+offset_bottom = 787.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+
+[node name="AchievementContainer" type="GridContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 3
+
+[node name="AchievementElement" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2
+
+[node name="AchievementElement2" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2
+
+[node name="AchievementElement3" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2
+
+[node name="AchievementElement4" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2
+
+[node name="AchievementElement5" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2
+
+[node name="AchievementElement6" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2
+
+[node name="AchievementElement7" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2
+
+[node name="AchievementElement8" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2
+
+[node name="AchievementElement9" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+layout_mode = 2

@@ -111,6 +111,12 @@ layout_mode = 2
 id = 1
 label = "Leaderboard"
 
+[node name="Achievements" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+unique_name_in_owner = true
+layout_mode = 2
+id = 6
+label = "Achievements"
+
 [node name="GameMode" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -137,6 +143,7 @@ label = "Quit"
 [connection signal="on_fading_in" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_in"]
 [connection signal="on_fading_out" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_out"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/LeaderBoard" to="." method="_on_leader_board_pressed"]
+[connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/Achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/GameMode" to="." method="_on_game_mode_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/ZoneEditor" to="." method="_on_zone_editor_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
