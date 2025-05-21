@@ -70,6 +70,7 @@ func _ready() -> void:
 			soundManager.enable()
 		else:
 			soundManager.disable( 0.0 )
+		self.get_game_manager().player_changed( self._player )
 			
 	Events.cheats_changed.connect( _on_cheats_changed )
 	self._on_cheats_changed()
@@ -235,6 +236,8 @@ func _credit_last_swim():
 	
 	var distance = %GameManager.take_current_distance_in_meters()
 	_player.apply_distance(distance)
+	
+	self.get_game_manager().collect_achievements( _player )
 	
 	_player.update_leaderboards( coins, distance )
 	_player.save();
