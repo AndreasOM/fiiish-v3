@@ -7,7 +7,7 @@
 
 ## Next
 
-
+- [ ] Task: Experiment with grid view for AchievementsDialog (top details, bottom grid)
 
 ## Todo
 
@@ -129,6 +129,7 @@
 - [x] Task: Add button to ResultDialog to go to AchievementsDialog
 - [x] Polish: Reset Achievements when resetting Player view DeveloperConsole
 - [x] Task: Add generic ToastDialog
+- [x] Task: Increase font size in AchievementDialog
 
 ### 2025-05-21
 #### S04E16
