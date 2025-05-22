@@ -70,7 +70,9 @@ func get_completed_achievments() -> Array[ String ]:
 			
 	return r
 
-
+func reset_achievements() -> void:
+	self._achievements.clear()
+	
 func mark_achievement_collected( id: String ) -> void:
 	self._achievements[ id ] = AchievementStates.State.COLLECTED
 

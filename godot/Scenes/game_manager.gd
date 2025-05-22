@@ -86,6 +86,7 @@ func _ready() -> void:
 
 func player_changed( player: Player ) -> void:
 	if self._achievement_manager != null:
+		self._achievement_manager.reset_achievements()
 		for a in player.achievements():
 			self._achievement_manager.mark_achievement_collected( a )
 

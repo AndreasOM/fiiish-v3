@@ -4,6 +4,8 @@ func syntax() -> String:
 	return "reset_player"
 	
 func run( _input: String, game: Game ) -> bool:
-	game.get_player().reset()
+	var player = game.get_player()
+	player.reset()
+	game.get_game_manager().player_changed( player )
 	return true
 	

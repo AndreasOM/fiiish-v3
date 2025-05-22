@@ -125,6 +125,7 @@
 ### 2025-05-22
 #### S04E017
 - [x] Task: Add button to ResultDialog to go to AchievementsDialog
+- [x] Polish: Reset Achievements when resetting Player view DeveloperConsole
 
 ### 2025-05-21
 #### S04E16
