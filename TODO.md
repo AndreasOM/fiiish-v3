@@ -11,7 +11,6 @@
 ## Todo
 
 - [ ] Epic: Visualise Achievements
-	- [ ] Task: Add button to ResultDialog to go to AchievementsDialog
 	- [ ] Task: Add Toasts for Achievements
 
 
@@ -23,7 +22,7 @@
 	- [ ] Epic: Add Rewards for Achievements, e.g. unlock Features
 		- [ ] Task: Collect Achievment Rewards in AchievementDialog
 	- [ ] Polish: Sort Achievements -- by TBD
-	- [ ] Task: Create consistent style for Achievement Icons
+	- [ ] Task: Create consistent style for Achievement Icons (e.g. Bronze, Silver, Gold, Ruby, Diamond)
 	- [ ] Epic: Define and configure Achievements and Rewards
 
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
@@ -123,7 +122,14 @@
 
 ## Done
 
+### 2025-05-22
+#### S04E017
+- [x] Task: Add button to ResultDialog to go to AchievementsDialog
+
 ### 2025-05-21
+#### S04E16
+- [x] Task: Add AchievementsDialog
+
 #### S04E15
 - [x] Task: Allow Achievements to be configured
 - [x] Task: Configure some example Achievements
@@ -134,7 +140,6 @@
 - [x] Task: Create SerializableString
 - [x] Task: Rework AchievementConfig
 - [x] Task: Use prerequisite Achievements when checking Achievements
-- [x] Task: Add AchievementsDialog
 
 ### 2025-05-20
 #### S04E14

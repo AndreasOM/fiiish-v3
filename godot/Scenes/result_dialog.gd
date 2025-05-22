@@ -214,3 +214,7 @@ func _on_result_dialog_fadeable_container_on_faded_out() -> void:
 
 func _on_leaderboard_button_pressed() -> void:
 	_dialog_manager.open_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )
+
+
+func _on_achievement_button_pressed() -> void:
+	_dialog_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )

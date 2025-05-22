@@ -64,10 +64,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 theme_type_variation = &"SkillsHeaderLabel"
-text = "All done by me ;)
-
-Fonts:
-https://www.keshikan.net/fonts-e.html"
+text = "All done by me 😬"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FadeableContainer/TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
