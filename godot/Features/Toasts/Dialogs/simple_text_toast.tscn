@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cglfb2j7bk1sm"]
+
+[ext_resource type="Texture2D" uid="uid://c1kyb7ia7ta4x" path="res://Textures/UI/Buttons/button_sub_menu_entry.png" id="1_ofhv8"]
+[ext_resource type="Script" uid="uid://ynxbtl3sq1rp" path="res://Features/Toasts/Dialogs/simple_text_toast.gd" id="1_saqna"]
+
+[node name="SimpleTextToast" type="Control"]
+custom_minimum_size = Vector2(256, 128)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_saqna")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ofhv8")
+
+[node name="Label" type="Label" parent="TextureRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "Text Here"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -4,6 +4,7 @@
 ## In Progress
 
 
+
 ## Next
 
 
@@ -12,6 +13,7 @@
 
 - [ ] Epic: Visualise Achievements
 	- [ ] Task: Add Toasts for Achievements
+	- [ ] Task: Add special Toast for completed Achievement
 
 
 
@@ -126,6 +128,7 @@
 #### S04E017
 - [x] Task: Add button to ResultDialog to go to AchievementsDialog
 - [x] Polish: Reset Achievements when resetting Player view DeveloperConsole
+- [x] Task: Add generic ToastDialog
 
 ### 2025-05-21
 #### S04E16

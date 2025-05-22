@@ -497,6 +497,7 @@ func _load_zone( filename: String ) -> bool:
 	self._deselect_object()
 	self._zone_editor_command_handler.clear_history()
 
+	Events.broadcast_global_message("Zone loaded")
 	return true
 
 func save_zone() -> bool:
@@ -602,6 +603,7 @@ func clear_zone() -> void:
 	self._deselect_object()
 	self._game_manager.cleanup()
 	self._zone_editor_command_handler.clear_history()
+	Events.broadcast_global_message("Zone cleared")
 
 func on_spawn_entity_changed( id: EntityId.Id ) -> void:
 	self._spawn_object_crc = id

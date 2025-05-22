@@ -12,6 +12,8 @@ signal zone_edit_disabled
 signal zone_test_enabled( filename: String )
 signal zone_test_disabled
 
+signal global_message( text: String )
+
 func broadcast_game_state_changed( state: Game.State ):
 	game_state_changed.emit( state )
 
@@ -41,3 +43,6 @@ func broadcast_zone_test_enabled( filename: String ):
 
 func broadcast_zone_test_disabled( ):
 	zone_test_disabled.emit()
+
+func broadcast_global_message( text: String ) -> void:
+	self.global_message.emit( text )
