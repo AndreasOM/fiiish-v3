@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0rj0pswt334s"]
+[gd_scene load_steps=11 format=3 uid="uid://d0rj0pswt334s"]
 
 [ext_resource type="Script" uid="uid://d0npyqj022upw" path="res://Scenes/result_dialog.gd" id="1_wlxjo"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_g40ym"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ch18db020xqmp" path="res://Scenes/UI/result_row.tscn" id="4_sjgyn"]
 [ext_resource type="Texture2D" uid="uid://l3vyvg8q35ki" path="res://Textures/UI/Buttons/button_fiiish.png" id="5_8gynd"]
 [ext_resource type="Texture2D" uid="uid://liei0p04c4l6" path="res://Textures/UI/Buttons/button_leaderboard.png" id="6_848gl"]
+[ext_resource type="Texture2D" uid="uid://ck03o6mgc31me" path="res://Textures/UI/Buttons/button_achievement.png" id="7_m8h2f"]
 
 [sub_resource type="Animation" id="Animation_848gl"]
 resource_name = "CountUp"
@@ -179,9 +180,15 @@ layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("6_848gl")
 
+[node name="AchievementButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("7_m8h2f")
+
 [connection signal="on_faded_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_in"]
 [connection signal="on_faded_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_out"]
 [connection signal="on_fading_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_in"]
 [connection signal="on_fading_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_out"]
 [connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]
 [connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/AchievementButton" to="." method="_on_achievement_button_pressed"]
