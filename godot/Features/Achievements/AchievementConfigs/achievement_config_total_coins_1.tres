@@ -18,4 +18,7 @@ id = "TotalCoins1"
 name = "Total Coins 1"
 icon = ExtResource("2_r1prg")
 completion_condition = SubResource("Resource_r1prg")
+reward_coins = 0
+reward_skill_points = 0
+reward_extra = Array[String]([])
 metadata/_custom_type_script = "uid://dtt8w7uij10vl"

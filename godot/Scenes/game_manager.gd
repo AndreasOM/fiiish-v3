@@ -83,6 +83,12 @@ func _ready() -> void:
 
 	Events.game_state_changed.connect( _on_game_state_changed )
 	Events.zone_finished.connect( _on_zone_finished )
+	
+	# update counters for play achievement
+	var date = Time.get_date_dict_from_system( true )
+	if date["year"] == 2025:
+		if date["month"] == 5:
+			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_JUNE_2025, 1 )
 
 func player_changed( player: Player ) -> void:
 	if self._achievement_manager != null:
@@ -229,7 +235,15 @@ func collect_achievement( id: String ) -> bool:
 		return false
 	self._achievement_manager.mark_achievement_collected( id )
 	
-	# :TODO: give rewards
+	var ac = self._achievement_config_manager.get_config( id )
+	if ac != null:
+		if ac.reward_coins > 0:
+			player.give_coins( ac.reward_coins )
+			Events.broadcast_global_message( "Got %d coins" % ac.reward_coins )
+		if ac.reward_skill_points > 0:
+			player.give_skill_points( ac.reward_skill_points, "Achievement Reward %s" % id )
+			Events.broadcast_global_message( "Got %d skill points" % ac.reward_skill_points )
+			
 	return true
 	 
 func sync_achievements_with_player( player: Player ) -> bool:
