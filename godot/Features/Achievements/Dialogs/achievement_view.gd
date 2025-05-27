@@ -19,23 +19,25 @@ func recreate_achievements() -> void:
 		c.queue_free()
 	
 	var keys = achievement_config_manager.get_keys()
-	for ack in keys:
-		var ac = achievement_config_manager.get_config( ack )
-		if ac == null:
-			continue
-		
-		var e = self._button_element.instantiate() as AchievementButton
-		if e == null:
-			continue
-		e.config = ac
-		var s = achievement_manager.get_achievement_state( ack )
-		e.state = s
-		e.pressed.connect( _on_achievement_selected )
-		self.achievement_container.add_child( e )
-
+	
 	if self._selected_achievement_id.is_empty():
 		if !keys.is_empty():
 			self._on_achievement_selected( keys[ 0 ] )
+			
+	for id in keys:
+		var ac = achievement_config_manager.get_config( id )
+		if ac == null:
+			continue
+		
+		var ab = self._button_element.instantiate() as AchievementButton
+		if ab == null:
+			continue
+		ab.config = ac
+		var s = achievement_manager.get_achievement_state( id )
+		ab.state = s
+		ab.selected = id == self._selected_achievement_id
+		ab.pressed.connect( _on_achievement_selected )
+		self.achievement_container.add_child( ab )
 	
 func update_achievements() -> void:
 	var achievement_config_manager = self.game_manager.get_achievement_config_manager()
@@ -48,7 +50,16 @@ func update_achievements() -> void:
 		var id = ab.config.id
 		var s = achievement_manager.get_achievement_state( id )
 		ab.state = s
+		ab.selected = id == self._selected_achievement_id
 
+func _update_selection() -> void:
+	for c in self.achievement_container.get_children():
+		var ab = c as AchievementButton
+		if ab == null:
+			continue
+		var id = ab.config.id
+		ab.selected = id == self._selected_achievement_id
+	
 func _on_achievement_selected( id: String ) -> void:
 	var achievement_config_manager = self.game_manager.get_achievement_config_manager()
 	var achievement_manager = self.game_manager.get_achievement_manager()
@@ -58,6 +69,7 @@ func _on_achievement_selected( id: String ) -> void:
 	self.achievement_element_view.config = ac
 	self.achievement_element_view.state = s
 	self._selected_achievement_id = id
+	self._update_selection()
 
 func _on_achievement_element_view_collect_pressed(id: String) -> void:
 	if !self.game_manager.collect_achievement( id ):
@@ -67,20 +79,3 @@ func _on_achievement_element_view_collect_pressed(id: String) -> void:
 	var s = achievement_manager.get_achievement_state( id )
 	self.achievement_element_view.set_state( s )
 	# self.achievement_element_view.set_state( AchievementStates.State.COLLECTED )
-	
-func update_achievements_v1( achievement_manager: AchievementManager, achievement_config_manager: AchievementConfigManager ) -> void:
-	for c in self.achievement_container.get_children():
-		c.queue_free()
-	
-	for ack in achievement_config_manager.get_keys():
-		var ac = achievement_config_manager.get_config( ack )
-		if ac == null:
-			continue
-		
-		var e = self._element.instantiate() as AchievementElement
-		if e == null:
-			continue
-		e.config = ac
-		var s = achievement_manager.get_achievement_state( ack )
-		e.state = s
-		self.achievement_container.add_child( e )
