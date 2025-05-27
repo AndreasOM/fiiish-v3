@@ -10,8 +10,7 @@ var _element = preload("res://Features/Achievements/achievement_element.tscn")
 var _button_element = preload("res://Features/Achievements/Dialogs/achievement_button.tscn")
 var _selected_achievement_id: String = ""
 
-#func update_achievements( _achievement_manager: AchievementManager, _achievement_config_manager: AchievementConfigManager ) -> void:
-func update_achievements() -> void:
+func recreate_achievements() -> void:
 	var achievement_config_manager = self.game_manager.get_achievement_config_manager()
 	var achievement_manager = self.game_manager.get_achievement_manager()
 	
@@ -37,7 +36,19 @@ func update_achievements() -> void:
 	if self._selected_achievement_id.is_empty():
 		if !keys.is_empty():
 			self._on_achievement_selected( keys[ 0 ] )
-		
+	
+func update_achievements() -> void:
+	var achievement_config_manager = self.game_manager.get_achievement_config_manager()
+	var achievement_manager = self.game_manager.get_achievement_manager()
+	
+	for c in self.achievement_container.get_children():
+		var ab = c as AchievementButton
+		if ab == null:
+			continue
+		var id = ab.config.id
+		var s = achievement_manager.get_achievement_state( id )
+		ab.state = s
+
 func _on_achievement_selected( id: String ) -> void:
 	var achievement_config_manager = self.game_manager.get_achievement_config_manager()
 	var achievement_manager = self.game_manager.get_achievement_manager()

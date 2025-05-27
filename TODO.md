@@ -6,11 +6,11 @@
 
 ## Next
 
-- [ ] Task: Rework AchievementView to avoid recreating entries on update
 
 ## Todo
 
 - [ ] Task: Highlight selected Achievement in AchievementDialog grid
+- [ ] Tasl: Save player after collecting an Achievment (later for easier testing)
 
 - [ ] Epic: Visualise Achievements
 	- [ ] Task: Add Toasts for Achievements
@@ -129,6 +129,7 @@
 #### S04E18
 - [x] Task: Create grid view for AchievementsDialog (top details, bottom grid)
 - [x] Task: Make Achievements collectable in AchievementDialog
+- [x] Task: Rework AchievementView to avoid recreating entries on update
 
 ### 2025-05-22
 #### S04E017
