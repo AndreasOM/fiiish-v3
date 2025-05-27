@@ -7,8 +7,10 @@ signal pressed( id: String )
 
 @export var config: AchievementConfig = null : set = set_achievement_config
 @export var state: AchievementStates.State = AchievementStates.State.UNKNOWN : set = set_state
+@export var selected: bool = false : set = set_selected
 
 @onready var texture_button: TextureButton = %TextureButton
+@onready var selected_texture_rect: TextureRect = %SelectedTextureRect
 
 var _tween : Tween = null
 
@@ -22,6 +24,10 @@ func set_achievement_config( c: AchievementConfig ) -> void:
 func set_state( s: AchievementStates.State ) -> void:
 	state = s
 	self._update()
+
+func set_selected( s: bool ) -> void:
+	selected = s
+	self._update()
 	
 func _animate_completed() -> void:
 	if self._tween != null:
@@ -29,13 +35,13 @@ func _animate_completed() -> void:
 		
 	self._tween = create_tween()
 	self._tween.tween_property(
-		self,
+		self.texture_button,
 		"modulate",
 		Color.GREEN,
 		0.5
 	)
 	self._tween.tween_property(
-		self,
+		self.texture_button,
 		"modulate",
 		Color.WHITE,
 		0.5
@@ -43,11 +49,15 @@ func _animate_completed() -> void:
 	self._tween.tween_callback( _completed_tween_finished )
 	
 func _completed_tween_finished() -> void:
-	if self.state == AchievementStates.State.COMPLETED:
-		self._animate_completed()
-	else:
-		self._tween = null
-
+	match self.state:
+		AchievementStates.State.COLLECTED:
+			self.texture_button.modulate = Color.WHITE
+			self._tween = null
+		AchievementStates.State.COMPLETED:
+			self._animate_completed()
+		_:
+			self.texture_button.modulate = Color.DIM_GRAY
+			self._tween = null
 	
 func _update() -> void:
 	if self.config == null:
@@ -55,20 +65,24 @@ func _update() -> void:
 		
 	if self.texture_button == null:
 		return
+	
+	if self.selected_texture_rect == null:
+		return
 
 	self.name = "AchievementButton-%s" % self.config.id
 	self.texture_button.texture_normal = self.config.icon
 
 	match self.state:
 		AchievementStates.State.COMPLETED:
-			self.modulate = Color.WHITE
+			self.texture_button.modulate = Color.WHITE
 			self._animate_completed()
 			
 		AchievementStates.State.COLLECTED:
-			self.modulate = Color.WHITE
+			self.texture_button.modulate = Color.WHITE
 		_:
-			self.modulate = Color.DIM_GRAY
+			self.texture_button.modulate = Color.DIM_GRAY
 
+	self.selected_texture_rect.visible = self.selected
 
 func _on_texture_button_pressed() -> void:
 	if self.config == null:

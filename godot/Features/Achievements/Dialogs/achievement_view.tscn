@@ -82,18 +82,20 @@ visible = false
 layout_mode = 2
 
 [node name="AchievementButton-PlayALittle1" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("4_jnulb")]
-modulate = Color(0.399445, 1, 0.399445, 1)
 layout_mode = 2
 config = ExtResource("5_bsoqe")
+state = 0
+selected = false
 
 [node name="AchievementButton-SingleRunDistance1" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("4_jnulb")]
-modulate = Color(0.399445, 1, 0.399445, 1)
 layout_mode = 2
 config = ExtResource("6_osfof")
+state = 0
 
 [node name="AchievementButton-TotalCoins1" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("4_jnulb")]
 layout_mode = 2
 config = ExtResource("7_osfof")
 state = 2
+selected = false
 
 [connection signal="collect_pressed" from="VBoxContainer/AchievementElementView" to="." method="_on_achievement_element_view_collect_pressed"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8h4u2gu50lms"]
+[gd_scene load_steps=4 format=3 uid="uid://b8h4u2gu50lms"]
 
 [ext_resource type="Texture2D" uid="uid://byyivxx7e4lfo" path="res://Textures/UI/mini_icon_flag.png" id="1_hj7rr"]
 [ext_resource type="Script" uid="uid://0sn4uthxb0pi" path="res://Features/Achievements/Dialogs/achievement_button.gd" id="1_pvvg2"]
+[ext_resource type="Texture2D" uid="uid://xqeph3blkkew" path="res://Textures/UI/mini_icon_selected_frame.png" id="2_l4usc"]
 
 [node name="AchievementButton" type="Control"]
 custom_minimum_size = Vector2(64, 64)
@@ -11,15 +12,21 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_pvvg2")
 state = 1
+selected = true
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectedTextureRect" type="TextureRect" parent="CenterContainer"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+texture = ExtResource("2_l4usc")
+
+[node name="TextureButton" type="TextureButton" parent="CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 texture_normal = ExtResource("1_hj7rr")
 
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="CenterContainer/TextureButton" to="." method="_on_texture_button_pressed"]
