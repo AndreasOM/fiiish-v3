@@ -3,12 +3,14 @@
 
 ## In Progress
 
-- [ ] Task: Make Achievements collectable in AchievementDialog
 
 ## Next
 
+- [ ] Task: Rework AchievementView to avoid recreating entries on update
 
 ## Todo
+
+- [ ] Task: Highlight selected Achievement in AchievementDialog grid
 
 - [ ] Epic: Visualise Achievements
 	- [ ] Task: Add Toasts for Achievements
@@ -126,6 +128,7 @@
 ### 2025-05-27
 #### S04E18
 - [x] Task: Create grid view for AchievementsDialog (top details, bottom grid)
+- [x] Task: Make Achievements collectable in AchievementDialog
 
 ### 2025-05-22
 #### S04E017

@@ -354,7 +354,7 @@ func get_first_ranks_on_last_leaderboard_update() -> Array[ LeaderboardTypes.Typ
 func get_zone_editor_save() -> ZoneEditorSave:
 	return self._zone_editor_save
 
-func give_achievements( achievements: Array[ String ] ) -> void:
+func add_completed_achievements( achievements: Array[ String ] ) -> void:
 	self._last_achievements = achievements
 	for a in achievements:
 		var s = SerializableString.new( a )
@@ -381,12 +381,13 @@ func collected_achievements() -> Array[ String ]:
 	return r
 
 func collect_achievement( id: String ) -> bool:
-	if !self._completed_achievements.has( id ):
+	var s_id = SerializableString.new( id )
+	var found_id = self._completed_achievements.take( s_id )
+	if found_id == null:
 		return false
-	if self._collected_achievements.has( id ):
+	if self._collected_achievements.has( s_id ):
 		return false
 		
-	self._completed_achievements.erase( id )
-	self._collected_achievements.push_back( id )
+	self._collected_achievements.push_back( s_id )
 	
 	return true
