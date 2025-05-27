@@ -223,14 +223,23 @@ func get_achievement_manager() -> AchievementManager:
 func get_achievement_counter_manager() -> AchievementCounterManager:
 	return self._achievement_counter_manager
 
-func collect_achievements( player: Player ) -> bool:
+func collect_achievement( id: String ) -> bool:
+	var player = self.game.get_player()
+	if !player.collect_achievement( id ):
+		return false
+	self._achievement_manager.mark_achievement_collected( id )
+	
+	# :TODO: give rewards
+	return true
+	 
+func sync_achievements_with_player( player: Player ) -> bool:
 	var completed_achievements = self._achievement_manager.get_completed_achievments()
 	if completed_achievements.is_empty():
 		return false
 	
-	for ca in completed_achievements:
-		self._achievement_manager.collect_achievement( ca )
-	player.give_achievements( completed_achievements )
+#	for ca in completed_achievements:
+#		self._achievement_manager.collect_achievement( ca )
+	player.add_completed_achievements( completed_achievements )
 	return true
 	
 func set_test_zone_filename( filename: String ) -> void:

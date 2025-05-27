@@ -237,7 +237,7 @@ func _credit_last_swim():
 	var distance = %GameManager.take_current_distance_in_meters()
 	_player.apply_distance(distance)
 	
-	self.get_game_manager().collect_achievements( _player )
+	self.get_game_manager().sync_achievements_with_player( _player )
 	
 	_player.update_leaderboards( coins, distance )
 	_player.save();

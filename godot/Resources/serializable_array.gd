@@ -26,11 +26,40 @@ func size() -> int:
 func clear():
 	_data.clear()
 	
-func has( value: Variant ):
-	return _data.has( value )
+
+func _find_object( what: Object, from: int = 0 ) -> int:
+	var what_string = what.to_string()
+	for idx in range( from, self._data.size() ):
+		var v = self._data[ idx ]
+		if typeof( v ) != TYPE_OBJECT:
+			return -1
+		var v_string = v.to_string()
+		if v_string == what_string:
+			return idx
+		
+	return -1
+func find( what: Variant, from: int = 0) -> int:
+	match typeof( what ):
+		TYPE_OBJECT:
+			return self._find_object( what as Object, from )
+		_:
+			push_warning( "SerializableArray find used with non-object type")
+			return self._data.find(what, from)
+
+func take( value: Variant ) -> Variant:
+	var idx = self.find( value, 0 )
+	if idx < 0:
+		return null
+	return self._data.pop_at( idx )
+	
+func has( value: Variant ) -> bool:
+	return self.find( value, 0 ) != -1
 
 func erase( value: Variant ) -> void:
-	self._data.erase( value )
+	var idx = self.find( value, 0 )
+	if idx < 0:
+		return
+	self._data.remove_at( idx )
 
 func get_entry( idx: int ) -> Variant:
 	return _data.get( idx )

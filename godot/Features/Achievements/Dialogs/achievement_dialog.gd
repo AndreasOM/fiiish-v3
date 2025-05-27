@@ -16,11 +16,7 @@ func close( duration: float):
 	fade_out( duration )
 
 func open( duration: float):
-	var gm := self._dialog_manager.game.get_game_manager()
-	var am := gm.get_achievement_manager()
-	var acm := gm.get_achievement_config_manager()
-	
-	self.achievement_view.update_achievements( am, acm )
+	self.achievement_view.update_achievements()
 	fade_in( duration )
 
 func fade_out( duration: float ):
