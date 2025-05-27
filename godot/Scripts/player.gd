@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 11
+const current_version: int = 12
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -50,7 +50,15 @@ var _total_coins = 0
 
 ## version 11
 
-var _achievements: SerializableArray = SerializableArray.new(
+# version <=11: collected or completed
+# version >=12: completed
+var _completed_achievements: SerializableArray = SerializableArray.new(
+	func() -> SerializableString:
+		return SerializableString.new()
+)
+
+## version 12
+var _collected_achievements: SerializableArray = SerializableArray.new(
 	func() -> SerializableString:
 		return SerializableString.new()
 )
@@ -93,7 +101,8 @@ func reset():
 	_skill_points_used = 0
 	_skills.clear()
 	_total_coins = 0
-	_achievements.clear()
+	_completed_achievements.clear()
+	_collected_achievements.clear()
 	_last_achievements.clear()
 	self._isDirty = true
 	
@@ -179,7 +188,12 @@ func serialize( s: Serializer ) -> bool:
 	if version < 11:
 		return true
 		
-	self._achievements.serialize( s )
+	self._completed_achievements.serialize( s )
+
+	if version < 12:
+		return true
+		
+	self._collected_achievements.serialize( s )
 	
 	return true
 		
@@ -344,15 +358,35 @@ func give_achievements( achievements: Array[ String ] ) -> void:
 	self._last_achievements = achievements
 	for a in achievements:
 		var s = SerializableString.new( a )
-		if !self._achievements.has( s ):
-			self._achievements.push_back( s )
+		if !self._completed_achievements.has( s ):
+			self._completed_achievements.push_back( s )
 			self._isDirty = true
 
-func achievements() -> Array[ String ]:
+func completed_achievements() -> Array[ String ]:
 	var r: Array[ String ] = []
-	for a in self._achievements.iter():
+	for a in self._completed_achievements.iter():
 		var s = a.to_string()
 		if s != null:
 			r.push_back( s )
 	
 	return r
+
+func collected_achievements() -> Array[ String ]:
+	var r: Array[ String ] = []
+	for a in self._collected_achievements.iter():
+		var s = a.to_string()
+		if s != null:
+			r.push_back( s )
+	
+	return r
+
+func collect_achievement( id: String ) -> bool:
+	if !self._completed_achievements.has( id ):
+		return false
+	if self._collected_achievements.has( id ):
+		return false
+		
+	self._completed_achievements.erase( id )
+	self._collected_achievements.push_back( id )
+	
+	return true

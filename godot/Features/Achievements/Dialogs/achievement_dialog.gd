@@ -3,6 +3,15 @@ extends Dialog
 @onready var achievement_view: AchievementView = %AchievementView
 
 
+func _ready() -> void:
+	if self._dialog_manager != null:
+		self.achievement_view.game_manager = self._dialog_manager.game.get_game_manager()
+	
+func set_dialog_manager( dialog_manager: DialogManager ):
+	super( dialog_manager )
+	if self.achievement_view != null:
+		self.achievement_view.game_manager = self._dialog_manager.game.get_game_manager()
+		
 func close( duration: float):
 	fade_out( duration )
 
