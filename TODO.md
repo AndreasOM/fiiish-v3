@@ -6,11 +6,12 @@
 
 ## Next
 
-- [ ] Task: Add reward configuration to AchievementConfig
 
 ## Todo
 
 - [ ] Task: Save player after collecting an Achievment (later for easier testing)
+
+- [ ] Bug: Show ToastDialog in front of other dialogs
 
 - [ ] Epic: Visualise Achievements
 	- [ ] Task: Add Toasts for Achievements
@@ -131,6 +132,8 @@
 - [x] Task: Make Achievements collectable in AchievementDialog
 - [x] Task: Rework AchievementView to avoid recreating entries on update
 - [x] Task: Highlight selected Achievement in AchievementDialog grid
+- [x] Task: Add reward configuration to AchievementConfig
+- [x] Task: Give Achievment Rewards on collection
 
 ### 2025-05-22
 #### S04E017

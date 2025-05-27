@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://c28gp184n5yq2"]
+
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="1_hla8i"]
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_ts0oq"]
+[ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="2_n04sb"]
+
+[sub_resource type="Resource" id="Resource_j8l2u"]
+script = ExtResource("1_ts0oq")
+prereq_achievement_ids = Array[String]([])
+prereq_counters = Dictionary[int, int]({})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("1_hla8i")
+id = "Tester1"
+name = "Tester 1"
+icon = ExtResource("2_n04sb")
+completion_condition = SubResource("Resource_j8l2u")
+reward_coins = 100
+reward_skill_points = 10
+reward_extra = Array[String](["Thank You!", "Very Much for Testing!"])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"
