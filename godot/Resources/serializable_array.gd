@@ -29,6 +29,9 @@ func clear():
 func has( value: Variant ):
 	return _data.has( value )
 
+func erase( value: Variant ) -> void:
+	self._data.erase( value )
+
 func get_entry( idx: int ) -> Variant:
 	return _data.get( idx )
 	

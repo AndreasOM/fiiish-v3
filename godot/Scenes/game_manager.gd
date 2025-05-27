@@ -87,7 +87,9 @@ func _ready() -> void:
 func player_changed( player: Player ) -> void:
 	if self._achievement_manager != null:
 		self._achievement_manager.reset_achievements()
-		for a in player.achievements():
+		for a in player.completed_achievements():
+			self._achievement_manager.mark_achievement_completed( a )
+		for a in player.collected_achievements():
 			self._achievement_manager.mark_achievement_collected( a )
 
 func set_invincible( invicible: bool ):

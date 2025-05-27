@@ -23,6 +23,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("1_jib7y")
+stretch_mode = 4
 
 [node name="NameLabel" type="RichTextLabel" parent="HBoxContainer"]
 unique_name_in_owner = true

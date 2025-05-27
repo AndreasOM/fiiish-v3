@@ -1,51 +1,97 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5q30klywas4u"]
+[gd_scene load_steps=8 format=3 uid="uid://c5q30klywas4u"]
 
 [ext_resource type="PackedScene" uid="uid://duvsrjs7gyn8p" path="res://Features/Achievements/achievement_element.tscn" id="1_5n55d"]
 [ext_resource type="Script" uid="uid://b21av4xl5t8bk" path="res://Features/Achievements/Dialogs/achievement_view.gd" id="1_fyoyl"]
+[ext_resource type="PackedScene" uid="uid://c5pqevpg1va74" path="res://Features/Achievements/Dialogs/achievement_element_view.tscn" id="2_osfof"]
+[ext_resource type="PackedScene" uid="uid://b8h4u2gu50lms" path="res://Features/Achievements/Dialogs/achievement_button.tscn" id="4_jnulb"]
+[ext_resource type="Resource" uid="uid://q03iqelau5ey" path="res://Features/Achievements/AchievementConfigs/achievement_config_play_a_little_1.tres" id="5_bsoqe"]
+[ext_resource type="Resource" uid="uid://dwerfspiv3u50" path="res://Features/Achievements/AchievementConfigs/achievement_config_single_run_distance_1.tres" id="6_osfof"]
+[ext_resource type="Resource" uid="uid://cvc1x70d7i81i" path="res://Features/Achievements/AchievementConfigs/achievement_config_total_coins_1.tres" id="7_osfof"]
 
 [node name="AchievementView" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_fyoyl")
 metadata/_custom_type_script = "uid://b21av4xl5t8bk"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AchievementElementView" parent="VBoxContainer" instance=ExtResource("2_osfof")]
+unique_name_in_owner = true
 layout_mode = 2
-offset_right = 825.0
-offset_bottom = 787.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
-[node name="AchievementContainer" type="GridContainer" parent="ScrollContainer"]
+[node name="AchievementContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
-columns = 2
+columns = 10
 
-[node name="AchievementElement" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
 
-[node name="AchievementElement2" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement2" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
 
-[node name="AchievementElement3" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement3" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
 
-[node name="AchievementElement4" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement4" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
 
-[node name="AchievementElement5" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement5" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
 
-[node name="AchievementElement6" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement6" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
 
-[node name="AchievementElement7" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement7" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
 
-[node name="AchievementElement8" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement8" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
 
-[node name="AchievementElement9" parent="ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+[node name="AchievementElement9" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("1_5n55d")]
+visible = false
 layout_mode = 2
+
+[node name="AchievementButton-PlayALittle1" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("4_jnulb")]
+modulate = Color(0.729035, 1, 0.729035, 1)
+layout_mode = 2
+config = ExtResource("5_bsoqe")
+
+[node name="AchievementButton-SingleRunDistance1" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("4_jnulb")]
+modulate = Color(0.729035, 1, 0.729035, 1)
+layout_mode = 2
+config = ExtResource("6_osfof")
+
+[node name="AchievementButton-TotalCoins1" parent="VBoxContainer/ScrollContainer/AchievementContainer" instance=ExtResource("4_jnulb")]
+layout_mode = 2
+config = ExtResource("7_osfof")
+state = 2

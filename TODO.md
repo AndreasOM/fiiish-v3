@@ -3,11 +3,10 @@
 
 ## In Progress
 
-
+- [ ] Task: Make Achievements collectable in AchievementDialog
 
 ## Next
 
-- [ ] Task: Experiment with grid view for AchievementsDialog (top details, bottom grid)
 
 ## Todo
 
@@ -123,6 +122,10 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+### 2025-05-27
+#### S04E18
+- [x] Task: Create grid view for AchievementsDialog (top details, bottom grid)
 
 ### 2025-05-22
 #### S04E017

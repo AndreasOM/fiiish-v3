@@ -2,10 +2,42 @@ extends Control
 class_name AchievementView
 
 @onready var achievement_container: GridContainer = %AchievementContainer
+@onready var achievement_element_view: AchievementElementView = %AchievementElementView
+
+@export var game_manager: GameManager = null
 
 var _element = preload("res://Features/Achievements/achievement_element.tscn")
+var _button_element = preload("res://Features/Achievements/Dialogs/achievement_button.tscn")
 
 func update_achievements( achievement_manager: AchievementManager, achievement_config_manager: AchievementConfigManager ) -> void:
+	for c in self.achievement_container.get_children():
+		c.get_parent().remove_child( c )
+		c.queue_free()
+	
+	for ack in achievement_config_manager.get_keys():
+		var ac = achievement_config_manager.get_config( ack )
+		if ac == null:
+			continue
+		
+		var e = self._button_element.instantiate() as AchievementButton
+		if e == null:
+			continue
+		e.config = ac
+		var s = achievement_manager.get_achievement_state( ack )
+		e.state = s
+		e.pressed.connect( _on_achievement_selected )
+		self.achievement_container.add_child( e )
+
+func _on_achievement_selected( id: String ) -> void:
+	var achievement_config_manager = self.game_manager.get_achievement_config_manager()
+	var achievement_manager = self.game_manager.get_achievement_manager()
+	var ac = achievement_config_manager.get_config( id )
+	var s = achievement_manager.get_achievement_state( id )
+
+	self.achievement_element_view.config = ac
+	self.achievement_element_view.state = s
+
+func update_achievements_v1( achievement_manager: AchievementManager, achievement_config_manager: AchievementConfigManager ) -> void:
 	for c in self.achievement_container.get_children():
 		c.queue_free()
 	
