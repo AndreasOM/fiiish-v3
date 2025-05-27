@@ -16,7 +16,7 @@ func close( duration: float):
 	fade_out( duration )
 
 func open( duration: float):
-	self.achievement_view.update_achievements()
+	self.achievement_view.recreate_achievements()
 	fade_in( duration )
 
 func fade_out( duration: float ):
