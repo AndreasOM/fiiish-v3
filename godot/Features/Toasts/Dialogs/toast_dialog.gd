@@ -9,6 +9,7 @@ extends Dialog
 @export_tool_button("Clear Toasts") var clear_toats_button = clear_toasts.bind()
 @export_tool_button("Add Toast") var add_toast_button = add_toast.bind( "Toast" )
 @export_tool_button("Add Toast Simple Text") var add_simple_text_toast_button = add_simple_text_toast.bind( "Simple" )
+@export_tool_button("Add Toast Achievement") var add_achievement_toast_button = add_achievement_toast.bind( "SingleRunDistance1" )
 
 @onready var toast_container: VBoxContainer = %ToastContainer
 @onready var margin_container: MarginContainer = %MarginContainer
@@ -16,6 +17,7 @@ extends Dialog
 var _queued_toasts: Array[ Control ] = [ ]
 var _tween: Tween = null
 const SIMPLE_TEXT_TOAST = preload("res://Features/Toasts/Dialogs/simple_text_toast.tscn")
+const ACHIEVEMENT_TOAST = preload("res://Features/Toasts/Dialogs/achievement_toast.tscn")
 
 func _ready() -> void:
 	self.margin_container.add_theme_constant_override("margin_top", 0)
@@ -33,6 +35,18 @@ func clear_toasts() -> void:
 		t.queue_free()
 	self.margin_container.add_theme_constant_override("margin_top", 0)
 	print("Cleared toasts")
+	
+func add_achievement_toast( id: String ) -> AchievementToast:
+	var at = ACHIEVEMENT_TOAST.instantiate()
+	if self._dialog_manager == null:
+		pass
+	else:
+		var gm = self._dialog_manager.game.get_game_manager()
+		var acm = gm.get_achievement_config_manager()
+		var ac = acm.get_config( id )
+		at.config = ac
+	self._queued_toasts.push_back( at )
+	return at
 	
 func add_simple_text_toast( text: String ) -> SimpleTextToast:
 	var stt = SIMPLE_TEXT_TOAST.instantiate()
@@ -72,6 +86,7 @@ func _process( delta: float ) -> void:
 func push_out_toast( toast: Control ) -> void:
 	print("Creating tween for toast")
 	var toast_height = toast.size.y
+	print("Toast height %d" % toast_height )
 	var push_duration = toast_height / self.push_speed
 	var wait_duration = 1.0
 	self._tween = create_tween()
@@ -103,6 +118,7 @@ func close( duration: float):
 
 func open( duration: float):
 	Events.global_message.connect( _on_global_message )
+	Events.achievement_completed.connect( _on_achievement_completed )
 	fade_in( duration )
 
 func fade_out( duration: float ):
@@ -125,3 +141,6 @@ func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
 
 func _on_global_message( text: String ) -> void:
 	self.add_simple_text_toast( text )
+	
+func _on_achievement_completed( id: String ) -> void:
+	self.add_achievement_toast( id )

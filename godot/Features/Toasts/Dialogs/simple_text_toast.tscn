@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cglfb2j7bk1sm"]
 
-[ext_resource type="Texture2D" uid="uid://c1kyb7ia7ta4x" path="res://Textures/UI/Buttons/button_sub_menu_entry.png" id="1_ofhv8"]
 [ext_resource type="Script" uid="uid://ynxbtl3sq1rp" path="res://Features/Toasts/Dialogs/simple_text_toast.gd" id="1_saqna"]
+[ext_resource type="Texture2D" uid="uid://gyi7pnsddk47" path="res://Textures/UI/achievement_toast_frame.png" id="2_saqna"]
 
 [node name="SimpleTextToast" type="Control"]
-custom_minimum_size = Vector2(256, 128)
+custom_minimum_size = Vector2(512, 127)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -22,10 +22,11 @@ size_flags_vertical = 4
 script = ExtResource("1_saqna")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.8)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("1_ofhv8")
+texture = ExtResource("2_saqna")
 
 [node name="Label" type="Label" parent="TextureRect"]
 unique_name_in_owner = true

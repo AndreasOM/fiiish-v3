@@ -38,7 +38,8 @@ func _process( _delta: float ) -> void:
 			continue
 		print("Completed Achievement %s" % cfg.name)
 		self._achievements[ cfg.id ] = AchievementStates.State.COMPLETED
-		Events.broadcast_global_message( "Completed: %s" % cfg.name )
+		# Events.broadcast_global_message( "Completed: %s" % cfg.name )
+		Events.broadcast_achievement_completed( cfg.id )
 			
 func _check_condition_prereq_achievements( condition: AchievementCondition, counter_manager: AchievementCounterManager ) -> bool:
 	for id in condition.prereq_achievement_ids:
