@@ -41,7 +41,7 @@ size_flags_vertical = 0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(640, 1080)
 layout_mode = 2
-theme_override_constants/margin_top = 0
+theme_override_constants/margin_top = -110
 
 [node name="ToastContainer" type="VBoxContainer" parent="FadeablePanelContainer/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true

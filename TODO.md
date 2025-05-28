@@ -6,6 +6,8 @@
 
 ## Next
 
+- [ ] Task: Add special Toast for received Rewards
+
 
 ## Todo
 
@@ -13,8 +15,6 @@
 
 
 - [ ] Epic: Visualise Achievements
-	- [ ] Task: Add Toasts for Achievements
-	- [ ] Task: Add special Toast for completed Achievement
 
 
 
@@ -129,6 +129,7 @@
 #### S04E19
 - [x] Task: Trigger Toast via DeveloperConsole
 - [x] Bug: Show ToastDialog in front of other dialogs
+- [x] Task: Add special Toast for completed Achievement
 
 ### 2025-05-27
 #### S04E18

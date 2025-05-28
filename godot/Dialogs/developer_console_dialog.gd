@@ -66,6 +66,7 @@ func _input(event):
 			else:
 				%LineEdit.text = ""
 		elif event.is_action_pressed( "tab" ):
+			get_viewport().set_input_as_handled()
 			var l = self.auto_complete( %LineEdit.text )
 			if l != null:
 				%LineEdit.text = l
@@ -202,7 +203,8 @@ func find_command( input: String ) -> DeveloperCommand:
 		if cmd == null:
 			continue
 		var s = cmd.syntax()
-		if s == input:
+		#if s == input:
+		if input.begins_with( s ):
 			return cmd
 	return null
 	

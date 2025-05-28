@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddt7nhcrxfycc"]
+
+[ext_resource type="Script" uid="uid://brg81di0vs2nr" path="res://Features/Toasts/Dialogs/achievement_toast.gd" id="1_8r5kc"]
+[ext_resource type="Texture2D" uid="uid://gyi7pnsddk47" path="res://Textures/UI/achievement_toast_frame.png" id="2_dk0xc"]
+[ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="3_dk0xc"]
+
+[node name="AchievementToast" type="Control"]
+custom_minimum_size = Vector2(512, 127)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1408.0
+offset_bottom = -953.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_8r5kc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.8)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -63.5
+offset_right = 256.0
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_dk0xc")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 0.23, 0.23, 0.403922)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"SmallLabel"
+text = "Completed:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_dk0xc")
+stretch_mode = 4
+
+[node name="NameLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"MediumLabel"
+text = "This needs work"
+vertical_alignment = 1
