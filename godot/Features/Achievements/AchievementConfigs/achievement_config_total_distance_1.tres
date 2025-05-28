@@ -15,7 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("1_w6qs8")
 id = "TotalDistance1"
+sort_index = -1
 name = "Total Distance 1"
 icon = ExtResource("1_3wuwd")
 completion_condition = SubResource("Resource_yt6t2")
+reward_coins = 0
+reward_skill_points = 0
+reward_extra = Array[String]([])
 metadata/_custom_type_script = "uid://dtt8w7uij10vl"

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://5pr2dmiauxsc"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_jlmmj"]
+[ext_resource type="Texture2D" uid="uid://ckte81breutd" path="res://Features/Achievements/Textures/achievement_icon_single_run_coins_3.png" id="2_jlmmj"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_sxm71"]
+
+[sub_resource type="Resource" id="Resource_3wdqu"]
+script = ExtResource("1_jlmmj")
+prereq_achievement_ids = Array[String](["SingleRunCoins2"])
+prereq_counters = Dictionary[int, int]({
+0: 250
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_sxm71")
+id = "SingleRunCoins3"
+sort_index = 1033
+name = "Single Run Coins Gold"
+icon = ExtResource("2_jlmmj")
+completion_condition = SubResource("Resource_3wdqu")
+reward_coins = 10
+reward_skill_points = 1
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"
