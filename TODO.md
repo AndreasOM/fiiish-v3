@@ -10,10 +10,8 @@
 
 ## Todo
 
-- [ ] Task: Save player after collecting an Achievment (later for easier testing)
 
 
-- [ ] Epic: Visualise Achievements
 
 
 
@@ -130,6 +128,8 @@
 - [x] Bug: Show ToastDialog in front of other dialogs
 - [x] Task: Add special Toast for completed Achievement
 - [x] Task: Add special Toast for received Rewards
+- [x] Epic: Visualise Achievements
+- [x] Task: Save player after collecting an Achievment (later for easier testing)
 
 ### 2025-05-27
 #### S04E18
