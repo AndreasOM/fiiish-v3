@@ -6,7 +6,6 @@
 
 ## Next
 
-- [ ] Task: Add special Toast for received Rewards
 
 
 ## Todo
@@ -130,6 +129,7 @@
 - [x] Task: Trigger Toast via DeveloperConsole
 - [x] Bug: Show ToastDialog in front of other dialogs
 - [x] Task: Add special Toast for completed Achievement
+- [x] Task: Add special Toast for received Rewards
 
 ### 2025-05-27
 #### S04E18

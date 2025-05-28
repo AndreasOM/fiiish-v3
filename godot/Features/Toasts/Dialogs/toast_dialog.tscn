@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dy8hv42uw38ce"]
+[gd_scene load_steps=5 format=3 uid="uid://dy8hv42uw38ce"]
 
 [ext_resource type="Script" uid="uid://cyxd8md7y3lyx" path="res://Features/Toasts/Dialogs/toast_dialog.gd" id="1_3xme6"]
+[ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="2_2on31"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_dqplu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1w6v2"]
@@ -17,6 +18,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_3xme6")
 push_speed = 48.0
+reward_test_icon = ExtResource("2_2on31")
 
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -41,7 +43,7 @@ size_flags_vertical = 0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(640, 1080)
 layout_mode = 2
-theme_override_constants/margin_top = -110
+theme_override_constants/margin_top = 0
 
 [node name="ToastContainer" type="VBoxContainer" parent="FadeablePanelContainer/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true

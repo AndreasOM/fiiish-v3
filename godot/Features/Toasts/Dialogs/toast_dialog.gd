@@ -5,11 +5,13 @@ extends Dialog
 
 @export var max_toasts: int = 5
 @export var push_speed: float = 12.0
+@export var reward_test_icon: Texture = null
 @export_tool_button("Clear Tween") var clear_tween_button = clear_tween.bind()
 @export_tool_button("Clear Toasts") var clear_toats_button = clear_toasts.bind()
 @export_tool_button("Add Toast") var add_toast_button = add_toast.bind( "Toast" )
 @export_tool_button("Add Toast Simple Text") var add_simple_text_toast_button = add_simple_text_toast.bind( "Simple" )
 @export_tool_button("Add Toast Achievement") var add_achievement_toast_button = add_achievement_toast.bind( "SingleRunDistance1" )
+@export_tool_button("Add Toast Reward") var add_reward_toast_button = add_reward_toast.bind( 10, self.reward_test_icon, "" )
 
 @onready var toast_container: VBoxContainer = %ToastContainer
 @onready var margin_container: MarginContainer = %MarginContainer
@@ -18,6 +20,7 @@ var _queued_toasts: Array[ Control ] = [ ]
 var _tween: Tween = null
 const SIMPLE_TEXT_TOAST = preload("res://Features/Toasts/Dialogs/simple_text_toast.tscn")
 const ACHIEVEMENT_TOAST = preload("res://Features/Toasts/Dialogs/achievement_toast.tscn")
+const REWARD_TOAST = preload("res://Features/Toasts/Dialogs/reward_toast.tscn")
 
 func _ready() -> void:
 	self.margin_container.add_theme_constant_override("margin_top", 0)
@@ -35,6 +38,14 @@ func clear_toasts() -> void:
 		t.queue_free()
 	self.margin_container.add_theme_constant_override("margin_top", 0)
 	print("Cleared toasts")
+	
+func add_reward_toast( amount: int, icon: Texture, extra: String ) -> RewardToast:
+	var rt = REWARD_TOAST.instantiate()
+	rt.amount = amount
+	rt.icon = icon
+	rt.extra = extra
+	self._queued_toasts.push_back( rt )
+	return rt
 	
 func add_achievement_toast( id: String ) -> AchievementToast:
 	var at = ACHIEVEMENT_TOAST.instantiate()
@@ -119,6 +130,7 @@ func close( duration: float):
 func open( duration: float):
 	Events.global_message.connect( _on_global_message )
 	Events.achievement_completed.connect( _on_achievement_completed )
+	Events.reward_received.connect( _on_reward_received )
 	fade_in( duration )
 
 func fade_out( duration: float ):
@@ -144,3 +156,6 @@ func _on_global_message( text: String ) -> void:
 	
 func _on_achievement_completed( id: String ) -> void:
 	self.add_achievement_toast( id )
+
+func _on_reward_received( amount: int, icon: Texture, extra: String ) -> void:
+	self.add_reward_toast( amount, icon, extra )

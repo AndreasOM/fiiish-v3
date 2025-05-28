@@ -14,6 +14,7 @@ signal zone_test_disabled
 
 signal global_message( text: String )
 signal achievement_completed( id: String )
+signal reward_received( amount: int, icon: Texture, extra: String )
 signal queue_toast( toast: Control )
 
 func broadcast_game_state_changed( state: Game.State ):
@@ -52,5 +53,8 @@ func broadcast_global_message( text: String ) -> void:
 func broadcast_achievement_completed( id: String ) -> void:
 	self.achievement_completed.emit( id )
 
+func broadcast_reward_received( amount: int, icon: Texture, extra: String ) -> void:
+	self.reward_received.emit( amount, icon, extra )
+	
 func broadcast_queue_toast( toast: Control ) -> void:
 	self.queue_toast.emit( toast )
