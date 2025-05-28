@@ -11,7 +11,6 @@
 
 - [ ] Task: Save player after collecting an Achievment (later for easier testing)
 
-- [ ] Bug: Show ToastDialog in front of other dialogs
 
 - [ ] Epic: Visualise Achievements
 	- [ ] Task: Add Toasts for Achievements
@@ -22,11 +21,11 @@
 ## V3.6.0 - ETA: 05/25
 
 
-- [ ] #reach Feature: Achievements
+- [ ] Feature: Achievements
 	- [ ] Epic: Add Rewards for Achievements, e.g. unlock Features
 		- [ ] Task: Collect Achievment Rewards in AchievementDialog
 	- [ ] Polish: Sort Achievements -- by TBD
-	- [ ] Task: Create consistent style for Achievement Icons (e.g. Bronze, Silver, Gold, Ruby, Diamond)
+	- [ ] Task: Create consistent style for Achievement Icons (e.g. Bronze, Silver, Gold, Diamond, Ruby)
 	- [ ] Epic: Define and configure Achievements and Rewards
 
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
@@ -125,6 +124,11 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+### 2025-05-28
+#### S04E19
+- [x] Task: Trigger Toast via DeveloperConsole
+- [x] Bug: Show ToastDialog in front of other dialogs
 
 ### 2025-05-27
 #### S04E18
