@@ -250,6 +250,7 @@ func collect_achievement( id: String ) -> bool:
 		for e in ac.reward_extra:
 			Events.broadcast_reward_received( 0, null, e)
 			
+	player.save()
 	return true
 	 
 func sync_achievements_with_player( player: Player ) -> bool:
