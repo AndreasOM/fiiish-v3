@@ -3,27 +3,25 @@
 
 ## In Progress
 
+- [ ] Task: Add the first full batch of Achievements
+	- [ ] Total Distance Achievements			sort_index: 102x (1021-1025)
+	- [ ] Total Coin Achievements
+	- [ ] Times Played
 
 ## Next
 
-
+- [ ] Task: Sort Achievements by sort_index
+- [ ] Cleanup: Reduce Achievement tracing
 
 ## Todo
-
-
-
-
 
 
 ## V3.6.0 - ETA: 05/25
 
 
 - [ ] Feature: Achievements
-	- [ ] Epic: Add Rewards for Achievements, e.g. unlock Features
-		- [ ] Task: Collect Achievment Rewards in AchievementDialog
 	- [ ] Polish: Sort Achievements -- by TBD
 	- [ ] Task: Create consistent style for Achievement Icons (e.g. Bronze, Silver, Gold, Diamond, Ruby)
-	- [ ] Epic: Define and configure Achievements and Rewards
 
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
@@ -130,6 +128,9 @@
 - [x] Task: Add special Toast for received Rewards
 - [x] Epic: Visualise Achievements
 - [x] Task: Save player after collecting an Achievment (later for easier testing)
+- [x] Epic: Define and configure Achievements and Rewards
+- [x] Single Run Distance Achievements		sort_index: 101x (1011-1015)
+- [x] Single Run Coin Achievements			sort_index: 103x
 
 ### 2025-05-27
 #### S04E18

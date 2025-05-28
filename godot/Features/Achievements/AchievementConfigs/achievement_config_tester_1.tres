@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("1_hla8i")
 id = "Tester1"
+sort_index = -1
 name = "Tester 1"
 icon = ExtResource("2_n04sb")
 completion_condition = SubResource("Resource_j8l2u")

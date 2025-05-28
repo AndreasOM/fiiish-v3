@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://vkjyclx8qfmh"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_038ay"]
+[ext_resource type="Texture2D" uid="uid://7cvdejbniwb1" path="res://Features/Achievements/Textures/achievement_icon_single_run_coins_5.png" id="2_038ay"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_kqmih"]
+
+[sub_resource type="Resource" id="Resource_3wdqu"]
+script = ExtResource("1_038ay")
+prereq_achievement_ids = Array[String](["SingleRunCoins4"])
+prereq_counters = Dictionary[int, int]({
+0: 5000
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_kqmih")
+id = "SingleRunCoins5"
+sort_index = 1035
+name = "Single Run Coins Ruby"
+icon = ExtResource("2_038ay")
+completion_condition = SubResource("Resource_3wdqu")
+reward_coins = 100
+reward_skill_points = 3
+reward_extra = Array[String](["King of Coins"])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"

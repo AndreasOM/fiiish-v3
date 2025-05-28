@@ -15,6 +15,7 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_puscx")
 id = "TotalCoins1"
+sort_index = -1
 name = "Total Coins 1"
 icon = ExtResource("2_r1prg")
 completion_condition = SubResource("Resource_r1prg")
