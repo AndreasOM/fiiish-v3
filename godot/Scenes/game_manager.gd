@@ -239,10 +239,16 @@ func collect_achievement( id: String ) -> bool:
 	if ac != null:
 		if ac.reward_coins > 0:
 			player.give_coins( ac.reward_coins )
-			Events.broadcast_global_message( "Got %d coins" % ac.reward_coins )
+			# Events.broadcast_global_message( "Got %d coins" % ac.reward_coins )
+			var icon = load("res://Textures/UI/mini_icon_coin.png")
+			Events.broadcast_reward_received( ac.reward_coins, icon, "")
 		if ac.reward_skill_points > 0:
 			player.give_skill_points( ac.reward_skill_points, "Achievement Reward %s" % id )
-			Events.broadcast_global_message( "Got %d skill points" % ac.reward_skill_points )
+			# Events.broadcast_global_message( "Got %d skill points" % ac.reward_skill_points )
+			var icon = load("res://Textures/UI/mini_icon_skill.png")
+			Events.broadcast_reward_received( ac.reward_skill_points, icon, "")
+		for e in ac.reward_extra:
+			Events.broadcast_reward_received( 0, null, e)
 			
 	return true
 	 
