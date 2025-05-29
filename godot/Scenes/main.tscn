@@ -185,6 +185,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("8_hibaj")
 
 [node name="FadeableContainer" type="PanelContainer" parent="UI/PauseOverlay"]
@@ -195,16 +196,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("9_ee4r6")
 metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="ColorRect" type="ColorRect" parent="UI/PauseOverlay/FadeableContainer"]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.08, 0.08, 0.08, 0.819608)
 
 [node name="TextureRect" type="TextureRect" parent="UI/PauseOverlay/FadeableContainer"]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("10_ee4r6")
 stretch_mode = 6
 
