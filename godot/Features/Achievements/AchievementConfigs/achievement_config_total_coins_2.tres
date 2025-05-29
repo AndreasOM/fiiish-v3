@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dnbixgl4qromg"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_vw4ne"]
-[ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="2_ikrxl"]
+[ext_resource type="Texture2D" uid="uid://bmbik2alug564" path="res://Features/Achievements/Textures/achievement_icon_total_coins_2.png" id="2_vw4ne"]
 [ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_vbfom"]
 
 [sub_resource type="Resource" id="Resource_vw4ne"]
@@ -15,11 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_vbfom")
 id = "TotalCoins2"
-sort_index = -1
-name = "Total Coins 2"
-icon = ExtResource("2_ikrxl")
+sort_index = 1062
+name = "Total Coins Silver"
+icon = ExtResource("2_vw4ne")
 completion_condition = SubResource("Resource_vw4ne")
-reward_coins = 0
+reward_coins = 50
 reward_skill_points = 0
 reward_extra = Array[String]([])
 metadata/_custom_type_script = "uid://dtt8w7uij10vl"

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://duowmbxq4kko3"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_b1wh0"]
+[ext_resource type="Texture2D" uid="uid://bf46s45g8uxvm" path="res://Features/Achievements/Textures/achievement_icon_total_coins_4.png" id="2_b1wh0"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_ajtcy"]
+
+[sub_resource type="Resource" id="Resource_vw4ne"]
+script = ExtResource("1_b1wh0")
+prereq_achievement_ids = Array[String](["TotalCoins3"])
+prereq_counters = Dictionary[int, int]({
+1: 10000
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_ajtcy")
+id = "TotalCoins4"
+sort_index = 1064
+name = "Total Coins Diamond"
+icon = ExtResource("2_b1wh0")
+completion_condition = SubResource("Resource_vw4ne")
+reward_coins = 1000
+reward_skill_points = 2
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"
