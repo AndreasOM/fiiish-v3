@@ -108,6 +108,7 @@ func open_zone_editor() -> void:
 	if self._is_in_zone_editor:
 		push_warning( "Tried to open zone editor from zone editor")
 		return
+	self.resume()
 	self._is_in_zone_editor = true
 	%DialogManager.open_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
 	Events.broadcast_zone_edit_enabled()

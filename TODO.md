@@ -1,9 +1,6 @@
 # Todo
 
-
 ## In Progress
-
-- [ ] Polish: Unpause when opening ZoneEditor
 
 
 ## Next
@@ -14,48 +11,26 @@
 
 ## V3.6.0 - ETA: 05/25
 
-
-
-
-
-
-- [+] Polish: Replace Leaderboard background
-- [+] Polish: Fix rotation in minimap renderer
-- [?] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
-- [ ] 😭 Refactor: Create reusable FramedDialog 
-- [+] Polish: Sort Achievements -- by TBD
-- [+] Task: Create consistent style for Achievement Icons (e.g. Bronze, Silver, Gold, Diamond, Ruby)
-
-### Maybe pushed to next release
-
-- [ ] Epic: Zone Editing
-	- [ ] Task: Add better Spawn Object selection to ZoneEditor
-	- [ ] Task: Add Select tool to ZoneEditor
-- [ ] Epic: Zone Properties
-	- [ ] Task: Add Entity Properties dialog to ZoneEditor
-
-- [ ] Epic: GameMode - Edit
-	- [?] Task: Handle Zone Edit enabled where needed
-	- [?] Task: Hide Game HUD in Zone Editor ?! (After minimap)
-
-- [?] Task: Handle Pause correctly in Zone Editor
-
-- [ ] Feature: Zone Editor
-	- [+] Epic: Create new button style for ZoneEditor
-
 - [ ] Polish: Limit Fish movement in ZoneEditor
+- [ ] Bonus: Create some new (middle/center!) Rocks 
+- [ ] Task: Create some new zones!
+- [ ] CI/CD: Bake version info into splash screen
 
-## V3.8.0 - ETA: 06/25
+
+## V3.8.0 - ETA: 06/25 - ZoneEditor, Achievements, new Zones & Campaigns
 
 - [ ] Feature: "Campaign" configuration
-
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
 
-- [ ] Feature: Zone Editor
+- [ ] Feature: Zone Editor - Phase 2
+	- [ ] Epic: Zone Editing
+		- [ ] Task: Add better Spawn Object selection to ZoneEditor
+		- [ ] Task: Add Select tool to ZoneEditor -> show Entity Properties
+	- [ ] Epic: Zone Properties
+		- [ ] Task: Add Entity Properties dialog to ZoneEditor
 	- [ ] * Epic: Zone Management (deleting & renaming?!)
 	- [ ] * Epic: Zone Sharing
 	- [ ] * Epic: Zone Importing
-	- [ ] Epic: Create new button style for ZoneEditor
 	- [ ] * Polish: Visualise magnet range in ZoneEditor
 
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
@@ -66,23 +41,28 @@
 	- [ ] Bonus: Play X days in a row
 	- [ ] Bonus: Max Coins (owned) Achievement
 
+- [ ] Release: Build classic version of game via CI/CD
+
+- [ ] Bonus: Automate creation of Marketing Screenshots
+
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
 
 
 ## Next release
 
-- [ ] Feature: Achievements
 
 ## Later
 
+- [ ] Task: Create generic FrameDialog (e.g. SkillUpgrade and Leaderboard)
+- [ ] 😭 Refactor: Create reusable FramedDialog 
 - [ ] Polish: Unify theme to have consistent style
 - [ ] Polish: Use queue to handle background transitions
 - [ ] Cleanup: Ensure consistent naming of Entities
 - [ ] Task: Add confirmation to Clear in ZoneEditor
 - [ ] Bug: Fix MiniMap scaling
 - [ ] Task: Add Minimap offset
-- [?] Bug: Did the fish get slower?
+- [x] Bug: Did the fish get slower?
 - [ ] Task: Add solid hover to ZoneEditor
 - [ ] Polish: Cleanup ZoneSelectDialog
 - [+] Polish: Add better sound loops for ResultDialog
@@ -92,18 +72,15 @@
 - [ ] Polish: ThemeTypeVariationTween should remove overrides when finished
 - [ ] Task: Allow opening of DeveloperConsole without keyboard
 
-- [ ] Task: Add job to trigger all builds on tag (Maybe not?!)
+- [?] Task: Add job to trigger all builds on tag (Maybe not?!) -- already done?
 
 - [ ] Task: Document and refactor Dialog lifecycle
-- [ ] Task: Create generic FrameDialog (e.g. SkillUpgrade and Leaderboard)
-- [ ] Fix: Weird numbers in ResultScreen
+- [?] Fix: Weird numbers in ResultScreen -- fixed already?!
 
-- [ ] Task: Use "recycle" icon for skill reset on SkillUpgradeDialog
 
 - [ ] Feature: Cloud Saves
 - [ ] Fix: Cleanup fadeable container with focus on z_index
 - [ ] Task: Have DialogManager ensure correct z_index
-- [ ] Bake version info into splash screen
 - [ ] Feature: Polish ResultDialog
 
 ## Future
@@ -120,6 +97,16 @@
 
 ## Obsolete / Won't do
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
+- [+] Polish: Replace Leaderboard background
+- [+] Polish: Fix rotation in minimap renderer
+- [+] Task: Create consistent style for Achievement Icons (e.g. Bronze, Silver, Gold, Diamond, Ruby) -- kind of done (pending art pass)
+- [?] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
+- [?] Task: Handle Zone Edit enabled where needed
+- [?] Task: Hide Game HUD in Zone Editor ?! (After minimap)
+- [?] Task: Handle Pause correctly in Zone Editor -> Do not pause in ZoneEditor
+- [+] Epic: Create new button style for ZoneEditor
+- [+] Epic: Create new button style for ZoneEditor
+- [+] Task: Use "recycle" icon for skill reset on SkillUpgradeDialog -> Art pass
 
 ## Done
 
@@ -133,6 +120,9 @@
 - [x] Task: Add the first full batch of Achievements
 - [x] Feature: Achievements
 - [x] Polish: Make Pause Overlay visible again
+- [x] Polish: Unpause when opening ZoneEditor
+- [x] Epic: GameMode - Edit -> Replaced by ZoneTest
+- [x] Feature: Zone Editor - Phase 1
 
 ### 2025-05-28
 #### S04E19
