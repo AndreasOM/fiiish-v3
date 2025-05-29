@@ -4,29 +4,16 @@
 ## In Progress
 
 
-- [ ] Task: Add the first full batch of Achievements
-	- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
-	- [ ] Bonus: Upgrade X Skills
-	- [ ] Bonus: Play X days in a row
-
-
-
 ## Next
 
-
+- [ ] Bug: Result for last swim are wrong?!
 
 ## Todo
 
 
-- [ ] Feature: Achievements
-
-- [ ] Bug: Result for last swim are wrong?!
-
 ## V3.6.0 - ETA: 05/25
 
 
-
-- [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
 
@@ -68,7 +55,13 @@
 	- [ ] * Epic: Zone Importing
 	- [ ] Epic: Create new button style for ZoneEditor
 
-- [ ] Bonus: Max Coins (owned) Achievement
+- [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
+
+- [ ] Task: Add the second batch of Achievements
+	- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
+	- [ ] Bonus: Upgrade X Skills
+	- [ ] Bonus: Play X days in a row
+	- [ ] Bonus: Max Coins (owned) Achievement
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
@@ -134,6 +127,8 @@
 - [x] Total Distance Achievements			sort_index: 104x (1041-1045)
 - [x] Total Coins Achievements				sort_index: 106x (1061-1065)
 - [x] Times Played
+- [x] Task: Add the first full batch of Achievements
+- [x] Feature: Achievements
 
 ### 2025-05-28
 #### S04E19
