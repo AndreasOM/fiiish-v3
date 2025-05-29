@@ -98,8 +98,8 @@ func _prepare_results():
 	var coins = player.lastCoins()
 	var distance = player.lastDistance()
 	var first_ranks = player.get_first_ranks_on_last_leaderboard_update()
-	var start_coins = player.coins();
-	var start_distance = player.totalDistance();
+	var start_coins = player.coins() - coins;
+	var start_distance = player.totalDistance() - distance;
 	_bestDistance = player.prev_best_distance();
 	
 	self._prepare_results_from(

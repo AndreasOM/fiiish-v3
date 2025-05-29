@@ -6,7 +6,6 @@
 
 ## Next
 
-- [ ] Bug: Result for last swim are wrong?!
 
 ## Todo
 
@@ -141,6 +140,7 @@
 - [x] Epic: Define and configure Achievements and Rewards
 - [x] Single Run Distance Achievements		sort_index: 101x (1011-1015)
 - [x] Single Run Coins Achievements			sort_index: 103x
+- [x] Bug: Result for last swim are wrong?!
 
 ### 2025-05-27
 #### S04E18
