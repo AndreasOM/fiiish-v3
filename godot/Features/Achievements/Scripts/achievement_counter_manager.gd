@@ -13,7 +13,7 @@ func set_counter( id: AchievementCounterIds.Id, value: int ) -> bool:
 	
 	self._counters[ id ] = value
 	self._version += 1
-	print("Set Achievement Counter %s = %d" % [ AchievementCounterIds.to_name( id ), value ])
+	# print("Set Achievement Counter %s = %d" % [ AchievementCounterIds.to_name( id ), value ])
 	return true
 	
 func get_counter( id: AchievementCounterIds.Id ) -> int:

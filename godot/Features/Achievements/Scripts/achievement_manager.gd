@@ -20,7 +20,7 @@ func _process( _delta: float ) -> void:
 	
 	self._last_version = version
 
-	print("== Checking Achievements %d ==" % version)
+	# print("== Checking Achievements %d ==" % version)
 	for k in config_manager.get_keys():
 		var cfg = config_manager.get_config( k )
 		if cfg == null:
@@ -31,7 +31,7 @@ func _process( _delta: float ) -> void:
 				continue
 			AchievementStates.State.COLLECTED:
 				continue
-		print("Checking Achievement %s" % cfg.name)
+		# print("Checking Achievement %s" % cfg.name)
 		if !self._check_condition_prereq_achievements( cfg.completion_condition, counter_manager ):
 			continue
 		if !self._check_condition_counters( cfg.completion_condition, counter_manager):

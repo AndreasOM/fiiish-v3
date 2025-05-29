@@ -3,25 +3,29 @@
 
 ## In Progress
 
-- [ ] Task: Add the first full batch of Achievements
-	- [ ] Total Distance Achievements			sort_index: 102x (1021-1025)
-	- [ ] Total Coin Achievements
-	- [ ] Times Played
+
+
 
 ## Next
 
 - [ ] Task: Sort Achievements by sort_index
-- [ ] Cleanup: Reduce Achievement tracing
+
 
 ## Todo
 
+- [ ] Task: Add the first full batch of Achievements
+	- [ ] Total Distance Achievements			sort_index: 102x (1021-1025)
+	- [ ] Total Coin Achievements
+	- [ ] Times Played
+	- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
+	- [ ] Bonus: Upgrade X Skills
+	- [ ] Bonus: Play X days in a row
+
+- [ ] Feature: Achievements
 
 ## V3.6.0 - ETA: 05/25
 
 
-- [ ] Feature: Achievements
-	- [ ] Polish: Sort Achievements -- by TBD
-	- [ ] Task: Create consistent style for Achievement Icons (e.g. Bronze, Silver, Gold, Diamond, Ruby)
 
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
@@ -35,6 +39,8 @@
 - [+] Polish: Fix rotation in minimap renderer
 - [?] Cleanup: Avoid leaving zone test mode while still dying from ZoneEditor
 - [ ] 😭 Refactor: Create reusable FramedDialog 
+- [+] Polish: Sort Achievements -- by TBD
+- [+] Task: Create consistent style for Achievement Icons (e.g. Bronze, Silver, Gold, Diamond, Ruby)
 
 ### Maybe pushed to next release
 
@@ -119,6 +125,10 @@
 - [+] Polish: Check collsion for hover mode even when not moving the mouse (e.g. a/d left/right)
 
 ## Done
+
+### 2025-05-29
+#### S04E20
+- [x] Cleanup: Reduce Achievement tracing
 
 ### 2025-05-28
 #### S04E19
