@@ -6,9 +6,9 @@
 
 
 
+
 ## Next
 
-- [ ] Task: Sort Achievements by sort_index
 
 
 ## Todo
@@ -129,6 +129,7 @@
 ### 2025-05-29
 #### S04E20
 - [x] Cleanup: Reduce Achievement tracing
+- [x] Task: Sort Achievements by sort_index
 
 ### 2025-05-28
 #### S04E19
