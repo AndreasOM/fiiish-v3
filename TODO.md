@@ -4,6 +4,11 @@
 ## In Progress
 
 
+- [ ] Task: Add the first full batch of Achievements
+	- [ ] Times Played
+	- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
+	- [ ] Bonus: Upgrade X Skills
+	- [ ] Bonus: Play X days in a row
 
 
 
@@ -13,15 +18,10 @@
 
 ## Todo
 
-- [ ] Task: Add the first full batch of Achievements
-	- [ ] Total Distance Achievements			sort_index: 102x (1021-1025)
-	- [ ] Total Coin Achievements
-	- [ ] Times Played
-	- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
-	- [ ] Bonus: Upgrade X Skills
-	- [ ] Bonus: Play X days in a row
 
 - [ ] Feature: Achievements
+
+- [ ] Bug: Result for last swim are wrong?!
 
 ## V3.6.0 - ETA: 05/25
 
@@ -68,6 +68,8 @@
 	- [ ] * Epic: Zone Sharing
 	- [ ] * Epic: Zone Importing
 	- [ ] Epic: Create new button style for ZoneEditor
+
+- [ ] Bonus: Max Coins (owned) Achievement
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
@@ -130,6 +132,8 @@
 #### S04E20
 - [x] Cleanup: Reduce Achievement tracing
 - [x] Task: Sort Achievements by sort_index
+- [x] Total Distance Achievements			sort_index: 104x (1041-1045)
+- [x] Total Coins Achievements				sort_index: 106x (1061-1065)
 
 ### 2025-05-28
 #### S04E19
@@ -141,7 +145,7 @@
 - [x] Task: Save player after collecting an Achievment (later for easier testing)
 - [x] Epic: Define and configure Achievements and Rewards
 - [x] Single Run Distance Achievements		sort_index: 101x (1011-1015)
-- [x] Single Run Coin Achievements			sort_index: 103x
+- [x] Single Run Coins Achievements			sort_index: 103x
 
 ### 2025-05-27
 #### S04E18

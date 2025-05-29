@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://rykbils11fet"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_4qaig"]
+[ext_resource type="Texture2D" uid="uid://cowagdmjvj5v8" path="res://Features/Achievements/Textures/achievement_icon_total_distance_3.png" id="2_4qaig"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_2cdpc"]
+
+[sub_resource type="Resource" id="Resource_yt6t2"]
+script = ExtResource("1_4qaig")
+prereq_achievement_ids = Array[String](["TotalDistance2"])
+prereq_counters = Dictionary[int, int]({
+3: 2500
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_2cdpc")
+id = "TotalDistance3"
+sort_index = 1043
+name = "Total Distance Gold"
+icon = ExtResource("2_4qaig")
+completion_condition = SubResource("Resource_yt6t2")
+reward_coins = 50
+reward_skill_points = 1
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"
