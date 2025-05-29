@@ -97,6 +97,8 @@ func player_changed( player: Player ) -> void:
 			self._achievement_manager.mark_achievement_completed( a )
 		for a in player.collected_achievements():
 			self._achievement_manager.mark_achievement_collected( a )
+	if self._achievement_counter_manager != null:
+		self._achievement_counter_manager.reset_counters()
 
 func set_invincible( invicible: bool ):
 	self.fish_manager.set_invincible( invicible )

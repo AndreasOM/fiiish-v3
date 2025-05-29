@@ -218,6 +218,11 @@ func prev_best_distance() -> int:
 func bestDistance() -> int:
 	return _bestDistance
 	
+func increase_play_count() -> int:
+	self._playCount += 1
+	self._isDirty = true
+	return self._playCount
+
 func playCount() -> int:
 	return _playCount
 	

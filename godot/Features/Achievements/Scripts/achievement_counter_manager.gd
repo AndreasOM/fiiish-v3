@@ -3,6 +3,9 @@ class_name AchievementCounterManager
 var _version: int = 0
 var _counters: Dictionary[ AchievementCounterIds.Id, int ] = {}
 
+func reset_counters() -> void:
+	self._counters.clear()
+
 func get_version() -> int:
 	return self._version
 	
