@@ -173,8 +173,8 @@ func _goto_state_dead() -> void:
 	# soundManager.trigger_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP )
 	%GameManager.kill_pickups()
 	%ScreenShakeNode2D.trigger()
-	if !%GameManager.has_test_zone():
-		_credit_last_swim()
+#	if !%GameManager.has_test_zone():
+#		_credit_last_swim()
 #			else:
 #				self.open_zone_editor()
 	
@@ -198,6 +198,8 @@ func _goto_state_waiting_for_start() -> void:
 	self._set_state( Game.State.WAITING_FOR_START )
 	
 func _goto_state_result() -> void:
+	if !%GameManager.has_test_zone():
+		_credit_last_swim()
 	self._set_state( Game.State.RESULT )
 	
 func _goto_state_game_over() -> void:
