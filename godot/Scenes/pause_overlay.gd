@@ -7,7 +7,7 @@ func _ready():
 
 func _on_game_paused( is_paused: bool ):
 	if is_paused:
-		# self.visible = true
+		self.visible = true
 		%FadeableContainer.fade_in( 0.3 )
 	else:
 		# self.visible = false

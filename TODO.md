@@ -3,6 +3,8 @@
 
 ## In Progress
 
+- [ ] Polish: Unpause when opening ZoneEditor
+
 
 ## Next
 
@@ -14,11 +16,8 @@
 
 
 
-- [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
 
-- [ ] Polish: Visualise magnet range in ZoneEditor
 
-- [ ] Polish: Check why Pause Overlay is broken
 
 - [+] Polish: Replace Leaderboard background
 - [+] Polish: Fix rotation in minimap renderer
@@ -48,11 +47,16 @@
 
 ## V3.8.0 - ETA: 06/25
 
+- [ ] Feature: "Campaign" configuration
+
+- [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
+
 - [ ] Feature: Zone Editor
 	- [ ] * Epic: Zone Management (deleting & renaming?!)
 	- [ ] * Epic: Zone Sharing
 	- [ ] * Epic: Zone Importing
 	- [ ] Epic: Create new button style for ZoneEditor
+	- [ ] * Polish: Visualise magnet range in ZoneEditor
 
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
@@ -128,6 +132,7 @@
 - [x] Times Played
 - [x] Task: Add the first full batch of Achievements
 - [x] Feature: Achievements
+- [x] Polish: Make Pause Overlay visible again
 
 ### 2025-05-28
 #### S04E19
