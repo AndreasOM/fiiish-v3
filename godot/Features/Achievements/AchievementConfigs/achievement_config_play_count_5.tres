@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://ql17g3uho33t"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_jfc5c"]
+[ext_resource type="Texture2D" uid="uid://cvgtpcmy5we2e" path="res://Features/Achievements/Textures/achievement_icon_play_count_5.png" id="2_jfc5c"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_d1e0n"]
+
+[sub_resource type="Resource" id="Resource_vw4ne"]
+script = ExtResource("1_jfc5c")
+prereq_achievement_ids = Array[String](["PlayCount4"])
+prereq_counters = Dictionary[int, int]({
+5: 500
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_d1e0n")
+id = "PlayCount5"
+sort_index = 1115
+name = "Times Played Ruby"
+icon = ExtResource("2_jfc5c")
+completion_condition = SubResource("Resource_vw4ne")
+reward_coins = 1000
+reward_skill_points = 3
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"

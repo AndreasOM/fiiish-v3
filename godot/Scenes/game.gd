@@ -164,6 +164,9 @@ func _goto_state_initial() -> void:
 func _goto_state_swimming() -> void:
 	self._set_state( Game.State.SWIMMING )
 	self.fish_manager.start_swimming()
+	var pc = self._player.increase_play_count()
+	var acm = self.get_game_manager().get_achievement_counter_manager()
+	acm.set_counter( AchievementCounterIds.Id.PLAY_COUNT, pc )
 
 func _goto_state_dead() -> void:
 	soundManager.trigger_effect( SoundEffects.Id.FISH_DEATH )

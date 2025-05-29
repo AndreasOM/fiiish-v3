@@ -5,7 +5,6 @@
 
 
 - [ ] Task: Add the first full batch of Achievements
-	- [ ] Times Played
 	- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
 	- [ ] Bonus: Upgrade X Skills
 	- [ ] Bonus: Play X days in a row
@@ -134,6 +133,7 @@
 - [x] Task: Sort Achievements by sort_index
 - [x] Total Distance Achievements			sort_index: 104x (1041-1045)
 - [x] Total Coins Achievements				sort_index: 106x (1061-1065)
+- [x] Times Played
 
 ### 2025-05-28
 #### S04E19
