@@ -52,6 +52,10 @@ jobs:
         run: |
           .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
 
+      - name: Install GraphicsMagick
+        run: |
+          brew install graphicsmagick
+
       - name: Bake Version into Splash
         run: |
           LEFT_TEXT=""
@@ -65,14 +69,10 @@ jobs:
             -fill "#2dbac9" \
             -pointsize 72 \
             -font godot/Fonts/all_things_pink.ttf \
-            -draw "text 1520,1040 ${RIGHT_TEXT}" \
-            -draw "text 300,1040 ${LEFT_TEXT}" \
+            -draw "text 1520,1040 '${RIGHT_TEXT}'" \
+            -draw "text 300,1040 '${LEFT_TEXT}'" \
             godot/Textures/Loadingscreen/loadingscreen.png \
             godot/Textures/Loadingscreen/loadingscreen-with-version.png
-
-      - name: Install GraphicsMagick
-        run: |
-          brew install graphicsmagick
 
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
