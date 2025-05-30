@@ -73,6 +73,11 @@ jobs:
           RIGHT_TEXT="v${{ env.VERSION }}"
           pwd
           file godot/Textures/Loadingscreen/loadingscreen.png
+          file godot/Fonts/all_things_pink.ttf
+          gm convert \
+            -verbose \
+            godot/Textures/Loadingscreen/loadingscreen.png \
+            test.png
           gm convert \
             -verbose \
             -fill "blue" \
