@@ -144,8 +144,9 @@ func goto_play_mode() -> void:
 
 func move( v: Vector2 ) -> void:
 	# maybe only in EDIT mode?!
-	# :TODO: limit to screen?
 	self.transform.origin += v
+	# limit to screen!
+	self.transform.origin.y = clampf( self.transform.origin.y, -417.0, 417.0 )
 
 #func go_up() -> void:
 #	self.direction = Direction.UP

@@ -13,7 +13,6 @@
 
 ## V3.6.0 - ETA: 05/25
 
-- [ ] Polish: Limit Fish movement in ZoneEditor
 - [ ] Bonus: Create some new (middle/center!) Rocks 
 - [ ] Task: Create some new zones!
 
@@ -110,6 +109,11 @@
 - [+] Task: Use "recycle" icon for skill reset on SkillUpgradeDialog -> Art pass
 
 ## Done
+
+
+### 2025-05-30
+#### S04E21
+- [x] Polish: Limit Fish movement in ZoneEditor
 
 ### 2025-05-29
 #### S04E20
