@@ -60,7 +60,7 @@ jobs:
 
       - name: Install GraphicsMagick
         run: |
-          apt -y install graphicsmagick
+          sudo apt -y install graphicsmagick
 
       - name: Bake Version into Splash
         run: |
