@@ -11,12 +11,12 @@
 ## Todo
 
 
-## V3.6.0 - ETA: 05/25
+## V3.6.0 - ETA: 05/31 - ZoneEditor (internal) with MiniMap, Achievements V1
 
 - [ ] Task: Create some new zones!
 
 
-## V3.8.0 - ETA: 06/25 - ZoneEditor, Achievements, new Zones & Campaigns
+## V3.8.0 - ETA: 06/25 - ZoneEditor (external), Achievements V2, new Zones & Campaigns
 
 - [ ] Feature: "Campaign" configuration
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
@@ -43,10 +43,12 @@
 - [ ] Release: Build classic version of game via CI/CD
 
 - [ ] Bonus: Automate creation of Marketing Screenshots
+- [ ] Reach: Add KidsMode
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
 
+## -> SteamFest September'25 -> Release Classic
 
 ## Next release
 
