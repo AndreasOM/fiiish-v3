@@ -26,9 +26,22 @@ jobs:
         run: |
           PROJECT=fiiish-v3
           COMMIT_HASH=$(git rev-parse --short HEAD)
+          VERSION=$(git tag --points-at HEAD)
+          if [[ ${VERSION} == "" ]]
+          then
+           echo "NO VERSION -- using v0.0.0"
+           VERSION="v0.0.0"
+          fi
+          if [[ ${VERSION} != v* ]]
+          then
+            echo "Invalid version. Use x.y.z"
+            exit 255
+          fi
+          VERSION=${VERSION#"v"}
           {
             echo "PROJECT=${PROJECT}"
             echo "COMMIT_HASH=${COMMIT_HASH}"
+            echo "VERSION=${VERSION}"
           } >> "$GITHUB_ENV"
 
       - name: Setup Godot
@@ -44,6 +57,25 @@ jobs:
       - name: Fix version info
         run: |
           .github/helpers/update_version_info.sh Web-demo
+
+      - name: Install GraphicsMagick
+        run: |
+          apt -y install graphicsmagick
+
+      - name: Bake Version into Splash
+        run: |
+          LEFT_TEXT=""
+          if [[ ${{ env.VERSION }} == "0.0.0"]]
+            LEFT_TEXT="${{ env.COMMIT_HASH }}"
+          fi
+          gm convert \
+            -fill "#2dbac9" \
+            -pointsize 72 \
+            -font godot/Fonts/all_things_pink.ttf 
+            -draw 'text 1520,1040 v${{ env.VERSION }}' \
+            -draw 'text 300,1040 ${LEFT_TEXT}'
+            godot/Textures/Loadingscreen/loadingscreen.png \
+            godot/Textures/Loadingscreen/loadingscreen-with-version.png
 
       - name: Import project
         run: |

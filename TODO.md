@@ -2,6 +2,8 @@
 
 ## In Progress
 
+- [ ] CI/CD: Bake version info into splash screen
+
 
 ## Next
 
@@ -14,7 +16,6 @@
 - [ ] Polish: Limit Fish movement in ZoneEditor
 - [ ] Bonus: Create some new (middle/center!) Rocks 
 - [ ] Task: Create some new zones!
-- [ ] CI/CD: Bake version info into splash screen
 
 
 ## V3.8.0 - ETA: 06/25 - ZoneEditor, Achievements, new Zones & Campaigns
