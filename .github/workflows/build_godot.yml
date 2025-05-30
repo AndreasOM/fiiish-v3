@@ -82,6 +82,7 @@ jobs:
           echo "Loadingscreen"
           gm convert \
             -verbose \
+            -draw "text 300,1040 LEFT_TEXT" \
             godot/Textures/Loadingscreen/loadingscreen.png \
             godot/Textures/Loadingscreen/loadingscreen-with-version.png
 
