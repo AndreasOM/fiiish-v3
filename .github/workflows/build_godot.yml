@@ -6,7 +6,7 @@ on:
       # - "v*"
     paths:
       - godot/**
-      - .gihtub/workflows/**
+      - .github/workflows/**
 
 jobs:
   build:
