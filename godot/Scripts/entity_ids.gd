@@ -20,5 +20,6 @@ enum Id {
 	SEAWEEDG        = 0x868a9eda,
 	LEFT_BOUNDARY_ENTITY = 0x9ed05a20,
 	RIGHT_BOUNDARY_ENTITY = 0x2e876bd2,
+	MIDDLEROCKA      = 0x93bf3e89,
 	INVALID			= 0xffffffff,
 }

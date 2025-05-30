@@ -3,6 +3,8 @@
 ## In Progress
 
 - [ ] CI/CD: Bake version info into splash screen
+- [ ] Bonus: Create some new (middle/center!) Rocks 
+	- [x] Add MiddleRockA
 
 
 ## Next
@@ -13,7 +15,6 @@
 
 ## V3.6.0 - ETA: 05/25
 
-- [ ] Bonus: Create some new (middle/center!) Rocks 
 - [ ] Task: Create some new zones!
 
 

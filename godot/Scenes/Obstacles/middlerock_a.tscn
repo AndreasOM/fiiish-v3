@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh5w7qgewpktc"]
+
+[ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_oytha"]
+[ext_resource type="Texture2D" uid="uid://bv3oxth1fgg0a" path="res://Textures/Obstacles/MiddleRocks/middlerock-a.png" id="2_oytha"]
+
+[node name="MiddleRockA" type="Node2D"]
+visibility_layer = 513
+z_index = 5
+script = ExtResource("1_oytha")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 513
+texture = ExtResource("2_oytha")
+
+[node name="Area2D" type="Area2D" parent="."]
+visibility_layer = 513
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+visibility_layer = 513
+position = Vector2(50.5375, 62.8396)
+scale = Vector2(2.49519, 1.57917)
+polygon = PackedVector2Array(-53.1172, -35.3601, -46.3041, -50.5579, -38.6894, -58.1569, -35.4833, -68.922, -20.254, -80.3204, -13.4409, -71.455, -4.22312, -70.1885, 4.99461, -51.1912, 12.2085, -44.2255, 5.79615, -28.3944, -1.8185, -22.062, -5.02467, -11.9301, -19.8532, 0.734818, -26.6663, -6.86411, -36.6856, -8.76384, -44.701, -25.8614)
