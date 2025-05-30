@@ -7,6 +7,7 @@
 
 ## Next
 
+- [ ] CI/CD: Unify VERSION to not include 'v'
 
 ## Todo
 
