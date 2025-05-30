@@ -74,10 +74,12 @@ jobs:
           pwd
           file godot/Textures/Loadingscreen/loadingscreen.png
           file godot/Fonts/all_things_pink.ttf
+          echo "Test"
           gm convert \
             -verbose \
             godot/Textures/Loadingscreen/loadingscreen.png \
             test.png
+          echo "Loadingscreen"
           gm convert \
             -verbose \
             -fill "blue" \
