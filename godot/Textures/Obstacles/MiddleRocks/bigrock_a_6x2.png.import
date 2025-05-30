@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv3oxth1fgg0a"
-path="res://.godot/imported/middlerock-a.png-2e8ea960328b3aefb99fe44b715e289b.ctex"
+uid="uid://cddiuqma6kbmr"
+path="res://.godot/imported/bigrock_a_6x2.png-c5aa1d84cc0eacca819a108599167187.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Obstacles/MiddleRocks/middlerock-a.png"
-dest_files=["res://.godot/imported/middlerock-a.png-2e8ea960328b3aefb99fe44b715e289b.ctex"]
+source_file="res://Textures/Obstacles/MiddleRocks/bigrock_a_6x2.png"
+dest_files=["res://.godot/imported/bigrock_a_6x2.png-c5aa1d84cc0eacca819a108599167187.ctex"]
 
 [params]
 

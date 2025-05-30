@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://cm37dybdya1cb"]
+
+[ext_resource type="PackedScene" uid="uid://bgy1ty4n5q7p4" path="res://Scenes/Obstacles/rockset_a_top_left.tscn" id="1_eat2w"]
+[ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_61uxf"]
+
+[resource]
+script = ExtResource("2_61uxf")
+name = "RockSetATopLeft"
+entity_id = 2472233074
+entity_type = 2
+resource = ExtResource("1_eat2w")
+metadata/_custom_type_script = "uid://l4mx22800uyt"

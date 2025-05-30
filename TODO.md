@@ -4,8 +4,6 @@
 
 - [ ] CI/CD: Bake version info into splash screen
 - [ ] Bonus: Create some new (middle/center!) Rocks 
-	- [x] Add MiddleRockA
-
 
 ## Next
 
@@ -115,6 +113,9 @@
 ### 2025-05-30
 #### S04E21
 - [x] Polish: Limit Fish movement in ZoneEditor
+- [x] Add MiddleRockA
+- [x] Add RockSetA (TopLeft, TopMiddle)
+- [x] Add BigRockA 6x2
 
 ### 2025-05-29
 #### S04E20

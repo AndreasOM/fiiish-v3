@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnwk5ittcw5il"]
+
+[ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_3qbhs"]
+[ext_resource type="Texture2D" uid="uid://dfv6rqax55raq" path="res://Textures/Obstacles/MiddleRocks/rockset-a-top_middle.png" id="2_3qbhs"]
+
+[node name="RockSetA_TopLeft" type="Node2D"]
+visibility_layer = 513
+z_index = 5
+script = ExtResource("1_3qbhs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 513
+texture = ExtResource("2_3qbhs")
+
+[node name="Area2D" type="Area2D" parent="."]
+visibility_layer = 513
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+visibility_layer = 513
+position = Vector2(50.5375, 62.8396)
+scale = Vector2(2.49519, 1.57917)
+polygon = PackedVector2Array(-32.6779, -49.9247, -24.6624, -53.7242, -20.6547, -50.5579, -14.6432, -54.9907, -7.42929, -49.2915, -7.42929, -19.529, -33.0786, -19.529)

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://ebxxk2aca71x"]
+
+[ext_resource type="PackedScene" uid="uid://vdkb623vpn1d" path="res://Scenes/Obstacles/bigrock_a_6x2.tscn" id="1_fvc3o"]
+[ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_opyrr"]
+
+[resource]
+script = ExtResource("2_opyrr")
+name = "BigRockA6x2"
+entity_id = 649242205
+entity_type = 2
+resource = ExtResource("1_fvc3o")
+metadata/_custom_type_script = "uid://l4mx22800uyt"
