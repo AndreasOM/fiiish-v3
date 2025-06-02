@@ -113,6 +113,10 @@
 ## Done
 
 
+### 2025-06-02
+#### S04E22
+- [x] CI/CD: Align both webgl build workflows
+
 ### 2025-05-30
 #### S04E21
 - [x] Polish: Limit Fish movement in ZoneEditor

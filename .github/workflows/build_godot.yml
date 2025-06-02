@@ -119,9 +119,9 @@ jobs:
           {
             echo "|                     |                                    |"
             echo "| :------------------ | ---------------------------------: |"
-            echo "| PROJECT             | ${{ env.PROJECT }}                |"
+            echo "| PROJECT             | ${{ env.PROJECT }}                 |"
             echo "| COMMIT_HASH         | ${{ env.COMMIT_HASH }}             |"
-            echo "| COMMIT_DATE      | ${{ env.COMMIT_DATE }}     |"
-            echo "| VERSION      | \`${{ env.VERSION }}\`     |"
+            echo "| COMMIT_DATE         | ${{ env.COMMIT_DATE }}             |"
+            echo "| VERSION             | \`${{ env.VERSION }}\`             |"
             echo "| PLAY_URL            | ${{ env.PLAY_URL }}                |"
           } >> "$GITHUB_STEP_SUMMARY"
