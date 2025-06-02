@@ -105,9 +105,9 @@ jobs:
       - name: Update Web
         run: |
           cd godot
-          aws s3 sync export/webgl-demo/ s3://games.omnimad.net/fiiish-v3/${{ env.VERSION }}/
+          aws s3 sync export/webgl-demo/ s3://games.omnimad.net/fiiish-v3/v${{ env.VERSION }}/
           aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/fiiish-v3/${{ env.VERSION }}/*"
-          echo "PLAY_URL=https://games.omnimad.net/alpha/fiiish-v3/${{ env.VERSION }}/fiiish-v3.html" >> "$GITHUB_ENV"
+          echo "PLAY_URL=https://games.omnimad.net/fiiish-v3/v${{ env.VERSION }}/fiiish-v3.html" >> "$GITHUB_ENV"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
