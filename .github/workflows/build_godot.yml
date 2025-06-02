@@ -23,10 +23,13 @@ jobs:
             .github
             godot
           fetch-depth: 1
+
       - name: Create variables
         run: |
           PROJECT=fiiish-v3
           COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
+          BUILD_TYPE="Web-demo"
           VERSION=$(git tag --points-at HEAD)
           if [[ ${VERSION} == "" ]]
           then
@@ -35,13 +38,15 @@ jobs:
           fi
           if [[ ${VERSION} != v* ]]
           then
-            echo "Invalid version. Use x.y.z"
+            echo "Invalid version. Use vx.y.z"
             exit 255
           fi
           VERSION=${VERSION#"v"}
           {
             echo "PROJECT=${PROJECT}"
             echo "COMMIT_HASH=${COMMIT_HASH}"
+            echo "COMMIT_DATE=${COMMIT_DATE}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
             echo "VERSION=${VERSION}"
           } >> "$GITHUB_ENV"
 
@@ -57,7 +62,7 @@ jobs:
 
       - name: Fix version info
         run: |
-          .github/helpers/update_version_info.sh Web-demo
+          .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
 
       - name: Install GraphicsMagick
         run: |
@@ -71,15 +76,6 @@ jobs:
             LEFT_TEXT="${{ env.COMMIT_HASH }}"
           fi
           RIGHT_TEXT="v${{ env.VERSION }}"
-          pwd
-          file godot/Textures/Loadingscreen/loadingscreen.png
-          file godot/Fonts/all_things_pink.ttf
-          echo "Test"
-          gm convert \
-            -verbose \
-            godot/Textures/Loadingscreen/loadingscreen.png \
-            test.png
-          echo "Loadingscreen"
           gm convert \
             -verbose \
             -fill "#2dbac9" \
@@ -99,7 +95,7 @@ jobs:
         run: |
           cd godot
           mkdir -p export/webgl-demo
-          godot --headless --export-debug Web-demo export/webgl-demo/fiiish-v3.html --quit || exit 0
+          godot --headless --export-debug ${{ env.BUILD_TYPE }} export/webgl-demo/fiiish-v3.html --quit || exit 0
 
       - name: Check result
         run: |
@@ -125,5 +121,7 @@ jobs:
             echo "| :------------------ | ---------------------------------: |"
             echo "| PROJECT             | ${{ env.PROJECT }}                |"
             echo "| COMMIT_HASH         | ${{ env.COMMIT_HASH }}             |"
+            echo "| COMMIT_DATE      | ${{ env.COMMIT_DATE }}     |"
+            echo "| VERSION      | \`${{ env.VERSION }}\`     |"
             echo "| PLAY_URL            | ${{ env.PLAY_URL }}                |"
           } >> "$GITHUB_STEP_SUMMARY"

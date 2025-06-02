@@ -6,6 +6,7 @@ on:
       - "v*"
     paths:
       - godot/**
+      - .github/workflows/**
 
 jobs:
   build:
@@ -22,6 +23,33 @@ jobs:
             .github
             godot
           fetch-depth: 1
+
+      - name: Create variables
+        run: |
+          PROJECT=fiiish-v3
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
+          BUILD_TYPE="Web-demo"
+          VERSION=$(git tag --points-at HEAD)
+          if [[ ${VERSION} -eq "" ]]
+          then
+            echo "NO VERSION -- using v0.0.0"
+            VERSION="v0.0.0"
+          fi
+          if [[ ${VERSION} != v* ]]
+          then
+            echo "Invalid version. Use vx.y.z"
+            exit 255
+          fi
+          VERSION=${VERSION#"v"}
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "COMMIT_HASH=${COMMIT_HASH}"
+            echo "COMMIT_DATE=${COMMIT_DATE}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "VERSION=${VERSION}"
+          } >> $GITHUB_ENV
+
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
@@ -32,26 +60,9 @@ jobs:
         run: |
           godot --version
 
-      - name: Create variables
-        run: |
-          PROJECT=fiiish-v3
-          echo "PROJECT=${PROJECT}" >> $GITHUB_ENV
-          COMMIT_HASH=$(git rev-parse --short HEAD)
-          echo "COMMIT_HASH=${COMMIT_HASH}" >> $GITHUB_ENV
-          COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
-          echo "COMMIT_DATE=${COMMIT_DATE}" >> $GITHUB_ENV
-          BUILD_TYPE="Web-demo"
-          echo "BUILD_TYPE=${BUILD_TYPE}" >> $GITHUB_ENV
-          VERSION=$(git tag --points-at HEAD)
-          if [[ ${VERSION} -eq "" ]]; then
-            echo "VERSION=v0.0.0" >> $GITHUB_ENV
-          else
-            echo "VERSION=${VERSION}" >> $GITHUB_ENV
-          fi
-
       - name: Fix version info
         run: |
-          .github/helpers/update_version_info.sh Web-demo
+          .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
 
       - name: Install GraphicsMagick
         run: |
@@ -94,9 +105,9 @@ jobs:
       - name: Update Web
         run: |
           cd godot
-          # aws s3 sync export/webgl-demo/ s3://games.omnimad.net/alpha/fiiish-v3/
           aws s3 sync export/webgl-demo/ s3://games.omnimad.net/fiiish-v3/${{ env.VERSION }}/
           aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/fiiish-v3/${{ env.VERSION }}/*"
+          echo "PLAY_URL=https://games.omnimad.net/alpha/fiiish-v3/${{ env.VERSION }}/fiiish-v3.html" >> "$GITHUB_ENV"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -105,8 +116,12 @@ jobs:
       - name: Create Summary
         if: always()
         run: |
-          echo "| COMMIT_HASH      | ${{ env.COMMIT_HASH }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| :----------- | ---------------------: |" >> $GITHUB_STEP_SUMMARY
-          echo "| COMMIT_DATE      | ${{ env.COMMIT_DATE }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| BUILD_TYPE      | ${{ env.BUILD_TYPE }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| VERSION      | \`${{ env.VERSION }}\`     |" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "|                     |                                    |"
+            echo "| :------------------ | ---------------------------------: |"
+            echo "| PROJECT             | ${{ env.PROJECT }}                 |"
+            echo "| COMMIT_HASH         | ${{ env.COMMIT_HASH }}             |"
+            echo "| COMMIT_DATE         | ${{ env.COMMIT_DATE }}             |"
+            echo "| VERSION             | \`${{ env.VERSION }}\`             |"
+            echo "| PLAY_URL            | ${{ env.PLAY_URL }}                |"
+          } >> "$GITHUB_STEP_SUMMARY"
