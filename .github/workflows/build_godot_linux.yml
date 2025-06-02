@@ -69,6 +69,7 @@ jobs:
           version: 4.4.0
           use-dotnet: false
           include-templates: true
+          
       - name: Verify setup
         run: |
           godot --version
@@ -139,15 +140,15 @@ jobs:
         if: always()
         run: |
           {
-          echo "| COMMIT_HASH      | ${{ env.COMMIT_HASH }}         |"
-          echo "| :--------------- | -----------------------------: |"
-          echo "| COMMIT_DATE      | ${{ env.COMMIT_DATE }}         |"
-          echo "| ARCHIVE_FILE     | ${{ env.ARCHIVE_FILE }}        |"
-          echo "| BUILD_TYPE       | ${{ env.BUILD_TYPE }}          |"
-          echo "| BINARY           | ${{ env.BINARY }}              |"
-          echo "| LATEST_FILE      | ${{ env.LATEST_FILE }}         |"
-          echo "| S3_ARCHIVE_FILE  | \`${{ env.S3_ARCHIVE_FILE }}\` |"
-          echo "| S3_LATEST_FILE   | \`${{ env.S3_LATEST_FILE }}\`  |"
-          echo "| VERSION          | \`${{ env.VERSION }}\`         |"
+            echo "| COMMIT_HASH      | ${{ env.COMMIT_HASH }}         |"
+            echo "| :--------------- | -----------------------------: |"
+            echo "| COMMIT_DATE      | ${{ env.COMMIT_DATE }}         |"
+            echo "| ARCHIVE_FILE     | ${{ env.ARCHIVE_FILE }}        |"
+            echo "| BUILD_TYPE       | ${{ env.BUILD_TYPE }}          |"
+            echo "| BINARY           | ${{ env.BINARY }}              |"
+            echo "| LATEST_FILE      | ${{ env.LATEST_FILE }}         |"
+            echo "| S3_ARCHIVE_FILE  | \`${{ env.S3_ARCHIVE_FILE }}\` |"
+            echo "| S3_LATEST_FILE   | \`${{ env.S3_LATEST_FILE }}\`  |"
+            echo "| VERSION          | \`${{ env.VERSION }}\`         |"
           } >> $GITHUB_STEP_SUMMARY
 
