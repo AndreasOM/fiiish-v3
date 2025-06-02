@@ -26,27 +26,53 @@ jobs:
       - name: Create variables
         run: |
           PROJECT=fiiish-v3
-          echo "PROJECT=${PROJECT}" >> $GITHUB_ENV
           COMMIT_HASH=$(git rev-parse --short HEAD)
-          echo "COMMIT_HASH=${COMMIT_HASH}" >> $GITHUB_ENV
           COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
-          echo "COMMIT_DATE=${COMMIT_DATE}" >> $GITHUB_ENV
-          ARCHIVE_FILE=fiiish-v3-windows-${COMMIT_DATE}.tgz
-          echo "ARCHIVE_FILE=${ARCHIVE_FILE}" >> $GITHUB_ENV
-          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
-          echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}" >> $GITHUB_ENV
           BUILD_TYPE="Windows"
-          echo "BUILD_TYPE=${BUILD_TYPE}" >> $GITHUB_ENV
-          BINARY=${PROJECT}.exe
-          echo "BINARY=${BINARY}" >> $GITHUB_ENV
-          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
-          echo "LATEST_FILE=${LATEST_FILE}" >> $GITHUB_ENV
-          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
-          echo "S3_LATEST_FILE=${S3_LATEST_FILE}" >> $GITHUB_ENV
-          LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
-          echo "LATEST_CONTENT=${LATEST_CONTENT}" >> $GITHUB_ENV
           VERSION=$(git tag --points-at HEAD)
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          if [[ ${VERSION} -eq "" ]]
+          then
+            echo "NO VERSION -- using v0.0.0"
+            VERSION="v0.0.0"
+          fi
+          if [[ ${VERSION} != v* ]]
+          then
+            echo "Invalid version. Use vx.y.z"
+            exit 255
+          fi
+          VERSION=${VERSION#"v"}
+
+          ARCHIVE_FILE=${PROJECT}-windows-${COMMIT_DATE}.tgz
+          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
+          BINARY=${PROJECT}.exe
+          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
+          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
+          LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
+
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "COMMIT_HASH=${COMMIT_HASH}"
+            echo "COMMIT_DATE=${COMMIT_DATE}"
+            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
+            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "BINARY=${BINARY}"
+            echo "LATEST_FILE=${LATEST_FILE}"
+            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+            echo "LATEST_CONTENT=${LATEST_CONTENT}"
+            echo "VERSION=${VERSION}"
+          } >> $GITHUB_ENV
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.4.0
+          use-dotnet: false
+          include-templates: true
+          
+      - name: Verify setup
+        run: |
+          godot --version
 
       - name: Fix version info
         run: |
@@ -74,15 +100,6 @@ jobs:
             godot/Textures/Loadingscreen/loadingscreen.png \
             godot/Textures/Loadingscreen/loadingscreen-with-version.png
 
-      - name: Setup Godot
-        uses: chickensoft-games/setup-godot@v2
-        with:
-          version: 4.4.0
-          use-dotnet: false
-          include-templates: true
-      - name: Verify setup
-        run: |
-          godot --version
 
       - name: Open project for import
         run: |
@@ -123,14 +140,16 @@ jobs:
       - name: Create Summary
         if: always()
         run: |
-          echo "| COMMIT_HASH      | ${{ env.COMMIT_HASH }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| :----------- | ---------------------: |" >> $GITHUB_STEP_SUMMARY
-          echo "| COMMIT_DATE      | ${{ env.COMMIT_DATE }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| ARCHIVE_FILE      | ${{ env.ARCHIVE_FILE }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| BUILD_TYPE      | ${{ env.BUILD_TYPE }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| BINARY      | ${{ env.BINARY }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| LATEST_FILE      | ${{ env.LATEST_FILE }}     |" >> $GITHUB_STEP_SUMMARY
-          echo "| S3_ARCHIVE_FILE      | \`${{ env.S3_ARCHIVE_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
-          echo "| S3_LATEST_FILE      | \`${{ env.S3_LATEST_FILE }}\`     |" >> $GITHUB_STEP_SUMMARY
-          echo "| VERSION      | \`${{ env.VERSION }}\`     |" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "| COMMIT_HASH      | ${{ env.COMMIT_HASH }}         |"
+            echo "| :--------------- | -----------------------------: |"
+            echo "| COMMIT_DATE      | ${{ env.COMMIT_DATE }}         |"
+            echo "| ARCHIVE_FILE     | ${{ env.ARCHIVE_FILE }}        |"
+            echo "| BUILD_TYPE       | ${{ env.BUILD_TYPE }}          |"
+            echo "| BINARY           | ${{ env.BINARY }}              |"
+            echo "| LATEST_FILE      | ${{ env.LATEST_FILE }}         |"
+            echo "| S3_ARCHIVE_FILE  | \`${{ env.S3_ARCHIVE_FILE }}\` |"
+            echo "| S3_LATEST_FILE   | \`${{ env.S3_LATEST_FILE }}\`  |"
+            echo "| VERSION          | \`${{ env.VERSION }}\`         |"
+          } >> $GITHUB_STEP_SUMMARY
 
