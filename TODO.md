@@ -2,19 +2,15 @@
 
 ## In Progress
 
-- [ ] CI/CD: Bake version info into splash screen
-- [ ] Bonus: Create some new (middle/center!) Rocks 
 
 ## Next
 
-- [ ] CI/CD: Unify VERSION to not include 'v'
 
 ## Todo
 
 
 ## V3.6.0 - ETA: 05/31 - ZoneEditor (internal) with MiniMap, Achievements V1
 
-- [ ] Task: Create some new zones!
 
 
 ## V3.8.0 - ETA: 06/25 - ZoneEditor (external), Achievements V2, new Zones & Campaigns
@@ -45,6 +41,9 @@
 
 - [ ] Bonus: Automate creation of Marketing Screenshots
 - [ ] Reach: Add KidsMode
+
+- [ ] Task: Create some new zones!
+- [ ] Bonus: Create some new (middle/center!) Rocks 
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
@@ -116,6 +115,9 @@
 ### 2025-06-02
 #### S04E22
 - [x] CI/CD: Align both webgl build workflows
+- [x] CI/CD: Bake version info into splash screen
+- [x] CI/CD: Unify VERSION to not include 'v'
+- [x] Assets: Add new Test Rock Middle A
 
 ### 2025-05-30
 #### S04E21
