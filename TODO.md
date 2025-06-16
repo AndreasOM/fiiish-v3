@@ -13,7 +13,9 @@
 ## V3.8.0 (revised) - ETA: 07/11
 
 - [ ] Feature: Release a classic version via CI/CD
+	- [ ] Task: Create 1 v3 zone for testing
 	- [ ] Task: Only load v3 zones in classic
+	- [ ] Task: Verify all entities used in classic zones exist
 
 - [ ] Feature: KidsMode
 - [ ] Feature: Marketing Screenshots

@@ -12,6 +12,6 @@ jobs:
   build:
     uses: ./.github/workflows/build.yaml
     with:
-      project: 'fiiish-v'
+      project: 'fiiish-v3'
       build_type: 'web-demo'
     secrets: inherit
