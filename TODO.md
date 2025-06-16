@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Task: Upload web build of classic
 
 ## Next
 
@@ -129,6 +128,7 @@
 - [x] Story: Disable v3 features in classic
 - [x] Task: Disable GameMode selection in classic
 - [x] Task: Disable ZoneEditor selection in classic
+- [x] Task: Upload web build of classic
 
 ### V3.6.0 - Released: 2025/06/16 - ZoneEditor (internal) with MiniMap, Achievements V1
 

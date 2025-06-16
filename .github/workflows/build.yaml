@@ -175,7 +175,12 @@ jobs:
       - name: Import project
         run: |
           cd godot
-          godot --headless --quit || exit 0
+          godot \
+            --headless \
+            --import \
+            --editor \
+            --quit \
+            || exit 0
 
       - name: Export project
         run: |
