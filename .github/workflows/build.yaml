@@ -1,0 +1,231 @@
+name: Build
+run-name: Build ${{ inputs.project }} - ${{ inputs.build_type }} by @${{ github.actor }}
+
+on: 
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'The project'
+        required: true
+        default: 'fiiish-v3'
+        type: string
+      build_type:
+        description: 'The type of build'
+        required: true
+        default: 'web-demo'
+        type: choice
+        options:
+          - 'web-demo'
+          - 'web-classic'
+          - 'linux'
+          - 'windows'
+          - 'macos'
+  workflow_call:
+    inputs:
+      project:
+        description: 'The project'
+        required: true
+        type: string
+      build_type:
+        description: 'The type of build'
+        required: true
+        type: string
+    outputs:
+      s3_archive:
+        description: "The archive on S3"
+        value: ${{ jobs.build.outputs.s3_archive }}          
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      runner: ${{ steps.choose_runner.outputs.runner }}    
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Choose runner
+        id: choose_runner
+        run: |
+          if [ ${{ inputs.build_type }} == 'macos' ]; then
+            echo "runner=macos-14" >> "$GITHUB_OUTPUT"
+          else
+            echo "runner=ubicloud-standard-4" >> "$GITHUB_OUTPUT"
+          fi    
+  build:
+    needs: [prepare]
+    runs-on: ${{ needs.prepare.outputs.runner }}
+    outputs:
+      s3_archive: ${{ steps.upload_artifact.outputs.s3_archive }}
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            godot
+          fetch-depth: 1
+
+      - name: Create variables
+        run: |
+          PROJECT=${{ inputs.project }}
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
+          BUILD_TYPE=${{ inputs.build_type }}
+          VERSION=$(git tag --points-at HEAD)
+          if [[ ${VERSION} == "" ]]
+          then
+           echo "NO VERSION -- using v0.0.0"
+           VERSION="v0.0.0"
+          fi
+          if [[ ${VERSION} != v* ]]
+          then
+            echo "Invalid version. Use vx.y.z"
+            exit 255
+          fi
+          VERSION=${VERSION#"v"}
+          ARCHIVE_FILE=${PROJECT}-${BUILD_TYPE}-${COMMIT_DATE}.tgz
+          S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
+          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
+          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
+          LATEST_CONTENT=${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "COMMIT_HASH=${COMMIT_HASH}"
+            echo "COMMIT_DATE=${COMMIT_DATE}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "VERSION=${VERSION}"
+            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
+            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"            
+            echo "LATEST_FILE=${LATEST_FILE}"
+            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+            echo "LATEST_CONTENT=${LATEST_CONTENT}"
+          } >> "$GITHUB_ENV"
+
+      - name: Set binary extension
+        run: |
+          case ${{ inputs.build_type }} in
+            'macos')
+              echo "BINARY_EXTENSION=.app" >> "$GITHUB_ENV"
+              ;;
+            'linux')
+              echo "BINARY_EXTENSION=.x86_64" >> "$GITHUB_ENV"
+              ;;
+            'windows')
+              echo "BINARY_EXTENSION=.exe" >> "$GITHUB_ENV"
+              ;;
+            'web-demo')
+              echo "BINARY_EXTENSION=.html" >> "$GITHUB_ENV"
+              ;;
+            'web-classic')
+              echo "BINARY_EXTENSION=.html" >> "$GITHUB_ENV"
+              ;;
+
+            *)
+              echo "BINARY_EXTENSION=" >> "$GITHUB_ENV"
+              ;;
+          esac
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.4.0
+          use-dotnet: false
+          include-templates: true
+      - name: Verify setup
+        run: |
+          godot --version
+
+#      - name: Fix version info
+#        run: |
+#          .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
+
+#      - name: Install GraphicsMagick
+#        run: |
+#          sudo apt -y install graphicsmagick
+
+#      - name: Bake Version into Splash
+#        run: |
+#          LEFT_TEXT=""
+#          if [[ ${{ env.VERSION }} == "0.0.0" ]]
+#          then
+#            LEFT_TEXT="${{ env.COMMIT_HASH }}"
+#          fi
+#          RIGHT_TEXT="v${{ env.VERSION }}"
+#          gm convert \
+#            -verbose \
+#            -fill "#2dbac9" \
+#            -pointsize 72 \
+#            -font godot/Fonts/all_things_pink.ttf \
+#            -draw "text 1520,1040 '${RIGHT_TEXT}'" \
+#            -draw "text 300,1040 '${LEFT_TEXT}'" \
+#            godot/Textures/Loadingscreen/loadingscreen.png \
+#            godot/Textures/Loadingscreen/loadingscreen-with-version.png
+
+      - name: Import project
+        run: |
+          cd godot
+          godot --headless --quit || exit 0
+
+      - name: Export project
+        run: |
+          cd godot
+          mkdir -p export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          godot \
+            --headless \
+            --export-debug \
+            ${{ env.BUILD_TYPE }} \
+            export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}${{ env.BINARY_EXTENSION }} \
+            --quit \
+            || exit 0
+
+      - name: Check result
+        run: |
+          cd godot
+          find export
+
+      - name: Bundle artifact
+        run: |
+          cd godot/export
+          echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
+          tar czf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+
+      - name: Upload artifact
+        id: upload_artifact
+        run: |
+          cd godot/export
+          aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
+          echo "s3_archive=${{ env.S3_ARCHIVE_FILE }}" >> "$GITHUB_OUTPUT"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Create latest reference
+        run: |
+          echo ${{ env.LATEST_CONTENT }} > ${{ env.LATEST_FILE }}
+          aws s3 cp ${{ env.LATEST_FILE }} ${{ env.S3_LATEST_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Create Summary
+        if: always()
+        run: |
+          {
+            echo "|                     |                                    |"
+            echo "| :------------------ | ---------------------------------: |"
+            echo "| PROJECT             | ${{ env.PROJECT }}                 |"
+            echo "| BUILD_TYPE          | ${{ env.BUILD_TYPE }}              |"
+            echo "| COMMIT_HASH         | ${{ env.COMMIT_HASH }}             |"
+            echo "| COMMIT_DATE         | ${{ env.COMMIT_DATE }}             |"
+            echo "| VERSION             | \`${{ env.VERSION }}\`             |"
+            echo "| S3_ARCHIVE_FILE     | \`${{ env.S3_ARCHIVE_FILE }}\`     |"
+            # echo "| PLAY_URL            | ${{ env.PLAY_URL }}                |"
+          } >> "$GITHUB_STEP_SUMMARY"
