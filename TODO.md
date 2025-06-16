@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Task: Upload web build of classic
 
 ## Next
 
@@ -14,7 +15,6 @@
 
 - [ ] Feature: Release a classic version via CI/CD
 	- [ ] Task: Only load v3 zones in classic
-	- [ ] Task: Upload web build of classic
 
 - [ ] Feature: KidsMode
 - [ ] Feature: Marketing Screenshots

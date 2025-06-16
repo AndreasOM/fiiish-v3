@@ -95,9 +95,9 @@ jobs:
 
       - name: Update alpha
         run: |
-          aws s3 sync ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/ s3://games.omnimad.net/alpha/${{ env.PROJECT }}/
-          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/${{ env.PROJECT }}/*"
-          echo "PLAY_URL=https://games.omnimad.net/alpha/${{ env.PROJECT }}/${{ env.PROJECT }}.html" >> "$GITHUB_ENV"
+          aws s3 sync ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/ s3://games.omnimad.net/alpha/${{ env.PROJECT }}/${{ env.BUILD_TYPE }}/
+          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/${{ env.PROJECT }}/${{ env.BUILD_TYPE }}/*"
+          echo "PLAY_URL=https://games.omnimad.net/alpha/${{ env.PROJECT }}/${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.html" >> "$GITHUB_ENV"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

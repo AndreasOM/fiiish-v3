@@ -1,0 +1,28 @@
+name: Build & Update Web - classic
+run-name: Build & Update Web classic by @${{ github.actor }}
+
+on: 
+  workflow_dispatch:
+  push:
+    paths:
+      - godot/**
+      - .github/workflows/**
+
+jobs:
+  
+  build:
+    uses: ./.github/workflows/build.yaml
+    with:
+      project: 'fiiish-v3'
+      build_type: 'web-classic'
+    secrets: inherit
+
+  update_web:
+    needs: [build]
+    uses: ./.github/workflows/update_web.yaml
+    with:
+      project: 'fiiish-v3'
+      build_type: 'web-classic'
+      s3_archive: ''
+    secrets: inherit
+
