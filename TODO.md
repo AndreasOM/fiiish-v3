@@ -13,6 +13,11 @@
 ## V3.8.0 (revised) - ETA: 07/11
 
 - [ ] Feature: Release a classic version via CI/CD
+	- [ ] Story: Disable v3 features in classic
+		- [ ] Task: Disable GameMode selection in classic
+		- [ ] Task: Disable ZoneEditor selection in classic
+	- [ ] Task: Only load v3 zones in classic
+
 - [ ] Feature: KidsMode
 - [ ] Feature: Marketing Screenshots
 - [ ] #reach Feature: Achievements V2.0
@@ -122,8 +127,9 @@
 
 ### 2025-06-16
 #### S05E01
+- [x] Task: Cleanup and Unify build workflows
 
-## V3.6.0 - Released: 2025/06/16 - ZoneEditor (internal) with MiniMap, Achievements V1
+### V3.6.0 - Released: 2025/06/16 - ZoneEditor (internal) with MiniMap, Achievements V1
 
 ### 2025-06-02
 #### S04E22
