@@ -124,6 +124,7 @@ id = 1
 label = "Game Mode: Classic"
 
 [node name="ZoneEditor" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+unique_name_in_owner = true
 layout_mode = 2
 id = 1
 label = "Zone Editor"

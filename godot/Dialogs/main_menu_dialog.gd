@@ -9,6 +9,8 @@ class_name MainMenuDialog
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+@onready var game_mode: MainMenuEntry = %GameMode
+@onready var zone_editor: MainMenuEntry = %ZoneEditor
 
 
 var game: Game = null
@@ -30,7 +32,13 @@ func _fade_out() -> void:
 func set_game( g: Game ):
 	self.game = g
 	
+func _update_entries() -> void:
+	if OS.has_feature("classic"):
+		self.game_mode.state = MainMenuEntry.State.HIDDEN
+		self.zone_editor.state = MainMenuEntry.State.HIDDEN
+	
 func toggle( _duration: float ):
+	self._update_entries()
 	# toggle_fade( duration )
 	toggle_fade( fade_duration )
 
@@ -40,6 +48,8 @@ func close( duration: float):
 #		self.animation_player.play( &"FadeIn", -1.0, -1.0/fade_duration, false )
 
 func open( duration: float):
+	self._update_entries()
+		
 	fade_in( duration )
 #	if duration > 0.0:
 #		$AnimationPlayer.play( &"FadeIn", -1.0, 1.0/fade_duration, false )

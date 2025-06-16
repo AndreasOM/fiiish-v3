@@ -19,7 +19,7 @@ enum State {
 }
 
 @export var id: Id = Id.NONE
-@export var state: State = State.ENABLED
+@export var state: State = State.ENABLED : set = _set_state
 @export var label: String = "" : set = _set_label
 
 
@@ -34,6 +34,10 @@ signal pressed
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
+func _set_state( s: State ) -> void:
+	state = s
+	self._update()
+	
 func _set_label( _label: String ):
 	label = _label
 	%RichTextLabel.text = self.label
@@ -44,6 +48,9 @@ func _ready():
 	%TextureButton.texture_normal = self.texture_normal
 	%TextureButton.texture_disabled = self.texture_disabled
 	%TextureButton.texture_focused = self.texture_focused
+	self._update()
+
+func _update() -> void:
 	match self.state:
 		State.ENABLED:
 			pass
@@ -53,7 +60,6 @@ func _ready():
 			pass
 		State.HIDDEN:
 			self.visible = false
-
 	
 func _on_texture_button_pressed() -> void:
 	self.pressed.emit()
