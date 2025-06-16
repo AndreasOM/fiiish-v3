@@ -16,6 +16,7 @@ on:
         type: choice
         options:
           - 'web-demo'
+          - 'web-classic'
       s3_archive:
         description: 'Optional source archive on S3'
         required: false
@@ -49,7 +50,7 @@ jobs:
     steps:
       - name: Verify inputs
         run: |
-          if [[ ${{ inputs.build_type }} != "web-demo" ]]
+          if [[ ${{ inputs.build_type }} != "web-demo" && ${{ inputs.build_type }} != "web-classic" ]]
           then
             echo "Can not upload ${{ inputs.build_type }}"
             exit 1
