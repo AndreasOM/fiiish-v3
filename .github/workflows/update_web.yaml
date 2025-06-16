@@ -1,0 +1,116 @@
+name: Update Web
+run-name: Update Web ${{ inputs.project }} by @${{ github.actor }}
+
+on: 
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'The project'
+        required: true
+        default: 'fiiish-v3'
+        type: string
+      build_type:
+        description: 'The type of build'
+        required: true
+        default: 'web-demo'
+        type: choice
+        options:
+          - 'web-demo'
+      s3_archive:
+        description: 'Optional source archive on S3'
+        required: false
+        default: ''
+        type: string
+  workflow_call:
+    inputs:
+      project:
+        description: 'The project'
+        required: false
+        default: 'fiiish-v3'
+        type: string
+      build_type:
+        description: 'The type of build'
+        required: false
+        default: 'web-demo'
+        type: string
+      s3_archive:
+        description: 'Optional source archive on S3'
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Verify inputs
+        run: |
+          if [[ ${{ inputs.build_type }} != "web-demo" ]]
+          then
+            echo "Can not upload ${{ inputs.build_type }}"
+            exit 1
+          fi
+
+      - name: Create variables
+        run: |
+          PROJECT=${{ inputs.project }}
+          BUILD_TYPE=${{ inputs.build_type }}
+          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
+          S3_ARCHIVE_FILE=${{ inputs.s3_archive }}
+          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"            
+            echo "LATEST_FILE=${LATEST_FILE}"
+            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+          } >> "$GITHUB_ENV"
+
+      - name: Download latest from S3
+        run: |
+          LF=${{ env.S3_ARCHIVE_FILE }}
+          if [[ ${LF} == "" ]]
+          then
+            echo "No s3_archive given, using latest"
+            aws s3 cp ${{ env.S3_LATEST_FILE }} ${{ env.LATEST_FILE }}
+            cat ${{ env.LATEST_FILE }}
+            LF=s3://artifacts.omnimad.net/$(cat ${{ env.LATEST_FILE }} )
+          fi
+          aws s3 cp "${LF}" .
+          # or basename?
+          TGZ=$(echo "${LF}" |rev|cut -d'/' -f1 |rev)
+          tar xzf "${TGZ}"
+          cd ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          pwd
+          find .
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+
+      - name: Update alpha
+        run: |
+          aws s3 sync ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/ s3://games.omnimad.net/alpha/${{ env.PROJECT }}/
+          aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/${{ env.PROJECT }}/*"
+          echo "PLAY_URL=https://games.omnimad.net/alpha/${{ env.PROJECT }}/${{ env.PROJECT }}.html" >> "$GITHUB_ENV"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Create Summary
+        if: always()
+        run: |
+          {
+            echo "|                     |                                    |"
+            echo "| :------------------ | ---------------------------------: |"
+            echo "| PROJECT             | ${{ env.PROJECT }}                 |"
+            echo "| BUILD_TYPE          | ${{ env.BUILD_TYPE }}              |"
+            echo "| S3_ARCHIVE_FILE     | \`${{ env.S3_ARCHIVE_FILE }}\`     |"
+            echo "| PLAY_URL            | ${{ env.PLAY_URL }}                |"
+          } >> "$GITHUB_STEP_SUMMARY"
