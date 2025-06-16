@@ -147,7 +147,12 @@ jobs:
 
       - name: Install GraphicsMagick
         run: |
-          sudo apt -y install graphicsmagick
+          if [[ ${{ needs.prepare.outputs.runner }} == macos-* ]]
+          then
+            brew install graphicsmagick
+          else
+            sudo apt -y install graphicsmagick
+          fi
 
       - name: Bake Version into Splash
         run: |
