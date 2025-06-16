@@ -9,11 +9,17 @@
 ## Todo
 
 
-## V3.6.0 - ETA: 05/31 - ZoneEditor (internal) with MiniMap, Achievements V1
+
+## V3.8.0 (revised) - ETA: 07/11
+
+- [ ] Feature: Release a classic version via CI/CD
+- [ ] Feature: KidsMode
+- [ ] Feature: Marketing Screenshots
+- [ ] #reach Feature: Achievements V2.0
+- [ ] #reach Feature: Zone Editor (external v0.1)
 
 
-
-## V3.8.0 - ETA: 06/25 - ZoneEditor (external), Achievements V2, new Zones & Campaigns
+## V3.8.0 (original) - ETA: 06/25 - ZoneEditor (external), Achievements V2, new Zones & Campaigns
 
 - [ ] Feature: "Campaign" configuration
 - [ ] Polish: Ensure "I Love Fiiish" zone only appears rarely (once per day at least!)
@@ -37,10 +43,12 @@
 	- [ ] Bonus: Play X days in a row
 	- [ ] Bonus: Max Coins (owned) Achievement
 
-- [ ] Release: Build classic version of game via CI/CD
+- [+] Release: Build classic version of game via CI/CD
 
-- [ ] Bonus: Automate creation of Marketing Screenshots
-- [ ] Reach: Add KidsMode
+- [+] Bonus: Automate creation of Marketing Screenshots
+- [+] Reach: Add KidsMode
+
+### postponed
 
 - [ ] Task: Create some new zones!
 - [ ] Bonus: Create some new (middle/center!) Rocks 
@@ -111,6 +119,11 @@
 
 ## Done
 
+
+### 2025-06-16
+#### S05E01
+
+## V3.6.0 - Released: 2025/06/16 - ZoneEditor (internal) with MiniMap, Achievements V1
 
 ### 2025-06-02
 #### S04E22
