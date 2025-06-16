@@ -31,7 +31,7 @@ jobs:
           COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
           ARCHIVE_FILE=fiiish-v3-ios-${COMMIT_DATE}.tgz
           S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
-          BUILD_TYPE="iOS"
+          BUILD_TYPE="ios"
           BINARY=${PROJECT}.app
           LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
           S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}

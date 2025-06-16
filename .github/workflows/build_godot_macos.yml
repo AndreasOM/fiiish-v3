@@ -35,7 +35,7 @@ jobs:
           echo "ARCHIVE_FILE=${ARCHIVE_FILE}" >> $GITHUB_ENV
           S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
           echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}" >> $GITHUB_ENV
-          BUILD_TYPE="macOS"
+          BUILD_TYPE="macos"
           echo "BUILD_TYPE=${BUILD_TYPE}" >> $GITHUB_ENV
           BINARY=${PROJECT}.app
           echo "BINARY=${BINARY}" >> $GITHUB_ENV

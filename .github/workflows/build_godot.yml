@@ -29,7 +29,7 @@ jobs:
           PROJECT=fiiish-v3
           COMMIT_HASH=$(git rev-parse --short HEAD)
           COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
-          BUILD_TYPE="Web-demo"
+          BUILD_TYPE="web-demo"
           VERSION=$(git tag --points-at HEAD)
           if [[ ${VERSION} == "" ]]
           then

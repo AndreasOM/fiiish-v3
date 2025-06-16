@@ -21,7 +21,7 @@ jobs:
       - name: Create variables
         run: |
           PROJECT="fiiish-v3"
-          BUILD_TYPE="iOS"
+          BUILD_TYPE="ios"
           LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
           S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
           #
