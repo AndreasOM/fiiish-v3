@@ -18,6 +18,7 @@ enum Id {
 	IN_GAME_PAUSE_DIALOG,
 	ACHIEVEMENTS_DIALOG,
 	TOAST_DIALOG,
+	DEVELOPER_DIALOG,
 }
 
 static func id_to_name( id: DialogIds.Id ) -> String:
@@ -56,5 +57,7 @@ static func id_to_name( id: DialogIds.Id ) -> String:
 			return "ACHIEVEMENTS_DIALOG"
 		DialogIds.Id.TOAST_DIALOG:
 			return "TOAST_DIALOG"
+		DialogIds.Id.DEVELOPER_DIALOG:
+			return "DEVELOPER_DIALOG"
 		_:
 			return "[UNKNOWN DIALOG]"

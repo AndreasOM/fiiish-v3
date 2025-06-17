@@ -23,6 +23,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.IN_GAME_PAUSE_DIALOG: preload("res://Scenes/in_game_pause_menu.tscn"),
 	DialogIds.Id.ACHIEVEMENTS_DIALOG: preload("res://Features/Achievements/Dialogs/achievement_dialog.tscn"),
 	DialogIds.Id.TOAST_DIALOG: preload("res://Features/Toasts/Dialogs/toast_dialog.tscn"),
+	DialogIds.Id.DEVELOPER_DIALOG: preload("res://Features/DeveloperDialog/developer_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}

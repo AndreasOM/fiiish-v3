@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=24 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://duckwsw8cl6o8" path="res://Dialogs/ZoneEditor/zone_editor_tools_dialog.tscn" id="17_hibaj"]
 [ext_resource type="PackedScene" uid="uid://doghgr1k4hp3p" path="res://Dialogs/ZoneEditor/zone_property_dialog.tscn" id="17_pdsj5"]
 [ext_resource type="PackedScene" uid="uid://dy8hv42uw38ce" path="res://Features/Toasts/Dialogs/toast_dialog.tscn" id="18_pdsj5"]
+[ext_resource type="PackedScene" uid="uid://bbymdllg7tpvi" path="res://Features/DeveloperDialog/developer_dialog.tscn" id="19_ee4r6"]
 [ext_resource type="AudioStream" uid="uid://d2u0kcl8pn3o2" path="res://Music/theme-00.mp3" id="22_n5j80"]
 [ext_resource type="Script" uid="uid://ef1ug6bg1c75" path="res://Scenes/music_manager.gd" id="23_l5um0"]
 [ext_resource type="Script" uid="uid://bpux614qj5uam" path="res://Scenes/sound_manager.gd" id="24_6541p"]
@@ -255,6 +256,10 @@ visible = false
 layout_mode = 1
 
 [node name="ToastDialogHardCoded" parent="UI/DialogManager" instance=ExtResource("18_pdsj5")]
+visible = false
+layout_mode = 1
+
+[node name="DeveloperDialogHardCoded" parent="UI/DialogManager" instance=ExtResource("19_ee4r6")]
 visible = false
 layout_mode = 1
 

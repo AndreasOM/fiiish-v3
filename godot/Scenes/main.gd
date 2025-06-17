@@ -51,6 +51,8 @@ func open_initial_dialogs() -> void:
 	var toast_dialog: ToastDialog = %DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
 	toast_dialog.add_simple_text_toast( "Started..." )
 	Events.broadcast_global_message("Game Started!")
+	if !OS.has_feature("standalone"):
+		%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

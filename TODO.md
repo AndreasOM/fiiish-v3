@@ -2,7 +2,17 @@
 
 ## In Progress
 
-- [ ] Bug: Fix ios build -> https://github.com/AndreasOM/fiiish-v3/blob/32b5678a287f035af0d50b33936473d79b1c48b1/.github/workflows/build_godot_ios.yaml
+- [ ] Feature: KidsMode
+	- [ ] Story: Developer dialog
+		- [ ] Task: Toggle developer dialog via DeveloperConsole
+		- [ ] Task: Remember if developer dialog is enabled
+	- [ ] Story: Enable KidsMode
+		- [ ] Task: Add development button to toggle KidsMode
+		- [ ] Task: Remember KidsMode
+		- [ ] Task: Add 2nd player save for KidsMode
+	- [ ] Story: Create KidsModeEnable Dialog
+	- [ ] Story: Implement external KidsMode enabling & disabling
+
 
 ## Next
 
@@ -18,7 +28,6 @@
 	- [ ] Task: Only load v3 zones in classic
 	- [ ] Task: Verify all entities used in classic zones exist
 
-- [ ] Feature: KidsMode
 - [ ] Feature: Marketing Screenshots
 - [ ] #reach Feature: Achievements V2.0
 - [ ] #reach Feature: Zone Editor (external v0.1)
@@ -124,6 +133,11 @@
 
 ## Done
 
+
+### 2025-06-17
+#### S05E02
+- [x] Bug: Fix ios build
+- [x] Task: Add developer dialog
 
 ### 2025-06-16
 #### S05E01
