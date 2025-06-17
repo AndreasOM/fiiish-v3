@@ -1,0 +1,149 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0jw8fsap8u7a"]
+
+[ext_resource type="Script" uid="uid://d1bdvm57f563s" path="res://Features/KidsMode/kidsmode_enable_dialog.gd" id="1_nib0v"]
+[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_vou17"]
+[ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="3_d82ve"]
+[ext_resource type="Texture2D" uid="uid://cxxi48tk2plt2" path="res://Textures/UI/Buttons/button_main_menu_entry.png" id="4_yo47v"]
+[ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="6_60dca"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yo47v"]
+
+[node name="KidsModeEnableDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nib0v")
+
+[node name="FadeablePanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yo47v")
+script = ExtResource("2_vou17")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.0902, 0.661877, 0.82, 0.25098)
+
+[node name="TextureRect" type="TextureRect" parent="FadeablePanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_d82ve")
+
+[node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 99
+theme_override_constants/margin_top = 55
+theme_override_constants/margin_right = 97
+theme_override_constants/margin_bottom = 125
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/TextureRect/MarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(1, 0.38, 0.38, 0.227451)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"SkillsHeaderLabel"
+text = "KidsMode"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"MediumRichTextLabel"
+bbcode_enabled = true
+text = "Do you want to enable KidsMode?
+
+In KidsMode all advanced features will be disabled.
+No highscores, no achievements, no skill upgrades.
+
+No menu!
+Check [url]https://games.omni-mad.com/fiiish-v3/kidsmode.html[/url] on how to disable KidsMode.
+
+You main progress is save, and will be waiting for you when you leave KidsMode."
+
+[node name="FreshGameTextureButton" type="TextureButton" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("4_yo47v")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/FreshGameTextureButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "Enable with fresh game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WithProgressTextureButton" type="TextureButton" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("4_yo47v")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/WithProgressTextureButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "Enable with upgrades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 18.0
+offset_right = 1.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 98
+theme_override_constants/margin_top = 47
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 140
+
+[node name="CloseButton" type="TextureButton" parent="FadeablePanelContainer/TextureRect/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("6_60dca")
+
+[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
+[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
+[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
+[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
+[connection signal="pressed" from="FadeablePanelContainer/TextureRect/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]

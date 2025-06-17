@@ -10,7 +10,6 @@
 		- [ ] Task: Add development button to toggle KidsMode
 		- [ ] Task: Remember KidsMode
 		- [ ] Task: Add 2nd player save for KidsMode
-	- [ ] Story: Create KidsModeEnable Dialog
 	- [ ] Story: Implement external KidsMode enabling & disabling
 
 
@@ -18,6 +17,8 @@
 
 
 ## Todo
+
+- [ ] Task: Create kidsmode.html on fiiish-v3 and fiiish-classic websites
 
 
 
@@ -138,6 +139,7 @@
 #### S05E02
 - [x] Bug: Fix ios build
 - [x] Task: Add developer dialog
+- [x] Story: Create KidsModeEnable Dialog
 
 ### 2025-06-16
 #### S05E01

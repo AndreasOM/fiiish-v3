@@ -24,6 +24,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.ACHIEVEMENTS_DIALOG: preload("res://Features/Achievements/Dialogs/achievement_dialog.tscn"),
 	DialogIds.Id.TOAST_DIALOG: preload("res://Features/Toasts/Dialogs/toast_dialog.tscn"),
 	DialogIds.Id.DEVELOPER_DIALOG: preload("res://Features/DeveloperDialog/developer_dialog.tscn"),
+	DialogIds.Id.KIDS_MODE_ENABLE_DIALOG: preload("res://Features/KidsMode/kidsmode_enable_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}
