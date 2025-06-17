@@ -3,6 +3,12 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_window().size = Vector2i( 1920*2*0.75, 1080*2*0.75 )
+	get_window().position = Vector2i( 1920*2, 0 )
+	if !OS.has_feature("standalone"):
+		get_window().borderless = false
+		pass
+		
 	#var s = 0.5
 	
 	# DisplayServer.window_set_size( s*Vector2( 1920.0, 1080.0 ) )

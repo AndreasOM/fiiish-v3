@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Create variables
         run: |
-          PROJECT="fiiish-v3"
+          PROJECT=${{ vars.PROJECT }}
           BUILD_TYPE="macos"
           LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
           S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"

@@ -13,7 +13,6 @@ jobs:
   build:
     uses: ./.github/workflows/build.yaml
     with:
-      project: 'fiiish-v3'
       build_type: 'web-demo'
     secrets: inherit
 
@@ -21,7 +20,6 @@ jobs:
     needs: [build]
     uses: ./.github/workflows/update_web.yaml
     with:
-      project: 'fiiish-v3'
       build_type: 'web-demo'
       s3_archive: ''
     secrets: inherit

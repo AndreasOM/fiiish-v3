@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Bug: Fix ios build -> https://github.com/AndreasOM/fiiish-v3/blob/32b5678a287f035af0d50b33936473d79b1c48b1/.github/workflows/build_godot_ios.yaml
 
 ## Next
 

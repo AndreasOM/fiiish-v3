@@ -4,11 +4,6 @@ run-name: 🔨 Build ${{ inputs.project }} - ${{ inputs.build_type }} by @${{ gi
 on: 
   workflow_dispatch:
     inputs:
-      project:
-        description: 'The project'
-        required: true
-        default: 'fiiish-v3'
-        type: string
       build_type:
         description: 'The type of build'
         required: true
@@ -22,10 +17,6 @@ on:
           - 'macos'
   workflow_call:
     inputs:
-      project:
-        description: 'The project'
-        required: true
-        type: string
       build_type:
         description: 'The type of build'
         required: true
@@ -73,10 +64,33 @@ jobs:
 
       - name: Create variables
         run: |
-          PROJECT=${{ inputs.project }}
+          PROJECT=${{ vars.PROJECT }}
           COMMIT_HASH=$(git rev-parse --short HEAD)
           COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
           BUILD_TYPE=${{ inputs.build_type }}
+
+          case ${{ inputs.build_type }} in
+            macos*)
+              echo "TARGET=macos" >> "$GITHUB_ENV"
+              ;;
+            linux*)
+              echo "TARGET=linux" >> "$GITHUB_ENV"
+              ;;
+            windows*)
+              echo "TARGET=windows" >> "$GITHUB_ENV"
+              ;;
+            web*)
+              echo "TARGET=web" >> "$GITHUB_ENV"
+              ;;
+            ios*)
+              echo "TARGET=ios" >> "$GITHUB_ENV"
+              ;;
+
+            *)
+              echo "TARGET=unknown" >> "$GITHUB_ENV"
+              ;;
+          esac
+
           VERSION=$(git tag --points-at HEAD)
           if [[ ${VERSION} == "" ]]
           then
@@ -89,6 +103,7 @@ jobs:
             exit 255
           fi
           VERSION=${VERSION#"v"}
+          BUILD_NUMBER=$(date +2025.%y%m%d.%H%M%S)
           ARCHIVE_FILE=${PROJECT}-${BUILD_TYPE}-${COMMIT_DATE}.tgz
           S3_ARCHIVE_FILE=s3://artifacts.omnimad.net/${PROJECT}/${COMMIT_DATE}/${ARCHIVE_FILE}
           LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
@@ -100,6 +115,7 @@ jobs:
             echo "COMMIT_DATE=${COMMIT_DATE}"
             echo "BUILD_TYPE=${BUILD_TYPE}"
             echo "VERSION=${VERSION}"
+            echo "BUILD_NUMBER=${BUILD_NUMBER}"
             echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
             echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"            
             echo "LATEST_FILE=${LATEST_FILE}"
@@ -124,6 +140,9 @@ jobs:
               ;;
             'web-classic')
               echo "BINARY_EXTENSION=.html" >> "$GITHUB_ENV"
+              ;;
+            ios*)
+              echo "BINARY_EXTENSION=.xcodeproj" >> "$GITHUB_ENV"
               ;;
 
             *)
@@ -194,6 +213,58 @@ jobs:
             --quit \
             || exit 0
 
+# [ --- iOS only ---
+      - name: Switch Xcode Version
+        if: ${{ env.TARGET == 'ios' }}
+        run: |
+          sudo xcode-select --switch /Applications/Xcode_16.2.0.app
+          xcode-select --print-path
+
+      - name: Patch version
+        if: ${{ env.TARGET == 'ios' }}
+        run: |
+          agvtool new-marketing-version ${{ env.VERSION }}
+          agvtool new-version -all ${{ env.BUILD_NUMBER }}
+
+        working-directory: godot/export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
+
+      - name: Build
+        if: ${{ env.TARGET == 'ios' }}
+        run: |
+          xcodebuild \
+            -project ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj \
+            -sdk iphoneos \
+            -scheme "${{ env.PROJECT }}" \
+            -configuration "Release" \
+            build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+        working-directory: godot/export
+
+      - name: Export Archive
+        if: ${{ env.TARGET == 'ios' }}
+        run: |
+          xcodebuild \
+            -archivePath "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}.xcarchive" \
+            -project ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj \
+            -sdk iphoneos \
+            -scheme "${{ env.PROJECT }}" \
+            -configuration "Release" \
+            archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+        working-directory: godot/export
+
+      - name: Move Archive into Export
+        if: ${{ env.TARGET == 'ios' }}
+        run: |
+          mv ${{ env.PROJECT }}-${{ env.BUILD_TYPE }} "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}-godot"
+          mkdir -p ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          mv "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}.xcarchive" "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}"
+
+        working-directory: godot/export
+
+
+#   --- iOS only --- ]
+
       - name: Check result
         run: |
           cd godot
@@ -203,6 +274,7 @@ jobs:
         run: |
           cd godot/export
           echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
+          echo ${{ env.BUILD_NUMBER }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/build_number.txt
           tar czf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
 
       - name: Upload artifact
@@ -236,6 +308,6 @@ jobs:
             echo "| COMMIT_HASH         | ${{ env.COMMIT_HASH }}             |"
             echo "| COMMIT_DATE         | ${{ env.COMMIT_DATE }}             |"
             echo "| VERSION             | \`${{ env.VERSION }}\`             |"
+            echo "| BUILD_NUMBER        | \`${{ env.BUILD_NUMBER }}\`        |"
             echo "| S3_ARCHIVE_FILE     | \`${{ env.S3_ARCHIVE_FILE }}\`     |"
-            # echo "| PLAY_URL            | ${{ env.PLAY_URL }}                |"
           } >> "$GITHUB_STEP_SUMMARY"

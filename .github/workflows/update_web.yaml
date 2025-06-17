@@ -4,11 +4,6 @@ run-name: Update Web ${{ inputs.project }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
     inputs:
-      project:
-        description: 'The project'
-        required: true
-        default: 'fiiish-v3'
-        type: string
       build_type:
         description: 'The type of build'
         required: true
@@ -24,11 +19,6 @@ on:
         type: string
   workflow_call:
     inputs:
-      project:
-        description: 'The project'
-        required: false
-        default: 'fiiish-v3'
-        type: string
       build_type:
         description: 'The type of build'
         required: false
@@ -58,7 +48,7 @@ jobs:
 
       - name: Create variables
         run: |
-          PROJECT=${{ inputs.project }}
+          PROJECT=${{ vars.PROJECT }}
           BUILD_TYPE=${{ inputs.build_type }}
           LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
           S3_ARCHIVE_FILE=${{ inputs.s3_archive }}
