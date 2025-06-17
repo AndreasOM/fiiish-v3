@@ -1,5 +1,5 @@
 name: 🔨 Build
-run-name: 🔨 Build ${{ inputs.project }} - ${{ inputs.build_type }} by @${{ github.actor }}
+run-name: 🔨 Build ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 
 on: 
   workflow_dispatch:
@@ -39,7 +39,11 @@ jobs:
       - name: Choose runner
         id: choose_runner
         run: |
-          if [ ${{ inputs.build_type }} == 'macos' ]; then
+          if [[ \
+            ${{ inputs.build_type }} == 'macos' \
+            || ${{ inputs.build_type }} == 'ios' \
+          ]]
+          then
             echo "runner=macos-14" >> "$GITHUB_OUTPUT"
           else
             echo "runner=ubicloud-standard-4" >> "$GITHUB_OUTPUT"
