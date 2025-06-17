@@ -3,11 +3,12 @@
 ## In Progress
 
 - [ ] Feature: KidsMode
+	- [ ] Story: Create KidsModeEnableDialog
+		- [ ] TasK: Enable KidsMode from KidsModeEnableDialog
 	- [ ] Story: Developer dialog
 		- [ ] Task: Toggle developer dialog via DeveloperConsole
 		- [ ] Task: Remember if developer dialog is enabled
 	- [ ] Story: Enable KidsMode
-		- [ ] Task: Add development button to toggle KidsMode
 		- [ ] Task: Remember KidsMode
 		- [ ] Task: Add 2nd player save for KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
@@ -139,7 +140,8 @@
 #### S05E02
 - [x] Bug: Fix ios build
 - [x] Task: Add developer dialog
-- [x] Story: Create KidsModeEnable Dialog
+- [x] Task: Create KidsModeEnableDialog
+- [x] Task: Add development button to toggle KidsMode
 
 ### 2025-06-16
 #### S05E01
