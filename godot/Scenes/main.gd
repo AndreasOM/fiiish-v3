@@ -48,6 +48,9 @@ func _ready() -> void:
 	self._on_kids_mode_changed( is_in_kids_mode )
 	
 	Events.kids_mode_changed.connect( _on_kids_mode_changed )
+	
+	self._on_settings_changed()
+	Events.settings_changed.connect( _on_settings_changed )
 	self.open_initial_dialogs()
 
 func open_initial_dialogs() -> void:
@@ -57,8 +60,12 @@ func open_initial_dialogs() -> void:
 	var toast_dialog: ToastDialog = %DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
 	toast_dialog.add_simple_text_toast( "Started..." )
 	Events.broadcast_global_message("Game Started!")
-	if OS.has_feature("editor"):
-		%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
+	
+#	if OS.has_feature("editor"):
+#		%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
+		
+	#if $Game.get_settings().get_developer_dialog_version() > 0:
+	#	%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -67,3 +74,9 @@ func _process(_delta: float) -> void:
 
 func _on_kids_mode_changed( enabled: bool ) -> void:
 	self.kids_mode_overlay.visible = enabled
+
+func _on_settings_changed() -> void:
+	if $Game.get_settings().get_developer_dialog_version() > 0:
+		%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.3 )
+	else:
+		%DialogManager.close_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.3 )

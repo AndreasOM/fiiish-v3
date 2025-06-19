@@ -134,6 +134,9 @@ func get_sound_manager() -> SoundManager:
 func get_player() -> Player:
 	return _player
 	
+func get_settings() -> Settings:
+	return self._settings
+
 func get_skill_config_manager() -> SkillConfigManager:
 	return _skill_config_manager
 

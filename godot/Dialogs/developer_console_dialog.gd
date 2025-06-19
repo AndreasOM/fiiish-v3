@@ -38,6 +38,7 @@ func _ready() -> void:
 	self._commands.push_back( DeveloperCommandResetLocalLeaderboards.new() )
 	self._commands.push_back( DeveloperCommandCheatToggleInvincible.new() )
 	self._commands.push_back( DeveloperCommandToast.new() )
+	self._commands.push_back( DeveloperCommandDeveloperDialogToggle.new() )
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -2,11 +2,11 @@
 
 ## In Progress
 
+
 - [ ] Feature: KidsMode
 	- [ ] Story: Create KidsModeEnableDialog
 		- [ ] Task: Enable KidsMode from KidsModeEnableDialog
 	- [ ] Story: Developer dialog
-		- [ ] Task: Toggle developer dialog via DeveloperConsole
 		- [ ] Task: Remember if developer dialog is enabled
 	- [ ] Story: Enable KidsMode
 		- [ ] Task: Reload achievement state when toggling KidsMode
@@ -141,6 +141,7 @@
 #### S05E03
 - [x] Task: Remember KidsMode
 - [x] Task: Add 2nd player save for KidsMode
+- [x] Task: Toggle developer dialog via DeveloperConsole
 
 ### 2025-06-17
 #### S05E02

@@ -1,13 +1,16 @@
 class_name Settings
 
-const current_version: int = 1
+const current_version: int = 2
 const oldest_supported_version: int = 1
 
 
 var _kids_mode_enabled: bool = false
 
+## version 2
+var _developer_dialog_version: int = 0
+
 ## not serialized
-var _isDirty: bool = false
+var _is_dirty: bool = false
 
 static func get_save_path() -> String:
 	return "user://settings.data"
@@ -30,7 +33,7 @@ static func load() -> Settings:
 	
 func reset():
 	self._kids_mode_enabled = false
-	self._isDirty = true
+	self._is_dirty = true
 		
 func save():
 	var p = get_save_path()
@@ -54,6 +57,12 @@ func serialize( s: Serializer ) -> bool:
 		return false
 
 	self._kids_mode_enabled = s.serialize_bool( self._kids_mode_enabled )
+
+	# version 2
+	if version < 2:
+		return true
+		
+	self._developer_dialog_version = s.serialize_u16( self._developer_dialog_version )
 		
 	return true
 		
@@ -65,10 +74,22 @@ func enable_kids_mode():
 	if self._kids_mode_enabled:
 		return
 	self._kids_mode_enabled = true
-	_isDirty = true
+	_is_dirty = true
 
 func disable_kids_mode():
 	if !self._kids_mode_enabled:
 		return
 	self._kids_mode_enabled = false
-	_isDirty = true
+	_is_dirty = true
+
+
+## version 2
+
+func get_developer_dialog_version() -> int:
+	return self._developer_dialog_version
+
+func set_developer_dialog_version( version: int ) -> void:
+	if self._developer_dialog_version == version:
+		return
+	self._developer_dialog_version = version
+	self._is_dirty = true
