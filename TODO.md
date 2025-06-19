@@ -12,7 +12,6 @@
 	- [ ] Story: Implement external KidsMode enabling & disabling
 	- [ ] Story: Handle KidsMode for all Dialogs
 		- [ ] Task: Handle KidsMode for ResultDialog
-		- [ ] Task: Close SettingsDialog when entering KidsMode
 
 
 ## Next
@@ -149,6 +148,7 @@
 - [x] Task: Move Audio settings to Settings
 - [x] Task: Reload achievement state when toggling KidsMode
 - [x] Task: Handle KidsMode for InGamePauseMenuDialog
+- [x] Task: Close SettingsDialog when entering KidsMode
 
 ### 2025-06-17
 #### S05E02

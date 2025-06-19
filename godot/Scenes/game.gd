@@ -376,6 +376,7 @@ func enter_kidsmode_with_upgrades() -> void:
 	Events.broadcast_global_message("KidsMode Enabled")
 	Events.broadcast_kids_mode_changed( true )
 	Events.broadcast_settings_changed()
+	%DialogManager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 
 func enter_kidsmode_with_fresh_game() -> void:
 	self._settings.enable_kids_mode()
@@ -383,10 +384,12 @@ func enter_kidsmode_with_fresh_game() -> void:
 	self._player = Player.new()
 	self._player.reset_achievements()
 	self._player.save_with_suffix( KIDS_MODE_SUFFIX )
-	self.get_game_manager().player_changed( self._player )	
+	self.get_game_manager().player_changed( self._player )
 	Events.broadcast_global_message("KidsMode Enabled")
 	Events.broadcast_kids_mode_changed( true )
 	Events.broadcast_settings_changed()
+	%DialogManager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
+
 
 func leave_kids_mode() -> void:
 	self._settings.disable_kids_mode()
