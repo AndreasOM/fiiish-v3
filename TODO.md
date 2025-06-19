@@ -6,11 +6,9 @@
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Create KidsModeEnableDialog
-		- [ ] Task: Load KidsModeEnableDialog text based on v3 vs classic
 	- [ ] Story: Enable KidsMode
 		- [ ] Task: Abort current run when toggling KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
-	- [ ] Story: Handle KidsMode for all Dialogs
 
 
 ## Next
@@ -149,6 +147,8 @@
 - [x] Task: Handle KidsMode for InGamePauseMenuDialog
 - [x] Task: Close SettingsDialog when entering KidsMode
 - [x] Task: Handle KidsMode for ResultDialog
+- [x] Story: Handle KidsMode for all Dialogs
+- [x] Task: Load KidsModeEnableDialog text based on v3 vs classic
 
 ### 2025-06-17
 #### S05E02

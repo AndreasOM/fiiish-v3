@@ -1,0 +1,9 @@
+Do you want to enable KidsMode?
+
+In KidsMode all advanced features will be disabled.
+No highscores, no achievements, no skill upgrades.
+
+No menu!
+Check [url]https://games.omni-mad.com/fiiish-classic/kidsmode.html[/url] on how to disable KidsMode.
+
+You main progress is save, and will be waiting for you when you leave KidsMode.
