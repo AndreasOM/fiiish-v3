@@ -38,3 +38,14 @@ func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
 
 func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
 	closing()
+
+
+func _on_fresh_game_texture_button_pressed() -> void:
+	self._dialog_manager.game.enter_kidsmode_with_fresh_game()
+	self._dialog_manager.close_dialog(DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3)	
+
+
+
+func _on_with_upgrades_texture_button_pressed() -> void:
+	self._dialog_manager.game.enter_kidsmode_with_upgrades()
+	self._dialog_manager.close_dialog(DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3)

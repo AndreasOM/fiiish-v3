@@ -33,4 +33,7 @@ func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
 
 
 func _on_enable_kids_mode_texture_button_pressed() -> void:
-	self._dialog_manager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
+	if self._dialog_manager.game.is_in_kids_mode():
+		self._dialog_manager.game.leave_kids_mode()
+	else:
+		self._dialog_manager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )

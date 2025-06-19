@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=26 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -27,6 +27,13 @@
 [sub_resource type="LabelSettings" id="LabelSettings_uwb6x"]
 font = ExtResource("7_c40ns")
 font_size = 128
+font_color = Color(0.952438, 0.613833, 0.475208, 1)
+outline_size = 35
+outline_color = Color(0.038076, 0.0370335, 6.01634e-09, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gt3je"]
+font = ExtResource("7_c40ns")
+font_size = 64
 font_color = Color(0.952438, 0.613833, 0.475208, 1)
 outline_size = 35
 outline_color = Color(0.038076, 0.0370335, 6.01634e-09, 1)
@@ -141,6 +148,7 @@ texture = ExtResource("5_l2xk6")
 
 [node name="DemoContainer" type="MarginContainer" parent="UI/HUD"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -174,6 +182,43 @@ grow_vertical = 0
 rotation = -0.785398
 text = "DEMO"
 label_settings = SubResource("LabelSettings_uwb6x")
+
+[node name="KidsModeOverlay" type="MarginContainer" parent="UI/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 64.0
+grow_vertical = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Control" type="Control" parent="UI/HUD/KidsModeOverlay"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/HUD/KidsModeOverlay/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 16.7148
+offset_top = -225.0
+offset_right = 309.715
+offset_bottom = -87.9999
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+text = "KidsMode"
+label_settings = SubResource("LabelSettings_gt3je")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PauseOverlay" type="Control" parent="UI"]
 process_mode = 3

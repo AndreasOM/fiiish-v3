@@ -70,22 +70,33 @@ var _last_achievements: Array[ String ] = []
 
 var _prev_best_distance = 0
 
-static func get_save_path() -> String:
-	return "user://player.data"
+var _load_suffix: String = ""
+
+static func get_save_path( suffix: String ) -> String:
+	return "user://player%s.data" % suffix
 	
+	
+static func load_with_suffix( suffix: String ) -> Player:
+	var path = get_save_path( suffix )
+	var player = load_from_file( path )
+	player._load_suffix = suffix
+	return player
 	
 static func load() -> Player:
-	var p = get_save_path()
-	print("Loading player from %s" % p)
+	var p = get_save_path( "" )
+	return load_from_file( p )
+
+static func load_from_file( path: String ) -> Player:
+	print("Loading player from %s" % path)
 	var s = Serializer.new()
-	if !s.load_file( p ):
+	if !s.load_file( path ):
 		print("Couldn't load player data")
-		return null
+		return Player.new()
 		
 	var player = Player.new()
 	if !player.serialize( s ):
 		push_warning("Failed serializing player");
-		return null
+		return Player.new()
 		
 	return player
 	
@@ -113,14 +124,18 @@ func reset_local_leaderboards():
 	_prev_best_distance = 0
 	_isDirty = true
 	
-func save():
-	var p = get_save_path()
+func save_with_suffix( suffix: String ) -> void:
+	var p = get_save_path( suffix )
 	print("Saving player to %s" % p)
 	var s = Serializer.new()
 	if !serialize( s ):
 		push_warning("Failed serializing player");
 	
+	self._load_suffix = suffix
 	s.save_file(p)
+	
+func save():
+	save_with_suffix( self._load_suffix )
 
 func serialize( s: Serializer ) -> bool:
 

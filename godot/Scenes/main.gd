@@ -1,5 +1,7 @@
 extends Control
 
+@onready var kids_mode_overlay: MarginContainer = %KidsModeOverlay
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,7 +43,11 @@ func _ready() -> void:
 	
 	# var lbd = %DialogManager.open_dialog(DialogIds.Id.LEADERBOARD_DIALOG, 0.0)
 	$Game.resume()
+
+	var is_in_kids_mode = $Game.is_in_kids_mode()
+	self._on_kids_mode_changed( is_in_kids_mode )
 	
+	Events.kids_mode_changed.connect( _on_kids_mode_changed )
 	self.open_initial_dialogs()
 
 func open_initial_dialogs() -> void:
@@ -51,9 +57,13 @@ func open_initial_dialogs() -> void:
 	var toast_dialog: ToastDialog = %DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
 	toast_dialog.add_simple_text_toast( "Started..." )
 	Events.broadcast_global_message("Game Started!")
-	if !OS.has_feature("standalone"):
+	if OS.has_feature("editor"):
 		%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
+func _on_kids_mode_changed( enabled: bool ) -> void:
+	self.kids_mode_overlay.visible = enabled

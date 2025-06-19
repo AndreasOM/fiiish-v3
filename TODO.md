@@ -4,13 +4,13 @@
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Create KidsModeEnableDialog
-		- [ ] TasK: Enable KidsMode from KidsModeEnableDialog
+		- [ ] Task: Enable KidsMode from KidsModeEnableDialog
 	- [ ] Story: Developer dialog
 		- [ ] Task: Toggle developer dialog via DeveloperConsole
 		- [ ] Task: Remember if developer dialog is enabled
 	- [ ] Story: Enable KidsMode
-		- [ ] Task: Remember KidsMode
-		- [ ] Task: Add 2nd player save for KidsMode
+		- [ ] Task: Reload achievement state when toggling KidsMode
+		- [ ] Task: Move Audio settings to Settings
 	- [ ] Story: Implement external KidsMode enabling & disabling
 
 
@@ -29,6 +29,7 @@
 	- [ ] Task: Create 1 v3 zone for testing
 	- [ ] Task: Only load v3 zones in classic
 	- [ ] Task: Verify all entities used in classic zones exist
+	- [ ] Task: Upload classic builds to itch.io
 
 - [ ] Feature: Marketing Screenshots
 - [ ] #reach Feature: Achievements V2.0
@@ -135,6 +136,11 @@
 
 ## Done
 
+
+### 2025-06-19
+#### S05E03
+- [x] Task: Remember KidsMode
+- [x] Task: Add 2nd player save for KidsMode
 
 ### 2025-06-17
 #### S05E02

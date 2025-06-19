@@ -17,6 +17,8 @@ signal achievement_completed( id: String )
 signal reward_received( amount: int, icon: Texture, extra: String )
 signal queue_toast( toast: Control )
 
+signal kids_mode_changed( enabled: bool )
+
 func broadcast_game_state_changed( state: Game.State ):
 	game_state_changed.emit( state )
 
@@ -58,3 +60,6 @@ func broadcast_reward_received( amount: int, icon: Texture, extra: String ) -> v
 	
 func broadcast_queue_toast( toast: Control ) -> void:
 	self.queue_toast.emit( toast )
+	
+func broadcast_kids_mode_changed( enabled: bool ) -> void:
+	self.kids_mode_changed.emit( enabled )

@@ -44,6 +44,7 @@ signal state_changed( state: Game.State )
 @export var soundManager: SoundManager = null
 
 var _player: Player = Player.new()
+var _settings: Settings = Settings.new()
 
 var _skill_config_manager: SkillConfigManager = SkillConfigManager.new()
 
@@ -56,21 +57,23 @@ var _is_in_zone_editor: bool = false
 
 var _was_zone_editor_requested: bool = false
 
+const KIDS_MODE_SUFFIX: String = "_kids_mode"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("Game - _ready()")
 	
-	var player = Player.load()
-	if player != null:
-		_player = player
-		musicManager.fadeOut( 0.0 )
-		if _player.isMusicEnabled():
-			musicManager.fadeIn( 0.3 )
-		if _player.isSoundEnabled():
-			soundManager.enable()
-		else:
-			soundManager.disable( 0.0 )
-		self.get_game_manager().player_changed( self._player )
+	self._settings = Settings.load()
+	
+	var suffix = "" if !self._settings.is_kids_mode_enabled() else KIDS_MODE_SUFFIX
+	self._player = Player.load_with_suffix( suffix )
+	musicManager.fadeOut( 0.0 )
+	if _player.isMusicEnabled():
+		musicManager.fadeIn( 0.3 )
+	if _player.isSoundEnabled():
+		soundManager.enable()
+	else:
+		soundManager.disable( 0.0 )
+	self.get_game_manager().player_changed( self._player )
 			
 	Events.cheats_changed.connect( _on_cheats_changed )
 	self._on_cheats_changed()
@@ -354,3 +357,28 @@ func zone_editor_command_history_size() -> int:
 
 func _on_zone_editor_spawn_entity_changed( id: EntityId.Id ) -> void:
 	self.zone_editor_manager.on_spawn_entity_changed( id )
+
+func is_in_kids_mode() -> bool:
+	return self._settings.is_kids_mode_enabled()
+
+func enter_kidsmode_with_upgrades() -> void:
+	self._settings.enable_kids_mode()
+	self._settings.save()
+	self._player.save_with_suffix( KIDS_MODE_SUFFIX )
+	Events.broadcast_global_message("KidsMode Enabled")
+	Events.broadcast_kids_mode_changed( true )
+
+func enter_kidsmode_with_fresh_game() -> void:
+	self._settings.enable_kids_mode()
+	self._settings.save()
+	self._player = Player.new()
+	self._player.save_with_suffix( KIDS_MODE_SUFFIX )
+	Events.broadcast_global_message("KidsMode Enabled")
+	Events.broadcast_kids_mode_changed( true )
+
+func leave_kids_mode() -> void:
+	self._settings.disable_kids_mode()
+	self._settings.save()
+	self._player = Player.load()
+	Events.broadcast_global_message("KidsMode Disabled")
+	Events.broadcast_kids_mode_changed( false )
