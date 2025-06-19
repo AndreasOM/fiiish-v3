@@ -25,6 +25,8 @@ enum AnimationStep {
 @export var anim_distance_percentage: float = 0.0
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var full_h_box_container: HBoxContainer = %FullHBoxContainer
+@onready var play_h_box_container: HBoxContainer = %PlayHBoxContainer
 
 var _start_coins: int = 0
 var _new_coins: int = 0
@@ -184,7 +186,16 @@ func close( duration: float):
 
 func open( duration: float):
 	_prepare_results()
+	self._update_button_container()
 	fade_in( duration )
+	
+func _update_button_container() -> void:
+	if self._dialog_manager.game.is_in_kids_mode():
+		self.full_h_box_container.visible = false
+		self.play_h_box_container.visible = true
+	else:
+		self.full_h_box_container.visible = true
+		self.play_h_box_container.visible = false
 
 func toggle_fade( duration: float ):
 	$ResultDialogFadeableContainer.toggle_fade( duration )
@@ -218,3 +229,7 @@ func _on_leaderboard_button_pressed() -> void:
 
 func _on_achievement_button_pressed() -> void:
 	_dialog_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
+
+
+func _on_play_button_pressed() -> void:
+	pass # Replace with function body.

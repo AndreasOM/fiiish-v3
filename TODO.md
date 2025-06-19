@@ -11,7 +11,6 @@
 		- [ ] Task: Abort current run when toggling KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
 	- [ ] Story: Handle KidsMode for all Dialogs
-		- [ ] Task: Handle KidsMode for ResultDialog
 
 
 ## Next
@@ -149,6 +148,7 @@
 - [x] Task: Reload achievement state when toggling KidsMode
 - [x] Task: Handle KidsMode for InGamePauseMenuDialog
 - [x] Task: Close SettingsDialog when entering KidsMode
+- [x] Task: Handle KidsMode for ResultDialog
 
 ### 2025-06-17
 #### S05E02

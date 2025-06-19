@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0rj0pswt334s"]
+[gd_scene load_steps=12 format=3 uid="uid://d0rj0pswt334s"]
 
 [ext_resource type="Script" uid="uid://d0npyqj022upw" path="res://Scenes/result_dialog.gd" id="1_wlxjo"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_g40ym"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://l3vyvg8q35ki" path="res://Textures/UI/Buttons/button_fiiish.png" id="5_8gynd"]
 [ext_resource type="Texture2D" uid="uid://liei0p04c4l6" path="res://Textures/UI/Buttons/button_leaderboard.png" id="6_848gl"]
 [ext_resource type="Texture2D" uid="uid://ck03o6mgc31me" path="res://Textures/UI/Buttons/button_achievement.png" id="7_m8h2f"]
+[ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="8_p2fcy"]
 
 [sub_resource type="Animation" id="Animation_848gl"]
 resource_name = "CountUp"
@@ -167,28 +168,42 @@ visible = false
 layout_mode = 2
 color = Color(0.627451, 0.184314, 0.972549, 0.482353)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+[node name="FullHBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 
-[node name="SkillUpgradeButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
+[node name="SkillUpgradeButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("5_8gynd")
 
-[node name="LeaderboardButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
+[node name="LeaderboardButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("6_848gl")
 
-[node name="AchievementButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
+[node name="AchievementButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("7_m8h2f")
+
+[node name="PlayHBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PlayButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/PlayHBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("8_p2fcy")
 
 [connection signal="on_faded_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_in"]
 [connection signal="on_faded_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_out"]
 [connection signal="on_fading_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_in"]
 [connection signal="on_fading_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_out"]
-[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]
-[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
-[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/AchievementButton" to="." method="_on_achievement_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer/AchievementButton" to="." method="_on_achievement_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/PlayHBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
