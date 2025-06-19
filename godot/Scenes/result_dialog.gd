@@ -232,4 +232,7 @@ func _on_achievement_button_pressed() -> void:
 
 
 func _on_play_button_pressed() -> void:
-	pass # Replace with function body.
+	var event = InputEventAction.new()
+	event.action = "swim_down"
+	event.pressed = true
+	Input.parse_input_event(event)	
