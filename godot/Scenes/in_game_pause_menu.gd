@@ -109,7 +109,9 @@ func _update_main_menu_button( state: Game.State ):
 		
 	var should_be_visible: bool = false
 	
-	if self._dialog_manager.game.isMainMenuEnabled():
+	var is_kids_mode_enabled = self._dialog_manager.game.is_in_kids_mode()
+	
+	if !is_kids_mode_enabled && self._dialog_manager.game.isMainMenuEnabled():
 		match state:
 			Game.State.PREPARING_FOR_START:
 				if self._dialog_manager.game.isMainMenuEnabled():

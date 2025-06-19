@@ -3,6 +3,7 @@
 ## In Progress
 
 
+- [ ] Task: Handle KidsMode for InGamePauseMenuDialog
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Create KidsModeEnableDialog
@@ -12,8 +13,6 @@
 	- [ ] Story: Implement external KidsMode enabling & disabling
 	- [ ] Story: Handle KidsMode for all Dialogs
 		- [ ] Task: Handle KidsMode for ResultDialog
-		- [ ] Task: Handle KidsMode for InGamePauseMenuDialog
-		- [ ] Task: Handle KidsMode for SettingDialog?
 
 
 ## Next
@@ -135,6 +134,7 @@
 - [+] Epic: Create new button style for ZoneEditor
 - [+] Epic: Create new button style for ZoneEditor
 - [+] Task: Use "recycle" icon for skill reset on SkillUpgradeDialog -> Art pass
+- [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
 

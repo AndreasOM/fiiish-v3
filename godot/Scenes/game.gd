@@ -372,6 +372,7 @@ func enter_kidsmode_with_upgrades() -> void:
 	self.get_game_manager().player_changed( self._player )	
 	Events.broadcast_global_message("KidsMode Enabled")
 	Events.broadcast_kids_mode_changed( true )
+	Events.broadcast_settings_changed()
 
 func enter_kidsmode_with_fresh_game() -> void:
 	self._settings.enable_kids_mode()
@@ -382,6 +383,7 @@ func enter_kidsmode_with_fresh_game() -> void:
 	self.get_game_manager().player_changed( self._player )	
 	Events.broadcast_global_message("KidsMode Enabled")
 	Events.broadcast_kids_mode_changed( true )
+	Events.broadcast_settings_changed()
 
 func leave_kids_mode() -> void:
 	self._settings.disable_kids_mode()
@@ -390,3 +392,4 @@ func leave_kids_mode() -> void:
 	self.get_game_manager().player_changed( self._player )	
 	Events.broadcast_global_message("KidsMode Disabled")
 	Events.broadcast_kids_mode_changed( false )
+	Events.broadcast_settings_changed()
