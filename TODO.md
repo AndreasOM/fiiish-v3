@@ -3,15 +3,18 @@
 ## In Progress
 
 
+
 - [ ] Feature: KidsMode
 	- [ ] Story: Create KidsModeEnableDialog
-		- [ ] Task: Enable KidsMode from KidsModeEnableDialog
-	- [ ] Story: Developer dialog
-		- [ ] Task: Remember if developer dialog is enabled
+		- [ ] Task: Load KidsModeEnableDialog text based on v3 vs classic
 	- [ ] Story: Enable KidsMode
 		- [ ] Task: Reload achievement state when toggling KidsMode
-		- [ ] Task: Move Audio settings to Settings
+		- [ ] Task: Kill current run when toggling KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
+	- [ ] Story: Handle KidsMode for all Dialogs
+		- [ ] Task: Handle KidsMode for ResultDialog
+		- [ ] Task: Handle KidsMode for InGamePauseMenuDialog
+		- [ ] Task: Handle KidsMode for SettingDialog?
 
 
 ## Next
@@ -142,6 +145,9 @@
 - [x] Task: Remember KidsMode
 - [x] Task: Add 2nd player save for KidsMode
 - [x] Task: Toggle developer dialog via DeveloperConsole
+- [x] Task: Remember if developer dialog is enabled
+- [x] Task: Enable KidsMode from KidsModeEnableDialog
+- [x] Task: Move Audio settings to Settings
 
 ### 2025-06-17
 #### S05E02
@@ -149,6 +155,7 @@
 - [x] Task: Add developer dialog
 - [x] Task: Create KidsModeEnableDialog
 - [x] Task: Add development button to toggle KidsMode
+- [x] Story: Developer dialog
 
 ### 2025-06-16
 #### S05E01

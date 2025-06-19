@@ -1,6 +1,6 @@
 class_name Settings
 
-const current_version: int = 2
+const current_version: int = 3
 const oldest_supported_version: int = 1
 
 
@@ -8,6 +8,10 @@ var _kids_mode_enabled: bool = false
 
 ## version 2
 var _developer_dialog_version: int = 0
+
+## version 3
+var _is_music_enabled: bool = true
+var _is_sound_enabled: bool = true
 
 ## not serialized
 var _is_dirty: bool = false
@@ -33,6 +37,8 @@ static func load() -> Settings:
 	
 func reset():
 	self._kids_mode_enabled = false
+	self._is_music_enabled = true
+	self._is_sound_enabled = true
 	self._is_dirty = true
 		
 func save():
@@ -64,6 +70,13 @@ func serialize( s: Serializer ) -> bool:
 		
 	self._developer_dialog_version = s.serialize_u16( self._developer_dialog_version )
 		
+	# version 3
+	if version < 3:
+		return true
+		
+	self._is_music_enabled = s.serialize_bool( self._is_music_enabled )
+	self._is_sound_enabled = s.serialize_bool( self._is_sound_enabled )
+	
 	return true
 		
 	
@@ -92,4 +105,36 @@ func set_developer_dialog_version( version: int ) -> void:
 	if self._developer_dialog_version == version:
 		return
 	self._developer_dialog_version = version
+	self._is_dirty = true
+
+## version 3
+
+func is_music_enabled() -> bool:
+	return self._is_music_enabled
+	
+func is_sound_enabled() -> bool:
+	return self._is_sound_enabled
+
+func enable_music():
+	if self._is_music_enabled:
+		return
+	self._is_music_enabled = true
+	self._is_dirty = true
+
+func disable_music():
+	if !self._is_music_enabled:
+		return
+	self._is_music_enabled = false
+	self._is_dirty = true
+	
+func enable_sound():
+	if self._is_sound_enabled:
+		return
+	self._is_sound_enabled = true
+	self._is_dirty = true
+
+func disable_sound():
+	if !self._is_sound_enabled:
+		return
+	self._is_sound_enabled = false
 	self._is_dirty = true

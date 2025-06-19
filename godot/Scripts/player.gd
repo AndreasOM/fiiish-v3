@@ -8,8 +8,7 @@ var _lastDistance: int = 0
 var _totalDistance: int = 0
 var _bestDistance: int = 0
 var _playCount: int = 0
-var _isMusicEnabled: bool = true
-var _isSoundEnabled: bool = true
+
 var _isDirty: bool = false
 
 ## version 4
@@ -154,8 +153,9 @@ func serialize( s: Serializer ) -> bool:
 	_totalDistance = s.serialize_u32( _totalDistance )
 	_bestDistance = s.serialize_u32( _bestDistance )
 	_playCount = s.serialize_u32( _playCount )
-	_isMusicEnabled = s.serialize_bool( _isMusicEnabled )
-	_isSoundEnabled = s.serialize_bool( _isSoundEnabled )
+	
+	s.serialize_bool( false )
+	s.serialize_bool( false )
 	
 	# version 4
 	if version < 4:
@@ -241,35 +241,7 @@ func increase_play_count() -> int:
 func playCount() -> int:
 	return _playCount
 	
-func isMusicEnabled() -> bool:
-	return _isMusicEnabled
-	
-func isSoundEnabled() -> bool:
-	return _isSoundEnabled
-
-func enableMusic():
-	if _isMusicEnabled:
-		return
-	_isMusicEnabled = true
-	_isDirty = true
-
-func disableMusic():
-	if !_isMusicEnabled:
-		return
-	_isMusicEnabled = false
-	_isDirty = true
-	
-func enableSound():
-	if _isSoundEnabled:
-		return
-	_isSoundEnabled = true
-	_isDirty = true
-
-func disableSound():
-	if !_isSoundEnabled:
-		return
-	_isSoundEnabled = false
-	_isDirty = true
+# sound and music settings were moved to Settings
 			
 func give_coins( amount: int ):
 	_coins += amount

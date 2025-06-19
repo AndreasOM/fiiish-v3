@@ -11,17 +11,18 @@ extends Dialog
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("SettingDialog - _ready()")
-	var player = game.get_player()
-	if player.isMusicEnabled():
+	var settings = game.get_settings()
+	if settings.is_music_enabled():
 		musicToggleButton.goto_a()
 	else:
 		musicToggleButton.goto_b()
 
-	if player.isSoundEnabled():
+	if settings.is_sound_enabled():
 		soundToggleButton.goto_a()
 	else:
 		soundToggleButton.goto_b()
 
+	var player = game.get_player()
 	if player.isMainMenuEnabled():
 		mainMenuToggleButton.goto_a()
 	else:

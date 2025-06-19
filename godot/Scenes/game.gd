@@ -63,16 +63,16 @@ func _ready() -> void:
 	print("Game - _ready()")
 	
 	self._settings = Settings.load()
-	
-	var suffix = "" if !self._settings.is_kids_mode_enabled() else KIDS_MODE_SUFFIX
-	self._player = Player.load_with_suffix( suffix )
 	musicManager.fadeOut( 0.0 )
-	if _player.isMusicEnabled():
+	if self._settings.is_music_enabled():
 		musicManager.fadeIn( 0.3 )
-	if _player.isSoundEnabled():
+	if self._settings.is_sound_enabled():
 		soundManager.enable()
 	else:
 		soundManager.disable( 0.0 )
+	
+	var suffix = "" if !self._settings.is_kids_mode_enabled() else KIDS_MODE_SUFFIX
+	self._player = Player.load_with_suffix( suffix )
 	self.get_game_manager().player_changed( self._player )
 			
 	Events.cheats_changed.connect( _on_cheats_changed )
@@ -259,23 +259,23 @@ func save_player():
 	
 func enableMusic():
 	musicManager.fadeIn( 0.3 )
-	_player.enableMusic()
-	_player.save()
+	self._settings.enable_music()
+	self._settings.save()
 	
 func disableMusic():
 	musicManager.fadeOut( 0.3 )
-	_player.disableMusic()
-	_player.save()
+	self._settings.disable_music()
+	self._settings.save()
 
 func enableSound():
 	soundManager.enable()
-	_player.enableSound()
-	_player.save()
+	self._settings.enable_sound()
+	self._settings.save()
 	
 func disableSound():
 	soundManager.disable( 0.3 )
-	_player.disableSound()
-	_player.save()
+	self._settings.disable_sound()
+	self._settings.save()
 
 func isMainMenuEnabled():
 	return _player.isMainMenuEnabled()
