@@ -55,27 +55,27 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("TogglePause"):
 		toggle_pause()
 	
+func _update_settings_button() -> void:
+	var is_paused = self._dialog_manager.game.is_paused()
+	var settings_button = %SettingsButtonFade as FadeableContainer
+	if settings_button != null:
+		if !self._dialog_manager.game.is_in_kids_mode():
+			if is_paused:
+				settings_button.fade_in( 0.3 )
+			else:
+				settings_button.fade_out( 0.3 )
+		else:
+			settings_button.fade_out( 0.3 )
+	
 func toggle_pause():
 	if self._dialog_manager.game !=	null:
 		var is_paused = self._dialog_manager.game.toogle_pause()
 		if is_paused:
 			%PauseToggleButton.goto_b()
-			var settings_button = %SettingsButtonFade as FadeableContainer
-			if settings_button:
-				settings_button.fade_in( 0.3 )
-			else:
-				%SettingsButtonFade.visible = true
 		else:
 			%PauseToggleButton.goto_a()
-			## :TODO:
-			## %SettingDialog.fade_out( 0.3 )
-			## # %SettingsFadeableContainer.fade_out( 0.3 )
 			self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
-			var settings_button = %SettingsButtonFade as FadeableContainer
-			if settings_button:
-				settings_button.fade_out( 0.3 )
-			else:
-				%SettingsButtonFade.visible = false
+		self._update_settings_button()
 			
 func _on_settings_button_pressed():
 	print("Settings Button pressed")
@@ -102,6 +102,7 @@ func _on_settings_changed():
 	if !self.visible:
 		return
 	self._update_main_menu_button( self._dialog_manager.game.get_state() )
+	self._update_settings_button()
 
 func _update_main_menu_button( state: Game.State ):
 	if self._dialog_manager == null:

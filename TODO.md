@@ -3,7 +3,6 @@
 ## In Progress
 
 
-- [ ] Task: Handle KidsMode for InGamePauseMenuDialog
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Create KidsModeEnableDialog
@@ -13,6 +12,7 @@
 	- [ ] Story: Implement external KidsMode enabling & disabling
 	- [ ] Story: Handle KidsMode for all Dialogs
 		- [ ] Task: Handle KidsMode for ResultDialog
+		- [ ] Task: Close SettingsDialog when entering KidsMode
 
 
 ## Next
@@ -148,6 +148,7 @@
 - [x] Task: Enable KidsMode from KidsModeEnableDialog
 - [x] Task: Move Audio settings to Settings
 - [x] Task: Reload achievement state when toggling KidsMode
+- [x] Task: Handle KidsMode for InGamePauseMenuDialog
 
 ### 2025-06-17
 #### S05E02

@@ -309,6 +309,9 @@ func toogle_pause() -> bool:
 	Events.broadcast_game_paused( is_paused )
 	return is_paused
 
+func is_paused() -> bool:
+	return self.get_tree().is_paused()
+	
 func _on_game_manager_sound_triggered( soundEffect: SoundEffects.Id ) -> void:
 	soundManager.trigger_effect( soundEffect )
 
