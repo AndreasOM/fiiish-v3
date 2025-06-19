@@ -354,6 +354,11 @@ func add_completed_achievements( achievements: Array[ String ] ) -> void:
 			self._completed_achievements.push_back( s )
 			self._isDirty = true
 
+func reset_achievements() -> void:
+	self._completed_achievements.clear()
+	self._collected_achievements.clear()
+	self._isDirty = true
+	
 func completed_achievements() -> Array[ String ]:
 	var r: Array[ String ] = []
 	for a in self._completed_achievements.iter():

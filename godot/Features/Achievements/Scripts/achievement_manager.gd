@@ -10,6 +10,9 @@ var _achievements: Dictionary[ String, AchievementStates.State ] = {}
 func _process( _delta: float ) -> void:
 	if self.game_manager == null:
 		return
+		
+	if self.game_manager.game.is_in_kids_mode():
+		return
 
 	var config_manager = self.game_manager.get_achievement_config_manager()
 	var counter_manager = self.game_manager.get_achievement_counter_manager()

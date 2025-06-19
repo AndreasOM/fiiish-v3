@@ -8,8 +8,7 @@
 	- [ ] Story: Create KidsModeEnableDialog
 		- [ ] Task: Load KidsModeEnableDialog text based on v3 vs classic
 	- [ ] Story: Enable KidsMode
-		- [ ] Task: Reload achievement state when toggling KidsMode
-		- [ ] Task: Kill current run when toggling KidsMode
+		- [ ] Task: Abort current run when toggling KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
 	- [ ] Story: Handle KidsMode for all Dialogs
 		- [ ] Task: Handle KidsMode for ResultDialog
@@ -148,6 +147,7 @@
 - [x] Task: Remember if developer dialog is enabled
 - [x] Task: Enable KidsMode from KidsModeEnableDialog
 - [x] Task: Move Audio settings to Settings
+- [x] Task: Reload achievement state when toggling KidsMode
 
 ### 2025-06-17
 #### S05E02
