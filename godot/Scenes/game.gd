@@ -15,6 +15,7 @@ enum State {
 	DEAD,
 	DEAD_AUTORESPAWN, # :HACK:
 	GAME_OVER,
+	ABORT_SWIM,
 }
 
 static func state_to_name( state: Game.State) -> String:
@@ -35,6 +36,8 @@ static func state_to_name( state: Game.State) -> String:
 			return "RESULT"
 		Game.State.GAME_OVER:
 			return "GAME_OVER"
+		Game.State.ABORT_SWIM:
+			return "ABORT_SWIM"
 		_:
 			return "[UNKNOWN]"
 
@@ -212,6 +215,10 @@ func _goto_state_result() -> void:
 func _goto_state_game_over() -> void:
 	self._set_state( Game.State.GAME_OVER )
 
+func _goto_state_abort_swim() -> void:
+	%GameManager.pause()
+	self._set_state( Game.State.ABORT_SWIM )
+
 func _on_last_fish_killed() -> void:
 	if self._state != Game.State.SWIMMING:
 		return
@@ -224,6 +231,8 @@ func _on_last_fish_killed() -> void:
 		self._goto_state_dead()
 
 func _on_all_fish_dead() -> void:
+	%GameManager.pause()
+	
 	if self._was_zone_editor_requested:
 		self._was_zone_editor_requested = false
 		# self._goto_state_game_over()
@@ -232,10 +241,13 @@ func _on_all_fish_dead() -> void:
 		return
 	
 	if !%GameManager.has_test_zone():
-		if self._state != Game.State.DEAD_AUTORESPAWN:
-			self._goto_state_game_over()
-		else:
-			self._goto_state_preparing_for_start()
+		match self._state:
+			Game.State.DEAD_AUTORESPAWN:
+				self._goto_state_preparing_for_start()
+			Game.State.ABORT_SWIM:
+				self._goto_state_preparing_for_start()
+			_:
+				self._goto_state_game_over()
 	else:
 		self._goto_state_preparing_for_start()
 		
@@ -293,13 +305,13 @@ func pause():
 	var tree = self.get_tree()
 	if !tree.is_paused():
 		tree.set_pause( true )
-	Events.broadcast_game_paused( true )
+		Events.broadcast_game_paused( true )
 
 func resume():
 	var tree = self.get_tree()
 	if tree.is_paused():
 		tree.set_pause( false )
-	Events.broadcast_game_paused( false )
+		Events.broadcast_game_paused( false )
 	
 func toogle_pause() -> bool:
 	var tree = self.get_tree()
@@ -392,6 +404,8 @@ func enter_kidsmode_with_fresh_game() -> void:
 
 
 func leave_kids_mode() -> void:
+	self.resume()
+	self.abort_swim()
 	self._settings.disable_kids_mode()
 	self._settings.save()
 	self._player = Player.load()
@@ -399,3 +413,9 @@ func leave_kids_mode() -> void:
 	Events.broadcast_global_message("KidsMode Disabled")
 	Events.broadcast_kids_mode_changed( false )
 	Events.broadcast_settings_changed()
+
+func abort_swim() -> void:
+	self._goto_state_abort_swim()
+	self.fish_manager.kill_all_fishes()
+	
+	

@@ -5,9 +5,8 @@
 
 
 - [ ] Feature: KidsMode
-	- [ ] Story: Create KidsModeEnableDialog
 	- [ ] Story: Enable KidsMode
-		- [ ] Task: Abort current run when toggling KidsMode
+		- [ ] Task: Abort current run when enabling KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
 
 
@@ -24,7 +23,7 @@
 
 - [ ] Feature: Release a classic version via CI/CD
 	- [ ] Task: Create 1 v3 zone for testing
-	- [ ] Task: Only load v3 zones in classic
+	- [ ] Task: Only load classic zones in classic
 	- [ ] Task: Verify all entities used in classic zones exist
 	- [ ] Task: Upload classic builds to itch.io
 
@@ -32,6 +31,7 @@
 - [ ] #reach Feature: Achievements V2.0
 - [ ] #reach Feature: Zone Editor (external v0.1)
 
+- [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
 
 ## V3.8.0 (original) - ETA: 06/25 - ZoneEditor (external), Achievements V2, new Zones & Campaigns
 
@@ -138,6 +138,8 @@
 ### 2025-06-20
 #### S05E04
 - [x] Task: Add KidsMode (enable) button to SettingsDialog
+- [x] Story: Create KidsModeEnableDialog
+- [x] Task: Abort current run when disabling KidsMode
 
 ### 2025-06-19
 #### S05E03
