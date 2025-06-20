@@ -9,6 +9,9 @@
 		- [ ] Task: Register custom scheme for iOS and macOS, and handle it
 		- [ ] Task: Get actual command line parameters, and handle them
 - [ ] Feature: OMG Launch Control
+	- [ ] Task: Wrap LaunchButton into control to pass called in signal
+	- [ ] Story: Handle Game-Editor communication via EngineDebugger and EditorDebuggerPlugin
+
 
 
 ## Next

@@ -70,7 +70,9 @@ func _handle_launch_parameters() -> void:
 		%DialogManager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
 		
 func _get_launch_parameters() -> String:
-	if OS.has_feature('web'):
+	if OS.has_feature("editor"):
+		return self._get_launch_parameters_editor()
+	elif OS.has_feature('web'):
 		return self._get_launch_parameters_web()
 	else:
 		return ""
@@ -80,6 +82,17 @@ func _get_launch_parameters_web() -> String:
 		document.location.search
 	''')
 	lp = lp.trim_prefix("?")
+	return lp
+	
+func _get_launch_parameters_editor() -> String:
+	
+	var lp = ProjectSettings.get_setting("addons/omg-launch_control/launch_parameter")
+	print("Launch Parameter >%s<" % lp )
+
+# Bad idea!	
+#	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", "")
+#	ProjectSettings.save()
+	
 	return lp
 		
 func open_initial_dialogs() -> void:

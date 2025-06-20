@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://cfvb0gb6t2nm7"]
+[gd_scene load_steps=3 format=3 uid="uid://cfvb0gb6t2nm7"]
+
+[ext_resource type="Script" uid="uid://268ibjj2p7m7" path="res://addons/omg-launch_control/omg-launch_control-main.gd" id="1_ydpok"]
+[ext_resource type="PackedScene" uid="uid://cl0nhxbqus1aw" path="res://addons/omg-launch_control/omg-launch_control-launch_button.tscn" id="2_ydpok"]
 
 [node name="OMGLaunchControl" type="Control"]
 layout_mode = 3
@@ -7,15 +10,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_ydpok")
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -81.0
-offset_right = 81.0
-offset_bottom = 23.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 96
 text = "OMG Launch Control"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="LaunchButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_ydpok")]
+layout_mode = 2
+
+[node name="KidsModeDisableLaunchButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_ydpok")]
+layout_mode = 2
+label_text = "KidsModeDisable"
+parameter = "KidsModeDisable"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/KidsModeDisableLaunchButton" to="." method="_on_kids_mode_disable_launch_button_pressed"]
