@@ -127,9 +127,10 @@ func close_zone_editor() -> void:
 	%DialogManager.close_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
 	%DialogManager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 	Events.broadcast_zone_edit_disabled()
-	self._goto_state_dead()
-	self._goto_state_dead_autorespawn()
-	self.fish_manager.kill_all_fishes()
+	self.abort_swim()
+#	self._goto_state_dead()
+#	self._goto_state_dead_autorespawn()
+#	self.fish_manager.kill_all_fishes()
 	
 func get_sound_manager() -> SoundManager:
 	return self.soundManager
@@ -380,6 +381,8 @@ func is_in_kids_mode() -> bool:
 	return self._settings.is_kids_mode_enabled()
 
 func _enter_kidsmode( clean_player: bool ) -> void:
+	if self._is_in_zone_editor:
+		self.close_zone_editor()
 	self.resume()
 	self.abort_swim()
 	self._settings.enable_kids_mode()
