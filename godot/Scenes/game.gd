@@ -379,21 +379,13 @@ func _on_zone_editor_spawn_entity_changed( id: EntityId.Id ) -> void:
 func is_in_kids_mode() -> bool:
 	return self._settings.is_kids_mode_enabled()
 
-func enter_kidsmode_with_upgrades() -> void:
+func _enter_kidsmode( clean_player: bool ) -> void:
+	self.resume()
+	self.abort_swim()
 	self._settings.enable_kids_mode()
 	self._settings.save()
-	self._player.reset_achievements()
-	self._player.save_with_suffix( KIDS_MODE_SUFFIX )
-	self.get_game_manager().player_changed( self._player )	
-	Events.broadcast_global_message("KidsMode Enabled")
-	Events.broadcast_kids_mode_changed( true )
-	Events.broadcast_settings_changed()
-	%DialogManager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
-
-func enter_kidsmode_with_fresh_game() -> void:
-	self._settings.enable_kids_mode()
-	self._settings.save()
-	self._player = Player.new()
+	if clean_player:
+		self._player = Player.new()
 	self._player.reset_achievements()
 	self._player.save_with_suffix( KIDS_MODE_SUFFIX )
 	self.get_game_manager().player_changed( self._player )
@@ -401,7 +393,12 @@ func enter_kidsmode_with_fresh_game() -> void:
 	Events.broadcast_kids_mode_changed( true )
 	Events.broadcast_settings_changed()
 	%DialogManager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
+	
+func enter_kidsmode_with_upgrades() -> void:
+	self._enter_kidsmode( false )
 
+func enter_kidsmode_with_fresh_game() -> void:
+	self._enter_kidsmode( true )
 
 func leave_kids_mode() -> void:
 	self.resume()

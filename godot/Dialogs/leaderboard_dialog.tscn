@@ -14,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_n1b7g")
 
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
@@ -24,6 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("2_laulm")
 metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
@@ -31,6 +33,7 @@ metadata/_custom_type_script = "uid://ckhevounoe7f4"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 color = Color(0.0902, 0.661877, 0.82, 0.25098)
 
 [node name="TextureRect" type="TextureRect" parent="FadeablePanelContainer"]

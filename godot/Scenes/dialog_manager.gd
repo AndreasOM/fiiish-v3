@@ -164,15 +164,23 @@ func _on_game_state_changed(state: Game.State) -> void:
 			pass
 		Game.State.RESULT:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )
 			open_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		Game.State.PREPARING_FOR_START:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )
 			close_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		Game.State.WAITING_FOR_START:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )
 			close_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		Game.State.SWIMMING:
 			close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
+			close_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )
 			close_dialog( DialogIds.Id.RESULT_DIALOG, 0.3 )
 		_:
 			pass

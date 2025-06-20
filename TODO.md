@@ -3,10 +3,10 @@
 ## In Progress
 
 
+- [ ] Task: Leave ZoneEditor when entering KidsMode
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Enable KidsMode
-		- [ ] Task: Abort current run when enabling KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
 
 
@@ -140,6 +140,7 @@
 - [x] Task: Add KidsMode (enable) button to SettingsDialog
 - [x] Story: Create KidsModeEnableDialog
 - [x] Task: Abort current run when disabling KidsMode
+- [x] Task: Abort current run when enabling KidsMode
 
 ### 2025-06-19
 #### S05E03
