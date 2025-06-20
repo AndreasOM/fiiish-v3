@@ -52,7 +52,36 @@ func _ready() -> void:
 	self._on_settings_changed()
 	Events.settings_changed.connect( _on_settings_changed )
 	self.open_initial_dialogs()
+	
+	self._handle_launch_parameters()
+	
+func _handle_launch_parameters() -> void:
+	var launch_parameters = self._get_launch_parameters()
+	print("Launch Parameters >%s<" % launch_parameters )
+	var llp = launch_parameters.to_lower()
+	
+	if llp.contains("kidsmodedisable"):
+		$Game.leave_kids_mode()
+	elif llp.contains("kidsmodeenablefreshgame"):
+		$Game.enter_kidsmode_with_fresh_game()
+	elif llp.contains("kidsmodeenablewithupgrades"):
+		$Game.enter_kidsmode_with_upgrades()
+	elif llp.contains("kidsmodeenable"):
+		%DialogManager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
+		
+func _get_launch_parameters() -> String:
+	if OS.has_feature('web'):
+		return self._get_launch_parameters_web()
+	else:
+		return ""
 
+func _get_launch_parameters_web() -> String:
+	var lp = JavaScriptBridge.eval('''
+		document.location.search
+	''')
+	lp = lp.trim_prefix("?")
+	return lp
+		
 func open_initial_dialogs() -> void:
 	# %DialogManager.open_dialog( DialogIds.Id.MINI_MAP_DIALOG, 0.0 )
 	%DialogManager.open_dialog( DialogIds.Id.IN_GAME_PAUSE_DIALOG, 0.0 )

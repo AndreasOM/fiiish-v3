@@ -5,8 +5,10 @@
 
 
 - [ ] Feature: KidsMode
-	- [ ] Story: Enable KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
+		- [ ] Task: Register custom scheme for iOS and macOS, and handle it
+		- [ ] Task: Get actual command line parameters, and handle them
+		- [ ] Bonus: Add button to editor for launching with parameter
 
 
 ## Next
@@ -141,6 +143,8 @@
 - [x] Task: Abort current run when disabling KidsMode
 - [x] Task: Abort current run when enabling KidsMode
 - [x] Task: Leave ZoneEditor when entering KidsMode
+- [x] Story: Enable KidsMode
+- [x] Task: Get URL parameters for web version
 
 ### 2025-06-19
 #### S05E03
