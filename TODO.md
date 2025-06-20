@@ -8,7 +8,7 @@
 	- [ ] Story: Implement external KidsMode enabling & disabling
 		- [ ] Task: Register custom scheme for iOS and macOS, and handle it
 		- [ ] Task: Get actual command line parameters, and handle them
-		- [ ] Bonus: Add button to editor for launching with parameter
+- [ ] Feature: OMG Launch Control
 
 
 ## Next
@@ -145,6 +145,7 @@
 - [x] Task: Leave ZoneEditor when entering KidsMode
 - [x] Story: Enable KidsMode
 - [x] Task: Get URL parameters for web version
+- [x] Task: Create basic OMG Launch Control plugin
 
 ### 2025-06-19
 #### S05E03

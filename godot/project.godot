@@ -46,6 +46,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=4
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/omg-launch_control/plugin.cfg")
+
 [gui]
 
 theme/custom="uid://iw1xv475xr8k"
