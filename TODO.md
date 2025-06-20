@@ -135,6 +135,10 @@
 ## Done
 
 
+### 2025-06-20
+#### S05E04
+- [x] Task: Add KidsMode (enable) button to SettingsDialog
+
 ### 2025-06-19
 #### S05E03
 - [x] Task: Remember KidsMode

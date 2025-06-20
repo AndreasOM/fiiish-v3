@@ -140,3 +140,7 @@ func _on_main_menu_toggle_button_container_toggled(state: ToggleButtonContainer.
 			game.disableMainMenu()
 
 	Events.broadcast_settings_changed()
+
+
+func _on_kids_mode_texture_button_pressed() -> void:
+	self._dialog_manager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
