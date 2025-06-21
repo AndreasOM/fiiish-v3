@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfvb0gb6t2nm7"]
+[gd_scene load_steps=4 format=3 uid="uid://cfvb0gb6t2nm7"]
 
 [ext_resource type="Script" uid="uid://268ibjj2p7m7" path="res://addons/omg-launch_control/omg-launch_control-main.gd" id="1_ydpok"]
 [ext_resource type="Texture2D" uid="uid://h5drr2q10ic0" path="res://addons/omg-launch_control/textures/omg-launch_control-reload-button.png" id="2_q14v0"]
+[ext_resource type="Script" uid="uid://wdxfq7y82m13" path="res://addons/omg-launch_control/omg-launch_control-editor_debugger_plugin.gd" id="3_v0bcx"]
 
 [node name="OMGLaunchControl" type="Control"]
 layout_mode = 3
@@ -57,5 +58,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+
+[node name="Node" type="EditorPlugin" parent="."]
+script = ExtResource("3_v0bcx")
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]

@@ -9,7 +9,6 @@
 		- [ ] Task: Register custom scheme for iOS and macOS, and handle it
 		- [ ] Task: Get actual command line parameters, and handle them
 - [ ] Feature: OMG Launch Control
-	- [ ] Story: Handle Game-Editor communication via EngineDebugger and EditorDebuggerPlugin
 
 
 
@@ -20,6 +19,7 @@
 
 - [ ] Task: Create kidsmode.html on fiiish-v3 and fiiish-classic websites
 - [ ] Task: Sort Launch Buttons by their sort order
+- [ ] Task: Experiment with using session stopped for clearing launch parameters
 
 
 ## V3.8.0 (revised) - ETA: 07/11
@@ -142,6 +142,8 @@
 #### S05E05
 - [x] Task: Wrap LaunchButton into control to pass called in signal
 - [x] Task: Configure LaunchButtons via config in config folder
+- [x] Story: Handle Game-Editor communication via EngineDebugger and EditorDebuggerPlugin
+- [x] Task: Clear launch parameter once it was used
 
 ### 2025-06-20
 #### S05E04

@@ -86,6 +86,10 @@ func _get_launch_parameters_web() -> String:
 	
 func _get_launch_parameters_editor() -> String:
 	
+	if !EngineDebugger.is_active():
+		push_warning("No EngineDebugger active when running from editor")
+		return ""
+		
 	var lp = ProjectSettings.get_setting("addons/omg-launch_control/launch_parameter")
 	print("Launch Parameter >%s<" % lp )
 
@@ -93,6 +97,7 @@ func _get_launch_parameters_editor() -> String:
 #	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", "")
 #	ProjectSettings.save()
 	
+	EngineDebugger.send_message("omg-launch_control:launch_parameter_used", [lp])
 	return lp
 		
 func open_initial_dialogs() -> void:
