@@ -58,6 +58,7 @@ func _ready() -> void:
 func _handle_launch_parameters() -> void:
 	var launch_parameters = self._get_launch_parameters()
 	print("Launch Parameters >%s<" % launch_parameters )
+	Events.broadcast_log_event( "Launch Parameters: %s" % launch_parameters )
 	var llp = launch_parameters.to_lower()
 	
 	if llp.contains("kidsmodedisable"):
@@ -75,7 +76,12 @@ func _get_launch_parameters() -> String:
 	elif OS.has_feature('web'):
 		return self._get_launch_parameters_web()
 	else:
-		return ""
+		var args = OS.get_cmdline_args()
+		for s in args:
+			Events.broadcast_global_message( s )
+
+		var lp = " ".join(args)
+		return lp
 
 func _get_launch_parameters_web() -> String:
 	var lp = JavaScriptBridge.eval('''

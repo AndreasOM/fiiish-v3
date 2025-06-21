@@ -9,7 +9,7 @@
 		- [ ] Task: Handle custom scheme for iOS and macOS
 		- [ ] Task: Get actual command line parameters, and handle them
 - [ ] Feature: OMG Launch Control
-
+	- [ ] Task: Use editor/run/main_run_args to pass launch_parameters
 
 
 ## Next
@@ -144,6 +144,7 @@
 - [x] Task: Configure LaunchButtons via config in config folder
 - [x] Story: Handle Game-Editor communication via EngineDebugger and EditorDebuggerPlugin
 - [x] Task: Clear launch parameter once it was used
+- [x] Task: Log launch parameters to Toast and DeveloperConsole
 
 ### 2025-06-20
 #### S05E04

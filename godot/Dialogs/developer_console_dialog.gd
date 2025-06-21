@@ -40,6 +40,7 @@ func _ready() -> void:
 	self._commands.push_back( DeveloperCommandToast.new() )
 	self._commands.push_back( DeveloperCommandDeveloperDialogToggle.new() )
 
+	Events.log_event.connect( _on_log_event )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -240,3 +241,6 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 			#	self.game.get_player().reset()
 			#"give_coins_1000":
 			#	self.game.get_player().give_coins( 1000 )
+
+func _on_log_event( text: String ) -> void:
+	self.add_history( text )
