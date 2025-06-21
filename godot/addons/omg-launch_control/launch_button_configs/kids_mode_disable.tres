@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="OMG_LaunchControl_LaunchButtonConfig" load_steps=2 format=3 uid="uid://dssnd7ivjtrud"]
+
+[ext_resource type="Script" uid="uid://lsabu7iqy74i" path="res://addons/omg-launch_control/omg-launch_control-launch_button_config.gd" id="1_m8xhy"]
+
+[resource]
+script = ExtResource("1_m8xhy")
+label_text = "KidsModeDisable"
+parameter = "KidsModeDisable"
+sort_order = 2
+metadata/_custom_type_script = "uid://lsabu7iqy74i"

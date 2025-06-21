@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfvb0gb6t2nm7"]
 
 [ext_resource type="Script" uid="uid://268ibjj2p7m7" path="res://addons/omg-launch_control/omg-launch_control-main.gd" id="1_ydpok"]
-[ext_resource type="PackedScene" uid="uid://cl0nhxbqus1aw" path="res://addons/omg-launch_control/omg-launch_control-launch_button.tscn" id="2_ydpok"]
+[ext_resource type="Texture2D" uid="uid://h5drr2q10ic0" path="res://addons/omg-launch_control/textures/omg-launch_control-reload-button.png" id="2_q14v0"]
 
 [node name="OMGLaunchControl" type="Control"]
 layout_mode = 3
@@ -24,24 +24,38 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 96
 text = "OMG Launch Control"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="ReloadButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_q14v0")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/ReloadButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Reload"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="LaunchButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_ydpok")]
-layout_mode = 2
-
-[node name="KidsModeDisableLaunchButton" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_ydpok")]
-layout_mode = 2
-label_text = "KidsModeDisable"
-parameter = "KidsModeDisable"
-
-[connection signal="triggered" from="VBoxContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_triggered"]
-[connection signal="triggered" from="VBoxContainer/VBoxContainer/KidsModeDisableLaunchButton" to="." method="_on_launch_button_triggered"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]

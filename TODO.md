@@ -19,7 +19,7 @@
 ## Todo
 
 - [ ] Task: Create kidsmode.html on fiiish-v3 and fiiish-classic websites
-
+- [ ] Task: Sort Launch Buttons by their sort order
 
 
 ## V3.8.0 (revised) - ETA: 07/11
@@ -141,6 +141,7 @@
 ### 2025-06-21
 #### S05E05
 - [x] Task: Wrap LaunchButton into control to pass called in signal
+- [x] Task: Configure LaunchButtons via config in config folder
 
 ### 2025-06-20
 #### S05E04

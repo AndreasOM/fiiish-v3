@@ -5,20 +5,21 @@ extends MarginContainer
 
 signal triggered( launch_button: OMG_LaunchControl_LaunchButton )
 
-@export var label_text: String = "Launch" : set = _set_label_text
-@export var parameter: String = ""
+@export var config: OMG_LaunchControl_LaunchButtonConfig = null
 
 @onready var label: Label = %Label
 
 func _ready() -> void:
-	self._update_label()
+	self._update_from_config()
 	
-func _set_label_text( l: String ) -> void:
-	label_text = l
+func _update_from_config() -> void:
+	if self.config == null:
+		return
 	
-func _update_label() -> void:
-	self.label.text = self.label_text
-
+	if self.label == null:
+		return
+		
+	self.label.text = self.config.label_text
 
 func _on_button_pressed() -> void:
 	self.triggered.emit( self )

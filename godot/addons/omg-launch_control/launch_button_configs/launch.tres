@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="OMG_LaunchControl_LaunchButtonConfig" load_steps=2 format=3 uid="uid://dcgfc4kjgh21g"]
+
+[ext_resource type="Script" uid="uid://lsabu7iqy74i" path="res://addons/omg-launch_control/omg-launch_control-launch_button_config.gd" id="1_scpqi"]
+
+[resource]
+script = ExtResource("1_scpqi")
+label_text = "Launch"
+parameter = ""
+sort_order = 1
+metadata/_custom_type_script = "uid://lsabu7iqy74i"
