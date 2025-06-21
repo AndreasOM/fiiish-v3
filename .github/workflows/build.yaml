@@ -15,6 +15,7 @@ on:
           - 'linux'
           - 'windows'
           - 'macos'
+          - 'ios'
   workflow_call:
     inputs:
       build_type:
