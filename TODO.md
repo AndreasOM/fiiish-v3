@@ -144,6 +144,7 @@
 - [x] Task: Configure LaunchButtons via config in config folder
 - [x] Story: Handle Game-Editor communication via EngineDebugger and EditorDebuggerPlugin
 - [x] Task: Clear launch parameter once it was used
+- [x] Task: Register custom scheme for iOS and macOS
 - [x] Task: Log launch parameters to Toast and DeveloperConsole
 
 ### 2025-06-20
@@ -479,7 +480,6 @@
 - [x] Polish: Rotate on iOS
 - [x] Bug: Do not open soft keyboard on startup (by disabling the DeveloperConsole)
 - [x] Task: Cleanup version info in SettingDialog
-- [x] Task: Register custom scheme for iOS and macOS
 
 ### 2025-04-02
 - [x] Feature: iOS version (for Testflight) (Goal: Q2 2025)
