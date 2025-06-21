@@ -6,7 +6,7 @@
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
-		- [ ] Task: Register custom scheme for iOS and macOS, and handle it
+		- [ ] Task: Handle custom scheme for iOS and macOS
 		- [ ] Task: Get actual command line parameters, and handle them
 - [ ] Feature: OMG Launch Control
 
@@ -478,6 +478,7 @@
 - [x] Polish: Rotate on iOS
 - [x] Bug: Do not open soft keyboard on startup (by disabling the DeveloperConsole)
 - [x] Task: Cleanup version info in SettingDialog
+- [x] Task: Register custom scheme for iOS and macOS
 
 ### 2025-04-02
 - [x] Feature: iOS version (for Testflight) (Goal: Q2 2025)
