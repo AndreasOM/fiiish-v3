@@ -43,5 +43,5 @@ layout_mode = 2
 label_text = "KidsModeDisable"
 parameter = "KidsModeDisable"
 
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer/KidsModeDisableLaunchButton" to="." method="_on_kids_mode_disable_launch_button_pressed"]
+[connection signal="triggered" from="VBoxContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_triggered"]
+[connection signal="triggered" from="VBoxContainer/VBoxContainer/KidsModeDisableLaunchButton" to="." method="_on_launch_button_triggered"]

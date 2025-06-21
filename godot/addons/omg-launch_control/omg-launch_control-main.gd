@@ -3,15 +3,10 @@
 extends Control
 
 
-func _on_launch_button_pressed() -> void:
-	print("launch")
-	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", "")
-	ProjectSettings.save()
-	
-	EditorInterface.play_main_scene()
+func _on_launch_button_triggered(launch_button: OMG_LaunchControl_LaunchButton) -> void:
+	var parameter = launch_button.parameter
 
-func _on_kids_mode_disable_launch_button_pressed() -> void:
-	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", "KidsModeDisable")
+	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", parameter)
 	ProjectSettings.save()
 
 	EditorInterface.play_main_scene()
