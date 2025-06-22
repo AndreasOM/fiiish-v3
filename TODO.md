@@ -141,6 +141,9 @@
 
 
 ### 2025-06-21
+#### S05E07
+- [x] Task: Add more functionality to iOS lifecycle plugin.
+
 #### S05E06
 - [x] Task: Create plugin stub for iOS lifecyle handling [omg_lifecycle_plugin_ios](https://github.com/AndreasOM/omg_lifecycle_plugin_ios)
 

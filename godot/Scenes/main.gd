@@ -29,6 +29,10 @@ func _ready() -> void:
 		"iOS":
 			print("Welcome to iOS!")
 			enable_developer_console = false
+			if Engine.has_singleton("OMGLifecyclePlugin_iOS"):
+				var singleton = Engine.get_singleton("OMGLifecyclePlugin_iOS")
+				singleton.received_url.connect(_on_received_url)
+				singleton.application_did_become_active.connect(_on_application_did_become_active)
 		"Web":
 			print("Welcome to the Web!")
 			
@@ -55,6 +59,13 @@ func _ready() -> void:
 	
 	self._handle_launch_parameters()
 	
+func _on_received_url( url: String ) -> void:
+	Events.broadcast_global_message("Received URL: %s" % url )
+
+func _on_application_did_become_active( ) -> void:
+	Events.broadcast_global_message("Became Active" )
+
+
 func _handle_launch_parameters() -> void:
 	var launch_parameters = self._get_launch_parameters()
 	print("Launch Parameters >%s<" % launch_parameters )
@@ -99,6 +110,8 @@ func _get_launch_parameters_ios() -> String:
 	if Engine.has_singleton("OMGLifecyclePlugin_iOS"):
 		var singleton = Engine.get_singleton("OMGLifecyclePlugin_iOS")
 		print(singleton.foo())
+		var lp = singleton.get_last_url_string()
+		return lp
 	return ""
 
 func _get_launch_parameters_web() -> String:
