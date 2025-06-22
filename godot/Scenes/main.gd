@@ -61,6 +61,8 @@ func _ready() -> void:
 	
 func _on_received_url( url: String ) -> void:
 	Events.broadcast_global_message("Received URL: %s" % url )
+	var lurl = url.to_lower()	
+	self._handle_kids_mode( lurl )
 
 func _on_application_did_become_active( ) -> void:
 	Events.broadcast_global_message("Became Active" )
@@ -72,15 +74,18 @@ func _handle_launch_parameters() -> void:
 	Events.broadcast_log_event( "Launch Parameters: %s" % launch_parameters )
 	var llp = launch_parameters.to_lower()
 	
-	if llp.contains("kidsmodedisable"):
-		$Game.leave_kids_mode()
-	elif llp.contains("kidsmodeenablefreshgame"):
-		$Game.enter_kidsmode_with_fresh_game()
-	elif llp.contains("kidsmodeenablewithupgrades"):
-		$Game.enter_kidsmode_with_upgrades()
-	elif llp.contains("kidsmodeenable"):
-		%DialogManager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
+	self._handle_kids_mode( llp )
 		
+func _handle_kids_mode( s: String ) -> void:
+	if s.contains("kidsmodedisable"):
+		$Game.leave_kids_mode()
+	elif s.contains("kidsmodeenablefreshgame"):
+		$Game.enter_kidsmode_with_fresh_game()
+	elif s.contains("kidsmodeenablewithupgrades"):
+		$Game.enter_kidsmode_with_upgrades()
+	elif s.contains("kidsmodeenable"):
+		%DialogManager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
+	
 func _get_launch_parameters() -> String:
 	if OS.has_feature("editor"):
 		return self._get_launch_parameters_editor()

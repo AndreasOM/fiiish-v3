@@ -6,7 +6,7 @@
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
-		- [ ] Task: Handle custom scheme for iOS and macOS
+		- [ ] Task: Handle custom scheme for macOS
 	- [ ] Story: Plugin for iOS lifecycle handling
 		- [ ] Task: Get actual command line parameters, and handle them
 - [ ] Feature: OMG Launch Control
@@ -36,6 +36,7 @@
 - [ ] #reach Feature: Zone Editor (external v0.1)
 
 - [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
+- [ ] #polish Task: Improve and cleanup url parsing, and handling
 
 ## V3.8.0 (original) - ETA: 06/25 - ZoneEditor (external), Achievements V2, new Zones & Campaigns
 
@@ -143,6 +144,7 @@
 ### 2025-06-21
 #### S05E07
 - [x] Task: Add more functionality to iOS lifecycle plugin.
+- [x] Task: Handle custom scheme for iOS
 
 #### S05E06
 - [x] Task: Create plugin stub for iOS lifecyle handling [omg_lifecycle_plugin_ios](https://github.com/AndreasOM/omg_lifecycle_plugin_ios)
