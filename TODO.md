@@ -7,6 +7,7 @@
 - [ ] Feature: KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
 		- [ ] Task: Handle custom scheme for iOS and macOS
+	- [ ] Story: Plugin for iOS lifecycle handling
 		- [ ] Task: Get actual command line parameters, and handle them
 - [ ] Feature: OMG Launch Control
 	- [ ] Task: Use editor/run/main_run_args to pass launch_parameters
@@ -137,6 +138,11 @@
 
 ## Done
 
+
+
+### 2025-06-21
+#### S05E06
+- [x] Task: Create plugin stub for iOS lifecyle handling [omg_lifecycle_plugin_ios](https://github.com/AndreasOM/omg_lifecycle_plugin_ios)
 
 ### 2025-06-21
 #### S05E05

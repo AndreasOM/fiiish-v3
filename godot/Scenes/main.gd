@@ -73,15 +73,33 @@ func _handle_launch_parameters() -> void:
 func _get_launch_parameters() -> String:
 	if OS.has_feature("editor"):
 		return self._get_launch_parameters_editor()
-	elif OS.has_feature('web'):
-		return self._get_launch_parameters_web()
 	else:
-		var args = OS.get_cmdline_args()
-		for s in args:
-			Events.broadcast_global_message( s )
+		match OS.get_name():
+			"Windows":
+				return ""
+			"macOS":
+				return ""
+			"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+				return ""
+			"Android":
+				return ""
+			"iOS":
+				return self._get_launch_parameters_ios()
+			"Web":
+				return self._get_launch_parameters_web()
+			_:
+				var args = OS.get_cmdline_args()
+				for s in args:
+					Events.broadcast_global_message( s )
 
-		var lp = " ".join(args)
-		return lp
+				var lp = " ".join(args)
+				return lp
+				
+func _get_launch_parameters_ios() -> String:
+	if Engine.has_singleton("OMGLifecyclePlugin_iOS"):
+		var singleton = Engine.get_singleton("OMGLifecyclePlugin_iOS")
+		print(singleton.foo())
+	return ""
 
 func _get_launch_parameters_web() -> String:
 	var lp = JavaScriptBridge.eval('''
