@@ -2,6 +2,7 @@ extends Control
 
 @onready var kids_mode_overlay: MarginContainer = %KidsModeOverlay
 
+const MarketingScreenshotScript = "res://Features/Scripting/Scripts/marketing_screenshot_script.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -75,7 +76,36 @@ func _handle_launch_parameters() -> void:
 	var llp = launch_parameters.to_lower()
 	
 	self._handle_kids_mode( llp )
+	self._handle_script( launch_parameters )
 		
+func _handle_script( s: String ) -> void:
+	if !s.begins_with("--script:"):
+		return
+	s = s.trim_prefix("--script:")
+	if !s.begins_with("\""):
+		return
+	if !s.ends_with("\""):
+		return
+	s = s.trim_prefix("\"")
+	s = s.trim_suffix("\"")
+	var script = null
+	match s:
+		"MarketingScreenshots":
+			script = load(MarketingScreenshotScript)
+			pass
+		_:
+			return
+			
+	var script_node: Node = Node.new()
+	script_node.name = "Script Node"
+	script_node.set_script( script )
+	self.add_child( script_node )
+	
+	
+	if script_node.has_method("run"):
+		print("Starting script >%s<" % s)
+		await script_node.run()
+	
 func _handle_kids_mode( s: String ) -> void:
 	if s.contains("kidsmodedisable"):
 		$Game.leave_kids_mode()

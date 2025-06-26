@@ -3,12 +3,16 @@
 ## In Progress
 
 
+- [ ] Feature: Marketing Screenshots
+	- [ ] Task: Write Marketing Screenshot script
+	- [ ] Task: Load zone from script
+	- [ ] Task: Position the fish from script
+	- [ ] Task: Wait X frames from script
+	- [ ] Task: Take screenshot from script
+	- [ ] Task: Set window size from script
+	- [ ] #reach Task: Create Marketing Screenshots on CI system
 
-- [ ] Feature: KidsMode
-	- [ ] Story: Implement external KidsMode enabling & disabling
-		- [ ] Task: Handle custom scheme for macOS
-	- [ ] Story: Plugin for iOS lifecycle handling
-		- [ ] Task: Get actual command line parameters, and handle them
+
 - [ ] Feature: OMG Launch Control
 	- [ ] Task: Use editor/run/main_run_args to pass launch_parameters
 
@@ -22,6 +26,12 @@
 - [ ] Task: Sort Launch Buttons by their sort order
 - [ ] Task: Experiment with using session stopped for clearing launch parameters
 
+- [ ] Feature: KidsMode
+	- [ ] Story: Implement external KidsMode enabling & disabling
+		- [ ] Task: Handle custom scheme for macOS
+	- [ ] Story: Plugin for iOS lifecycle handling
+		- [ ] Task: Get actual command line parameters, and handle them
+
 
 ## V3.8.0 (revised) - ETA: 07/11
 
@@ -31,7 +41,6 @@
 	- [ ] Task: Verify all entities used in classic zones exist
 	- [ ] Task: Upload classic builds to itch.io
 
-- [ ] Feature: Marketing Screenshots
 - [ ] #reach Feature: Achievements V2.0
 - [ ] #reach Feature: Zone Editor (external v0.1)
 
@@ -139,6 +148,10 @@
 
 ## Done
 
+
+### 2025-06-26
+#### S05E08
+- [x] Task: Start Marketing Screenshots script via Launch Control
 
 
 ### 2025-06-21
