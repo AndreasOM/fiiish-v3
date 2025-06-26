@@ -4,6 +4,7 @@ class_name Game
 @onready var game_scaler: GameScaler = %GameScaler
 @onready var zone_editor_manager: ZoneEditorManager = %ZoneEditorManager
 @onready var entity_config_manager: EntityConfigManager = %EntityConfigManager
+@onready var zone_manager: ZoneManager = %ZoneManager
 @onready var fish_manager: FishManager = %FishManager
 
 enum State {
@@ -197,10 +198,10 @@ func _goto_state_dead_autorespawn() -> void:
 func _goto_state_preparing_for_start() -> void:
 	soundManager.fade_out_effect( SoundEffects.Id.FISH_DEATH, 0.3 )
 	# soundManager.fade_out_effect( SoundEffects.Id.BUBBLE_BLAST_LOOP, 0.3 )
-	self._set_state( Game.State.PREPARING_FOR_START )
 	%GameManager.cleanup()
 	%GameManager.prepare_respawn()
 	self.fish_manager.respawn_fishes()
+	self._set_state( Game.State.PREPARING_FOR_START )
 
 func _goto_state_waiting_for_start() -> void:
 	var ses = SkillEffectSet.new()

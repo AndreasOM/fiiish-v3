@@ -109,6 +109,13 @@ func start_swimming() -> void:
 			continue
 		f._goto_swimming()
 
+func set_target_height_range( min_h: float, max_h: float ) -> void:
+	for c in self.fishes.get_children():
+		var f = c as Fish
+		if f == null:
+			continue
+		f.set_target_height_range( min_h, max_h )
+
 func _on_zone_edit_enabled() -> void:
 	for c in self.fishes.get_children():
 		var f = c as Fish

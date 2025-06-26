@@ -51,6 +51,12 @@ window/handheld/orientation=4
 
 enabled=PackedStringArray("res://addons/omg-launch_control/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://Resources/Zones/": "red"
+}
+
 [gui]
 
 theme/custom="uid://iw1xv475xr8k"

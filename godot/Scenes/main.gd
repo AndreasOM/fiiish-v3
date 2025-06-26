@@ -1,6 +1,7 @@
 extends Control
 
 @onready var kids_mode_overlay: MarginContainer = %KidsModeOverlay
+@onready var script_manager: ScriptManager = %ScriptManager
 
 const MarketingScreenshotScript = "res://Features/Scripting/Scripts/marketing_screenshot_script.gd"
 
@@ -104,7 +105,7 @@ func _handle_script( s: String ) -> void:
 	
 	if script_node.has_method("run"):
 		print("Starting script >%s<" % s)
-		await script_node.run()
+		await script_node.run( script_manager )
 	
 func _handle_kids_mode( s: String ) -> void:
 	if s.contains("kidsmodedisable"):

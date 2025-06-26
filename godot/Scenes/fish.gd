@@ -52,6 +52,9 @@ var _acceleration: Vector2 = Vector2.ZERO
 var _is_invincible: bool = false
 var _initial_modulate: Color = Color.WHITE
 
+var _target_min_height: float = NAN
+var _target_max_height: float = NAN
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_initial_modulate = self.modulate
@@ -244,8 +247,18 @@ func _process_swimming(delta: float) -> void:
 		return
 		
 	var a: float = self.rotation_degrees
+	var y =  self.transform.origin.y
 	
-	match self.direction:
+	var d = self.direction
+	if self._target_min_height != NAN:
+		if y < self._target_min_height:
+			d = Direction.DOWN
+
+	if self._target_max_height != NAN:
+		if y > self._target_max_height:
+			d = Direction.UP
+
+	match d:
 		Direction.DOWN:
 			a += 120.0 * delta
 			pass
@@ -254,7 +267,6 @@ func _process_swimming(delta: float) -> void:
 			pass
 		#Direction.NEUTRAL:
 
-	var y =  self.transform.origin.y
 	var m = _get_angle_range_for_y( y )
 	var na = clampf( a, m[ 0 ], m[ 1 ] )
 	# print( "! %5.2f at %5.2f: %5.2f - %5.2f -> %5.2f" % [ a, y, m[0], m[1], na ])
@@ -312,3 +324,7 @@ func set_invincible( invicible: bool ):
 		self._is_invincible = false
 		print("Fish stopped being invicible")
 		self.modulate = self._initial_modulate
+
+func set_target_height_range( min_h: float, max_h: float ) -> void:
+	self._target_min_height = min_h
+	self._target_max_height = max_h

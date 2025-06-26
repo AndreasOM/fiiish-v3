@@ -48,6 +48,12 @@ func _despawn_offscreen_obstacles() -> void:
 func get_current_zone() -> NewZone:
 	return self._current_zone
 	
+func get_current_zone_name() -> String:
+	if self._current_zone == null:
+		return ""
+	
+	return self._current_zone.name
+	
 func set_zone_config_manager( zcm: ZoneConfigManager ) -> void:
 	self._zone_config_manager = zcm
 

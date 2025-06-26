@@ -5,11 +5,15 @@
 
 - [ ] Feature: Marketing Screenshots
 	- [ ] Task: Write Marketing Screenshot script
-	- [ ] Task: Load zone from script
 	- [ ] Task: Position the fish from script
 	- [ ] Task: Wait X frames from script
-	- [ ] Task: Take screenshot from script
 	- [ ] Task: Set window size from script
+	- [ ] Task: Set coins from script
+	- [ ] Task: Set distance from script
+	- [ ] Task: Hide Toasts from script
+	- [ ] Task: Disable achievement progress from script
+	- [ ] Task: Set skill level from script
+	- [ ] Fix: Use correct window size to position overlay
 	- [ ] #reach Task: Create Marketing Screenshots on CI system
 
 
@@ -152,7 +156,10 @@
 ### 2025-06-26
 #### S05E08
 - [x] Task: Start Marketing Screenshots script via Launch Control
-
+- [x] Task: Load zone from script
+- [x] Task: Take screenshot from script
+- [x] Task: Automatically keep fish in certain height range from script
+- [x] Tasl: Add overlay from script
 
 ### 2025-06-21
 #### S05E07
