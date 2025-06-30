@@ -29,6 +29,8 @@ func run( script_manager: ScriptManager ) -> bool:
 func take_screenshots( script_manager: ScriptManager ) -> void:
 	script_manager.reset_screenshot_counter()	
 	script_manager.disable_overlay()
+	script_manager.hide_toasts()
+	script_manager.hide_developer_dialog()
 	
 
 	# load marketing screenshot zone
@@ -81,3 +83,5 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 
 	await script_manager.wait_for_game_state( Game.State.PREPARING_FOR_START )
 	print("MarketingScreenshotScript - PREPARING_FOR_START")
+	
+	script_manager.show_toasts()

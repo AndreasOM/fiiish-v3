@@ -3,11 +3,11 @@
 ## In Progress
 
 
+
 - [ ] Feature: Marketing Screenshots
 	- [ ] Task: Write Marketing Screenshot script
 	- [ ] Task: Position the fish from script
 	- [?] Task: Wait X frames from script
-	- [ ] Task: Hide Toasts from script
 	- [ ] Task: Disable achievement progress from script
 	- [ ] Task: Set skill level from script
 	- [ ] Fix: Use correct window size to position overlay
@@ -157,6 +157,8 @@
 - [x] Task: Set window size from script
 - [x] Task: Set coins from script
 - [x] Task: Set distance from script
+- [x] Task: Hide Toasts from script
+- [x] Task: Hide Developer Dialog from script
 
 ### 2025-06-26
 #### S05E08

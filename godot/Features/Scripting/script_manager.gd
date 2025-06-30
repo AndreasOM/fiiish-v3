@@ -114,3 +114,12 @@ func set_coins( value: int ) -> void:
 
 func set_distance_in_m( value: int ) -> void:
 	self.game.get_game_manager().set_distance_in_m( value )
+
+func hide_toasts() -> void:
+	%DialogManager.close_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
+	
+func hide_developer_dialog() -> void:
+	%DialogManager.close_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
+
+func show_toasts() -> void:
+	%DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
