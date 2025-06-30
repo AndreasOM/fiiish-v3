@@ -8,7 +8,8 @@ func run( script_manager: ScriptManager ) -> bool:
 	DirAccess.make_dir_recursive_absolute("user://screenshots/")
 
 	const ScreenSizes = [
-		Vector2i( 2868, 1320 ), # iPhine 6.9"
+		Vector2i( 2868, 1320 ), # iPhone 6.9"
+		# 1432 × 657 pixels
 		#Vector2i( 2688, 1242 ), # iPhone 6.5"
 		#Vector2i( 2208, 1242 ), # iPhone 5.5"		
 	]
@@ -17,6 +18,7 @@ func run( script_manager: ScriptManager ) -> bool:
 		print("MarketingScreenshotScript - screen size: ", ss)
 		script_manager.set_screenshot_prefix("user://screenshots/fiiish-v3-marketing-%dx%d" % [ ss.x, ss.y ])
 		get_window().size = ss
+		
 		
 		await self.take_screenshots( script_manager )
 	
@@ -51,12 +53,20 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 
 	# set fish target height
 	script_manager.set_fish_target_height_range( -150.0, 0.0 )
+	
+	await script_manager.enable_overlay( "overlay-00-title.png", "FullRect" )
+
 	# wait a few frames
 	# start swim
 	script_manager.swim_down()
 
 	await script_manager.wait_for_zone_progress( 100.0 )
 	script_manager.take_screenshot( "lets_go" )
+	
+	await script_manager.enable_overlay( "overlay-01-explore.png", "SE" )
+
+	await script_manager.wait_for_zone_progress( 500.0 )
+	await script_manager.enable_overlay( "overlay-01-explore.png", "NW" )
 	
 	# ~move fish to position~
 	# wait for zone progress

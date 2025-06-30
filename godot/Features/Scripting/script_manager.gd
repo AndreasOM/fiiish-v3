@@ -7,7 +7,7 @@ const OverlayFolder = "res://Textures/Overlays/"
 
 var _screenshot_prefix: String = ""
 var _screenshot_counter: int = 0
-var _overlay: TextureRect = null
+var _overlay: WindowAlignedSprite2D = null
 
 func wait_for_game_state( state: Game.State ) -> void:
 	while self.game.get_state() != state:
@@ -72,41 +72,28 @@ func enable_overlay( imagefile: String, direction: String ) -> void:
 
 	var  p = "%s/%s" % [ OverlayFolder, imagefile ]
 	var image = Image.load_from_file( p )
-	var sp = TextureRect.new()
+	#var sp = TextureRect.new()
+	var sp = WindowAlignedSprite2D.new()
 	var texture = ImageTexture.create_from_image(image)
 	sp.texture = texture
-	var fx = 0.0
-	var fy = 0.0
 	match direction:
 		"NW":
-			fx = -1.0
-			fy = -1.0
-			#sp.anchor_top = 0.0
-			#sp.anchor_left = 0.0
-			sp.set_anchors_preset( Control.LayoutPreset.PRESET_TOP_LEFT )
+			sp.horizontal_alignment = -1.0
+			sp.vertical_alignment = -1.0
 		"SE":
-			fx = 1.0
-			fy = 1.0
-			#sp.anchor_bottom = 0.0
-			#sp.anchor_right = 0.0
-			sp.set_anchors_preset( Control.LayoutPreset.PRESET_BOTTOM_RIGHT )
+			sp.horizontal_alignment = 1.0
+			sp.vertical_alignment = 1.0
+		"FullRect":
+			sp.horizontal_alignment = 0.0
+			sp.vertical_alignment = 0.0
+		"":
+			sp.horizontal_alignment = 0.0
+			sp.vertical_alignment = 0.0
 		_:
 			# :TODO:
 			pass
-			
-	fx += 1.0
-	fy += 1.0
-	var iw = image.get_width()
-	var ih = image.get_height()
-	var a_width = 1920 - iw
-	var a_height = 1080 - ih
 	
 	self.add_child( sp )
-	
-	# Note: add_child changes the position so fix it after adding it
-	sp.position.x = fx * a_width * 0.5
-	sp.position.y = fy * a_height *0.5
-
 	self._overlay = sp
 
 func set_coins( value: int ) -> void:

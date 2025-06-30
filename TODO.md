@@ -3,6 +3,8 @@
 ## In Progress
 
 
+- [ ] Task: Handle scaling < 1.0 for WindowAlignedSprite2D
+- [ ] Task: Add cover mode for WindowAlignedSprite2D
 
 - [ ] Feature: Marketing Screenshots
 	- [ ] Task: Write Marketing Screenshot script
@@ -159,6 +161,7 @@
 - [x] Task: Set distance from script
 - [x] Task: Hide Toasts from script
 - [x] Task: Hide Developer Dialog from script
+- [x] Task: Add WindowAlignedSprite2D, and use it for Overlays
 
 ### 2025-06-26
 #### S05E08
