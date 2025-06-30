@@ -43,6 +43,9 @@ func coins() -> int:
 
 func distance_in_m() -> int:
 	return floor(_distance/pixels_per_meter)
+	
+func m_to_distance( m: int ) -> float:
+	return (m*pixels_per_meter)
 
 func take_coins() -> int:
 	var c = _coins;
@@ -192,6 +195,12 @@ func trigger_sound( soundEffect_Id: SoundEffects.Id ) -> void:
 
 func give_coins( amount: int ) -> void:
 	self._coins += amount
+	
+func set_coins( value: int ) -> void:
+	self._coins = value
+
+func set_distance_in_m( value: int ) -> void:
+	self._distance = self.m_to_distance(value)
 
 func get_current_zone_progress() -> float:
 	return self.zone_manager.current_zone_progress

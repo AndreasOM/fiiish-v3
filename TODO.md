@@ -6,10 +6,7 @@
 - [ ] Feature: Marketing Screenshots
 	- [ ] Task: Write Marketing Screenshot script
 	- [ ] Task: Position the fish from script
-	- [ ] Task: Wait X frames from script
-	- [ ] Task: Set window size from script
-	- [ ] Task: Set coins from script
-	- [ ] Task: Set distance from script
+	- [?] Task: Wait X frames from script
 	- [ ] Task: Hide Toasts from script
 	- [ ] Task: Disable achievement progress from script
 	- [ ] Task: Set skill level from script
@@ -157,6 +154,9 @@
 - [x] Task: Create script to collect screenshots
 - [x] Task: Upload first test screenshots to App Store Connect
 - [x] Task: Close game when done with Marketing Screenshots
+- [x] Task: Set window size from script
+- [x] Task: Set coins from script
+- [x] Task: Set distance from script
 
 ### 2025-06-26
 #### S05E08
@@ -164,7 +164,7 @@
 - [x] Task: Load zone from script
 - [x] Task: Take screenshot from script
 - [x] Task: Automatically keep fish in certain height range from script
-- [x] Tasl: Add overlay from script
+- [x] Task: Add overlay from script
 
 ### 2025-06-21
 #### S05E07

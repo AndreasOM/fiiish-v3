@@ -44,6 +44,9 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	await script_manager.wait_for_game_state( Game.State.WAITING_FOR_START )
 	print("MarketingScreenshotScript - WAITING_FOR_START")
 	
+	await script_manager.set_coins( 0 )
+	await script_manager.set_distance_in_m( 0 )
+
 	# set fish target height
 	script_manager.set_fish_target_height_range( -150.0, 0.0 )
 	# wait a few frames
@@ -61,8 +64,10 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	print("MarketingScreenshotScript - zone: 8001_Empty")
 	await script_manager.wait_for_zone_progress( 1400.0 )
 	print("MarketingScreenshotScript - made progress to 1200.0")
-	# set gold
-	# set distance
+	# set gold - 1503
+	await script_manager.set_coins( 1503 )
+	# set distance - 264
+	await script_manager.set_distance_in_m( 264 )
 	# load and enable the overlay
 	await script_manager.enable_overlay( "overlay-01-explore.png", "SE" )
 	# wait a  few frames

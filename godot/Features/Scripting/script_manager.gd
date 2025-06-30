@@ -108,3 +108,9 @@ func enable_overlay( imagefile: String, direction: String ) -> void:
 	sp.position.y = fy * a_height *0.5
 
 	self._overlay = sp
+
+func set_coins( value: int ) -> void:
+	self.game.get_game_manager().set_coins( value )
+
+func set_distance_in_m( value: int ) -> void:
+	self.game.get_game_manager().set_distance_in_m( value )
