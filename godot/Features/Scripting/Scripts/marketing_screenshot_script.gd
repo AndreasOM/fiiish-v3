@@ -7,10 +7,10 @@ func run( script_manager: ScriptManager ) -> bool:
 
 	DirAccess.make_dir_recursive_absolute("user://screenshots/")
 
-	#2688 x 1242
-	const ScreenSizes = [ 
-		Vector2i( 2688, 1242 ), # iPhone 6.5"
-		Vector2i( 2208, 1242 ), # iPhone 5.5"		
+	const ScreenSizes = [
+		Vector2i( 2868, 1320 ), # iPhine 6.9"
+		#Vector2i( 2688, 1242 ), # iPhone 6.5"
+		#Vector2i( 2208, 1242 ), # iPhone 5.5"		
 	]
 	
 	for ss in ScreenSizes:
@@ -21,6 +21,9 @@ func run( script_manager: ScriptManager ) -> bool:
 		await self.take_screenshots( script_manager )
 	
 	print("MarketingScreenshotScript - done()")
+	
+	get_tree().quit( 0 )
+
 	return true
 	
 func take_screenshots( script_manager: ScriptManager ) -> void:

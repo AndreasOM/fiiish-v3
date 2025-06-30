@@ -152,6 +152,11 @@
 
 ## Done
 
+### 2025-06-30
+#### S05E09
+- [x] Task: Create script to collect screenshots
+- [x] Task: Upload first test screenshots to App Store Connect
+- [x] Task: Close game when done with Marketing Screenshots
 
 ### 2025-06-26
 #### S05E08
