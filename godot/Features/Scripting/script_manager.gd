@@ -75,9 +75,12 @@ func enable_overlay( imagefile: String, direction: String ) -> int:
 #	if self._overlay != null:
 #		self._overlay.queue_free()
 
-	var  p = "%s/%s" % [ OverlayFolder, imagefile ]
+	var p = "%s/%s" % [ OverlayFolder, imagefile ]
 	var image = Image.load_from_file( p )
-	#var sp = TextureRect.new()
+	if image == null:
+		push_warning("Couldn't load image %s" % p )
+		return 0
+
 	var sp = WindowAlignedSprite2D.new()
 	var texture = ImageTexture.create_from_image(image)
 	sp.texture = texture

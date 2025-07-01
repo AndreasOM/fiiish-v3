@@ -29,6 +29,9 @@ func set_cover( c: bool ) -> void:
 func _process(delta: float) -> void:
 	if !self._needs_relayout:
 		return
+	if self.texture == null:
+		push_warning("No texture")
+		return
 	self._needs_relayout = false
 	var ws = get_window().size
 	var ww = get_window().size.x

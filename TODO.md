@@ -4,6 +4,7 @@
 
 
 - [ ] Bug: Fix overlay z-layer.
+- [ ] Bug: Disable window size buttons in Web build
 
 - [ ] Feature: OMG Launch Control
 	- [ ] Task: Use editor/run/main_run_args to pass launch_parameters
