@@ -3,7 +3,6 @@
 ## In Progress
 
 
-- [ ] Bug: Disable window size buttons in Web build
 
 - [ ] Feature: OMG Launch Control
 	- [ ] Task: Use editor/run/main_run_args to pass launch_parameters
@@ -161,6 +160,7 @@
 - [x] Task: Write Marketing Screenshot script
 - [x] Feature: Marketing Screenshots
 - [x] Bug: Fix Overlay z-layer
+- [x] Bug: Disable window size buttons in non-Desktop build
 
 ### 2025-06-30
 #### S05E09

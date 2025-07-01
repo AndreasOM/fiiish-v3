@@ -1,7 +1,21 @@
 class_name DeveloperDialog
 extends Dialog
 
+
 func open( duration: float):
+	var _desktop_only: Array [ Control ] = [
+		%"1920x1080TextureButton",
+		%"960x540TextureButton",
+	]
+	
+	match OS.get_name():
+		"Android", "iOS", "Web":
+			for e in _desktop_only:
+				var c: Control = e
+				if c != null:
+					c.visible = false
+		_:
+			pass
 	fade_in( duration )
 
 func close( duration: float):
