@@ -29,22 +29,15 @@ func run( script_manager: ScriptManager ) -> bool:
 	return true
 	
 func take_screenshots( script_manager: ScriptManager ) -> void:
-	script_manager.reset_screenshot_counter()	
-	script_manager.disable_overlay()
+	script_manager.reset_screenshot_counter()
+	script_manager.clear_overlays()
 	script_manager.hide_toasts()
 	script_manager.hide_developer_dialog()
 	
-
-	# load marketing screenshot zone
-	# 8000_MarketingScreenshots
 	script_manager.clear_next_zones()
 	script_manager.push_next_zone_by_name("8000_MarketingScreenshots")
 	script_manager.push_next_zone_by_name("8001_Empty")
 
-#	await script_manager.enable_overlay( "overlay-01-explore.png", "NW" )
-#	await script_manager.enable_overlay( "overlay-01-explore.png", "SE" )
-
-	# wait for WAITING_FOR_START
 	await script_manager.wait_for_game_state( Game.State.WAITING_FOR_START )
 	print("MarketingScreenshotScript - WAITING_FOR_START")
 	
@@ -56,41 +49,48 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	
 	await script_manager.enable_overlay( "overlay-00-title.png", "FullRect" )
 
-	# wait a few frames
-	# start swim
+	### ---=== Screenshot ===--- ###
+	await script_manager.take_screenshot( "title" )
+
+	await script_manager.clear_overlays()
+
 	script_manager.swim_down()
 
-	await script_manager.wait_for_zone_progress( 100.0 )
-	script_manager.take_screenshot( "lets_go" )
+	await script_manager.enable_overlay( "overlay-02-help.png", "SE" )
 	
-	await script_manager.enable_overlay( "overlay-01-explore.png", "SE" )
+	await script_manager.wait_for_zone_progress( 100.0 )
+	await script_manager.set_coins( 0 )
+	await script_manager.set_distance_in_m( 2 )
 
-	await script_manager.wait_for_zone_progress( 500.0 )
-	await script_manager.enable_overlay( "overlay-01-explore.png", "NW" )
+	### ---=== Screenshot ===--- ###
+	await script_manager.take_screenshot( "help_fiiish" )
+	await script_manager.clear_overlays()
 	
 	# ~move fish to position~
-	# wait for zone progress
 	await script_manager.wait_for_zone_name( "8000_MarketingScreenshots" )
 	print("MarketingScreenshotScript - zone: 8000_MarketingScreenshots")
 	await script_manager.wait_for_zone_name( "8001_Empty" )
 	print("MarketingScreenshotScript - zone: 8001_Empty")
-	await script_manager.wait_for_zone_progress( 1400.0 )
-	print("MarketingScreenshotScript - made progress to 1200.0")
-	# set gold - 1503
+
+	await script_manager.wait_for_zone_progress( 100.0 )
+	await script_manager.set_coins( 500 )
+	await script_manager.set_distance_in_m( 123 )
+	
+	### ---=== Screenshot ===--- ###
+	await script_manager.take_screenshot( "just_swim" )
+	
+	await script_manager.wait_for_zone_progress( 1600.0 )
 	await script_manager.set_coins( 1503 )
-	# set distance - 264
 	await script_manager.set_distance_in_m( 264 )
-	# load and enable the overlay
+	
 	await script_manager.enable_overlay( "overlay-01-explore.png", "SE" )
-	# wait a  few frames
-	# take screenshot
+
+	### ---=== Screenshot ===--- ###
 	await script_manager.take_screenshot( "explore_the_deep_sea" )
-	# abort swim
+	await script_manager.clear_overlays()
+
 	script_manager.abort_swim()
 	
-	#await script_manager.wait_for_game_state( Game.State.DEAD )
-	#print("MarketingScreenshotScript - DEAD")
-
 	await script_manager.wait_for_game_state( Game.State.PREPARING_FOR_START )
 	print("MarketingScreenshotScript - PREPARING_FOR_START")
 	

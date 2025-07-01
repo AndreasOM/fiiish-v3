@@ -3,17 +3,6 @@
 ## In Progress
 
 
-- [ ] Task: Handle scaling < 1.0 for WindowAlignedSprite2D
-- [ ] Task: Add cover mode for WindowAlignedSprite2D
-
-- [ ] Feature: Marketing Screenshots
-	- [ ] Task: Write Marketing Screenshot script
-	- [ ] Task: Position the fish from script
-	- [?] Task: Wait X frames from script
-	- [ ] Task: Disable achievement progress from script
-	- [ ] Task: Set skill level from script
-	- [ ] Fix: Use correct window size to position overlay
-	- [ ] #reach Task: Create Marketing Screenshots on CI system
 
 
 - [ ] Feature: OMG Launch Control
@@ -22,6 +11,8 @@
 
 ## Next
 
+- [ ] #reach Task: Set skill level from script
+- [ ] #reach Task: Create Marketing Screenshots on CI system
 
 ## Todo
 
@@ -83,6 +74,9 @@
 
 - [ ] Task: Create some new zones!
 - [ ] Bonus: Create some new (middle/center!) Rocks 
+- [ ] Task: Position the fish from script
+- [?] Task: Wait X frames from script
+- [ ] Task: Disable achievement progress from script
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
@@ -150,6 +144,14 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-07-01
+#### S05E10
+- [x] Task: Handle scaling < 1.0 for WindowAlignedSprite2D
+- [x] Task: Add cover mode for WindowAlignedSprite2D
+- [x] Fix: Use correct window size to position overlay
+- [x] Task: Write Marketing Screenshot script
+- [x] Feature: Marketing Screenshots
 
 ### 2025-06-30
 #### S05E09

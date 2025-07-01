@@ -62,8 +62,46 @@ text = "KidsMode"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="1920x1080TextureButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_ijjms")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/VBoxContainer/1920x1080TextureButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "1920x1080"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="960x540TextureButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_ijjms")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/VBoxContainer/960x540TextureButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "960x540"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
 [connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
 [connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
 [connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/VBoxContainer/EnableKidsModeTextureButton" to="." method="_on_enable_kids_mode_texture_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/VBoxContainer/1920x1080TextureButton" to="." method="_on_x_1080_texture_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/VBoxContainer/960x540TextureButton" to="." method="_on_x_540_texture_button_pressed"]

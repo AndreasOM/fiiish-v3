@@ -7,7 +7,9 @@ const OverlayFolder = "res://Textures/Overlays/"
 
 var _screenshot_prefix: String = ""
 var _screenshot_counter: int = 0
-var _overlay: WindowAlignedSprite2D = null
+
+var _overlays: Dictionary[ int, WindowAlignedSprite2D ] = {}
+var _next_overlay_id: int = 1
 
 func wait_for_game_state( state: Game.State ) -> void:
 	while self.game.get_state() != state:
@@ -62,13 +64,16 @@ func take_screenshot( filename: String ) -> void:
 	print("MarketingScreenshot - screenshot saved to %s" % full_filename)
 	self._screenshot_counter += 1
 
-func disable_overlay() -> void:
-	if self._overlay != null:
-		self._overlay.queue_free()
-	
-func enable_overlay( imagefile: String, direction: String ) -> void:
-	if self._overlay != null:
-		self._overlay.queue_free()
+func clear_overlays() -> void:
+	for e in self._overlays.values():
+		var was: WindowAlignedSprite2D = e
+		if was != null:
+			was.queue_free()
+	self._overlays.clear()
+
+func enable_overlay( imagefile: String, direction: String ) -> int:
+#	if self._overlay != null:
+#		self._overlay.queue_free()
 
 	var  p = "%s/%s" % [ OverlayFolder, imagefile ]
 	var image = Image.load_from_file( p )
@@ -80,12 +85,19 @@ func enable_overlay( imagefile: String, direction: String ) -> void:
 		"NW":
 			sp.horizontal_alignment = -1.0
 			sp.vertical_alignment = -1.0
+		"NE":
+			sp.horizontal_alignment = 1.0
+			sp.vertical_alignment = -1.0
 		"SE":
 			sp.horizontal_alignment = 1.0
+			sp.vertical_alignment = 1.0
+		"SW":
+			sp.horizontal_alignment = -1.0
 			sp.vertical_alignment = 1.0
 		"FullRect":
 			sp.horizontal_alignment = 0.0
 			sp.vertical_alignment = 0.0
+			sp.cover = true
 		"":
 			sp.horizontal_alignment = 0.0
 			sp.vertical_alignment = 0.0
@@ -94,7 +106,15 @@ func enable_overlay( imagefile: String, direction: String ) -> void:
 			pass
 	
 	self.add_child( sp )
-	self._overlay = sp
+	var id = self._next_overlay_id
+	self._next_overlay_id += 1
+	
+	self._overlays[ id ] = sp
+	
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	return id
 
 func set_coins( value: int ) -> void:
 	self.game.get_game_manager().set_coins( value )

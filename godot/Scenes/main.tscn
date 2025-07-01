@@ -328,12 +328,12 @@ unique_name_in_owner = true
 script = ExtResource("21_3pmx8")
 
 [node name="WindowAlignedSprite2D" type="Sprite2D" parent="Managers/ScriptManager"]
+visible = false
 position = Vector2(1251, 749)
 texture = ExtResource("22_cbgmd")
 script = ExtResource("23_1w6v2")
 horizontal_alignment = 1.0
 vertical_alignment = 1.0
-cover = null
 
 [node name="MusicManager" type="AudioStreamPlayer" parent="Managers"]
 process_mode = 3

@@ -37,3 +37,11 @@ func _on_enable_kids_mode_texture_button_pressed() -> void:
 		self._dialog_manager.game.leave_kids_mode()
 	else:
 		self._dialog_manager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
+
+
+func _on_x_1080_texture_button_pressed() -> void:
+	get_window().size = Vector2i( 1920, 1080 )
+
+
+func _on_x_540_texture_button_pressed() -> void:
+	get_window().size = Vector2i( 960, 540 )

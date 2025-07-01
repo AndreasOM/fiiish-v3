@@ -4,6 +4,7 @@ extends Control
 @onready var script_manager: ScriptManager = %ScriptManager
 
 const MarketingScreenshotScript = "res://Features/Scripting/Scripts/marketing_screenshot_script.gd"
+const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -93,7 +94,8 @@ func _handle_script( s: String ) -> void:
 	match s:
 		"MarketingScreenshots":
 			script = load(MarketingScreenshotScript)
-			pass
+		"OverlayTest":
+			script = load(OverlayTestScript)
 		_:
 			return
 			

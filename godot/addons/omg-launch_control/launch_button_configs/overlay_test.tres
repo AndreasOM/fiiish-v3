@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="OMG_LaunchControl_LaunchButtonConfig" load_steps=2 format=3 uid="uid://dy6qy1n7y0avo"]
+
+[ext_resource type="Script" uid="uid://lsabu7iqy74i" path="res://addons/omg-launch_control/omg-launch_control-launch_button_config.gd" id="1_6mrcw"]
+
+[resource]
+script = ExtResource("1_6mrcw")
+label_text = "Overlay Test"
+parameter = "--script:\"OverlayTest\""
+sort_order = 999
+metadata/_custom_type_script = "uid://lsabu7iqy74i"
