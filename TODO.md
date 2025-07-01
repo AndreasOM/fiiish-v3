@@ -3,10 +3,12 @@
 ## In Progress
 
 
-
+- [ ] Bug: Fix overlay z-layer.
 
 - [ ] Feature: OMG Launch Control
 	- [ ] Task: Use editor/run/main_run_args to pass launch_parameters
+	- [ ] Task: Use EditorDebuggerSession.started signal to clear launch_parameters
+	- [+] Task: Experiment with using session stopped for clearing launch parameters
 
 
 ## Next
@@ -16,9 +18,7 @@
 
 ## Todo
 
-- [ ] Task: Create kidsmode.html on fiiish-v3 and fiiish-classic websites
-- [ ] Task: Sort Launch Buttons by their sort order
-- [ ] Task: Experiment with using session stopped for clearing launch parameters
+- [ ] Task: Create kidsmode.html on fiiish-v3 and fiiish-classic websites -> https://games.omnimad.net/games/fiiish-v3/kidsmode/
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
@@ -33,9 +33,16 @@
 	- [ ] Task: Create 1 v3 zone for testing
 	- [ ] Task: Only load classic zones in classic
 	- [ ] Task: Verify all entities used in classic zones exist
+	- [ ] TasK: Create itch.io page for **classic**
 	- [ ] Task: Upload classic builds to itch.io
 
 - [ ] #reach Feature: Achievements V2.0
+	- [ ] Task: Add the second batch of Achievements
+		- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
+		- [ ] Bonus: Upgrade X Skills
+		- [ ] Bonus: Play X days in a row
+		- [ ] Bonus: Max Coins (owned) Achievement
+
 - [ ] #reach Feature: Zone Editor (external v0.1)
 
 - [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
@@ -59,11 +66,11 @@
 
 - [ ] Task: Unlock Zone Editor in MainMenu via Achievements?
 
-- [ ] Task: Add the second batch of Achievements
-	- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
-	- [ ] Bonus: Upgrade X Skills
-	- [ ] Bonus: Play X days in a row
-	- [ ] Bonus: Max Coins (owned) Achievement
+- [+] Task: Add the second batch of Achievements
+	- [+] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
+	- [+] Bonus: Upgrade X Skills
+	- [+] Bonus: Play X days in a row
+	- [+] Bonus: Max Coins (owned) Achievement
 
 - [+] Release: Build classic version of game via CI/CD
 
@@ -77,6 +84,7 @@
 - [ ] Task: Position the fish from script
 - [?] Task: Wait X frames from script
 - [ ] Task: Disable achievement progress from script
+- [ ] Task: Sort Launch Buttons by their sort order
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
