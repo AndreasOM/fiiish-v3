@@ -3,7 +3,6 @@
 ## In Progress
 
 
-- [ ] Bug: Fix overlay z-layer.
 - [ ] Bug: Disable window size buttons in Web build
 
 - [ ] Feature: OMG Launch Control
@@ -161,6 +160,7 @@
 - [x] Fix: Use correct window size to position overlay
 - [x] Task: Write Marketing Screenshot script
 - [x] Feature: Marketing Screenshots
+- [x] Bug: Fix Overlay z-layer
 
 ### 2025-06-30
 #### S05E09

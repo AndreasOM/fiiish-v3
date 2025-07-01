@@ -108,6 +108,7 @@ func enable_overlay( imagefile: String, direction: String ) -> int:
 			# :TODO:
 			pass
 	
+	sp.z_index = 99
 	self.add_child( sp )
 	var id = self._next_overlay_id
 	self._next_overlay_id += 1
