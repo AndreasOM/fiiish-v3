@@ -17,6 +17,8 @@
 
 ## Todo
 
+- [ ] Task: Create **classic** loading/title-image
+
 - [ ] Task: Create kidsmode.html on fiiish-v3 and fiiish-classic websites -> https://games.omnimad.net/games/fiiish-v3/kidsmode/
 
 - [ ] Feature: KidsMode
