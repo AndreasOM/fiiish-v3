@@ -1,8 +1,23 @@
 name: 🖥️ macOS - 🖋️ Sign
+run-name: 🖥️ macOS - 🖋️ Sign ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'The type of build'
+        required: true
+        default: 'macos'
+        type: choice
+        options:
+          - 'macos'
+          - 'macos-classic'
   workflow_call:
     inputs:
+      build_type:
+        description: 'The type of build'
+        default: 'macos'
+        required: false
+        type: string
       summary_style:
         description: 'The style for the summary'
         default: 'full'
@@ -20,7 +35,7 @@ jobs:
       - name: Create variables
         run: |
           PROJECT=${{ vars.PROJECT }}
-          BUILD_TYPE="macos"
+          BUILD_TYPE=${{ inputs.build_type }}
           LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
           S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
           APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-v3.app"
@@ -153,5 +168,6 @@ jobs:
               echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
               echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
               echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
+              echo "| BUILD_TYPE             | ${{ env.BUILD_TYPE }}             |"
             } >> "$GITHUB_STEP_SUMMARY"
           fi
