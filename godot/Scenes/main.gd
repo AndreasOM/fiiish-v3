@@ -176,14 +176,9 @@ func _get_launch_parameters_editor() -> String:
 
 	var lp = " ".join(args)
 		
-#	var lp = ProjectSettings.get_setting("addons/omg-launch_control/launch_parameter")
 	print("Launch Parameter >%s<" % lp )
 
-# Bad idea!	
-#	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", "")
-#	ProjectSettings.save()
-	
-	EngineDebugger.send_message("omg-launch_control:launch_parameter_used", [lp])
+#	EngineDebugger.send_message("omg-launch_control:launch_parameter_used", [lp])
 	return lp
 		
 func open_initial_dialogs() -> void:
