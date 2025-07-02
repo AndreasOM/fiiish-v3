@@ -48,9 +48,10 @@ jobs:
             ios*)
               echo "runner=macos-14" >> "$GITHUB_OUTPUT"
               ;;
-
+            macos*)
+              echo "runner=macos-14" >> "$GITHUB_OUTPUT"
+              ;;
             *)
-              # Note: macos builds fine on ubuntu
               echo "runner=ubicloud-standard-4" >> "$GITHUB_OUTPUT"
               ;;
           esac
@@ -208,8 +209,9 @@ jobs:
             --headless \
             --import \
             --editor \
-            --quit \
-            || exit 0
+            --quit
+          
+          # || exit 0
 
       - name: Export project
         run: |
@@ -220,8 +222,9 @@ jobs:
             --export-debug \
             ${{ env.BUILD_TYPE }} \
             export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}${{ env.BINARY_EXTENSION }} \
-            --quit \
-            || exit 0
+            --quit #
+
+          # || exit 0
 
 # [ --- iOS only ---
       - name: Switch Xcode Version

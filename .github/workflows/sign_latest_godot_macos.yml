@@ -116,7 +116,11 @@ jobs:
         continue-on-error: true
         run: |
           ping -c 5 time.apple.com
-          codesign -s ${{ secrets.CODESIGN_CERT_IDENTITY }} -f -v --timestamp --options runtime ${{ env.APP_TO_SIGN }}
+          codesign \
+            -s ${{ secrets.CODESIGN_CERT_IDENTITY }} \
+            -f -v --timestamp \
+            --options runtime \
+            ${{ env.APP_TO_SIGN }}
         timeout-minutes: 10
 
       - name: Sign .app (2nd try)
@@ -126,7 +130,11 @@ jobs:
         run: |
           sleep 60
           ping -c 5 time.apple.com
-          codesign -s ${{ secrets.CODESIGN_CERT_IDENTITY }} -f -v --timestamp --options runtime ${{ env.APP_TO_SIGN }}
+          codesign \
+            -s ${{ secrets.CODESIGN_CERT_IDENTITY }} \
+            -f -v --timestamp \
+            --options runtime \
+            ${{ env.APP_TO_SIGN }}
         timeout-minutes: 10
 
       - name: Set Sign status
