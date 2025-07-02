@@ -2,31 +2,31 @@
 
 ## In Progress
 
-- [ ] Task: Patch v3 -> classic in app/binary name when building classic
 
 - [ ] Task: Upload (and sign) all latest classic builds
 - [ ] Task: Sign and upload classic version for iOS
 
-- [ ] Feature: OMG Launch Control
-	- [ ] Task: Remember main_run_args when overwriting them
 
 
 ## Next
 
-- [ ] #reach Task: Set skill level from script
-- [ ] #reach Task: Create Marketing Screenshots on CI system
 
 ## Todo
 
-
-
 - [ ] Task: Create classic icon
+
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
-		- [ ] Task: Handle custom scheme for macOS
-	- [ ] Story: Plugin for iOS lifecycle handling
-		- [ ] Task: Get actual command line parameters, and handle them
+		- [ ] Task: Handle custom scheme for macOS - maybe already done?!
+	- [?] Story: Plugin for iOS lifecycle handling
+		- [?] Task: Get actual command line parameters, and handle them
+
+- [ ] #reach Task: Set skill level from script
+- [ ] #reach Task: Create Marketing Screenshots on CI system
+
+- [ ] Feature: OMG Launch Control
+	- [ ] Task: Remember main_run_args when overwriting them
 
 
 ## V3.8.0 (revised) - ETA: 07/11
@@ -164,6 +164,7 @@
 - [x] Task: Upload classic builds to itch.io
 - [x] Task: Create kidsmode.html on fiiish-v3 and fiiish-classic websites -> https://games.omnimad.net/games/fiiish-v3/kidsmode/
 - [x] Task: Create **classic** loading/title-image
+- [x] Task: Patch v3 -> classic in app/binary name when building classic
 
 ### 2025-07-01
 #### S05E10
