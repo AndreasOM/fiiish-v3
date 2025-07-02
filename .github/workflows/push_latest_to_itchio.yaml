@@ -2,6 +2,7 @@ name: 💾 Push latest to itchio
 run-name: 💾 Push latest to itchio ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
+    inputs:
       build_type:
         description: 'The type of build'
         required: true
