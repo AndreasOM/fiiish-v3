@@ -1,0 +1,197 @@
+name: 💾 Push latest to itchio
+run-name: 💾 Push latest to itchio ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
+on: 
+  workflow_dispatch:
+      build_type:
+        description: 'The type of build'
+        required: true
+        default: 'web-demo'
+        type: choice
+        options:
+          - 'linux'
+          - 'windows'
+          - 'macos'
+          - 'linux-classic'
+          - 'windows-classic'
+          - 'macos-classic'
+  workflow_call:
+    inputs:
+      build_type:
+        description: 'The type of build'
+        required: true
+        type: string
+      summary_style:
+        description: 'The style for the summary'
+        default: 'full'
+        required: false
+        type: string
+    outputs:
+      version:
+        description: "The version of the build"
+        value: ${{ jobs.push.outputs.version }}
+env:
+  BUTLER_API_KEY: ${{ secrets.ITCHIO_API_KEY }}
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    outputs:
+      version: ${{ steps.check_version.outputs.version }}        
+    steps:
+      - name: Create variables
+        run: |
+          PROJECT=${{ vars.PROJECT }}
+          BUILD_TYPE=${{ inputs.build_type }}
+          LATEST_FILE=${PROJECT}-${BUILD_TYPE}-latest.txt
+          S3_LATEST_FILE=s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}
+          # Check if we need a signed binary
+          case ${{ inputs.build_type }} in
+            mac*)
+              echo "SIGNED=true" >> "$GITHUB_OUTPUT"
+              echo "ITCHIO_PLATFORM=osx-universal" >> "$GITHUB_ENV"
+              ;;
+            linux*)
+              echo "SIGNED=false" >> "$GITHUB_OUTPUT"
+              echo "ITCHIO_PLATFORM=linux-universal" >> "$GITHUB_ENV"
+              ;;
+            windows*)
+              echo "SIGNED=false" >> "$GITHUB_OUTPUT"
+              echo "ITCHIO_PLATFORM=windows-universal" >> "$GITHUB_ENV"
+              ;;
+            *)
+              echo "Invalid build type for itchio - ${{ inputs.build_type }}"
+              exit 1
+              ;;
+          esac
+
+          case ${{ inputs.build_type }} in
+            *-classic)
+              echo "ITCHIO_PROJECT=omni-mad/fiiish-classic" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "ITCHIO_PROJECT=omni-mad/${{ vars.PROJECT }}" >> "$GITHUB_OUTPUT"
+              ;;
+          esac
+
+          #
+          # put into github env
+          #
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "BUILD_TYPE=${BUILD_TYPE}"
+            echo "LATEST_FILE=${LATEST_FILE}"
+            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
+          } >> "$GITHUB_ENV"
+
+      - name: Download latest from S3
+        run: |
+          #
+          # get latest info
+          #
+          aws s3 cp ${{ env.S3_LATEST_FILE }} ${{ env.LATEST_FILE }}
+
+          LATEST=$(cat "${{ env.LATEST_FILE }}")
+          #
+          # split into parts
+          #
+          ARCHIVE_FOLDER=$( dirname "${LATEST}" )
+          ARCHIVE_NAME=$( basename "${LATEST}" .tgz )
+          ARCHIVE_EXT=.tgz
+          #
+          # combine
+          #
+          ARCHIVE_FILE="${ARCHIVE_NAME}${ARCHIVE_EXT}"
+          S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${LATEST}"
+          if [[ ${{ env.SIGNED }} == "true" ]]
+          then
+            SIGNED_ARCHIVE_FILE="${ARCHIVE_NAME}-signed.tgz"
+            SIGNED_S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${ARCHIVE_FOLDER}/${SIGNED_ARCHIVE_FILE}"
+            ARCHIVE_FILE=${SIGNED_ARCHIVE_FILE}
+            S3_ARCHIVE_FILE=${SIGNED_S3_ARCHIVE_FILE}
+          fi
+          #
+          # put into github env
+          #
+          {
+            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
+            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"
+          } >> "$GITHUB_ENV"
+
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Download artifact
+        run: |
+          aws s3 cp ${{ env.S3_ARCHIVE_FILE }} ${{ env.ARCHIVE_FILE }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "eu-west-1"
+
+      - name: Unpack artifact
+        run: |
+          tar xzvf ${{ env.ARCHIVE_FILE }}
+          find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+
+      - name: Check version
+        id: check_version
+        run: |
+          cd fiiish-v3-${{ env.BUILD_TYPE }}
+          VERSION=$(cat version.txt)
+          if [[ -z ${VERSION} ]]
+          then
+            echo "No version"
+            exit 255
+          else
+            echo "version: ${VERSION}"
+          fi
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+
+      - name: Install butler
+        uses: jdno/setup-butler@v1
+        with:
+          version: 15.20.0
+
+      - name: Login to butler
+        run: |
+          butler login
+
+      - name: Push to itch.io
+        run: |
+          butler push . ${{ env.ITCHIO_PROJECT }}:${{ env.ITCHIO_PLATFORM }} --userversion-file=version.txt
+        working-directory: ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+
+      - name: Create Summary
+        if: always()
+        run: |
+          echo "Summary Style: '${{ inputs.summary_style }}'"
+          if [[ "${{ inputs.summary_style }}" == "skip" ]]
+          then
+            echo "Skipping summary"
+          elif [[ "${{ inputs.summary_style }}" == "minimal" ]]
+          then
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| LATEST_FILE            | ${{ env.LATEST_FILE }}            |"
+              echo "| S3_LATEST_FILE         | ${{ env.S3_LATEST_FILE }}         |"
+              echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
+              echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
+              echo "| ITCHIO_PROJECT         | ${{ env.ITCHIO_PROJECT }}         |"
+              echo "| ITCHIO_PLATFORM        | ${{ env.ITCHIO_PLATFORM }}        |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
