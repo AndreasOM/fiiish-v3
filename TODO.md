@@ -19,8 +19,8 @@
 ## Todo
 
 
-- [ ] Task: Create **classic** loading/title-image
 
+- [ ] Task: Create classic icon
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
@@ -163,6 +163,7 @@
 - [x] Task: Build -classic version on CI system
 - [x] Task: Upload classic builds to itch.io
 - [x] Task: Create kidsmode.html on fiiish-v3 and fiiish-classic websites -> https://games.omnimad.net/games/fiiish-v3/kidsmode/
+- [x] Task: Create **classic** loading/title-image
 
 ### 2025-07-01
 #### S05E10

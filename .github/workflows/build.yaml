@@ -105,9 +105,11 @@ jobs:
           case ${{ inputs.build_type }} in
             *-classic)
               echo "BINARY_NAME=fiiish-classic" >> "$GITHUB_ENV"
+              echo "LOADINGSCREEN=loadingscreen-classic.webp" >> "$GITHUB_ENV"
               ;;
             *)
               echo "BINARY_NAME=${{ vars.PROJECT }}" >> "$GITHUB_ENV"
+              echo "LOADINGSCREEN=loadingscreen.png" >> "$GITHUB_ENV"
               ;;
           esac
 
@@ -174,7 +176,7 @@ jobs:
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
-          version: 4.4.0
+          version: 4.4.1
           use-dotnet: false
           include-templates: true
       - name: Verify setup
@@ -209,7 +211,7 @@ jobs:
             -font godot/Fonts/all_things_pink.ttf \
             -draw "text 1520,1040 '${RIGHT_TEXT}'" \
             -draw "text 300,1040 '${LEFT_TEXT}'" \
-            godot/Textures/Loadingscreen/loadingscreen.png \
+            godot/Textures/Loadingscreen/${{ env.LOADINGSCREEN }} \
             godot/Textures/Loadingscreen/loadingscreen-with-version.png
 
       - name: Import project
