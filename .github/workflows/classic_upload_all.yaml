@@ -1,0 +1,70 @@
+name: 🏛️🪐💾 Classic - All - Upload Latest
+run-name: 🏛️🪐💾 Classic - All - Upload Latest Build ${{ vars.PROJECT }} - by @${{ github.actor }}
+on: 
+  workflow_dispatch:
+
+jobs:
+  linux_upload:
+    uses: ./.github/workflows/push_latest_to_itchio.yaml
+    secrets: inherit
+    with:
+      build_type: 'linux-classic'
+      summary_style: "skip"
+
+  windows_upload:
+    uses: ./.github/workflows/push_latest_to_itchio.yaml
+    secrets: inherit
+    with:
+      build_type: 'windows-classic'
+      summary_style: "skip"
+
+  macos_sign:
+    uses: ./.github/workflows/sign_latest_godot_macos.yml
+    secrets: inherit
+    with:
+      build_type: 'macos-classic'
+      summary_style: "skip"
+
+  macos_upload:
+    needs: macos_sign
+    uses: ./.github/workflows/push_latest_to_itchio.yaml
+    secrets: inherit
+    with:
+      build_type: 'macos-classic'
+      summary_style: "skip"
+
+##  ios_archive:
+##    uses: ./.github/workflows/archive_latest_ios.yml
+##    secrets: inherit
+##    with:
+##      summary_style: "skip"
+##
+##  ios_upload:
+##    needs: ios_archive
+##    uses: ./.github/workflows/push_latest_ios_to_appstoreconnect.yml
+##    secrets: inherit
+##    with:
+##      summary_style: "skip"
+
+  summary:
+    needs: [linux_upload, windows_upload, macos_upload]
+    # , ios_upload]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Create Summary
+        if: always()
+        run: |
+          {
+            echo "|                               |                                             |                                                  |"
+            echo "| :---------------------------- | ------------------------------------------: | -----------------------------------------------: |"
+            echo "| 🐧 Linux Version              | ${{ needs.linux_upload.outputs.version }}   |                                                  |"
+            echo "| 🪟 Windows Version            | ${{ needs.windows_upload.outputs.version }} |                                                  |"
+            echo "| 🖥️ macOS Version              | ${{ needs.macos_upload.outputs.version }}   |                                                  |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+# echo "| 📱 iOS Version - Build Number | ${{ needs.ios_upload.outputs.version }}     |  ${{ needs.ios_upload.outputs.build_number }}    |"
