@@ -107,7 +107,7 @@ jobs:
               echo "BINARY_NAME=fiiish-classic" >> "$GITHUB_ENV"
               ;;
             *)
-              echo "BINARY_NAME={{ vars.PROJECT }}" >> "$GITHUB_ENV"
+              echo "BINARY_NAME=${{ vars.PROJECT }}" >> "$GITHUB_ENV"
               ;;
           esac
 
