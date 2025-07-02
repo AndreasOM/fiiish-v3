@@ -16,6 +16,10 @@ on:
           - 'windows'
           - 'macos'
           - 'ios'
+          - 'linux-classic'
+          - 'windows-classic'
+          - 'macos-classic'
+          - 'ios-classic'
   workflow_call:
     inputs:
       build_type:
@@ -131,13 +135,13 @@ jobs:
       - name: Set binary extension
         run: |
           case ${{ inputs.build_type }} in
-            'macos')
+            macos*)
               echo "BINARY_EXTENSION=.app" >> "$GITHUB_ENV"
               ;;
-            'linux')
+            linux*)
               echo "BINARY_EXTENSION=.x86_64" >> "$GITHUB_ENV"
               ;;
-            'windows')
+            windows*)
               echo "BINARY_EXTENSION=.exe" >> "$GITHUB_ENV"
               ;;
             'web-demo')

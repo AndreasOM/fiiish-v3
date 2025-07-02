@@ -2,6 +2,8 @@
 
 ## In Progress
 
+- [ ] Task: Build -classic version on CI system
+- [ ] Task: Upload classic builds to itch.io
 
 
 - [ ] Feature: OMG Launch Control
@@ -34,8 +36,6 @@
 	- [ ] Task: Create 1 v3 zone for testing
 	- [ ] Task: Only load classic zones in classic
 	- [ ] Task: Verify all entities used in classic zones exist
-	- [ ] TasK: Create itch.io page for **classic**
-	- [ ] Task: Upload classic builds to itch.io
 
 - [ ] #reach Feature: Achievements V2.0
 	- [ ] Task: Add the second batch of Achievements
@@ -153,6 +153,11 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-07-02
+#### S05E11
+- [x] #offstream Task: Create itch.io page for **classic**
+- [x] Task: Create export settings for -classic versions
 
 ### 2025-07-01
 #### S05E10

@@ -1,0 +1,35 @@
+name: 🏛️ Classic - 🔨 Build
+on: 
+  workflow_dispatch:
+  workflow_call:
+#  push:
+#    tags:
+#      - "v*"
+    # We always build on a tag
+    # paths:
+    #  - godot/**
+
+jobs:
+  build_ios:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'ios-classic'
+    secrets: inherit
+
+  build_macos:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'macos-classic'
+    secrets: inherit
+
+  build_linux:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'linux-classic'
+    secrets: inherit
+
+  build_windows:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'windows-classic'
+    secrets: inherit
