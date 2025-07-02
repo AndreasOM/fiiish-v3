@@ -126,8 +126,9 @@ func _get_launch_parameters() -> String:
 		match OS.get_name():
 			"Windows":
 				return ""
-			"macOS":
-				return ""
+#			"macOS":
+# just use standard cmd line args
+#				return ""
 			"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
 				return ""
 			"Android":
@@ -165,7 +166,17 @@ func _get_launch_parameters_editor() -> String:
 		push_warning("No EngineDebugger active when running from editor")
 		return ""
 		
-	var lp = ProjectSettings.get_setting("addons/omg-launch_control/launch_parameter")
+	var args = OS.get_cmdline_args()
+	if args.size() > 0:
+		var scene = args[ 0 ]
+		print("Startup Scene: ", scene)
+		args.remove_at( 0 )
+	for s in args:
+		Events.broadcast_global_message( s )
+
+	var lp = " ".join(args)
+		
+#	var lp = ProjectSettings.get_setting("addons/omg-launch_control/launch_parameter")
 	print("Launch Parameter >%s<" % lp )
 
 # Bad idea!	

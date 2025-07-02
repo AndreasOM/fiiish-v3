@@ -44,15 +44,16 @@ jobs:
       - name: Choose runner
         id: choose_runner
         run: |
-          if [[ \
-            ${{ inputs.build_type }} == 'macos' \
-            || ${{ inputs.build_type }} == 'ios' \
-          ]]
-          then
-            echo "runner=macos-14" >> "$GITHUB_OUTPUT"
-          else
-            echo "runner=ubicloud-standard-4" >> "$GITHUB_OUTPUT"
-          fi    
+          case ${{ inputs.build_type }} in
+            ios*)
+              echo "runner=macos-14" >> "$GITHUB_OUTPUT"
+              ;;
+
+            *)
+              # Note: macos builds fine on ubuntu
+              echo "runner=ubicloud-standard-4" >> "$GITHUB_OUTPUT"
+              ;;
+          esac
   build:
     needs: [prepare]
     runs-on: ${{ needs.prepare.outputs.runner }}

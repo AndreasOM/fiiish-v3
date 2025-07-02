@@ -35,7 +35,8 @@ func _on_launch_button_triggered(launch_button: OMG_LaunchControl_LaunchButton) 
 	var parameter = launch_button.config.parameter
 	
 
-	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", parameter)
+#	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", parameter)
+	ProjectSettings.set_setting("editor/run/main_run_args", parameter)
 	ProjectSettings.save()
 
 	EditorInterface.play_main_scene()

@@ -7,7 +7,7 @@
 
 
 - [ ] Feature: OMG Launch Control
-	- [ ] Task: Use editor/run/main_run_args to pass launch_parameters
+	- [ ] Task: Remember main_run_args when overwriting them
 	- [ ] Task: Use EditorDebuggerSession.started signal to clear launch_parameters
 	- [+] Task: Experiment with using session stopped for clearing launch parameters
 
@@ -158,6 +158,7 @@
 #### S05E11
 - [x] #offstream Task: Create itch.io page for **classic**
 - [x] Task: Create export settings for -classic versions
+- [x] Task: Use editor/run/main_run_args to pass launch_parameters
 
 ### 2025-07-01
 #### S05E10

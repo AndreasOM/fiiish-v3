@@ -11,7 +11,8 @@ class OMG_LaunchControl_EditorDebuggerPlugin extends EditorDebuggerPlugin:
 		if message == "omg-launch_control:launch_parameter_used":
 			#get_session(session_id).send_message("my_plugin:echo", data)
 			print("launch_parameter_used:", data)
-			ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", "")
+			# ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", "")
+			ProjectSettings.set_setting("editor/run/main_run_args", "")
 			ProjectSettings.save()
 
 			return true
