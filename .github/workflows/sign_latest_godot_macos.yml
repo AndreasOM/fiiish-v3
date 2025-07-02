@@ -38,7 +38,15 @@ jobs:
           BUILD_TYPE=${{ inputs.build_type }}
           LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
           S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
-          APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-v3.app"
+          case ${{ inputs.build_type }} in
+            *-classic)
+              APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-classic.app"
+              ;;
+            *)
+              APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-v3.app"
+              ;;
+          esac
+          
           #
           # put into github env
           #

@@ -102,6 +102,16 @@ jobs:
               ;;
           esac
 
+          case ${{ inputs.build_type }} in
+            *-classic)
+              echo "BINARY_NAME=fiiish-classic" >> "$GITHUB_ENV"
+              ;;
+            *)
+              echo "BINARY_NAME={{ vars.PROJECT }}" >> "$GITHUB_ENV"
+              ;;
+          esac
+
+
           VERSION=$(git tag --points-at HEAD)
           if [[ ${VERSION} == "" ]]
           then
@@ -221,7 +231,7 @@ jobs:
             --headless \
             --export-debug \
             ${{ env.BUILD_TYPE }} \
-            export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}${{ env.BINARY_EXTENSION }} \
+            export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY_NAME }}${{ env.BINARY_EXTENSION }} \
             --quit #
 
           # || exit 0
@@ -245,7 +255,7 @@ jobs:
         if: ${{ env.TARGET == 'ios' }}
         run: |
           xcodebuild \
-            -project ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj \
+            -project ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY_NAME }}${{ env.BINARY_EXTENSION }} \
             -sdk iphoneos \
             -scheme "${{ env.PROJECT }}" \
             -configuration "Release" \
@@ -258,9 +268,9 @@ jobs:
         run: |
           xcodebuild \
             -archivePath "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}.xcarchive" \
-            -project ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.xcodeproj \
+            -project ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY_NAME }}${{ env.BINARY_EXTENSION }} \
             -sdk iphoneos \
-            -scheme "${{ env.PROJECT }}" \
+            -scheme "${{ env.BINARY_NAME }}" \
             -configuration "Release" \
             archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 

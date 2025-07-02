@@ -5,6 +5,6 @@ No highscores, no achievements, no skill upgrades.
 No Adventures, no Arcade. No scares.
 
 No menu!
-Check [url]https://games.omni-mad.com/fiiish-v3/kidsmode.html[/url] on how to disable KidsMode.
+Check [url]https://games.omnimad.net/games/fiiish-v3/kidsmode/[/url] on how to disable KidsMode.
 
 You main progress is save, and will be waiting for you when you leave KidsMode.
