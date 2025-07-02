@@ -1,5 +1,5 @@
-name: 🏛️ Classic - 🔨 Build
-run-name: 🏛️ Classic - 🔨 Build ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
+name: 🏛️ 🪐 🔨 Classic - All - Build
+run-name: 🏛️ 🪐 🔨 Classic - All - Build ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
   workflow_call:

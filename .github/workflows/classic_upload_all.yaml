@@ -1,5 +1,5 @@
-name: 🏛️🪐💾 Classic - All - Upload Latest
-run-name: 🏛️🪐💾 Classic - All - Upload Latest Build ${{ vars.PROJECT }} - by @${{ github.actor }}
+name: 🏛️ 🪐 💾 Classic - All - Upload Latest
+run-name: 🏛️ 🪐 💾 Classic - All - Upload Latest Build ${{ vars.PROJECT }} - by @${{ github.actor }}
 on: 
   workflow_dispatch:
 

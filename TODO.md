@@ -3,7 +3,7 @@
 ## In Progress
 
 - [ ] Task: Upload (and sign) all latest classic builds
-- [ ] Task: Upload classic builds to itch.io
+- [ ] Task: Sign and upload classic version for iOS
 - [ ] Task: Patch v3 -> classic in app/binary name when building classic
 
 - [ ] Feature: OMG Launch Control
@@ -17,7 +17,6 @@
 
 ## Todo
 
-- [ ] Task: Sign and upload classic version for iOS
 
 - [ ] Task: Create **classic** loading/title-image
 
@@ -162,6 +161,7 @@
 - [x] Task: Use EditorDebuggerSession.stopped signal to clear main_run_args
 - [+] Task: Experiment with using session stopped for clearing launch parameters
 - [x] Task: Build -classic version on CI system
+- [x] Task: Upload classic builds to itch.io
 
 ### 2025-07-01
 #### S05E10
