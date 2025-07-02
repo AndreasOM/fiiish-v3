@@ -6,7 +6,7 @@ on:
       build_type:
         description: 'The type of build'
         required: true
-        default: 'web-demo'
+        default: 'linux'
         type: choice
         options:
           - 'linux'
@@ -52,15 +52,15 @@ jobs:
           # Check if we need a signed binary
           case ${{ inputs.build_type }} in
             mac*)
-              echo "SIGNED=true" >> "$GITHUB_OUTPUT"
+              echo "SIGNED=true" >> "$GITHUB_ENV"
               echo "ITCHIO_PLATFORM=osx-universal" >> "$GITHUB_ENV"
               ;;
             linux*)
-              echo "SIGNED=false" >> "$GITHUB_OUTPUT"
+              echo "SIGNED=false" >> "$GITHUB_ENV"
               echo "ITCHIO_PLATFORM=linux-universal" >> "$GITHUB_ENV"
               ;;
             windows*)
-              echo "SIGNED=false" >> "$GITHUB_OUTPUT"
+              echo "SIGNED=false" >> "$GITHUB_ENV"
               echo "ITCHIO_PLATFORM=windows-universal" >> "$GITHUB_ENV"
               ;;
             *)
@@ -71,10 +71,10 @@ jobs:
 
           case ${{ inputs.build_type }} in
             *-classic)
-              echo "ITCHIO_PROJECT=omni-mad/fiiish-classic" >> "$GITHUB_OUTPUT"
+              echo "ITCHIO_PROJECT=omni-mad/fiiish-classic" >> "$GITHUB_ENV"
               ;;
             *)
-              echo "ITCHIO_PROJECT=omni-mad/${{ vars.PROJECT }}" >> "$GITHUB_OUTPUT"
+              echo "ITCHIO_PROJECT=omni-mad/${{ vars.PROJECT }}" >> "$GITHUB_ENV"
               ;;
           esac
 
