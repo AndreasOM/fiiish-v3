@@ -14,6 +14,10 @@ then
 else
 	version=v0.0.0
 	suffix="unknown"
+	echo "Contains HEAD"
+	git tag -l --contains HEAD
+	echo "Points At HEAD"
+	git tag --points-at HEAD
 fi
 echo version ${version}
 echo build ${build}

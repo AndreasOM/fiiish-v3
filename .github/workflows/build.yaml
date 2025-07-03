@@ -71,7 +71,7 @@ jobs:
           sparse-checkout: |
             .github
             godot
-          fetch-depth: 1
+          fetch-depth: 10
 
       - name: Create variables
         run: |
@@ -117,8 +117,16 @@ jobs:
           VERSION=$(git tag --points-at HEAD)
           if [[ ${VERSION} == "" ]]
           then
-           echo "NO VERSION -- using v0.0.0"
-           VERSION="v0.0.0"
+            echo "NO VERSION -- using v0.0.0"
+            VERSION="v0.0.0"
+            echo "Contains HEAD"
+            git tag -l --contains HEAD
+            echo "Points At HEAD"
+            git tag --points-at HEAD
+            echo "Commit"
+            git rev-parse --short HEAD
+            echo "Log"
+            git log --oneline -n 10
           fi
           if [[ ${VERSION} != v* ]]
           then

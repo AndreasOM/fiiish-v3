@@ -13,6 +13,7 @@
 
 ## Todo
 
+- [ ] Task: Classic is using wrong name in menui, but correct window title
 - [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
 - [ ] #polish Task: Improve and cleanup url parsing, and handling
 
