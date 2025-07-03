@@ -9,16 +9,13 @@ var _total_distance: int = 0
 var _best_distance: int = 0
 var _play_count: int = 0
 
-var _isDirty: bool = false
+var _is_dirty: bool = false
 
 ## version 4
 var _skill_points_gained: int = 0
 var _skill_points_used: int = 0
 
 ## version 5
-
-#var _skills = {
-#}
 
 var _skills: HashMap = HashMap.new(
 	SkillIds.Id.NONE,
@@ -114,14 +111,14 @@ func reset() -> void:
 	_completed_achievements.clear()
 	_collected_achievements.clear()
 	_last_achievements.clear()
-	self._isDirty = true
+	self._is_dirty = true
 	
 func reset_local_leaderboards() -> void:
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_COINS)
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_DISTANCE)
 	_best_distance = 0
 	_prev_best_distance = 0
-	_isDirty = true
+	_is_dirty = true
 	
 func save_with_suffix( suffix: String ) -> void:
 	var p = get_save_path( suffix )
@@ -235,7 +232,7 @@ func best_distance() -> int:
 	
 func increase_play_count() -> int:
 	self._play_count += 1
-	self._isDirty = true
+	self._is_dirty = true
 	return self._play_count
 
 func play_count() -> int:
@@ -301,13 +298,13 @@ func enable_main_menu() -> void:
 	if _is_main_menu_enabled:
 		return
 	_is_main_menu_enabled = true
-	_isDirty = true
+	_is_dirty = true
 
 func disable_main_menu() -> void:
 	if !_is_main_menu_enabled:
 		return
 	_is_main_menu_enabled = false
-	_isDirty = true
+	_is_dirty = true
 
 func is_cheat_enabled( id: CheatIds.Id ) -> bool:
 	return _cheats.has( id )
@@ -352,12 +349,12 @@ func add_completed_achievements( achievements: Array[ String ] ) -> void:
 		var s = SerializableString.new( a )
 		if !self._completed_achievements.has( s ):
 			self._completed_achievements.push_back( s )
-			self._isDirty = true
+			self._is_dirty = true
 
 func reset_achievements() -> void:
 	self._completed_achievements.clear()
 	self._collected_achievements.clear()
-	self._isDirty = true
+	self._is_dirty = true
 	
 func completed_achievements() -> Array[ String ]:
 	var r: Array[ String ] = []
