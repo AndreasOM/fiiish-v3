@@ -7,29 +7,34 @@
 
 ## Next
 
+- [ ] Task: Create 1 v3 zone for testing
+- [ ] Task: Confirm only classic zones load in classic
+
 
 ## Todo
+
+- [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
+- [ ] #polish Task: Improve and cleanup url parsing, and handling
 
 - [ ] Story: General cleanup pass
 
 
 - [ ] Task: Upload (and sign) all latest classic builds
 - [ ] Task: Sign and upload classic version for iOS
+	- [ ] #offstream Task: Create provisioning profile for classic iOS
 
 
 - [ ] Feature: KidsMode
 	- [ ] Story: Implement external KidsMode enabling & disabling
-		- [ ] Task: Handle custom scheme for macOS - maybe already done?!
+		- [?] Task: Handle custom scheme for macOS - maybe already done?!!!!
 	- [?] Story: Plugin for iOS lifecycle handling
-		- [?] Task: Get actual command line parameters, and handle them
+		- [?] Task: Get actual command line parameters, and handle them??
 
 
 
 ## V3.8.0 (revised) - ETA: 07/11
 
 - [ ] Feature: Release a classic version via CI/CD
-	- [ ] Task: Create 1 v3 zone for testing
-	- [ ] Task: Only load classic zones in classic
 	- [ ] Task: Verify all entities used in classic zones exist
 
 - [ ] #reach Feature: Achievements V2.0
@@ -41,8 +46,6 @@
 
 - [ ] #reach Feature: Zone Editor (external v0.1)
 
-- [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
-- [ ] #polish Task: Improve and cleanup url parsing, and handling
 
 ## V3.8.0 (original) - ETA: 06/25 - ZoneEditor (external), Achievements V2, new Zones & Campaigns
 
