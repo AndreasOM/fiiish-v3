@@ -1,0 +1,10 @@
+[[actions]]
+name = "Play"
+path = "fiiish-v3.app"
+platform = "osx"
+
+[[actions]]
+name = "Disable KidsMode"
+path = "fiiish-v3.app"
+platform = "osx"
+args = ["disableKidsMode"]

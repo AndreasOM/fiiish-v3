@@ -295,6 +295,11 @@ jobs:
           cd godot
           find export
 
+      - name: Add .itch.toml
+        continue-on-error: true
+        run: |
+            cp godot/${{ env.BINARY_NAME }}.itch.toml ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/.itch.toml
+            
       - name: Bundle artifact
         run: |
           cd godot/export

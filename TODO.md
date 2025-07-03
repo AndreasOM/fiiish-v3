@@ -2,9 +2,7 @@
 
 ## In Progress
 
-
-- [ ] Task: Upload (and sign) all latest classic builds
-- [ ] Task: Sign and upload classic version for iOS
+- [ ] Task: Add Disable KidsMode to itch launcher
 
 
 
@@ -14,6 +12,9 @@
 ## Todo
 
 - [ ] Task: Create classic icon
+
+- [ ] Task: Upload (and sign) all latest classic builds
+- [ ] Task: Sign and upload classic version for iOS
 
 
 - [ ] Feature: KidsMode
@@ -152,6 +153,11 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+
+### 2025-08-3
+#### S05E12
+- [x] Bug: v3.1.4 vs v3.2.0 - Malware? Codesigning -> Certificate was revoked, deploy new one
 
 ### 2025-07-02
 #### S05E11
