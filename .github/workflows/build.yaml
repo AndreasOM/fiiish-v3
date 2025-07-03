@@ -71,11 +71,12 @@ jobs:
           sparse-checkout: |
             .github
             godot
-          fetch-depth: 10
+          fetch-depth: 1
+          fetch-tags: true
 
-      - name: Fetch tags
-        run: |
-          git fetch origin --tags
+#      - name: Fetch tags
+#        run: |
+#          git fetch origin --tags
 
       - name: Create variables
         run: |
