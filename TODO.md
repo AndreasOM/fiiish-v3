@@ -2,7 +2,7 @@
 
 ## In Progress
 
-- [ ] Story: General cleanup pass
+
 
 
 ## Next
@@ -10,7 +10,8 @@
 
 ## Todo
 
-- [ ] Task: Create classic icon
+- [ ] Story: General cleanup pass
+
 
 - [ ] Task: Upload (and sign) all latest classic builds
 - [ ] Task: Sign and upload classic version for iOS
@@ -271,6 +272,7 @@
 - [x] CI/CD: Bake version info into splash screen
 - [x] CI/CD: Unify VERSION to not include 'v'
 - [x] Assets: Add new Test Rock Middle A
+- [x] Task: Create and use classic icon (placeholder)
 
 ### 2025-05-30
 #### S04E21
