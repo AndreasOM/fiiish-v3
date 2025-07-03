@@ -73,6 +73,10 @@ jobs:
             godot
           fetch-depth: 10
 
+      - name: Fetch tags
+        run: |
+          git fetch origin --tags
+
       - name: Create variables
         run: |
           PROJECT=${{ vars.PROJECT }}
