@@ -1,5 +1,5 @@
 name: Update Web
-run-name: Update Web ${{ vars.PROJECT }} by @${{ github.actor }}
+run-name: Update Web ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 
 on: 
   workflow_dispatch:
