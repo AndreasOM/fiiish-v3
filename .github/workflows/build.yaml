@@ -122,7 +122,7 @@ jobs:
           fi
           if [[ ${VERSION} != v* ]]
           then
-            echo "Invalid version. Use vx.y.z"
+            echo "Invalid version. Use vx.y.z was ${VERSION}"
             exit 255
           fi
           VERSION=${VERSION#"v"}
