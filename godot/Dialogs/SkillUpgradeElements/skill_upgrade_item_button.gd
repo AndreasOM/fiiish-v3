@@ -27,18 +27,18 @@ func _ready() -> void:
 		State.Disabled:
 			texture_normal = disabledTexture
 
-func setId( id: int ):
+func set_id( id: int ) -> void:
 	_id = id
 
-func setEnabled():
+func set_state_enabled() -> void:
 	state = State.Enabled
 	texture_normal = enabledTexture
 
-func setUnlockable():
+func set_state_unlockable() -> void:
 	state = State.Unlockable
 	texture_normal = unlockableTexture
 
-func setDisabled():
+func set_state_disabled() -> void:
 	state = State.Disabled
 	texture_normal = disabledTexture
 	

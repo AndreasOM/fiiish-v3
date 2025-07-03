@@ -14,16 +14,16 @@ func _ready() -> void:
 	pass
 
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
-func open( duration: float):
+func open( duration: float) -> void:
 	fade_in( duration )
 		
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeableContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeableContainer.fade_in( duration )
 
 
@@ -36,10 +36,10 @@ func _on_confirm_button_pressed() -> void:
 	confirmed.emit()
 	close( 0.3 )
 	
-func set_title( title: String):
+func set_title( title: String) -> void:
 	%TitleLabel.text = title
 
-func set_description( description: String):
+func set_description( description: String) -> void:
 	%DescriptionLabel.text = description
 
 func set_mode( mode: Mode):

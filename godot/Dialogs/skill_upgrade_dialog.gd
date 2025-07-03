@@ -19,10 +19,10 @@ func _ready() -> void:
 
 #	print("Skill Point Cost: 240-340 -> %d" % [ t ]) 
 
-func set_game( g: Game):
+func set_game( g: Game) -> void:
 	self.game = g
 	
-func _regenerate_skill_upgrade_items():
+func _regenerate_skill_upgrade_items() -> void:
 	var p = %SkillUpgradeItemContainer
 	for c in p.get_children():
 		p.remove_child( c )
@@ -44,7 +44,7 @@ func _regenerate_skill_upgrade_items():
 		
 		p.add_child( sui )
 
-func _update_buy_skill_point_button():
+func _update_buy_skill_point_button() -> void:
 	var p = game.get_player()
 	var owned_skill_points = p.gained_skill_points()
 	var cost = _get_price_for_skill_point( owned_skill_points )
@@ -53,24 +53,24 @@ func _update_buy_skill_point_button():
 	else:
 		%BuySkillPointsButton.disabled = true
 		
-func _update_skill_point_cost():
+func _update_skill_point_cost() -> void:
 	var p = game.get_player()
 	var owned_skill_points = p.gained_skill_points()
 	var cost = _get_price_for_skill_point( owned_skill_points )
 	%SkillPointCoinsCostLabel.text = "%d" % cost
 	
-func _update_skill_points():
+func _update_skill_points() -> void:
 	var p = game.get_player()
 	var sp = p.available_skill_points()
 	%SkillPointLabel.text = "%d" % sp
 
-func _update_coins():
+func _update_coins() -> void:
 	var p = game.get_player()
 	var sp = p.coins()
 	%CoinsLabel.text = "%d" % sp
 
 	
-func _update_skill_upgrade_items():
+func _update_skill_upgrade_items() -> void:
 	var p = game.get_player()
 	var scm = game.get_skill_config_manager()
 	var skill_ids = scm.get_skill_ids()
@@ -79,11 +79,11 @@ func _update_skill_upgrade_items():
 		if sui == null:
 			continue
 		var current = p.get_skill_level( id )
-		sui.setCurrent( current )
-		sui.setUnlockable( current+1 )
+		sui.set_current( current )
+		sui.set_unlockable( current+1 )
 		
 
-func _prepare_fade_in():
+func _prepare_fade_in() -> void:
 	var scm = game.get_skill_config_manager()
 	var skill_ids = scm.get_skill_ids()
 	for id in skill_ids:
@@ -92,25 +92,25 @@ func _prepare_fade_in():
 			continue
 		sui.prepare_fade_in()
 	
-func _update_all():
+func _update_all() -> void:
 	_update_skill_points()
 	_update_coins()
 	_update_skill_upgrade_items()
 	_update_skill_point_cost()
 	_update_buy_skill_point_button()
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 	_dialog_manager.close_dialog( DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG, 0.3 )
 
-func open( duration: float):
+func open( duration: float) -> void:
 	fade_in( duration )
 		
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	$FadeableCenterContainer.fade_out( duration )
 	game.save_player()
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	$FadeableCenterContainer.fade_in( duration )
 	_update_all()
 	_prepare_fade_in()
@@ -178,12 +178,12 @@ func _get_skill_upgrade_item_for_skill_id( id: SkillIds.Id ) -> SkillUpgradeItem
 	return null
 
 
-func _on_skill_reset_confirmed():
+func _on_skill_reset_confirmed() -> void:
 	var p = game.get_player()
 	p.reset_skills()
 	_update_all()
 
-func _on_skill_reset_cancelled():
+func _on_skill_reset_cancelled() -> void:
 	pass
 
 func _on_reset_skill_points_button_pressed() -> void:

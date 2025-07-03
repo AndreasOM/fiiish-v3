@@ -12,7 +12,7 @@ var _start_value: float = 0.0
 var _end_value: float = 0.0
 var _easing_function: EasingFunction = EasingFunction.LINEAR
 
-func _init( start_time: float, end_time: float, start_value: int, end_value: int, easing_function: EasingFunction ):
+func _init( start_time: float, end_time: float, start_value: int, end_value: int, easing_function: EasingFunction ) -> void:
 	_start_time = start_time
 	_end_time = end_time
 	_start_value = start_value

@@ -103,10 +103,10 @@ func player_changed( player: Player ) -> void:
 	if self._achievement_counter_manager != null:
 		self._achievement_counter_manager.reset_counters()
 
-func set_invincible( invicible: bool ):
+func set_invincible( invicible: bool ) -> void:
 	self.fish_manager.set_invincible( invicible )
 	
-func push_initial_zones():
+func push_initial_zones() -> void:
 	# var initial_zones = [ "0000_Start", "0000_ILoveFiiish" ]
 	var initial_zones = [ "0000_ILoveFiiish" ]
 	for iz in initial_zones:
@@ -134,7 +134,7 @@ func _process(delta: float) -> void:
 			if !self.has_test_zone():
 				var d = distance_in_m();
 				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.DISTANCE_IN_SINGLE_RUN, d )
-				var old_d = self.game.get_player().totalDistance()
+				var old_d = self.game.get_player().total_distance()
 				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_DISTANCE, old_d + d )
 				var c = coins()
 				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.COINS_IN_SINGLE_RUN, c )
@@ -153,10 +153,10 @@ func _process(delta: float) -> void:
 #	if !_paused:
 #		_physics_process_pickups(delta)
 				
-func pause():
+func pause() -> void:
 	self._paused = true
 
-func resume():
+func resume() -> void:
 	self._paused = false
 
 func spawn_zone( autospawn_on_zone_end: bool = false ) -> void:
@@ -182,7 +182,7 @@ func prepare_respawn() -> void:
 	else:
 		self._zone_config_manager.push_next_zone_by_filename( self._test_zone_filename )
 	
-func goto_next_zone():
+func goto_next_zone() -> void:
 	# probably not used for a long time
 	print("Next Zone")
 	self.cleanup()

@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 			_fadeSpeed = 0.0
 		volume_db = linear_to_db(_fade)
 		
-func fadeIn( duration: float):
+func fade_in( duration: float) -> void:
 	print("Unpausing stream")
 	set_stream_paused( false )
 	if ! is_playing():
@@ -33,7 +33,7 @@ func fadeIn( duration: float):
 		return
 	_fadeSpeed = 1.0/duration
 	
-func fadeOut( duration: float):
+func fade_out( duration: float) -> void:
 	if duration <= 0.0:
 		_fade = 0.0
 		set_stream_paused( true )

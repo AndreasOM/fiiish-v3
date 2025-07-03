@@ -70,10 +70,10 @@ func _ready() -> void:
 			if dialog.has_method( "set_game" ):
 				dialog.set_game( game );
 
-func on_dialog_closing( dialog: Dialog ):
+func on_dialog_closing( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_closing %s" % dialog.name )
 
-func on_dialog_closed( dialog: Dialog ):
+func on_dialog_closed( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_closed %s" % dialog.name )
 	dialog.visible = false
 	if dialog.get_parent_control() == self:
@@ -84,18 +84,18 @@ func on_dialog_closed( dialog: Dialog ):
 	if id != null:
 		_dialogs.erase( id )
 
-func on_dialog_opening( dialog: Dialog ):
+func on_dialog_opening( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_opening %s" % dialog.name )
 	dialog.visible = true
 
-func on_dialog_opened( dialog: Dialog ):
+func on_dialog_opened( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_opened %s" % dialog.name )
 	
 func _on_skills_upgrade_button_pressed() -> void:
 	print("DIALOG_MANAGER: Skills upgrade button pressed")
 	open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
 
-func toggle_dialog( id: DialogIds.Id, duration: float):
+func toggle_dialog( id: DialogIds.Id, duration: float) -> void:
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog == null:
 		# dialog = self.open_dialog(id, 0.3)
@@ -129,7 +129,7 @@ func open_dialog_v1( id: DialogIds.Id, duration: float) -> Dialog:
 		push_warning("DIALOG_MANAGER: Dialog %d not found for open" % id )
 		return null
 
-func close_dialog( id: DialogIds.Id, duration: float):
+func close_dialog( id: DialogIds.Id, duration: float) -> void:
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog == null:
 		print("DIALOG_MANAGER: Dialog %d not found for close" % id )
@@ -143,7 +143,7 @@ func close_dialog( id: DialogIds.Id, duration: float):
 	# self.remove_child( dialog )
 	# _dialogs.erase( id )
 
-func close_dialog_v1( id: DialogIds.Id, duration: float):
+func close_dialog_v1( id: DialogIds.Id, duration: float) -> void:
 	var dialog = _dialogs.get( id ) as Dialog
 	if dialog != null:
 		print("DIALOG_MANAGER: Closing dialog %d" % id)

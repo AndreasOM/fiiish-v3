@@ -17,27 +17,27 @@ func _ready() -> void:
 	#$TotalLabel.add_theme_color_override("font_color", color)
 	_update_look()
 
-func _set_was_best( b: bool ):
+func _set_was_best( b: bool ) -> void:
 	var needs_update = was_best != b
 	was_best = b
 	if needs_update:
 		print("needs_update")
 		_update_look()
 
-func _update_look():
+func _update_look() -> void:
 	if totalLabel != null:
 		totalLabel.highlighted = was_best
 	
 func _process(_delta: float) -> void:
 	pass
 
-func setTotal( v: String ):
+func set_total( v: String ) -> void:
 	totalLabel.text = v
 	
-func setCurrent( v: String ):
+func set_current( v: String ) -> void:
 	currentLabel.text = v
 
-func clear():
+func clear() -> void:
 	totalLabel.text = ""
 	currentLabel.text = ""
 	self.was_best = false

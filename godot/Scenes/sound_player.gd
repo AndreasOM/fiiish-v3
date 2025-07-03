@@ -26,32 +26,32 @@ func _process(delta: float) -> void:
 			_fadeSpeed = 0.0
 		volume_db = linear_to_db(_fade)
 
-func load_clip(file: String):
+func load_clip(file: String) -> void:
 	stream = load(file)
 
-func set_amount( amount: int ):
+func set_amount( amount: int ) -> void:
 	max_polyphony = amount
 
-func set_min_seperation( min_seperation: float ):
+func set_min_seperation( min_seperation: float ) -> void:
 	_min_seperation = min_seperation
 
-func set_loop( loop: bool ):
+func set_loop( loop: bool ) -> void:
 	_loop = loop
 
-func trigger():
+func trigger() -> void:
 	if _time_since_last_triggered >= _min_seperation:
 		play()
 		fade_in( 0.3 )
 		_time_since_last_triggered = 0.0
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	if duration <= 0.0:
 		_fade = 0.0
 		stop()
 		return
 	_fadeSpeed = -1.0/duration
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	if duration <= 0.0:
 		_fade = 1.0
 		return

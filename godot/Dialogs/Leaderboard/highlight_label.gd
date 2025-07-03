@@ -11,12 +11,12 @@ var transition_duration: float = 0.6
 
 @onready var tween: ThemeTypeVariationTween = ThemeTypeVariationTween.new()
 
-func set_variation_normal( v: StringName ):
+func set_variation_normal( v: StringName ) -> void:
 	variation_normal = v
 	if !highlighted:
 		_update_look()
 
-func set_variation_highlighted( v: StringName ):
+func set_variation_highlighted( v: StringName ) -> void:
 	variation_highlighted = v
 	if highlighted:
 		_update_look()
@@ -72,16 +72,16 @@ func _get_property_list() -> Array[Dictionary]:
 		},
 	]
 	
-func _ready():
+func _ready() -> void:
 	_update_look()
 
-func set_highlighted( h: bool ):
+func set_highlighted( h: bool ) -> void:
 	highlighted = h
 	if is_inside_tree():
 	# if get_tree() != null:
 		_update_look()
 
-func _update_look():
+func _update_look() -> void:
 	if !is_inside_tree():
 		#push_warning("Not inside tree")
 		return

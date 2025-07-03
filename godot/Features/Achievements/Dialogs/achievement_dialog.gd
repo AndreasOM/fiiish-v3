@@ -7,22 +7,22 @@ func _ready() -> void:
 	if self._dialog_manager != null:
 		self.achievement_view.game_manager = self._dialog_manager.game.get_game_manager()
 	
-func set_dialog_manager( dialog_manager: DialogManager ):
+func set_dialog_manager( dialog_manager: DialogManager ) -> void:
 	super( dialog_manager )
 	if self.achievement_view != null:
 		self.achievement_view.game_manager = self._dialog_manager.game.get_game_manager()
 		
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
-func open( duration: float):
+func open( duration: float) -> void:
 	self.achievement_view.recreate_achievements()
 	fade_in( duration )
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeablePanelContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeablePanelContainer.fade_in( duration )
 
 func _on_close_button_pressed() -> void:

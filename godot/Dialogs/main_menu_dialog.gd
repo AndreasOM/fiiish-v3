@@ -37,27 +37,27 @@ func _update_entries() -> void:
 		self.game_mode.state = MainMenuEntry.State.HIDDEN
 		self.zone_editor.state = MainMenuEntry.State.HIDDEN
 	
-func toggle( _duration: float ):
+func toggle( _duration: float ) -> void:
 	self._update_entries()
 	# toggle_fade( duration )
 	toggle_fade( fade_duration )
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 #	if duration > 0.0:
 #		self.animation_player.play( &"FadeIn", -1.0, -1.0/fade_duration, false )
 
-func open( duration: float):
+func open( duration: float) -> void:
 	self._update_entries()
 		
 	fade_in( duration )
 #	if duration > 0.0:
 #		$AnimationPlayer.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
 
-func toggle_fade( duration: float ):
+func toggle_fade( duration: float ) -> void:
 	$MainMenuFadeableContainer.toggle_fade( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	$MainMenuFadeableContainer.fade_in( duration )
 
 func fade_out( duration: float ):

@@ -21,34 +21,34 @@ signal log_event( text: String )
 
 signal kids_mode_changed( enabled: bool )
 
-func broadcast_game_state_changed( state: Game.State ):
+func broadcast_game_state_changed( state: Game.State ) -> void:
 	game_state_changed.emit( state )
 
-func broadcast_zone_changed( zone ):
+func broadcast_zone_changed( zone ) -> void:
 	zone_changed.emit( zone )
 	
-func broadcast_zone_finished():
+func broadcast_zone_finished() -> void:
 	zone_finished.emit()
 
-func broadcast_settings_changed( ):
+func broadcast_settings_changed( ) -> void:
 	settings_changed.emit()
 
-func broadcast_cheats_changed( ):
+func broadcast_cheats_changed( ) -> void:
 	cheats_changed.emit()
 
-func broadcast_game_paused( is_paused: bool ):
+func broadcast_game_paused( is_paused: bool ) -> void:
 	game_paused.emit( is_paused )
 
-func broadcast_zone_edit_enabled( ):
+func broadcast_zone_edit_enabled( ) -> void:
 	zone_edit_enabled.emit()
 
-func broadcast_zone_edit_disabled( ):
+func broadcast_zone_edit_disabled( ) -> void:
 	zone_edit_disabled.emit()
 
-func broadcast_zone_test_enabled( filename: String ):
+func broadcast_zone_test_enabled( filename: String ) -> void:
 	zone_test_enabled.emit( filename )
 
-func broadcast_zone_test_disabled( ):
+func broadcast_zone_test_disabled( ) -> void:
 	zone_test_disabled.emit()
 
 func broadcast_global_message( text: String ) -> void:

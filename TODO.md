@@ -2,8 +2,7 @@
 
 ## In Progress
 
-- [ ] Task: Add Disable KidsMode to itch launcher
-
+- [ ] Story: General cleanup pass
 
 
 ## Next
@@ -23,11 +22,6 @@
 	- [?] Story: Plugin for iOS lifecycle handling
 		- [?] Task: Get actual command line parameters, and handle them
 
-- [ ] #reach Task: Set skill level from script
-- [ ] #reach Task: Create Marketing Screenshots on CI system
-
-- [ ] Feature: OMG Launch Control
-	- [ ] Task: Remember main_run_args when overwriting them
 
 
 ## V3.8.0 (revised) - ETA: 07/11
@@ -86,6 +80,11 @@
 - [?] Task: Wait X frames from script
 - [ ] Task: Disable achievement progress from script
 - [ ] Task: Sort Launch Buttons by their sort order
+- [ ] #reach Task: Set skill level from script
+- [ ] #reach Task: Create Marketing Screenshots on CI system
+
+- [ ] Feature: OMG Launch Control
+	- [ ] Task: Remember main_run_args when overwriting them
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
@@ -158,6 +157,9 @@
 ### 2025-08-3
 #### S05E12
 - [x] Bug: v3.1.4 vs v3.2.0 - Malware? Codesigning -> Certificate was revoked, deploy new one
+- [x] Task: Add Disable KidsMode to itch launcher -> Needs itch launcher fixes
+- [x] Task: Ensure all functions have a return type
+- [x] Task: Ensure all function names are snake_case
 
 ### 2025-07-02
 #### S05E11

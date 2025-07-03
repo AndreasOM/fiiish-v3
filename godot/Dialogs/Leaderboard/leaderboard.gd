@@ -13,7 +13,7 @@ var _entries: SerializableArray = SerializableArray.new(
 # not serialized!
 var _last_added_entry_position = -1
 
-func _init( n: String, max_entries: int = 0 ):
+func _init( n: String, max_entries: int = 0 ) -> void:
 	self._name = n
 	self._max_entries = max_entries
 
@@ -31,7 +31,7 @@ func serialize( s: Serializer ) -> bool:
 	
 	return false
 		
-func set_name( n: String ):
+func set_name( n: String ) -> void:
 	self._name = n
 	
 func name() -> String:

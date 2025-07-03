@@ -124,19 +124,19 @@ func toast_pushed_out( toast: Control ) -> void:
 		var next_toast = self.toast_container.get_child(0)
 		self.push_out_toast( next_toast )
 		
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
-func open( duration: float):
+func open( duration: float) -> void:
 	Events.global_message.connect( _on_global_message )
 	Events.achievement_completed.connect( _on_achievement_completed )
 	Events.reward_received.connect( _on_reward_received )
 	fade_in( duration )
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeablePanelContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeablePanelContainer.fade_in( duration )
 
 func _on_fadeable_panel_container_on_faded_in() -> void:

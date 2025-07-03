@@ -4,7 +4,7 @@ class_name SkillConfigManager
 var _skill_ids: Array = []
 var _skills: Dictionary = {}
 
-func _init():
+func _init() -> void:
 	var sc = SkillConfig.new( SkillIds.Id.MAGNET, "Magnet" )
 	
 	sc.add_level( 0, SkillLevelConfig.new( 0 )
@@ -149,7 +149,7 @@ func _init():
 				)
 	self.add( sc )
 
-func add( skill_config: SkillConfig ):
+func add( skill_config: SkillConfig ) -> void:
 	var id = skill_config.skill_id()
 	self._skills[ id ] = skill_config
 	if !_skill_ids.has( id ):

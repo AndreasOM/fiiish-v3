@@ -17,17 +17,17 @@ var _disable_magnetic_duration: float = 0.0
 
 var _acceleration: Vector2 = Vector2.ZERO
 
-func set_velocity( velocity: Vector2 ):
+func set_velocity( velocity: Vector2 ) -> void:
 	_velocity = velocity
 	_velocity_change_duration = 0.0
 	
-func set_target_velocity( velocity: Vector2, duration: float ):
+func set_target_velocity( velocity: Vector2, duration: float ) -> void:
 	_start_velocity = _velocity
 	_target_velocity = velocity
 	_velocity_change_duration = duration
 	_velocity_change_time = 0.0
 
-func set_acceleration( acceleration: Vector2 ):
+func set_acceleration( acceleration: Vector2 ) -> void:
 	_acceleration = acceleration
 
 func is_alive() -> bool:
@@ -36,10 +36,10 @@ func is_alive() -> bool:
 func is_magnetic() -> bool:
 	return _disable_magnetic_duration <= 0.0
 	
-func disable_magnetic_for_seconds( duration: float ):
+func disable_magnetic_for_seconds( duration: float ) -> void:
 	_disable_magnetic_duration = duration
 	
-func collect():
+func collect() -> void:
 	pass
 
 func effect() -> PickupEffectIds.Id:

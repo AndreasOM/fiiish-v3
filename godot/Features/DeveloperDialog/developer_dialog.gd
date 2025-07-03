@@ -2,7 +2,7 @@ class_name DeveloperDialog
 extends Dialog
 
 
-func open( duration: float):
+func open( duration: float) -> void:
 	var _desktop_only: Array [ Control ] = [
 		%"1920x1080TextureButton",
 		%"960x540TextureButton",
@@ -18,19 +18,19 @@ func open( duration: float):
 			pass
 	fade_in( duration )
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
-func toggle( duration: float ):
+func toggle( duration: float ) -> void:
 	toggle_fade( duration )
 
-func toggle_fade( duration: float ):
+func toggle_fade( duration: float ) -> void:
 	%FadeablePanelContainer.toggle_fade( duration )
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeablePanelContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeablePanelContainer.fade_in( duration )
 
 func _on_fadeable_panel_container_on_faded_in() -> void:

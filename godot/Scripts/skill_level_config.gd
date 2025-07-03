@@ -9,7 +9,7 @@ var cost: int
 var effects: Dictionary = {} # [ SkillEffectIds.Id, float ]
 
 
-func _init( the_cost: int ):
+func _init( the_cost: int ) -> void:
 	self.cost = the_cost
 
 func add_effect( id: SkillEffectIds.Id, value: float) -> SkillLevelConfig:

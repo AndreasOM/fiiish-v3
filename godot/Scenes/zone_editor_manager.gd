@@ -56,7 +56,7 @@ var _right_boundary_entity: Entity = null
 func set_tool_id( tid: ZoneEditorToolIds.Id ) -> void:
 	tool_id = tid
 	
-func _ready():
+func _ready() -> void:
 	Events.zone_edit_enabled.connect(_on_zone_edit_enabled)
 	Events.zone_edit_disabled.connect(_on_zone_edit_disabled)
 	

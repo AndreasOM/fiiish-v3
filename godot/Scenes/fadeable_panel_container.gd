@@ -17,12 +17,12 @@ func _ready() -> void:
 	_save_original_z_index()
 	pass # Replace with function body.
 
-func _save_original_z_index():
+func _save_original_z_index() -> void:
 	if _original_z_index == RenderingServer.CANVAS_ITEM_Z_MIN:
 		print("Saving original z_index for %s: %d <= %d" % [ name, _original_z_index, z_index ] )
 		_original_z_index = z_index
 
-func _restore_original_z_index():
+func _restore_original_z_index() -> void:
 	if _original_z_index != RenderingServer.CANVAS_ITEM_Z_MIN:
 		print("Restoring original z_index for %s: %d => %d" % [ name, _original_z_index, z_index ] )
 		# z_index = _original_z_index
@@ -45,13 +45,13 @@ func _process(delta: float) -> void:
 		modulate.a = _alpha
 		
 
-func toggle_fade( duration: float ):
+func toggle_fade( duration: float ) -> void:
 	if _alpha == 0.0 || _alpha_speed < 0.0:
 		fade_in( duration )
 	elif _alpha == 1.0 || _alpha_speed > 0.0:
 		fade_out( duration )
 		
-func fade_in( duration: float):
+func fade_in( duration: float) -> void:
 	_restore_original_z_index()
 	# z_index = _original_z_index
 	visible = true
@@ -69,7 +69,7 @@ func fade_in( duration: float):
 		on_fading_in.emit( duration )
 		on_faded_in.emit()
 	
-func fade_out( duration: float):
+func fade_out( duration: float) -> void:
 #	mouse_filter = MOUSE_FILTER_IGNORE
 #	for c in get_children():
 #		c.mouse_filter = MOUSE_FILTER_IGNORE

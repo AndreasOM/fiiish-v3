@@ -38,11 +38,11 @@ func _set_state( s: State ) -> void:
 	state = s
 	self._update()
 	
-func _set_label( _label: String ):
+func _set_label( _label: String ) -> void:
 	label = _label
 	%RichTextLabel.text = self.label
 	
-func _ready():
+func _ready() -> void:
 	#print( "Label: %s" % self.label )
 	%RichTextLabel.text = self.label
 	%TextureButton.texture_normal = self.texture_normal

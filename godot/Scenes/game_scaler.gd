@@ -10,10 +10,10 @@ func _ready() -> void:
 #func _enter_tree() -> void:
 #	material.set_shader_parameter("tint", tint)
 
-func _on_viewport_resize():
+func _on_viewport_resize() -> void:
 	_fix_size()
 	
-func _fix_size():
+func _fix_size() -> void:
 	var screensize =  get_viewport().size
 	var a = screensize.x*1.0/screensize.y*1.0
 	var sx = screensize.x/1920.0

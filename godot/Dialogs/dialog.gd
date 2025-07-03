@@ -8,29 +8,28 @@ signal on_opened
 
 var _dialog_manager: DialogManager = null
 
-func set_dialog_manager( dialog_manager: DialogManager ):
+func set_dialog_manager( dialog_manager: DialogManager ) -> void:
 	_dialog_manager = dialog_manager
 	
-func toggle( _duration: float ):
+func toggle( _duration: float ) -> void:
 	push_warning("Toggle not implemented for dialog %s" % self.name )
+	
+func close( _duration: float ) -> void:
 	pass
 	
-func close( _duration: float ):
-	pass
-	
-func open( _duration: float ):
+func open( _duration: float ) -> void:
 	pass
 
-func closing():
+func closing() -> void:
 	on_closing.emit( self )
 	
-func closed():
+func closed() -> void:
 	on_closed.emit( self )
 
-func opening():
+func opening() -> void:
 	on_opening.emit( self )
 
-func opened():
+func opened() -> void:
 	on_opened.emit( self )
 	
 func _on_fading_in(_duration: float ) -> void:

@@ -9,7 +9,7 @@ enum Mode {
 	Write,
 }
 
-func _init():
+func _init() -> void:
 	_data = PackedByteArray()
 	
 func load_file(path: String) -> bool:
@@ -41,7 +41,7 @@ func save_file(path:String) -> bool:
 	
 	return true
 
-func ensure_space( c: int ):
+func ensure_space( c: int ) -> void:
 	var s = _data.size()
 	var p = self._pos
 	

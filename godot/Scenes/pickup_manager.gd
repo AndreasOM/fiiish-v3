@@ -13,7 +13,7 @@ var _coin_rain_counter: float = 0.0
 @export var game_manager: GameManager = null
 @export var entity_config_manager: EntityConfigManager = null
 
-func cleanup():
+func cleanup() -> void:
 	for p in %Pickups.get_children():
 		%Pickups.remove_child(p)
 		p.queue_free()
@@ -26,7 +26,7 @@ func kill_all() -> void:
 			continue
 		p.set_acceleration( g )
 
-func prepare_respawn():
+func prepare_respawn() -> void:
 	_coin_rain_duration = 0.0
 
 func _process(delta: float) -> void:
@@ -135,7 +135,7 @@ func _process_coins(delta: float) -> void:
 				_coin_rain_counter -= cc
 				spawn_coins(cc, f)
 
-func spawn_explosion( position: Vector2, fish: Fish ):
+func spawn_explosion( position: Vector2, fish: Fish ) -> void:
 	position.x += 50.0	
 	var count: int = floor(fish.get_skill_effect_value( SkillEffectIds.Id.COIN_EXPLOSION_AMOUNT, 1.0 ))
 	
@@ -164,11 +164,11 @@ func spawn_explosion( position: Vector2, fish: Fish ):
 			pickup.set_target_velocity( Vector2.ZERO, 1.0 * r )
 			pickup.disable_magnetic_for_seconds( 1.0 )
 
-func extend_coin_rain( duration: float, cps: float ):
+func extend_coin_rain( duration: float, cps: float ) -> void:
 	_coin_rain_duration += duration
 	_coin_rain_coins_per_second = cps
 
-func spawn_coins( count: int, fish: Fish ):
+func spawn_coins( count: int, fish: Fish ) -> void:
 	for i in count:
 		var p = _instantiate_coin( fish )
 		if p == null:
@@ -214,7 +214,7 @@ func pick_coin( fish: Fish ) -> EntityId.Id:
 		
 	return EntityId.Id.PICKUPCOIN
 
-func _log_special_coin():
+func _log_special_coin() -> void:
 	if _time_since_last_special_coin < 3.0:
 		_special_coin_streak += 1
 		# print("Coin streak %d" % _special_coin_streak)

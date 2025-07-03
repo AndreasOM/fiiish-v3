@@ -38,20 +38,20 @@ func _ready() -> void:
 	button_a.fade_in( 0.0 )
 	button_b.fade_out( 0.0 )
 
-func goto_a():
+func goto_a() -> void:
 	button_a.fade_in( toggle_duration )
 	button_b.fade_out( toggle_duration )
 
-func goto_b():
+func goto_b() -> void:
 	button_a.fade_out( toggle_duration )
 	button_b.fade_in( toggle_duration )
 
-func _on_a_pressed():
+func _on_a_pressed() -> void:
 	print("A")
 	goto_b()
 	toggled.emit(ToggleState.B)
 
-func _on_b_pressed():
+func _on_b_pressed() -> void:
 	print("B")
 	goto_a()
 	toggled.emit(ToggleState.A)

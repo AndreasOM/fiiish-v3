@@ -7,12 +7,12 @@ func run( _input: String, game: Game ) -> bool:
 	var cheat_id = CheatIds.Id.INVINCIBLE;
 	var player = game.get_player()
 	
-	if player.isCheatEnabled( cheat_id ):
+	if player.is_cheat_enabled( cheat_id ):
 		print("Disabled INVINCIBLE")
-		player.disableCheat( cheat_id )
+		player.disable_cheat( cheat_id )
 	else:
 		print("Enabled INVINCIBLE")
-		player.enableCheat( cheat_id )
+		player.enable_cheat( cheat_id )
 		
 	Events.broadcast_cheats_changed()
 	return true

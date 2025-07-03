@@ -60,7 +60,7 @@ func _ready() -> void:
 	_initial_modulate = self.modulate
 	%AnimatedSprite2D.play("swim")
 	
-func set_acceleration( acceleration: Vector2 ):
+func set_acceleration( acceleration: Vector2 ) -> void:
 	_acceleration = acceleration
 
 func pickup_range() -> float:
@@ -74,7 +74,7 @@ func magnet_speed() -> float:
 	# return _magnet_speed * _magnet_speed_factor * _magnet_speed_boost
 	return _magnet_speed_factor * _magnet_speed_boost
 
-func trigger_magnet_boost():
+func trigger_magnet_boost() -> void:
 	_magnet_range_boost = _skill_effect_set.get_value(SkillEffectIds.Id.MAGNET_BOOST_RANGE, 1.0)
 	_magnet_speed_boost = _skill_effect_set.get_value(SkillEffectIds.Id.MAGNET_BOOST_SPEED, 1.0)
 	_magnet_boost_duration = _skill_effect_set.get_value(SkillEffectIds.Id.MAGNET_BOOST_DURATION, 1.0)
@@ -104,13 +104,13 @@ func is_dead() -> bool:
 		Fish.State.RESPAWNING:      		return false;
 	return false
 		
-func _set_state( new_state: Fish.State ):
+func _set_state( new_state: Fish.State ) -> void:
 	if new_state == self.state:
 		return
 	self.state = new_state
 	state_changed.emit( new_state )
 
-func _goto_swimming():
+func _goto_swimming() -> void:
 	_set_state( Fish.State.SWIMMING )
 	if Input.is_action_pressed("swim_down"):
 		self.direction = Direction.DOWN
@@ -124,7 +124,7 @@ func _goto_dying() -> void:
 	_set_state( Fish.State.DYING )
 	%AnimatedSprite2D.play("dying")
 
-func _goto_respawning():
+func _goto_respawning() -> void:
 	_set_state( Fish.State.RESPAWNING )
 	self.transform.origin.y = 0.0
 	self.transform.origin.x = -1200.0
@@ -132,7 +132,7 @@ func _goto_respawning():
 	%AnimatedSprite2D.play("swim")
 		
 
-func toggle_mode():
+func toggle_mode() -> void:
 	match self.mode:
 		Mode.PLAY:
 			self.mode = Mode.TEST
@@ -195,7 +195,7 @@ func _process(delta: float) -> void:
 			pass
 	self._process_always( delta )
 	
-func _process_mode_play(delta: float) -> void:		
+func _process_mode_play(delta: float) -> void:
 	if Input.is_key_pressed(KEY_M):
 		self.toggle_mode()
 	match self.state:
@@ -313,7 +313,7 @@ func set_skill_effect_set( ses: SkillEffectSet ) -> void:
 func get_skill_effect_value( skill_effect_id: SkillEffectIds.Id, default: float) -> float:
 	return _skill_effect_set.get_value( skill_effect_id, default)
 
-func set_invincible( invicible: bool ):
+func set_invincible( invicible: bool ) -> void:
 	if self._is_invincible == invicible:
 		return
 	if invicible:

@@ -10,7 +10,7 @@ extends Node2D
 #	if Input.is_key_pressed(KEY_S):
 #		self.trigger()
 
-func trigger():
+func trigger() -> void:
 	#var duration = 0.125
 	#var distance = 5
 	#if self._is_shaking:

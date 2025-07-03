@@ -124,7 +124,7 @@ func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float 
 		
 	return true
 	
-func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> void:
+func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> bool:
 	self.current_zone_progress = 0.0
 	self._current_zone = zone
 	Events.broadcast_zone_changed( zone )
@@ -140,6 +140,8 @@ func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> void:
 			pass
 		else:
 			print("Skipping layer %s" % l.name )
+			
+	return true
 
 func load_and_spawn_zone( filename: String ) -> bool:
 	var i = self._zone_config_manager.find_zone_index_by_filename( filename )
@@ -153,7 +155,7 @@ func load_and_spawn_zone( filename: String ) -> bool:
 	self._autospawn_on_zone_end = false
 	return true
 	
-func spawn_zone( autospawn_on_zone_end: bool = false ):
+func spawn_zone( autospawn_on_zone_end: bool = false ) -> bool:
 	#var xs = [ 1200.0, 1500.0, 1800.0 ]
 	#var y = 410.0
 	#for x in xs:
@@ -172,9 +174,10 @@ func spawn_zone( autospawn_on_zone_end: bool = false ):
 		zone = self._pick_next_zone()
 #	if self._zone != null:
 	if zone != null:
-		self._spawn_zone_internal( zone, self.game_manager.zone_spawn_offset )
+		return self._spawn_zone_internal( zone, self.game_manager.zone_spawn_offset )
 	else:
 		push_warning("No zone found to spawn")
+		return false
 
 func create_new_zone_layer_object_from_node( node: Node2D, offset_x: float ) -> NewZoneLayerObject:
 	var crc = node.get_meta( "fiiish_nzlo_crc"  )

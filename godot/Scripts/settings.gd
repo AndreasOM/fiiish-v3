@@ -35,20 +35,23 @@ static func load() -> Settings:
 		
 	return settings
 	
-func reset():
+func reset() -> void:
 	self._kids_mode_enabled = false
 	self._is_music_enabled = true
 	self._is_sound_enabled = true
 	self._is_dirty = true
 		
-func save():
+func save() -> bool:
 	var p = get_save_path()
 	print("Saving settings to %s" % p)
 	var s = Serializer.new()
 	if !serialize( s ):
 		push_warning("Failed serializing settings");
+		return false
 	
 	s.save_file(p)
+	
+	return true
 
 func serialize( s: Serializer ) -> bool:
 
@@ -83,13 +86,13 @@ func serialize( s: Serializer ) -> bool:
 func is_kids_mode_enabled() -> bool:
 	return self._kids_mode_enabled
 
-func enable_kids_mode():
+func enable_kids_mode() -> void:
 	if self._kids_mode_enabled:
 		return
 	self._kids_mode_enabled = true
 	_is_dirty = true
 
-func disable_kids_mode():
+func disable_kids_mode() -> void:
 	if !self._kids_mode_enabled:
 		return
 	self._kids_mode_enabled = false
@@ -115,25 +118,25 @@ func is_music_enabled() -> bool:
 func is_sound_enabled() -> bool:
 	return self._is_sound_enabled
 
-func enable_music():
+func enable_music() -> void:
 	if self._is_music_enabled:
 		return
 	self._is_music_enabled = true
 	self._is_dirty = true
 
-func disable_music():
+func disable_music() -> void:
 	if !self._is_music_enabled:
 		return
 	self._is_music_enabled = false
 	self._is_dirty = true
 	
-func enable_sound():
+func enable_sound() -> void:
 	if self._is_sound_enabled:
 		return
 	self._is_sound_enabled = true
 	self._is_dirty = true
 
-func disable_sound():
+func disable_sound() -> void:
 	if !self._is_sound_enabled:
 		return
 	self._is_sound_enabled = false

@@ -2,13 +2,13 @@ extends Dialog
 class_name LeaderboardDialog
 
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
 func _format_distance( distance: int ) -> String:
 	return "%d m" % distance
 	
-func _switch_to_leaderboard( type: LeaderboardTypes.Type ):
+func _switch_to_leaderboard( type: LeaderboardTypes.Type ) -> void:
 	var leaderboard = Leaderboard.new("dummy")
 	
 	var game = self._dialog_manager.game
@@ -29,14 +29,14 @@ func _switch_to_leaderboard( type: LeaderboardTypes.Type ):
 	%LeaderBoardElement.set_leaderboard( leaderboard, score_formatter )
 	%TitleLabel.text = "Leaderboard - %s" % leaderboard.name()
 	
-func open( duration: float):
+func open( duration: float) -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
 	fade_in( duration )
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeablePanelContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeablePanelContainer.fade_in( duration )
 
 func _on_close_button_pressed() -> void:

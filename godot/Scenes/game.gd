@@ -67,9 +67,9 @@ func _ready() -> void:
 	print("Game - _ready()")
 	
 	self._settings = Settings.load()
-	musicManager.fadeOut( 0.0 )
+	musicManager.fade_out( 0.0 )
 	if self._settings.is_music_enabled():
-		musicManager.fadeIn( 0.3 )
+		musicManager.fade_in( 0.3 )
 	if self._settings.is_sound_enabled():
 		soundManager.enable()
 	else:
@@ -85,8 +85,8 @@ func _ready() -> void:
 	self.fish_manager.all_fish_dead.connect( _on_all_fish_dead )
 	self.fish_manager.all_fish_waiting_for_start.connect( _on_all_fish_waiting_for_start )
 	
-func _on_cheats_changed():
-	var invicible = self._player.isCheatEnabled(	CheatIds.Id.INVINCIBLE )
+func _on_cheats_changed() -> void:
+	var invicible = self._player.is_cheat_enabled(	CheatIds.Id.INVINCIBLE )
 	%GameManager.set_invincible( invicible )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -256,7 +256,7 @@ func _on_all_fish_dead() -> void:
 func _on_all_fish_waiting_for_start() -> void:
 	self._goto_state_waiting_for_start()
 	
-func _credit_last_swim():
+func _credit_last_swim() -> void:
 	var coins = %GameManager.take_coins()
 	_player.give_coins(coins)
 	
@@ -268,48 +268,48 @@ func _credit_last_swim():
 	_player.update_leaderboards( coins, distance )
 	_player.save();
 
-func save_player():
+func save_player() -> void:
 	_player.save()
 	
-func enableMusic():
-	musicManager.fadeIn( 0.3 )
+func enable_music() -> void:
+	musicManager.fade_in( 0.3 )
 	self._settings.enable_music()
 	self._settings.save()
 	
-func disableMusic():
-	musicManager.fadeOut( 0.3 )
+func disable_music() -> void:
+	musicManager.fade_out( 0.3 )
 	self._settings.disable_music()
 	self._settings.save()
 
-func enableSound():
+func enable_sound() -> void:
 	soundManager.enable()
 	self._settings.enable_sound()
 	self._settings.save()
 	
-func disableSound():
+func disable_sound() -> void:
 	soundManager.disable( 0.3 )
 	self._settings.disable_sound()
 	self._settings.save()
 
-func isMainMenuEnabled():
-	return _player.isMainMenuEnabled()
+func is_main_menu_enabled() -> bool:
+	return _player.is_main_menu_enabled()
 	
-func enableMainMenu():
-	_player.enableMainMenu()
+func enable_main_menu() -> void:
+	_player.enable_main_menu()
 	_player.save()
 	
-func disableMainMenu():
-	_player.disableMainMenu()
+func disable_main_menu() -> void:
+	_player.disable_main_menu()
 	_player.save()
 
 
-func pause():
+func pause() -> void:
 	var tree = self.get_tree()
 	if !tree.is_paused():
 		tree.set_pause( true )
 		Events.broadcast_game_paused( true )
 
-func resume():
+func resume() -> void:
 	var tree = self.get_tree()
 	if tree.is_paused():
 		tree.set_pause( false )
@@ -329,7 +329,7 @@ func is_paused() -> bool:
 func _on_game_manager_sound_triggered( soundEffect: SoundEffects.Id ) -> void:
 	soundManager.trigger_effect( soundEffect )
 
-func next_game_mode():
+func next_game_mode() -> GameModes.Mode:
 	self._mode = GameModes.next( self._mode )
 	
 	return _mode

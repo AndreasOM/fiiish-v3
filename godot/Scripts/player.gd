@@ -4,10 +4,10 @@ const current_version: int = 12
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
-var _lastDistance: int = 0
-var _totalDistance: int = 0
-var _bestDistance: int = 0
-var _playCount: int = 0
+var _last_distance: int = 0
+var _total_distance: int = 0
+var _best_distance: int = 0
+var _play_count: int = 0
 
 var _isDirty: bool = false
 
@@ -27,7 +27,7 @@ var _skills: HashMap = HashMap.new(
 )
 
 ## version 6
-var _isMainMenuEnabled: bool = false
+var _is_main_menu_enabled: bool = false
 
 ## version 7
 var _cheats: SerializableHashSet = SerializableHashSet.new( CheatIds.Id.NONE )
@@ -64,7 +64,7 @@ var _collected_achievements: SerializableArray = SerializableArray.new(
 
 ## not serialized
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
-var _lastCoins = 0
+var _last_coins = 0
 var _last_achievements: Array[ String ] = []
 
 var _prev_best_distance = 0
@@ -99,14 +99,14 @@ static func load_from_file( path: String ) -> Player:
 		
 	return player
 	
-func reset():
+func reset() -> void:
 	_coins = 0
 	# ....
-	_lastDistance = 0
-	_totalDistance = 0
-	_bestDistance = 0
+	_last_distance = 0
+	_total_distance = 0
+	_best_distance = 0
 	_prev_best_distance = 0
-	_playCount = 0
+	_play_count = 0
 	_skill_points_gained = 0
 	_skill_points_used = 0
 	_skills.clear()
@@ -116,10 +116,10 @@ func reset():
 	_last_achievements.clear()
 	self._isDirty = true
 	
-func reset_local_leaderboards():
+func reset_local_leaderboards() -> void:
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_COINS)
 	_leaderboards.erase( LeaderboardTypes.Type.LOCAL_DISTANCE)
-	_bestDistance = 0
+	_best_distance = 0
 	_prev_best_distance = 0
 	_isDirty = true
 	
@@ -133,7 +133,7 @@ func save_with_suffix( suffix: String ) -> void:
 	self._load_suffix = suffix
 	s.save_file(p)
 	
-func save():
+func save() -> void:
 	save_with_suffix( self._load_suffix )
 
 func serialize( s: Serializer ) -> bool:
@@ -149,10 +149,10 @@ func serialize( s: Serializer ) -> bool:
 		return false
 
 	_coins = s.serialize_u32( _coins )
-	_lastDistance = s.serialize_u32( _lastDistance )
-	_totalDistance = s.serialize_u32( _totalDistance )
-	_bestDistance = s.serialize_u32( _bestDistance )
-	_playCount = s.serialize_u32( _playCount )
+	_last_distance = s.serialize_u32( _last_distance )
+	_total_distance = s.serialize_u32( _total_distance )
+	_best_distance = s.serialize_u32( _best_distance )
+	_play_count = s.serialize_u32( _play_count )
 	
 	s.serialize_bool( false )
 	s.serialize_bool( false )
@@ -174,7 +174,7 @@ func serialize( s: Serializer ) -> bool:
 	if version < 6:
 		return true
 
-	_isMainMenuEnabled = s.serialize_bool( _isMainMenuEnabled )
+	_is_main_menu_enabled = s.serialize_bool( _is_main_menu_enabled )
 
 	# version 7
 	if version < 7:
@@ -218,34 +218,34 @@ func total_coins() -> int:
 func coins() -> int:
 	return _coins
 	
-func lastCoins() -> int:
-	return _lastCoins
+func last_coins() -> int:
+	return _last_coins
 
-func lastDistance() -> int:
-	return _lastDistance
+func last_distance() -> int:
+	return _last_distance
 	
-func totalDistance() -> int:
-	return _totalDistance
+func total_distance() -> int:
+	return _total_distance
 	
 func prev_best_distance() -> int:
 	return _prev_best_distance
 	
-func bestDistance() -> int:
-	return _bestDistance
+func best_distance() -> int:
+	return _best_distance
 	
 func increase_play_count() -> int:
-	self._playCount += 1
+	self._play_count += 1
 	self._isDirty = true
-	return self._playCount
+	return self._play_count
 
-func playCount() -> int:
-	return _playCount
+func play_count() -> int:
+	return _play_count
 	
 # sound and music settings were moved to Settings
 			
 func give_coins( amount: int ):
 	_coins += amount
-	_lastCoins = amount
+	_last_coins = amount
 	self._total_coins += amount
 	
 func spend_coins( amount: int, _reason: String ) -> bool:
@@ -258,13 +258,13 @@ func spend_coins( amount: int, _reason: String ) -> bool:
 func can_afford_coins( amount: int ) -> bool:
 	return _coins >= amount	
 	
-func apply_distance( distance: int ):
-	_totalDistance += distance
-	_prev_best_distance = _bestDistance
-	_bestDistance = max(_bestDistance, distance)
-	_lastDistance = distance;
+func apply_distance( distance: int ) -> void:
+	_total_distance += distance
+	_prev_best_distance = _best_distance
+	_best_distance = max(_best_distance, distance)
+	_last_distance = distance;
 	
-func give_skill_points( amount: int, _reason: String ):
+func give_skill_points( amount: int, _reason: String ) -> void:
 	_skill_points_gained += amount
 	
 func available_skill_points() -> int:
@@ -284,38 +284,38 @@ func use_skill_points( amount: int, _reason: String ) -> bool:
 func get_skill_level( id: SkillIds.Id ) -> int:
 	return _skills.get_entry( id, SkillLevel.new( 0 ) ).get_value()
 	
-func set_skill_level( id: SkillIds.Id, level: int ):
+func set_skill_level( id: SkillIds.Id, level: int ) -> void:
 	_skills.set_entry( id, SkillLevel.new( level ) )
 	
-func reset_skills():
+func reset_skills() -> void:
 	_skills.clear()
 	_skill_points_used = 0
 
 
 # version 6
 
-func isMainMenuEnabled() -> bool:
-	return _isMainMenuEnabled
+func is_main_menu_enabled() -> bool:
+	return _is_main_menu_enabled
 
-func enableMainMenu():
-	if _isMainMenuEnabled:
+func enable_main_menu() -> void:
+	if _is_main_menu_enabled:
 		return
-	_isMainMenuEnabled = true
+	_is_main_menu_enabled = true
 	_isDirty = true
 
-func disableMainMenu():
-	if !_isMainMenuEnabled:
+func disable_main_menu() -> void:
+	if !_is_main_menu_enabled:
 		return
-	_isMainMenuEnabled = false
+	_is_main_menu_enabled = false
 	_isDirty = true
 
-func isCheatEnabled( id: CheatIds.Id ) -> bool:
+func is_cheat_enabled( id: CheatIds.Id ) -> bool:
 	return _cheats.has( id )
 	
-func enableCheat( id: CheatIds.Id ):
+func enable_cheat( id: CheatIds.Id ) -> void:
 	self._cheats.add_entry( id )
 
-func disableCheat( id: CheatIds.Id ):
+func disable_cheat( id: CheatIds.Id ) -> void:
 	self._cheats.erase( id )
 	
 

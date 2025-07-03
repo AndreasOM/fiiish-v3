@@ -27,10 +27,10 @@ func open( duration: float ) -> void:
 func close( duration: float ) -> void:
 	fade_out( duration )
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeablePanelContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeablePanelContainer.fade_in( duration )
 
 func _on_fadeable_panel_container_on_faded_in() -> void:
@@ -67,7 +67,7 @@ func _update_settings_button() -> void:
 		else:
 			settings_button.fade_out( 0.3 )
 	
-func toggle_pause():
+func toggle_pause() -> void:
 	if self._dialog_manager.game !=	null:
 		var is_paused = self._dialog_manager.game.toogle_pause()
 		if is_paused:
@@ -77,7 +77,7 @@ func toggle_pause():
 			self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 		self._update_settings_button()
 			
-func _on_settings_button_pressed():
+func _on_settings_button_pressed() -> void:
 	print("Settings Button pressed")
 	## # %SettingsFadeableContainer.toggle_fade( 0.3 )
 	## %SettingDialog.toggle_fade( 0.3 )
@@ -86,11 +86,11 @@ func _on_settings_button_pressed():
 func _on_pause_toggle_button_toggled( _state: ToggleButtonContainer.ToggleState ) -> void:
 	toggle_pause()
 	
-func _on_zone_changed( _zone ):
+func _on_zone_changed( _zone ) -> void:
 	# print("Zone changed!")
 	pass
 
-func _on_game_state_changed( state: Game.State ):
+func _on_game_state_changed( state: Game.State ) -> void:
 	# print("State changed -> %d %s" % [ state, Game.state_to_name( state ) ] )
 	self._update_main_menu_button( state )
 
@@ -98,13 +98,13 @@ func _on_main_menu_button_pressed() -> void:
 	print("Toggle main menu")
 	self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
 
-func _on_settings_changed():
+func _on_settings_changed() -> void:
 	if !self.visible:
 		return
 	self._update_main_menu_button( self._dialog_manager.game.get_state() )
 	self._update_settings_button()
 
-func _update_main_menu_button( state: Game.State ):
+func _update_main_menu_button( state: Game.State ) -> void:
 	if self._dialog_manager == null:
 		return
 		
@@ -112,13 +112,13 @@ func _update_main_menu_button( state: Game.State ):
 	
 	var is_kids_mode_enabled = self._dialog_manager.game.is_in_kids_mode()
 	
-	if !is_kids_mode_enabled && self._dialog_manager.game.isMainMenuEnabled():
+	if !is_kids_mode_enabled && self._dialog_manager.game.is_main_menu_enabled():
 		match state:
 			Game.State.PREPARING_FOR_START:
-				if self._dialog_manager.game.isMainMenuEnabled():
+				if self._dialog_manager.game.is_main_menu_enabled():
 					should_be_visible = true
 			Game.State.WAITING_FOR_START:
-				if self._dialog_manager.game.isMainMenuEnabled():
+				if self._dialog_manager.game.is_main_menu_enabled():
 					should_be_visible = true
 			# _:
 			#	should_be_visible = false

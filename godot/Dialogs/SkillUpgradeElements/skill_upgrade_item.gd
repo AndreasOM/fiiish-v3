@@ -18,9 +18,9 @@ var button = preload("res://Dialogs/SkillUpgradeElements/skill_upgrade_item_butt
 
 func _ready() -> void:
 	self.skill_name_label.text = title;
-	_createButtons()
+	_create_buttons()
 
-func _createButtons():
+func _create_buttons() -> void:
 	var p = self.scroll_container_hbox_container
 	for o in p.get_children():
 		var suib = o as SkillUpgradeItemButton
@@ -30,15 +30,15 @@ func _createButtons():
 
 	for i in range(0,maximum):
 		var b = button.instantiate()
-		b.setId( i+1 )
+		b.set_id( i+1 )
 		b.connect("on_pressed", _on_button_pressed)
 		p.add_child(b)
 
-func _on_button_pressed( i: int ):
+func _on_button_pressed( i: int ) -> void:
 	print( "pressed %d" % i)
 	skill_buy_triggered.emit( skill_id, i )
 	# :HACK:
-	# setCurrent( i )
+	# set_current( i )
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -47,32 +47,32 @@ func _process(_delta: float) -> void:
 	
 	self.scroll_container.scroll_horizontal = lerp( self.scroll_container.scroll_horizontal, tx, 0.08 )
 
-func _updateStates():
+func _update_states() -> void:
 	var p = self.scroll_container_hbox_container
 	var i = 0
 	for o in p.get_children():
 		var suib = o as SkillUpgradeItemButton
 		if suib != null:
 			if i < current:
-				suib.setEnabled()
+				suib.set_state_enabled()
 			elif i < unlockable:
-				suib.setUnlockable()
+				suib.set_state_unlockable()
 			else:
-				suib.setDisabled()
+				suib.set_state_disabled()
 				
 			i += 1
 	
-func setUnlockable( v: int ):
+func set_unlockable( v: int ) -> void:
 	unlockable = v
-	_updateStates()
+	_update_states()
 	
-func setCurrent( v: int):
+func set_current( v: int) -> void:
 	current = v
-	_updateStates()
+	_update_states()
 
-func setMaximum( v: int):
+func setMaximum( v: int) -> void:
 	maximum = v
-	_updateStates()
+	_update_states()
 
-func prepare_fade_in():
+func prepare_fade_in() -> void:
 	self.scroll_container.scroll_horizontal = 0

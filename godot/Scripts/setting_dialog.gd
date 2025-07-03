@@ -23,7 +23,7 @@ func _ready() -> void:
 		soundToggleButton.goto_b()
 
 	var player = game.get_player()
-	if player.isMainMenuEnabled():
+	if player.is_main_menu_enabled():
 		mainMenuToggleButton.goto_a()
 	else:
 		mainMenuToggleButton.goto_b()
@@ -67,7 +67,7 @@ func _ready() -> void:
 	desc = desc.replace( "[suffix]", suffix )
 	%SettingsInfoRichTextLabel.text = desc
 
-func set_game( g: Game):
+func set_game( g: Game) -> void:
 	self.game = g
 
 
@@ -80,39 +80,39 @@ func _on_music_toggle_button_container_toggled(state: ToggleButtonContainer.Togg
 	match state:
 		ToggleButtonContainer.ToggleState.A:
 			print("Music toggle to A")
-			game.enableMusic()
+			game.enable_music()
 			
 		ToggleButtonContainer.ToggleState.B:
 			print("Music toggle to B")
-			game.disableMusic()
+			game.disable_music()
 
 func _on_sound_toggle_button_container_toggled(state: ToggleButtonContainer.ToggleState) -> void:
 	match state:
 		ToggleButtonContainer.ToggleState.A:
 			print("Sound toggle to A")
-			game.enableSound()
+			game.enable_sound()
 			
 		ToggleButtonContainer.ToggleState.B:
 			print("Sound toggle to B")
-			game.disableSound()
+			game.disable_sound()
 
-func toggle( duration: float ):
+func toggle( duration: float ) -> void:
 	toggle_fade( duration )
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
-func open( duration: float):
+func open( duration: float) -> void:
 	fade_in( duration )
 
 
-func toggle_fade( duration: float ):
+func toggle_fade( duration: float ) -> void:
 	$SettingsFadeableContainer.toggle_fade( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	$SettingsFadeableContainer.fade_in( duration )
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	$SettingsFadeableContainer.fade_out( duration )
 
 
@@ -133,11 +133,11 @@ func _on_main_menu_toggle_button_container_toggled(state: ToggleButtonContainer.
 	match state:
 		ToggleButtonContainer.ToggleState.A:
 			print("MainMenu toggle to A")
-			game.enableMainMenu()
+			game.enable_main_menu()
 			
 		ToggleButtonContainer.ToggleState.B:
 			print("MainMenu toggle to B")
-			game.disableMainMenu()
+			game.disable_main_menu()
 
 	Events.broadcast_settings_changed()
 

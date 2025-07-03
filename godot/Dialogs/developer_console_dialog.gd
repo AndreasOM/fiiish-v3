@@ -12,19 +12,19 @@ var _command_history_current = 0
 
 var _commands: Array = [ DeveloperCommand ]
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
-func open( duration: float):
+func open( duration: float) -> void:
 	fade_in( duration )
 		
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeableContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeableContainer.fade_in( duration )
 
-func set_game( g: Game ):
+func set_game( g: Game ) -> void:
 	self.game = g
 
 # Called when the node enters the scene tree for the first time.
@@ -48,7 +48,7 @@ func _process(_delta: float) -> void:
 		print("Tilde")
 		%FadeableContainer.toggle_fade( 0.1 )
 
-func _input(event):
+func _input(event) -> void:
 	if _block_input: # You can also check which actions using is_action.
 		### %LineEdit._input(event)
 		if event.is_action("toggle_developer_console"):
@@ -74,13 +74,13 @@ func _input(event):
 				%LineEdit.text = l
 				%LineEdit.set_caret_column( l.length() )
 		
-func clear():
+func clear() -> void:
 	%RichTextLabel.clear()
 	self._history.clear()
 	self.update_history()
 	pass
 
-func auto_complete( l: String ):
+func auto_complete( l: String ): # -> String: | null
 	var candidates = []
 	for c in self._commands:
 		var cmd = c as DeveloperCommand
@@ -126,11 +126,11 @@ func auto_complete( l: String ):
 					
 			return sug
 
-func update_history():
+func update_history() -> void:
 	var h = "\n".join( self._history)
 	%RichTextLabel.text = h
 	
-func add_history( line: String ):
+func add_history( line: String ) -> void:
 	self._history.push_back( line )
 	
 	while self._history.size() > self.max_history:
@@ -138,7 +138,7 @@ func add_history( line: String ):
 		
 	self.update_history()
 
-func add_command_history( line: String ):
+func add_command_history( line: String ) -> void:
 	if self._command_history.size() > 0:
 		# skip duplicates
 		var prev = self._command_history.back()
@@ -150,7 +150,7 @@ func add_command_history( line: String ):
 	while self._command_history.size() > self.max_command_history:
 		self._command_history.pop_front()
 		
-func get_command_history_current():
+func get_command_history_current(): # -> String | null
 	var c = self._command_history_current
 	if c == 0:
 		return null
@@ -163,14 +163,14 @@ func get_command_history_current():
 	var i = l + c
 	return self._command_history[ i ]
 	
-func dec_command_history_current():
+func dec_command_history_current() -> void:
 	var o = self._command_history_current
 	var l = self._command_history.size()
 	if -o < l:
 		self._command_history_current -= 1
 	# print("DEVELOPER_CONSOLE: %d -- => %d" % [ o, self._command_history_current ] )
 	
-func inc_command_history_current():
+func inc_command_history_current() -> void:
 	var o = self._command_history_current
 	if o < 0:
 		self._command_history_current += 1
@@ -190,7 +190,7 @@ func _on_fadeable_container_on_faded_out() -> void:
 	self._block_input = false
 
 
-func print_help():
+func print_help() -> void:
 	self.add_history("Help:")
 	for c in self._commands:
 		var cmd = c as DeveloperCommand

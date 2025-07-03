@@ -4,7 +4,7 @@ var _data: Dictionary[ int, Object ] = {}
 var _default_key: int = 0
 var _default_constructor: Callable = Callable()
 
-func _init( default_key: int, default_constructor: Callable ):
+func _init( default_key: int, default_constructor: Callable ) -> void:
 	if default_constructor == null:
 		push_warning("HashMap: default_constructor == null")
 	if default_constructor.is_null():
@@ -12,7 +12,7 @@ func _init( default_key: int, default_constructor: Callable ):
 	_default_key = default_key
 	_default_constructor = default_constructor
 
-func serialize( s: Serializer ):
+func serialize( s: Serializer ) -> bool:
 	var the_keys = self.keys()
 	var number = the_keys.size()
 	number = s.serialize_u16( number )
@@ -28,7 +28,11 @@ func serialize( s: Serializer ):
 			v.serialize( s )
 		else:
 			push_error( "Can not serialize %s" % v )
+			return false
 		self.set_entry( k, v )
+		
+	
+	return true
 
 func size() -> int:
 	return _data.size()
@@ -39,7 +43,7 @@ func keys() -> Array:
 func erase( key: int ) -> bool:
 	return _data.erase( key )
 
-func clear():
+func clear() -> void:
 	_data.clear()
 	
 func set_entry(key: int, value: Object) -> bool:

@@ -5,7 +5,7 @@ class_name SkillEffectSet
 
 var _skill_effects: Dictionary = {}
 
-func apply_skills( player: Player, scm: SkillConfigManager ):
+func apply_skills( player: Player, scm: SkillConfigManager ) -> void:
 	_skill_effects.clear()
 	for skill_id in scm.get_skill_ids():
 		var skill_level = player.get_skill_level( skill_id )

@@ -6,7 +6,7 @@ class_name KidsModeEnableDialog
 
 @onready var rich_text_label: RichTextLabel = %RichTextLabel
 
-func _ready():
+func _ready() -> void:
 	if OS.get_name() != "HTML5":
 		self.rich_text_label.connect("meta_clicked", _on_meta_clicked)
 		
@@ -18,21 +18,21 @@ func _ready():
 		
 	self.rich_text_label.text = desc
 
-func _on_meta_clicked(meta):
+func _on_meta_clicked(meta) -> void:
 	OS.shell_open(meta)
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
 	
-func open( duration: float):
+func open( duration: float) -> void:
 	self._dialog_manager.game.pause()
 	fade_in( duration )
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeablePanelContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeablePanelContainer.fade_in( duration )
 
 func _on_close_button_pressed() -> void:

@@ -33,7 +33,7 @@ func _on_h_slider_value_changed(value: float) -> void:
 	self.recalc_camera_debug_panel()
 
 
-func recalc_camera_debug_panel():
+func recalc_camera_debug_panel() -> void:
 	var z = %ZoomSlider.value
 	%CameraDebugPanel.scale = Vector2( z, z )
 	

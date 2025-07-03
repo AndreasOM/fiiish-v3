@@ -93,7 +93,7 @@ func _on_game_state_changed(state: Game.State) -> void:
 		_:
 			pass
 
-func _on_game_state_changed_mode_loop(state: Game.State):
+func _on_game_state_changed_mode_loop(state: Game.State) -> void:
 	match state:
 		Game.State.WAITING_FOR_START:
 			if self.ab_mix > 0.0:

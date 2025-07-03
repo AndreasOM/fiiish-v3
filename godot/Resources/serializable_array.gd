@@ -3,10 +3,10 @@ class_name SerializableArray
 var _data: Array = []
 var _default_constructor: Callable = Callable()
 
-func _init( default_constructor: Callable ):
+func _init( default_constructor: Callable ) -> void:
 	_default_constructor = default_constructor
 
-func serialize( s: Serializer ):
+func serialize( s: Serializer ) -> bool:
 	var l = self.size()
 	l = s.serialize_u16( l )
 	self.resize( l )
@@ -18,12 +18,14 @@ func serialize( s: Serializer ):
 			v.serialize( s )
 		else:
 			push_error( "Can not serialize %s" % v )
+			return false
 		self.set_entry( i, v )
+	return true
 
 func size() -> int:
 	return _data.size()
 	
-func clear():
+func clear() -> void:
 	_data.clear()
 	
 

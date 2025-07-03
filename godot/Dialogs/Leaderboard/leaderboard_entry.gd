@@ -6,11 +6,11 @@ const oldest_supported_version: int = 1
 var _participant: String
 var _score: int
 
-func _init( p: String, s: int ):
+func _init( p: String, s: int )  -> void :
 	self._participant = p
 	self._score = s
 
-func serialize( s: Serializer ):
+func serialize( s: Serializer ) -> bool:
 	var version: int = current_version;
 	version = s.serialize_u16( version )
 	if version < oldest_supported_version:
@@ -19,6 +19,8 @@ func serialize( s: Serializer ):
 		
 	_participant = s.serialize_fixed_string( 64, _participant )
 	_score = s.serialize_u32( _score )
+	
+	return true
 	
 func participant() -> String:
 	return self._participant

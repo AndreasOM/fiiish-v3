@@ -6,7 +6,7 @@ var pos_x: float = 0.0
 var pos_y: float = 0.0
 var rotation: float = 0.0
 
-func serialize( s: Serializer ):
+func serialize( s: Serializer ) -> bool:
 	self.id = s.serialize_u16( self.id )
 	# print("NZLO id: 0x%04x" % self.id)
 	self.crc = s.serialize_u32( self.crc )
@@ -15,3 +15,5 @@ func serialize( s: Serializer ):
 	self.pos_y = s.serialize_f32( self.pos_y )
 	self.pos_y = -self.pos_y # :HACK:
 	self.rotation = s.serialize_f32( self.rotation )
+	
+	return true

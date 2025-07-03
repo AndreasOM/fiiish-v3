@@ -48,11 +48,11 @@ func _ready() -> void:
 	get_viewport().connect("size_changed", _on_viewport_resize)
 	_fix_size()
 	
-func _on_viewport_resize():
+func _on_viewport_resize() -> void:
 	# print("_on_viewport_resize")
 	_fix_size()
 	
-func _fix_size():
+func _fix_size() -> void:
 	# var screensize = get_window().size
 	var viewport = get_viewport()
 	if viewport != null:

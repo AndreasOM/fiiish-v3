@@ -11,7 +11,7 @@ var _zone_filenames_to_zones: Dictionary[ String, int ] = {}
 #	pass
 
 
-func load_zones_from_folder( folder: String, prefix: String = "" ):
+func load_zones_from_folder( folder: String, prefix: String = "" ) -> void:
 	#var zones = DirAccess.get_files_at(folder)
 	var zones = ResourceLoader.list_directory( folder )
 	if prefix != "":
@@ -26,7 +26,7 @@ func load_zones_from_folder( folder: String, prefix: String = "" ):
 		self._zone_filenames_to_zones[ zone_name ] = self._zones.size()
 		self._zones.push_back( z )
 
-func reload_zone( folder: String, filename: String, prefix: String = "" ):
+func reload_zone( folder: String, filename: String, prefix: String = "" ) -> void:
 	if prefix != "":
 		prefix = "%s-" % prefix
 	var fzn = "%s/%s" % [ folder, filename ]
@@ -77,18 +77,18 @@ func get_zone_by_filename( filename: String ):
 func get_zone_filenames() -> Array[ String ]:
 	return self._zone_filenames_to_zones.keys()
 	
-func clear_next_zones():
+func clear_next_zones() -> void:
 	self._next_zones.clear()
 	
-func push_next_zone( idx: int ):
+func push_next_zone( idx: int ) -> void:
 	self._next_zones.push_back( idx )
 	
-func push_next_zone_by_name( zone_name: String ):
+func push_next_zone_by_name( zone_name: String ) -> void:
 	var idx = self.find_zone_index_by_name( zone_name )
 	if idx >= 0:
 		self.push_next_zone( idx )
 
-func push_next_zone_by_filename( zone_filename: String ):
+func push_next_zone_by_filename( zone_filename: String ) -> void:
 	var idx = self.find_zone_index_by_filename( zone_filename )
 	if idx >= 0:
 		self.push_next_zone( idx )
@@ -99,7 +99,7 @@ func pop_next_zone() -> int:
 		return -1
 	return next_zone
 	
-func pick_next_zone( blocked_zones: Array [ String ] ):
+func pick_next_zone( blocked_zones: Array [ String ] ) -> NewZone:
 	var next_zone = null
 	
 	var max_tries = 100

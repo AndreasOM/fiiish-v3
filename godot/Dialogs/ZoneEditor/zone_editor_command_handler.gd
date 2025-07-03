@@ -7,7 +7,7 @@ var _zone_manager: ZoneManager
 var _command_history: Array[ ZoneEditorCommand ] = []
 var _command_future: Array[ ZoneEditorCommand ] = []
 
-func _init( zone_manager: ZoneManager ):
+func _init( zone_manager: ZoneManager ) -> void:
 	self._zone_manager = zone_manager
 	
 func clear_history() -> void:
@@ -70,7 +70,7 @@ class ZoneEditorCommandDelete:
 	var _nzlo: NewZoneLayerObject = null
 	var _zone_offset_x: float = 0.0
 	
-	func _init( id: int ):
+	func _init( id: int ) -> void:
 		self._node_id = id
 
 	func run(zone_manager: ZoneManager) -> bool:
@@ -109,7 +109,7 @@ class ZoneEditorCommandMove:
 	var _move: Vector2
 	var _rotate_degrees: float
 	
-	func _init( id: int, m: Vector2, rotate_degrees: float ):
+	func _init( id: int, m: Vector2, rotate_degrees: float ) -> void:
 		#self._node = n
 		self._node_id = id
 		self._move = m
@@ -140,7 +140,7 @@ class ZoneEditorCommandSpawn:
 	var _rotate_degrees: float
 	var _node_id: int = 0xffff
 	
-	func _init( crc: int, position: Vector2, rotate_degrees: float ):
+	func _init( crc: int, position: Vector2, rotate_degrees: float ) -> void:
 		#self._node = n
 		self._crc = crc
 		self._position = position

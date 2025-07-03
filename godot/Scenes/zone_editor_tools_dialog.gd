@@ -28,23 +28,23 @@ func _update_buttons( active_tid: ZoneEditorToolIds.Id ) -> void:
 		else:
 			b.make_inactive()
 	
-func open( duration: float):
+func open( duration: float) -> void:
 	fade_in( duration )
 	self.entity_select_button.entity_config_manager = self._dialog_manager.game.entity_config_manager
 
-func close( duration: float):
+func close( duration: float) -> void:
 	fade_out( duration )
 
-func toggle( duration: float ):
+func toggle( duration: float ) -> void:
 	toggle_fade( duration )
 
-func toggle_fade( duration: float ):
+func toggle_fade( duration: float ) -> void:
 	%FadeablePanelContainer.toggle_fade( duration )
 
-func fade_out( duration: float ):
+func fade_out( duration: float ) -> void:
 	%FadeablePanelContainer.fade_out( duration )
 
-func fade_in( duration: float ):
+func fade_in( duration: float ) -> void:
 	%FadeablePanelContainer.fade_in( duration )
 
 func _on_fadeable_panel_container_on_faded_in() -> void:
