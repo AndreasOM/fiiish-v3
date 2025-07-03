@@ -1,5 +1,5 @@
 name: Update Web
-run-name: Update Web ${{ inputs.project }} by @${{ github.actor }}
+run-name: Update Web ${{ vars.PROJECT }} by @${{ github.actor }}
 
 on: 
   workflow_dispatch:
@@ -83,12 +83,17 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "eu-west-1"
 
-
       - name: Update alpha
         run: |
           aws s3 sync ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/ s3://games.omnimad.net/alpha/${{ env.PROJECT }}/${{ env.BUILD_TYPE }}/
           aws cloudfront create-invalidation --distribution-id E323IOZK579VPC --paths "/alpha/${{ env.PROJECT }}/${{ env.BUILD_TYPE }}/*"
-          echo "PLAY_URL=https://games.omnimad.net/alpha/${{ env.PROJECT }}/${{ env.BUILD_TYPE }}/${{ env.PROJECT }}.html" >> "$GITHUB_ENV"
+          INDEX_HTML="${{ env.PROJECT }}.html"
+          case ${{ inputs.build_type }} in
+            *-classic)
+              INDEX_HTML="fiiish-classic.html"
+              ;;
+          esac
+          echo "PLAY_URL=https://games.omnimad.net/alpha/${{ env.PROJECT }}/${{ env.BUILD_TYPE }}/${INDEX_HTML}" >> "$GITHUB_ENV"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
