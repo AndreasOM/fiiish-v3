@@ -72,11 +72,11 @@ jobs:
             .github
             godot
           fetch-depth: 1
-          fetch-tags: true
+#          fetch-tags: true # Note: fails when triggered from tag!
 
-#      - name: Fetch tags
-#        run: |
-#          git fetch origin --tags
+      - name: Fetch tags
+        run: |
+          git fetch origin --tags --force
 
       - name: Create variables
         run: |
