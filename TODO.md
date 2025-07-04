@@ -3,7 +3,6 @@
 ## In Progress
 
 
-
 ## Next
 
 
@@ -162,6 +161,7 @@
 #### S05E13
 - [x] Task: Add export plugin to ensure name overrides are used
 - [x] Task: Create minimal export plugin to check if overrides work for "application/config/name" (https://github.com/AndreasOM/godot-export-test)
+- [x] Task: Extend ExportOverride plugin to support icon
 
 
 ### 2025-07-03
