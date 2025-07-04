@@ -51,7 +51,7 @@ window/handheld/orientation=4
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/omg-launch_control/plugin.cfg")
+enabled=PackedStringArray("res://addons/omg-export_overrides/plugin.cfg", "res://addons/omg-launch_control/plugin.cfg")
 
 [file_customization]
 

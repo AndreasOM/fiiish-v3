@@ -4,8 +4,8 @@
 
 
 
-
 ## Next
+
 
 - [ ] Task: Create 1 v3 zone for testing
 - [ ] Task: Confirm only classic zones load in classic
@@ -158,8 +158,13 @@
 
 ## Done
 
+### 2025-07-04
+#### S05E13
+- [x] Task: Add export plugin to ensure name overrides are used
+- [x] Task: Create minimal export plugin to check if overrides work for "application/config/name" (https://github.com/AndreasOM/godot-export-test)
 
-### 2025-08-3
+
+### 2025-07-03
 #### S05E12
 - [x] Bug: v3.1.4 vs v3.2.0 - Malware? Codesigning -> Certificate was revoked, deploy new one
 - [x] Task: Add Disable KidsMode to itch launcher -> Needs itch launcher fixes
