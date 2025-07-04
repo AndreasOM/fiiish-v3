@@ -12,7 +12,6 @@
 
 ## Todo
 
-- [ ] Task: Classic is using wrong name in menui, but correct window title
 - [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
 - [ ] #polish Task: Improve and cleanup url parsing, and handling
 
@@ -20,8 +19,8 @@
 
 
 - [ ] Task: Upload (and sign) all latest classic builds
-- [ ] Task: Sign and upload classic version for iOS
-	- [ ] #offstream Task: Create provisioning profile for classic iOS
+	- [ ] Task: Sign and upload classic version for iOS
+		- [ ] #offstream Task: Create provisioning profile for classic iOS
 
 
 - [ ] Feature: KidsMode
@@ -162,6 +161,7 @@
 - [x] Task: Add export plugin to ensure name overrides are used
 - [x] Task: Create minimal export plugin to check if overrides work for "application/config/name" (https://github.com/AndreasOM/godot-export-test)
 - [x] Task: Extend ExportOverride plugin to support icon
+- [x] Task: Classic is using wrong name in menu, but correct window title -> broken overrides on export (Godot Bug!)
 
 
 ### 2025-07-03

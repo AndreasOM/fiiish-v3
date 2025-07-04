@@ -12,7 +12,7 @@
 	- #reach Zone Editor (external v0.1)
 
 - [ ] V3.10.0 - ETA: 2025-07-??
-	- [ ] Release alpha of Fiiish V3 [classic]
+	- [ ] Release alpha of Fiiish classic -- was: V3 [classic]
 
 - [ ] V3.12.0 - ETA: 2025-08-??
 	- [ ] Release iOS of Fiiish V3 [classic]
