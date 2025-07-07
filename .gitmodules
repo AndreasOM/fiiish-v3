@@ -1,0 +1,3 @@
+[submodule "godot/omg-lib"]
+	path = godot/omg-lib
+	url = git@github.com:AndreasOM/omg-lib.git

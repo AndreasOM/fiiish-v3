@@ -3,14 +3,10 @@
 ## In Progress
 
 
-- [ ] Task: Upload (and sign) all latest classic builds
-
 ## Next
-
 
 - [ ] Task: Create 1 v3 zone for testing
 - [ ] Task: Confirm only classic zones load in classic
-
 
 ## Todo
 
@@ -86,7 +82,7 @@
 - [ ] #reach Task: Create Marketing Screenshots on CI system
 
 - [ ] Feature: OMG Launch Control
-	- [ ] Task: Remember main_run_args when overwriting them
+	- [+] Task: Remember main_run_args when overwriting them
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
@@ -159,6 +155,8 @@
 #### S05E14
 - [x] Task: Sign and upload classic version for iOS
 - [x] #offstream Task: Create provisioning profile for classic iOS
+- [x] Task: Upload (and sign) all latest classic builds
+- [x] Task: Move serializer et al to [omg-lib (submodule)](https://github.com/AndreasOM/omg-lib)
 
 ### 2025-07-04
 #### S05E13
