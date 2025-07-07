@@ -72,6 +72,7 @@ jobs:
             .github
             godot
           fetch-depth: 1
+          submodules: true
 #          fetch-tags: true # Note: fails when triggered from tag!
 
       - name: Fetch tags
