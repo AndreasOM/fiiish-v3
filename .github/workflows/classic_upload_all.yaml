@@ -33,22 +33,23 @@ jobs:
       build_type: 'macos-classic'
       summary_style: "skip"
 
-##  ios_archive:
-##    uses: ./.github/workflows/archive_latest_ios.yml
-##    secrets: inherit
-##    with:
-##      summary_style: "skip"
-##
-##  ios_upload:
-##    needs: ios_archive
-##    uses: ./.github/workflows/push_latest_ios_to_appstoreconnect.yml
-##    secrets: inherit
-##    with:
-##      summary_style: "skip"
+  ios_archive:
+    uses: ./.github/workflows/archive_latest_ios.yml
+    secrets: inherit
+    with:
+      build_type: 'ios-classic'
+      summary_style: "skip"
+
+  ios_upload:
+    needs: ios_archive
+    uses: ./.github/workflows/push_latest_ios_to_appstoreconnect.yml
+    secrets: inherit
+    with:
+      build_type: 'ios-classic'
+      summary_style: "skip"
 
   summary:
-    needs: [linux_upload, windows_upload, macos_upload]
-    # , ios_upload]
+    needs: [linux_upload, windows_upload, macos_upload, ios_upload]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     defaults:
@@ -65,6 +66,5 @@ jobs:
             echo "| 🐧 Linux Version              | ${{ needs.linux_upload.outputs.version }}   |                                                  |"
             echo "| 🪟 Windows Version            | ${{ needs.windows_upload.outputs.version }} |                                                  |"
             echo "| 🖥️ macOS Version              | ${{ needs.macos_upload.outputs.version }}   |                                                  |"
+            echo "| 📱 iOS Version - Build Number | ${{ needs.ios_upload.outputs.version }}     |  ${{ needs.ios_upload.outputs.build_number }}    |"
           } >> "$GITHUB_STEP_SUMMARY"
-
-# echo "| 📱 iOS Version - Build Number | ${{ needs.ios_upload.outputs.version }}     |  ${{ needs.ios_upload.outputs.build_number }}    |"

@@ -4,8 +4,6 @@
 
 
 - [ ] Task: Upload (and sign) all latest classic builds
-	- [ ] Task: Sign and upload classic version for iOS
-		- [ ] #offstream Task: Create provisioning profile for classic iOS
 
 ## Next
 
@@ -156,6 +154,11 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-07-07
+#### S05E14
+- [x] Task: Sign and upload classic version for iOS
+- [x] #offstream Task: Create provisioning profile for classic iOS
 
 ### 2025-07-04
 #### S05E13
