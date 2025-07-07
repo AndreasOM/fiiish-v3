@@ -1,8 +1,21 @@
 name: 📱 iOS - 📦 Archive
+run-name: 📱 📦 Archive ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
+      build_type:
+        description: 'The type of build'
+        required: true
+        default: 'web-demo'
+        type: choice
+        options:
+          - 'ios'
+          - 'ios-classic'
   workflow_call:
     inputs:
+      build_type:
+        description: 'The type of build'
+        required: true
+        type: string
       summary_style:
         description: 'The style for the summary'
         default: 'full'
@@ -20,7 +33,7 @@ jobs:
       - name: Create variables
         run: |
           PROJECT=${{ vars.PROJECT }}
-          BUILD_TYPE="ios"
+          BUILD_TYPE=${{ inputs.build_type }}
           LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
           S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
           APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-v3.app"
@@ -113,6 +126,7 @@ jobs:
         run: |
           mkdir -p "${HOME}/Library/MobileDevice/Provisioning Profiles"
           echo -n ${{ secrets.APPLE_PROVISIONING_PROFILE }} | base64 -d -o "${HOME}/Library/MobileDevice/Provisioning Profiles/ghfiiishv320250402.mobileprovision"
+          echo -n ${{ secrets.APPLE_PROVISIONING_PROFILE_2 }} | base64 -d -o "${HOME}/Library/MobileDevice/Provisioning Profiles/ghfiiishclassic20250707.mobileprovision"
           find ~/Library/MobileDevice
 
 #      - name: Sign .xcarchive

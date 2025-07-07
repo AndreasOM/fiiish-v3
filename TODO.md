@@ -3,6 +3,10 @@
 ## In Progress
 
 
+- [ ] Task: Upload (and sign) all latest classic builds
+	- [ ] Task: Sign and upload classic version for iOS
+		- [ ] #offstream Task: Create provisioning profile for classic iOS
+
 ## Next
 
 
@@ -18,9 +22,6 @@
 - [ ] Story: General cleanup pass
 
 
-- [ ] Task: Upload (and sign) all latest classic builds
-	- [ ] Task: Sign and upload classic version for iOS
-		- [ ] #offstream Task: Create provisioning profile for classic iOS
 
 
 - [ ] Feature: KidsMode
