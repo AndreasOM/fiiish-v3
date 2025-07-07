@@ -1,8 +1,22 @@
-name: 📱 iOS - 💾 Push to App Store Connect
+name: 📱 💾 iOS - Push to App Store Connect
+run-name: 📱 💾 Push to App Store Connect ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'The type of build'
+        required: true
+        default: 'web-demo'
+        type: choice
+        options:
+          - 'ios'
+          - 'ios-classic'
   workflow_call:    
     inputs:
+      build_type:
+        description: 'The type of build'
+        required: true
+        type: string
       summary_style:
         description: 'The style for the summary'
         default: 'full'
@@ -30,7 +44,7 @@ jobs:
       - name: Create variables
         run: |
           PROJECT=${{ vars.PROJECT }}
-          BUILD_TYPE="ios"
+          BUILD_TYPE=${{ inputs.build_type }}
           LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
           S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
           #
@@ -73,6 +87,19 @@ jobs:
             echo "SIGNED_ARCHIVE_FILE=${SIGNED_ARCHIVE_FILE}"
             echo "SIGNED_S3_ARCHIVE_FILE=${SIGNED_S3_ARCHIVE_FILE}"
           } >> "$GITHUB_ENV"
+
+          case ${{ inputs.build_type }} in
+            *-classic)
+              echo "IPA_NAME=fiiish-classic.ipa" >> "$GITHUB_ENV"
+              echo "APPLE_ID=6748264719" >> "$GITHUB_ENV"
+              echo "BUNDLE_ID=net.omnimad.fiiish-classic" >> "$GITHUB_ENV"
+              ;;
+            *)
+              echo "IPA_NAME=fiiish-v3.ipa" >> "$GITHUB_ENV"
+              echo "APPLE_ID=6743671388" >> "$GITHUB_ENV"
+              echo "BUNDLE_ID=net.omnimad.fiiish-v3" >> "$GITHUB_ENV"
+              ;;
+          esac
 
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -125,12 +152,12 @@ jobs:
       - name: Upload package
         run: |
           xcrun altool \
-            --upload-package fiiish-v3.ipa \
+            --upload-package ${{ env.IPA_NAME }} \
             --type ios \
-            --apple-id "6743671388" \
+            --apple-id "${{ env.APPLE_ID }}" \
             --bundle-version "${{ env.BUILD_NUMBER }}" \
             --bundle-short-version-string "${{ env.VERSION }}" \
-            --bundle-id "net.omnimad.fiiish-v3" \
+            --bundle-id "${{ env.BUNDLE_ID }}" \
             --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
 
             # --asc-public-id ... \
@@ -161,5 +188,8 @@ jobs:
               echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
               echo "| VERSION                | ${{ env.VERSION }}                |"
               echo "| BUILD_NUMBER           | ${{ env.BUILD_NUMBER }}           |"
+              echo "| IPA_NAME               | ${{ env.IPA_NAME }}               |"
+              echo "| APPLE_ID               | ${{ env.APPLE_ID }}               |"
+              echo "| BUNDLE_ID              | ${{ env.BUNDLE_ID }}              |"
             } >> "$GITHUB_STEP_SUMMARY"
           fi
