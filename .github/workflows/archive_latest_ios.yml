@@ -2,10 +2,11 @@ name: 📱 iOS - 📦 Archive
 run-name: 📱 📦 Archive ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
+    inputs:
       build_type:
         description: 'The type of build'
         required: true
-        default: 'web-demo'
+        default: 'ios'
         type: choice
         options:
           - 'ios'
@@ -103,7 +104,7 @@ jobs:
           {
             echo "VERSION=${VERSION}"
             echo "BUILD_NUMBER=${BUILD_NUMBER}"
-          } >> $GITHUB_ENV
+          } >> "$GITHUB_ENV"
 
       - name: Prepare keychain
         run: |
