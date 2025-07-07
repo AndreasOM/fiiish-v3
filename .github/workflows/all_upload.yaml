@@ -32,6 +32,7 @@ jobs:
     uses: ./.github/workflows/archive_latest_ios.yml
     secrets: inherit
     with:
+      build_type: 'ios'
       summary_style: "skip"
 
   ios_upload:
@@ -39,6 +40,7 @@ jobs:
     uses: ./.github/workflows/push_latest_ios_to_appstoreconnect.yml
     secrets: inherit
     with:
+      build_type: 'ios'
       summary_style: "skip"
 
   summary:
