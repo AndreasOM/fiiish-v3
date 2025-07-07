@@ -127,7 +127,7 @@ jobs:
         run: |
           mkdir -p "${HOME}/Library/MobileDevice/Provisioning Profiles"
           echo -n ${{ secrets.APPLE_PROVISIONING_PROFILE }} | base64 -d -o "${HOME}/Library/MobileDevice/Provisioning Profiles/ghfiiishv320250402.mobileprovision"
-          echo -n ${{ secrets.APPLE_PROVISIONING_PROFILE_2 }} | base64 -d -o "${HOME}/Library/MobileDevice/Provisioning Profiles/ghfiiishclassic20250707.mobileprovision"
+          echo -n ${{ secrets.APPLE_PROVISIONING_PROFILE_2 }} | base64 -d -o "${HOME}/Library/MobileDevice/Provisioning Profiles/ghfiiishclassic20250402.mobileprovision"
           find ~/Library/MobileDevice
 
 #      - name: Sign .xcarchive
