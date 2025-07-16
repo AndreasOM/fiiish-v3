@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dil15g4301yh2"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_ats05"]
+[ext_resource type="Texture2D" uid="uid://bwgjmuilwypst" path="res://Features/Achievements/Textures/achievement_icon_max_coins_4.png" id="2_ats05"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_08gvq"]
+
+[sub_resource type="Resource" id="Resource_vw4ne"]
+script = ExtResource("1_ats05")
+prereq_achievement_ids = Array[String](["MaxCoins3"])
+prereq_counters = Dictionary[int, int]({
+6: 10000
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_08gvq")
+id = "MaxCoins4"
+sort_index = 1124
+name = "Max Coins Diamond"
+icon = ExtResource("2_ats05")
+completion_condition = SubResource("Resource_vw4ne")
+reward_coins = 1000
+reward_skill_points = 2
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"

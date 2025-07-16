@@ -5,8 +5,12 @@
 
 ## Next
 
-- [ ] Task: Create 1 v3 zone for testing
-- [ ] Task: Confirm only classic zones load in classic
+- [ ] #reach Feature: Achievements V2.0
+	- [ ] Task: Add the second batch of Achievements
+		- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
+		- [ ] Bonus: Upgrade X Skills
+		- [ ] Bonus: Play X days in a row
+
 
 ## Todo
 
@@ -25,20 +29,14 @@
 		- [?] Task: Get actual command line parameters, and handle them??
 
 
+- [ ] Bug: Remove test zone with middle rock!
 
 ## V3.8.0 (revised) - ETA: 07/11
 
 - [ ] Feature: Release a classic version via CI/CD
 	- [ ] Task: Verify all entities used in classic zones exist
 
-- [ ] #reach Feature: Achievements V2.0
-	- [ ] Task: Add the second batch of Achievements
-		- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
-		- [ ] Bonus: Upgrade X Skills
-		- [ ] Bonus: Play X days in a row
-		- [ ] Bonus: Max Coins (owned) Achievement
 
-- [ ] #reach Feature: Zone Editor (external v0.1)
 
 
 ## V3.8.0 (original) - ETA: 06/25 - ZoneEditor (external), Achievements V2, new Zones & Campaigns
@@ -71,6 +69,11 @@
 - [+] Reach: Add KidsMode
 
 ### postponed
+
+- [ ] #reach Feature: Zone Editor (external v0.1)
+
+- [ ] Task: Create 1 v3 zone for testing
+- [ ] Task: Confirm only classic zones load in classic
 
 - [ ] Task: Create some new zones!
 - [ ] Bonus: Create some new (middle/center!) Rocks 
@@ -150,6 +153,10 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-07-16
+#### S05E15
+- [x] Bonus: Max Coins (owned) Achievement
 
 ### 2025-07-07
 #### S05E14

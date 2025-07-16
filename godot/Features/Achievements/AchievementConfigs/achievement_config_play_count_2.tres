@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://drixwqjmbq4cd"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://bsg22tmo4n1yj"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_6w3ro"]
 [ext_resource type="Texture2D" uid="uid://bl6c5xs2ob3lr" path="res://Features/Achievements/Textures/achievement_icon_play_count_2.png" id="2_6w3ro"]

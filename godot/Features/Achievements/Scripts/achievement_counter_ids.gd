@@ -7,6 +7,7 @@ enum Id {
 	TOTAL_DISTANCE,
 	PLAYED_BEFORE_JUNE_2025,
 	PLAY_COUNT,
+	MAX_COINS,
 }
 
 
@@ -22,5 +23,7 @@ static func to_name( id: AchievementCounterIds.Id ) -> String:
 			return "TOTAL_DISTANCE"
 		AchievementCounterIds.Id.PLAYED_BEFORE_JUNE_2025:
 			return "PLAYED_BEFORE_JUNE_2025"
+		AchievementCounterIds.Id.MAX_COINS:
+			return "MAX_COINS"
 			
 	return "[UNKNOWN COUNTER ID %d]" % id

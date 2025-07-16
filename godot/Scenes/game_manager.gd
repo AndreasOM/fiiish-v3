@@ -138,8 +138,12 @@ func _process(delta: float) -> void:
 				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_DISTANCE, old_d + d )
 				var c = coins()
 				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.COINS_IN_SINGLE_RUN, c )
-				var total_c = self.game.get_player().total_coins()
-				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_COINS, total_c + c )
+				var total_coins = self.game.get_player().total_coins() + c
+				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_COINS, total_coins )
+				var max_coins = self.game.get_player().max_coins()
+				var player_coins = self.game.get_player().coins()
+				max_coins = max( max_coins, player_coins + c )
+				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.MAX_COINS, max_coins )
 				self._achievement_manager._process( delta )
 
 #	if Input.is_key_pressed(KEY_D):

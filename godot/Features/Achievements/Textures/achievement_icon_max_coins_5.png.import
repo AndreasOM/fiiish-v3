@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jpi7xl7nf18m"
-path="res://.godot/imported/achievement_icon_single_run_distance_bronze.png-4cc72d0d6c35e69b5b9f326b8b3edc52.ctex"
+uid="uid://b8vq10gophe58"
+path="res://.godot/imported/achievement_icon_max_coins_5.png-4cff5f459c863f067d2496969f77d449.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Features/Achievements/Textures/achievement_icon_single_run_distance_bronze.png"
-dest_files=["res://.godot/imported/achievement_icon_single_run_distance_bronze.png-4cc72d0d6c35e69b5b9f326b8b3edc52.ctex"]
+source_file="res://Features/Achievements/Textures/achievement_icon_max_coins_5.png"
+dest_files=["res://.godot/imported/achievement_icon_max_coins_5.png-4cff5f459c863f067d2496969f77d449.ctex"]
 
 [params]
 

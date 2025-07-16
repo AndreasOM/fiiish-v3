@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 12
+const current_version: int = 13
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -59,6 +59,10 @@ var _collected_achievements: SerializableArray = SerializableArray.new(
 		return SerializableString.new()
 )
 
+## version 13
+
+var _max_coins: int = 0
+
 ## not serialized
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
 var _last_coins = 0
@@ -108,6 +112,7 @@ func reset() -> void:
 	_skill_points_used = 0
 	_skills.clear()
 	_total_coins = 0
+	_max_coins = 0
 	_completed_achievements.clear()
 	_collected_achievements.clear()
 	_last_achievements.clear()
@@ -206,6 +211,11 @@ func serialize( s: Serializer ) -> bool:
 		return true
 		
 	self._collected_achievements.serialize( s )
+
+	if version < 13:
+		return true
+		
+	self._max_coins = s.serialize_u32( self._max_coins )
 	
 	return true
 		
@@ -217,6 +227,9 @@ func coins() -> int:
 	
 func last_coins() -> int:
 	return _last_coins
+
+func max_coins() -> int:
+	return _max_coins
 
 func last_distance() -> int:
 	return _last_distance
@@ -244,6 +257,8 @@ func give_coins( amount: int ):
 	_coins += amount
 	_last_coins = amount
 	self._total_coins += amount
+	if self._coins > self._max_coins:
+		self._max_coins = self._coins
 	
 func spend_coins( amount: int, _reason: String ) -> bool:
 	if _coins < amount:
