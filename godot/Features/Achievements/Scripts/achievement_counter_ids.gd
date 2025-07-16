@@ -9,6 +9,7 @@ enum Id {
 	PLAY_COUNT,
 	MAX_COINS,
 	SKILL_UPGRADES,
+	DAY_STREAK,
 }
 
 
@@ -28,5 +29,7 @@ static func to_name( id: AchievementCounterIds.Id ) -> String:
 			return "MAX_COINS"
 		AchievementCounterIds.Id.SKILL_UPGRADES:
 			return "SKILL_UPGRADES"
+		AchievementCounterIds.Id.DAY_STREAK:
+			return "DAY_STREAK"
 			
 	return "[UNKNOWN COUNTER ID %d]" % id

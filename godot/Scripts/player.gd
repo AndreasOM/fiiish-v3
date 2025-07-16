@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 13
+const current_version: int = 14
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -63,6 +63,10 @@ var _collected_achievements: SerializableArray = SerializableArray.new(
 
 var _max_coins: int = 0
 
+## version 14
+var _day_streak_start: String = ""	# YYYYMMDD
+var _day_streak_length: int = 0
+
 ## not serialized
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
 var _last_coins = 0
@@ -116,6 +120,8 @@ func reset() -> void:
 	_completed_achievements.clear()
 	_collected_achievements.clear()
 	_last_achievements.clear()
+	self._day_streak_start = ""
+	self._day_streak_length = 0
 	self._is_dirty = true
 	
 func reset_local_leaderboards() -> void:
@@ -216,9 +222,73 @@ func serialize( s: Serializer ) -> bool:
 		return true
 		
 	self._max_coins = s.serialize_u32( self._max_coins )
+
+	if version < 14:
+		return true
+		
+	self._day_streak_start = s.serialize_fixed_string( 8, self._day_streak_start )
+	self._day_streak_length = s.serialize_u16( self._day_streak_length )
 	
 	return true
 		
+func _get_today_as_yyyymmdd() -> String:
+	var utc = true
+	var now = Time.get_datetime_dict_from_system( utc )
+	
+	return "%04d%02d%02d" % [ now["year"], now["month"], now["day"] ]
+	
+
+func _days_since_yyyymmdd( date_str: String ) -> int:
+	if date_str.length() != 8:
+		return -1
+		
+	var utc = true
+	var now = Time.get_datetime_dict_from_system( utc )
+	
+	now["hour"] = 0
+	now["minute"] = 0
+	now["second"] = 0
+	# :TODO: dst?
+	var epoch_now = Time.get_unix_time_from_datetime_dict( now )
+	
+	var date = {}
+	date["year"] = date_str.substr(0,4)
+	date["month"] = date_str.substr(4,2)
+	date["day"] = date_str.substr(6,2)
+	
+	var epoch_date = Time.get_unix_time_from_datetime_dict( date )
+	
+	var delta = ( epoch_now - epoch_date ) / ( 24*60*60 )
+	
+	
+	return delta
+	
+func _reset_day_streak() -> void:
+	var today = self._get_today_as_yyyymmdd()
+	
+	self._day_streak_length = 1
+	self._day_streak_start = today
+	
+func update_day_streak() -> void:
+	if self._day_streak_start.is_empty():
+		self._reset_day_streak()
+		return
+	
+	var delta = self._days_since_yyyymmdd( self._day_streak_start )
+	delta += 1
+
+	if delta > self._day_streak_length + 1:
+		# broken streak
+		self._reset_day_streak()
+	elif self._day_streak_length != delta:
+		# extend streak
+		self._day_streak_length = delta
+		self._is_dirty = true
+	#else: # same day
+
+func day_streak_length() -> int:
+	return self._day_streak_length
+
 func total_coins() -> int:
 	return self._total_coins
 	

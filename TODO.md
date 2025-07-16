@@ -5,10 +5,11 @@
 
 ## Next
 
+- [ ] Verify: Play X days in a row Achievement
+
 - [ ] #reach Feature: Achievements V2.0
 	- [ ] Task: Add the second batch of Achievements
 		- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
-		- [ ] Bonus: Play X days in a row
 	- [ ] Task: Trigger achievement completions directly
 
 ## Todo
@@ -157,6 +158,7 @@
 #### S05E15
 - [x] Bonus: Max Coins (owned) Achievement
 - [x] Bonus: Upgrade X Skills Achievement
+- [x] Bonus: Play X days in a row Achievement
 
 ### 2025-07-07
 #### S05E14

@@ -77,6 +77,7 @@ func _ready() -> void:
 	
 	var suffix = "" if !self._settings.is_kids_mode_enabled() else KIDS_MODE_SUFFIX
 	self._player = Player.load_with_suffix( suffix )
+	self._player.update_day_streak()
 	self.get_game_manager().player_changed( self._player )
 			
 	Events.cheats_changed.connect( _on_cheats_changed )

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://42ppmtxh5w1k"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_u8ea4"]
+[ext_resource type="Texture2D" uid="uid://bg48w04lxl01h" path="res://Features/Achievements/Textures/achievement_icon_day_streak_5.png" id="2_u8ea4"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_odvn8"]
+
+[sub_resource type="Resource" id="Resource_r1prg"]
+script = ExtResource("1_u8ea4")
+prereq_achievement_ids = Array[String](["DayStreak4"])
+prereq_counters = Dictionary[int, int]({
+8: 20
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_odvn8")
+id = "DayStreak5"
+sort_index = 1225
+name = "Day Streak Ruby"
+icon = ExtResource("2_u8ea4")
+completion_condition = SubResource("Resource_r1prg")
+reward_coins = 1000
+reward_skill_points = 3
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"

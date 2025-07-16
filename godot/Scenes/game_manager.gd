@@ -103,6 +103,10 @@ func player_changed( player: Player ) -> void:
 	if self._achievement_counter_manager != null:
 		self._achievement_counter_manager.reset_counters()
 
+	var day_streak_length = player.day_streak_length()
+	self._achievement_counter_manager.set_counter(AchievementCounterIds.Id.DAY_STREAK, day_streak_length )
+	print("Day Streak Length %d" % day_streak_length)
+	
 func set_invincible( invicible: bool ) -> void:
 	self.fish_manager.set_invincible( invicible )
 	

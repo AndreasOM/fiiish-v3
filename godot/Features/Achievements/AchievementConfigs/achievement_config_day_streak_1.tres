@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://bs2cg1587cec6"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_7igx5"]
+[ext_resource type="Texture2D" uid="uid://b7a08mfgv31lk" path="res://Features/Achievements/Textures/achievement_icon_day_streak_1.png" id="2_j7yts"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_gntfk"]
+
+[sub_resource type="Resource" id="Resource_r1prg"]
+script = ExtResource("1_7igx5")
+prereq_achievement_ids = Array[String]([])
+prereq_counters = Dictionary[int, int]({
+8: 2
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_gntfk")
+id = "DayStreak1"
+sort_index = 1221
+name = "Day Streak Bronze"
+icon = ExtResource("2_j7yts")
+completion_condition = SubResource("Resource_r1prg")
+reward_coins = 50
+reward_skill_points = 0
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"
