@@ -161,6 +161,8 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 		return
 		
 	p.set_skill_level( id, level )
+	var total_skill_levels = p.get_total_skill_levels()
+	game.get_game_manager().get_achievement_counter_manager().set_counter( AchievementCounterIds.Id.SKILL_UPGRADES, total_skill_levels )
 	_update_all()
 
 

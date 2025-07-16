@@ -292,6 +292,13 @@ func use_skill_points( amount: int, _reason: String ) -> bool:
 	_skill_points_used += amount
 	
 	return true
+
+func get_total_skill_levels() -> int:
+	var total = 0
+	for s in self._skills.keys():
+		var l = self._skills.get_entry( s )
+		total += l.get_value()
+	return total
 	
 func get_skill_level( id: SkillIds.Id ) -> int:
 	return _skills.get_entry( id, SkillLevel.new( 0 ) ).get_value()

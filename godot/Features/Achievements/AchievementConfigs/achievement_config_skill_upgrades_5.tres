@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://ctq5o7lm0n5n0"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_vmxjs"]
+[ext_resource type="Texture2D" uid="uid://d31k4bdo8rl4m" path="res://Features/Achievements/Textures/achievement_icon_skill_upgrades_5.png" id="2_vmxjs"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_wnfbg"]
+
+[sub_resource type="Resource" id="Resource_3wdqu"]
+script = ExtResource("1_vmxjs")
+prereq_achievement_ids = Array[String](["SkillUpgrades4"])
+prereq_counters = Dictionary[int, int]({
+7: 25
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_wnfbg")
+id = "SkillUpgrades5"
+sort_index = 1215
+name = "Skill Upgrades Ruby"
+icon = ExtResource("2_vmxjs")
+completion_condition = SubResource("Resource_3wdqu")
+reward_coins = 500
+reward_skill_points = 3
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"

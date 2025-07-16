@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dqsmcbnjwr7pl"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_thr6a"]
+[ext_resource type="Texture2D" uid="uid://djq5abraigh8x" path="res://Features/Achievements/Textures/achievement_icon_skill_upgrades_4.png" id="2_thr6a"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_4w4dk"]
+
+[sub_resource type="Resource" id="Resource_3wdqu"]
+script = ExtResource("1_thr6a")
+prereq_achievement_ids = Array[String](["SkillUpgrades3"])
+prereq_counters = Dictionary[int, int]({
+7: 20
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_4w4dk")
+id = "SkillUpgrades4"
+sort_index = 1214
+name = "Skill Upgrades Diamond"
+icon = ExtResource("2_thr6a")
+completion_condition = SubResource("Resource_3wdqu")
+reward_coins = 250
+reward_skill_points = 2
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"

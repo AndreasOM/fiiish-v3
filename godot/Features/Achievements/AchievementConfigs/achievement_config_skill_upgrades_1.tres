@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://c0pa5pel0tdat"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_b5bqi"]
+[ext_resource type="Texture2D" uid="uid://bwta7jkeygf1u" path="res://Features/Achievements/Textures/achievement_icon_skill_upgrades_1.png" id="2_b5bqi"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_hvean"]
+
+[sub_resource type="Resource" id="Resource_3wdqu"]
+script = ExtResource("1_b5bqi")
+prereq_achievement_ids = Array[String]([])
+prereq_counters = Dictionary[int, int]({
+7: 5
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_hvean")
+id = "SkillUpgrades1"
+sort_index = 1211
+name = "Skill Upgrades Bronze"
+icon = ExtResource("2_b5bqi")
+completion_condition = SubResource("Resource_3wdqu")
+reward_coins = 10
+reward_skill_points = 0
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"

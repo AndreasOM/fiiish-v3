@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://d30sjfmqbkpb6"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_8ov7v"]
+[ext_resource type="Texture2D" uid="uid://kfmojeyvfsjj" path="res://Features/Achievements/Textures/achievement_icon_skill_upgrades_2.png" id="2_8ov7v"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_g68jv"]
+
+[sub_resource type="Resource" id="Resource_3wdqu"]
+script = ExtResource("1_8ov7v")
+prereq_achievement_ids = Array[String](["SkillUpgrades1"])
+prereq_counters = Dictionary[int, int]({
+7: 10
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_g68jv")
+id = "SkillUpgrades2"
+sort_index = 1212
+name = "Skill Upgrades Silver"
+icon = ExtResource("2_8ov7v")
+completion_condition = SubResource("Resource_3wdqu")
+reward_coins = 50
+reward_skill_points = 0
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"
