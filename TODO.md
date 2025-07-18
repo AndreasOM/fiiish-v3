@@ -5,13 +5,12 @@
 
 ## Next
 
-- [ ] Bug? Tester 1 Achievement should not unlock anymore
 
 - [ ] Verify: Play X days in a row Achievement
 
 - [ ] #reach Feature: Achievements V2.0
-	- [ ] Task: Add the second batch of Achievements
 	- [ ] Task: Trigger achievement completions directly
+	- [ ] Polish: Allow hidden achievements
 
 ## Todo
 
@@ -158,6 +157,8 @@
 ### 2025-07-18
 #### S05E16
 - [x] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
+- [x] Bug: Fixed Tester 1 Achievement should have conditions
+- [x] Task: Add the second batch of Achievements
 
 ### 2025-07-16
 #### S05E15
