@@ -5,11 +5,12 @@
 
 ## Next
 
+- [ ] Bug? Tester 1 Achievement should not unlock anymore
+
 - [ ] Verify: Play X days in a row Achievement
 
 - [ ] #reach Feature: Achievements V2.0
 	- [ ] Task: Add the second batch of Achievements
-		- [ ] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
 	- [ ] Task: Trigger achievement completions directly
 
 ## Todo
@@ -153,6 +154,10 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-07-18
+#### S05E16
+- [x] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
 
 ### 2025-07-16
 #### S05E15

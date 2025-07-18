@@ -32,6 +32,8 @@ var _achievement_manager: AchievementManager = null
 
 var _test_zone_filename: String = ""
 
+var _rolling_counter_coins_10_seconds: RollingCounter = null
+
 func is_paused() -> bool:
 	return self._paused
 	
@@ -93,6 +95,10 @@ func _ready() -> void:
 		if date["month"] == 5:
 			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_JUNE_2025, 1 )
 
+	self._rolling_counter_coins_10_seconds = RollingCounter.new( 10.0, 0.5 )
+	self._rolling_counter_coins_10_seconds.name = "Rolling Counter Coins 10 Seconds"
+	self.add_child( self._rolling_counter_coins_10_seconds )
+
 func player_changed( player: Player ) -> void:
 	if self._achievement_manager != null:
 		self._achievement_manager.reset_achievements()
@@ -118,6 +124,7 @@ func push_initial_zones() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	_distance += self.movement.x
 	# _distance += self.movement_x * delta
 
@@ -148,6 +155,9 @@ func _process(delta: float) -> void:
 				var player_coins = self.game.get_player().coins()
 				max_coins = max( max_coins, player_coins + c )
 				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.MAX_COINS, max_coins )
+				var coins_10_seconds = self._rolling_counter_coins_10_seconds.get_total()
+				# print("Coins 10 seconds: %d" % coins_10_seconds )
+				self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.COINS_PER_10_SECONDS, coins_10_seconds )
 				self._achievement_manager._process( delta )
 
 #	if Input.is_key_pressed(KEY_D):
@@ -203,6 +213,7 @@ func trigger_sound( soundEffect_Id: SoundEffects.Id ) -> void:
 
 func give_coins( amount: int ) -> void:
 	self._coins += amount
+	self._rolling_counter_coins_10_seconds.increment( amount )
 	
 func set_coins( value: int ) -> void:
 	self._coins = value
