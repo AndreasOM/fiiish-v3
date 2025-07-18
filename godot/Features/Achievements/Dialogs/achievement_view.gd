@@ -29,11 +29,17 @@ func recreate_achievements() -> void:
 		if ac == null:
 			continue
 		
+		var s = achievement_manager.get_achievement_state( id )
+		if ac.hidden:
+			match s:
+				AchievementStates.State.UNKNOWN:
+					continue
+				_:
+					pass
 		var ab = self._button_element.instantiate() as AchievementButton
 		if ab == null:
 			continue
 		ab.config = ac
-		var s = achievement_manager.get_achievement_state( id )
 		ab.state = s
 		ab.selected = id == self._selected_achievement_id
 		ab.pressed.connect( _on_achievement_selected )

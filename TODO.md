@@ -3,14 +3,15 @@
 ## In Progress
 
 
+
 ## Next
+
+- [ ] Task: Trigger achievement completions directly
 
 
 - [ ] Verify: Play X days in a row Achievement
 
 - [ ] #reach Feature: Achievements V2.0
-	- [ ] Task: Trigger achievement completions directly
-	- [ ] Polish: Allow hidden achievements
 
 ## Todo
 
@@ -159,6 +160,7 @@
 - [x] Bonus: Collect X coins in Y seconds || Collect Coins Per Second
 - [x] Bug: Fixed Tester 1 Achievement should have conditions
 - [x] Task: Add the second batch of Achievements
+- [x] Polish: Allow hidden achievements
 
 ### 2025-07-16
 #### S05E15

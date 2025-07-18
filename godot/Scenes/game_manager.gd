@@ -89,11 +89,6 @@ func _ready() -> void:
 	Events.game_state_changed.connect( _on_game_state_changed )
 	Events.zone_finished.connect( _on_zone_finished )
 	
-	# update counters for play achievement
-	var date = Time.get_date_dict_from_system( true )
-	if date["year"] == 2025:
-		if date["month"] == 5:
-			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_JUNE_2025, 1 )
 
 	self._rolling_counter_coins_10_seconds = RollingCounter.new( 10.0, 0.5 )
 	self._rolling_counter_coins_10_seconds.name = "Rolling Counter Coins 10 Seconds"
@@ -108,6 +103,16 @@ func player_changed( player: Player ) -> void:
 			self._achievement_manager.mark_achievement_collected( a )
 	if self._achievement_counter_manager != null:
 		self._achievement_counter_manager.reset_counters()
+
+	# update counters for play achievement
+	var date = Time.get_date_dict_from_system( true )
+	if date["year"] == 2025:
+# not possible anymore
+#		if date["month"] == 5:
+#			
+#			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_JUNE_2025, 1 )
+		if date["month"] < 9:
+			self._achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_SEPTEMBER_2025, 1 )
 
 	var day_streak_length = player.day_streak_length()
 	self._achievement_counter_manager.set_counter(AchievementCounterIds.Id.DAY_STREAK, day_streak_length )

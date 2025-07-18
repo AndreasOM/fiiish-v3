@@ -17,6 +17,7 @@ script = ExtResource("1_hla8i")
 id = "Tester1"
 sort_index = 20100
 name = "Tester 1"
+hidden = true
 icon = ExtResource("2_n04sb")
 completion_condition = SubResource("Resource_j8l2u")
 reward_coins = 100

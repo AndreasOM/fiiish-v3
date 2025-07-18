@@ -17,6 +17,7 @@ script = ExtResource("3_puscx")
 id = "TotalCoins1"
 sort_index = 1061
 name = "Total Coins Bronze"
+hidden = false
 icon = ExtResource("2_r1prg")
 completion_condition = SubResource("Resource_r1prg")
 reward_coins = 10
