@@ -26,9 +26,6 @@ var _distance: float = 0.0
 var _paused: bool = true
 
 var _zone_config_manager: ZoneConfigManager = null
-#var _achievement_config_manager: AchievementConfigManager = null
-#var _achievement_counter_manager: AchievementCounterManager = null
-#var _achievement_manager: AchievementManager = null
 
 var _test_zone_filename: String = ""
 
@@ -62,10 +59,6 @@ func take_current_distance_in_meters() -> int:
 		
 func _init() -> void:
 	self._zone_config_manager = ZoneConfigManager.new()
-	#self._achievement_config_manager = AchievementConfigManager.new()
-	#self._achievement_counter_manager = AchievementCounterManager.new()
-	#self._achievement_manager = AchievementManager.new()
-	#self._achievement_manager.game_manager = self
 
 func _ready() -> void:
 	
@@ -232,51 +225,6 @@ func _on_zone_finished() -> void:
 
 func get_zone_config_manager() -> ZoneConfigManager:
 	return self._zone_config_manager
-
-#func get_achievement_config_manager() -> AchievementConfigManager:
-#	return self._achievement_config_manager
-	
-#func get_achievement_manager() -> AchievementManager:
-#	return self._achievement_manager
-	
-#func get_achievement_counter_manager() -> AchievementCounterManager:
-#	return self._achievement_counter_manager
-
-# moved to game
-#func collect_achievement( id: String ) -> bool:
-#	var player = self.game.get_player()
-#	if !player.collect_achievement( id ):
-#		return false
-#	self._achievement_manager.mark_achievement_collected( id )
-#	
-#	var ac = self._achievement_config_manager.get_config( id )
-#	if ac != null:
-#		if ac.reward_coins > 0:
-#			player.give_coins( ac.reward_coins )
-#			# Events.broadcast_global_message( "Got %d coins" % ac.reward_coins )
-#			var icon = load("res://Textures/UI/mini_icon_coin.png")
-#			Events.broadcast_reward_received( ac.reward_coins, icon, "")
-#		if ac.reward_skill_points > 0:
-#			player.give_skill_points( ac.reward_skill_points, "Achievement Reward %s" % id )
-#			# Events.broadcast_global_message( "Got %d skill points" % ac.reward_skill_points )
-#			var icon = load("res://Textures/UI/mini_icon_skill.png")
-#			Events.broadcast_reward_received( ac.reward_skill_points, icon, "")
-#		for e in ac.reward_extra:
-#			Events.broadcast_reward_received( 0, null, e)
-#			
-#	player.save()
-#	return true
-	 
-# moved to game
-#func sync_achievements_with_player( player: Player ) -> bool:
-#	var completed_achievements = self._achievement_manager.get_completed_achievments()
-#	if completed_achievements.is_empty():
-#		return false
-#	
-##	for ca in completed_achievements:
-##		self._achievement_manager.collect_achievement( ca )
-#	player.add_completed_achievements( completed_achievements )
-#	return true
 	
 func set_test_zone_filename( filename: String ) -> void:
 	self._test_zone_filename = filename
