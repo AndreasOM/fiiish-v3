@@ -8,7 +8,8 @@ func run( script_manager: ScriptManager ) -> bool:
 	DirAccess.make_dir_recursive_absolute("user://screenshots/")
 
 	const ScreenSizes = [
-		Vector2i( 2868, 1320 ), # iPhone 6.9"
+		Vector2i( 2868*0.5, 1320*0.5 ), # iPhone 6.9" *0.5
+		#Vector2i( 2868, 1320 ), # iPhone 6.9"
 		# 1432 × 657 pixels
 		#Vector2i( 2688, 1242 ), # iPhone 6.5"
 		#Vector2i( 2208, 1242 ), # iPhone 5.5"		

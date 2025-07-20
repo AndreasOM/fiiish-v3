@@ -6,37 +6,21 @@
 
 ## Next
 
-
-
 - [ ] Verify: Play X days in a row Achievement
 
 
 ## Todo
 
-- [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
-- [ ] #polish Task: Improve and cleanup url parsing, and handling
-
 - [ ] Story: General cleanup pass
 
 
-
-
-- [ ] Feature: KidsMode
-	- [ ] Story: Implement external KidsMode enabling & disabling
-		- [?] Task: Handle custom scheme for macOS - maybe already done?!!!!
-	- [?] Story: Plugin for iOS lifecycle handling
-		- [?] Task: Get actual command line parameters, and handle them??
-
-
-- [ ] Bug: Remove test zone with middle rock!
 ## Polish & Bugs
-- [ ] Polish: Remove M key from game/fish
 - [ ] Polish: Add skill upgrade price to skill element
+- [ ] Release: Fix MarketingScreenshots
+- [ ] Bug: Remove test zone with middle rock! -> Ensure only classic zones are included in classic
 
 ## V3.8.0 (revised) - ETA: 07/11
 
-- [ ] Feature: Release a classic version via CI/CD
-	- [ ] Task: Verify all entities used in classic zones exist
 
 
 
@@ -88,6 +72,14 @@
 
 - [ ] Feature: OMG Launch Control
 	- [+] Task: Remember main_run_args when overwriting them
+- [ ] #polish Bug: Ensure InGamePauseMenu Play/Pause button always shows correct state
+- [ ] #polish Task: Improve and cleanup url parsing, and handling
+- [ ] Feature: KidsMode
+	- [ ] Story: Implement external KidsMode enabling & disabling
+		- [?] Task: Handle custom scheme for macOS - maybe already done?!!!!
+	- [?] Story: Plugin for iOS lifecycle handling
+		- [?] Task: Get actual command line parameters, and handle them??
+- [+] Task: Verify all entities used in classic zones exist
 
 ## V3.10.0 - ETA: 07/25 <-- "Fiiish!-V3 [classic]"
 
@@ -160,6 +152,8 @@
 #### S05E17
 - [x] Task: Trigger achievement completions directly
 - [x] #reach Feature: Achievements V2.0
+- [x] Feature: Release a classic version via CI/CD -- Note: Done earlier
+- [x] Polish: Remove M key from game/fish
 
 ### 2025-07-18
 #### S05E16

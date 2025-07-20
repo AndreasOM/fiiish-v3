@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddt7nhcrxfycc"]
 
-[ext_resource type="Script" uid="uid://brg81di0vs2nr" path="res://Features/Toasts/Dialogs/achievement_toast.gd" id="1_8r5kc"]
+[ext_resource type="Script" path="res://Features/Toasts/Dialogs/achievement_toast.gd" id="1_8r5kc"]
 [ext_resource type="Texture2D" uid="uid://gyi7pnsddk47" path="res://Textures/UI/achievement_toast_frame.png" id="2_dk0xc"]
 [ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="3_dk0xc"]
 

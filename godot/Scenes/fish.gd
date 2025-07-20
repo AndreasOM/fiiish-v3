@@ -25,7 +25,7 @@ enum Direction {
 
 enum Mode {
 	PLAY,
-	TEST,
+	TEST, # obsolete
 	EDIT,
 }
 
@@ -132,12 +132,12 @@ func _goto_respawning() -> void:
 	%AnimatedSprite2D.play("swim")
 		
 
-func toggle_mode() -> void:
-	match self.mode:
-		Mode.PLAY:
-			self.mode = Mode.TEST
-		Mode.TEST:
-			self.mode = Mode.PLAY
+#func toggle_mode() -> void:
+#	match self.mode:
+#		Mode.PLAY:
+#			self.mode = Mode.TEST
+#		Mode.TEST:
+#			self.mode = Mode.PLAY
 
 func goto_edit_mode() -> void:
 	self.mode = Mode.EDIT
@@ -196,8 +196,8 @@ func _process(delta: float) -> void:
 	self._process_always( delta )
 	
 func _process_mode_play(delta: float) -> void:
-	if Input.is_key_pressed(KEY_M):
-		self.toggle_mode()
+#	if Input.is_key_pressed(KEY_M):
+#		self.toggle_mode()
 	match self.state:
 		Fish.State.INITIAL:
 			_set_state(Fish.State.WAITING_FOR_START)
