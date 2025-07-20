@@ -6,12 +6,10 @@
 
 ## Next
 
-- [ ] Task: Trigger achievement completions directly
 
 
 - [ ] Verify: Play X days in a row Achievement
 
-- [ ] #reach Feature: Achievements V2.0
 
 ## Todo
 
@@ -31,6 +29,9 @@
 
 
 - [ ] Bug: Remove test zone with middle rock!
+## Polish & Bugs
+- [ ] Polish: Remove M key from game/fish
+- [ ] Polish: Add skill upgrade price to skill element
 
 ## V3.8.0 (revised) - ETA: 07/11
 
@@ -154,6 +155,11 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-07-19
+#### S05E17
+- [x] Task: Trigger achievement completions directly
+- [x] #reach Feature: Achievements V2.0
 
 ### 2025-07-18
 #### S05E16

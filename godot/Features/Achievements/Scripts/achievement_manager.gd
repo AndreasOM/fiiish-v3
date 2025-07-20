@@ -1,21 +1,21 @@
 class_name AchievementManager
 extends Node
 
-@export var game_manager: GameManager = null
+@export var game: Game = null
 
 var _last_version: int = 0
 
 var _achievements: Dictionary[ String, AchievementStates.State ] = {}
 
 func _process( _delta: float ) -> void:
-	if self.game_manager == null:
+	if self.game == null:
 		return
 		
-	if self.game_manager.game.is_in_kids_mode():
+	if self.game.is_in_kids_mode():
 		return
 
-	var config_manager = self.game_manager.get_achievement_config_manager()
-	var counter_manager = self.game_manager.get_achievement_counter_manager()
+	var config_manager = self.game.achievement_config_manager
+	var counter_manager = self.game.achievement_counter_manager
 	
 	var version = counter_manager.get_version()
 	if version == self._last_version:
@@ -40,6 +40,7 @@ func _process( _delta: float ) -> void:
 		if !self._check_condition_counters( cfg.completion_condition, counter_manager):
 			continue
 		print("Completed Achievement %s" % cfg.name)
+		self._print_condition_counters( cfg.completion_condition )
 		self._achievements[ cfg.id ] = AchievementStates.State.COMPLETED
 		# Events.broadcast_global_message( "Completed: %s" % cfg.name )
 		Events.broadcast_achievement_completed( cfg.id )
@@ -64,6 +65,15 @@ func _check_condition_counters( condition: AchievementCondition, counter_manager
 		if needed_value > value:
 			return false
 	return true	
+	
+func _print_condition_counters( condition: AchievementCondition ) -> void:
+	for id in condition.prereq_counters.keys():
+		var needed_value = condition.prereq_counters.get( id, null)
+		if needed_value == null:
+			continue
+		var name = AchievementCounterIds.to_name( id )
+		print("Achievement Condition Counter - %s [%d]: %d" % [ name, id, needed_value ])
+
 
 func get_completed_achievments() -> Array[ String ]:
 	var r: Array[ String ] = []

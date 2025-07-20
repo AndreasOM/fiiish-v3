@@ -6,6 +6,11 @@ extends Control
 const MarketingScreenshotScript = "res://Features/Scripting/Scripts/marketing_screenshot_script.gd"
 const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.gd"
 
+@onready var achievement_config_manager: AchievementConfigManager = %AchievementConfigManager
+@onready var achievement_counter_manager: AchievementCounterManager = %AchievementCounterManager
+@onready var achievement_manager: AchievementManager = %AchievementManager
+@onready var game: Game = %Game
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#get_window().size = Vector2i( 1920*2*0.75, 1080*2*0.75 )
@@ -58,6 +63,8 @@ func _ready() -> void:
 	
 	self._on_settings_changed()
 	Events.settings_changed.connect( _on_settings_changed )
+	self._on_player_changed( self.game.get_player() )
+	Events.player_changed.connect( _on_player_changed )
 	self.open_initial_dialogs()
 	
 	self._handle_launch_parameters()
@@ -198,6 +205,31 @@ func open_initial_dialogs() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
+func _on_player_changed( player: Player ) -> void:
+	if self.achievement_manager != null:
+		self.achievement_manager.reset_achievements()
+		for a in player.completed_achievements():
+			self.achievement_manager.mark_achievement_completed( a )
+		for a in player.collected_achievements():
+			self.achievement_manager.mark_achievement_collected( a )
+	if self.achievement_counter_manager != null:
+		self.achievement_counter_manager.reset_counters()
+
+	# update counters for play achievement
+	var date = Time.get_date_dict_from_system( true )
+	if date["year"] == 2025:
+# not possible anymore
+#		if date["month"] == 5:
+#			
+#			self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_JUNE_2025, 1 )
+		if date["month"] < 9:
+			self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_SEPTEMBER_2025, 1 )
+
+	var day_streak_length = player.day_streak_length()
+	self.achievement_counter_manager.set_counter(AchievementCounterIds.Id.DAY_STREAK, day_streak_length )
+	print("Day Streak Length %d" % day_streak_length)
 
 
 func _on_kids_mode_changed( enabled: bool ) -> void:

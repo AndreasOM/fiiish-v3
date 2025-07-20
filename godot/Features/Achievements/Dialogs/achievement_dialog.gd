@@ -7,6 +7,8 @@ func _ready() -> void:
 	if self._dialog_manager != null:
 		self.achievement_view.game_manager = self._dialog_manager.game.get_game_manager()
 	
+	Events.achievement_completed.connect( _on_achievement_completed )
+	
 func set_dialog_manager( dialog_manager: DialogManager ) -> void:
 	super( dialog_manager )
 	if self.achievement_view != null:
@@ -16,6 +18,9 @@ func close( duration: float) -> void:
 	fade_out( duration )
 
 func open( duration: float) -> void:
+	var game = self._dialog_manager.game
+	# :HACK:
+	game.sync_achievements_with_player( game.get_player() )
 	self.achievement_view.recreate_achievements()
 	fade_in( duration )
 
@@ -40,3 +45,10 @@ func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
 
 func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
 	closing()
+
+func _on_achievement_completed( id: String ) -> void:
+	# :HACK:
+	if self._dialog_manager == null:
+		return
+	var game = self._dialog_manager.game
+	game.sync_achievements_with_player( game.get_player() )

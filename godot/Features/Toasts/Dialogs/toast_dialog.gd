@@ -52,8 +52,9 @@ func add_achievement_toast( id: String ) -> AchievementToast:
 	if self._dialog_manager == null:
 		pass
 	else:
-		var gm = self._dialog_manager.game.get_game_manager()
-		var acm = gm.get_achievement_config_manager()
+		var game = self._dialog_manager.game
+		#var gm = game.get_game_manager()
+		var acm = game.achievement_config_manager
 		var ac = acm.get_config( id )
 		at.config = ac
 	self._queued_toasts.push_back( at )

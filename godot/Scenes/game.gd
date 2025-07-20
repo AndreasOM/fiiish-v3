@@ -1,6 +1,10 @@
 extends Node
 class_name Game
 
+@export var achievement_config_manager: AchievementConfigManager = null
+@export var achievement_counter_manager: AchievementCounterManager = null
+@export var achievement_manager: AchievementManager = null
+
 @onready var game_scaler: GameScaler = %GameScaler
 @onready var zone_editor_manager: ZoneEditorManager = %ZoneEditorManager
 @onready var entity_config_manager: EntityConfigManager = %EntityConfigManager
@@ -78,7 +82,7 @@ func _ready() -> void:
 	var suffix = "" if !self._settings.is_kids_mode_enabled() else KIDS_MODE_SUFFIX
 	self._player = Player.load_with_suffix( suffix )
 	self._player.update_day_streak()
-	self.get_game_manager().player_changed( self._player )
+	Events.broadcast_player_changed( self._player )
 			
 	Events.cheats_changed.connect( _on_cheats_changed )
 	self._on_cheats_changed()
@@ -178,7 +182,7 @@ func _goto_state_swimming() -> void:
 	self._set_state( Game.State.SWIMMING )
 	self.fish_manager.start_swimming()
 	var pc = self._player.increase_play_count()
-	var acm = self.get_game_manager().get_achievement_counter_manager()
+	var acm = self.achievement_counter_manager
 	acm.set_counter( AchievementCounterIds.Id.PLAY_COUNT, pc )
 
 func _goto_state_dead() -> void:
@@ -264,10 +268,49 @@ func _credit_last_swim() -> void:
 	var distance = %GameManager.take_current_distance_in_meters()
 	_player.apply_distance(distance)
 	
-	self.get_game_manager().sync_achievements_with_player( _player )
+	self.sync_achievements_with_player( _player )
 	
 	_player.update_leaderboards( coins, distance )
 	_player.save();
+
+func collect_achievement( id: String ) -> bool:
+	var player = self.get_player()
+	if !player.collect_achievement( id ):
+		return false
+	self.achievement_manager.mark_achievement_collected( id )
+	
+	var ac = self.achievement_config_manager.get_config( id )
+	if ac != null:
+		if ac.reward_coins > 0:
+			player.give_coins( ac.reward_coins )
+			# Events.broadcast_global_message( "Got %d coins" % ac.reward_coins )
+			var icon = load("res://Textures/UI/mini_icon_coin.png")
+			Events.broadcast_reward_received( ac.reward_coins, icon, "")
+			var total_coins = player.total_coins()
+			self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.TOTAL_COINS, total_coins )
+			var max_coins = player.max_coins()
+			self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.MAX_COINS, max_coins )
+		if ac.reward_skill_points > 0:
+			player.give_skill_points( ac.reward_skill_points, "Achievement Reward %s" % id )
+			# Events.broadcast_global_message( "Got %d skill points" % ac.reward_skill_points )
+			var icon = load("res://Textures/UI/mini_icon_skill.png")
+			Events.broadcast_reward_received( ac.reward_skill_points, icon, "")
+		for e in ac.reward_extra:
+			Events.broadcast_reward_received( 0, null, e)
+			
+	player.save()
+	return true
+
+
+func sync_achievements_with_player( player: Player ) -> bool:
+	var completed_achievements = self.achievement_manager.get_completed_achievments()
+	if completed_achievements.is_empty():
+		return false
+	
+#	for ca in completed_achievements:
+#		self.achievement_manager.collect_achievement( ca )
+	player.add_completed_achievements( completed_achievements )
+	return true
 
 func save_player() -> void:
 	_player.save()
@@ -393,7 +436,7 @@ func _enter_kidsmode( clean_player: bool ) -> void:
 		self._player = Player.new()
 	self._player.reset_achievements()
 	self._player.save_with_suffix( KIDS_MODE_SUFFIX )
-	self.get_game_manager().player_changed( self._player )
+	Events.broadcast_player_changed( self._player )
 	Events.broadcast_global_message("KidsMode Enabled")
 	Events.broadcast_kids_mode_changed( true )
 	Events.broadcast_settings_changed()

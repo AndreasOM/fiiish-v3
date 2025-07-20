@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=32 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -26,6 +26,9 @@
 [ext_resource type="Script" uid="uid://ef1ug6bg1c75" path="res://Scenes/music_manager.gd" id="23_l5um0"]
 [ext_resource type="Script" uid="uid://bpux614qj5uam" path="res://Scenes/sound_manager.gd" id="24_6541p"]
 [ext_resource type="Script" uid="uid://l0esgnhelws0" path="res://Scenes/dialog_manager.gd" id="25_xncef"]
+[ext_resource type="Script" uid="uid://cr7guxn2k4m4y" path="res://Features/Achievements/Scripts/achievement_config_manager.gd" id="27_1w6v2"]
+[ext_resource type="Script" uid="uid://b3ytntieih6jw" path="res://Features/Achievements/Scripts/achievement_counter_manager.gd" id="28_6vcvc"]
+[ext_resource type="Script" uid="uid://df4ihhde77ug2" path="res://Features/Achievements/Scripts/achievement_manager.gd" id="29_7k868"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwb6x"]
 font = ExtResource("7_c40ns")
@@ -51,8 +54,11 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_w7ipa")
 
-[node name="Game" parent="." node_paths=PackedStringArray("musicManager", "soundManager") instance=ExtResource("1_0flmv")]
+[node name="Game" parent="." node_paths=PackedStringArray("achievement_config_manager", "achievement_counter_manager", "achievement_manager", "musicManager", "soundManager") instance=ExtResource("1_0flmv")]
 unique_name_in_owner = true
+achievement_config_manager = NodePath("../Managers/AchievementConfigManager")
+achievement_counter_manager = NodePath("../Managers/AchievementCounterManager")
+achievement_manager = NodePath("../Managers/AchievementManager")
 musicManager = NodePath("../Managers/MusicManager")
 soundManager = NodePath("../Managers/SoundManager")
 
@@ -344,6 +350,22 @@ script = ExtResource("23_l5um0")
 
 [node name="SoundManager" type="Node" parent="Managers"]
 script = ExtResource("24_6541p")
+
+[node name="AchievementConfigManager" type="Node" parent="Managers"]
+unique_name_in_owner = true
+script = ExtResource("27_1w6v2")
+metadata/_custom_type_script = "uid://cr7guxn2k4m4y"
+
+[node name="AchievementCounterManager" type="Node" parent="Managers"]
+unique_name_in_owner = true
+script = ExtResource("28_6vcvc")
+metadata/_custom_type_script = "uid://b3ytntieih6jw"
+
+[node name="AchievementManager" type="Node" parent="Managers" node_paths=PackedStringArray("game")]
+unique_name_in_owner = true
+script = ExtResource("29_7k868")
+game = NodePath("../../Game")
+metadata/_custom_type_script = "uid://df4ihhde77ug2"
 
 [connection signal="state_changed" from="Game" to="UI/DialogManager" method="_on_game_state_changed"]
 [connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]

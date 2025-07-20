@@ -21,6 +21,8 @@ signal log_event( text: String )
 
 signal kids_mode_changed( enabled: bool )
 
+signal player_changed( player: Player )
+
 func broadcast_game_state_changed( state: Game.State ) -> void:
 	game_state_changed.emit( state )
 
@@ -68,3 +70,6 @@ func broadcast_kids_mode_changed( enabled: bool ) -> void:
 
 func broadcast_log_event( text: String ) -> void:
 	self.log_event.emit( text )
+
+func broadcast_player_changed( player: Player ) -> void:
+	self.player_changed.emit( player )

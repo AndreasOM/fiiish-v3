@@ -1,4 +1,5 @@
 class_name AchievementCounterManager
+extends Node
 
 var _version: int = 0
 var _counters: Dictionary[ AchievementCounterIds.Id, int ] = {}
