@@ -15,7 +15,6 @@
 
 
 ## Polish & Bugs
-- [ ] Polish: Add skill upgrade price to skill element
 - [ ] Release: Fix MarketingScreenshots
 - [ ] Bug: Remove test zone with middle rock! -> Ensure only classic zones are included in classic
 
@@ -154,6 +153,7 @@
 - [x] #reach Feature: Achievements V2.0
 - [x] Feature: Release a classic version via CI/CD -- Note: Done earlier
 - [x] Polish: Remove M key from game/fish
+- [x] Polish: Add skill upgrade price to skill element
 
 ### 2025-07-18
 #### S05E16

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://br2xttibjn8qo"]
+[gd_scene load_steps=4 format=3 uid="uid://br2xttibjn8qo"]
 
 [ext_resource type="Script" uid="uid://d2ftydf7i7pyp" path="res://Dialogs/SkillUpgradeElements/skill_upgrade_item.gd" id="1_mv3ju"]
 [ext_resource type="PackedScene" uid="uid://bilwlijmp22dx" path="res://Dialogs/SkillUpgradeElements/skill_upgrade_item_button.tscn" id="2_iiy6h"]
+[ext_resource type="Texture2D" uid="uid://ba44xgufi4hjl" path="res://Textures/UI/mini_icon_skill.png" id="2_vmexp"]
 
 [node name="SkillUpgradeItem" type="VBoxContainer"]
 offset_right = 500.0
@@ -16,18 +17,41 @@ custom_minimum_size = Vector2(800, 35)
 layout_mode = 2
 color = Color(0.752518, 0.420614, 0.121328, 0.764706)
 
-[node name="SkillNameLabel" type="Label" parent="CenterContainer/ColorRect"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="HBoxContainer" parent="CenterContainer/ColorRect"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 14
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -17.5
-offset_right = 185.0
-offset_bottom = 17.5
+offset_top = -17.0
+offset_bottom = 17.0
+grow_horizontal = 2
 grow_vertical = 2
+
+[node name="SkillNameLabel" type="Label" parent="CenterContainer/ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"SkillsNameLabel"
 text = "Collection Range"
+
+[node name="Spacer" type="Control" parent="CenterContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CostLabel" type="Label" parent="CenterContainer/ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+theme_type_variation = &"SkillsNameLabel"
+text = "1234"
+
+[node name="SkillPointIcon" type="TextureRect" parent="CenterContainer/ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_vmexp")
+expand_mode = 4
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 unique_name_in_owner = true

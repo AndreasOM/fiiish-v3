@@ -5,6 +5,7 @@ class_name SkillUpgradeItem
 @export var current: int = 0;
 @export var unlockable: int = 0;
 @export var maximum: int = 0;
+@export var unlock_price: int = 0 : set = set_unlock_price
 
 @export var skill_id: SkillIds.Id = SkillIds.Id.NONE;
 
@@ -15,6 +16,8 @@ var button = preload("res://Dialogs/SkillUpgradeElements/skill_upgrade_item_butt
 @onready var skill_name_label: Label = %SkillNameLabel
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var scroll_container_hbox_container: HBoxContainer = %ScrollContainer/HBoxContainer
+@onready var cost_label: Label = %CostLabel
+@onready var skill_point_icon: TextureRect = %SkillPointIcon
 
 func _ready() -> void:
 	self.skill_name_label.text = title;
@@ -74,5 +77,17 @@ func setMaximum( v: int) -> void:
 	maximum = v
 	_update_states()
 
+func set_unlock_price( p: int ) -> void:
+	unlock_price = p
+	if unlock_price < 0:
+		self.cost_label.text = ""
+		self.cost_label.visible = false
+		self.skill_point_icon.visible = false
+	else:
+		self.cost_label.text = "%d" % self.unlock_price
+		self.cost_label.visible = true
+		self.skill_point_icon.visible = true
+
+	
 func prepare_fade_in() -> void:
 	self.scroll_container.scroll_horizontal = 0
