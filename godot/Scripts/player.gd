@@ -279,6 +279,7 @@ func update_day_streak() -> void:
 
 	if delta > self._day_streak_length + 1:
 		# broken streak
+		print("Broken Streak started on %s, %d days in streak, but needed %d" % [ self._day_streak_start, self._day_streak_length, delta ])
 		self._reset_day_streak()
 	elif self._day_streak_length != delta:
 		# extend streak
