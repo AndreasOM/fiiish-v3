@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="OMG_LaunchControl_LaunchButtonConfig" load_steps=2 format=3 uid="uid://cs3rsmhi6505w"]
+
+[ext_resource type="Script" uid="uid://lsabu7iqy74i" path="res://addons/omg-launch_control/omg-launch_control-launch_button_config.gd" id="1_0j6e4"]
+
+[resource]
+script = ExtResource("1_0j6e4")
+label_text = "Steam Screenshots"
+parameter = "--script:\"SteamScreenshots\""
+sort_order = 999
+metadata/_custom_type_script = "uid://lsabu7iqy74i"

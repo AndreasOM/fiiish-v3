@@ -115,7 +115,7 @@ jobs:
               ;;
             *)
               echo "BINARY_NAME=${{ vars.PROJECT }}" >> "$GITHUB_ENV"
-              echo "LOADINGSCREEN=loadingscreen.png" >> "$GITHUB_ENV"
+              echo "LOADINGSCREEN=loadingscreen.webp" >> "$GITHUB_ENV"
               ;;
           esac
 

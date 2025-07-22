@@ -33,7 +33,7 @@ size_flags_vertical = 4
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 96
+theme_override_font_sizes/font_size = 72
 text = "OMG Launch Control"
 
 [node name="ReloadButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
@@ -53,10 +53,16 @@ text = "Reload"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonContainer" type="VBoxContainer" parent="VBoxContainer"]
-unique_name_in_owner = true
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ButtonContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 mouse_filter = 2
 
 [node name="Node" type="EditorPlugin" parent="."]

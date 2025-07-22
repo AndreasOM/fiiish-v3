@@ -13,6 +13,20 @@
 
 - [ ] Story: General cleanup pass
 
+## Todo Steam Store 
+- [ ] Steam: Set up website https://fiiish-classic.omnimad.net
+- [ ] Steam: Get rid of macOS 10.15 warning
+- [ ] Steam: Add note about english only to description
+- [ ] Steam: Store Asset - Header Capsule -> Add Logo (Fiiish!)
+- [ ] Steam: Store Asset - Small Capsule -> Add Logo (Fiiish!)
+- [ ] Steam: Store Asset - Main Capsule -> Add Logo (Fiiish!)
+- [ ] Steam: Store Asset - Vertical Capsule -> Add Logo (Fiiish!)
+- [ ] Steam: Store Asset - Page Background -> Use blue swirl
+- [ ] Steam: Screenshot Asset - Extend script to take needed shots
+- [ ] Steam: Library Asset - Library Capsule -> Add Logo (Fiiish!)
+- [ ] Steam: Library Asset - Library Hero: 3840x1240, Safe Area 860x380 -> 1490,430-2350,810
+
+
 
 ## Polish & Bugs
 - [ ] Release: Fix MarketingScreenshots
@@ -147,7 +161,12 @@
 
 ## Done
 
-### 2025-07-19
+### 2025-07-22
+#### S06E01
+- [x] Task: Create new loading screen
+- [x] Steam: Add screenshot script :WIP:
+
+### 2025-07-20
 #### S05E17
 - [x] Task: Trigger achievement completions directly
 - [x] #reach Feature: Achievements V2.0

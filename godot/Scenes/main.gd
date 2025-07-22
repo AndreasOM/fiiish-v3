@@ -4,6 +4,7 @@ extends Control
 @onready var script_manager: ScriptManager = %ScriptManager
 
 const MarketingScreenshotScript = "res://Features/Scripting/Scripts/marketing_screenshot_script.gd"
+const SteamScreenshotScript = "res://Features/Scripting/Scripts/steam_screenshot_script.gd"
 const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.gd"
 
 @onready var achievement_config_manager: AchievementConfigManager = %AchievementConfigManager
@@ -101,6 +102,8 @@ func _handle_script( s: String ) -> void:
 	match s:
 		"MarketingScreenshots":
 			script = load(MarketingScreenshotScript)
+		"SteamScreenshots":
+			script = load(SteamScreenshotScript)
 		"OverlayTest":
 			script = load(OverlayTestScript)
 		_:
