@@ -160,6 +160,18 @@ func cleanup() -> void:
 	self.zone_manager.cleanup()
 	self.pickup_manager.cleanup()
 
+func cleanup_pickups() -> void:
+	self.pickup_manager.cleanup()
+	
+func spawn_coin( pos: Vector2 ) -> Pickup:
+	return self.pickup_manager.spawn_coin( pos )
+
+func spawn_pickup_rain( pos: Vector2 ) -> Pickup:
+	return self.pickup_manager.spawn_pickup_rain( pos )
+	
+func spawn_pickup_explosion( pos: Vector2 ) -> Pickup:
+	return self.pickup_manager.spawn_pickup_explosion( pos )
+
 func kill_all_fishes() -> void:
 	self.fish_manager.kill_all_fishes()
 	

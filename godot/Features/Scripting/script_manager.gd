@@ -72,6 +72,21 @@ func take_screenshot( filename: String ) -> void:
 	print("MarketingScreenshot - screenshot saved to %s" % full_filename)
 	self._screenshot_counter += 1
 
+func cleanup_pickups() -> void:
+	self.game.get_game_manager().cleanup_pickups()
+	
+func spawn_coin( pos: Vector2 ) -> Pickup:
+	return self.game.get_game_manager().spawn_coin( pos )
+
+func spawn_coin_rain( pos: Vector2 ) -> Pickup:
+	return self.game.get_game_manager().spawn_coin( pos )
+	
+func spawn_pickup_rain( pos: Vector2 ) -> Pickup:
+	return self.game.get_game_manager().spawn_pickup_rain( pos )
+	
+func spawn_pickup_explosion( pos: Vector2 ) -> Pickup:
+	return self.game.get_game_manager().spawn_pickup_explosion( pos )
+	
 func clear_overlays() -> void:
 	for e in self._overlays.values():
 		var was: WindowAlignedSprite2D = e

@@ -2,11 +2,12 @@
 
 ## In Progress
 
-- [ ] Bug: Fix screen/window resizing from script
+
+- [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 
 - [ ] Steam: Screenshot Asset - Extend script to take needed shots
-	- [ ] LoadingScreen
+	- [x] LoadingScreen
 	- [ ] Tiny explosion
 	- [ ] I love Fiiish!
 	- [ ] Achievments
@@ -175,6 +176,8 @@
 ### 2025-07-30
 #### S06E02
 - [x] Task: Add fast forward to script
+- [x] Task: Cleanup all pickups from script
+- [x] Task: Place pickup from script
 
 ### 2025-07-22
 #### S06E01

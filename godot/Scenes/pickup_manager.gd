@@ -182,6 +182,42 @@ func spawn_coins( count: int, fish: Fish ) -> void:
 		if pickup != null:
 			pickup.set_velocity( Vector2( randf_range( -10.0, 10.0 ), randf_range( 250.0, 400.0 ) ) )
 
+func spawn_coin( pos: Vector2 ) -> Pickup:
+	var coin_ec = entity_config_manager.get_entry( EntityId.Id.PICKUPCOIN )
+	if coin_ec == null:
+		return null
+	var p = coin_ec.resource.instantiate()
+	
+	p.game_manager = self.game_manager
+	p.position = pos
+	%Pickups.add_child(p)
+	
+	return p
+
+func spawn_pickup_rain( pos: Vector2 ) -> Pickup:
+	var coin_ec = entity_config_manager.get_entry( EntityId.Id.PICKUPRAIN )
+	if coin_ec == null:
+		return null
+	var p = coin_ec.resource.instantiate()
+	
+	p.game_manager = self.game_manager
+	p.position = pos
+	%Pickups.add_child(p)
+	
+	return p
+
+func spawn_pickup_explosion( pos: Vector2 ) -> Pickup:
+	var coin_ec = entity_config_manager.get_entry( EntityId.Id.PICKUPEXPLOSION )
+	if coin_ec == null:
+		return null
+	var p = coin_ec.resource.instantiate()
+	
+	p.game_manager = self.game_manager
+	p.position = pos
+	%Pickups.add_child(p)
+	
+	return p
+	
 func _instantiate_coin( fish: Fish ) -> Object:
 	var coin_entity_id = pick_coin( fish )
 	var coin_ec = entity_config_manager.get_entry( coin_entity_id )

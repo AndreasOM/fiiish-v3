@@ -16,6 +16,7 @@ func run( script_manager: ScriptManager ) -> bool:
 		print("MarketingScreenshotScript - screen size: ", ss)
 		script_manager.set_screenshot_prefix("user://screenshots/fiiish-classic-steam-%dx%d" % [ ss.x, ss.y ])
 		get_window().size = ss
+		# DisplayServer.window_set_size( ss )
 		
 		
 		await self.take_screenshots( script_manager )
@@ -33,7 +34,9 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	script_manager.hide_developer_dialog()
 	
 	script_manager.clear_next_zones()
-	script_manager.push_next_zone_by_name("8000_MarketingScreenshots")
+	await script_manager.cleanup_pickups()
+	
+	# script_manager.push_next_zone_by_name("8000_MarketingScreenshots")
 	script_manager.push_next_zone_by_name("8001_Empty")
 
 	await script_manager.wait_for_game_state( Game.State.WAITING_FOR_START )
@@ -53,21 +56,29 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	await script_manager.clear_overlays()
 
 	script_manager.swim_down()
-	await script_manager.set_game_speed( 10.0 )
-
-	await script_manager.enable_overlay( "overlay-02-help.png", "SE" )
 	
+	await script_manager.set_game_speed( 10.0 )
+	await script_manager.set_game_speed( 0.1 )
+	
+	await script_manager.wait_for_zone_name( "8001_Empty" )
+	await script_manager.cleanup_pickups()
+	await script_manager.spawn_pickup_explosion( Vector2( -256.0, 0.0 ) )
 	await script_manager.wait_for_zone_progress( 70.0 )
 	await script_manager.set_game_speed( 1.0 )
-	await script_manager.wait_for_zone_progress( 100.0 )
-	await script_manager.set_coins( 0 )
-	await script_manager.set_distance_in_m( 2 )
+	#await script_manager.wait_for_zone_progress( 100.0 )
+	await script_manager.wait_for_zone_progress( 120.0 )
+	#await script_manager.set_coins( 0 )
+	await script_manager.set_distance_in_m( 10 )
 
 	### ---=== Screenshot ===--- ###
-	await script_manager.take_screenshot( "help_fiiish" )
+	await script_manager.take_screenshot( "tiny_explosion" )
 	await script_manager.set_game_speed( 10.0 )
-	await script_manager.clear_overlays()
+	# await script_manager.clear_overlays()
 	
+	while true:
+		await get_tree().process_frame
+	
+	return
 	# ~move fish to position~
 	await script_manager.wait_for_zone_name( "8000_MarketingScreenshots" )
 	print("SteamScreenshotScript - zone: 8000_MarketingScreenshots")
