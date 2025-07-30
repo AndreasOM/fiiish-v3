@@ -2,6 +2,17 @@
 
 ## In Progress
 
+- [ ] Bug: Fix screen/window resizing from script
+
+
+- [ ] Steam: Screenshot Asset - Extend script to take needed shots
+	- [ ] LoadingScreen
+	- [ ] Tiny explosion
+	- [ ] I love Fiiish!
+	- [ ] Achievments
+	- [ ] SkillUpgrades
+	- [ ] Huge Explosion plus Rain
+- [ ] Release: Fix MarketingScreenshots
 
 
 ## Next
@@ -10,6 +21,7 @@
 
 
 ## Todo
+
 
 - [ ] Story: General cleanup pass
 
@@ -22,15 +34,14 @@
 - [ ] Steam: Store Asset - Main Capsule -> Add Logo (Fiiish!)
 - [ ] Steam: Store Asset - Vertical Capsule -> Add Logo (Fiiish!)
 - [ ] Steam: Store Asset - Page Background -> Use blue swirl
-- [ ] Steam: Screenshot Asset - Extend script to take needed shots
 - [ ] Steam: Library Asset - Library Capsule -> Add Logo (Fiiish!)
 - [ ] Steam: Library Asset - Library Hero: 3840x1240, Safe Area 860x380 -> 1490,430-2350,810
 
 
 
 ## Polish & Bugs
-- [ ] Release: Fix MarketingScreenshots
 - [ ] Bug: Remove test zone with middle rock! -> Ensure only classic zones are included in classic
+- [ ] Polish: Rebake loading screen with version for local development
 
 ## V3.8.0 (revised) - ETA: 07/11
 
@@ -160,6 +171,10 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-07-30
+#### S06E02
+- [x] Task: Add fast forward to script
 
 ### 2025-07-22
 #### S06E01

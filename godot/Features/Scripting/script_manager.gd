@@ -28,6 +28,14 @@ func wait_for_zone_progress( x: float ) -> void:
 		
 	print( "MarketingScreenshot progress %f" % self.game.zone_manager.current_zone_progress)
 		
+func set_game_speed( speed: float ) -> void:
+	print("delta speed: %f" % speed)
+	Engine.time_scale = speed
+	Engine.physics_ticks_per_second = 60 * speed
+	# Engine.max_physics_steps_per_frame
+
+	pass
+	
 func set_fish_target_height_range( min_h: float, max_h: float ) -> void:
 	self.game.fish_manager.set_target_height_range( min_h, max_h )
 	

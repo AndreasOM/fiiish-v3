@@ -8,7 +8,8 @@ func run( script_manager: ScriptManager ) -> bool:
 	DirAccess.make_dir_recursive_absolute("user://screenshots/")
 
 	const ScreenSizes = [
-		Vector2i( 1920, 1080 ),
+		Vector2i( 0.5*1920, 0.5*1080 ),
+		# Vector2i( 1920, 1080 ),
 	]
 	
 	for ss in ScreenSizes:
@@ -52,15 +53,19 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	await script_manager.clear_overlays()
 
 	script_manager.swim_down()
+	await script_manager.set_game_speed( 10.0 )
 
 	await script_manager.enable_overlay( "overlay-02-help.png", "SE" )
 	
+	await script_manager.wait_for_zone_progress( 70.0 )
+	await script_manager.set_game_speed( 1.0 )
 	await script_manager.wait_for_zone_progress( 100.0 )
 	await script_manager.set_coins( 0 )
 	await script_manager.set_distance_in_m( 2 )
 
 	### ---=== Screenshot ===--- ###
 	await script_manager.take_screenshot( "help_fiiish" )
+	await script_manager.set_game_speed( 10.0 )
 	await script_manager.clear_overlays()
 	
 	# ~move fish to position~
@@ -69,13 +74,19 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	await script_manager.wait_for_zone_name( "8001_Empty" )
 	print("SteamScreenshotScript - zone: 8001_Empty")
 
+	await script_manager.wait_for_zone_progress( 70.0 )
+	await script_manager.set_game_speed( 1.0 )
 	await script_manager.wait_for_zone_progress( 100.0 )
 	await script_manager.set_coins( 500 )
 	await script_manager.set_distance_in_m( 123 )
 	
 	### ---=== Screenshot ===--- ###
 	await script_manager.take_screenshot( "just_swim" )
+
+	await script_manager.set_game_speed( 10.0 )
 	
+	await script_manager.wait_for_zone_progress( 1500.0 )
+	await script_manager.set_game_speed( 1.0 )
 	await script_manager.wait_for_zone_progress( 1600.0 )
 	await script_manager.set_coins( 1503 )
 	await script_manager.set_distance_in_m( 264 )
