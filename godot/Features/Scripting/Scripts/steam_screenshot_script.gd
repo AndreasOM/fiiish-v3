@@ -143,7 +143,45 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	#await script_manager.take_screenshot( "explore_the_deep_sea" )
 	#await script_manager.clear_overlays()
 
-	script_manager.abort_swim()
+	# script_manager.abort_swim()
+	script_manager.kill_all_fishes()
+	
+	await script_manager.wait_for_game_state( Game.State.GAME_OVER )
+	
+	await script_manager.wait_until_dialog_open( DialogIds.Id.RESULT_DIALOG )
+	await script_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG )
+	await script_manager.wait_until_dialog_open( DialogIds.Id.ACHIEVEMENTS_DIALOG )
+
+	### ---=== Screenshot ===--- ###
+	await script_manager.take_screenshot( "achievements" )
+
+	await script_manager.close_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG )
+	await script_manager.wait_until_dialog_closed( DialogIds.Id.ACHIEVEMENTS_DIALOG )
+
+	await script_manager.reset_player_skills()
+	
+	await script_manager.set_player_skill_level( SkillIds.Id.MAGNET, 5 )
+	await script_manager.set_player_skill_level( SkillIds.Id.MAGNET_BOOST_POWER, 3 )
+	await script_manager.set_player_skill_level( SkillIds.Id.MAGNET_BOOST_DURATION, 4 )
+	await script_manager.set_player_skill_level( SkillIds.Id.COIN_EXPLOSION, 3 )
+	await script_manager.set_player_skill_level( SkillIds.Id.COIN_RAIN, 1 )
+	await script_manager.set_player_skill_level( SkillIds.Id.LUCK, 2 )
+
+
+	await script_manager.open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG )
+	await script_manager.wait_until_dialog_open( DialogIds.Id.SKILL_UPGRADE_DIALOG )
+
+	### ---=== Screenshot ===--- ###
+	await script_manager.take_screenshot( "skill_upgrades" )
+
+	await script_manager.close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG )
+	await script_manager.wait_until_dialog_closed( DialogIds.Id.SKILL_UPGRADE_DIALOG )
+
+
+	script_manager.swim_down()
+
+
+#	await script_manager.wait_until_dialog_closed( DialogIds.Id.RESULT_DIALOG )
 	
 	await script_manager.wait_for_game_state( Game.State.PREPARING_FOR_START )
 	print("SteamScreenshotScript - PREPARING_FOR_START")

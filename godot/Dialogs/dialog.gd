@@ -8,9 +8,33 @@ signal on_opened
 
 var _dialog_manager: DialogManager = null
 
+var _id: DialogIds.Id = DialogIds.Id.INVALID
+
+enum State {
+	UNKNOWN,
+	OPENING,
+	OPEN,
+	CLOSING,
+	CLOSED,
+}
+
+var _state: State = State.UNKNOWN
+
 func set_dialog_manager( dialog_manager: DialogManager ) -> void:
 	_dialog_manager = dialog_manager
+
+func set_id( id: DialogIds.Id ) -> void:
+	_id = id
 	
+func get_id() -> DialogIds.Id:
+	return self._id
+
+func is_open() -> bool:
+	return self._state == State.OPEN
+
+func is_closed() -> bool:
+	return self._state == State.CLOSED
+
 func toggle( _duration: float ) -> void:
 	push_warning("Toggle not implemented for dialog %s" % self.name )
 	

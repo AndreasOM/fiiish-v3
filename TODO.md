@@ -3,6 +3,7 @@
 ## In Progress
 
 
+
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 
@@ -10,8 +11,8 @@
 	- [x] LoadingScreen
 	- [x] Tiny explosion
 	- [ ] I love Fiiish!
-	- [ ] Achievments
-	- [ ] SkillUpgrades
+	- [x] Achievments
+	- [x] SkillUpgrades
 	- [x] Huge Explosion plus Rain
 - [ ] Release: Fix MarketingScreenshots
 
@@ -27,6 +28,9 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Store 
+- [ ] Steam: Add steam fest achievement, and use it for screenshot
+- [ ] Steam: Fix close button on achievements & skill upgrades, and retake screenshots
+- [ ] Steam: Reset achievments for steam screenshot
 - [ ] Steam: Set up website https://fiiish-classic.omnimad.net
 - [ ] Steam: Get rid of macOS 10.15 warning
 - [ ] Steam: Add note about english only to description
@@ -180,6 +184,8 @@
 - [x] Task: Place pickup from script
 - [x] Task: Reset skill levels from script
 - [x] Task: Set skill level from script
+- [x] Task: Wait for dialog to be open or closed from script
+- [x] Task: Open and close dialog from script
 
 ### 2025-07-22
 #### S06E01

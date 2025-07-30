@@ -29,6 +29,8 @@ var _dialog_configs: Dictionary = {
 
 var _dialogs: Dictionary = {}
 
+var _open_dialogs: Dictionary[ DialogIds.Id, bool ] = {}
+
 
 func _instantiate_dialog( id: DialogIds.Id ) -> Dialog:
 	var dc = _dialog_configs.get( id )
@@ -83,6 +85,7 @@ func on_dialog_closed( dialog: Dialog ) -> void:
 	var id = _dialogs.find_key( dialog )
 	if id != null:
 		_dialogs.erase( id )
+	self._open_dialogs[ dialog.get_id() ] = false
 
 func on_dialog_opening( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_opening %s" % dialog.name )
@@ -90,10 +93,17 @@ func on_dialog_opening( dialog: Dialog ) -> void:
 
 func on_dialog_opened( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_opened %s" % dialog.name )
+	self._open_dialogs[ dialog.get_id() ] = true
 	
 func _on_skills_upgrade_button_pressed() -> void:
 	print("DIALOG_MANAGER: Skills upgrade button pressed")
 	open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
+
+func is_dialog_open( id: DialogIds.Id ) -> bool:
+	return _open_dialogs.get( id, false )
+
+func is_dialog_closed( id: DialogIds.Id ) -> bool:
+	return !_open_dialogs.get( id, false )
 
 func toggle_dialog( id: DialogIds.Id, duration: float) -> void:
 	var dialog = _dialogs.get( id ) as Dialog
@@ -113,6 +123,7 @@ func open_dialog( id: DialogIds.Id, duration: float) -> Dialog:
 		# push_warning("DIALOG_MANAGER: Dialog %d already open" % id )
 		return dialog
 	dialog = self._instantiate_dialog(id)
+	dialog.set_id( id )
 	dialog.open( duration )
 	dialog.visible = true
 	return dialog

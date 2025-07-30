@@ -2,6 +2,7 @@ class_name ScriptManager
 extends Node
 
 @onready var game: Game = %Game
+@onready var dialog_manager: DialogManager = %DialogManager
 
 const OverlayFolder = "res://Textures/Overlays/"
 
@@ -43,10 +44,15 @@ func swim_down() -> void:
 	var event = InputEventAction.new()
 	event.action = "swim_down"
 	event.pressed = true
-	Input.parse_input_event(event)	
+	Input.parse_input_event(event)
+	
+#	Input.action_press("swim_down")
 
 func abort_swim() -> void:
 	self.game.abort_swim()
+	
+func kill_all_fishes() -> void:
+	self.game.get_game_manager().kill_all_fishes()
 	
 func clear_next_zones() -> void:
 	self.game.get_game_manager().get_zone_config_manager().clear_next_zones()
@@ -164,3 +170,17 @@ func hide_developer_dialog() -> void:
 
 func show_toasts() -> void:
 	%DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
+
+func wait_until_dialog_open( id: DialogIds.Id ) -> void:
+	while !self.dialog_manager.is_dialog_open( id ):
+		await get_tree().process_frame
+
+func wait_until_dialog_closed( id: DialogIds.Id ) -> void:
+	while !self.dialog_manager.is_dialog_closed( id ):
+		await get_tree().process_frame
+
+func open_dialog( id: DialogIds.Id ) -> void:
+	self.dialog_manager.open_dialog( id, 0.3 )
+
+func close_dialog( id: DialogIds.Id ) -> void:
+	self.dialog_manager.close_dialog( id, 0.3 )

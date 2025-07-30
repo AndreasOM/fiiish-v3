@@ -58,6 +58,7 @@ func _set_animation_step( step: AnimationStep ) -> void:
 	animation_step = step
 	
 func _ready() -> void:
+	self._id = DialogIds.Id.RESULT_DIALOG
 	coinsResultRow.clear()
 	distanceResultRow.clear()
 	bestDistanceResultRow.clear()
