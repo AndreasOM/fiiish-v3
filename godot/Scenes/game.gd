@@ -209,10 +209,13 @@ func _goto_state_preparing_for_start() -> void:
 	self._set_state( Game.State.PREPARING_FOR_START )
 
 func _goto_state_waiting_for_start() -> void:
+	self.apply_skills()
+	self._set_state( Game.State.WAITING_FOR_START )
+	
+func apply_skills() -> void:
 	var ses = SkillEffectSet.new()
 	ses.apply_skills( _player, _skill_config_manager )
 	self.fish_manager.set_skill_effect_set( ses )
-	self._set_state( Game.State.WAITING_FOR_START )
 	
 func _goto_state_result() -> void:
 	if !%GameManager.has_test_zone():

@@ -8,8 +8,8 @@ func run( script_manager: ScriptManager ) -> bool:
 	DirAccess.make_dir_recursive_absolute("user://screenshots/")
 
 	const ScreenSizes = [
-		Vector2i( 0.5*1920, 0.5*1080 ),
-		# Vector2i( 1920, 1080 ),
+		# Vector2i( 0.5*1920, 0.5*1080 ),
+		Vector2i( 1920, 1080 ),
 	]
 	
 	for ss in ScreenSizes:
@@ -32,6 +32,8 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	script_manager.clear_overlays()
 	script_manager.hide_toasts()
 	script_manager.hide_developer_dialog()
+	
+	await script_manager.reset_player_skills()
 	
 	script_manager.clear_next_zones()
 	await script_manager.cleanup_pickups()
@@ -58,55 +60,88 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	script_manager.swim_down()
 	
 	await script_manager.set_game_speed( 10.0 )
-	await script_manager.set_game_speed( 0.1 )
+	# await script_manager.set_game_speed( 0.1 )
 	
 	await script_manager.wait_for_zone_name( "8001_Empty" )
 	await script_manager.cleanup_pickups()
+	await script_manager.set_player_skill_level( SkillIds.Id.MAGNET, 5 )
+	await script_manager.set_player_skill_level( SkillIds.Id.COIN_EXPLOSION, 1 )
 	await script_manager.spawn_pickup_explosion( Vector2( -256.0, 0.0 ) )
-	await script_manager.wait_for_zone_progress( 70.0 )
+	await script_manager.wait_for_zone_progress( 150.0 )
 	await script_manager.set_game_speed( 1.0 )
 	#await script_manager.wait_for_zone_progress( 100.0 )
-	await script_manager.wait_for_zone_progress( 120.0 )
+	await script_manager.wait_for_zone_progress( 220.0 )
 	#await script_manager.set_coins( 0 )
 	await script_manager.set_distance_in_m( 10 )
 
 	### ---=== Screenshot ===--- ###
 	await script_manager.take_screenshot( "tiny_explosion" )
+	# await script_manager.set_game_speed( 0.1 )
+	# await script_manager.set_game_speed( 10.0 )
 	await script_manager.set_game_speed( 10.0 )
 	# await script_manager.clear_overlays()
-	
-	while true:
-		await get_tree().process_frame
-	
-	return
-	# ~move fish to position~
+
+	script_manager.push_next_zone_by_name("8000_MarketingScreenshots")
 	await script_manager.wait_for_zone_name( "8000_MarketingScreenshots" )
-	print("SteamScreenshotScript - zone: 8000_MarketingScreenshots")
-	await script_manager.wait_for_zone_name( "8001_Empty" )
-	print("SteamScreenshotScript - zone: 8001_Empty")
 
-	await script_manager.wait_for_zone_progress( 70.0 )
+	await script_manager.cleanup_pickups()
+
+	await script_manager.set_player_skill_level( SkillIds.Id.COIN_RAIN, 5 )
+	await script_manager.set_player_skill_level( SkillIds.Id.COIN_EXPLOSION, 5 )
+	await script_manager.set_player_skill_level( SkillIds.Id.LUCK, 5 )
+	const HUGE_PROGRESS = 3000.0
+	const HUGE_EXPLOSION_PROGRESS = 400.0
+	await script_manager.wait_for_zone_progress( HUGE_PROGRESS+0.0 )
+	await script_manager.spawn_pickup_rain( Vector2( -256.0, 0.0 ) )
 	await script_manager.set_game_speed( 1.0 )
-	await script_manager.wait_for_zone_progress( 100.0 )
-	await script_manager.set_coins( 500 )
-	await script_manager.set_distance_in_m( 123 )
+	await script_manager.wait_for_zone_progress( HUGE_PROGRESS+HUGE_EXPLOSION_PROGRESS )
+	await script_manager.spawn_pickup_explosion( Vector2( -256.0, 0.0 ) )
+	#await script_manager.wait_for_zone_progress( 100.0 )
+	await script_manager.wait_for_zone_progress( HUGE_PROGRESS+HUGE_EXPLOSION_PROGRESS+130.0 )
 	
-	### ---=== Screenshot ===--- ###
-	await script_manager.take_screenshot( "just_swim" )
+	await script_manager.set_coins( 346 )
+	await script_manager.set_distance_in_m( 1011 )
 
-	await script_manager.set_game_speed( 10.0 )
-	
-	await script_manager.wait_for_zone_progress( 1500.0 )
-	await script_manager.set_game_speed( 1.0 )
-	await script_manager.wait_for_zone_progress( 1600.0 )
-	await script_manager.set_coins( 1503 )
-	await script_manager.set_distance_in_m( 264 )
-	
-	await script_manager.enable_overlay( "overlay-01-explore.png", "SE" )
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 
 	### ---=== Screenshot ===--- ###
-	await script_manager.take_screenshot( "explore_the_deep_sea" )
-	await script_manager.clear_overlays()
+	await script_manager.take_screenshot( "huge_explosion" )
+#	await script_manager.set_game_speed( 0.1 )
+	
+	#while true:
+		#await get_tree().process_frame
+	#
+	#return
+	## ~move fish to position~
+	#await script_manager.wait_for_zone_name( "8000_MarketingScreenshots" )
+	#print("SteamScreenshotScript - zone: 8000_MarketingScreenshots")
+	#await script_manager.wait_for_zone_name( "8001_Empty" )
+	#print("SteamScreenshotScript - zone: 8001_Empty")
+#
+	#await script_manager.wait_for_zone_progress( 70.0 )
+	#await script_manager.set_game_speed( 1.0 )
+	#await script_manager.wait_for_zone_progress( 100.0 )
+	#await script_manager.set_coins( 500 )
+	#await script_manager.set_distance_in_m( 123 )
+	#
+	#### ---=== Screenshot ===--- ###
+	#await script_manager.take_screenshot( "just_swim" )
+#
+	#await script_manager.set_game_speed( 10.0 )
+	#
+	#await script_manager.wait_for_zone_progress( 1500.0 )
+	#await script_manager.set_game_speed( 1.0 )
+	#await script_manager.wait_for_zone_progress( 1600.0 )
+	#await script_manager.set_coins( 1503 )
+	#await script_manager.set_distance_in_m( 264 )
+	#
+	#await script_manager.enable_overlay( "overlay-01-explore.png", "SE" )
+#
+	#### ---=== Screenshot ===--- ###
+	#await script_manager.take_screenshot( "explore_the_deep_sea" )
+	#await script_manager.clear_overlays()
 
 	script_manager.abort_swim()
 	

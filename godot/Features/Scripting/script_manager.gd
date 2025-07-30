@@ -86,7 +86,14 @@ func spawn_pickup_rain( pos: Vector2 ) -> Pickup:
 	
 func spawn_pickup_explosion( pos: Vector2 ) -> Pickup:
 	return self.game.get_game_manager().spawn_pickup_explosion( pos )
-	
+
+func reset_player_skills() -> void:
+	self.game.get_player().reset_skills()
+
+func set_player_skill_level( id: SkillIds.Id, level: int ) -> void:
+	self.game.get_player().set_skill_level( id, level )
+	self.game.apply_skills()
+
 func clear_overlays() -> void:
 	for e in self._overlays.values():
 		var was: WindowAlignedSprite2D = e

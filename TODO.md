@@ -8,11 +8,11 @@
 
 - [ ] Steam: Screenshot Asset - Extend script to take needed shots
 	- [x] LoadingScreen
-	- [ ] Tiny explosion
+	- [x] Tiny explosion
 	- [ ] I love Fiiish!
 	- [ ] Achievments
 	- [ ] SkillUpgrades
-	- [ ] Huge Explosion plus Rain
+	- [x] Huge Explosion plus Rain
 - [ ] Release: Fix MarketingScreenshots
 
 
@@ -178,6 +178,8 @@
 - [x] Task: Add fast forward to script
 - [x] Task: Cleanup all pickups from script
 - [x] Task: Place pickup from script
+- [x] Task: Reset skill levels from script
+- [x] Task: Set skill level from script
 
 ### 2025-07-22
 #### S06E01
