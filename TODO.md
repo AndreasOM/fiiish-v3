@@ -3,6 +3,8 @@
 ## In Progress
 
 
+- [ ] Release: Fix MarketingScreenshots
+	- [ ] Task: Add a steam next fest achievement
 
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
@@ -14,7 +16,6 @@
 	- [x] Achievments
 	- [x] SkillUpgrades
 	- [x] Huge Explosion plus Rain
-- [ ] Release: Fix MarketingScreenshots
 
 
 ## Next
@@ -28,6 +29,7 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Store 
+- [ ] Steam: Limit max skill upgrades for demo
 - [ ] Steam: Add steam fest achievement, and use it for screenshot
 - [ ] Steam: Fix close button on achievements & skill upgrades, and retake screenshots
 - [ ] Steam: Reset achievments for steam screenshot
@@ -176,6 +178,12 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+
+### 2025-08-04
+#### S06E03
+- [x] Task: Make sure close buttons on big frame dialog align
+- [x] Task: Make sure title texts on big frame dialog align
 
 ### 2025-07-30
 #### S06E02

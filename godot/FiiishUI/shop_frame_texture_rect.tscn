@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://csgvcitxpt8iw"]
+
+[ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="1_upv1u"]
+
+[node name="ShopFrameTextureRect" type="TextureRect"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_upv1u")

@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://ltqh6iqd2i0i"]
+
+[ext_resource type="Script" uid="uid://cqawuafqqx6ve" path="res://Features/Achievements/Dialogs/achievement_dialog.gd" id="1_ogqoc"]
+[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_gk34s"]
+[ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="3_lmvmu"]
+[ext_resource type="PackedScene" uid="uid://c5q30klywas4u" path="res://Features/Achievements/Dialogs/achievement_view.tscn" id="4_bwsat"]
+[ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="5_lf7vl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1w6v2"]
+
+[node name="AchievementDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ogqoc")
+
+[node name="FadeablePanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1w6v2")
+script = ExtResource("2_gk34s")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.0902, 0.661877, 0.82, 0.25098)
+
+[node name="TextureRect" type="TextureRect" parent="FadeablePanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_lmvmu")
+
+[node name="TitleContainer" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 99
+theme_override_constants/margin_top = 55
+theme_override_constants/margin_right = 97
+theme_override_constants/margin_bottom = 912
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/TextureRect/TitleContainer"]
+visible = false
+layout_mode = 2
+color = Color(1, 0.38, 0.38, 0.227451)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/TextureRect/TitleContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="FadeablePanelContainer/TextureRect/TitleContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"SkillsHeaderLabel"
+text = "Achievements"
+
+[node name="CenterMarginContainer" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 99
+theme_override_constants/margin_top = 115
+theme_override_constants/margin_right = 97
+theme_override_constants/margin_bottom = 122
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/TextureRect/CenterMarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(0.5096, 0.5096, 0.98, 0.439216)
+
+[node name="AchievementView" parent="FadeablePanelContainer/TextureRect/CenterMarginContainer" instance=ExtResource("4_bwsat")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 18.0
+offset_right = 1.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 98
+theme_override_constants/margin_top = 47
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 140
+
+[node name="CloseButton" type="TextureButton" parent="FadeablePanelContainer/TextureRect/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("5_lf7vl")
+
+[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
+[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
+[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
+[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
+[connection signal="pressed" from="FadeablePanelContainer/TextureRect/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]

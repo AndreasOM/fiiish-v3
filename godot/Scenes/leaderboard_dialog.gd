@@ -1,6 +1,7 @@
 extends Dialog
 class_name LeaderboardDialog
 
+@onready var shop_frame_title_container: ShopFrameTitleContainer = %ShopFrameTitleContainer
 
 func close( duration: float) -> void:
 	fade_out( duration )
@@ -27,7 +28,9 @@ func _switch_to_leaderboard( type: LeaderboardTypes.Type ) -> void:
 			pass
 				
 	%LeaderBoardElement.set_leaderboard( leaderboard, score_formatter )
-	%TitleLabel.text = "Leaderboard - %s" % leaderboard.name()
+	# %TitleLabel.text = "Leaderboard - %s" % leaderboard.name()
+	self.shop_frame_title_container.title = "Leaderboard - %s" % leaderboard.name()
+	
 	
 func open( duration: float) -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )

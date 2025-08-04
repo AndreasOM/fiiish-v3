@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bf50qg5g2s7tk" path="res://Scenes/leaderboard_dialog.gd" id="1_n1b7g"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_laulm"]
-[ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="3_lltem"]
+[ext_resource type="PackedScene" uid="uid://csgvcitxpt8iw" path="res://FiiishUI/shop_frame_texture_rect.tscn" id="3_64osa"]
 [ext_resource type="PackedScene" uid="uid://b3bhrqxtn4ffx" path="res://Dialogs/Leaderboard/leader_board_element.tscn" id="4_laulm"]
-[ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="4_lltem"]
+[ext_resource type="PackedScene" uid="uid://bxbxcigpne8qa" path="res://FiiishUI/shop_frame_title_container.tscn" id="4_lltem"]
 [ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="5_64osa"]
 
 [node name="LeaderboardDialog" type="Control"]
@@ -36,58 +36,63 @@ size_flags_vertical = 3
 mouse_filter = 2
 color = Color(0.0902, 0.661877, 0.82, 0.25098)
 
-[node name="TextureRect" type="TextureRect" parent="FadeablePanelContainer"]
+[node name="ShopFrameTextureRect" parent="FadeablePanelContainer" instance=ExtResource("3_64osa")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("3_lltem")
 
-[node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/ShopFrameTextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 99
-theme_override_constants/margin_top = 55
-theme_override_constants/margin_right = 97
-theme_override_constants/margin_bottom = 50
 
-[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/TextureRect/MarginContainer"]
+[node name="ShopFrameTitleContainer" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer" instance=ExtResource("4_lltem")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Leaderboard"
+
+[node name="CenterMarginContainer" type="MarginContainer" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_right = 96
+
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/CenterMarginContainer"]
 visible = false
 layout_mode = 2
 color = Color(1, 0.38, 0.38, 0.227451)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/TextureRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/CenterMarginContainer"]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"SkillsHeaderLabel"
-text = "Leaderboard"
-
-[node name="LeaderBoardElement" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_laulm")]
+[node name="LeaderBoardElement" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/CenterMarginContainer/VBoxContainer" instance=ExtResource("4_laulm")]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 was_new_best = false
 
-[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/LeaderBoardElement"]
+[node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/CenterMarginContainer/VBoxContainer/LeaderBoardElement"]
 visible = false
 layout_mode = 2
 color = Color(0.200318, 0.820989, 0.543927, 0.392157)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer"]
+[node name="BottomMarginContainer" type="MarginContainer" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 42
 
-[node name="CoinsTextureButton" type="TextureButton" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CoinsTextureButton" type="TextureButton" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_64osa")
 
-[node name="Label" type="Label" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/CoinsTextureButton"]
+[node name="Label" type="Label" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/CoinsTextureButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,11 +104,11 @@ text = "Coins"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DistanceTextureButton" type="TextureButton" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DistanceTextureButton" type="TextureButton" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_64osa")
 
-[node name="Label" type="Label" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/DistanceTextureButton"]
+[node name="Label" type="Label" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/DistanceTextureButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -115,33 +120,10 @@ text = "Distance"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer3" type="MarginContainer" parent="FadeablePanelContainer/TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 18.0
-offset_right = 1.0
-offset_bottom = 18.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 98
-theme_override_constants/margin_top = 47
-theme_override_constants/margin_right = 35
-theme_override_constants/margin_bottom = 140
-
-[node name="CloseButton" type="TextureButton" parent="FadeablePanelContainer/TextureRect/MarginContainer3"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = ExtResource("4_lltem")
-
 [connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
 [connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
 [connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
 [connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
-[connection signal="pressed" from="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/CoinsTextureButton" to="." method="_on_coins_texture_button_pressed"]
-[connection signal="pressed" from="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer/DistanceTextureButton" to="." method="_on_distance_texture_button_pressed"]
-[connection signal="pressed" from="FadeablePanelContainer/TextureRect/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="close_button_pressed" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/ShopFrameTitleContainer" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/CoinsTextureButton" to="." method="_on_coins_texture_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/DistanceTextureButton" to="." method="_on_distance_texture_button_pressed"]
