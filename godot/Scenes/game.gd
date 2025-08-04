@@ -276,6 +276,14 @@ func _credit_last_swim() -> void:
 	_player.update_leaderboards( coins, distance )
 	_player.save();
 
+func mark_achievement_completed( id: String ) -> void:
+	self.achievement_manager.mark_achievement_completed( id )
+
+func collect_all_achievements() -> void:
+	var player = self.get_player()
+	for ca in player.completed_achievements():
+		self.collect_achievement( ca )
+		
 func collect_achievement( id: String ) -> bool:
 	var player = self.get_player()
 	if !player.collect_achievement( id ):

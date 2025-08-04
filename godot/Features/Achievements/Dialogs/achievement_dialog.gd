@@ -52,3 +52,6 @@ func _on_achievement_completed( id: String ) -> void:
 		return
 	var game = self._dialog_manager.game
 	game.sync_achievements_with_player( game.get_player() )
+
+func select_achievement( id: String ) -> void:
+	self.achievement_view._on_achievement_selected( id )

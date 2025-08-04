@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://b6y8u6f7ggcio"]
+
+[ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_sod1y"]
+[ext_resource type="Texture2D" uid="uid://qehwat1vxucb" path="res://Features/Achievements/Textures/achievement_icon_stream_next_1.png" id="2_sod1y"]
+[ext_resource type="Script" uid="uid://dtt8w7uij10vl" path="res://Features/Achievements/Scripts/achievement_config.gd" id="3_bfb5g"]
+
+[sub_resource type="Resource" id="Resource_j8l2u"]
+script = ExtResource("1_sod1y")
+prereq_achievement_ids = Array[String]([])
+prereq_counters = Dictionary[int, int]({
+11: 1,
+12: 1,
+13: 1
+})
+metadata/_custom_type_script = "uid://847eoiqj5nwn"
+
+[resource]
+script = ExtResource("3_bfb5g")
+id = "SteamNext1"
+sort_index = 21100
+name = "Steam Next Fest"
+description = "Play during Steam Next Fest"
+hidden = true
+icon = ExtResource("2_sod1y")
+completion_condition = SubResource("Resource_j8l2u")
+reward_coins = 500
+reward_skill_points = 5
+reward_extra = Array[String]([])
+metadata/_custom_type_script = "uid://dtt8w7uij10vl"

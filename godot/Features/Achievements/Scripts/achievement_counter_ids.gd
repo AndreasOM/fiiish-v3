@@ -12,6 +12,9 @@ enum Id {
 	DAY_STREAK,
 	COINS_PER_10_SECONDS,
 	PLAYED_BEFORE_SEPTEMBER_2025,
+	PLAYED_DURING_STEAM_NEXT_FEST_2025_10,
+	IS_DEMO,
+	IS_STEAM,
 }
 
 
@@ -39,5 +42,11 @@ static func to_name( id: AchievementCounterIds.Id ) -> String:
 			return "COINS_PER_10_SECONDS"
 		AchievementCounterIds.Id.PLAYED_BEFORE_SEPTEMBER_2025:
 			return "PLAYED_BEFORE_SEPTEMBER_2025"
+		AchievementCounterIds.Id.PLAYED_DURING_STEAM_NEXT_FEST_2025_10:
+			return "PLAYED_DURING_STEAM_NEXT_FEST_2025_10"
+		AchievementCounterIds.Id.IS_DEMO:
+			return "IS_DEMO"
+		AchievementCounterIds.Id.IS_STEAM:
+			return "IS_STEAM"
 			
 	return "[UNKNOWN COUNTER ID %d]" % id

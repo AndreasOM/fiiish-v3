@@ -184,3 +184,17 @@ func open_dialog( id: DialogIds.Id ) -> void:
 
 func close_dialog( id: DialogIds.Id ) -> void:
 	self.dialog_manager.close_dialog( id, 0.3 )
+
+func mark_achievement_completed( id: String ) -> void:
+	self.game.mark_achievement_completed( id )
+
+func collect_all_achievements() -> void:
+	self.game.collect_all_achievements()
+	
+func select_achievement( id: String ) -> void:
+	var d: Dialog = self.dialog_manager.get_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG )
+	if d == null:
+		return
+		
+	if d.has_method("select_achievement"):
+		d.select_achievement( id )

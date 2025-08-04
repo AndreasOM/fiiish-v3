@@ -229,7 +229,18 @@ func _on_player_changed( player: Player ) -> void:
 #			self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_JUNE_2025, 1 )
 		if date["month"] < 9:
 			self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_BEFORE_SEPTEMBER_2025, 1 )
+		if date["month"] < 10:
+			self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_DURING_STEAM_NEXT_FEST_2025_10, 1 )
+		elif date["month"] == 10:
+			if date["day"] <= 20:
+				self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_DURING_STEAM_NEXT_FEST_2025_10, 1 )
 
+	if OS.has_feature("demo"):
+		self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.IS_DEMO, 1 )
+		
+	# :HACK:
+	self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.IS_STEAM, 1 )
+		
 	var day_streak_length = player.day_streak_length()
 	self.achievement_counter_manager.set_counter(AchievementCounterIds.Id.DAY_STREAK, day_streak_length )
 	print("Day Streak Length %d" % day_streak_length)

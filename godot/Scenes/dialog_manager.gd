@@ -116,6 +116,15 @@ func toggle_dialog( id: DialogIds.Id, duration: float) -> void:
 	else:
 		push_warning("DIALOG_MANAGER: Dialog %d not found for toggle" % id )
 
+
+func get_dialog( id: DialogIds.Id ) -> Dialog:
+	var dialog = _dialogs.get( id ) as Dialog
+	if dialog == null:
+		push_warning("DIALOG_MANAGER: Dialog %d not found" % id )
+		return null
+		
+	return dialog
+	
 func open_dialog( id: DialogIds.Id, duration: float) -> Dialog:
 	print("DIALOG_MANAGER: open_dialog %d -> %s" % [ id, DialogIds.id_to_name( id ) ] )
 	var dialog = _dialogs.get( id ) as Dialog

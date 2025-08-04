@@ -149,7 +149,10 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	await script_manager.wait_for_game_state( Game.State.GAME_OVER )
 	
 	await script_manager.wait_until_dialog_open( DialogIds.Id.RESULT_DIALOG )
+	await script_manager.mark_achievement_completed( "SteamNext1" )
+	await script_manager.collect_all_achievements()
 	await script_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG )
+	await script_manager.select_achievement( "SteamNext1" )
 	await script_manager.wait_until_dialog_open( DialogIds.Id.ACHIEVEMENTS_DIALOG )
 
 	### ---=== Screenshot ===--- ###

@@ -4,7 +4,7 @@
 
 
 - [ ] Release: Fix MarketingScreenshots
-	- [ ] Task: Add a steam next fest achievement
+	- [ ] Task: Ensure bought skills on Skill Upgrade Dialog is fresh/clean for MarketingScreenshots
 
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
@@ -20,6 +20,8 @@
 
 ## Next
 
+- [ ] Steam: Limit max skill upgrades for demo
+
 - [ ] Verify: Play X days in a row Achievement
 
 
@@ -29,7 +31,8 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Store 
-- [ ] Steam: Limit max skill upgrades for demo
+- [ ] Steam: Fix `IS_STEAM` counter
+- [ ] Steam: Create steam demo version
 - [ ] Steam: Add steam fest achievement, and use it for screenshot
 - [ ] Steam: Fix close button on achievements & skill upgrades, and retake screenshots
 - [ ] Steam: Reset achievments for steam screenshot
@@ -184,6 +187,7 @@
 #### S06E03
 - [x] Task: Make sure close buttons on big frame dialog align
 - [x] Task: Make sure title texts on big frame dialog align
+- [x] Task: Add a steam next fest achievement
 
 ### 2025-07-30
 #### S06E02

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://duvsrjs7gyn8p" path="res://Features/Achievements/achievement_element.tscn" id="1_5n55d"]
 [ext_resource type="Script" uid="uid://b21av4xl5t8bk" path="res://Features/Achievements/Dialogs/achievement_view.gd" id="1_fyoyl"]
-[ext_resource type="PackedScene" path="res://Features/Achievements/Dialogs/achievement_element_view.tscn" id="2_osfof"]
+[ext_resource type="PackedScene" uid="uid://c1tfstesf0mo0" path="res://Features/Achievements/Dialogs/achievement_element_view.tscn" id="2_osfof"]
 [ext_resource type="PackedScene" uid="uid://b8h4u2gu50lms" path="res://Features/Achievements/Dialogs/achievement_button.tscn" id="4_jnulb"]
 [ext_resource type="Resource" uid="uid://q03iqelau5ey" path="res://Features/Achievements/AchievementConfigs/achievement_config_play_a_little_1.tres" id="5_bsoqe"]
 [ext_resource type="Resource" uid="uid://dwerfspiv3u50" path="res://Features/Achievements/AchievementConfigs/achievement_config_single_run_distance_1.tres" id="6_osfof"]
