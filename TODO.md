@@ -4,6 +4,9 @@
 
 
 
+- [ ] Steam: Limit max skill upgrades for demo
+
+
 - [ ] Release: Fix MarketingScreenshots
 	- [ ] Task: Ensure bought skills on Skill Upgrade Dialog is fresh/clean for MarketingScreenshots
 
@@ -21,8 +24,6 @@
 
 ## Next
 
-- [ ] Steam: Limit max skill upgrades for demo
-- [ ] Steam: Fix `IS_STEAM` counter
 
 
 
@@ -43,7 +44,7 @@
 - [ ] Steam: Library Asset - Library Capsule -> Add Logo (Fiiish!)
 - [ ] Steam: Library Asset - Library Hero: 3840x1240, Safe Area 860x380 -> 1490,430-2350,810
 
-
+- [ ] Steam: Finalise godotsteam addon integration
 
 ## Polish & Bugs
 - [ ] Bug: Remove test zone with middle rock! -> Ensure only classic zones are included in classic
@@ -184,6 +185,8 @@
 - [x] Verify: Play X days in a row Achievement
 - [x] Steam: Create steam demo version (of classic)
 - [x] Task: Make `demo` tag testable locally
+- [x] Steam: Fix `IS_STEAM` counter
+- [x] Task: Add godotsteam addon
 
 ### 2025-08-04
 #### S06E03

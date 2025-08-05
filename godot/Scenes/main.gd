@@ -69,6 +69,10 @@ func _ready() -> void:
 	self.open_initial_dialogs()
 	
 	self._handle_launch_parameters()
+
+	if FeatureTags.has_feature("steam"):
+		Events.broadcast_global_message("STEAM!")
+
 	
 func _on_received_url( url: String ) -> void:
 	Events.broadcast_global_message("Received URL: %s" % url )
@@ -245,8 +249,8 @@ func _on_player_changed( player: Player ) -> void:
 	if FeatureTags.has_feature("demo"):
 		self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.IS_DEMO, 1 )
 		
-	# :HACK:
-	self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.IS_STEAM, 1 )
+	if FeatureTags.has_feature("steam"):
+		self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.IS_STEAM, 1 )
 		
 	var day_streak_length = player.day_streak_length()
 	self.achievement_counter_manager.set_counter(AchievementCounterIds.Id.DAY_STREAK, day_streak_length )
