@@ -17,14 +17,15 @@ func _handle_demo( s: String ) -> void:
 	self.add_extra_feature( "demo" )
 
 func _handle_steam( ) -> void:
-	var ir = Steam.get_steam_init_result()
-	var status = ir.get( "status", null )
-	if status == 0:
-		self.add_extra_feature( "steam" )
-	else:
-		self.remove_feature( "steam" )
-
+	if Steam != null:
+		var ir = Steam.get_steam_init_result()
+		var status = ir.get( "status", null )
+		if status == 0:
+			self.add_extra_feature( "steam" )
+			return
 	
+	self.remove_feature( "steam" )
+
 func has_feature( tag_name: String ) -> bool:
 	if removed_features.has( tag_name ):
 		return false
