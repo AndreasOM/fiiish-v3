@@ -173,10 +173,7 @@ jobs:
             windows*)
               echo "BINARY_EXTENSION=.exe" >> "$GITHUB_ENV"
               ;;
-            'web-demo')
-              echo "BINARY_EXTENSION=.html" >> "$GITHUB_ENV"
-              ;;
-            'web-classic')
+            'web-*')
               echo "BINARY_EXTENSION=.html" >> "$GITHUB_ENV"
               ;;
             ios*)
