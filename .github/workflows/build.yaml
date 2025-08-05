@@ -12,6 +12,7 @@ on:
         options:
           - 'web-demo'
           - 'web-classic'
+          - 'web-demo-classic'
           - 'linux'
           - 'windows'
           - 'macos'
@@ -310,10 +311,10 @@ jobs:
           cd godot
           find export
 
-      - name: Add .itch.toml
-        continue-on-error: true
-        run: |
-            cp godot/${{ env.BINARY_NAME }}.itch.toml godot/export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/.itch.toml
+##      - name: Add .itch.toml
+##        continue-on-error: true
+##        run: |
+##            cp godot/${{ env.BINARY_NAME }}.itch.toml godot/export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/.itch.toml
 
       - name: Bundle artifact
         run: |

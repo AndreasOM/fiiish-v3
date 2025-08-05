@@ -3,6 +3,8 @@
 ## In Progress
 
 
+- [ ] Steam: Create steam demo version (of classic)
+
 - [ ] Release: Fix MarketingScreenshots
 	- [ ] Task: Ensure bought skills on Skill Upgrade Dialog is fresh/clean for MarketingScreenshots
 
@@ -21,8 +23,8 @@
 ## Next
 
 - [ ] Steam: Limit max skill upgrades for demo
+- [ ] Steam: Fix `IS_STEAM` counter
 
-- [ ] Verify: Play X days in a row Achievement
 
 
 ## Todo
@@ -31,11 +33,6 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Store 
-- [ ] Steam: Fix `IS_STEAM` counter
-- [ ] Steam: Create steam demo version
-- [ ] Steam: Add steam fest achievement, and use it for screenshot
-- [ ] Steam: Fix close button on achievements & skill upgrades, and retake screenshots
-- [ ] Steam: Reset achievments for steam screenshot
 - [ ] Steam: Set up website https://fiiish-classic.omnimad.net
 - [ ] Steam: Get rid of macOS 10.15 warning
 - [ ] Steam: Add note about english only to description
@@ -183,11 +180,18 @@
 ## Done
 
 
+### 2025-08-05
+#### S06E04
+- [x] Verify: Play X days in a row Achievement
+
 ### 2025-08-04
 #### S06E03
 - [x] Task: Make sure close buttons on big frame dialog align
 - [x] Task: Make sure title texts on big frame dialog align
 - [x] Task: Add a steam next fest achievement
+- [+] Steam: Add steam fest achievement, and use it for screenshot
+- [+] Steam: Fix close button on achievements & skill upgrades, and retake screenshots
+- [+] Steam: Reset achievments for steam screenshot
 
 ### 2025-07-30
 #### S06E02
