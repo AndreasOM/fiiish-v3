@@ -1,0 +1,30 @@
+name: 🏛️ 🧪 🪐 🔨 Classic DEMO - All - Build
+run-name: 🏛️ 🧪 🪐 🔨 Classic DEMO - All - Build ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
+on: 
+  workflow_dispatch:
+  workflow_call:
+#  push:
+#    tags:
+#      - "v*"
+    # We always build on a tag
+    # paths:
+    #  - godot/**
+
+jobs:
+  build_macos:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'macos-demo-classic'
+    secrets: inherit
+
+  build_linux:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'linux-demo-classic'
+    secrets: inherit
+
+  build_windows:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'windows-demo-classic'
+    secrets: inherit
