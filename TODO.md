@@ -187,6 +187,7 @@
 - [x] Steam: Fix `IS_STEAM` counter
 - [x] Task: Add godotsteam addon
 - [x] Steam: Limit max skill upgrades for demo
+- [x] Bug: Fix KidsModeDisable to broadcast player change correctly
 
 ### 2025-08-04
 #### S06E03

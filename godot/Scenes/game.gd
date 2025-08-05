@@ -465,7 +465,8 @@ func leave_kids_mode() -> void:
 	self._settings.disable_kids_mode()
 	self._settings.save()
 	self._player = Player.load()
-	self.get_game_manager().player_changed( self._player )	
+	Events.broadcast_player_changed( self._player )
+
 	Events.broadcast_global_message("KidsMode Disabled")
 	Events.broadcast_kids_mode_changed( false )
 	Events.broadcast_settings_changed()
