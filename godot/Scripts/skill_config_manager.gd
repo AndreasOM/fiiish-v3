@@ -149,12 +149,27 @@ func _init() -> void:
 				)
 	self.add( sc )
 
+	self.set_max_demo_level( SkillIds.Id.MAGNET, 2 )
+	self.set_max_demo_level( SkillIds.Id.MAGNET_BOOST_POWER, 3 )
+	self.set_max_demo_level( SkillIds.Id.MAGNET_BOOST_DURATION, 3 )
+	self.set_max_demo_level( SkillIds.Id.COIN_EXPLOSION, 2 )
+	self.set_max_demo_level( SkillIds.Id.COIN_RAIN, 3 )
+	self.set_max_demo_level( SkillIds.Id.LUCK, 0 )
+
 func add( skill_config: SkillConfig ) -> void:
 	var id = skill_config.skill_id()
 	self._skills[ id ] = skill_config
 	if !_skill_ids.has( id ):
 		_skill_ids.push_back( id )
 
+func set_max_demo_level( skill_id: SkillIds.Id, l: int ) -> void:
+	var sc: SkillConfig = self._skills.get( skill_id, null ) as SkillConfig
+	if sc == null:
+		push_warning("Tried to set max demo level for unknown skill %d" % skill_id )
+		return
+		
+	sc.set_max_demo_level( l )
+	
 func get_skill( skill_id: SkillIds.Id) -> SkillConfig:
 	return _skills.get( skill_id )
 	

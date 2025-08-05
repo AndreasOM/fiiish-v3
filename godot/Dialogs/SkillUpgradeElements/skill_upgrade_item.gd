@@ -1,15 +1,16 @@
 extends VBoxContainer
 class_name SkillUpgradeItem
 
-@export var title: String;
-@export var current: int = 0;
-@export var unlockable: int = 0;
-@export var maximum: int = 0;
+@export var title: String
+@export var current: int = 0
+@export var unlockable: int = 0
+@export var maximum: int = 0
+@export var demo_maximum: int = 0
 @export var unlock_price: int = 0 : set = set_unlock_price
 
-@export var skill_id: SkillIds.Id = SkillIds.Id.NONE;
+@export var skill_id: SkillIds.Id = SkillIds.Id.NONE
 
-signal skill_buy_triggered;
+signal skill_buy_triggered
 
 var button = preload("res://Dialogs/SkillUpgradeElements/skill_upgrade_item_button.tscn")
 
@@ -20,7 +21,7 @@ var button = preload("res://Dialogs/SkillUpgradeElements/skill_upgrade_item_butt
 @onready var skill_point_icon: TextureRect = %SkillPointIcon
 
 func _ready() -> void:
-	self.skill_name_label.text = title;
+	self.skill_name_label.text = title
 	_create_buttons()
 
 func _create_buttons() -> void:
@@ -53,11 +54,14 @@ func _process(_delta: float) -> void:
 func _update_states() -> void:
 	var p = self.scroll_container_hbox_container
 	var i = 0
+	var is_demo = FeatureTags.has_feature("demo")
 	for o in p.get_children():
 		var suib = o as SkillUpgradeItemButton
 		if suib != null:
 			if i < current:
 				suib.set_state_enabled()
+			elif is_demo && i == self.demo_maximum:
+				suib.set_state_demo_disabled()
 			elif i < unlockable:
 				suib.set_state_unlockable()
 			else:
@@ -75,6 +79,10 @@ func set_current( v: int) -> void:
 
 func setMaximum( v: int) -> void:
 	maximum = v
+	_update_states()
+
+func set_demo_maximum( v: int ) -> void:
+	demo_maximum = v
 	_update_states()
 
 func set_unlock_price( p: int ) -> void:

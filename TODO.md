@@ -4,7 +4,6 @@
 
 
 
-- [ ] Steam: Limit max skill upgrades for demo
 
 
 - [ ] Release: Fix MarketingScreenshots
@@ -187,6 +186,7 @@
 - [x] Task: Make `demo` tag testable locally
 - [x] Steam: Fix `IS_STEAM` counter
 - [x] Task: Add godotsteam addon
+- [x] Steam: Limit max skill upgrades for demo
 
 ### 2025-08-04
 #### S06E03

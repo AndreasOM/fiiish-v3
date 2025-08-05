@@ -4,6 +4,7 @@ class_name SkillConfig
 var _skill_id: SkillIds.Id = SkillIds.Id.NONE
 var name: String = "[UNKNOWN]"
 var levels: Dictionary = {}
+var max_demo_level: int = -1
 
 func _init( id: SkillIds.Id, skill_name: String ) -> void:
 	self._skill_id = id
@@ -26,3 +27,16 @@ func get_upgrade_levels() -> int:
 			r += 1
 	
 	return r
+
+
+func set_max_demo_level( l: int ) -> void:
+	self.max_demo_level = l
+	
+func get_max_demo_level( ) -> int:
+	return self.max_demo_level
+	
+func is_below_max_demo_level( l: int ) -> bool:
+	if self.max_demo_level < 0:
+		return false
+		
+	return l < self.max_demo_level

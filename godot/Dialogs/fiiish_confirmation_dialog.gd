@@ -9,9 +9,16 @@ enum Mode {
 
 signal confirmed
 signal cancelled
+@onready var description_label: RichTextLabel = %DescriptionLabel
 
 func _ready() -> void:
 	pass
+
+	if OS.get_name() != "HTML5":
+		self.description_label.connect("meta_clicked", _on_meta_clicked)
+
+func _on_meta_clicked(meta) -> void:
+	OS.shell_open(meta)
 
 
 func close( duration: float) -> void:

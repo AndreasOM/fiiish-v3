@@ -75,12 +75,15 @@ func _update_skill_upgrade_items() -> void:
 	var scm = game.get_skill_config_manager()
 	var skill_ids = scm.get_skill_ids()
 	for id in skill_ids:
+		var sc = scm.get_skill( id )
 		var sui = _get_skill_upgrade_item_for_skill_id( id )
 		if sui == null:
 			continue
 		var current = p.get_skill_level( id )
 		sui.set_current( current )
 		sui.set_unlockable( current+1 )
+		if sc != null:
+			sui.set_demo_maximum( sc.get_max_demo_level() )
 		var unlock_price = self._get_skill_price( id, current+1 )
 		sui.unlock_price = unlock_price
 		
@@ -154,6 +157,23 @@ func _get_skill_price( id: SkillIds.Id, level: int ) -> int:
 
 func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	var skill_name = SkillIds.get_name_for_id( id )
+	
+	var scm = game.get_skill_config_manager()
+	var sc = scm.get_skill( id )
+	if sc == null:
+		return
+	
+	var is_demo = FeatureTags.has_feature("demo")
+	if is_demo:
+		var max_demo_level = sc.get_max_demo_level()
+		if level >= max_demo_level:
+			var d = _dialog_manager.open_dialog( DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG, 0.3 )
+			var cd = d as FiiishConfirmationDialog
+			cd.set_title("Disabled in Demo")
+			cd.set_description("You reached the maximum level\navailable in the demo.\n\nGet the full version to upgrade further.\n[url]https://fiiish-classic.omnimad.net[/url]")
+			cd.set_mode( FiiishConfirmationDialog.Mode.CONFIRM )
+			return
+
 	var p = game.get_player()
 	var skill_price = _get_skill_price( id, level )
 	
