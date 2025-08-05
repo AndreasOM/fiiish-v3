@@ -188,6 +188,7 @@
 - [x] Task: Add godotsteam addon
 - [x] Steam: Limit max skill upgrades for demo
 - [x] Bug: Fix KidsModeDisable to broadcast player change correctly
+- [x] Bug: Remove godotsteam addon from web exports
 
 ### 2025-08-04
 #### S06E03
