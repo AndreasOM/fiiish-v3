@@ -67,7 +67,7 @@ func _ready() -> void:
 	self._zone_config_manager.set_name( "ZoneConfigManager" )
 	self.add_child( self._zone_config_manager )
 	
-	if OS.has_feature("demo"):
+	if FeatureTags.has_feature("demo"):
 		self._zone_config_manager.load_zones_from_folder( "res://Resources/Demo-Zones/", "classic" )
 	else:
 		self._zone_config_manager.load_zones_from_folder( "res://Resources/Zones/", "classic" )

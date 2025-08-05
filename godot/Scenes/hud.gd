@@ -4,7 +4,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	%DemoContainer.visible = OS.has_feature("demo")
+	%DemoContainer.visible = FeatureTags.has_feature("demo")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -45,7 +45,7 @@ func _ready() -> void:
 		"Web":
 			print("Welcome to the Web!")
 			
-	if OS.has_feature("demo"):
+	if FeatureTags.has_feature("demo"):
 		enable_developer_console = false
 
 	if enable_developer_console:
@@ -86,8 +86,15 @@ func _handle_launch_parameters() -> void:
 	var llp = launch_parameters.to_lower()
 	
 	self._handle_kids_mode( llp )
+##	self._handle_demo( launch_parameters )
 	self._handle_script( launch_parameters )
 		
+##func _handle_demo( s: String ) -> void:
+##	if !s.contains("--demo"):
+##		return
+##		
+##	FeatureTags.add_extra_feature( "demo" )
+	
 func _handle_script( s: String ) -> void:
 	if !s.begins_with("--script:"):
 		return
@@ -235,7 +242,7 @@ func _on_player_changed( player: Player ) -> void:
 			if date["day"] <= 20:
 				self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.PLAYED_DURING_STEAM_NEXT_FEST_2025_10, 1 )
 
-	if OS.has_feature("demo"):
+	if FeatureTags.has_feature("demo"):
 		self.achievement_counter_manager.set_counter( AchievementCounterIds.Id.IS_DEMO, 1 )
 		
 	# :HACK:

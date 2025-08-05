@@ -17,6 +17,7 @@ script = ExtResource("3_dk6o2")
 id = "SingleRunDistance1"
 sort_index = 1011
 name = "Single Run Distance Bronze"
+description = ""
 hidden = false
 icon = ExtResource("2_3wdqu")
 completion_condition = SubResource("Resource_3wdqu")

@@ -3,7 +3,6 @@
 ## In Progress
 
 
-- [ ] Steam: Create steam demo version (of classic)
 
 - [ ] Release: Fix MarketingScreenshots
 	- [ ] Task: Ensure bought skills on Skill Upgrade Dialog is fresh/clean for MarketingScreenshots
@@ -183,6 +182,8 @@
 ### 2025-08-05
 #### S06E04
 - [x] Verify: Play X days in a row Achievement
+- [x] Steam: Create steam demo version (of classic)
+- [x] Task: Make `demo` tag testable locally
 
 ### 2025-08-04
 #### S06E03

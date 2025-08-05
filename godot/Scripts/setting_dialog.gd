@@ -29,7 +29,7 @@ func _ready() -> void:
 		mainMenuToggleButton.goto_b()
 
 	var desc = ""		
-	if OS.has_feature("demo"):
+	if FeatureTags.has_feature("demo"):
 		desc = FileAccess.get_file_as_string( descriptionDemoFile )
 	else:
 		desc = FileAccess.get_file_as_string( descriptionFile )
@@ -57,7 +57,7 @@ func _ready() -> void:
 	if suffix != "":
 		versionString = "%s-%s" % [ versionString, suffix ]
 	# versionString = "%s (Godot)" % [ versionString ]
-	if OS.has_feature("demo"):
+	if FeatureTags.has_feature("demo"):
 		versionString = "%s [DEMO]" % [ versionString ]
 	%SettingsTitleRichTextLabel.text = versionString
 	

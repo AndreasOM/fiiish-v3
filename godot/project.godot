@@ -38,6 +38,7 @@ config/name.classic="fiiish-classic"
 [autoload]
 
 Events="*res://Scripts/Globals/events.gd"
+FeatureTags="*res://Features/feature_tags.gd"
 
 [display]
 
