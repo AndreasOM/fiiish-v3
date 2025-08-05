@@ -21,6 +21,9 @@ on:
           - 'windows-classic'
           - 'macos-classic'
           - 'ios-classic'
+          - 'linux-demo-classic'
+          - 'windows-demo-classic'
+          - 'macos-demo-classic'
   workflow_call:
     inputs:
       build_type:
