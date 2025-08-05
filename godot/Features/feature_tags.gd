@@ -3,6 +3,8 @@ extends Node
 var extra_features: Array[ String ] = []
 var removed_features: Array[ String ] = []
 
+const NON_STEAM_OS: Array[ String ] = ["iOS","Android","Web"]
+
 func _ready() -> void:
 	var args = OS.get_cmdline_args()
 	var lp = " ".join(args)
@@ -17,7 +19,9 @@ func _handle_demo( s: String ) -> void:
 	self.add_extra_feature( "demo" )
 
 func _handle_steam( ) -> void:
-	if Steam != null:
+	
+	var os = OS.get_name()
+	if !self.NON_STEAM_OS.has( os ):
 		var ir = Steam.get_steam_init_result()
 		var status = ir.get( "status", null )
 		if status == 0:
