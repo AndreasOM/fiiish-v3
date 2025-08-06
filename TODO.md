@@ -179,6 +179,10 @@
 ## Done
 
 
+### 2025-08-06
+#### S06E05
+- [x] Bug: Wrap Steam access so we only compile the script on Steam-capable platforms
+
 ### 2025-08-05
 #### S06E04
 - [x] Verify: Play X days in a row Achievement
