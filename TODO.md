@@ -176,6 +176,7 @@
 - [x] Steam: Store Asset - Small Capsule -> Add Logo (Fiiish!)
 - [x] Steam: Store Asset - Main Capsule -> Add Logo (Fiiish!)
 - [x] Steam: Store Asset - Vertical Capsule -> Add Logo (Fiiish!)
+- [x] Steam: Update Library Assets
 
 ### 2025-08-05
 #### S06E04
