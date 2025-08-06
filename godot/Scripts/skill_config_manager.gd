@@ -154,7 +154,7 @@ func _init() -> void:
 	self.set_max_demo_level( SkillIds.Id.MAGNET_BOOST_DURATION, 3 )
 	self.set_max_demo_level( SkillIds.Id.COIN_EXPLOSION, 2 )
 	self.set_max_demo_level( SkillIds.Id.COIN_RAIN, 3 )
-	self.set_max_demo_level( SkillIds.Id.LUCK, 0 )
+	self.set_max_demo_level( SkillIds.Id.LUCK, 1 )
 
 func add( skill_config: SkillConfig ) -> void:
 	var id = skill_config.skill_id()

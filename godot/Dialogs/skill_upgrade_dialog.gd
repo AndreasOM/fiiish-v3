@@ -166,7 +166,7 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	var is_demo = FeatureTags.has_feature("demo")
 	if is_demo:
 		var max_demo_level = sc.get_max_demo_level()
-		if level >= max_demo_level:
+		if level > max_demo_level:
 			var d = _dialog_manager.open_dialog( DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG, 0.3 )
 			var cd = d as FiiishConfirmationDialog
 			cd.set_title("Disabled in Demo")

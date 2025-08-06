@@ -23,8 +23,6 @@
 ## Next
 
 
-- [ ] Bug: KidsMode overlay doesn't disappear when disabling KidsMode
-- [ ] Bug: SkillUpgrade limits don't work in demo build
 
 ## Todo
 
@@ -184,6 +182,8 @@
 - [x] Bug: Wrap Steam access so we only compile the script on Steam-capable platforms
 - [x] Task: Create loading scene
 - [x] Task: Refactor VersionInfo handling
+- [+] Bug: KidsMode overlay doesn't disappear when disabling KidsMode -> Already fixed
+- [x] Bug: SkillUpgrade limits don't work in demo build
 
 ### 2025-08-05
 #### S06E04
