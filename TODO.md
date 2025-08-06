@@ -14,15 +14,13 @@
 - [ ] Steam: Set up website https://fiiish-classic.omnimad.net
 - [ ] Steam: Get rid of macOS 10.15 warning
 - [ ] Steam: Add note about english only to description
-- [ ] Steam: Store Asset - Header Capsule -> Add Logo (Fiiish!)
-- [ ] Steam: Store Asset - Small Capsule -> Add Logo (Fiiish!)
-- [ ] Steam: Store Asset - Main Capsule -> Add Logo (Fiiish!)
-- [ ] Steam: Store Asset - Vertical Capsule -> Add Logo (Fiiish!)
 - [ ] Steam: Store Asset - Page Background -> Use blue swirl
 - [ ] Steam: Library Asset - Library Capsule -> Add Logo (Fiiish!)
 - [ ] Steam: Library Asset - Library Hero: 3840x1240, Safe Area 860x380 -> 1490,430-2350,810
 
 - [ ] Steam: Finalise godotsteam addon integration
+
+- [ ] Steam: Add ClientImages aka Icons
 
 ## Polish & Bugs
 - [ ] Bug: Remove test zone with middle rock! -> Ensure only classic zones are included in classic
@@ -168,12 +166,16 @@
 - [x] Task: Ensure bought skills on Skill Upgrade Dialog is realistic for MarketingScreenshots
 - [x] Release: Fix MarketingScreenshots
 - [+] Steam: Screenshot Asset - Extend script to take needed shots
-- [x] LoadingScreen
-- [x] Tiny explosion
-- [+] I love Fiiish!
-- [x] Achievments
-- [x] SkillUpgrades
-- [x] Huge Explosion plus Rain
+- [x] Steam: Screenshot Asset - LoadingScreen
+- [x] Steam: Screenshot Asset - Tiny explosion
+- [+] Steam: Screenshot Asset - I love Fiiish!
+- [x] Steam: Screenshot Asset - Achievments
+- [x] Steam: Screenshot Asset - SkillUpgrades
+- [x] Steam: Screenshot Asset - Huge Explosion plus Rain
+- [x] Steam: Store Asset - Header Capsule -> Add Logo (Fiiish!)
+- [x] Steam: Store Asset - Small Capsule -> Add Logo (Fiiish!)
+- [x] Steam: Store Asset - Main Capsule -> Add Logo (Fiiish!)
+- [x] Steam: Store Asset - Vertical Capsule -> Add Logo (Fiiish!)
 
 ### 2025-08-05
 #### S06E04
