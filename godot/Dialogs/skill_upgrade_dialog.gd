@@ -84,7 +84,7 @@ func _update_skill_upgrade_items() -> void:
 		sui.set_unlockable( current+1 )
 		if sc != null:
 			sui.set_demo_maximum( sc.get_max_demo_level() )
-		var unlock_price = self._get_skill_price( id, current+1 )
+		var unlock_price = scm.get_skill_price( id, current+1 )
 		sui.unlock_price = unlock_price
 		
 
@@ -135,26 +135,6 @@ func _on_buy_skill_point_button_pressed() -> void:
 	else:
 		print("Can't afford skill point")
 
-
-func _get_skill_price( id: SkillIds.Id, level: int ) -> int:
-	var skill_name = SkillIds.get_name_for_id( id )
-	var p = game.get_player()
-	
-	var scm = game.get_skill_config_manager()
-	var sc = scm.get_skill( id )
-	if sc == null:
-		print("Skill config for skill %s not found" % skill_name)
-		return -1
-	
-	var slc = sc.get_level( level )
-	if slc == null:
-		print("Skill level config for skill %s [%d] not found" % [ skill_name, level ] )
-		return -1
-
-	var skill_price = slc.cost
-	
-	return skill_price
-
 func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	var skill_name = SkillIds.get_name_for_id( id )
 	
@@ -175,7 +155,9 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 			return
 
 	var p = game.get_player()
-	var skill_price = _get_skill_price( id, level )
+	#var skill_price = _get_skill_price( id, level )
+	
+	var skill_price = scm.get_skill_price( id, level )
 	
 	if skill_price < 0:
 		return

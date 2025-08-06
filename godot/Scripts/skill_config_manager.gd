@@ -182,3 +182,20 @@ func get_skill_level_config( skill_id: SkillIds.Id, level: int) -> SkillLevelCon
 
 func get_skill_ids() -> Array:
 	return _skill_ids
+
+func get_skill_price( id: SkillIds.Id, level: int ) -> int:
+	var skill_name = SkillIds.get_name_for_id( id )
+	
+	var sc = self.get_skill( id )
+	if sc == null:
+		print("Skill config for skill %s not found" % skill_name)
+		return -1
+	
+	var slc = sc.get_level( level )
+	if slc == null:
+		print("Skill level config for skill %s [%d] not found" % [ skill_name, level ] )
+		return -1
+
+	var skill_price = slc.cost
+	
+	return skill_price

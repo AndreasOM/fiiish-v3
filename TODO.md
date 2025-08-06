@@ -2,30 +2,11 @@
 
 ## In Progress
 
-
-
-
-- [ ] Release: Fix MarketingScreenshots
-	- [ ] Task: Ensure bought skills on Skill Upgrade Dialog is fresh/clean for MarketingScreenshots
-
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
-
-
-- [ ] Steam: Screenshot Asset - Extend script to take needed shots
-	- [x] LoadingScreen
-	- [x] Tiny explosion
-	- [ ] I love Fiiish!
-	- [x] Achievments
-	- [x] SkillUpgrades
-	- [x] Huge Explosion plus Rain
-
 
 ## Next
 
-
-
 ## Todo
-
 
 - [ ] Story: General cleanup pass
 
@@ -184,6 +165,15 @@
 - [x] Task: Refactor VersionInfo handling
 - [+] Bug: KidsMode overlay doesn't disappear when disabling KidsMode -> Already fixed
 - [x] Bug: SkillUpgrade limits don't work in demo build
+- [x] Task: Ensure bought skills on Skill Upgrade Dialog is realistic for MarketingScreenshots
+- [x] Release: Fix MarketingScreenshots
+- [+] Steam: Screenshot Asset - Extend script to take needed shots
+- [x] LoadingScreen
+- [x] Tiny explosion
+- [+] I love Fiiish!
+- [x] Achievments
+- [x] SkillUpgrades
+- [x] Huge Explosion plus Rain
 
 ### 2025-08-05
 #### S06E04

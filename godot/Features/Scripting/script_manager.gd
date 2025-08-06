@@ -96,8 +96,26 @@ func spawn_pickup_explosion( pos: Vector2 ) -> Pickup:
 func reset_player_skills() -> void:
 	self.game.get_player().reset_skills()
 
+func give_player_skill_points( amount: int ) -> void:
+	self.game.get_player().give_skill_points( amount, "script" )
+	
 func set_player_skill_level( id: SkillIds.Id, level: int ) -> void:
 	self.game.get_player().set_skill_level( id, level )
+	self.game.apply_skills()
+
+func buy_player_skill_level( id: SkillIds.Id, level: int ) -> void:
+	var skill_name = SkillIds.get_name_for_id( id )
+	var p = self.game.get_player()
+	var l = p.get_skill_level( id )
+	while l < level:
+		l = l + 1
+		var skill_price = self.game.get_skill_config_manager().get_skill_price( id, l )
+		if skill_price <= 0:
+			break
+		if !p.use_skill_points( skill_price, "Buy Skill %s for %d" % [ skill_name, skill_price ] ):
+			push_warning( "Can not afford skill upgrade %s for %d" % [ skill_name, skill_price ] )
+			break
+		p.set_skill_level( id, l )
 	self.game.apply_skills()
 
 func clear_overlays() -> void:
@@ -190,6 +208,7 @@ func mark_achievement_completed( id: String ) -> void:
 
 func collect_all_achievements() -> void:
 	self.game.collect_all_achievements()
+	await get_tree().process_frame
 	
 func select_achievement( id: String ) -> void:
 	var d: Dialog = self.dialog_manager.get_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG )
