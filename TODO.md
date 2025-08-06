@@ -5,7 +5,6 @@
 
 
 
-
 - [ ] Release: Fix MarketingScreenshots
 	- [ ] Task: Ensure bought skills on Skill Upgrade Dialog is fresh/clean for MarketingScreenshots
 
@@ -24,7 +23,8 @@
 ## Next
 
 
-
+- [ ] Bug: KidsMode overlay doesn't disappear when disabling KidsMode
+- [ ] Bug: SkillUpgrade limits don't work in demo build
 
 ## Todo
 
@@ -182,6 +182,8 @@
 ### 2025-08-06
 #### S06E05
 - [x] Bug: Wrap Steam access so we only compile the script on Steam-capable platforms
+- [x] Task: Create loading scene
+- [x] Task: Refactor VersionInfo handling
 
 ### 2025-08-05
 #### S06E04

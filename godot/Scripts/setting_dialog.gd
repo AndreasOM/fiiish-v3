@@ -33,38 +33,19 @@ func _ready() -> void:
 		desc = FileAccess.get_file_as_string( descriptionDemoFile )
 	else:
 		desc = FileAccess.get_file_as_string( descriptionFile )
-	var version_info = FileAccess.get_file_as_string( versionFile )
-	var vlines = version_info.split("\n")
-	
-	var commit = "local"
-	var build = "local"
-	var version = "v0.0.0"
-	var suffix = "local"
-	for l in vlines:
-		print( l )
-		var p = l.split("=")
-		if p.size() != 2:
-			print("Skipping %s" % l)
-			continue
-		match p[ 0 ]:
-			"commit": commit = p[ 1 ]
-			"build": build = p[ 1 ]
-			"version": version = p[ 1 ]
-			"suffix": suffix = p[ 1 ]
-			_:
-				pass
-	var versionString = "Fiiish! %s" % [ version ]
-	if suffix != "":
-		versionString = "%s-%s" % [ versionString, suffix ]
+
+	var versionString = "Fiiish! %s" % [ VersionInfo.version ]
+	if VersionInfo.suffix != "":
+		versionString = "%s-%s" % [ versionString, VersionInfo.suffix ]
 	# versionString = "%s (Godot)" % [ versionString ]
 	if FeatureTags.has_feature("demo"):
 		versionString = "%s [DEMO]" % [ versionString ]
 	%SettingsTitleRichTextLabel.text = versionString
 	
-	desc = desc.replace( "[commit]", commit )
-	desc = desc.replace( "[build]", build )
-	desc = desc.replace( "[version]", version )
-	desc = desc.replace( "[suffix]", suffix )
+	desc = desc.replace( "[commit]", VersionInfo.commit )
+	desc = desc.replace( "[build]", VersionInfo.build )
+	desc = desc.replace( "[version]", VersionInfo.version )
+	desc = desc.replace( "[suffix]", VersionInfo.suffix )
 	%SettingsInfoRichTextLabel.text = desc
 
 func set_game( g: Game) -> void:

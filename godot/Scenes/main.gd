@@ -132,11 +132,11 @@ func _handle_script( s: String ) -> void:
 	
 func _handle_kids_mode( s: String ) -> void:
 	if s.contains("kidsmodedisable"):
-		$Game.leave_kids_mode()
+		self.game.leave_kids_mode()
 	elif s.contains("kidsmodeenablefreshgame"):
-		$Game.enter_kidsmode_with_fresh_game()
+		self.game.enter_kidsmode_with_fresh_game()
 	elif s.contains("kidsmodeenablewithupgrades"):
-		$Game.enter_kidsmode_with_upgrades()
+		self.game.enter_kidsmode_with_upgrades()
 	elif s.contains("kidsmodeenable"):
 		%DialogManager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
 	
