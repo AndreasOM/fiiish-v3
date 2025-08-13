@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="OMG_LaunchControl_LaunchButtonConfig" load_steps=2 format=3 uid="uid://bed0u6mtkt5ck"]
+
+[ext_resource type="Script" uid="uid://lsabu7iqy74i" path="res://addons/omg-launch_control/omg-launch_control-launch_button_config.gd" id="1_rgcja"]
+
+[resource]
+script = ExtResource("1_rgcja")
+label_text = "Marketing Trailer"
+parameter = "--script:\"MarketingTrailer\""
+sort_order = 999
+movie_maker_enabled = true
+metadata/_custom_type_script = "uid://lsabu7iqy74i"

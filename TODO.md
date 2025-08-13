@@ -2,6 +2,26 @@
 
 ## In Progress
 
+- [ ] Epic: Trailer
+	- [x] Task: Storyboard
+		- [x] Clip: Fish collecting coin explosion - low level
+		- [x] Clip: Fish collecting coin explosion - mid level
+		- [x] Clip: Fish collecting coin explosion - high level
+		- [ ] Clip: Collecting achievements
+		- [ ] Clip: Upgrading skills
+		- [x] Clip: Fish swiming - dieing
+		- [x] Clip: Fish swiming - dieing after almost making it
+		- [x] Clip: Fish swiming - narrowly making it
+		- [ ] Clip: Title/Loading screen
+		- [ ] Bonus Clip: Result screen
+		- [ ] ??? Clip: Leaderboards
+
+
+	- [ ] Task: Script the shot generation
+		- [x] Task: Create a zone for the trailer
+		- [x] Task: Load the trailer zone
+	- [ ] TasK: Cut the actual trailer
+
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 ## Next
@@ -154,6 +174,11 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-08-13
+#### S06E06
+- [x] Task: Worked on automatic capturing for trailer clips
+- [x] Bug: Turn off sound loops when closing ResultDialog
 
 
 ### 2025-08-06

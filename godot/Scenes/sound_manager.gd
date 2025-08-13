@@ -71,8 +71,8 @@ func fade_out( duration: float) -> void:
 func trigger_effect( soundEffect: SoundEffects.Id ) -> void:
 	if !self._enabled:
 		return
-	var player = _sound_players.get( soundEffect )
-	if player:
+	var player: SoundPlayer = _sound_players.get( soundEffect )
+	if player != null:
 		player.trigger()
 
 func fade_out_effect( soundEffect: SoundEffects.Id, duration: float ) -> void:

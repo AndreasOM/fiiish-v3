@@ -13,8 +13,12 @@ var _overlays: Dictionary[ int, WindowAlignedSprite2D ] = {}
 var _next_overlay_id: int = 1
 
 func wait_for_game_state( state: Game.State ) -> void:
+	await get_tree().process_frame
+	
 	while self.game.get_state() != state:
-		print( "game state %d != %d" % [ self.game.get_state(), state ] )
+		var n1 = Game.state_to_name( self.game.get_state() )
+		var n2 = Game.state_to_name( state )
+		print( "game state %s != %s" % [ n1, n2 ] )
 		await self.game.state_changed
 		
 #	return
@@ -25,10 +29,21 @@ func wait_for_zone_name( n: String ) -> void:
 
 func wait_for_zone_progress( x: float ) -> void:
 	while self.game.zone_manager.current_zone_progress < x:
+		print( "MarketingScreenshot progress %f < %f" % [ self.game.zone_manager.current_zone_progress, x ])
 		await get_tree().process_frame
 		
 	print( "MarketingScreenshot progress %f" % self.game.zone_manager.current_zone_progress)
 		
+func wait_seconds( s: float ) -> void:
+	var start = Time.get_ticks_msec()
+	var end = start + 1000.0*s
+
+	while true:
+		await get_tree().process_frame
+		var now = Time.get_ticks_msec()
+		if end <= now:
+			break
+	
 func set_game_speed( speed: float ) -> void:
 	print("delta speed: %f" % speed)
 	Engine.time_scale = speed

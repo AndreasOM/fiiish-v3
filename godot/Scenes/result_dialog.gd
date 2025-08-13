@@ -183,6 +183,10 @@ func toggle( duration: float ) -> void:
 	toggle_fade( duration )
 
 func close( duration: float) -> void:
+	var sound_manager := self.game.get_sound_manager()
+	if sound_manager != null:
+		sound_manager.fade_out_effect( SoundEffects.Id.PICKED_COIN_LOOP, 0.3 )
+		sound_manager.fade_out_effect( SoundEffects.Id.DISTANCE_COUNT_LOOP, 0.3 )
 	fade_out( duration )
 
 func open( duration: float) -> void:

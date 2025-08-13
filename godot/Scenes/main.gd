@@ -4,6 +4,7 @@ extends Control
 @onready var script_manager: ScriptManager = %ScriptManager
 
 const MarketingScreenshotScript = "res://Features/Scripting/Scripts/marketing_screenshot_script.gd"
+const MarketingTrailerScript = "res://Features/Scripting/Scripts/marketing_trailer_script.gd"
 const SteamScreenshotScript = "res://Features/Scripting/Scripts/steam_screenshot_script.gd"
 const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.gd"
 
@@ -113,6 +114,8 @@ func _handle_script( s: String ) -> void:
 	match s:
 		"MarketingScreenshots":
 			script = load(MarketingScreenshotScript)
+		"MarketingTrailer":
+			script = load(MarketingTrailerScript)
 		"SteamScreenshots":
 			script = load(SteamScreenshotScript)
 		"OverlayTest":

@@ -87,6 +87,8 @@ func push_next_zone_by_name( zone_name: String ) -> void:
 	var idx = self.find_zone_index_by_name( zone_name )
 	if idx >= 0:
 		self.push_next_zone( idx )
+	else:
+		push_warning("Zone '%s' not found" % zone_name)
 
 func push_next_zone_by_filename( zone_filename: String ) -> void:
 	var idx = self.find_zone_index_by_filename( zone_filename )

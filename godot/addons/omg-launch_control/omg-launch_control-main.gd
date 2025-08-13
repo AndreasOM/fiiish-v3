@@ -32,6 +32,11 @@ func reload() -> void:
 	
 
 func _on_launch_button_triggered(launch_button: OMG_LaunchControl_LaunchButton) -> void:
+
+
+	if launch_button.config.movie_maker_enabled:
+		EditorInterface.set_movie_maker_enabled( true )
+
 	var parameter = launch_button.config.parameter
 	
 

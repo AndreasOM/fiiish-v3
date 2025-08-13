@@ -7,4 +7,5 @@ script = ExtResource("1_yfun4")
 label_text = "Demo"
 parameter = "--demo"
 sort_order = 999
+movie_maker_enabled = false
 metadata/_custom_type_script = "uid://lsabu7iqy74i"

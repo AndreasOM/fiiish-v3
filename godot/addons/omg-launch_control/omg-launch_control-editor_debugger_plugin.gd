@@ -30,6 +30,8 @@ class OMG_LaunchControl_EditorDebuggerPlugin extends EditorDebuggerPlugin:
 		print("Session stopped - removing main_run_args")
 		ProjectSettings.set_setting("editor/run/main_run_args", "")
 		ProjectSettings.save()
+		EditorInterface.set_movie_maker_enabled( false )
+		
 
 var debugger = OMG_LaunchControl_EditorDebuggerPlugin.new()
 

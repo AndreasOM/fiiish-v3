@@ -4,3 +4,4 @@ extends Resource
 @export var label_text: String = ""
 @export var parameter: String = ""
 @export var sort_order: int = 9999
+@export var movie_maker_enabled: bool = false
