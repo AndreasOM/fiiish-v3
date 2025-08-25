@@ -2,25 +2,6 @@
 
 ## In Progress
 
-- [ ] Epic: Trailer
-	- [x] Task: Storyboard
-		- [x] Clip: Fish collecting coin explosion - low level
-		- [x] Clip: Fish collecting coin explosion - mid level
-		- [x] Clip: Fish collecting coin explosion - high level
-		- [ ] Clip: Collecting achievements
-		- [ ] Clip: Upgrading skills
-		- [x] Clip: Fish swiming - dieing
-		- [x] Clip: Fish swiming - dieing after almost making it
-		- [x] Clip: Fish swiming - narrowly making it
-		- [ ] Clip: Title/Loading screen
-		- [ ] Bonus Clip: Result screen
-		- [ ] ??? Clip: Leaderboards
-
-
-	- [ ] Task: Script the shot generation
-		- [x] Task: Create a zone for the trailer
-		- [x] Task: Load the trailer zone
-	- [ ] TasK: Cut the actual trailer
 
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
@@ -30,17 +11,20 @@
 
 - [ ] Story: General cleanup pass
 
+## Todo Steam Demo
+- [ ] Demo: Enable quit in MainMenu
+- [ ] Demo: Add Demo entry in MainMenu
+- [ ] Demo: Add link to website in SettingsDialog
+- [ ] Demo: Disable KidsMode in KidsModeEnableDialog
+- [ ] Demo: Restrict some Achievements
+
 ## Todo Steam Store 
-- [ ] Steam: Set up website https://fiiish-classic.omnimad.net
 - [ ] Steam: Get rid of macOS 10.15 warning
 - [ ] Steam: Add note about english only to description
 - [ ] Steam: Store Asset - Page Background -> Use blue swirl
-- [ ] Steam: Library Asset - Library Capsule -> Add Logo (Fiiish!)
-- [ ] Steam: Library Asset - Library Hero: 3840x1240, Safe Area 860x380 -> 1490,430-2350,810
 
 - [ ] Steam: Finalise godotsteam addon integration
 
-- [ ] Steam: Add ClientImages aka Icons
 
 ## Polish & Bugs
 - [ ] Bug: Remove test zone with middle rock! -> Ensure only classic zones are included in classic
@@ -174,6 +158,34 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-08-25
+#### S06E07
+
+### offsteam
+- [+] Steam: Add ClientImages aka Icons
+- [+] Steam: Library Asset - Library Capsule -> Add Logo (Fiiish!)
+- [+] Steam: Library Asset - Library Hero: 3840x1240, Safe Area 860x380 -> 1490,430-2350,810
+- [x] Steam: Set up website https://games.omnimad.net/games/fiiish-classic
+- [x] Epic: Trailer
+	- [x] Task: Storyboard
+		- [x] Clip: Fish collecting coin explosion - low level
+		- [x] Clip: Fish collecting coin explosion - mid level
+		- [x] Clip: Fish collecting coin explosion - high level
+		- [+] Clip: Collecting achievements
+		- [+] Clip: Upgrading skills
+		- [x] Clip: Fish swiming - dieing
+		- [x] Clip: Fish swiming - dieing after almost making it
+		- [x] Clip: Fish swiming - narrowly making it
+		- [+] Clip: Title/Loading screen
+		- [+] Bonus Clip: Result screen
+		- [+] ??? Clip: Leaderboards
+
+
+	- [x] Task: Script the shot generation
+		- [x] Task: Create a zone for the trailer
+		- [x] Task: Load the trailer zone
+	- [x] TasK: Cut the actual trailer
 
 ### 2025-08-13
 #### S06E06
