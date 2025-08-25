@@ -135,8 +135,9 @@ id = 1
 label = "Credits"
 
 [node name="Quit" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+unique_name_in_owner = true
 layout_mode = 2
-id = 2
+id = 5
 state = 1
 label = "Quit"
 

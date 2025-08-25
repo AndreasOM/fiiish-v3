@@ -11,6 +11,7 @@ class_name MainMenuDialog
 
 @onready var game_mode: MainMenuEntry = %GameMode
 @onready var zone_editor: MainMenuEntry = %ZoneEditor
+@onready var quit: MainMenuEntry = %Quit
 
 
 var game: Game = null
@@ -36,6 +37,10 @@ func _update_entries() -> void:
 	if OS.has_feature("classic"):
 		self.game_mode.state = MainMenuEntry.State.HIDDEN
 		self.zone_editor.state = MainMenuEntry.State.HIDDEN
+	if OS.has_feature("pc"):
+		self.quit.state = MainMenuEntry.State.ENABLED
+	else:
+		self.quit.state = MainMenuEntry.State.HIDDEN
 	
 func toggle( _duration: float ) -> void:
 	self._update_entries()
@@ -73,7 +78,7 @@ func _on_credits_pressed() -> void:
 	_dialog_manager.open_dialog( DialogIds.Id.CREDITS_DIALOG, 0.3 )
 
 func _on_quit_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().quit(0)
 
 func _on_leader_board_pressed() -> void:
 	self._dialog_manager.open_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )

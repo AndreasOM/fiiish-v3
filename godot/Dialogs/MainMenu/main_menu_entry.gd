@@ -53,11 +53,11 @@ func _ready() -> void:
 func _update() -> void:
 	match self.state:
 		State.ENABLED:
-			pass
+			%TextureButton.disabled = false
+			%TextureButton.focus_mode = FocusMode.FOCUS_ALL
 		State.DISABLED:
 			%TextureButton.disabled = true
 			%TextureButton.focus_mode = FocusMode.FOCUS_NONE
-			pass
 		State.HIDDEN:
 			self.visible = false
 	

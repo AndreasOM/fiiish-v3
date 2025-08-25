@@ -3,6 +3,7 @@
 ## In Progress
 
 
+
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 ## Next
@@ -12,7 +13,6 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
-- [ ] Demo: Enable quit in MainMenu
 - [ ] Demo: Add Demo entry in MainMenu
 - [ ] Demo: Add link to website in SettingsDialog
 - [ ] Demo: Disable KidsMode in KidsModeEnableDialog
@@ -161,6 +161,7 @@
 
 ### 2025-08-25
 #### S06E07
+- [x] Demo: Enable quit in MainMenu
 
 ### offsteam
 - [+] Steam: Add ClientImages aka Icons
