@@ -15,6 +15,7 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_puscx")
 id = "TotalCoins1"
+disabled_in_demo = false
 sort_index = 1061
 name = "Total Coins Bronze"
 description = ""

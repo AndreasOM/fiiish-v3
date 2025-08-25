@@ -28,6 +28,7 @@ config/name="fiiish-v3"
 config/version="1.0.1"
 run/main_scene="uid://cj86n8epk284g"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+run/max_fps=60
 boot_splash/bg_color=Color(0.0980392, 0.494118, 0.556863, 1)
 boot_splash/fullsize=false
 boot_splash/image="uid://2cttyqcxh0c5"
@@ -40,9 +41,11 @@ config/project_url.classic="https://games.omnimad.net/games/fiiish-classic"
 [autoload]
 
 Events="*res://Scripts/Globals/events.gd"
+PerformanceMonitor="*res://Features/PerformancMonitor/performance_monitor.gd"
 VersionInfo="*res://Scripts/version_info.gd"
 SteamWrapper="*res://Features/Steam/steam_wrapper.gd"
 FeatureTags="*res://Features/feature_tags.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [display]
 
@@ -64,7 +67,7 @@ movie_writer/movie_file="/Users/anti/data/work/anti666tv/fiiish-v3/marketing/tra
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/omg-export_overrides/plugin.cfg", "res://addons/omg-launch_control/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/omg-export_overrides/plugin.cfg", "res://addons/omg-launch_control/plugin.cfg")
 
 [file_customization]
 

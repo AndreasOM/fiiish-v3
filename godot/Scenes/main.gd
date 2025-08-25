@@ -222,8 +222,9 @@ func open_initial_dialogs() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
-
+	var pa1 = PerformanceArea.new( "MainProcess" )
+	#PerformanceMonitor.draw( $UI/Performance/Performance2 )
+	PerformanceMonitor.next_frame()
 
 func _on_player_changed( player: Player ) -> void:
 	if self.achievement_manager != null:

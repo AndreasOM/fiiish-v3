@@ -2,6 +2,7 @@
 
 ## In Progress
 
+- [ ] Add some performance tooling
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 ## Next
@@ -11,6 +12,7 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
+- [ ] Steam: Automate uploading of new version via github action.
 
 ## Todo Steam Store 
 - [ ] Steam: Get rid of macOS 10.15 warning

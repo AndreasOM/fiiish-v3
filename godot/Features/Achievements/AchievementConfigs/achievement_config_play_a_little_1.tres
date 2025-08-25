@@ -16,6 +16,7 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_nmfwj")
 id = "PlayALittle1"
+disabled_in_demo = false
 sort_index = 10100
 name = "Play A Little 1"
 description = ""

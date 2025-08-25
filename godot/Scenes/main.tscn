@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=33 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://bbymdllg7tpvi" path="res://Features/DeveloperDialog/developer_dialog.tscn" id="19_ee4r6"]
 [ext_resource type="PackedScene" uid="uid://c0jw8fsap8u7a" path="res://Features/KidsMode/kidsmode_enable_dialog.tscn" id="20_gt3je"]
 [ext_resource type="Script" uid="uid://d4kutof6ntjmx" path="res://Features/Scripting/script_manager.gd" id="21_3pmx8"]
+[ext_resource type="Script" uid="uid://jkirwyfaqig0" path="res://Features/PerformancMonitor/performance_display.gd" id="21_7k868"]
 [ext_resource type="Texture2D" uid="uid://b71r5vw4uakam" path="res://Textures/Overlays/overlay-01-explore.png" id="22_cbgmd"]
 [ext_resource type="AudioStream" uid="uid://d2u0kcl8pn3o2" path="res://Music/theme-00.mp3" id="22_n5j80"]
 [ext_resource type="Script" uid="uid://dq35ku6k785ob" path="res://Scenes/window_aligned_sprite_2d.gd" id="23_1w6v2"]
@@ -326,6 +327,17 @@ layout_mode = 1
 [node name="KidsModeEnableDialog" parent="UI/DialogManager" instance=ExtResource("20_gt3je")]
 visible = false
 layout_mode = 1
+
+[node name="Node2D" type="Node2D" parent="UI"]
+
+[node name="Performance" type="CanvasLayer" parent="UI"]
+visible = false
+offset = Vector2(100, 100)
+transform = Transform2D(1, 0, 0, 1, 100, 100)
+follow_viewport_enabled = true
+
+[node name="PerformanceDisplay" type="Node2D" parent="UI/Performance"]
+script = ExtResource("21_7k868")
 
 [node name="Managers" type="Node" parent="."]
 
