@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://cq86cynppa0d"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://4d0ydgdcq78q"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_nfypn"]
 [ext_resource type="Texture2D" uid="uid://8ukkapkt51me" path="res://Features/Achievements/Textures/achievement_icon_total_distance_2.png" id="2_nfypn"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_rs88c")
 id = "TotalDistance2"
+disabled_in_demo = false
 sort_index = 1042
 name = "Total Distance Silver"
+description = ""
+hidden = false
 icon = ExtResource("2_nfypn")
 completion_condition = SubResource("Resource_yt6t2")
 reward_coins = 50

@@ -47,8 +47,33 @@ func _animate_completed() -> void:
 		0.5
 	)
 	self._tween.tween_callback( _completed_tween_finished )
+
+func _animate_demo() -> void:
+	if self._tween != null:
+		self._tween.kill()
+		
+	self._tween = create_tween()
+	self._tween.tween_property(
+		self.texture_button,
+		"modulate",
+		#Color.TRANSPARENT,
+		Color(1, 1, 0.5, 0.1),
+		1.5
+	)
+	self._tween.tween_property(
+		self.texture_button,
+		"modulate",
+		Color(1, 1, 0.25, 0.2),
+		1.5
+	)
+	self._tween.tween_callback( _completed_tween_finished )
 	
 func _completed_tween_finished() -> void:
+	if self.config.disabled_in_demo && FeatureTags.has_feature("demo"):
+		# self.texture_button.modulate = Color.HOT_PINK
+		self._animate_demo()
+		return
+
 	match self.state:
 		AchievementStates.State.COLLECTED:
 			self.texture_button.modulate = Color.WHITE
@@ -58,6 +83,7 @@ func _completed_tween_finished() -> void:
 		_:
 			self.texture_button.modulate = Color.DIM_GRAY
 			self._tween = null
+			
 	
 func _update() -> void:
 	if self.config == null:
@@ -82,6 +108,10 @@ func _update() -> void:
 		_:
 			self.texture_button.modulate = Color.DIM_GRAY
 
+	if self.config.disabled_in_demo && FeatureTags.has_feature("demo"):
+		# self.texture_button.modulate = Color.HOT_PINK
+		self._animate_demo()
+		
 	self.selected_texture_rect.visible = self.selected
 
 func _on_texture_button_pressed() -> void:

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://bvy76k05eboih"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dup1xjkigegyw"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_bfl3h"]
 [ext_resource type="Texture2D" uid="uid://lbwy0iey766x" path="res://Features/Achievements/Textures/achievement_icon_single_run_coins_4.png" id="2_bfl3h"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_gbde6")
 id = "SingleRunCoins4"
+disabled_in_demo = true
 sort_index = 1034
 name = "Single Run Coins Diamond"
+description = ""
+hidden = false
 icon = ExtResource("2_bfl3h")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 50

@@ -2,9 +2,6 @@
 
 ## In Progress
 
-
-
-
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 ## Next
@@ -14,7 +11,7 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
-- [ ] Demo: Restrict some Achievements
+- [ ] Demo: Remove debug toasts
 
 ## Todo Steam Store 
 - [ ] Steam: Get rid of macOS 10.15 warning
@@ -163,6 +160,7 @@
 - [x] Demo: Add Demo entry in MainMenu
 - [x] Demo: Add link to website in SettingsDialog
 - [x] Demo: Disable KidsMode in KidsModeEnableDialog
+- [x] Demo: Restrict some Achievements
 
 ### offsteam
 - [+] Steam: Add ClientImages aka Icons

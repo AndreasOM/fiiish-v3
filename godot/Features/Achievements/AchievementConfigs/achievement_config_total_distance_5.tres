@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://1tr4hu5orfjv"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dvfbs8uxstguq"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_p4nlj"]
 [ext_resource type="Texture2D" uid="uid://d3i2xkg8kghny" path="res://Features/Achievements/Textures/achievement_icon_total_distance_5.png" id="2_p4nlj"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_dpnjq")
 id = "TotalDistance5"
+disabled_in_demo = true
 sort_index = 1045
 name = "Total Distance Ruby"
+description = ""
+hidden = false
 icon = ExtResource("2_p4nlj")
 completion_condition = SubResource("Resource_yt6t2")
 reward_coins = 1000

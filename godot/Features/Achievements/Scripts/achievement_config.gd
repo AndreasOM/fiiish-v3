@@ -2,6 +2,7 @@ class_name AchievementConfig
 extends Resource
 
 @export var id: String = ""
+@export var disabled_in_demo: bool = false
 @export var sort_index: int = -1
 @export var name: String = ""
 @export var description: String = ""

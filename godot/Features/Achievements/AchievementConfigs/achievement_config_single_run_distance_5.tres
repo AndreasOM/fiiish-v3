@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://bvuua6p86tp1m"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dm5p8u1oabuuv"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_jikb6"]
 [ext_resource type="Texture2D" uid="uid://dbq51bre2m2ad" path="res://Features/Achievements/Textures/achievement_icon_single_run_distance_5.png" id="2_jikb6"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_4ertf")
 id = "SingleRunDistance5"
+disabled_in_demo = true
 sort_index = 1015
 name = "Single Run Distance Ruby"
+description = ""
+hidden = false
 icon = ExtResource("2_jikb6")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 200

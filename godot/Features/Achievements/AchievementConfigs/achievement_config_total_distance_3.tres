@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://rykbils11fet"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://qpyh0cfux50r"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_4qaig"]
 [ext_resource type="Texture2D" uid="uid://cowagdmjvj5v8" path="res://Features/Achievements/Textures/achievement_icon_total_distance_3.png" id="2_4qaig"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_2cdpc")
 id = "TotalDistance3"
+disabled_in_demo = false
 sort_index = 1043
 name = "Total Distance Gold"
+description = ""
+hidden = false
 icon = ExtResource("2_4qaig")
 completion_condition = SubResource("Resource_yt6t2")
 reward_coins = 50

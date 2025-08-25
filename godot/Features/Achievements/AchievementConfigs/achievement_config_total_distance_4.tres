@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://b0kkm6ellnj25"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://drlvbb5nevo8j"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_sf27w"]
 [ext_resource type="Texture2D" uid="uid://cx0tq80qgp24l" path="res://Features/Achievements/Textures/achievement_icon_total_distance_4.png" id="2_sf27w"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_d04o6")
 id = "TotalDistance4"
+disabled_in_demo = true
 sort_index = 1044
 name = "Total Distance Diamond"
+description = ""
+hidden = false
 icon = ExtResource("2_sf27w")
 completion_condition = SubResource("Resource_yt6t2")
 reward_coins = 250

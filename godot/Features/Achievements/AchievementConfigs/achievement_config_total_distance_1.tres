@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("1_w6qs8")
 id = "TotalDistance1"
+disabled_in_demo = false
 sort_index = 1041
 name = "Total Distance Bronze"
+description = ""
+hidden = false
 icon = ExtResource("2_yt6t2")
 completion_condition = SubResource("Resource_yt6t2")
 reward_coins = 10

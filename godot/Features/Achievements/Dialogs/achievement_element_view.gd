@@ -12,6 +12,7 @@ signal collect_pressed( id: String )
 @onready var collect_texture_button: TextureButton = %CollectTextureButton
 @onready var skill_achievment_reward_element: AchievementRewardElement = %SkillAchievmentRewardElement
 @onready var coin_achievment_reward_element: AchievementRewardElement = %CoinAchievmentRewardElement
+@onready var demo_label: Label = %DemoLabel
 
 func _ready() -> void:
 	self._update()
@@ -51,29 +52,50 @@ func _update() -> void:
 	
 	self.extra_rewards_label.text = extra_rewards_text
 	
+	var collect_visible = false
 	match self.state:
 		AchievementStates.State.UNKNOWN:
 			#self.collect_texture_button.visible = false
-			self.collect_texture_button.modulate = Color.TRANSPARENT
+			#self.collect_texture_button.modulate = Color.TRANSPARENT
+			collect_visible = false
 			self.icon.modulate = Color.DIM_GRAY
 		AchievementStates.State.COMPLETED:
 			#self.collect_texture_button.visible = true
 			self.collect_texture_button.modulate = Color.WHITE
+			collect_visible = true
 			self.icon.modulate = Color.WHITE
 		AchievementStates.State.COLLECTED:
 			#self.collect_texture_button.visible = false
-			self.collect_texture_button.modulate = Color.TRANSPARENT
+			#self.collect_texture_button.modulate = Color.TRANSPARENT
+			collect_visible = false
 			self.icon.modulate = Color.WHITE
 		_:
 			#self.collect_texture_button.visible = false
-			self.collect_texture_button.modulate = Color.TRANSPARENT
+			#self.collect_texture_button.modulate = Color.TRANSPARENT
+			collect_visible = false
 			self.icon.modulate = Color.WHITE
 
+	if self.config.disabled_in_demo && FeatureTags.has_feature("demo"):
+		collect_visible = false
+		self.demo_label.text = "Disabled in Demo"
+	else:
+		self.demo_label.text = ""
+
+	if collect_visible:
+		self.collect_texture_button.modulate = Color.WHITE
+		self.collect_texture_button.disabled = false
+	else:
+		self.collect_texture_button.modulate = Color.TRANSPARENT
+		self.collect_texture_button.disabled = true
+		
 
 func _on_collect_texture_button_pressed() -> void:
 	if self.state != AchievementStates.State.COMPLETED:
 		return
 	if self.config == null:
+		return
+		
+	if self.config.disabled_in_demo && FeatureTags.has_feature("demo"):
 		return
 		
 	self.collect_pressed.emit( self.config.id )

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://fnvsck7g3j44"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://1bfaw461owki"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_q0qd5"]
 [ext_resource type="Texture2D" uid="uid://bb8xsa61cpicu" path="res://Features/Achievements/Textures/achievement_icon_single_run_distance_4.png" id="2_q0qd5"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_w057k")
 id = "SingleRunDistance4"
+disabled_in_demo = true
 sort_index = 1014
 name = "Single Run Distance Diamond"
+description = ""
+hidden = false
 icon = ExtResource("2_q0qd5")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 100

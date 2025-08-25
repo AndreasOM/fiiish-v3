@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvatisr1kxk5y"]
+[gd_scene load_steps=3 format=3 uid="uid://jog1d3qygnjp"]
 
 [ext_resource type="Texture2D" uid="uid://ba44xgufi4hjl" path="res://Textures/UI/mini_icon_skill.png" id="1_qrpsa"]
 [ext_resource type="Script" uid="uid://c1jcympe7ia62" path="res://Features/Achievements/Dialogs/achievment_reward_element.gd" id="1_xe84m"]
@@ -9,10 +9,10 @@ script = ExtResource("1_xe84m")
 
 [node name="ValueLabel" type="Label" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_type_variation = &"MediumLabel"
-text = "100000"
+text = "10000"
 horizontal_alignment = 2
 vertical_alignment = 1
 

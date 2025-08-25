@@ -24,6 +24,8 @@ func _process( _delta: float ) -> void:
 	self._last_version = version
 
 	# print("== Checking Achievements %d ==" % version)
+	var is_demo = FeatureTags.has_feature("demo")
+	
 	for k in config_manager.get_keys():
 		var cfg = config_manager.get_config( k )
 		if cfg == null:
@@ -35,6 +37,9 @@ func _process( _delta: float ) -> void:
 			AchievementStates.State.COLLECTED:
 				continue
 		# print("Checking Achievement %s" % cfg.name)
+		if is_demo && cfg.disabled_in_demo:
+			# print("[Demo] Skipping Achievement %s" % cfg.name)
+			continue
 		if !self._check_condition_prereq_achievements( cfg.completion_condition, counter_manager ):
 			continue
 		if !self._check_condition_counters( cfg.completion_condition, counter_manager):

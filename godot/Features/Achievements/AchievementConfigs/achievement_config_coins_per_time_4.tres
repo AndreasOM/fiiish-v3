@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_bl6o7")
 id = "CoinsPerTime4"
+disabled_in_demo = true
 sort_index = 1314
 name = "Fast Coins Diamond"
+description = ""
+hidden = false
 icon = ExtResource("2_43l56")
 completion_condition = SubResource("Resource_r1prg")
 reward_coins = 1000

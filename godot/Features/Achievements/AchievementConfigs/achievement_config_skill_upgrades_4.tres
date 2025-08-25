@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_4w4dk")
 id = "SkillUpgrades4"
+disabled_in_demo = true
 sort_index = 1214
 name = "Skill Upgrades Diamond"
+description = ""
+hidden = false
 icon = ExtResource("2_thr6a")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 250

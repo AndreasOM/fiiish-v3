@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_d1e0n")
 id = "PlayCount5"
+disabled_in_demo = true
 sort_index = 1115
 name = "Times Played Ruby"
+description = ""
+hidden = false
 icon = ExtResource("2_jfc5c")
 completion_condition = SubResource("Resource_vw4ne")
 reward_coins = 1000

@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_odvn8")
 id = "DayStreak5"
+disabled_in_demo = true
 sort_index = 1225
 name = "Day Streak Ruby"
+description = ""
+hidden = false
 icon = ExtResource("2_u8ea4")
 completion_condition = SubResource("Resource_r1prg")
 reward_coins = 1000

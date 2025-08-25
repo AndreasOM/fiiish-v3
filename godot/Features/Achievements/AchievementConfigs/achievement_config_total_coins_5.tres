@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://coxggxtfyfvqt"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dldn702e4mrvj"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_amnk3"]
 [ext_resource type="Texture2D" uid="uid://dbby0qe3k34e" path="res://Features/Achievements/Textures/achievement_icon_total_coins_5.png" id="2_amnk3"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_e60ge")
 id = "TotalCoins5"
+disabled_in_demo = true
 sort_index = 1065
 name = "Total Coins Ruby"
+description = ""
+hidden = false
 icon = ExtResource("2_amnk3")
 completion_condition = SubResource("Resource_vw4ne")
 reward_coins = 500
