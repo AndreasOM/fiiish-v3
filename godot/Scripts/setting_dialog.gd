@@ -6,7 +6,10 @@ extends Dialog
 @export var mainMenuToggleButton: ToggleButtonContainer = null
 @export var descriptionFile: String
 @export var descriptionDemoFile: String
+@export var descriptionClassicFile: String
+@export var descriptionClassicDemoFile: String
 @export var versionFile: String
+@onready var settings_info_rich_text_label: RichTextLabel = %SettingsInfoRichTextLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,10 +32,16 @@ func _ready() -> void:
 		mainMenuToggleButton.goto_b()
 
 	var desc = ""		
-	if FeatureTags.has_feature("demo"):
-		desc = FileAccess.get_file_as_string( descriptionDemoFile )
+	if FeatureTags.has_feature("classic"):
+		if FeatureTags.has_feature("demo"):
+			desc = FileAccess.get_file_as_string( descriptionClassicDemoFile )
+		else:
+			desc = FileAccess.get_file_as_string( descriptionClassicFile )
 	else:
-		desc = FileAccess.get_file_as_string( descriptionFile )
+		if FeatureTags.has_feature("demo"):
+			desc = FileAccess.get_file_as_string( descriptionDemoFile )
+		else:
+			desc = FileAccess.get_file_as_string( descriptionFile )
 
 	var versionString = "Fiiish! %s" % [ VersionInfo.version ]
 	if VersionInfo.suffix != "":
@@ -46,7 +55,13 @@ func _ready() -> void:
 	desc = desc.replace( "[build]", VersionInfo.build )
 	desc = desc.replace( "[version]", VersionInfo.version )
 	desc = desc.replace( "[suffix]", VersionInfo.suffix )
-	%SettingsInfoRichTextLabel.text = desc
+	self.settings_info_rich_text_label.text = desc
+
+	if OS.get_name() != "HTML5":
+		self.settings_info_rich_text_label.connect("meta_clicked", _on_meta_clicked)
+
+func _on_meta_clicked(meta) -> void:
+	OS.shell_open(meta)
 
 func set_game( g: Game) -> void:
 	self.game = g

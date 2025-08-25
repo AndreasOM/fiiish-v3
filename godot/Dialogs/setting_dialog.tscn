@@ -34,6 +34,8 @@ soundToggleButton = NodePath("SettingsFadeableContainer/TextureRect/MarginContai
 mainMenuToggleButton = NodePath("SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer")
 descriptionFile = "res://Resources/description.txt"
 descriptionDemoFile = "res://Resources/description_demo.txt"
+descriptionClassicFile = "res://Resources/description_classic.txt"
+descriptionClassicDemoFile = "res://Resources/description_classic_demo.txt"
 versionFile = "res://Resources/version_info.txt"
 
 [node name="SettingsFadeableContainer" type="CenterContainer" parent="."]
@@ -89,6 +91,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_type_variation = &"InfoRichTextLabel"
+bbcode_enabled = true
 text = "Version :TODO:
 Early test version!
 Thanks for playing :)

@@ -13,7 +13,6 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
-- [ ] Demo: Add link to website in SettingsDialog
 - [ ] Demo: Disable KidsMode in KidsModeEnableDialog
 - [ ] Demo: Restrict some Achievements
 
@@ -162,6 +161,7 @@
 #### S06E07
 - [x] Demo: Enable quit in MainMenu
 - [x] Demo: Add Demo entry in MainMenu
+- [x] Demo: Add link to website in SettingsDialog
 
 ### offsteam
 - [+] Steam: Add ClientImages aka Icons

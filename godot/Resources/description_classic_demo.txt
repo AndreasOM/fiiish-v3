@@ -1,6 +1,6 @@
 Demo Version!
 For more info and full version check
-[url]https://games.omnimad.net/games/fiiish-v3[/url]
+[url]https://games.omnimad.net/games/fiiish-classic[/url]
 
 commit=[commit]
 build=[build]
