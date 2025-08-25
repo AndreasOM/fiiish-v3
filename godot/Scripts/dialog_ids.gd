@@ -20,6 +20,7 @@ enum Id {
 	TOAST_DIALOG,
 	DEVELOPER_DIALOG,
 	KIDS_MODE_ENABLE_DIALOG,
+	ABOUT_DEMO_DIALOG,
 	INVALID = 0xffffffff,
 }
 
@@ -63,5 +64,7 @@ static func id_to_name( id: DialogIds.Id ) -> String:
 			return "DEVELOPER_DIALOG"
 		DialogIds.Id.KIDS_MODE_ENABLE_DIALOG:
 			return "KIDS_MODE_ENABLE_DIALOG"
+		DialogIds.Id.ABOUT_DEMO_DIALOG:
+			return "ABOUT_DEMO_DIALOG"
 		_:
 			return "[UNKNOWN DIALOG]"

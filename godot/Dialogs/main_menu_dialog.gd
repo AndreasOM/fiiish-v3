@@ -11,6 +11,7 @@ class_name MainMenuDialog
 
 @onready var game_mode: MainMenuEntry = %GameMode
 @onready var zone_editor: MainMenuEntry = %ZoneEditor
+@onready var about_demo: MainMenuEntry = %AboutDemo
 @onready var quit: MainMenuEntry = %Quit
 
 
@@ -37,6 +38,12 @@ func _update_entries() -> void:
 	if OS.has_feature("classic"):
 		self.game_mode.state = MainMenuEntry.State.HIDDEN
 		self.zone_editor.state = MainMenuEntry.State.HIDDEN
+		
+	if FeatureTags.has_feature("demo"):
+		self.about_demo.state = MainMenuEntry.State.ENABLED
+	else:
+		self.about_demo.state = MainMenuEntry.State.HIDDEN
+		
 	if OS.has_feature("pc"):
 		self.quit.state = MainMenuEntry.State.ENABLED
 	else:
@@ -106,3 +113,12 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 func _on_achievements_pressed() -> void:
 	self._dialog_manager.close_dialog(DialogIds.Id.MAIN_MENU_DIALOG, 0.3)
 	self._dialog_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
+
+
+func _on_about_demo_pressed() -> void:
+	print("About Demo pressed")
+	var d = _dialog_manager.open_dialog( DialogIds.Id.ABOUT_DEMO_DIALOG, 0.3 )
+	var cd = d as FiiishConfirmationDialog
+	cd.set_title("About the Demo")
+	cd.set_description("This is the demo version of\nFiiish! Classic\nFor more info check:\n[url]https://games.omnimad.net/games/fiiish-classic[/url]")
+	cd.set_mode( FiiishConfirmationDialog.Mode.CONFIRM )

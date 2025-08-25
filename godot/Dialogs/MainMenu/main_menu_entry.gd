@@ -10,6 +10,7 @@ enum Id {
 	CREDITS,
 	QUIT,
 	ACHIEVEMENTS,
+	ABOUT_DEMO,
 }
 
 enum State {
