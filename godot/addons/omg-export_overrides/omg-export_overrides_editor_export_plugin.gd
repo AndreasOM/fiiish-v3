@@ -3,7 +3,8 @@ extends EditorExportPlugin
 
 const NAMES = [
 	"application/config/name",
-	"application/config/icon"
+	"application/config/icon",
+	"application/config/project_url",
 ]
 
 var _original_values: Dictionary[ String, String ] = {}

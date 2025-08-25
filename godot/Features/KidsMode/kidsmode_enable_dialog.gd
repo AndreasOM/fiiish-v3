@@ -4,7 +4,10 @@ class_name KidsModeEnableDialog
 @export var info_file_v3: String = "res://Resources/kidsmode_info_v3.txt"
 @export var info_file_classic: String = "res://Resources/kidsmode_info_classic.txt"
 
+@onready var title_label: Label = %TitleLabel
 @onready var rich_text_label: RichTextLabel = %RichTextLabel
+@onready var fresh_game_texture_button: TextureButton = %FreshGameTextureButton
+@onready var with_upgrades_texture_button: TextureButton = %WithUpgradesTextureButton
 
 func _ready() -> void:
 	if OS.get_name() != "HTML5":
@@ -16,7 +19,18 @@ func _ready() -> void:
 	else:
 		desc = FileAccess.get_file_as_string( self.info_file_v3 )
 		
+	var project_url = ProjectSettings.get_setting("application/config/project_url")
+	print("Project URL: %s" % project_url)
+	desc = desc.replace( "${PROJECT_URL}", project_url )
+	
 	self.rich_text_label.text = desc
+	
+	if FeatureTags.has_feature("demo"):
+		self.title_label.text = "%s - Disabled in Demo" % [ self.title_label.text ]
+#		self.fresh_game_texture_button.modulate = Color.TRANSPARENT
+#		self.with_upgrades_texture_button.modulate = Color.TRANSPARENT
+		self.fresh_game_texture_button.hide()
+		self.with_upgrades_texture_button.hide()
 
 func _on_meta_clicked(meta) -> void:
 	OS.shell_open(meta)

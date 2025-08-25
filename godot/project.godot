@@ -34,6 +34,8 @@ boot_splash/image="uid://2cttyqcxh0c5"
 config/icon="uid://betuucjdaorei"
 config/icon.classic="uid://w2eubogijr1h"
 config/name.classic="fiiish-classic"
+config/project_url="https://games.omnimad.net/games/fiiish-v3"
+config/project_url.classic="https://games.omnimad.net/games/fiiish-classic"
 
 [autoload]
 

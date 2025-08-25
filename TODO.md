@@ -4,6 +4,7 @@
 
 
 
+
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 ## Next
@@ -13,7 +14,6 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
-- [ ] Demo: Disable KidsMode in KidsModeEnableDialog
 - [ ] Demo: Restrict some Achievements
 
 ## Todo Steam Store 
@@ -162,6 +162,7 @@
 - [x] Demo: Enable quit in MainMenu
 - [x] Demo: Add Demo entry in MainMenu
 - [x] Demo: Add link to website in SettingsDialog
+- [x] Demo: Disable KidsMode in KidsModeEnableDialog
 
 ### offsteam
 - [+] Steam: Add ClientImages aka Icons
