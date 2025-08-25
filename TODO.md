@@ -11,7 +11,6 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
-- [ ] Demo: Remove debug toasts
 
 ## Todo Steam Store 
 - [ ] Steam: Get rid of macOS 10.15 warning
@@ -161,6 +160,8 @@
 - [x] Demo: Add link to website in SettingsDialog
 - [x] Demo: Disable KidsMode in KidsModeEnableDialog
 - [x] Demo: Restrict some Achievements
+- [x] Demo: Remove debug toasts
+- [x] Improve toast texture
 
 ### offsteam
 - [+] Steam: Add ClientImages aka Icons

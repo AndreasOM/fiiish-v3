@@ -71,17 +71,18 @@ func _ready() -> void:
 	
 	self._handle_launch_parameters()
 
-	if FeatureTags.has_feature("steam"):
-		Events.broadcast_global_message("STEAM!")
+#	if FeatureTags.has_feature("steam"):
+#		Events.broadcast_global_message("STEAM!")
 
 	
 func _on_received_url( url: String ) -> void:
-	Events.broadcast_global_message("Received URL: %s" % url )
+#	Events.broadcast_global_message("Received URL: %s" % url )
 	var lurl = url.to_lower()	
 	self._handle_kids_mode( lurl )
 
 func _on_application_did_become_active( ) -> void:
-	Events.broadcast_global_message("Became Active" )
+#	Events.broadcast_global_message("Became Active" )
+	pass
 
 
 func _handle_launch_parameters() -> void:
@@ -163,8 +164,8 @@ func _get_launch_parameters() -> String:
 				return self._get_launch_parameters_web()
 			_:
 				var args = OS.get_cmdline_args()
-				for s in args:
-					Events.broadcast_global_message( s )
+#				for s in args:
+#					Events.broadcast_global_message( s )
 
 				var lp = " ".join(args)
 				return lp
@@ -195,8 +196,8 @@ func _get_launch_parameters_editor() -> String:
 		var scene = args[ 0 ]
 		print("Startup Scene: ", scene)
 		args.remove_at( 0 )
-	for s in args:
-		Events.broadcast_global_message( s )
+#	for s in args:
+#		Events.broadcast_global_message( s )
 
 	var lp = " ".join(args)
 		
@@ -210,8 +211,8 @@ func open_initial_dialogs() -> void:
 	%DialogManager.open_dialog( DialogIds.Id.IN_GAME_PAUSE_DIALOG, 0.0 )
 	# %DialogManager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
 	var toast_dialog: ToastDialog = %DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
-	toast_dialog.add_simple_text_toast( "Started..." )
-	Events.broadcast_global_message("Game Started!")
+#	toast_dialog.add_simple_text_toast( "Started..." )
+#	Events.broadcast_global_message("Game Started!")
 	
 #	if OS.has_feature("editor"):
 #		%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
