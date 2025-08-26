@@ -19,6 +19,9 @@ func _ready() -> void:
 	self.add_child( n )
 	self._inner = n
 	
+func is_available() -> bool:
+	return self._inner != null
+	
 func get_steam() -> Variant:
 #	var os = OS.get_name()
 #	if self.NON_STEAM_OS.has( os ):

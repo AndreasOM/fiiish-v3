@@ -66,7 +66,7 @@ var _is_in_zone_editor: bool = false
 var _was_zone_editor_requested: bool = false
 
 const KIDS_MODE_SUFFIX: String = "_kids_mode"
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	print("Game - _ready()")
 	
@@ -89,7 +89,7 @@ func _ready() -> void:
 	self.fish_manager.last_fish_killed.connect( _on_last_fish_killed )
 	self.fish_manager.all_fish_dead.connect( _on_all_fish_dead )
 	self.fish_manager.all_fish_waiting_for_start.connect( _on_all_fish_waiting_for_start )
-	
+
 func _on_cheats_changed() -> void:
 	var invicible = self._player.is_cheat_enabled(	CheatIds.Id.INVINCIBLE )
 	%GameManager.set_invincible( invicible )
@@ -380,7 +380,7 @@ func toogle_pause() -> bool:
 
 func is_paused() -> bool:
 	return self.get_tree().is_paused()
-	
+
 func _on_game_manager_sound_triggered( soundEffect: SoundEffects.Id ) -> void:
 	soundManager.trigger_effect( soundEffect )
 

@@ -12,7 +12,12 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
+- [ ] Steam: Menu should open MainMenu -- when available
 - [ ] Steam: Automate uploading of new version via github action.
+- [ ] Fix Loading Screen scaling
+- [ ] Steam: Improve controls
+	- [ ] Task: Make B-Button on SteamDeck cancel
+	- [ ] Task: Make A-Button confirm only, and dive in game
 
 ## Todo Steam Store 
 - [ ] Steam: Get rid of macOS 10.15 warning
@@ -98,6 +103,7 @@
 
 ## Later
 
+- [ ] Featue: Fix pause handling
 - [ ] Task: Create generic FrameDialog (e.g. SkillUpgrade and Leaderboard)
 - [ ] 😭 Refactor: Create reusable FramedDialog 
 - [ ] Polish: Unify theme to have consistent style
@@ -154,6 +160,10 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-08-26
+#### S06E08
+- [x] Steam: Auto-Pause in background
 
 ### 2025-08-25
 #### S06E07

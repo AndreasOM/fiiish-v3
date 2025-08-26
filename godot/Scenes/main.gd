@@ -13,6 +13,8 @@ const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.
 @onready var achievement_manager: AchievementManager = %AchievementManager
 @onready var game: Game = %Game
 
+var _was_paused_before_focus_was_lost: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#get_window().size = Vector2i( 1920*2*0.75, 1080*2*0.75 )
@@ -73,6 +75,28 @@ func _ready() -> void:
 
 #	if FeatureTags.has_feature("steam"):
 #		Events.broadcast_global_message("STEAM!")
+
+	get_window().focus_exited.connect( _on_window_focus_exited )
+	get_window().focus_entered.connect( _on_window_focus_entered )
+
+func _on_window_focus_entered() -> void:
+	#self.resume()
+	self.process_mode = Node.PROCESS_MODE_INHERIT
+	# get_tree().paused = false
+	if !self._was_paused_before_focus_was_lost:
+		self.game.resume()
+	
+func _on_window_focus_exited() -> void:
+	const PAUSE_ON_FOCUS_LOSS: bool = false	# :TODO: could be a setting
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		if PAUSE_ON_FOCUS_LOSS || steam.isSteamRunningOnSteamDeck():
+			self.process_mode = Node.PROCESS_MODE_DISABLED
+			if self.game.is_paused():
+				self._was_paused_before_focus_was_lost = true
+			else:
+				self._was_paused_before_focus_was_lost = false
+				self.game.pause()
 
 	
 func _on_received_url( url: String ) -> void:
