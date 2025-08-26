@@ -51,6 +51,12 @@ func _process(_delta: float) -> void:
 #	if Input.is_action_just_pressed("TogglePause"):
 #		toggle_pause()
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("toggle_menu"):
+		var state = self._dialog_manager.game.get_state()
+		if self._is_main_menu_available( state ):
+			self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("TogglePause"):
 		toggle_pause()
@@ -104,10 +110,7 @@ func _on_settings_changed() -> void:
 	self._update_main_menu_button( self._dialog_manager.game.get_state() )
 	self._update_settings_button()
 
-func _update_main_menu_button( state: Game.State ) -> void:
-	if self._dialog_manager == null:
-		return
-		
+func _is_main_menu_available( state: Game.State ) -> bool:
 	var should_be_visible: bool = false
 	
 	var is_kids_mode_enabled = self._dialog_manager.game.is_in_kids_mode()
@@ -124,6 +127,14 @@ func _update_main_menu_button( state: Game.State ) -> void:
 			#	should_be_visible = false
 	# else:
 	#	should_be_visible = false
+	return should_be_visible
+	
+func _update_main_menu_button( state: Game.State ) -> void:
+	if self._dialog_manager == null:
+		return
+		
+	var should_be_visible: bool = self._is_main_menu_available( state )
+	
 
 	if should_be_visible:
 		%MainMenuButtonFadeable.fade_in( 0.3 )

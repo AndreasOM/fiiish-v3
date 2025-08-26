@@ -12,7 +12,6 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
-- [ ] Steam: Menu should open MainMenu -- when available
 - [ ] Steam: Automate uploading of new version via github action.
 - [ ] Fix Loading Screen scaling
 - [ ] Steam: Improve controls
@@ -164,6 +163,8 @@
 ### 2025-08-26
 #### S06E08
 - [x] Steam: Auto-Pause in background
+- [x] Steam: Menu Button opens MainMenu -- when available
+- [x] Steam: View/Pause Button pauses game
 
 ### 2025-08-25
 #### S06E07
