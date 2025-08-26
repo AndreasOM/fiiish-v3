@@ -16,7 +16,6 @@
 
 ## Todo Steam Demo
 - [ ] Steam: Automate uploading of new version via github action.
-- [ ] Fix Loading Screen scaling
 - [ ] Steam: Improve controls
 	- [ ] Task: Make A-Button confirm only, and dive in game
 
@@ -168,6 +167,7 @@
 - [x] Steam: Menu Button opens MainMenu -- when available
 - [x] Steam: View/Pause Button pauses game
 - [x] Task: Make ESC + Backspace and B-Button on SteamDeck -> cancel
+- [x] Fix Loading Screen scaling
 
 ### 2025-08-25
 #### S06E07
