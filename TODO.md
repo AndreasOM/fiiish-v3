@@ -9,6 +9,9 @@
 
 ## Todo
 
+- [ ] Feature: Rework ResultDialog for dpad control
+	- [ ] Task: Add Play Button to ResultDialog
+	- [ ] Task: Ensure correct focus handling
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
