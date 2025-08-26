@@ -74,6 +74,23 @@ func _ready() -> void:
 			if dialog.has_method( "set_game" ):
 				dialog.set_game( game );
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("cancel"):
+		var last = self._get_last_dialog()
+		if last == null:
+			return
+		last.cancel()
+		
+func _get_last_dialog() -> Dialog:
+	var last = null
+	for c in self.get_children():
+		var d = c as Dialog
+		if d == null:
+			continue
+		last = d
+		
+	return last
+	
 func on_dialog_closing( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_closing %s" % dialog.name )
 

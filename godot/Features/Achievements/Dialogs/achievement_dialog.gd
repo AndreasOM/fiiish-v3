@@ -14,6 +14,10 @@ func set_dialog_manager( dialog_manager: DialogManager ) -> void:
 	if self.achievement_view != null:
 		self.achievement_view.game_manager = self._dialog_manager.game.get_game_manager()
 		
+func cancel() -> bool:
+	self.close( 0.3 )
+	return true
+
 func close( duration: float) -> void:
 	fade_out( duration )
 

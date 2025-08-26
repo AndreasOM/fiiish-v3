@@ -9,6 +9,8 @@ enum Mode {
 
 signal confirmed
 signal cancelled
+
+@export var cancellable: bool = true
 @onready var description_label: RichTextLabel = %DescriptionLabel
 
 func _ready() -> void:
@@ -20,6 +22,12 @@ func _ready() -> void:
 func _on_meta_clicked(meta) -> void:
 	OS.shell_open(meta)
 
+func cancel() -> bool:
+	if self.cancellable:
+		self.close( 0.3 )
+		return true
+	else:
+		return false
 
 func close( duration: float) -> void:
 	fade_out( duration )

@@ -56,6 +56,10 @@ func opening() -> void:
 func opened() -> void:
 	on_opened.emit( self )
 	
+func cancel() -> bool:
+	return false
+	
+
 func _on_fading_in(_duration: float ) -> void:
 	opening()
 

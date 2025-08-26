@@ -15,7 +15,6 @@
 - [ ] Steam: Automate uploading of new version via github action.
 - [ ] Fix Loading Screen scaling
 - [ ] Steam: Improve controls
-	- [ ] Task: Make B-Button on SteamDeck cancel
 	- [ ] Task: Make A-Button confirm only, and dive in game
 
 ## Todo Steam Store 
@@ -165,6 +164,7 @@
 - [x] Steam: Auto-Pause in background
 - [x] Steam: Menu Button opens MainMenu -- when available
 - [x] Steam: View/Pause Button pauses game
+- [x] Task: Make ESC + Backspace and B-Button on SteamDeck -> cancel
 
 ### 2025-08-25
 #### S06E07

@@ -3,6 +3,10 @@ class_name LeaderboardDialog
 
 @onready var shop_frame_title_container: ShopFrameTitleContainer = %ShopFrameTitleContainer
 
+func cancel() -> bool:
+	self.close( 0.3 )
+	return true
+
 func close( duration: float) -> void:
 	fade_out( duration )
 

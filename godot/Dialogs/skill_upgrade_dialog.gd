@@ -104,6 +104,10 @@ func _update_all() -> void:
 	_update_skill_point_cost()
 	_update_buy_skill_point_button()
 
+func cancel() -> bool:
+	self.close( 0.3 )
+	return true
+
 func close( duration: float) -> void:
 	fade_out( duration )
 	_dialog_manager.close_dialog( DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG, 0.3 )

@@ -92,6 +92,10 @@ func _on_sound_toggle_button_container_toggled(state: ToggleButtonContainer.Togg
 			print("Sound toggle to B")
 			game.disable_sound()
 
+func cancel() -> bool:
+	self.fade_out( 0.3 )
+	return true
+
 func toggle( duration: float ) -> void:
 	toggle_fade( duration )
 

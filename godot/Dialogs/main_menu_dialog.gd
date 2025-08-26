@@ -49,6 +49,10 @@ func _update_entries() -> void:
 	else:
 		self.quit.state = MainMenuEntry.State.HIDDEN
 	
+func cancel() -> bool:
+	_dialog_manager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
+	return true
+
 func toggle( _duration: float ) -> void:
 	self._update_entries()
 	# toggle_fade( duration )
