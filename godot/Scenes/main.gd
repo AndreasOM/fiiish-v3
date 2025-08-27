@@ -81,6 +81,20 @@ func _ready() -> void:
 	
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
+#		var da = DirAccess.open("")
+#		var cwd = da.get_current_dir()
+#		print( cwd )
+
+#		var files = ResourceLoader.list_directory( "." )
+#		for file in files:
+#			print(file)
+		
+#		var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/steam/steam_manifest.vdf"
+		#var manifest_file = "res://../steam/steam_manifest.vdf"
+		#var manifest_file = "res://steam_manifest.vdf"
+		#var manifest_file = "steam_manifest.vdf"
+#		if  !steam.setInputActionManifestFilePath( manifest_file):
+#			push_warning("Failed loading steam manifest")
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
 func _on_steam_overlay_toggled( toggled: bool, _user_initiated: bool, _app_id: bool ) -> void:
