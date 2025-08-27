@@ -35,6 +35,10 @@ func _ready() -> void:
 func _on_meta_clicked(meta) -> void:
 	OS.shell_open(meta)
 
+func cancel() -> bool:
+	self.close( 0.3 )
+	return true
+
 func close( duration: float) -> void:
 	fade_out( duration )
 

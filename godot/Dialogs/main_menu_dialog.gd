@@ -50,7 +50,7 @@ func _update_entries() -> void:
 		self.quit.state = MainMenuEntry.State.HIDDEN
 	
 func cancel() -> bool:
-	_dialog_manager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
+	self.close( 0.3 )
 	return true
 
 func toggle( _duration: float ) -> void:
