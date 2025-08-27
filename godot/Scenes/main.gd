@@ -90,10 +90,14 @@ func _ready() -> void:
 #			print(file)
 		
 #		var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/steam/steam_manifest.vdf"
+		var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/godot/steam_manifest.vdf"
 		#var manifest_file = "res://../steam/steam_manifest.vdf"
 		#var manifest_file = "res://steam_manifest.vdf"
 		#var manifest_file = "steam_manifest.vdf"
-#		if  !steam.setInputActionManifestFilePath( manifest_file):
+		#var manifest_file = "BROKEN"
+#		if !FileAccess.file_exists( manifest_file ):
+#			push_warning("Manifest file not found %s" % manifest_file )
+#		if !steam.setInputActionManifestFilePath( manifest_file):
 #			push_warning("Failed loading steam manifest")
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
