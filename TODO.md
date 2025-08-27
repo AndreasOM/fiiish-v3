@@ -8,6 +8,7 @@
 
 ## Next
 
+- [ ] Steam: Close MainMenu when "About Demo" is selected
 
 ## Todo
 
