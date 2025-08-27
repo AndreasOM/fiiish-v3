@@ -2,10 +2,12 @@
 
 ## In Progress
 
+
 - [ ] Add some performance tooling
 - [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 ## Next
+
 
 ## Todo
 
@@ -15,6 +17,9 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
+- [ ] Steam: Cancel KidsModeDialog via Cancel
+- [ ] Steam: Close MainMenu when Item is selected
+- [ ] Steam: Cleanup font sizes
 - [ ] Steam: Automate uploading of new version via github action.
 - [ ] Steam: Improve controls
 	- [ ] Task: Make A-Button confirm only, and dive in game
@@ -160,6 +165,10 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-08-27
+#### S06E09
+- [x] Steam: Pause in background
 
 ### 2025-08-26
 #### S06E08

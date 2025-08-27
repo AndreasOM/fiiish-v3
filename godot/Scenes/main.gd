@@ -78,7 +78,19 @@ func _ready() -> void:
 
 	get_window().focus_exited.connect( _on_window_focus_exited )
 	get_window().focus_entered.connect( _on_window_focus_entered )
+	
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
+func _on_steam_overlay_toggled( toggled: bool, _user_initiated: bool, _app_id: bool ) -> void:
+	if toggled:
+		self._on_window_focus_exited()
+		Events.broadcast_global_message( "Overlay Toggled ON")
+	else:
+		self._on_window_focus_entered()
+		Events.broadcast_global_message( "Overlay Toggled OFF")
+	
 func _on_window_focus_entered() -> void:
 	#self.resume()
 	self.process_mode = Node.PROCESS_MODE_INHERIT
