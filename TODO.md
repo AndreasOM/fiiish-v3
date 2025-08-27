@@ -107,7 +107,8 @@
 
 ## Later
 
-- [ ] Featue: Fix pause handling
+- [ ] Task: Improve build action to compare tag commit with actual commit
+- [ ] Feature: Fix pause handling
 - [ ] Task: Create generic FrameDialog (e.g. SkillUpgrade and Leaderboard)
 - [ ] 😭 Refactor: Create reusable FramedDialog 
 - [ ] Polish: Unify theme to have consistent style
