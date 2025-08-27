@@ -17,7 +17,6 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
-- [ ] Steam: Close MainMenu when Item is selected
 - [ ] Steam: Cleanup font sizes
 - [ ] Steam: Automate uploading of new version via github action.
 - [ ] Steam: Improve controls
@@ -169,6 +168,8 @@
 #### S06E09
 - [x] Steam: Pause in background
 - [x] Steam: Cancel KidsModeDialog via Cancel
+- [x] Steam: Close MainMenu when Item is selected
+- [x] Steam: Map A button to dive
 
 ### 2025-08-26
 #### S06E08

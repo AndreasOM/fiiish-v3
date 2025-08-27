@@ -81,17 +81,18 @@ func fade_out( duration: float ):
 
 
 func _on_zone_editor_pressed() -> void:
+	self.close( 0.3 )
 	game.goto_zone_editor()
-	_dialog_manager.close_dialog( DialogIds.Id.MAIN_MENU_DIALOG, 0.3 )
 
 func _on_credits_pressed() -> void:
-	print("Credits pressed")
+	self.close( 0.3 )
 	_dialog_manager.open_dialog( DialogIds.Id.CREDITS_DIALOG, 0.3 )
 
 func _on_quit_pressed() -> void:
 	get_tree().quit(0)
 
 func _on_leader_board_pressed() -> void:
+	self.close( 0.3 )
 	self._dialog_manager.open_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )
 
 func _on_game_mode_pressed() -> void:
@@ -115,7 +116,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 
 func _on_achievements_pressed() -> void:
-	self._dialog_manager.close_dialog(DialogIds.Id.MAIN_MENU_DIALOG, 0.3)
+	self.close( 0.3 )
 	self._dialog_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
 
 
