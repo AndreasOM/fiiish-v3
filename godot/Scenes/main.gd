@@ -104,8 +104,8 @@ func _ready() -> void:
 #			push_warning("Failed loading steam manifest")
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
-func _on_steam_overlay_toggled( toggled: bool, _user_initiated: bool, _app_id: bool ) -> void:
-	if toggled:
+func _on_steam_overlay_toggled( active: bool, _user_initiated: bool, _app_id: int ) -> void:
+	if active:
 		self._on_window_focus_exited()
 		Events.broadcast_global_message( "Overlay Toggled ON")
 	else:

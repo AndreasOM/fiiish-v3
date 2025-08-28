@@ -195,3 +195,6 @@ environment/defaults/default_clear_color=Color(0.14902, 0.388235, 0.560784, 1)
 [steam]
 
 initialization/initialize_on_startup=true
+initialization/app_id=480
+initialization/app_id.demo=3934690
+initialization/app_id.classic=3896930

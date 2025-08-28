@@ -2,7 +2,8 @@ extends Node
 
 var _initial_response: Dictionary = {}
 func _ready() -> void:
-	self._initial_response = Steam.steamInitEx()
+	var app_id = ProjectSettings.get("steam/initialization/app_id")
+	self._initial_response = Steam.steamInitEx( app_id, true )
 	
 func get_initial_response() -> Dictionary:
 	return self._initial_response
