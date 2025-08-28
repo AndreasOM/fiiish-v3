@@ -29,15 +29,17 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_type_variation = &"BigRichTextLabel"
+theme_type_variation = &"RichTextLabelIcon"
 text = "Single Run Coins 1"
+autowrap_mode = 0
+vertical_alignment = 1
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_type_variation = &"MediumRichTextLabel"
+theme_type_variation = &"RichTextLabelBody"
 text = "Collected x coins in a single run."
 
 [node name="ExtraRewardsLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
@@ -45,7 +47,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_type_variation = &"MediumRichTextLabel"
+theme_type_variation = &"RichTextLabelBody"
 text = "Extra Rewards
 go here!"
 

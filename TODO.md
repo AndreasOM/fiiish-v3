@@ -17,7 +17,6 @@
 - [ ] Story: General cleanup pass
 
 ## Todo Steam Demo
-- [ ] Steam: Cleanup font sizes
 - [ ] Steam: Automate uploading of new version via github action.
 - [ ] Steam: Improve controls
 	- [ ] Task: Make A-Button confirm only, and dive in game
@@ -169,6 +168,7 @@
 #### S06E10
 - [x] Dump initial steam response on startup
 - [x] Steam: Close MainMenu when "About Demo" is selected
+- [x] Steam: Cleanup font sizes
 
 ### 2025-08-27
 #### S06E09

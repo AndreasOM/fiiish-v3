@@ -56,14 +56,14 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="FadeableContainer/TextureRect/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"SkillsHeaderLabel"
+theme_type_variation = &"LabelHeader"
 text = "Credits"
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="FadeableContainer/TextureRect/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
-theme_type_variation = &"BigRichTextLabel"
+theme_type_variation = &"RichTextLabelBody"
 text = "All done by me 😬"
 fit_content = true
 

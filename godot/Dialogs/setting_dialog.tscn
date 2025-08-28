@@ -79,7 +79,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_type_variation = &"TitleRichtTextLabel"
+theme_type_variation = &"RichTextLabelHeader"
 text = "Fiiish! Godot
 "
 fit_content = true
@@ -90,7 +90,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
-theme_type_variation = &"InfoRichTextLabel"
+theme_type_variation = &"RichTextLabelBody"
 bbcode_enabled = true
 text = "Version :TODO:
 Early test version!
