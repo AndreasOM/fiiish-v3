@@ -8,7 +8,6 @@
 
 ## Next
 
-- [ ] Steam: Close MainMenu when "About Demo" is selected
 
 ## Todo
 
@@ -169,6 +168,7 @@
 ### 2025-08-28
 #### S06E10
 - [x] Dump initial steam response on startup
+- [x] Steam: Close MainMenu when "About Demo" is selected
 
 ### 2025-08-27
 #### S06E09

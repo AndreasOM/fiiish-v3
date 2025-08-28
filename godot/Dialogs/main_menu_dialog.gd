@@ -121,9 +121,9 @@ func _on_achievements_pressed() -> void:
 
 
 func _on_about_demo_pressed() -> void:
-	print("About Demo pressed")
 	var d = _dialog_manager.open_dialog( DialogIds.Id.ABOUT_DEMO_DIALOG, 0.3 )
 	var cd = d as FiiishConfirmationDialog
 	cd.set_title("About the Demo")
 	cd.set_description("This is the demo version of\nFiiish! Classic\nFor more info check:\n[url]https://games.omnimad.net/games/fiiish-classic[/url]")
 	cd.set_mode( FiiishConfirmationDialog.Mode.CONFIRM )
+	self.close( 0.3 )
