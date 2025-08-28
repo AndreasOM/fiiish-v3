@@ -59,7 +59,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"SmallLabel"
+theme_type_variation = &"LabelBody"
 text = "Completed:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer"]
@@ -79,6 +79,6 @@ stretch_mode = 4
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"MediumLabel"
+theme_type_variation = &"LabelSmall"
 text = "This needs work"
 vertical_alignment = 1
