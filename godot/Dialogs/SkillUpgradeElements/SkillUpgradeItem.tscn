@@ -31,7 +31,7 @@ grow_vertical = 2
 [node name="SkillNameLabel" type="Label" parent="CenterContainer/ColorRect/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"SkillsNameLabel"
+theme_type_variation = &"LabelBody"
 text = "Collection Range"
 
 [node name="Spacer" type="Control" parent="CenterContainer/ColorRect/VBoxContainer"]
@@ -43,7 +43,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 1
-theme_type_variation = &"SkillsNameLabel"
+theme_type_variation = &"LabelBody"
 text = "1234"
 
 [node name="SkillPointIcon" type="TextureRect" parent="CenterContainer/ColorRect/VBoxContainer"]
@@ -51,7 +51,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("2_vmexp")
-expand_mode = 4
+expand_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 unique_name_in_owner = true

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3sxwwo6263hd"]
 
-[ext_resource type="Script" uid="uid://bwrnwwl1d8l8b" path="res://Features/Toasts/Dialogs/reward_toast.gd" id="1_et41v"]
+[ext_resource type="Script" path="res://Features/Toasts/Dialogs/reward_toast.gd" id="1_et41v"]
 [ext_resource type="Texture2D" uid="uid://gyi7pnsddk47" path="res://Textures/UI/achievement_toast_frame.png" id="2_s7gph"]
 [ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="3_euwr0"]
 
@@ -59,7 +59,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"SmallLabel"
+theme_type_variation = &"LabelBody"
 text = "Reward:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer"]
@@ -70,7 +70,7 @@ mouse_filter = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"MediumLabel"
+theme_type_variation = &"LabelSmall"
 text = "100000"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -88,6 +88,6 @@ stretch_mode = 4
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"MediumLabel"
+theme_type_variation = &"LabelSmall"
 text = "This needs work"
 vertical_alignment = 1
