@@ -80,6 +80,9 @@ func _ready() -> void:
 	get_window().focus_entered.connect( _on_window_focus_entered )
 	
 	if SteamWrapper.is_available():
+		var ir = SteamWrapper.get_initial_response()
+		var s = "Steam: %s" % ir
+		Events.broadcast_global_message( s )
 		var steam = SteamWrapper.get_steam()
 #		var da = DirAccess.open("")
 #		var cwd = da.get_current_dir()

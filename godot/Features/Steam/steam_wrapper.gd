@@ -22,6 +22,15 @@ func _ready() -> void:
 func is_available() -> bool:
 	return self._inner != null
 	
+func get_initial_response() -> Dictionary:
+	if self._inner == null:
+		return {}
+	
+	if !self._inner.has_method("get_initial_response"):
+		return {}
+		
+	return self._inner.get_initial_response()
+
 func get_steam() -> Variant:
 #	var os = OS.get_name()
 #	if self.NON_STEAM_OS.has( os ):

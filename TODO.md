@@ -166,6 +166,10 @@
 
 ## Done
 
+### 2025-08-28
+#### S06E10
+- [x] Dump initial steam response on startup
+
 ### 2025-08-27
 #### S06E09
 - [x] Steam: Pause in background
