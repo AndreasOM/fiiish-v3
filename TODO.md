@@ -167,6 +167,11 @@
 
 ## Done
 
+### 2025-09-04
+#### S06E11
+- [x] Steam: Add some debug noise
+- [x] Steam/Demo: Add two demo zones
+
 ### 2025-08-28
 #### S06E10
 - [x] Dump initial steam response on startup

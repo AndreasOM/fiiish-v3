@@ -94,6 +94,9 @@ func set_invincible( invicible: bool ) -> void:
 func push_initial_zones() -> void:
 	# var initial_zones = [ "0000_Start", "0000_ILoveFiiish" ]
 	var initial_zones = [ "0000_ILoveFiiish" ]
+	if FeatureTags.has_feature("demo"):
+		initial_zones = ["D0000_Start"]
+		
 	for iz in initial_zones:
 		self._zone_config_manager.push_next_zone_by_name( iz )
 

@@ -19,7 +19,7 @@ func load_zones_from_folder( folder: String, prefix: String = "" ) -> void:
 	for zn in zones:
 		if !zn.ends_with( ".nzne" ):
 			continue
-		print("Zones: %s" % zn)
+		print("Zones: %s (%s)" % [ zn, prefix ])
 		var fzn = "%s/%s" % [ folder, zn ]
 		var z = load( fzn )
 		var zone_name = "%s%s" % [ prefix, zn ]

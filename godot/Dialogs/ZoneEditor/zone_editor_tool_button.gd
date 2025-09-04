@@ -4,7 +4,7 @@ extends CenterContainer
 signal selected( tool_button: ZoneEditorToolButton)
 
 @export var tool_id: ZoneEditorToolIds.Id = ZoneEditorToolIds.Id.SELECT
-@export var label: String = ""
+@export var label: String = "" : set = set_label
 @onready var label_a: Label = %LabelA
 @onready var label_b: Label = %LabelB
 @onready var toggle_button_container: ToggleButtonContainer = %ToggleButtonContainer
@@ -18,8 +18,10 @@ var _state: State = State.INACTIVE
 
 func set_label( v: String ) -> void:
 	label = v
-	self.label_a.text = self.label
-	self.label_b.text = self.label
+	if self.label_a != null:
+		self.label_a.text = self.label
+	if self.label_b != null:
+		self.label_b.text = self.label
 	
 func make_active() -> void:
 	self._state = State.ACTIVE

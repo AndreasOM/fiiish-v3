@@ -9,7 +9,9 @@ signal redo_pressed()
 @onready var tool_buttons: VBoxContainer = %ToolButtons
 @onready var undo_button: TextureButton = %UndoButton
 @onready var redo_button: TextureButton = %RedoButton
-@onready var entity_select_button: EntitySelectButton = %EntitySelectButton
+@onready var spawn_zone_editor_tool_button: ZoneEditorToolButton = %SpawnZoneEditorToolButton
+@onready var entity_select_button_minus: EntitySelectButton = %EntitySelectButtonMinus
+@onready var entity_select_button_plus: EntitySelectButton = %EntitySelectButtonPlus
 
 var last_selected_tool_id: ZoneEditorToolIds.Id = ZoneEditorToolIds.Id.SELECT
 func _ready() -> void:
@@ -30,7 +32,8 @@ func _update_buttons( active_tid: ZoneEditorToolIds.Id ) -> void:
 	
 func open( duration: float) -> void:
 	fade_in( duration )
-	self.entity_select_button.entity_config_manager = self._dialog_manager.game.entity_config_manager
+	self.entity_select_button_minus.entity_config_manager = self._dialog_manager.game.entity_config_manager
+	self.entity_select_button_plus.entity_config_manager = self._dialog_manager.game.entity_config_manager
 
 func close( duration: float) -> void:
 	fade_out( duration )
@@ -81,3 +84,7 @@ func on_command_history_size_changed( history_size: int, future_size: int ) -> v
 
 func _on_entity_select_button_entity_changed(id: EntityId.Id) -> void:
 	self.spawn_entity_changed.emit( id )
+	var ec = self._dialog_manager.game.entity_config_manager.get_entry( id )
+	var t = "Spawn\n%s" % ec.name
+	self.spawn_zone_editor_tool_button.label = t
+	

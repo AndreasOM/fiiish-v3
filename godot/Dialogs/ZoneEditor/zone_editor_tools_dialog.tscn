@@ -89,14 +89,17 @@ layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 
-[node name="EntitySelectButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="EntitySelectionHBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EntitySelectButtonMinus" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("4_6sbcy")
 script = ExtResource("5_0u0x8")
 
-[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectButton"]
+[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -104,7 +107,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"MediumLabel"
-text = "Coin"
+text = "-1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EntitySelectButtonPlus" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("4_6sbcy")
+script = ExtResource("5_0u0x8")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "+1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -157,7 +179,9 @@ vertical_alignment = 1
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/RotateZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/SpawnZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/SelectZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
-[connection signal="entity_changed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectButton" to="." method="_on_entity_select_button_entity_changed"]
-[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectButton" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectButton" method="_on_pressed"]
+[connection signal="entity_changed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" to="." method="_on_entity_select_button_entity_changed"]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" method="_on_pressed" binds= [-1]]
+[connection signal="entity_changed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" to="." method="_on_entity_select_button_entity_changed"]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" method="_on_pressed" binds= [1]]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/UndoButton" to="." method="_on_undo_button_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/RedoButton" to="." method="_on_redo_pressed"]
