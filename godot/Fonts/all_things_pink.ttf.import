@@ -14,7 +14,7 @@ dest_files=["res://.godot/imported/all_things_pink.ttf-f9d5d91bd70c29fd9ef38b730
 
 Rendering=null
 antialiasing=1
-generate_mipmaps=false
+generate_mipmaps=true
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=true
 msdf_pixel_range=8

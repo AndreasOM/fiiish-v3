@@ -3,8 +3,6 @@
 ## In Progress
 
 
-- [ ] Add some performance tooling
-- [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 ## Next
 
@@ -67,6 +65,11 @@
 
 - [+] Bonus: Automate creation of Marketing Screenshots
 - [+] Reach: Add KidsMode
+
+
+### after steam next fest
+- [ ] Add some performance tooling
+- [?] Bug: Fix screen/window resizing from script -> Works on other machines
 
 ### postponed
 

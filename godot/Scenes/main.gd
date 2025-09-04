@@ -98,10 +98,12 @@ func _ready() -> void:
 		#var manifest_file = "res://steam_manifest.vdf"
 		#var manifest_file = "steam_manifest.vdf"
 		#var manifest_file = "BROKEN"
-#		if !FileAccess.file_exists( manifest_file ):
-#			push_warning("Manifest file not found %s" % manifest_file )
-#		if !steam.setInputActionManifestFilePath( manifest_file):
-#			push_warning("Failed loading steam manifest")
+		if !FileAccess.file_exists( manifest_file ):
+			push_warning("Action manifest file not found %s" % manifest_file )
+			Events.broadcast_global_message( "Action manifest file not found %s" % manifest_file )
+		if !steam.setInputActionManifestFilePath( manifest_file):
+			push_warning("Failed loading steam action manifest")
+			Events.broadcast_global_message( "Failed loading action manifest" )
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
 func _on_steam_overlay_toggled( active: bool, _user_initiated: bool, _app_id: int ) -> void:
