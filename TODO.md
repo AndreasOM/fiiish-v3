@@ -6,6 +6,11 @@
 
 ## Next
 
+- [ ] Demo: Don't repeat same zone back to back -- unless no other zone exists
+- [ ] Demo: Fix next+prev in zone editor
+- [ ] Demo: Add move back+forward to zone editor
+- [ ] Demo: Add 1 new zone
+
 
 ## Todo
 
@@ -166,6 +171,12 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+
+### 2025-09-05
+#### S06E12
+- [x] Demo: Only Demo-Zones should be used in Demo
+- [x] Demo: Only show "DEMO" zone at start of run
 
 ### 2025-09-04
 #### S06E11

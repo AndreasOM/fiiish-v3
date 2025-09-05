@@ -72,7 +72,8 @@ func _pick_next_zone() -> NewZone:
 		"0000_ILoveFiiishAndRust",
 		"8000_MarketingScreenshots",
 		"9998_AssetTest",
-		"9999_Test"
+		"9999_Test",
+		"D0000_Start"
 	]	
 	return self._zone_config_manager.pick_next_zone( blocked_zones )
 
