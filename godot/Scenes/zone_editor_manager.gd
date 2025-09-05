@@ -125,6 +125,8 @@ func _process(delta: float) -> void:
 			self._process_for_move( delta )
 		ZoneEditorToolIds.Id.SPAWN:
 			self._process_for_spawn( delta )
+		ZoneEditorToolIds.Id.SELECT:
+			self._process_for_select( delta )
 		_:
 			# :TODO:
 			pass
@@ -136,6 +138,14 @@ func _process_for_spawn( _delta: float ) -> void:
 	# re-use!
 	self._update_selected_object_position_for_move()
 
+func _process_for_select( _delta: float ) -> void:
+	if self._selected_object == null:
+		return
+	if Input.is_action_just_pressed("cursor_down"):
+		self._move_object_back( self._selected_object )
+	if Input.is_action_just_pressed("cursor_up"):
+		self._move_object_forward( self._selected_object )
+	
 func _update_cursor_position( mouse_event: InputEventMouse ) -> void:
 	var tr = self._game_scaler.transform
 	tr = tr.affine_inverse()
@@ -328,6 +338,22 @@ func _handle_mouse_button_for_spawn( mouse_button_event: InputEventMouseButton )
 	else:
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
+func _handle_mouse_button_for_select( mouse_button_event: InputEventMouseButton ) -> void:
+	## select on release
+	if mouse_button_event.pressed == false:
+		var mouse_delta: Vector2 = self.debug_cursor_sprite_2d.position - self._select_press_position
+		var d = mouse_delta.length_squared()
+		if d < 10.0:	# only select if we didn't move to far
+			if self._selected_object == null:
+				var n = _find_object_at_cursor()
+				if n != null:
+					_select_object( n )
+			else:
+				_deselect_object()
+				
+	else:
+		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
+
 func _handle_mouse_motion( mouse_motion_event: InputEventMouseMotion ) -> void:
 	var tr = self._game_scaler.transform
 	tr = tr.affine_inverse()
@@ -369,6 +395,8 @@ func _handle_mouse_button( mouse_button_event: InputEventMouseButton ) -> void:
 			self._handle_mouse_button_for_rotate( mouse_button_event )
 		ZoneEditorToolIds.Id.SPAWN:
 			self._handle_mouse_button_for_spawn( mouse_button_event )
+		ZoneEditorToolIds.Id.SELECT:
+			self._handle_mouse_button_for_select( mouse_button_event )
 		_:
 			# :TODO:
 			pass
@@ -380,6 +408,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	var mouse_button_event := event as InputEventMouseButton
 	var mouse_motion_event := event as InputEventMouseMotion
+#	var key_event := event as InputEventKey
+	
 	if mouse_button_event != null:
 		self._handle_mouse_button( mouse_button_event )
 	elif mouse_motion_event != null:
@@ -390,8 +420,52 @@ func _unhandled_input(event: InputEvent) -> void:
 			_update_cursor_position( mouse_motion_event )
 			self._mouse_x = -mouse_motion_event.relative.x
 		pass
+#	elif key_event != null:
+#		if self.tool_id == ZoneEditorToolIds.Id.SELECT:
+#			if self._selected_object != null:
+#				if !key_event.pressed:
+#					if !key_event.echo:
+#						match key_event.keycode:
+#						#match key_event.physical_keycode:
+#							KEY_UP:
+#								pass
+#							#KEY_DOWN:
+#							KEY_K:
+#								print(key_event)
+#								self._move_object_back( self._selected_object )
 	else:
 		print("event %s" % event)
+
+func _move_object_back( object: Node2D ) -> void:
+	var p = object.get_parent()
+	if p == null:
+		return
+		
+	var idx = object.get_index()
+	if idx <= 0:
+		return
+		
+	var sidx = idx-1
+	var s = p.get_child( sidx )
+	p.remove_child( s )
+	object.add_sibling( s )
+	print("! moved object back")
+
+func _move_object_forward( object: Node2D ) -> void:
+	var p = object.get_parent()
+	if p == null:
+		return
+		
+	var idx = object.get_index()
+		
+	var sidx = idx+1
+	if sidx >= p.get_child_count():
+		return
+
+	var s = p.get_child( sidx )
+	p.remove_child( object )
+	s.add_sibling( object )
+	print("! moved object forward")
 
 func _on_zone_edit_enabled() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS

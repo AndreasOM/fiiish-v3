@@ -89,6 +89,48 @@ layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 
+[node name="SelectedObjectHBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MoveBackButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SelectedObjectHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("4_6sbcy")
+texture_disabled = ExtResource("5_1ypek")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SelectedObjectHBoxContainer/MoveBackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "Move
+Back"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoveForwardButton" type="TextureButton" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SelectedObjectHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("4_6sbcy")
+texture_disabled = ExtResource("5_1ypek")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SelectedObjectHBoxContainer/MoveForwardButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MediumLabel"
+text = "Move
+Forward"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="EntitySelectionHBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -180,6 +222,8 @@ vertical_alignment = 1
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/RotateZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/SpawnZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/SelectZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SelectedObjectHBoxContainer/MoveBackButton" to="." method="_on_move_back_button_pressed"]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SelectedObjectHBoxContainer/MoveForwardButton" to="." method="_on_move_forward_button_pressed"]
 [connection signal="entity_changed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" to="." method="_on_entity_select_button_entity_changed"]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" method="_on_pressed"]
 [connection signal="entity_changed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" to="." method="_on_entity_select_button_entity_changed"]

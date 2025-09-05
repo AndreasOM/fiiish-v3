@@ -90,3 +90,11 @@ func _on_entity_select_button_entity_changed(id: EntityId.Id) -> void:
 	self.entity_select_button_minus.set_current_id( id )
 	self.entity_select_button_plus.set_current_id( id )
 	
+
+
+func _on_move_back_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_move_forward_button_pressed() -> void:
+	pass # Replace with function body.

@@ -6,7 +6,6 @@
 
 ## Next
 
-- [ ] Demo: Add move back+forward to zone editor
 - [ ] Demo: Add 1 new zone
 - [ ] Demo: Don't repeat same zone back to back -- unless no other zone exists
 
@@ -177,6 +176,7 @@
 - [x] Demo: Only Demo-Zones should be used in Demo
 - [x] Demo: Only show "DEMO" zone at start of run
 - [x] Demo: Fix next+prev in zone editor
+- [x] Demo: Add move back+forward to zone editor
 
 ### 2025-09-04
 #### S06E11
