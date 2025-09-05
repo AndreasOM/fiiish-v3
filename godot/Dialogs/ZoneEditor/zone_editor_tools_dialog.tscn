@@ -98,6 +98,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("4_6sbcy")
 script = ExtResource("5_0u0x8")
+increment = -1
 
 [node name="Label" type="Label" parent="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus"]
 layout_mode = 1
@@ -180,8 +181,8 @@ vertical_alignment = 1
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/SpawnZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/SelectZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="entity_changed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" to="." method="_on_entity_select_button_entity_changed"]
-[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" method="_on_pressed" binds= [-1]]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonMinus" method="_on_pressed"]
 [connection signal="entity_changed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" to="." method="_on_entity_select_button_entity_changed"]
-[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" method="_on_pressed" binds= [1]]
+[connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" to="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/EntitySelectionHBoxContainer/EntitySelectButtonPlus" method="_on_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/UndoButton" to="." method="_on_undo_button_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/RedoButton" to="." method="_on_redo_pressed"]

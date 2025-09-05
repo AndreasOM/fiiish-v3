@@ -87,4 +87,6 @@ func _on_entity_select_button_entity_changed(id: EntityId.Id) -> void:
 	var ec = self._dialog_manager.game.entity_config_manager.get_entry( id )
 	var t = "Spawn\n%s" % ec.name
 	self.spawn_zone_editor_tool_button.label = t
+	self.entity_select_button_minus.set_current_id( id )
+	self.entity_select_button_plus.set_current_id( id )
 	
