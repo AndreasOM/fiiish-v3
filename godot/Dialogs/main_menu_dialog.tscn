@@ -141,6 +141,14 @@ id = 7
 state = 1
 label = "About Demo"
 
+[node name="Developer" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+id = 8
+state = 0
+label = "!Developer!"
+
 [node name="Quit" parent="MainMenuFadeableContainer/VBoxContainer" instance=ExtResource("3_otu7v")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -157,4 +165,5 @@ label = "Quit"
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/ZoneEditor" to="." method="_on_zone_editor_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/AboutDemo" to="." method="_on_about_demo_pressed"]
+[connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/Developer" to="." method="_on_developer_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

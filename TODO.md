@@ -176,6 +176,8 @@
 - [x] Demo: Improve zone selection
 - [x] Demo: Tweak zones
 - [x] Demo: Add two "impossible" zones
+- [x] Demo: Add Developer entry to MainMenuDialog
+- [x] Demo: Add Developer scene
 
 ### 2025-09-05
 #### S06E12

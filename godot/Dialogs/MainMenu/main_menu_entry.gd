@@ -11,6 +11,7 @@ enum Id {
 	QUIT,
 	ACHIEVEMENTS,
 	ABOUT_DEMO,
+	DEVELOPER,
 }
 
 enum State {
@@ -56,9 +57,11 @@ func _update() -> void:
 		State.ENABLED:
 			%TextureButton.disabled = false
 			%TextureButton.focus_mode = FocusMode.FOCUS_ALL
+			self.visible = true
 		State.DISABLED:
 			%TextureButton.disabled = true
 			%TextureButton.focus_mode = FocusMode.FOCUS_NONE
+			self.visible = true
 		State.HIDDEN:
 			self.visible = false
 	

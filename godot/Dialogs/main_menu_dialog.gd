@@ -12,6 +12,7 @@ class_name MainMenuDialog
 @onready var game_mode: MainMenuEntry = %GameMode
 @onready var zone_editor: MainMenuEntry = %ZoneEditor
 @onready var about_demo: MainMenuEntry = %AboutDemo
+@onready var developer: MainMenuEntry = %Developer
 @onready var quit: MainMenuEntry = %Quit
 
 
@@ -49,6 +50,22 @@ func _update_entries() -> void:
 	else:
 		self.quit.state = MainMenuEntry.State.HIDDEN
 	
+	var developer_enabled = false
+	if FeatureTags.has_feature("editor_runtime"):
+		developer_enabled = true
+	
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		var steam_id = steam.getSteamID()
+		var developer_ids = [
+			76561199172150142, # andreas OM
+		]
+		if developer_ids.find( steam_id ) >= 0:
+			developer_enabled = true
+		
+	if developer_enabled:
+		self.developer.state = MainMenuEntry.State.ENABLED
+		
 func cancel() -> bool:
 	self.close( 0.3 )
 	return true
@@ -127,3 +144,7 @@ func _on_about_demo_pressed() -> void:
 	cd.set_description("This is the demo version of\nFiiish! Classic\nFor more info check:\n[url]https://games.omnimad.net/games/fiiish-classic[/url]")
 	cd.set_mode( FiiishConfirmationDialog.Mode.CONFIRM )
 	self.close( 0.3 )
+
+
+func _on_developer_pressed() -> void:
+	get_tree().change_scene_to_file("res://Features/Developer/developer.tscn")
