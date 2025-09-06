@@ -229,6 +229,7 @@ func _on_game_state_changed( state: Game.State ) -> void:
 	match state:
 		Game.State.SWIMMING:
 			var autospawn = self._test_zone_filename.is_empty()
+			self.zone_manager.clear_zone_history()
 			self.spawn_zone( autospawn )
 			self.resume()
 		_:

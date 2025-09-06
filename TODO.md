@@ -7,7 +7,7 @@
 ## Next
 
 - [ ] Demo: Add 1 new zone
-- [ ] Demo: Don't repeat same zone back to back -- unless no other zone exists
+- [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
 
 
 ## Todo
@@ -170,6 +170,12 @@
 
 ## Done
 
+
+### 2025-09-06
+#### S06E13
+- [x] Demo: Improve zone selection
+- [x] Demo: Tweak zones
+- [x] Demo: Add two "impossible" zones
 
 ### 2025-09-05
 #### S06E12

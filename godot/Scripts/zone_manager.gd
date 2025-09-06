@@ -20,6 +20,8 @@ var _current_zone: NewZone = null
 var _autospawn_on_zone_end: bool = true
 var _next_object_id = 1
 
+var _zone_history: Array = []
+
 func _process(_delta: float) -> void:
 	self.current_zone_progress += self.game_manager.movement.x
 	#self.current_zone_progress += self.game_manager.movement_x * delta
@@ -65,6 +67,9 @@ func cleanup() -> void:
 		%Areas.remove_child(a)
 		a.queue_free()
 
+func clear_zone_history() -> void:
+	self._zone_history.clear()
+
 func _pick_next_zone() -> NewZone:
 	var blocked_zones: Array[ String ] = [ 
 		"0000_Start",
@@ -74,8 +79,12 @@ func _pick_next_zone() -> NewZone:
 		"9998_AssetTest",
 		"9999_Test",
 		"D0000_Start"
-	]	
-	return self._zone_config_manager.pick_next_zone( blocked_zones )
+	]
+	#var level = 0
+	var zn = self._zone_history.size()
+	#var difficulty = int(zn / 5.0)
+	var difficulty = int( zn * 4.0 )
+	return self._zone_config_manager.pick_next_zone( blocked_zones, difficulty )
 
 func _spawn_object( ec: EntityConfig, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Entity:
 	var o: Node = ec.resource.instantiate()
@@ -129,6 +138,7 @@ func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> bool:
 	self.current_zone_progress = 0.0
 	self._current_zone = zone
 	Events.broadcast_zone_changed( zone )
+	self._zone_history.push_back( zone.name )
 	for l in zone.layers.iter():
 		if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
 			for obj in l.objects.iter():

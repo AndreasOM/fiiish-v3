@@ -101,17 +101,40 @@ func pop_next_zone() -> int:
 		return -1
 	return next_zone
 	
-func pick_next_zone( blocked_zones: Array [ String ] ) -> NewZone:
-	var next_zone = null
+func pick_next_zone( blocked_zones: Array [ String ], difficulty: int ) -> NewZone:
+	var candidates = []			# index into self._zones[]
+	var n =  self._zones.size()
 	
-	var max_tries = 100
-	while next_zone == null:
-		max_tries -= 1
-		if max_tries <= 0:
-			push_warning("No next zone found")
-			return null
-		next_zone = self.pick_random()
-		if blocked_zones.find( next_zone.name ) >= 0:
-			next_zone = null
+	var mininum_candidates = 10
+	var slope = -0.5
+	var amplitude = 2.0
+
+	while candidates.size() < mininum_candidates:
+		for i in range(n):
+			var z = self._zones[i]
+			if blocked_zones.find( z.name ) >= 0:
+				continue
 			
+			var dd = difficulty - z.difficulty
+			if dd < -10:	# do not use zones that are too difficult
+				continue
+			if dd > 0:
+				dd *= 0.5 # slightly favour lower levels
+			dd = abs( dd )
+			var count = amplitude+slope*dd
+			print("! %d -> %d *%f [%f %f]" %[ i, dd, count, slope, amplitude])
+			for c in range(count):
+				candidates.push_back( i )
+		slope *= 0.9 #0.5
+		amplitude *= 1.1 #2.0
+		
+	print( candidates )
+	if candidates.size() == 0:
+		push_warning("No next zone found")
+		return null
+			
+	var index = candidates.pick_random()
+	var next_zone = self._zones[ index ]
+	
+	print("! picked next zone: %s %d ~ %d" % [ next_zone.name, next_zone.difficulty, difficulty])
 	return next_zone
