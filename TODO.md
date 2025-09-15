@@ -177,6 +177,7 @@
 - [x] Add more debugging for Steam Input
 - [x] Add a quick font size test to the Developer scene
 - [x] Display current working directory in Developer scene
+- [x] Demo: Add more zones for variety
 
 ### 2025-09-06
 #### S06E13
