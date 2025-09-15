@@ -171,6 +171,10 @@
 ## Done
 
 
+### 2025-09-15
+#### S06E14
+- [x] Demo: Avoid zones that are higher level than current level
+
 ### 2025-09-06
 #### S06E13
 - [x] Demo: Improve zone selection

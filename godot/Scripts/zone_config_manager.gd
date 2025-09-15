@@ -116,10 +116,10 @@ func pick_next_zone( blocked_zones: Array [ String ], difficulty: int ) -> NewZo
 				continue
 			
 			var dd = difficulty - z.difficulty
-			if dd < -10:	# do not use zones that are too difficult
+			if dd < 0:	# do not use zones that are too difficult
 				continue
-			if dd > 0:
-				dd *= 0.5 # slightly favour lower levels
+#			if dd > 0:
+#				dd *= 0.5 # slightly favour lower levels
 			dd = abs( dd )
 			var count = amplitude+slope*dd
 			print("! %d -> %d *%f [%f %f]" %[ i, dd, count, slope, amplitude])
