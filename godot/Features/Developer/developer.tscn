@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bck3ywnckmr2l"]
+[gd_scene load_steps=4 format=3 uid="uid://bck3ywnckmr2l"]
 
 [ext_resource type="Script" uid="uid://dim65dc81ux5j" path="res://Features/Developer/font_size_test_label.gd" id="1_kjwfr"]
 [ext_resource type="Script" uid="uid://byewi2jmagacu" path="res://Features/Developer/developer.gd" id="1_tjh23"]
+[ext_resource type="FontFile" uid="uid://bb2pts3o32ebo" path="res://Fonts/all_things_pink.ttf" id="2_ytcx3"]
 
 [node name="Developer" type="Control"]
 layout_mode = 3
@@ -66,6 +67,7 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_ytcx3")
 theme_override_font_sizes/font_size = 128
 text = "FontSizeTest"
 script = ExtResource("1_kjwfr")
@@ -74,6 +76,7 @@ script = ExtResource("1_kjwfr")
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_ytcx3")
 theme_override_font_sizes/font_size = 128
 text = "FontSizeTest"
 script = ExtResource("1_kjwfr")
@@ -83,6 +86,7 @@ font_size = 16
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_ytcx3")
 theme_override_font_sizes/font_size = 128
 text = "FontSizeTest"
 script = ExtResource("1_kjwfr")
@@ -92,6 +96,7 @@ font_size = 32
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_ytcx3")
 theme_override_font_sizes/font_size = 128
 text = "FontSizeTest"
 script = ExtResource("1_kjwfr")
@@ -101,6 +106,7 @@ font_size = 64
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_ytcx3")
 theme_override_font_sizes/font_size = 128
 text = "FontSizeTest"
 script = ExtResource("1_kjwfr")
