@@ -174,6 +174,7 @@
 ### 2025-09-15
 #### S06E14
 - [x] Demo: Avoid zones that are higher level than current level
+- [x] Add more debugging for Steam Input
 
 ### 2025-09-06
 #### S06E13

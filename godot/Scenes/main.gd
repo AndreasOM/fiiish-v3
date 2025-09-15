@@ -84,6 +84,15 @@ func _ready() -> void:
 		var s = "Steam: %s" % ir
 		Events.broadcast_global_message( s )
 		var steam = SteamWrapper.get_steam()
+		
+		Steam.input_device_connected.connect( _on_input_device_connected )
+		Steam.input_device_disconnected.connect( _on_input_device_disconnected )
+		Steam.inputInit()
+		Steam.enableDeviceCallbacks()
+
+		var steam_controller_input = SteamWrapper.get_steam_controller_input()
+
+		#steam_controller_input.init()
 #		var da = DirAccess.open("")
 #		var cwd = da.get_current_dir()
 #		print( cwd )
@@ -102,10 +111,18 @@ func _ready() -> void:
 			push_warning("Action manifest file not found %s" % manifest_file )
 			Events.broadcast_global_message( "Action manifest file not found %s" % manifest_file )
 		if !steam.setInputActionManifestFilePath( manifest_file):
+			#get_tree().quit(0)
+			#OS.crash("Failed loading steam action manifest")
 			push_warning("Failed loading steam action manifest")
 			Events.broadcast_global_message( "Failed loading action manifest" )
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
+func _on_input_device_connected( input_handle: int ) -> void:
+	Events.broadcast_global_message( "Input device connected [%d]" % input_handle )
+
+func _on_input_device_disconnected( input_handle: int ) -> void:
+	Events.broadcast_global_message( "Input device disconnected [%d]" % input_handle )
+	
 func _on_steam_overlay_toggled( active: bool, _user_initiated: bool, _app_id: int ) -> void:
 	if active:
 		self._on_window_focus_exited()

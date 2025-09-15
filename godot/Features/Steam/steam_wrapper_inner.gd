@@ -14,3 +14,7 @@ func get_initial_response() -> Dictionary:
 
 func get_steam() -> Variant:
 	return Steam
+
+func get_steam_controller_input() -> Variant:
+	return null
+	#return SteamControllerInput
