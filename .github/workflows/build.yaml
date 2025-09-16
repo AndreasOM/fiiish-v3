@@ -124,7 +124,7 @@ jobs:
           esac
 
 
-          VERSION=$(git tag --points-at HEAD)
+          VERSION=$(git tag --points-at HEAD|sort -r|head -n 1)
           if [[ ${VERSION} == "" ]]
           then
             echo "NO VERSION -- using v0.0.0"
@@ -143,6 +143,9 @@ jobs:
             echo "Invalid version. Use vx.y.z was ${VERSION}"
             exit 255
           fi
+          
+          echo "Version: ${VERSION}"
+
           VERSION=${VERSION#"v"}
           BUILD_NUMBER=$(date +2025.%y%m%d.%H%M%S)
           ARCHIVE_FILE=${PROJECT}-${BUILD_TYPE}-${COMMIT_DATE}.tgz
