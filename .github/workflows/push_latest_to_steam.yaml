@@ -1,0 +1,88 @@
+name: 🚂 Push latest to steam
+run-name: 🚂 Push latest to itchio ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
+on: 
+  workflow_dispatch:
+    inputs:
+      sub_type:
+        description: 'The sub_type of build'
+        required: true
+        default: 'demo-classic'
+        type: choice
+        options:
+          - 'demo-classic'
+  workflow_call:
+    inputs:
+      build_type:
+        description: 'The sub_type of build'
+        required: true
+        type: string
+      summary_style:
+        description: 'The style for the summary'
+        default: 'full'
+        required: false
+        type: string
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: "eu-west-1"
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Use bash shells on all platforms.
+        shell: bash
+    steps:
+      - name: Create variables
+        run: |
+          PROJECT=${{ vars.PROJECT }}
+          SUB_TYPE=${{ inputs.sub_type }}
+          TARGET_FOLDER="temp-steam"
+
+          #
+          # put into github env
+          #
+          {
+            echo "PROJECT=${PROJECT}"
+            echo "SUB_TYPE=${SUB_TYPE}"
+            echo "TARGET_FOLDER=${TARGET_FOLDER}"
+          } >> "$GITHUB_ENV"
+
+      - name: Download latest linux from S3
+        run: |
+          .github/helpers/download_latest ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
+
+      - name: Download latest macos from S3
+        run: |
+          .github/helpers/download_latest ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
+
+      - name: Download latest windows from S3
+        run: |
+          .github/helpers/download_latest ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
+
+
+      - name: Create Summary
+        if: always()
+        run: |
+          echo "Summary Style: '${{ inputs.summary_style }}'"
+          if [[ "${{ inputs.summary_style }}" == "skip" ]]
+          then
+            echo "Skipping summary"
+          elif [[ "${{ inputs.summary_style }}" == "minimal" ]]
+          then
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| VERSION                | ${{ env.VERSION }}                |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "|                        |                                   |"
+              echo "| :--------------------- | --------------------------------: |"
+              echo "| macos_VERSION          | ${{ env.macos_VERSION }}          |"
+              echo "| linux_VERSION          | ${{ env.linux_VERSION }}          |"
+              echo "| windows_VERSION        | ${{ env.windows_VERSION }}        |"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
