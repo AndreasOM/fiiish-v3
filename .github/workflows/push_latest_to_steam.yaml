@@ -52,15 +52,15 @@ jobs:
 
       - name: Download latest linux from S3
         run: |
-          .github/helpers/download_latest ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
+          .github/helpers/download_latest.sh ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
 
       - name: Download latest macos from S3
         run: |
-          .github/helpers/download_latest ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
+          .github/helpers/download_latest.sh ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
 
       - name: Download latest windows from S3
         run: |
-          .github/helpers/download_latest ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
+          .github/helpers/download_latest.sh ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
 
 
       - name: Create Summary
