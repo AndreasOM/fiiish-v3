@@ -171,6 +171,10 @@
 ## Done
 
 
+### 2025-09-16
+#### S06E15
+- [x] Demo: Set up (almost) automatic uploads via github action
+
 ### 2025-09-15
 #### S06E14
 - [x] Demo: Avoid zones that are higher level than current level
