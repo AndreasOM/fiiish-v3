@@ -131,4 +131,3 @@ then
 		echo "GITHUB_ENV file does NOT exist"
 	fi
 fi
-
