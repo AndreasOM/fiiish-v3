@@ -1,0 +1,11 @@
+"DepotBuildConfig"
+{
+    "DepotID" "3934693"
+    "ContentRoot" "classic-demo/fiiish-v3-windows-demo-classic/"
+    "FileMapping"
+    {
+        "LocalPath" "*"
+        "DepotPath" "."
+        "recursive" "1"
+    }
+}

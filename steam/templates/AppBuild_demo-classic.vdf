@@ -1,0 +1,13 @@
+"AppBuild"
+{
+    "AppID" "3268400"
+    "Desc" "[DESC]"
+    "BuildOutput" "output"
+    "ContentRoot" ""
+    "Depots"
+    {
+        "3268402" "DepotBuild_demo-classic_macos.vdf"
+        "3268403" "DepotBuild_demo-classic_windows.vdf"
+        "3268404" "DepotBuild_demo-classic_linux.vdf"
+    }
+}

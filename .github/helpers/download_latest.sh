@@ -8,6 +8,7 @@ set -e
 if [[ $# -ne 2 ]]
 then
 	echo "Usage: $0 <target_folder> <build_type>"
+	exit 1
 fi
 
 TARGET_FOLDER="$1"
