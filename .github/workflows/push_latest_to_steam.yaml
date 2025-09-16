@@ -86,7 +86,7 @@ jobs:
         run: |
           if [[ "x${{ secrets.STEAM_GUARD_CODE }}" != "x" ]]
           then
-            steamcmd +set_steam_guard_code ${{ secrets.STEAM_GUARD_CODE }}
+            steamcmd +set_steam_guard_code ${{ secrets.STEAM_GUARD_CODE }} +quit
           fi
 
       - name: Upload to steam
