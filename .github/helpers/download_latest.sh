@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 BUCKET="artifacts.omnimad.net"
 PROJECT="fiiish-v3"
@@ -61,6 +61,12 @@ aws s3 cp ${S3_LATEST_FILE} ${LATEST_FILE} || {
 }
 
 LATEST=$(cat "${LATEST_FILE}")
+if [[ "x${LATEST}" == "x" ]]
+then
+	echo "Error: ${LATEST_FILE} is empty"
+	exit 1
+fi
+
 #
 # split into parts
 #
@@ -71,8 +77,15 @@ LATEST=$(cat "${LATEST_FILE}")
 # combine
 #
 #ARCHIVE_FILE="${ARCHIVE_NAME}${ARCHIVE_EXT}"
+
 ARCHIVE_NAME=$( basename "${LATEST}" )
 S3_ARCHIVE_FILE="s3://${BUCKET}/${LATEST}"
+
+if [[ "x${ARCHIVE_NAME}" == "x" ]]
+then
+	echo "Error: ARCHIVE_NAME is empty"
+	exit 1
+fi
 
 if [[ -f ${ARCHIVE_NAME} ]]
 then
