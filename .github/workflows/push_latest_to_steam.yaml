@@ -82,6 +82,13 @@ jobs:
         run: |
           which steamcmd
 
+      - name: Set steam guard code
+        run: |
+          if [[ "x${{ env.STEAM_GUARD_CODE }}" != "x" ]]
+          then
+            steamcmd +set_steam_guard_code ${{ env.STEAM_GUARD_CODE }}
+          fi
+
       - name: Upload to steam
         run: |
           cd ${TARGET_FOLDER}
