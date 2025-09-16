@@ -6,8 +6,8 @@
     "ContentRoot" ""
     "Depots"
     {
-        "3268402" "DepotBuild_demo-classic_macos.vdf"
-        "3268403" "DepotBuild_demo-classic_windows.vdf"
-        "3268404" "DepotBuild_demo-classic_linux.vdf"
+        "3934692" "DepotBuild_demo-classic_macos.vdf"
+        "3934693" "DepotBuild_demo-classic_windows.vdf"
+        "3934694" "DepotBuild_demo-classic_linux.vdf"
     }
 }

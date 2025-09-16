@@ -59,6 +59,25 @@ jobs:
             echo "TARGET_FOLDER=${TARGET_FOLDER}"
           } >> "$GITHUB_ENV"
 
+      - name: Setup steamcmd
+        uses: CyberAndrii/setup-steamcmd@v1
+
+      - name: Check steamcmd
+        run: |
+          which steamcmd
+
+      - name: Set steam guard code
+        run: |
+          if [[ "x${{ secrets.STEAM_GUARD_CODE }}" != "x" ]]
+          then
+            steamcmd +set_steam_guard_code ${{ secrets.STEAM_GUARD_CODE }} +quit
+            gh secret remove STEAM_GUARD_CODE
+          fi
+
+      - name: Login to steam
+        run: |
+          steamcmd +login ${{ secrets.STEAM_USER }} ${{ secrets.STEAM_PASSWORD }} +quit
+
       - name: Download latest linux from S3
         run: |
           .github/helpers/download_latest.sh ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
@@ -74,20 +93,6 @@ jobs:
       - name: Create .VDFs
         run: |
           .github/helpers/steam_create_vdf.sh ${{ env.TARGET_FOLDER }} ${{ env.SUB_TYPE }}
-
-      - name: Setup steamcmd
-        uses: CyberAndrii/setup-steamcmd@v1
-
-      - name: Check steamcmd
-        run: |
-          which steamcmd
-
-      - name: Set steam guard code
-        run: |
-          if [[ "x${{ secrets.STEAM_GUARD_CODE }}" != "x" ]]
-          then
-            steamcmd +set_steam_guard_code ${{ secrets.STEAM_GUARD_CODE }} +quit
-          fi
 
       - name: Upload to steam
         run: |

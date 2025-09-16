@@ -1,7 +1,7 @@
 "DepotBuildConfig"
 {
     "DepotID" "3934694"
-    "ContentRoot" "classic-demo/fiiish-v3-linux-demo-classic/"
+    "ContentRoot" "fiiish-v3-linux-demo-classic/"
     "FileMapping"
     {
         "LocalPath" "*"
