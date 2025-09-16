@@ -87,7 +87,7 @@ jobs:
           cd ${TARGET_FOLDER}
           CWD=$(pwd)
           cd -
-          steamcmd +login ${{ secrets.STEAM_USER }} ${{ secrets.STEAM_PASSWORD }} +run_app_build "${CWD}/AppBuild_${{ env.SUB_TYPE }}.vdf"
+          steamcmd +login ${{ secrets.STEAM_USER }} ${{ secrets.STEAM_PASSWORD }} +run_app_build "${CWD}/AppBuild_${{ env.SUB_TYPE }}.vdf" +quit
 
       - name: Create Summary
         if: always()
