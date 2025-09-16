@@ -66,17 +66,17 @@ jobs:
         run: |
           which steamcmd
 
-      - name: Set steam guard code
-        run: |
-          if [[ "x${{ secrets.STEAM_GUARD_CODE }}" != "x" ]]
-          then
-            steamcmd +set_steam_guard_code ${{ secrets.STEAM_GUARD_CODE }} +quit
-            gh secret remove STEAM_GUARD_CODE
-          fi
-
-      - name: Login to steam
-        run: |
-          steamcmd +login ${{ secrets.STEAM_USER }} ${{ secrets.STEAM_PASSWORD }} +quit
+#      - name: Set steam guard code
+#        run: |
+#          if [[ "x${{ secrets.STEAM_GUARD_CODE }}" != "x" ]]
+#          then
+#            steamcmd +set_steam_guard_code ${{ secrets.STEAM_GUARD_CODE }} +quit
+#            gh secret remove STEAM_GUARD_CODE
+#          fi
+#
+#      - name: Login to steam
+#        run: |
+#          steamcmd +login ${{ secrets.STEAM_USER }} ${{ secrets.STEAM_PASSWORD }} +quit
 
       - name: Download latest linux from S3
         run: |
