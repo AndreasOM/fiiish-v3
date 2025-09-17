@@ -2,6 +2,8 @@
 
 ## In Progress
 
+- [ ] Switch to Godot 4.5
+	- [ ] Task: Make Launch Control work with Godot 4.5
 
 
 ## Next
