@@ -4,6 +4,7 @@
 
 - [ ] Switch to Godot 4.5
 	- [ ] Task: Update build actions to work with Godot 4.5
+- [ ] Demo: Fix font on leaderboard type selection
 
 ## Next
 

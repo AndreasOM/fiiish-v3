@@ -326,7 +326,7 @@ jobs:
           echo ${{ env.BUILD_NUMBER }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/build_number.txt
           tar czf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
           ARCHIVE_SIZE=$(du -h ${{ env.ARCHIVE_FILE }}|cut -f1)
-          echo "ARCHIVE_SIZE=${ARCHIVE_SIZE}" >> "$GITHUB_OUTPUT"
+          echo "ARCHIVE_SIZE=${ARCHIVE_SIZE}" >> "$GITHUB_ENV"
 
       - name: Upload artifact
         id: upload_artifact
