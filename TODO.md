@@ -4,7 +4,6 @@
 
 - [ ] Switch to Godot 4.5
 	- [ ] Task: Update build actions to work with Godot 4.5
-- [ ] Demo: Fix font on leaderboard type selection
 
 ## Next
 
@@ -176,6 +175,7 @@
 #### S06E16
 - [x] Task: Make Launch Control work with Godot 4.5 (with a hack around main_run_args)
 - [x] Task: Strip uid:// from launch paramaters
+- [x] Demo: Fix font on leaderboard type selection
 
 ### 2025-09-16
 #### S06E15
