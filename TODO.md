@@ -5,7 +5,6 @@
 
 ## Next
 
-- [ ] Demo: Replace font (AllThingsPink) with one that is more readable on small sizes
 - [ ] Demo: Add 1 new zone
 - [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
 
@@ -178,6 +177,7 @@
 - [x] Task: Update build actions to work with Godot 4.5
 - [x] Switch to Godot 4.5
 - [x] Steam: Do not use `Steam` on non steam platforms
+- [ ] Demo: Replace font (AllThingsPink) with one that is more readable on small sizes - "SF Arch Rival"
 
 ### 2025-09-16
 #### S06E15
