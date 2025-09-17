@@ -143,7 +143,7 @@ jobs:
             echo "Invalid version. Use vx.y.z was ${VERSION}"
             exit 255
           fi
-          
+
           echo "Version: ${VERSION}"
 
           VERSION=${VERSION#"v"}
@@ -194,7 +194,7 @@ jobs:
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
-          version: 4.4.1
+          version: 4.5
           use-dotnet: false
           include-templates: true
       - name: Verify setup
@@ -325,6 +325,8 @@ jobs:
           echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
           echo ${{ env.BUILD_NUMBER }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/build_number.txt
           tar czf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          ARCHIVE_SIZE=$(du -h ${{ env.ARCHIVE_FILE }}|cut -f1)
+          echo "ARCHIVE_SIZE=${ARCHIVE_SIZE}" >> "$GITHUB_OUTPUT"
 
       - name: Upload artifact
         id: upload_artifact
@@ -359,4 +361,5 @@ jobs:
             echo "| VERSION             | \`${{ env.VERSION }}\`             |"
             echo "| BUILD_NUMBER        | \`${{ env.BUILD_NUMBER }}\`        |"
             echo "| S3_ARCHIVE_FILE     | \`${{ env.S3_ARCHIVE_FILE }}\`     |"
+            echo "| ARCHIVE_SIZE        | \`${{ env.ARCHIVE_SIZE }}\`        |"
           } >> "$GITHUB_STEP_SUMMARY"
