@@ -3,8 +3,7 @@
 ## In Progress
 
 - [ ] Switch to Godot 4.5
-	- [ ] Task: Make Launch Control work with Godot 4.5
-
+	- [ ] Task: Update build actions to work with Godot 4.5
 
 ## Next
 
@@ -172,6 +171,10 @@
 
 ## Done
 
+### 2025-09-17
+#### S06E16
+- [x] Task: Make Launch Control work with Godot 4.5 (with a hack around main_run_args)
+- [x] Task: Strip uid:// from launch paramaters
 
 ### 2025-09-16
 #### S06E15

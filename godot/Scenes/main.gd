@@ -179,6 +179,14 @@ func _handle_launch_parameters() -> void:
 ##	FeatureTags.add_extra_feature( "demo" )
 	
 func _handle_script( s: String ) -> void:
+	if s.begins_with("uid://"):
+		var first_space = s.find(" ")
+		if first_space > 0:
+			s = s.substr( first_space+1 )
+		else:
+			s = ""
+		#print("Removed uid:// -> >%s< (%d)" % [ s, first_space ])
+		
 	if !s.begins_with("--script:"):
 		return
 	s = s.trim_prefix("--script:")

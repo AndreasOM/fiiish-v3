@@ -23,7 +23,7 @@ func reload() -> void:
 		var cfg = c as OMG_LaunchControl_LaunchButtonConfig
 		if cfg == null:
 			continue
-		print("Button Config: %s" % cn)
+		print("Launch Control: Button Config: %s" % cn)
 		
 		var button = OMG_LAUNCH_CONTROL_LAUNCH_BUTTON.instantiate()
 		button.config = cfg
@@ -32,19 +32,43 @@ func reload() -> void:
 	
 
 func _on_launch_button_triggered(launch_button: OMG_LaunchControl_LaunchButton) -> void:
-
+	var parameter = launch_button.config.parameter
+	
+	print_rich("[color=green]-----===== Launch \"%s\" ====-----[/color]" % [ parameter ] )
+	print("Launch Control: _on_launch_button_triggered = %s" % launch_button)
 
 	if launch_button.config.movie_maker_enabled:
 		EditorInterface.set_movie_maker_enabled( true )
 
-	var parameter = launch_button.config.parameter
 	
 
 #	ProjectSettings.set_setting("addons/omg-launch_control/launch_parameter", parameter)
 	ProjectSettings.set_setting("editor/run/main_run_args", parameter)
-	ProjectSettings.save()
+	var e = ProjectSettings.save()
+	if e != Error.OK:
+		print("Launch Control: Error saving ProjectSettings %s" % e )
+		return
+		
+	
+	print("Launch Control: main_run_args = %s" % parameter)
 
-	EditorInterface.play_main_scene()
+
+	# artificial delay to increas chances of ProjectSettings actually being changed
+	
+	for _i in range( 20 ):
+		await get_tree().process_frame
+		
+	var tries = 5
+	while tries > 0:
+		var a = ProjectSettings.get_setting("editor/run/main_run_args")
+		if a == parameter:
+			print( "Launch Control: Verified main_run_args with %d tries left" % tries )
+			EditorInterface.play_main_scene()
+			return
+		tries -= 1
+		await get_tree().process_frame
+
+	print( "Launch Control: Failed changing main_run_args")
 
 func _on_reload_button_pressed() -> void:
 	self.reload()
