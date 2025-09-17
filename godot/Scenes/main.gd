@@ -85,10 +85,10 @@ func _ready() -> void:
 		Events.broadcast_global_message( s )
 		var steam = SteamWrapper.get_steam()
 		
-		Steam.input_device_connected.connect( _on_input_device_connected )
-		Steam.input_device_disconnected.connect( _on_input_device_disconnected )
-		Steam.inputInit()
-		Steam.enableDeviceCallbacks()
+		steam.input_device_connected.connect( _on_input_device_connected )
+		steam.input_device_disconnected.connect( _on_input_device_disconnected )
+		steam.inputInit()
+		steam.enableDeviceCallbacks()
 
 		var steam_controller_input = SteamWrapper.get_steam_controller_input()
 

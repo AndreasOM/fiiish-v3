@@ -2,11 +2,10 @@
 
 ## In Progress
 
-- [ ] Switch to Godot 4.5
-	- [ ] Task: Update build actions to work with Godot 4.5
 
 ## Next
 
+- [ ] Demo: Replace font (AllThingsPink) with one that is more readable on small sizes
 - [ ] Demo: Add 1 new zone
 - [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
 
@@ -176,6 +175,9 @@
 - [x] Task: Make Launch Control work with Godot 4.5 (with a hack around main_run_args)
 - [x] Task: Strip uid:// from launch paramaters
 - [x] Demo: Fix font on leaderboard type selection
+- [x] Task: Update build actions to work with Godot 4.5
+- [x] Switch to Godot 4.5
+- [x] Steam: Do not use `Steam` on non steam platforms
 
 ### 2025-09-16
 #### S06E15
