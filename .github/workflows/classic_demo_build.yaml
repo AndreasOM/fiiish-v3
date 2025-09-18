@@ -3,12 +3,10 @@ run-name: 🏛️ 🧪 🪐 🔨 Classic DEMO - All - Build ${{ vars.PROJECT }} 
 on: 
   workflow_dispatch:
   workflow_call:
-#  push:
-#    tags:
-#      - "v*"
-    # We always build on a tag
-    # paths:
-    #  - godot/**
+  push:
+    tags:
+      - "v*"
+    # We always build on a version tag
 
 jobs:
   build_macos:

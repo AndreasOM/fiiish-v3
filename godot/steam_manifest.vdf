@@ -18,7 +18,21 @@
 			"Button"
 			{
 				"dive"		   		"#Action_Dive"
+				"pause"				"#Action_Pause"
 			}
+		}
+		"MenuControls"
+		{
+			"title"					"#Set_MenuControls"
+			"Button"
+			{
+				"menu_confirm"		   	"#Action_MenuConfirm"
+				"menu_cancel"		   	"#Action_MenuCancel"
+				"menu_up"			   	"#Action_MenuUp"
+				"menu_down"			   	"#Action_MenuDown"
+				"menu_left"			   	"#Action_MenuLeft"
+				"menu_right"		   	"#Action_MenuRight"
+			}		
 		}
 		"BattleControls"
 		{
@@ -107,6 +121,15 @@
 
 			"Set_SwimControls"		"Swim Controls"
 			"Action_Dive"			"Dive"
+			"Action_Pause"			"Pause"
+
+			"Set_MenuControls"		"Menu Controls"
+			"Action_MenuConfirm"	"Confirm"
+			"Action_MenuCancel"		"Cancel"
+			"Action_MenuUp"			"Up"
+			"Action_MenuDown"		"Down"
+			"Action_MenuLeft"		"Left"
+			"Action_MenuRight"		"Right"
 		}
 	}
 }

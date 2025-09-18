@@ -169,12 +169,21 @@ func _on_input_device_disconnected( input_handle: int ) -> void:
 	
 func _on_game_state_changed( state: Game.State ) -> void:
 	if SteamWrapper.is_available():
+		var action_set_name = "MenuControls"
+		match state:
+			Game.State.WAITING_FOR_START:
+				action_set_name = "SwimControls"
+			Game.State.PREPARING_FOR_START:
+				action_set_name = "SwimControls"
+			Game.State.SWIMMING:
+				action_set_name = "SwimControls"
+				
 		var steam = SteamWrapper.get_steam()
 		#var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
-		var action_set_handle = steam.getActionSetHandle( "BattleControls" )
-		print("action_set_handle %d" % action_set_handle)
+		var action_set_handle = steam.getActionSetHandle( action_set_name )
+		#print("action_set_handle %d" % action_set_handle)
 		#if action_set_handle != 0:
-		Events.broadcast_global_message("ash %d" % action_set_handle)
+		#Events.broadcast_global_message("ash %d" % action_set_handle)
 		for k in self._steam_input_handles.keys():
 			var h = self._steam_input_handles.get( k, false )
 			if h == false:
