@@ -169,6 +169,10 @@
 
 ## Done
 
+### 2025-09-18
+#### S06E17
+- [x] Steam: Add minimal action manifest, and deploy it via `user://`
+
 ### 2025-09-17
 #### S06E16
 - [x] Task: Make Launch Control work with Godot 4.5 (with a hack around main_run_args)
@@ -177,7 +181,7 @@
 - [x] Task: Update build actions to work with Godot 4.5
 - [x] Switch to Godot 4.5
 - [x] Steam: Do not use `Steam` on non steam platforms
-- [ ] Demo: Replace font (AllThingsPink) with one that is more readable on small sizes - "SF Arch Rival"
+- [x] Demo: Replace font (AllThingsPink) with one that is more readable on small sizes - "SF Arch Rival"
 
 ### 2025-09-16
 #### S06E15

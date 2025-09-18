@@ -3,10 +3,20 @@
 	"configurations"
 	{
 	}
-	"actions"
-	{
-	}
+    "Set_Swim"
+    {
+        "title"                    "#SetTitle_Swim"
+        "Button"
+        {
+        	"Dive"       "#Action_Dive"
+        }
+    }  
 	"localization"
 	{
+		"english"
+		{
+			"SetTitle_Swim"			"Swim Set"
+			"Action_Dive"			"Dive Action"
+		}
 	}
 }

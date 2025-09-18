@@ -80,6 +80,7 @@ func _ready() -> void:
 	get_window().focus_entered.connect( _on_window_focus_entered )
 	
 	if SteamWrapper.is_available():
+		print_rich("[color=green]---=== Setting up Steam Integration ===---[/color]")
 		var ir = SteamWrapper.get_initial_response()
 		var s = "Steam: %s" % ir
 		Events.broadcast_global_message( s )
@@ -101,13 +102,23 @@ func _ready() -> void:
 #		for file in files:
 #			print(file)
 		
+		
+		
+		
+		#var exe_path = OS.get_executable_path()
+		#print("exe_path %s" % exe_path )
+		var manifest_file = self._get_global_steam_manifest_path()
+		#var manifest_file = ProjectSettings.globalize_path( "user://steam_manifest.vdf")
+		#var manifest_file = ProjectSettings.globalize_path( "res://steam_manifest.vdf")
 #		var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/steam/steam_manifest.vdf"
-#		var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/godot/steam_manifest.vdf"
-		var manifest_file = "steam_manifest.vdf"
+		#var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/godot/steam_manifest.vdf"
+		#var manifest_file = "steam_manifest.vdf"
 		#var manifest_file = "res://../steam/steam_manifest.vdf"
 		#var manifest_file = "res://steam_manifest.vdf"
 		#var manifest_file = "steam_manifest.vdf"
 		#var manifest_file = "BROKEN"
+		#var manifest_file = "/Users/anti/Library/Application%20Support/Godot/app_userdata/fiiish-v3/steam_manifest.vdf"
+		print("manifest_file %s" % manifest_file )
 		if !FileAccess.file_exists( manifest_file ):
 			push_warning("Action manifest file not found %s" % manifest_file )
 			Events.broadcast_global_message( "Action manifest file not found %s" % manifest_file )
@@ -115,8 +126,24 @@ func _ready() -> void:
 			#get_tree().quit(0)
 			#OS.crash("Failed loading steam action manifest")
 			push_warning("Failed loading steam action manifest")
-			Events.broadcast_global_message( "Failed loading action manifest" )
+			Events.broadcast_global_message( "Failed loading action manifest %s" % manifest_file )
+			print("manifest_file FAILURE")
+		else:
+			print("manifest_file SUCCESS")
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
+
+func _get_global_steam_manifest_path() -> String:
+	if OS.has_feature("editor"):
+		return ProjectSettings.globalize_path( "res://steam_manifest.vdf" )
+	else:
+		var manifest_src = FileAccess.open( "res://steam_manifest.vdf", FileAccess.READ )
+		var manifest_dst = FileAccess.open( "user://steam_manifest.vdf", FileAccess.WRITE )
+		
+		var src = manifest_src.get_as_text()
+		manifest_dst.store_string( src )
+		
+		return ProjectSettings.globalize_path( "user://steam_manifest.vdf")
+	
 
 func _on_input_device_connected( input_handle: int ) -> void:
 	Events.broadcast_global_message( "Input device connected [%d]" % input_handle )
