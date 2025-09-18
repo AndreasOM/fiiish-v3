@@ -12,6 +12,14 @@
 	}
 	"actions"
 	{
+		"SwimControls"
+		{
+			"title"					"#Set_SwimControls"
+			"Button"
+			{
+				"dive"		   		"#Action_Dive"
+			}
+		}
 		"BattleControls"
 		{
 			"title"					"#Set_BattleControls"
@@ -96,6 +104,9 @@
 			"Action_Details"   		"Details"
 			"Action_NextScreen"		"NextScreen"
 			"Action_PreviousScreen"	"PreviousScreen"
+
+			"Set_SwimControls"		"Swim Controls"
+			"Action_Dive"			"Dive"
 		}
 	}
 }
