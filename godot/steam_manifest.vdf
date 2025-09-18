@@ -3,6 +3,10 @@
 	"configurations"
 	{
 	}
+	"Set_Unused"
+	{
+
+	}
     "Set_Swim"
     {
         "title"                    "#SetTitle_Swim"
@@ -10,12 +14,18 @@
         {
         	"Dive"       "#Action_Dive"
         }
+    }
+    "Set_Menu"
+    {
+        "title"                    "#SetTitle_Menu"
+
     }  
 	"localization"
 	{
 		"english"
 		{
 			"SetTitle_Swim"			"Swim Set"
+			"SetTitle_Menu"			"Menu Set"
 			"Action_Dive"			"Dive Action"
 		}
 	}

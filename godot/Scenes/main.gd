@@ -15,6 +15,8 @@ const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.
 
 var _was_paused_before_focus_was_lost: bool = false
 
+var _steam_input_handles: Dictionary = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#get_window().size = Vector2i( 1920*2*0.75, 1080*2*0.75 )
@@ -56,6 +58,7 @@ func _ready() -> void:
 		dcd.fade_out( 0.0 )
 
 	
+	Events.game_state_changed.connect( _on_game_state_changed )
 	
 	# var lbd = %DialogManager.open_dialog(DialogIds.Id.LEADERBOARD_DIALOG, 0.0)
 	$Game.resume()
@@ -146,10 +149,27 @@ func _get_global_steam_manifest_path() -> String:
 	
 
 func _on_input_device_connected( input_handle: int ) -> void:
-	Events.broadcast_global_message( "Input device connected [%d]" % input_handle )
+	# Events.broadcast_global_message( "Input device connected [%d]" % input_handle )
+	self._steam_input_handles[ input_handle ] = true
 
 func _on_input_device_disconnected( input_handle: int ) -> void:
-	Events.broadcast_global_message( "Input device disconnected [%d]" % input_handle )
+	# Events.broadcast_global_message( "Input device disconnected [%d]" % input_handle )
+	self._steam_input_handles[ input_handle ] = false
+	
+func _on_game_state_changed( state: Game.State ) -> void:
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
+		print("action_set_handle %d" % action_set_handle)
+		#if action_set_handle != 0:
+		Events.broadcast_global_message("ash %d" % action_set_handle)
+		for k in self._steam_input_handles.keys():
+			var h = self._steam_input_handles.get( k, false )
+			if h == false:
+				continue
+			steam.activateActionSet( k, action_set_handle )
+
+		
 	
 func _on_steam_overlay_toggled( active: bool, _user_initiated: bool, _app_id: int ) -> void:
 	if active:
