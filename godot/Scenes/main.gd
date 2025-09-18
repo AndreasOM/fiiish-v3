@@ -126,21 +126,23 @@ func _ready() -> void:
 			push_warning("Action manifest file not found %s" % manifest_file )
 			Events.broadcast_global_message( "Action manifest file not found %s" % manifest_file )
 		else:
-			if !steam.setInputActionManifestFilePath( manifest_file):
-				#get_tree().quit(0)
-				#OS.crash("Failed loading steam action manifest")
-				push_warning("Failed loading steam action manifest")
-				Events.broadcast_global_message( "Failed loading action manifest %s" % manifest_file )
-				print("manifest_file FAILURE")
-			else:
-				print("manifest_file SUCCESS")
+			if false:
+				if !steam.setInputActionManifestFilePath( manifest_file):
+					#get_tree().quit(0)
+					#OS.crash("Failed loading steam action manifest")
+					push_warning("Failed loading steam action manifest")
+					Events.broadcast_global_message( "Failed loading action manifest %s" % manifest_file )
+					print("manifest_file FAILURE")
+				else:
+					print("manifest_file SUCCESS")
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
-	get_viewport().connect("gui_focus_changed", _on_focus_changed)
+#	get_viewport().connect("gui_focus_changed", _on_focus_changed)
+	print_rich("[color=green][---- main _ready() - DONE[/color]")
 
-func _on_focus_changed(control:Control) -> void:
-	if control != null:
-		print( "Focus: %s" % control.name )
+#func _on_focus_changed(control:Control) -> void:
+#	if control != null:
+#		print( "Focus: %s" % control.name )
 
 func _copy_res_to_user( res: String, user: String ) -> bool:
 	var src = FileAccess.open( res, FileAccess.READ )
