@@ -181,7 +181,7 @@ func _on_fadeable_container_on_fading_in( _duration: float ) -> void:
 	self._block_input = true
 	self.game.pause()
 	await get_tree().process_frame
-	%LineEdit.grab_focus()
+	%LineEdit.grab_focus.call_deferred()
 
 
 

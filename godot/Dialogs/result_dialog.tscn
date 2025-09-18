@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0rj0pswt334s"]
+[gd_scene load_steps=16 format=3 uid="uid://d0rj0pswt334s"]
 
 [ext_resource type="Script" uid="uid://d0npyqj022upw" path="res://Scenes/result_dialog.gd" id="1_wlxjo"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_g40ym"]
@@ -6,8 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://ch18db020xqmp" path="res://Scenes/UI/result_row.tscn" id="4_sjgyn"]
 [ext_resource type="Texture2D" uid="uid://l3vyvg8q35ki" path="res://Textures/UI/Buttons/button_fiiish.png" id="5_8gynd"]
 [ext_resource type="Texture2D" uid="uid://liei0p04c4l6" path="res://Textures/UI/Buttons/button_leaderboard.png" id="6_848gl"]
+[ext_resource type="Texture2D" uid="uid://du4g6ul2rje3d" path="res://Textures/UI/Buttons/button_fiiish_focused.png" id="6_gqdjf"]
 [ext_resource type="Texture2D" uid="uid://ck03o6mgc31me" path="res://Textures/UI/Buttons/button_achievement.png" id="7_m8h2f"]
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="8_p2fcy"]
+[ext_resource type="Texture2D" uid="uid://ch81ma1c31ilc" path="res://Textures/UI/Buttons/button_leaderboard_focused.png" id="8_tj2qx"]
+[ext_resource type="Texture2D" uid="uid://8ohxv6lr06dr" path="res://Textures/UI/Buttons/button_play_focused.png" id="9_gnvys"]
+[ext_resource type="Texture2D" uid="uid://dem86m1wvttnf" path="res://Textures/UI/Buttons/button_achievement_focused.png" id="10_ll3l2"]
 
 [sub_resource type="Animation" id="Animation_848gl"]
 resource_name = "CountUp"
@@ -160,7 +164,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 122
 theme_override_constants/margin_top = 703
-theme_override_constants/margin_right = 470
+theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 190
 
 [node name="ColorRect" type="ColorRect" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
@@ -168,42 +172,59 @@ visible = false
 layout_mode = 2
 color = Color(0.627451, 0.184314, 0.972549, 0.482353)
 
-[node name="FullHBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+layout_mode = 2
+
+[node name="FullHBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 mouse_filter = 2
 
-[node name="SkillUpgradeButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer"]
+[node name="SkillUpgradeButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("5_8gynd")
+texture_focused = ExtResource("6_gqdjf")
 
-[node name="LeaderboardButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer"]
+[node name="LeaderboardButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("6_848gl")
+texture_focused = ExtResource("8_tj2qx")
 
-[node name="AchievementButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer"]
+[node name="AchievementButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_right = NodePath("../../PlayHBoxContainer/PlayButton")
+focus_next = NodePath("../../PlayHBoxContainer/PlayButton")
 texture_normal = ExtResource("7_m8h2f")
+texture_focused = ExtResource("10_ll3l2")
 
-[node name="PlayHBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2"]
+[node name="Spacer" type="Control" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayHBoxContainer" type="HBoxContainer" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="PlayButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/PlayHBoxContainer"]
+[node name="PlayButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/PlayHBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_left = NodePath("../../FullHBoxContainer/AchievementButton")
+focus_previous = NodePath("../../FullHBoxContainer/AchievementButton")
 texture_normal = ExtResource("8_p2fcy")
+texture_hover = ExtResource("9_gnvys")
+texture_focused = ExtResource("9_gnvys")
 
 [connection signal="on_faded_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_in"]
 [connection signal="on_faded_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_out"]
 [connection signal="on_fading_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_in"]
 [connection signal="on_fading_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_out"]
-[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]
-[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
-[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/FullHBoxContainer/AchievementButton" to="." method="_on_achievement_button_pressed"]
-[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/PlayHBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer/AchievementButton" to="." method="_on_achievement_button_pressed"]
+[connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/PlayHBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

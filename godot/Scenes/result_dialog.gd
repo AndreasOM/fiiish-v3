@@ -27,6 +27,7 @@ enum AnimationStep {
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var full_h_box_container: HBoxContainer = %FullHBoxContainer
 @onready var play_h_box_container: HBoxContainer = %PlayHBoxContainer
+@onready var play_button: TextureButton = %PlayButton
 
 var _start_coins: int = 0
 var _new_coins: int = 0
@@ -63,7 +64,7 @@ func _ready() -> void:
 	distanceResultRow.clear()
 	bestDistanceResultRow.clear()
 	totalDistanceResultRow.clear()
-
+		
 func set_game( g: Game) -> void:
 	self.game = g
 
@@ -200,7 +201,10 @@ func _update_button_container() -> void:
 		self.play_h_box_container.visible = true
 	else:
 		self.full_h_box_container.visible = true
-		self.play_h_box_container.visible = false
+		# self.play_h_box_container.visible = false
+		self.play_h_box_container.visible = true
+		
+	self.play_button.grab_focus.call_deferred()
 
 func toggle_fade( duration: float ) -> void:
 	$ResultDialogFadeableContainer.toggle_fade( duration )

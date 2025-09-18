@@ -10,6 +10,7 @@ const DIGITIAL_ACTIONS: Dictionary[ String, String ] = {
 var _pressed_digital_actions: Dictionary[ String, bool ] = {}
 
 func _ready() -> void:
+	return
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
 		steam.input_device_connected.connect( _on_input_device_connected )
@@ -17,6 +18,7 @@ func _ready() -> void:
 		
 	
 func _process(delta: float) -> void:
+	return
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
 		steam.runFrame()

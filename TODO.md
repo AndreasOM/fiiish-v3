@@ -5,7 +5,6 @@
 
 ## Next
 
-- [ ] Add Play button to ResultDialog, and focus it by default
 - [ ] Try macos-15 and macos-26 runners for github builds
 - [ ] Demo: Add 1 new zone
 - [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
@@ -174,6 +173,7 @@
 ### 2025-09-18
 #### S06E17
 - [x] Steam: Add minimal action manifest, and deploy it via `user://`
+- [x] Add Play button to ResultDialog, and focus it by default
 
 ### 2025-09-17
 #### S06E16

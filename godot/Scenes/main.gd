@@ -135,6 +135,12 @@ func _ready() -> void:
 			print("manifest_file SUCCESS")
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
+	get_viewport().connect("gui_focus_changed", _on_focus_changed)
+
+func _on_focus_changed(control:Control) -> void:
+	if control != null:
+		print( "Focus: %s" % control.name )
+
 func _copy_res_to_user( res: String, user: String ) -> bool:
 	var src = FileAccess.open( res, FileAccess.READ )
 	var dst = FileAccess.open( user, FileAccess.WRITE )
