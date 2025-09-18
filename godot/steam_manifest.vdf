@@ -2,31 +2,100 @@
 {
 	"configurations"
 	{
+		"controller_xboxone"
+		{
+			"0"
+			{
+				"path" "config_2960490_controller_xboxone.vdf"
+			}
+		}
 	}
-	"Set_Unused"
+	"actions"
 	{
-
+		"BattleControls"
+		{
+			"title"					"#Set_BattleControls"
+			"StickPadGyro"
+			{
+				"Move"
+				{
+					"title"			"#Action_Move"
+					"input_mode"	"joystick_move"
+				}
+				"Aim"
+				{
+					"title"			"#Action_Aim"
+					"input_mode"	"joystick_move"
+				}
+			}
+			"AnalogTrigger"
+			{
+			}
+			"Button"
+			{
+				"useAbility1"		"#Action_Ability1"
+				"useAbility2"		"#Action_Ability2"
+				"interact"   		"#Action_Interact"
+				"pause_menu"		"#Action_PauseMenu"
+			}
+		}
+		"MenuControls"
+		{
+			"title"		"#Set_MenuControls"
+			"StickPadGyro"
+			{
+				"Navigate"
+				{
+					"title"			"#Action_Navigate"
+					"input_mode"	"joystick_move"
+				}
+				"Scroll"
+				{
+					"title"			"#Action_Scroll"
+					"input_mode"	"joystick_move"
+				}
+			}
+			"AnalogTrigger"
+			{
+			}
+			"Button"
+			{
+				"confirm"   		"#Action_Confirm"
+				"back"         		"#Action_Back"
+				"join"         		"#Action_Join"
+				"details"      		"#Action_Details"
+				"reroll"      		"#Action_Reroll"
+				"nextScreen"   		"#Action_NextScreen"
+				"previousScreen"	"#Action_PreviousScreen"
+				"pause_menu"	    "#Action_PauseMenu"
+			}
+		}
 	}
-    "Set_Swim"
-    {
-        "title"                    "#SetTitle_Swim"
-        "Button"
-        {
-        	"Dive"       "#Action_Dive"
-        }
-    }
-    "Set_Menu"
-    {
-        "title"                    "#SetTitle_Menu"
-
-    }  
 	"localization"
 	{
 		"english"
 		{
-			"SetTitle_Swim"			"Swim Set"
-			"SetTitle_Menu"			"Menu Set"
-			"Action_Dive"			"Dive Action"
+			"Set_BattleControls"	"Battle Controls"
+			"Set_MenuControls"		"Menu Controls"
+
+			"Action_PauseMenu"		"Pause"
+			
+			"Action_Move"			"Movement"
+			"Action_Aim"			"Aim"
+
+			"Action_Ability1"		"Use Ability1"
+			"Action_Ability2"		"Use Ability2"
+			"Action_Interact"		"Interact"
+
+			"Action_Navigate"		"Navigation"
+			"Action_Scroll"			"Scroll"
+			"Action_Join"		    "Join"
+			"Action_Reroll" 		"Reroll"
+			"Action_Confirm"   		"Confirm"
+			"Action_Back"   		"Back"
+			"Action_Details"   		"Details"
+			"Action_NextScreen"		"NextScreen"
+			"Action_PreviousScreen"	"PreviousScreen"
 		}
 	}
 }

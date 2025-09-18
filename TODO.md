@@ -5,6 +5,7 @@
 
 ## Next
 
+- [ ] Add Play button to ResultDialog, and focus it by default
 - [ ] Demo: Add 1 new zone
 - [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
 

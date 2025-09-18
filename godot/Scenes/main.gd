@@ -135,15 +135,26 @@ func _ready() -> void:
 			print("manifest_file SUCCESS")
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
+func _copy_res_to_user( res: String, user: String ) -> bool:
+	var src = FileAccess.open( res, FileAccess.READ )
+	var dst = FileAccess.open( user, FileAccess.WRITE )
+	
+	var data = src.get_as_text()
+	dst.store_string( data )
+	
+	return true
+
 func _get_global_steam_manifest_path() -> String:
 	if OS.has_feature("editor"):
 		return ProjectSettings.globalize_path( "res://steam_manifest.vdf" )
 	else:
-		var manifest_src = FileAccess.open( "res://steam_manifest.vdf", FileAccess.READ )
-		var manifest_dst = FileAccess.open( "user://steam_manifest.vdf", FileAccess.WRITE )
+		self._copy_res_to_user( "res://steam_manifest.vdf", "user://steam_manifest.vdf")
+#		var manifest_src = FileAccess.open( "res://steam_manifest.vdf", FileAccess.READ )
+#		var manifest_dst = FileAccess.open( "user://steam_manifest.vdf", FileAccess.WRITE )
 		
-		var src = manifest_src.get_as_text()
-		manifest_dst.store_string( src )
+#		var src = manifest_src.get_as_text()
+#		manifest_dst.store_string( src )
+		self._copy_res_to_user( "res://config_2960490_controller_xboxone.vdf", "user://config_2960490_controller_xboxone.vdf")
 		
 		return ProjectSettings.globalize_path( "user://steam_manifest.vdf")
 	
@@ -159,7 +170,8 @@ func _on_input_device_disconnected( input_handle: int ) -> void:
 func _on_game_state_changed( state: Game.State ) -> void:
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
-		var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
+		#var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
+		var action_set_handle = steam.getActionSetHandle( "BattleControls" )
 		print("action_set_handle %d" % action_set_handle)
 		#if action_set_handle != 0:
 		Events.broadcast_global_message("ash %d" % action_set_handle)
