@@ -144,7 +144,14 @@ func _on_focus_changed(control:Control) -> void:
 
 func _copy_res_to_user( res: String, user: String ) -> bool:
 	var src = FileAccess.open( res, FileAccess.READ )
+	if src == null:
+		push_warning("Copy src >%s< not readable!" % src )
+		return false
+
 	var dst = FileAccess.open( user, FileAccess.WRITE )
+	if dst == null:
+		push_warning("Copy dst >%s< not writable!" % dst )
+		return false
 	
 	var data = src.get_as_text()
 	dst.store_string( data )
