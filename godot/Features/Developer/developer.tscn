@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bck3ywnckmr2l"]
+[gd_scene load_steps=5 format=3 uid="uid://bck3ywnckmr2l"]
 
 [ext_resource type="Script" uid="uid://dim65dc81ux5j" path="res://Features/Developer/font_size_test_label.gd" id="1_kjwfr"]
 [ext_resource type="Script" uid="uid://byewi2jmagacu" path="res://Features/Developer/developer.gd" id="1_tjh23"]
+[ext_resource type="PackedScene" uid="uid://ljeb1qfapg02" path="res://Dialogs/MainMenu/main_menu_entry.tscn" id="2_hirsn"]
 [ext_resource type="FontFile" uid="uid://bb2pts3o32ebo" path="res://Fonts/all_things_pink.ttf" id="2_ytcx3"]
 
 [node name="Developer" type="Control"]
@@ -54,6 +55,20 @@ theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 32
 text = "cwd"
 
+[node name="QuitButton" parent="MarginContainer" instance=ExtResource("2_hirsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+mouse_filter = 0
+id = 5
+label = "Quit"
+
+[node name="Label2" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"LabelHeader"
+text = "ONE"
+
 [node name="FontSizeTestVBoxContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -62,6 +77,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="FontSizeTestLabel_8" type="Label" parent="FontSizeTestVBoxContainer"]
 layout_mode = 2
@@ -111,3 +127,5 @@ theme_override_font_sizes/font_size = 128
 text = "FontSizeTest"
 script = ExtResource("1_kjwfr")
 font_size = 128
+
+[connection signal="pressed" from="MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -19,6 +19,8 @@ var _steam_input_handles: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print_rich("[color=green]main _ready() ->[/color]")
+	
 	#get_window().size = Vector2i( 1920*2*0.75, 1080*2*0.75 )
 	#get_window().position = Vector2i( 1920*2, 0 )
 	if !OS.has_feature("standalone"):
@@ -137,12 +139,16 @@ func _ready() -> void:
 					print("manifest_file SUCCESS")
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
-#	get_viewport().connect("gui_focus_changed", _on_focus_changed)
-	print_rich("[color=green][---- main _ready() - DONE[/color]")
+	get_viewport().connect("gui_focus_changed", _on_focus_changed)
+	print_rich("[color=green]<- main _ready() - DONE[/color]")
+	
+	for f in range(10):
+		await get_tree().process_frame
+		print_rich("[color=green]main _ready() - process_frame %d[/color]" % f)
 
-#func _on_focus_changed(control:Control) -> void:
-#	if control != null:
-#		print( "Focus: %s" % control.name )
+func _on_focus_changed(control:Control) -> void:
+	if control != null:
+		print( "Focus: %s" % control.name )
 
 func _copy_res_to_user( res: String, user: String ) -> bool:
 	var src = FileAccess.open( res, FileAccess.READ )
@@ -391,6 +397,8 @@ func open_initial_dialogs() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+#	print_rich("[color=yellow]main - _process ->[/color]")
+	
 	var pa1 = PerformanceArea.new( "MainProcess" )
 	#PerformanceMonitor.draw( $UI/Performance/Performance2 )
 	PerformanceMonitor.next_frame()

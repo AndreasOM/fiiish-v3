@@ -10,6 +10,9 @@ const DIGITIAL_ACTIONS: Dictionary[ String, String ] = {
 var _pressed_digital_actions: Dictionary[ String, bool ] = {}
 
 func _ready() -> void:
+	print_rich("[color=yellow]SteamInput - _ready ->[/color]")
+	print_rich("[color=yellow]<- SteamInput - _ready[/color]")
+	
 	return
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()

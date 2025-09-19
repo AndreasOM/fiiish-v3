@@ -16,7 +16,7 @@ signal on_faded_out
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("%s z: %d" % [ name, z_index ] )
+#	print("%s z: %d" % [ name, z_index ] )
 	_save_original_z_index()
 	pass # Replace with function body.
 

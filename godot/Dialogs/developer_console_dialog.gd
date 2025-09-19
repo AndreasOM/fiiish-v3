@@ -29,6 +29,8 @@ func set_game( g: Game ) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print_rich("[color=green]developer_console_dialog _ready() ->[/color]")
+	
 	self.clear()
 	self._commands.push_back( DeveloperCommandResume.new() )
 	self._commands.push_back( DeveloperCommandFail.new() )
@@ -41,6 +43,8 @@ func _ready() -> void:
 	self._commands.push_back( DeveloperCommandDeveloperDialogToggle.new() )
 
 	Events.log_event.connect( _on_log_event )
+
+	print_rich("[color=green]<- developer_console_dialog _ready()[/color]")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -181,7 +185,11 @@ func _on_fadeable_container_on_fading_in( _duration: float ) -> void:
 	self._block_input = true
 	self.game.pause()
 	await get_tree().process_frame
-	%LineEdit.grab_focus.call_deferred()
+	#%LineEdit.grab_focus.call_deferred()
+	print_rich("[color=green]developer_console_dialog grab_focus() ->[/color]")
+	
+	%LineEdit.grab_focus()
+	print_rich("[color=green]<- developer_console_dialog grab_focus()[/color]")
 
 
 

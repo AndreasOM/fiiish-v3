@@ -8,6 +8,7 @@ const SteamWrapperInner = "res://Features/Steam/steam_wrapper_inner.gd"
 var _inner: Variant = null
 
 func _ready() -> void:
+	print_rich("[color=yellow]SteamWrapper - _ready ->[/color]")
 	var os = OS.get_name()
 	if self.NON_STEAM_OS.has( os ):
 		return
@@ -18,8 +19,10 @@ func _ready() -> void:
 	
 	self.add_child( n )
 	self._inner = n
+	print_rich("[color=yellow]<- SteamWrapper - _ready[/color]")
 	
 func is_available() -> bool:
+#	return false
 	return self._inner != null
 	
 func get_initial_response() -> Dictionary:

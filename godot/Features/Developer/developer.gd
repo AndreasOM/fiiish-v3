@@ -25,3 +25,7 @@ func _ready() -> void:
 		l.add_theme_constant_override("outline_size", 8)
 		self.font_size_test_v_box_container.add_child( l )
 		s *= 1.2
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit(0)

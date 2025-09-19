@@ -96,6 +96,7 @@ func _on_cheats_changed() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	print_rich("[color=yellow]game - _process ->[/color]")
 	match self._state:
 		Game.State.INITIAL:
 			self._goto_state_waiting_for_start()
@@ -103,6 +104,7 @@ func _process(_delta: float) -> void:
 			self._goto_state_dead()
 		_:
 			pass
+	print_rich("[color=yellow]<- game - _process[/color]")
 
 func is_in_zone_editor() -> bool:
 	return self._is_in_zone_editor
