@@ -27,7 +27,7 @@ omg-launch_control/launch_parameter=""
 config/name="fiiish-v3"
 config/version="1.0.1"
 run/main_scene="uid://cj86n8epk284g"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 run/max_fps=60
 boot_splash/bg_color=Color(0.0980392, 0.494118, 0.556863, 1)
 boot_splash/image="uid://2cttyqcxh0c5"
@@ -64,8 +64,8 @@ window/handheld/orientation=4
 
 [editor]
 
-movie_writer/movie_file="/Users/anti/data/work/anti666tv/fiiish-v3/marketing/trailer/trailer-scripted.avi"
 movie_writer/mjpeg_quality=1.0
+movie_writer/movie_file="/Users/anti/data/work/anti666tv/fiiish-v3/marketing/trailer/trailer-scripted.avi"
 
 [editor_plugins]
 
