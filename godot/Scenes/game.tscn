@@ -172,7 +172,7 @@ collide_with_bodies = false
 
 [node name="DebugCursorSprite2D" type="Sprite2D" parent="GameSubViewportContainer/GameSubViewport/GameScaler"]
 unique_name_in_owner = true
-visible = false
+modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0.8745, 0.99, 0, 0.858824)
 z_index = 10
 texture = ExtResource("3_mg4q0")
