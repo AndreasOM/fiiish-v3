@@ -75,7 +75,7 @@ func _ready() -> void:
 				dialog.set_game( game );
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("cancel"):
+	if event.is_action_pressed("Menu_Cancel"):
 		var last = self._get_last_dialog()
 		if last == null:
 			return

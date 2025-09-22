@@ -57,11 +57,9 @@ func set_fish_target_height_range( min_h: float, max_h: float ) -> void:
 	
 func swim_down() -> void:
 	var event = InputEventAction.new()
-	event.action = "swim_down"
+	event.action = "Swim_Dive"
 	event.pressed = true
 	Input.parse_input_event(event)
-	
-#	Input.action_press("swim_down")
 
 func abort_swim() -> void:
 	self.game.abort_swim()

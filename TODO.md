@@ -2,10 +2,64 @@
 
 ## In Progress
 
+- [ ] Feature: Clean up UX to allow better gamepad navigation
+	- [ ] Doc:
+		- Old: (as of 2025-09-22)
+			- [x] `dive`
+			- [x] `TogglePause`
+			- [x] `toggle_developer_console`
+			- [ ] `cursor_up` 						-> `ui_up`, DeveloperConsole up, zone editor up (layer)
+			- [ ] `cursor_down` 					-> `ui_down`, DeveloperConsole down, ZoneEditor down (layer)
+			- [ ] `tab`								-> `ui_focus_next`, `ui_text_completion_replace`, DeveloperConsole autocomplete
+			- [x] `swim_down`
+			- [#] `left`							-> ZoneEditor move left
+			- [#] `right`							-> ZoneEditor move right
+			- [#] `zone_editor_moved_speed_2`		-> ZoneEditor faster move speed
+			- [#] `zone_editor_up`					-> ZoneEditor move fish up
+			- [#] `zone_editor_down`				-> ZoneEditor move fish down
+			- [#] `zone_editor_rotate`				-> unused/unimplemented
+			- [x] `toggle_menu`
+			- [x] `cancel`
+			- [x] `confirm`
+			- [x] `ui_up`
+			- [x] `ui_down`
+			- [x] `ui_left`
+			- [x] `ui_right`
+			- [x] `ui_focus_next`
+			- [x] `ui_focus_prev`
+			- [x] `ui_accept`
+			- [x] `ui_cancel`
+		- Plan:
+			- [x] `Global_TogglePause`
+			- [x] `Global_ToggleDeveloperConsole`
+			- [x] `Swim_Dive`
+				- [ ] ? request_respawn
+			- [x] `Swim_OpenMainMenu`
+			- [x] `MainMenu_CloseMainMenu`			<- Menu Button, and B Button
+			- [x] `MainMenu_Confirm`				-> `ui_accept`
+			- [x] `Menu_GotoSwim`
+			- [x] `Menu_Confirm`					-> `ui_accept`
+				
+			- [x] `Menu_Cancel`						-> `ui_cancel`
+			- [x] `Menu_Up`							-> `ui_up`
+			- [x] `Menu_Down`						-> `ui_down`
+			- [x] `Menu_Left`						-> `ui_left`
+			- [x] `Menu_Right`						-> `ui_right`
+			- [x] `Menu_Next`						-> `ui_focus_next`
+			- [x] `Menu_Prev`						-> `ui_focus_prev`
+			- [ ] Verify:
+				- [ ] Mouse controls
+				- [ ] Scripts
+				- [ ] Verify once input mapping for steam is done
+			- [ ] Task: Make AchievementsDialog usable with keyboard/gamepad
+			- [ ] Task: Ignore `Swim_Dive` when a Dialog is open
+			- [ ] Task: Adapt DeveloperConsole to new input scheme
+			- [ ] Task: Adapt ZoneEditor to new input scheme
+			- [ ] Task: Split GameState into GameState + MenuState
+
 
 ## Next
 
-- [ ] Try macos-15 and macos-26 runners for github builds
 - [ ] Demo: Add 1 new zone
 - [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
 
@@ -170,6 +224,15 @@
 
 ## Done
 
+### 2025-09-22
+#### S06E19
+- [x] Redo Input Map (keyboard only)
+
+
+### 2025-09-19
+#### S06E18
+- [x] ! Go back to Godot 4.4.1 until [Godot 4.5 regression](https://github.com/godotengine/godot/issues/110780) is fixed
+
 ### 2025-09-18
 #### S06E17
 - [x] Steam: Add minimal action manifest, and deploy it via `user://`
@@ -184,6 +247,7 @@
 - [x] Switch to Godot 4.5
 - [x] Steam: Do not use `Steam` on non steam platforms
 - [x] Demo: Replace font (AllThingsPink) with one that is more readable on small sizes - "SF Arch Rival"
+- [x] Try macos-15 and macos-26 runners for github builds
 
 ### 2025-09-16
 #### S06E15

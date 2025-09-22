@@ -395,11 +395,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if !self._is_in_zone_editor:
 		match self._state:
 			Game.State.WAITING_FOR_START:
-				if event.is_action_pressed("swim_down"):
+				if event.is_action_pressed("Swim_Dive"):
 					self._goto_state_swimming()
 					return
 			Game.State.GAME_OVER:
-				if event.is_action_pressed("swim_down"):
+				if event.is_action_pressed("Menu_GotoSwim"): #:TODO-INPUT:
 					self._goto_state_preparing_for_start()
 					return
 			_:

@@ -112,7 +112,7 @@ func _set_state( new_state: Fish.State ) -> void:
 
 func _goto_swimming() -> void:
 	_set_state( Fish.State.SWIMMING )
-	if Input.is_action_pressed("swim_down"):
+	if Input.is_action_pressed("Swim_Dive"):
 		self.direction = Direction.DOWN
 	
 func _goto_killed() -> void:
@@ -173,16 +173,16 @@ func _unhandled_input_mode_play(event: InputEvent) -> void:
 	# print( "Fish _unhandled_input %s" % event)
 	match self.state:
 		Fish.State.SWIMMING:
-			if event.is_action("swim_down"):
+			if event.is_action("Swim_Dive"):
 				if event.is_pressed():
 					self.direction = Direction.DOWN
 				else:
 					self.direction = Direction.UP
 		Fish.State.DEAD:
-			if event.is_action_pressed("swim_down"):
+			if event.is_action_pressed("Swim_Dive"):
 				self.request_respawn.emit( self )
 		Fish.State.WAITING_FOR_START:
-			if event.is_action_pressed("swim_down"):
+			if event.is_action_pressed("Swim_Dive"):
 				self.request_respawn.emit( self )
 				self.direction = Direction.DOWN
 		

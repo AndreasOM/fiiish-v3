@@ -46,16 +46,15 @@ func _ready() -> void:
 
 	print_rich("[color=green]<- developer_console_dialog _ready()[/color]")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("toggle_developer_console"):
-		print("Tilde")
+	if Input.is_action_just_pressed("Global_ToggleDeveloperConsole"):
+		# print("Tilde")
 		%FadeableContainer.toggle_fade( 0.1 )
 
 func _input(event) -> void:
 	if _block_input: # You can also check which actions using is_action.
 		### %LineEdit._input(event)
-		if event.is_action("toggle_developer_console"):
+		if event.is_action("Global_ToggleDeveloperConsole"):
 			get_viewport().set_input_as_handled()
 		elif event.is_action_pressed("cursor_up"):
 			get_viewport().set_input_as_handled()

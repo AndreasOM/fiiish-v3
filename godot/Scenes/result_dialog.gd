@@ -242,6 +242,6 @@ func _on_achievement_button_pressed() -> void:
 
 func _on_play_button_pressed() -> void:
 	var event = InputEventAction.new()
-	event.action = "swim_down"
+	event.action = "Menu_GotoSwim"
 	event.pressed = true
 	Input.parse_input_event(event)	

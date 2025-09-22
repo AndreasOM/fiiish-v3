@@ -48,17 +48,24 @@ func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
-#	if Input.is_action_just_pressed("TogglePause"):
-#		toggle_pause()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("toggle_menu"):
-		var state = self._dialog_manager.game.get_state()
-		if self._is_main_menu_available( state ):
-			self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
+	var state = self._dialog_manager.game.get_state()
+	if self._is_main_menu_available( state ):
+			if self._dialog_manager.is_dialog_open( DialogIds.Id.MAIN_MENU_DIALOG ):
+				if event.is_action_pressed("MainMenu_CloseMainMenu"):
+					self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
+			else:
+				if event.is_action_pressed("Swim_OpenMainMenu"):
+					self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
+
+#	if event.is_action_pressed("toggle_menu"):
+#		var state = self._dialog_manager.game.get_state()
+#		if self._is_main_menu_available( state ):
+#			self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("TogglePause"):
+	if event.is_action_pressed("Global_TogglePause"):
 		toggle_pause()
 	
 func _update_settings_button() -> void:
