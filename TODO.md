@@ -227,6 +227,9 @@
 ### 2025-09-22
 #### S06E19
 - [x] Redo Input Map (keyboard only)
+- [x] Map Steam Inputs to Game Inputs
+- [x] Some minor cleanups
+- [x] Package steam_manifest.vdf into archive
 
 
 ### 2025-09-19

@@ -14,122 +14,54 @@
 	{
 		"SwimControls"
 		{
-			"title"					"#Set_SwimControls"
+			"title"						"#Set_SwimControls"
 			"Button"
 			{
-				"dive"		   		"#Action_Dive"
-				"pause"				"#Action_Pause"
+				"Swim_Dive"		   		"#Action_Swim_Dive"
+				"Swim_OpenMainMenu"		"#Action_Swim_OpenMainMenu"
+				"Swim_TogglePause"		"#Action_Swim_TogglePause"
 			}
 		}
 		"MenuControls"
 		{
-			"title"					"#Set_MenuControls"
+			"title"						"#Set_MenuControls"
 			"Button"
 			{
-				"menu_confirm"		   	"#Action_MenuConfirm"
-				"menu_cancel"		   	"#Action_MenuCancel"
-				"menu_up"			   	"#Action_MenuUp"
-				"menu_down"			   	"#Action_MenuDown"
-				"menu_left"			   	"#Action_MenuLeft"
-				"menu_right"		   	"#Action_MenuRight"
+				"Menu_GotoSwim"			"#Action_Menu_GotoSwim"
+				"Menu_CloseMainMenu"	"#Action_Menu_CloseMainMenu"
+				"Menu_TogglePause"		"#Action_Menu_TogglePause"
+				"Menu_Confirm"			"#Action_Menu_Confirm"
+				"Menu_Cancel"			"#Action_Menu_Cancel"
+				"Menu_Up"				"#Action_Menu_Up"
+				"Menu_Down"				"#Action_Menu_Down"
+				"Menu_Left"				"#Action_Menu_Left"
+				"Menu_Right"			"#Action_Menu_Right"
+				"Menu_Next"				"#Action_Menu_Next"
+				"Menu_Prev"				"#Action_Menu_Prev"
 			}		
-		}
-		"BattleControls"
-		{
-			"title"					"#Set_BattleControls"
-			"StickPadGyro"
-			{
-				"Move"
-				{
-					"title"			"#Action_Move"
-					"input_mode"	"joystick_move"
-				}
-				"Aim"
-				{
-					"title"			"#Action_Aim"
-					"input_mode"	"joystick_move"
-				}
-			}
-			"AnalogTrigger"
-			{
-			}
-			"Button"
-			{
-				"useAbility1"		"#Action_Ability1"
-				"useAbility2"		"#Action_Ability2"
-				"interact"   		"#Action_Interact"
-				"pause_menu"		"#Action_PauseMenu"
-			}
-		}
-		"MenuControls"
-		{
-			"title"		"#Set_MenuControls"
-			"StickPadGyro"
-			{
-				"Navigate"
-				{
-					"title"			"#Action_Navigate"
-					"input_mode"	"joystick_move"
-				}
-				"Scroll"
-				{
-					"title"			"#Action_Scroll"
-					"input_mode"	"joystick_move"
-				}
-			}
-			"AnalogTrigger"
-			{
-			}
-			"Button"
-			{
-				"confirm"   		"#Action_Confirm"
-				"back"         		"#Action_Back"
-				"join"         		"#Action_Join"
-				"details"      		"#Action_Details"
-				"reroll"      		"#Action_Reroll"
-				"nextScreen"   		"#Action_NextScreen"
-				"previousScreen"	"#Action_PreviousScreen"
-				"pause_menu"	    "#Action_PauseMenu"
-			}
 		}
 	}
 	"localization"
 	{
 		"english"
 		{
-			"Set_BattleControls"	"Battle Controls"
-			"Set_MenuControls"		"Menu Controls"
+			"Set_SwimControls"			"Swim Controls"
+			"Action_Swim_Dive"			"Dive"
+			"Action_Swim_OpenMainMenu"	"Open Main Menu"
+			"Action_Swim_TogglePause"	"Toggle Pause"
 
-			"Action_PauseMenu"		"Pause"
-			
-			"Action_Move"			"Movement"
-			"Action_Aim"			"Aim"
-
-			"Action_Ability1"		"Use Ability1"
-			"Action_Ability2"		"Use Ability2"
-			"Action_Interact"		"Interact"
-
-			"Action_Navigate"		"Navigation"
-			"Action_Scroll"			"Scroll"
-			"Action_Join"		    "Join"
-			"Action_Reroll" 		"Reroll"
-			"Action_Confirm"   		"Confirm"
-			"Action_Back"   		"Back"
-			"Action_Details"   		"Details"
-			"Action_NextScreen"		"NextScreen"
-			"Action_PreviousScreen"	"PreviousScreen"
-
-			"Set_SwimControls"		"Swim Controls"
-			"Action_Dive"			"Dive"
-			"Action_Pause"			"Pause"
-
-			"Set_MenuControls"		"Menu Controls"
-			"Action_MenuConfirm"	"Confirm"
-			"Action_MenuCancel"		"Cancel"
-			"Action_MenuUp"			"Up"
-			"Action_MenuDown"		"Down"
-			"Action_MenuLeft"		"Left"
-			"Action_MenuRight"		"Right"
+			"Set_MenuControls"			"Menu Controls"
+			"Action_Menu_GotoSwim"		"Goto Swim"
+			"Action_Menu_CloseMainMenu"	"Close Main Menu"
+			"Action_Menu_TogglePause"	"Toggle Pause"
+			"Action_Menu_Confirm"		"Confirm"
+			"Action_Menu_Cancel"		"Cancel"
+			"Action_Menu_Up"			"Menu Up"
+			"Action_Menu_Down"			"Menu Down"
+			"Action_Menu_Left"			"Menu Left"
+			"Action_Menu_Right"			"Menu Right"
+			"Action_Menu_Next"			"Menu Next"
+			"Action_Menu_Prev"			"Menu Previous"
 		}
 	}
 }

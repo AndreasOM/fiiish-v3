@@ -96,7 +96,7 @@ func _ready() -> void:
 		steam.inputInit()
 		steam.enableDeviceCallbacks()
 
-		var steam_controller_input = SteamWrapper.get_steam_controller_input()
+		# var steam_controller_input = SteamWrapper.get_steam_controller_input()
 
 		#steam_controller_input.init()
 #		var da = DirAccess.open("")
@@ -128,7 +128,7 @@ func _ready() -> void:
 			push_warning("Action manifest file not found %s" % manifest_file )
 			Events.broadcast_global_message( "Action manifest file not found %s" % manifest_file )
 		else:
-			if false:
+			if true:
 				if !steam.setInputActionManifestFilePath( manifest_file):
 					#get_tree().quit(0)
 					#OS.crash("Failed loading steam action manifest")
@@ -137,8 +137,11 @@ func _ready() -> void:
 					print("manifest_file FAILURE")
 				else:
 					print("manifest_file SUCCESS")
+					self._update_action_set( Game.State.INITIAL )
 		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
+	Events.dialog_opened.connect( _on_dialog_opened )
+	Events.dialog_closed.connect( _on_dialog_closed )
 	get_viewport().connect("gui_focus_changed", _on_focus_changed)
 	print_rich("[color=green]<- main _ready() - DONE[/color]")
 	
@@ -167,18 +170,20 @@ func _copy_res_to_user( res: String, user: String ) -> bool:
 	return true
 
 func _get_global_steam_manifest_path() -> String:
+	
 	if OS.has_feature("editor"):
 		return ProjectSettings.globalize_path( "res://steam_manifest.vdf" )
 	else:
-		self._copy_res_to_user( "res://steam_manifest.vdf", "user://steam_manifest.vdf")
-#		var manifest_src = FileAccess.open( "res://steam_manifest.vdf", FileAccess.READ )
-#		var manifest_dst = FileAccess.open( "user://steam_manifest.vdf", FileAccess.WRITE )
+		var path = OS.get_executable_path().get_base_dir().path_join("steam_manifest.vdf")
+		# :TODO: check on windows & macos -> ../Resources/
+		return path
+
+#		return "/home/deck/.local/share/Steam/steamapps/common/Fiiish! Classic Demo/steam_manifest.vdf"
 		
-#		var src = manifest_src.get_as_text()
-#		manifest_dst.store_string( src )
-		self._copy_res_to_user( "res://config_2960490_controller_xboxone.vdf", "user://config_2960490_controller_xboxone.vdf")
+#		self._copy_res_to_user( "res://steam_manifest.vdf", "user://steam_manifest.vdf")
+#		self._copy_res_to_user( "res://config_2960490_controller_xboxone.vdf", "user://config_2960490_controller_xboxone.vdf")
 		
-		return ProjectSettings.globalize_path( "user://steam_manifest.vdf")
+#		return ProjectSettings.globalize_path( "user://steam_manifest.vdf")
 	
 
 func _on_input_device_connected( input_handle: int ) -> void:
@@ -189,7 +194,7 @@ func _on_input_device_disconnected( input_handle: int ) -> void:
 	# Events.broadcast_global_message( "Input device disconnected [%d]" % input_handle )
 	self._steam_input_handles[ input_handle ] = false
 	
-func _on_game_state_changed( state: Game.State ) -> void:
+func _update_action_set( state: Game.State ) -> void:
 	if SteamWrapper.is_available():
 		var action_set_name = "MenuControls"
 		match state:
@@ -200,20 +205,36 @@ func _on_game_state_changed( state: Game.State ) -> void:
 			Game.State.SWIMMING:
 				action_set_name = "SwimControls"
 				
+		if %DialogManager.is_dialog_open( DialogIds.Id.MAIN_MENU_DIALOG ):
+			action_set_name = "MenuControls"
+				
 		var steam = SteamWrapper.get_steam()
 		#var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
 		var action_set_handle = steam.getActionSetHandle( action_set_name )
-		#print("action_set_handle %d" % action_set_handle)
+		# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
 		#if action_set_handle != 0:
-		#Events.broadcast_global_message("ash %d" % action_set_handle)
+#		Events.broadcast_global_message("ash %d <- %s" % [ action_set_handle, action_set_name ])
 		for k in self._steam_input_handles.keys():
 			var h = self._steam_input_handles.get( k, false )
 			if h == false:
 				continue
 			steam.activateActionSet( k, action_set_handle )
-
-		
+	else:
+		print("Update Action Set without Steam -> do nothing")
 	
+func _on_game_state_changed( state: Game.State ) -> void:
+	self._update_action_set( state )
+
+func _on_dialog_opened( id: DialogIds.Id ) -> void:
+	if id == DialogIds.Id.MAIN_MENU_DIALOG:
+		var state = self.game.get_state()
+		self._update_action_set( state )
+
+func _on_dialog_closed( id: DialogIds.Id ) -> void:
+	if id == DialogIds.Id.MAIN_MENU_DIALOG:
+		var state = self.game.get_state()
+		self._update_action_set( state )
+
 func _on_steam_overlay_toggled( active: bool, _user_initiated: bool, _app_id: int ) -> void:
 	if active:
 		self._on_window_focus_exited()

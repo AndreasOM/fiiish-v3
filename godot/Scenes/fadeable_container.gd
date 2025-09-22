@@ -27,8 +27,9 @@ func _save_original_z_index() -> void:
 
 func _restore_original_z_index() -> void:
 	if _original_z_index != RenderingServer.CANVAS_ITEM_Z_MIN:
-		print("Restoring original z_index for %s: %d => %d" % [ name, _original_z_index, z_index ] )
+#		print("Restoring original z_index for %s: %d => %d" % [ name, _original_z_index, z_index ] )
 		# z_index = _original_z_index
+		pass
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

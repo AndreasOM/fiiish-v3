@@ -66,6 +66,7 @@ func _input(event: InputEvent) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Global_TogglePause"):
+		# Events.broadcast_global_message("Toggle Pause")
 		toggle_pause()
 	
 func _update_settings_button() -> void:
@@ -85,8 +86,10 @@ func toggle_pause() -> void:
 		var is_paused = self._dialog_manager.game.toogle_pause()
 		if is_paused:
 			%PauseToggleButton.goto_b()
+			# Events.broadcast_global_message("Pause -> Paused")
 		else:
 			%PauseToggleButton.goto_a()
+			# Events.broadcast_global_message("Pause -> Resumed")
 			self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 		self._update_settings_button()
 			

@@ -23,6 +23,9 @@ signal kids_mode_changed( enabled: bool )
 
 signal player_changed( player: Player )
 
+signal dialog_opened( id: DialogIds.Id )
+signal dialog_closed( id: DialogIds.Id )
+
 func broadcast_game_state_changed( state: Game.State ) -> void:
 	game_state_changed.emit( state )
 
@@ -73,3 +76,9 @@ func broadcast_log_event( text: String ) -> void:
 
 func broadcast_player_changed( player: Player ) -> void:
 	self.player_changed.emit( player )
+
+func broadcast_dialog_opened( id: DialogIds.Id ) -> void:
+	self.dialog_opened.emit( id )
+	
+func broadcast_dialog_closed( id: DialogIds.Id ) -> void:
+	self.dialog_closed.emit( id )

@@ -310,6 +310,13 @@ jobs:
 
 #   --- iOS only --- ]
 
+      - name: Steam - Add Action Manifest
+        if: ${{ env.TARGET != 'ios' }}  # :TODO: add "WITH_STEAM_SUPPORT"
+        run: |
+          cd godot/export
+          # :TODO: handle macOS (-> .app/Resources)
+          cp ../steam_manifest.vdf ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
+
       - name: Check result
         run: |
           cd godot

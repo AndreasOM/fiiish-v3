@@ -157,6 +157,8 @@ state = 1
 label = "Quit"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="on_faded_in" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_faded_in"]
+[connection signal="on_faded_out" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_faded_out"]
 [connection signal="on_fading_in" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_in"]
 [connection signal="on_fading_out" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_out"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/LeaderBoard" to="." method="_on_leader_board_pressed"]

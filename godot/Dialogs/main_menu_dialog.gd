@@ -83,6 +83,7 @@ func close( duration: float) -> void:
 func open( duration: float) -> void:
 	self._update_entries()
 		
+	self.visible = true
 	fade_in( duration )
 #	if duration > 0.0:
 #		$AnimationPlayer.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
@@ -119,6 +120,7 @@ func _on_game_mode_pressed() -> void:
 
 func _on_main_menu_fadeable_container_on_fading_in( duration: float ) -> void:
 	%LeaderBoard.grab_focus.call_deferred()
+	self.visible = true
 	if duration > 0.0 && self.animation_player != null:
 		self.animation_player.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
 
@@ -148,3 +150,13 @@ func _on_about_demo_pressed() -> void:
 
 func _on_developer_pressed() -> void:
 	get_tree().change_scene_to_file("res://Features/Developer/developer.tscn")
+
+
+func _on_main_menu_fadeable_container_on_faded_out() -> void:
+	self.closed()
+	pass
+
+
+func _on_main_menu_fadeable_container_on_faded_in() -> void:
+	self.opened()
+	pass

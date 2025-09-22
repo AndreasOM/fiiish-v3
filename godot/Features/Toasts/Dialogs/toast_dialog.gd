@@ -96,9 +96,9 @@ func _process( delta: float ) -> void:
 				self.push_out_toast( toast )
 	
 func push_out_toast( toast: Control ) -> void:
-	print("Creating tween for toast")
+#	print("Creating tween for toast")
 	var toast_height = toast.size.y
-	print("Toast height %d" % toast_height )
+#	print("Toast height %d" % toast_height )
 	var push_duration = toast_height / self.push_speed
 	var wait_duration = 1.0
 	self._tween = create_tween()

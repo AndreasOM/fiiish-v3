@@ -41,6 +41,7 @@ func _instantiate_dialog( id: DialogIds.Id ) -> Dialog:
 	if dialog == null:
 		push_warning( "DIALOG_MANAGER: %d is not a dialog" % [ id ] )
 		return null
+	dialog.set_id( id )
 	#if dialog.has_method( "set_dialog_manager" ):
 	dialog.set_dialog_manager( self )
 	if dialog.has_method( "set_game" ):
@@ -105,6 +106,8 @@ func on_dialog_closed( dialog: Dialog ) -> void:
 	if id != null:
 		_dialogs.erase( id )
 	self._open_dialogs[ dialog.get_id() ] = false
+	
+	Events.broadcast_dialog_closed( dialog.get_id() )
 
 func on_dialog_opening( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_opening %s" % dialog.name )
@@ -113,6 +116,8 @@ func on_dialog_opening( dialog: Dialog ) -> void:
 func on_dialog_opened( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_opened %s" % dialog.name )
 	self._open_dialogs[ dialog.get_id() ] = true
+	Events.broadcast_dialog_opened( dialog.get_id() )
+	
 	
 func _on_skills_upgrade_button_pressed() -> void:
 	print("DIALOG_MANAGER: Skills upgrade button pressed")
