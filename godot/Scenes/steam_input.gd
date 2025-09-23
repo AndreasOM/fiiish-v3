@@ -36,6 +36,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
+		if !steam.isSteamRunning():
+			return
 		steam.runFrame()
 		for da in self.DIGITIAL_ACTIONS.keys():
 			var action_handle = self._digital_action_handles.get( da, -1 )

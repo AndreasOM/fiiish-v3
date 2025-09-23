@@ -227,6 +227,7 @@
 ### 2025-09-23
 #### S06E20
 - [x] Improve keyboard/gamepad navigation in ResultScreenDialog
+- [x] Add keyboard/gamepad navigation to SkillUpgradeDialog
 
 ### 2025-09-22
 #### S06E19

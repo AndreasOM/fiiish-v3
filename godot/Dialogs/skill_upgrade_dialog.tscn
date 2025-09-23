@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dhy67dex6gg8u"]
+[gd_scene load_steps=14 format=3 uid="uid://dhy67dex6gg8u"]
 
 [ext_resource type="Script" uid="uid://cjb7j1x8e8enx" path="res://Dialogs/skill_upgrade_dialog.gd" id="1_k8lgt"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_e21l8"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://c60q1np4mc5ui" path="res://Textures/UI/MiniButtons/mini_button_buy_right_off.png" id="6_xq7w0"]
 [ext_resource type="Texture2D" uid="uid://ba44xgufi4hjl" path="res://Textures/UI/mini_icon_skill.png" id="6_ya1x5"]
 [ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="8_g1vtg"]
+[ext_resource type="Texture2D" uid="uid://bxe30mld7t2xf" path="res://Textures/UI/MiniButtons/mini_button_buy_right_focused.png" id="9_oodyq"]
+[ext_resource type="Texture2D" uid="uid://6gla2fnkdi76" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide_focused.png" id="11_a86li"]
 
 [node name="SkillUpgradeDialog" type="Control"]
 layout_mode = 3
@@ -138,6 +140,7 @@ layout_mode = 2
 [node name="HBoxContainer2" type="HBoxContainer" parent="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
+focus_mode = 2
 
 [node name="CoinsLabel" type="Label" parent="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
@@ -174,8 +177,14 @@ texture = ExtResource("4_kmdep")
 [node name="BuySkillPointsButton" type="TextureButton" parent="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath("../../ResetSkillPointsButton/SkillResetLabel")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../../ResetSkillPointsButton/SkillResetLabel")
+focus_previous = NodePath(".")
 texture_normal = ExtResource("5_7a8vs")
 texture_disabled = ExtResource("6_xq7w0")
+texture_focused = ExtResource("9_oodyq")
 
 [node name="SkillPointsLabel" type="Label" parent="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(32, 0)
@@ -208,9 +217,16 @@ size_flags_vertical = 4
 texture = ExtResource("6_ya1x5")
 
 [node name="ResetSkillPointsButton" type="TextureButton" parent="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_left = NodePath("../HBoxContainer2/BuySkillPointsButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../HBoxContainer2/BuySkillPointsButton")
 texture_normal = ExtResource("8_g1vtg")
+texture_focused = ExtResource("11_a86li")
 
 [node name="SkillResetLabel" type="Label" parent="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/ResetSkillPointsButton"]
 layout_mode = 1

@@ -90,55 +90,56 @@ func _ready() -> void:
 		var s = "Steam: %s" % ir
 		Events.broadcast_global_message( s )
 		var steam = SteamWrapper.get_steam()
+		if steam.isSteamRunning():
 		
-		steam.input_device_connected.connect( _on_input_device_connected )
-		steam.input_device_disconnected.connect( _on_input_device_disconnected )
-		steam.inputInit()
-		steam.enableDeviceCallbacks()
+			steam.input_device_connected.connect( _on_input_device_connected )
+			steam.input_device_disconnected.connect( _on_input_device_disconnected )
+			steam.inputInit()
+			steam.enableDeviceCallbacks()
 
-		# var steam_controller_input = SteamWrapper.get_steam_controller_input()
+			# var steam_controller_input = SteamWrapper.get_steam_controller_input()
 
-		#steam_controller_input.init()
-#		var da = DirAccess.open("")
-#		var cwd = da.get_current_dir()
-#		print( cwd )
+			#steam_controller_input.init()
+		#		var da = DirAccess.open("")
+		#		var cwd = da.get_current_dir()
+		#		print( cwd )
 
-#		var files = ResourceLoader.list_directory( "." )
-#		for file in files:
-#			print(file)
-		
-		
-		
-		
-		#var exe_path = OS.get_executable_path()
-		#print("exe_path %s" % exe_path )
-		var manifest_file = self._get_global_steam_manifest_path()
-		#var manifest_file = ProjectSettings.globalize_path( "user://steam_manifest.vdf")
-		#var manifest_file = ProjectSettings.globalize_path( "res://steam_manifest.vdf")
-#		var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/steam/steam_manifest.vdf"
-		#var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/godot/steam_manifest.vdf"
-		#var manifest_file = "steam_manifest.vdf"
-		#var manifest_file = "res://../steam/steam_manifest.vdf"
-		#var manifest_file = "res://steam_manifest.vdf"
-		#var manifest_file = "steam_manifest.vdf"
-		#var manifest_file = "BROKEN"
-		#var manifest_file = "/Users/anti/Library/Application%20Support/Godot/app_userdata/fiiish-v3/steam_manifest.vdf"
-		print("manifest_file %s" % manifest_file )
-		if !FileAccess.file_exists( manifest_file ):
-			push_warning("Action manifest file not found %s" % manifest_file )
-			Events.broadcast_global_message( "Action manifest file not found %s" % manifest_file )
-		else:
-			if true:
-				if !steam.setInputActionManifestFilePath( manifest_file):
-					#get_tree().quit(0)
-					#OS.crash("Failed loading steam action manifest")
-					push_warning("Failed loading steam action manifest")
-					Events.broadcast_global_message( "Failed loading action manifest %s" % manifest_file )
-					print("manifest_file FAILURE")
-				else:
-					print("manifest_file SUCCESS")
-					self._update_action_set( Game.State.INITIAL )
-		steam.overlay_toggled.connect(_on_steam_overlay_toggled)
+		#		var files = ResourceLoader.list_directory( "." )
+		#		for file in files:
+		#			print(file)
+			
+			
+			
+			
+			#var exe_path = OS.get_executable_path()
+			#print("exe_path %s" % exe_path )
+			var manifest_file = self._get_global_steam_manifest_path()
+			#var manifest_file = ProjectSettings.globalize_path( "user://steam_manifest.vdf")
+			#var manifest_file = ProjectSettings.globalize_path( "res://steam_manifest.vdf")
+		#		var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/steam/steam_manifest.vdf"
+			#var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/godot/steam_manifest.vdf"
+			#var manifest_file = "steam_manifest.vdf"
+			#var manifest_file = "res://../steam/steam_manifest.vdf"
+			#var manifest_file = "res://steam_manifest.vdf"
+			#var manifest_file = "steam_manifest.vdf"
+			#var manifest_file = "BROKEN"
+			#var manifest_file = "/Users/anti/Library/Application%20Support/Godot/app_userdata/fiiish-v3/steam_manifest.vdf"
+			print("manifest_file %s" % manifest_file )
+			if !FileAccess.file_exists( manifest_file ):
+				push_warning("Action manifest file not found %s" % manifest_file )
+				Events.broadcast_global_message( "Action manifest file not found %s" % manifest_file )
+			else:
+				if true:
+					if !steam.setInputActionManifestFilePath( manifest_file):
+						#get_tree().quit(0)
+						#OS.crash("Failed loading steam action manifest")
+						push_warning("Failed loading steam action manifest")
+						Events.broadcast_global_message( "Failed loading action manifest %s" % manifest_file )
+						print("manifest_file FAILURE")
+					else:
+						print("manifest_file SUCCESS")
+						self._update_action_set( Game.State.INITIAL )
+			steam.overlay_toggled.connect(_on_steam_overlay_toggled)
 
 	Events.dialog_opened.connect( _on_dialog_opened )
 	Events.dialog_closed.connect( _on_dialog_closed )
@@ -196,6 +197,9 @@ func _on_input_device_disconnected( input_handle: int ) -> void:
 	
 func _update_action_set( state: Game.State ) -> void:
 	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		if !steam.isSteamRunning():
+			return
 		var action_set_name = "MenuControls"
 		match state:
 			Game.State.WAITING_FOR_START:
@@ -208,7 +212,6 @@ func _update_action_set( state: Game.State ) -> void:
 		if %DialogManager.is_dialog_open( DialogIds.Id.MAIN_MENU_DIALOG ):
 			action_set_name = "MenuControls"
 				
-		var steam = SteamWrapper.get_steam()
 		#var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
 		var action_set_handle = steam.getActionSetHandle( action_set_name )
 		# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])

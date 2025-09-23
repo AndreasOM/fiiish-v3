@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxdyfsr3rf56d"]
+[gd_scene load_steps=13 format=3 uid="uid://dxdyfsr3rf56d"]
 
 [ext_resource type="Script" uid="uid://d0l4anar52h5v" path="res://Scenes/in_game_pause_menu.gd" id="1_6l8pp"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_fdqay"]
@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_ua4wi"]
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_n1w2s"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_4p0q0"]
+[ext_resource type="Texture2D" uid="uid://tufw5dqfb11k" path="res://Textures/UI/Buttons/button_pause_focused.png" id="7_ua4wi"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="8_gtjiv"]
+[ext_resource type="Texture2D" uid="uid://8ohxv6lr06dr" path="res://Textures/UI/Buttons/button_play_focused.png" id="9_n1w2s"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_np5cf"]
 
@@ -81,7 +83,9 @@ script = ExtResource("3_fdqay")
 
 [node name="PauseButtonA" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeA"]
 layout_mode = 2
+focus_mode = 0
 texture_normal = ExtResource("4_np5cf")
+texture_focused = ExtResource("7_ua4wi")
 
 [node name="PauseButtonFadeB" type="CenterContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton"]
 layout_mode = 2
@@ -90,7 +94,9 @@ script = ExtResource("3_fdqay")
 
 [node name="PauseButtonB" type="TextureButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeB"]
 layout_mode = 2
+focus_mode = 0
 texture_normal = ExtResource("5_ua4wi")
+texture_focused = ExtResource("9_n1w2s")
 
 [node name="SettingsButtonFade" type="CenterContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true

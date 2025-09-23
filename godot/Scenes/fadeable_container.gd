@@ -11,7 +11,7 @@ var _original_z_index = RenderingServer.CANVAS_ITEM_Z_MIN
 
 signal on_fading_in
 signal on_faded_in
-signal on_fading_out
+signal on_fading_out( duration: float )
 signal on_faded_out
 
 # Called when the node enters the scene tree for the first time.

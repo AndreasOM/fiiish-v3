@@ -19,23 +19,29 @@ var button = preload("res://Dialogs/SkillUpgradeElements/skill_upgrade_item_butt
 @onready var scroll_container_hbox_container: HBoxContainer = %ScrollContainer/HBoxContainer
 @onready var cost_label: Label = %CostLabel
 @onready var skill_point_icon: TextureRect = %SkillPointIcon
+@onready var skill_upgrade_item_h_box_container: HBoxContainer = %SkillUpgradeItemHBoxContainer
+
+var active_button: SkillUpgradeItemButton = null
 
 func _ready() -> void:
 	self.skill_name_label.text = title
 	_create_buttons()
 
 func _create_buttons() -> void:
-	var p = self.scroll_container_hbox_container
+	var p = self.skill_upgrade_item_h_box_container
 	for o in p.get_children():
 		var suib = o as SkillUpgradeItemButton
 		if suib != null:
 			p.remove_child( suib )
 			suib.queue_free()
+			
+	self.active_button = null
 
 	for i in range(0,maximum):
 		var b = button.instantiate()
 		b.set_id( i+1 )
 		b.connect("on_pressed", _on_button_pressed)
+		b.name = "%s.%d" % [ self.name, i+1 ]
 		p.add_child(b)
 
 func _on_button_pressed( i: int ) -> void:
@@ -52,7 +58,7 @@ func _process(_delta: float) -> void:
 	self.scroll_container.scroll_horizontal = lerp( self.scroll_container.scroll_horizontal, tx, 0.08 )
 
 func _update_states() -> void:
-	var p = self.scroll_container_hbox_container
+	var p = self.skill_upgrade_item_h_box_container
 	var i = 0
 	var is_demo = FeatureTags.has_feature("demo")
 	for o in p.get_children():
@@ -60,10 +66,14 @@ func _update_states() -> void:
 		if suib != null:
 			if i < current:
 				suib.set_state_enabled()
-			elif is_demo && i == self.demo_maximum:
-				suib.set_state_demo_disabled()
+#			elif is_demo && i == self.demo_maximum:
+#				suib.set_state_demo_disabled()
 			elif i < unlockable:
-				suib.set_state_unlockable()
+				if is_demo && i >= self.demo_maximum:
+					suib.set_state_demo_disabled()
+				else:
+					suib.set_state_unlockable()
+				self.active_button = suib
 			else:
 				suib.set_state_disabled()
 				
@@ -99,3 +109,15 @@ func set_unlock_price( p: int ) -> void:
 	
 func prepare_fade_in() -> void:
 	self.scroll_container.scroll_horizontal = 0
+
+
+func _on_focus_entered() -> void:
+	var p = self.skill_upgrade_item_h_box_container
+	if p.get_child_count() < self.current:
+		# should not happen
+		return
+	var focused: Control = p.get_child( self.current )
+	if focused == null:
+		return
+		
+	focused.grab_focus.call_deferred()

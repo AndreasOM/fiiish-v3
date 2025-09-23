@@ -5,9 +5,12 @@ extends Dialog
 
 var _skill_upgrade_item_scene = preload("res://Dialogs/SkillUpgradeElements/SkillUpgradeItem.tscn")
 
+var _last_focused_skill_id: SkillIds.Id = SkillIds.Id.MAGNET
+
 func _ready() -> void:
 	_regenerate_skill_upgrade_items()
 	_update_all()
+	# $FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/ResetSkillPointsButton/SkillResetLabel.focus_neighbor_left = %BuySkillPointsButton
 	
 #	for x in range(0, 340):
 #		var y = _get_price_for_skill_point( x )
@@ -40,6 +43,7 @@ func _regenerate_skill_upgrade_items() -> void:
 		s.skill_id = sc.skill_id()
 		s.title = sc.name
 		s.maximum = sc.get_upgrade_levels()
+		s.name = "%s" % [ sc.name ]
 		s.connect("skill_buy_triggered", _on_skill_buy_triggered )
 		
 		p.add_child( sui )
@@ -71,7 +75,7 @@ func _update_coins() -> void:
 
 	
 func _update_skill_upgrade_items() -> void:
-	var p = game.get_player()
+	var player = game.get_player()
 	var scm = game.get_skill_config_manager()
 	var skill_ids = scm.get_skill_ids()
 	for id in skill_ids:
@@ -79,23 +83,46 @@ func _update_skill_upgrade_items() -> void:
 		var sui = _get_skill_upgrade_item_for_skill_id( id )
 		if sui == null:
 			continue
-		var current = p.get_skill_level( id )
+		var current = player.get_skill_level( id )
 		sui.set_current( current )
 		sui.set_unlockable( current+1 )
 		if sc != null:
 			sui.set_demo_maximum( sc.get_max_demo_level() )
 		var unlock_price = scm.get_skill_price( id, current+1 )
 		sui.unlock_price = unlock_price
+		if id == self._last_focused_skill_id:
+			sui.grab_focus.call_deferred()
 		
+	# update focus relationships
+	var p = %SkillUpgradeItemContainer
+	var prev: SkillUpgradeItemButton = null
+	for c in p.get_children():
+		var sui = c as SkillUpgradeItem
+		if sui == null:
+			continue
+			
+		sui.active_button.set_prev_control( prev )
+		sui.active_button.set_next_control( null )
+		if prev != null:
+			prev.set_next_control( sui.active_button )
+			
+		prev = sui.active_button
+	
+	prev.set_next_control( %ResetSkillPointsButton )
+	%ResetSkillPointsButton.focus_neighbor_top = %ResetSkillPointsButton.get_path_to( prev )
+	%BuySkillPointsButton.focus_neighbor_top = %BuySkillPointsButton.get_path_to( prev )
 
 func _prepare_fade_in() -> void:
 	var scm = game.get_skill_config_manager()
 	var skill_ids = scm.get_skill_ids()
+	
 	for id in skill_ids:
 		var sui = _get_skill_upgrade_item_for_skill_id( id )
 		if sui == null:
 			continue
 		sui.prepare_fade_in()
+		if id == self._last_focused_skill_id:
+			sui.grab_focus.call_deferred()
 	
 func _update_all() -> void:
 	_update_skill_points()
@@ -135,6 +162,7 @@ func _on_buy_skill_point_button_pressed() -> void:
 	var skill_point_price = _get_price_for_skill_point( owned_skill_points )
 	if p.spend_coins( skill_point_price, "Buy Skill Point" ):
 		p.give_skill_points( 1, "Buy Skill Point" )
+		self._last_focused_skill_id = SkillIds.Id.NONE
 		_update_all()
 	else:
 		print("Can't afford skill point")
@@ -181,6 +209,7 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	p.set_skill_level( id, level )
 	var total_skill_levels = p.get_total_skill_levels()
 	game.achievement_counter_manager.set_counter( AchievementCounterIds.Id.SKILL_UPGRADES, total_skill_levels )
+	self._last_focused_skill_id = id
 	_update_all()
 
 
