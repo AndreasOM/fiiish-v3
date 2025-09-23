@@ -228,6 +228,7 @@
 #### S06E20
 - [x] Improve keyboard/gamepad navigation in ResultScreenDialog
 - [x] Add keyboard/gamepad navigation to SkillUpgradeDialog
+- [x] Grab focus for SkillUpgradeButton in ResultDialog when closing SkillUpgradeDialog
 
 ### 2025-09-22
 #### S06E19

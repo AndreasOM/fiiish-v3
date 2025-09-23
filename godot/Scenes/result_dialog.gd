@@ -28,6 +28,7 @@ enum AnimationStep {
 @onready var full_h_box_container: HBoxContainer = %FullHBoxContainer
 @onready var play_h_box_container: HBoxContainer = %PlayHBoxContainer
 @onready var play_button: TextureButton = %PlayButton
+@onready var skill_upgrade_button: TextureButton = %SkillUpgradeButton
 
 var _start_coins: int = 0
 var _new_coins: int = 0
@@ -64,7 +65,16 @@ func _ready() -> void:
 	distanceResultRow.clear()
 	bestDistanceResultRow.clear()
 	totalDistanceResultRow.clear()
-		
+	Events.dialog_closed.connect( _on_dialog_closed )
+
+func _on_dialog_closed( id: DialogIds.Id ) -> void:
+	match id:
+		DialogIds.Id.SKILL_UPGRADE_DIALOG:
+			self.skill_upgrade_button.grab_focus.call_deferred()
+			pass
+		_:
+			pass
+
 func set_game( g: Game) -> void:
 	self.game = g
 
