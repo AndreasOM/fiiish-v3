@@ -184,20 +184,36 @@ mouse_filter = 2
 [node name="SkillUpgradeButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../LeaderboardButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../LeaderboardButton")
+focus_previous = NodePath(".")
 texture_normal = ExtResource("5_8gynd")
 texture_focused = ExtResource("6_gqdjf")
 
 [node name="LeaderboardButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../SkillUpgradeButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../AchievementButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../AchievementButton")
+focus_previous = NodePath("../SkillUpgradeButton")
 texture_normal = ExtResource("6_848gl")
 texture_focused = ExtResource("8_tj2qx")
 
 [node name="AchievementButton" type="TextureButton" parent="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../LeaderboardButton")
+focus_neighbor_top = NodePath(".")
 focus_neighbor_right = NodePath("../../PlayHBoxContainer/PlayButton")
+focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath("../../PlayHBoxContainer/PlayButton")
+focus_previous = NodePath("../LeaderboardButton")
 texture_normal = ExtResource("7_m8h2f")
 texture_focused = ExtResource("10_ll3l2")
 
@@ -215,6 +231,10 @@ size_flags_vertical = 4
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../../FullHBoxContainer/AchievementButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
 focus_previous = NodePath("../../FullHBoxContainer/AchievementButton")
 texture_normal = ExtResource("8_p2fcy")
 texture_hover = ExtResource("9_gnvys")

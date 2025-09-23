@@ -59,7 +59,7 @@
 
 
 ## Next
-
+- [ ] Bug: Fix focus previous handling in ResultScreenDialog
 - [ ] Demo: Add 1 new zone
 - [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
 
@@ -223,6 +223,10 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+### 2025-09-23
+#### S06E20
+- [x] Improve keyboard/gamepad navigation in ResultScreenDialog
 
 ### 2025-09-22
 #### S06E19
