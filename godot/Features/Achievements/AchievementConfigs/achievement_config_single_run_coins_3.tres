@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://5pr2dmiauxsc"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dvdsebvmc4382"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_jlmmj"]
 [ext_resource type="Texture2D" uid="uid://ckte81breutd" path="res://Features/Achievements/Textures/achievement_icon_single_run_coins_3.png" id="2_jlmmj"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_sxm71")
 id = "SingleRunCoins3"
+disabled_in_demo = false
 sort_index = 1033
 name = "Single Run Coins Gold"
+description = ""
+hidden = false
 icon = ExtResource("2_jlmmj")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 10

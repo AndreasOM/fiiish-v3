@@ -7,4 +7,5 @@ script = ExtResource("1_scpqi")
 label_text = "Launch"
 parameter = ""
 sort_order = 1
+movie_maker_enabled = false
 metadata/_custom_type_script = "uid://lsabu7iqy74i"

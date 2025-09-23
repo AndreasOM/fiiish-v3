@@ -12,6 +12,7 @@ const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.
 @onready var achievement_counter_manager: AchievementCounterManager = %AchievementCounterManager
 @onready var achievement_manager: AchievementManager = %AchievementManager
 @onready var game: Game = %Game
+@onready var dialog_manager: DialogManager = %DialogManager
 
 var _was_paused_before_focus_was_lost: bool = false
 
@@ -209,7 +210,7 @@ func _update_action_set( state: Game.State ) -> void:
 			Game.State.SWIMMING:
 				action_set_name = "SwimControls"
 				
-		if %DialogManager.is_dialog_open( DialogIds.Id.MAIN_MENU_DIALOG ):
+		if self.dialog_manager.is_dialog_open( DialogIds.Id.MAIN_MENU_DIALOG ):
 			action_set_name = "MenuControls"
 				
 		#var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
@@ -257,7 +258,8 @@ func _on_window_focus_exited() -> void:
 	const PAUSE_ON_FOCUS_LOSS: bool = false	# :TODO: could be a setting
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
-		if PAUSE_ON_FOCUS_LOSS || steam.isSteamRunningOnSteamDeck():
+		#if PAUSE_ON_FOCUS_LOSS || steam.isSteamRunningOnSteamDeck():
+		if PAUSE_ON_FOCUS_LOSS || steam.isSteamRunning():
 			self.process_mode = Node.PROCESS_MODE_DISABLED
 			if self.game.is_paused():
 				self._was_paused_before_focus_was_lost = true

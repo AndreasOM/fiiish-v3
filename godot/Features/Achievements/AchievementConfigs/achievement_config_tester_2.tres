@@ -15,8 +15,10 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_4pj1e")
 id = "Tester2"
+disabled_in_demo = false
 sort_index = 20100
 name = "Tester"
+description = ""
 hidden = true
 icon = ExtResource("2_t2upd")
 completion_condition = SubResource("Resource_j8l2u")

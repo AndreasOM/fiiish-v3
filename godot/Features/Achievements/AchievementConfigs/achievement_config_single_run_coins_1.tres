@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_hsxc7")
 id = "SingleRunCoins1"
+disabled_in_demo = false
 sort_index = 1031
 name = "Single Run Coins Bronze"
+description = ""
+hidden = false
 icon = ExtResource("2_irml4")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 10

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://vdkb623vpn1d"]
+[gd_scene load_steps=3 format=3 uid="uid://bakk3pc3r2mrk"]
 
 [ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_y1had"]
 [ext_resource type="Texture2D" uid="uid://cddiuqma6kbmr" path="res://Textures/Obstacles/MiddleRocks/bigrock_a_6x2.png" id="2_y1had"]

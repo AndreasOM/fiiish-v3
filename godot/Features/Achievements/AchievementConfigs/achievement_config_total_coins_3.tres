@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://c41pl6p4o3kc4"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://p05xdi7hkfuo"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_p5u8q"]
 [ext_resource type="Texture2D" uid="uid://5olcqwa1dds5" path="res://Features/Achievements/Textures/achievement_icon_total_coins_3.png" id="2_p5u8q"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_neag8")
 id = "TotalCoins3"
+disabled_in_demo = false
 sort_index = 1063
 name = "Total Coins Gold"
+description = ""
+hidden = false
 icon = ExtResource("2_p5u8q")
 completion_condition = SubResource("Resource_vw4ne")
 reward_coins = 50

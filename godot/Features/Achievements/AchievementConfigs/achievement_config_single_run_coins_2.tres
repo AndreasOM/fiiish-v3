@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://dh5u5yq45lcjy"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://bd12bet5idvr0"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_y21sp"]
 [ext_resource type="Texture2D" uid="uid://c54esbplbycq5" path="res://Features/Achievements/Textures/achievement_icon_single_run_coins_2.png" id="2_y21sp"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_6euom")
 id = "SingleRunCoins2"
+disabled_in_demo = false
 sort_index = 1032
 name = "Single Run Coins Silver"
+description = ""
+hidden = false
 icon = ExtResource("2_y21sp")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 20

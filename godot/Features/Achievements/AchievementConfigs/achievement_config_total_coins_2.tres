@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_vbfom")
 id = "TotalCoins2"
+disabled_in_demo = false
 sort_index = 1062
 name = "Total Coins Silver"
+description = ""
+hidden = false
 icon = ExtResource("2_vw4ne")
 completion_condition = SubResource("Resource_vw4ne")
 reward_coins = 50

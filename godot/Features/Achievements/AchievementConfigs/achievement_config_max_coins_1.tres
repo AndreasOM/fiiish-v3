@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_ik8ef")
 id = "MaxCoins1"
+disabled_in_demo = false
 sort_index = 1121
 name = "Max Coins Bronze"
+description = ""
+hidden = false
 icon = ExtResource("2_m728o")
 completion_condition = SubResource("Resource_r1prg")
 reward_coins = 10

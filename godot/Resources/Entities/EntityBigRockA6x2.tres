@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://ebxxk2aca71x"]
+[gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://dht3odr60m0j1"]
 
-[ext_resource type="PackedScene" uid="uid://vdkb623vpn1d" path="res://Scenes/Obstacles/bigrock_a_6x2.tscn" id="1_fvc3o"]
+[ext_resource type="PackedScene" path="res://Scenes/Obstacles/bigrock_a_6x2.tscn" id="1_fvc3o"]
 [ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_opyrr"]
 
 [resource]

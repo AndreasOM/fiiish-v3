@@ -7,4 +7,5 @@ script = ExtResource("1_m8xhy")
 label_text = "KidsModeDisable"
 parameter = "--KidsModeDisable"
 sort_order = 2
+movie_maker_enabled = false
 metadata/_custom_type_script = "uid://lsabu7iqy74i"

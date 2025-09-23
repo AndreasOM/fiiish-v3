@@ -17,6 +17,7 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_bfb5g")
 id = "SteamNext1"
+disabled_in_demo = false
 sort_index = 21100
 name = "Steam Next Fest"
 description = "Play during Steam Next Fest"

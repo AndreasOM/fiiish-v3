@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://cyta2uqrioksu"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://bmnynogjiytg"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_ere4s"]
 [ext_resource type="Texture2D" uid="uid://dgal4136jpje6" path="res://Features/Achievements/Textures/achievement_icon_play_count_3.png" id="2_ere4s"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_duxdh")
 id = "PlayCount3"
+disabled_in_demo = false
 sort_index = 1113
 name = "Times Played Gold"
+description = ""
+hidden = false
 icon = ExtResource("2_ere4s")
 completion_condition = SubResource("Resource_vw4ne")
 reward_coins = 100

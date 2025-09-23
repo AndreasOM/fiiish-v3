@@ -308,6 +308,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("25_xncef")
 game = NodePath("../../Game")
+metadata/_custom_type_script = "uid://l0esgnhelws0"
 
 [node name="LeaderboardDialogHardCoded" parent="UI/DialogManager" instance=ExtResource("14_h1bgf")]
 visible = false

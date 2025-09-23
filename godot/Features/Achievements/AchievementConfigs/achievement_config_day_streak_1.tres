@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_gntfk")
 id = "DayStreak1"
+disabled_in_demo = false
 sort_index = 1221
 name = "Day Streak Bronze"
+description = ""
+hidden = false
 icon = ExtResource("2_j7yts")
 completion_condition = SubResource("Resource_r1prg")
 reward_coins = 50

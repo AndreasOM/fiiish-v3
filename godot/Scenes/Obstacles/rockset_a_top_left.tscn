@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgy1ty4n5q7p4"]
+[gd_scene load_steps=3 format=3 uid="uid://cms5jd6u81egj"]
 
 [ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_vpop4"]
 [ext_resource type="Texture2D" uid="uid://cst5voxdnqkks" path="res://Textures/Obstacles/MiddleRocks/rockset-a-top_left.png" id="2_vpop4"]

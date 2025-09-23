@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://d1p4ea3kakapp"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://v02q6rbehdmj"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_nxj3a"]
 [ext_resource type="Texture2D" uid="uid://1ik54lkdtddq" path="res://Features/Achievements/Textures/achievement_icon_single_run_distance_3.png" id="2_nxj3a"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_vaeko")
 id = "SingleRunDistance3"
+disabled_in_demo = false
 sort_index = 1013
 name = "Single Run Distance Gold"
+description = ""
+hidden = false
 icon = ExtResource("2_nxj3a")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 0

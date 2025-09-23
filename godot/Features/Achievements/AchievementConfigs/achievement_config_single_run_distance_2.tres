@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://ctva52ckrbfr5"]
+[gd_resource type="Resource" script_class="AchievementConfig" load_steps=5 format=3 uid="uid://6rjfn1h1c1yc"]
 
 [ext_resource type="Script" uid="uid://847eoiqj5nwn" path="res://Features/Achievements/Scripts/achievement_condition.gd" id="1_sf2nb"]
 [ext_resource type="Texture2D" uid="uid://luei8gn07ku8" path="res://Features/Achievements/Textures/achievement_icon_single_run_distance_2.png" id="2_sf2nb"]
@@ -15,8 +15,11 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_h4lj3")
 id = "SingleRunDistance2"
+disabled_in_demo = false
 sort_index = 1012
 name = "Single Run Distance Silver"
+description = ""
+hidden = false
 icon = ExtResource("2_sf2nb")
 completion_condition = SubResource("Resource_3wdqu")
 reward_coins = 20
