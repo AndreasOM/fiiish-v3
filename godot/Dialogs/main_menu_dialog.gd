@@ -56,12 +56,13 @@ func _update_entries() -> void:
 	
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
-		var steam_id = steam.getSteamID()
-		var developer_ids = [
-			76561199172150142, # andreas OM
-		]
-		if developer_ids.find( steam_id ) >= 0:
-			developer_enabled = true
+		if steam.isSteamRunning:
+			var steam_id = steam.getSteamID()
+			var developer_ids = [
+				76561199172150142, # andreas OM
+			]
+			if developer_ids.find( steam_id ) >= 0:
+				developer_enabled = true
 		
 	if developer_enabled:
 		self.developer.state = MainMenuEntry.State.ENABLED

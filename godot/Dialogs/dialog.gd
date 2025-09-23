@@ -59,6 +59,8 @@ func opened() -> void:
 func cancel() -> bool:
 	return false
 	
+func confirm() -> bool:
+	return false
 
 func _on_fading_in(_duration: float ) -> void:
 	opening()

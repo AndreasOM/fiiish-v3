@@ -81,6 +81,11 @@ func _input(event: InputEvent) -> void:
 		if last == null:
 			return
 		last.cancel()
+	elif event.is_action_pressed("Menu_Confirm"):
+		var last = self._get_last_dialog()
+		if last == null:
+			return
+		last.confirm()
 		
 func _get_last_dialog() -> Dialog:
 	var last = null

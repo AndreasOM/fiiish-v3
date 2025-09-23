@@ -229,6 +229,7 @@
 - [x] Improve keyboard/gamepad navigation in ResultScreenDialog
 - [x] Add keyboard/gamepad navigation to SkillUpgradeDialog
 - [x] Grab focus for SkillUpgradeButton in ResultDialog when closing SkillUpgradeDialog
+- [x] Improve CancelConfirm Popup keyboard/gamepad handling
 
 ### 2025-09-22
 #### S06E19

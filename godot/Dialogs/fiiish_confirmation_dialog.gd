@@ -5,17 +5,18 @@ enum Mode {
 	CANCEL_CONFIRM,
 	CANCEL,
 	CONFIRM,
+	NONE,
 }
 
 signal confirmed
 signal cancelled
 
-@export var cancellable: bool = true
 @onready var description_label: RichTextLabel = %DescriptionLabel
 
-func _ready() -> void:
-	pass
+@export var mode: Mode = Mode.NONE : set = set_mode
 
+func _ready() -> void:
+	self._update_buttons()
 	if OS.get_name() != "HTML5":
 		self.description_label.connect("meta_clicked", _on_meta_clicked)
 
@@ -23,7 +24,30 @@ func _on_meta_clicked(meta) -> void:
 	OS.shell_open(meta)
 
 func cancel() -> bool:
-	if self.cancellable:
+	var cancellable = false
+	match self.mode:
+		Mode.CANCEL:
+			cancellable = true
+		Mode.CANCEL_CONFIRM:
+			cancellable = true
+			
+	if cancellable:
+		self.cancelled.emit()
+		self.close( 0.3 )
+		return true
+	else:
+		return false
+
+func confirm() -> bool:
+	var confirmable = false
+	match self.mode:
+		Mode.CONFIRM:
+			confirmable = true
+		Mode.CANCEL_CONFIRM:
+			confirmable = true
+			
+	if confirmable:
+		self.confirmed.emit()
 		self.close( 0.3 )
 		return true
 	else:
@@ -57,8 +81,17 @@ func set_title( title: String) -> void:
 func set_description( description: String) -> void:
 	%DescriptionLabel.text = description
 
-func set_mode( mode: Mode):
-	match mode:
+func set_mode( _mode: Mode):
+	mode = _mode
+	self._update_buttons()
+		
+func _update_buttons() -> void:
+	if %CancelTextureButton == null:
+		return
+	if %ConfirmTextureButton == null:
+		return
+		
+	match self.mode:
 		Mode.CANCEL:
 			%CancelTextureButton.visible = true
 			%ConfirmTextureButton.visible = false
@@ -68,4 +101,4 @@ func set_mode( mode: Mode):
 		Mode.CANCEL_CONFIRM:
 			%CancelTextureButton.visible = true
 			%ConfirmTextureButton.visible = true
-		
+	
