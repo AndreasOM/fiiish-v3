@@ -226,6 +226,11 @@
 
 ### 2025-09-23
 #### S06E20
+- [x] Add focused texture to BuySkillPoints Button when not affordable
+- [x] Improve focused texture for BuySkill Button
+
+### 2025-09-23
+#### S06E20
 - [x] Improve keyboard/gamepad navigation in ResultScreenDialog
 - [x] Add keyboard/gamepad navigation to SkillUpgradeDialog
 - [x] Grab focus for SkillUpgradeButton in ResultDialog when closing SkillUpgradeDialog

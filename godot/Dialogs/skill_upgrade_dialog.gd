@@ -3,14 +3,20 @@ extends Dialog
 @export var game: Game = null
 #@export var skill_point_price: int = 200
 
+@export var buy_skill_points_disabled_texture_focused: Texture2D = null
+
+@onready var buy_skill_points_button: TextureButton = %BuySkillPointsButton
+
+var _buy_skill_points_texture_focused: Texture2D = null
 var _skill_upgrade_item_scene = preload("res://Dialogs/SkillUpgradeElements/SkillUpgradeItem.tscn")
 
 var _last_focused_skill_id: SkillIds.Id = SkillIds.Id.MAGNET
 
 func _ready() -> void:
+	self._buy_skill_points_texture_focused = self.buy_skill_points_button.texture_focused
 	_regenerate_skill_upgrade_items()
 	_update_all()
-	# $FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/ResetSkillPointsButton/SkillResetLabel.focus_neighbor_left = %BuySkillPointsButton
+	
 	
 #	for x in range(0, 340):
 #		var y = _get_price_for_skill_point( x )
@@ -53,9 +59,11 @@ func _update_buy_skill_point_button() -> void:
 	var owned_skill_points = p.gained_skill_points()
 	var cost = _get_price_for_skill_point( owned_skill_points )
 	if p.can_afford_coins( cost ):
-		%BuySkillPointsButton.disabled = false
+		self.buy_skill_points_button.disabled = false
+		self.buy_skill_points_button.texture_focused = self._buy_skill_points_texture_focused
 	else:
-		%BuySkillPointsButton.disabled = true
+		self.buy_skill_points_button.disabled = true
+		self.buy_skill_points_button.texture_focused = self.buy_skill_points_disabled_texture_focused
 		
 func _update_skill_point_cost() -> void:
 	var p = game.get_player()
@@ -110,7 +118,7 @@ func _update_skill_upgrade_items() -> void:
 	
 	prev.set_next_control( %ResetSkillPointsButton )
 	%ResetSkillPointsButton.focus_neighbor_top = %ResetSkillPointsButton.get_path_to( prev )
-	%BuySkillPointsButton.focus_neighbor_top = %BuySkillPointsButton.get_path_to( prev )
+	self.buy_skill_points_button.focus_neighbor_top = self.buy_skill_points_button.get_path_to( prev )
 
 func _prepare_fade_in() -> void:
 	var scm = game.get_skill_config_manager()
