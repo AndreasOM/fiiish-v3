@@ -1,7 +1,14 @@
 extends CenterContainer
 class_name ToggleButtonContainer
 
+enum ToggleMode {
+	AUTO,
+	REQUEST,
+}
+
 @export var toggle_duration: float = 0.3
+@export var toggle_mode: ToggleMode = ToggleMode.AUTO
+
 #@export var button_a: FadeableContainer
 #@export var button_b: FadeableContainer
 
@@ -14,7 +21,11 @@ enum ToggleState {
 	None,
 }
 
+var _toggle_state: ToggleState = ToggleState.None
+
+
 signal toggled( state: ToggleState )
+signal toggle_requested( state: ToggleState )
 
 	
 func _ready() -> void:
@@ -41,17 +52,40 @@ func _ready() -> void:
 func goto_a() -> void:
 	button_a.fade_in( toggle_duration )
 	button_b.fade_out( toggle_duration )
+	self._toggle_state = ToggleState.A
 
 func goto_b() -> void:
 	button_a.fade_out( toggle_duration )
 	button_b.fade_in( toggle_duration )
+	self._toggle_state = ToggleState.B
 
 func _on_a_pressed() -> void:
-	print("A")
-	goto_b()
-	toggled.emit(ToggleState.B)
+	print("A pressed")
+	match self.toggle_mode:
+		ToggleMode.AUTO:
+			goto_b()
+			self.button_b.grab_focus.call_deferred()
+			toggled.emit(ToggleState.B)
+		ToggleMode.REQUEST:
+			self.toggle_requested.emit( ToggleState.A )
 
 func _on_b_pressed() -> void:
-	print("B")
-	goto_a()
-	toggled.emit(ToggleState.A)
+	print("B pressed")
+	match self.toggle_mode:
+		ToggleMode.AUTO:
+			goto_a()
+			self.button_a.grab_focus.call_deferred()
+			toggled.emit(ToggleState.A)
+		ToggleMode.REQUEST:
+			self.toggle_requested.emit( ToggleState.A )
+			
+
+
+func _on_focus_entered() -> void:
+	match self._toggle_state:
+		ToggleState.A:
+			if self.button_a.focus_mode != FocusMode.FOCUS_NONE:
+				self.button_a.grab_focus.call_deferred()
+		ToggleState.B:
+			if self.button_b.focus_mode != FocusMode.FOCUS_NONE:
+				self.button_b.grab_focus.call_deferred()

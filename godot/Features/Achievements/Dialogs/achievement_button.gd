@@ -149,6 +149,7 @@ func _update() -> void:
 func _on_texture_button_pressed() -> void:
 	if self.config == null:
 		return
+	self.grab_focus.call_deferred()
 	self.pressed.emit( self.config.id )
 
 

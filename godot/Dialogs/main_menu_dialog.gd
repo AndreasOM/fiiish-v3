@@ -120,7 +120,7 @@ func _on_game_mode_pressed() -> void:
 	%GameMode.label = "GameMode: %s" % mode_name
 
 func _on_main_menu_fadeable_container_on_fading_in( duration: float ) -> void:
-	%LeaderBoard.grab_focus.call_deferred()
+#	%LeaderBoard.grab_focus.call_deferred()
 	self.visible = true
 	if duration > 0.0 && self.animation_player != null:
 		self.animation_player.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
@@ -160,4 +160,4 @@ func _on_main_menu_fadeable_container_on_faded_out() -> void:
 
 func _on_main_menu_fadeable_container_on_faded_in() -> void:
 	self.opened()
-	pass
+	%LeaderBoard.grab_focus.call_deferred()

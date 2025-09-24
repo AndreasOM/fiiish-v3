@@ -2,6 +2,7 @@ extends Control
 class_name DialogManager
 
 @export var game: Game = null
+@export var front_dialogs: Control = null
 
 var _dialog_configs: Dictionary = {
 	DialogIds.Id.RESULT_DIALOG: preload("res://Dialogs/result_dialog.tscn"),
@@ -52,7 +53,12 @@ func _instantiate_dialog( id: DialogIds.Id ) -> Dialog:
 	dialog.on_opened.connect( on_dialog_opened )
 	dialog.close( 0.0 )
 	# dialog.override_z_index( 0 )
-	self.add_child( dialog )
+	var z = dialog.z_index
+	if z < 99:
+		self.add_child( dialog )
+	else:
+		if self.front_dialogs != null:
+			self.front_dialogs.add_child( dialog )
 	_dialogs[ id ] = dialog
 	
 	print("DIALOG_MANAGER: dialog instantiated %d -> %s" % [ id, DialogIds.id_to_name( id ) ] )
@@ -77,16 +83,42 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Menu_Cancel"):
-		var last = self._get_last_dialog()
-		if last == null:
-			return
-		last.cancel()
+		var dialogs = self._get_dialogs_front_to_back()
+		for d in dialogs:
+			if d.cancel():
+				return
+#		var last = self._get_last_dialog()
+#		if last == null:
+#			return
+#		last.cancel()
 	elif event.is_action_pressed("Menu_Confirm"):
-		var last = self._get_last_dialog()
-		if last == null:
-			return
-		last.confirm()
+		var dialogs = self._get_dialogs_front_to_back()
+		for d in dialogs:
+			if d.confirm():
+				return
+#		var last = self._get_last_dialog()
+#		if last == null:
+#			return
+#		last.confirm()
 		
+func _get_dialogs_front_to_back() -> Array[ Dialog ]:
+	var dialogs: Array[ Dialog ] = []
+
+	for c in self.get_children():
+		var d = c as Dialog
+		if d == null:
+			continue
+		dialogs.push_front( d )
+		
+	if self.front_dialogs != null:
+		for c in self.front_dialogs.get_children():
+			var d = c as Dialog
+			if d == null:
+				continue
+			dialogs.push_front( d )
+	
+	return dialogs
+	
 func _get_last_dialog() -> Dialog:
 	var last = null
 	for c in self.get_children():
@@ -94,6 +126,13 @@ func _get_last_dialog() -> Dialog:
 		if d == null:
 			continue
 		last = d
+		
+	if self.front_dialogs != null:
+		for c in self.front_dialogs.get_children():
+			var d = c as Dialog
+			if d == null:
+				continue
+			last = d
 		
 	return last
 	
@@ -103,10 +142,13 @@ func on_dialog_closing( dialog: Dialog ) -> void:
 func on_dialog_closed( dialog: Dialog ) -> void:
 	print( "DIALOG_MANAGER: on_dialog_closed %s" % dialog.name )
 	dialog.visible = false
-	if dialog.get_parent_control() == self:
+	var parent = dialog.get_parent_control()
+	if parent == self:
 		self.remove_child( dialog )
+	elif parent == self.front_dialogs:
+		self.front_dialogs.remove_child( dialog )
 	else:
-		print("WARN: dialog is not a child of DialogManager")
+		print("WARN: dialog is neither a child of DialogManager nor of front_dialogs")
 	var id = _dialogs.find_key( dialog )
 	if id != null:
 		_dialogs.erase( id )

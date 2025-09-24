@@ -248,45 +248,6 @@ label_settings = SubResource("LabelSettings_gt3je")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PauseOverlay" type="Control" parent="UI"]
-process_mode = 3
-visible = false
-z_index = 8
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-script = ExtResource("8_hibaj")
-
-[node name="FadeableContainer" type="PanelContainer" parent="UI/PauseOverlay"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("9_ee4r6")
-metadata/_custom_type_script = "uid://ckhevounoe7f4"
-
-[node name="ColorRect" type="ColorRect" parent="UI/PauseOverlay/FadeableContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-color = Color(0.08, 0.08, 0.08, 0.819608)
-
-[node name="TextureRect" type="TextureRect" parent="UI/PauseOverlay/FadeableContainer"]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("10_ee4r6")
-stretch_mode = 6
-
 [node name="DebugUI" parent="UI" node_paths=PackedStringArray("game") instance=ExtResource("2_3lm13")]
 process_mode = 3
 visible = false
@@ -295,7 +256,7 @@ offset_right = -1482.0
 size_flags_vertical = 10
 game = NodePath("../../Game")
 
-[node name="DialogManager" type="Control" parent="UI" node_paths=PackedStringArray("game")]
+[node name="DialogManager" type="Control" parent="UI" node_paths=PackedStringArray("game", "front_dialogs")]
 unique_name_in_owner = true
 process_mode = 3
 z_index = 10
@@ -308,6 +269,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("25_xncef")
 game = NodePath("../../Game")
+front_dialogs = NodePath("../FrontDialogs")
 metadata/_custom_type_script = "uid://l0esgnhelws0"
 
 [node name="LeaderboardDialogHardCoded" parent="UI/DialogManager" instance=ExtResource("14_h1bgf")]
@@ -341,6 +303,53 @@ layout_mode = 1
 [node name="KidsModeEnableDialog" parent="UI/DialogManager" instance=ExtResource("20_gt3je")]
 visible = false
 layout_mode = 1
+
+[node name="PauseOverlay" type="Control" parent="UI"]
+process_mode = 3
+z_index = 99
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("8_hibaj")
+
+[node name="FadeableContainer" type="PanelContainer" parent="UI/PauseOverlay"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9_ee4r6")
+metadata/_custom_type_script = "uid://ckhevounoe7f4"
+
+[node name="ColorRect" type="ColorRect" parent="UI/PauseOverlay/FadeableContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.08, 0.08, 0.08, 0.819608)
+
+[node name="TextureRect" type="TextureRect" parent="UI/PauseOverlay/FadeableContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_ee4r6")
+stretch_mode = 6
+
+[node name="FrontDialogs" type="Control" parent="UI"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="Node2D" type="Node2D" parent="UI"]
 

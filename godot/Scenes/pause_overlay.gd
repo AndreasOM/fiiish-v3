@@ -8,7 +8,9 @@ func _ready() -> void:
 func _on_game_paused( is_paused: bool ) -> void:
 	if is_paused:
 		self.visible = true
+		self.mouse_filter = Control.MOUSE_FILTER_STOP
 		%FadeableContainer.fade_in( 0.3 )
 	else:
 		# self.visible = false
+		self.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		%FadeableContainer.fade_out( 0.3 )

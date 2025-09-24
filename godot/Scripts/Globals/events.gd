@@ -5,7 +5,7 @@ signal zone_changed
 signal zone_finished
 signal settings_changed
 signal cheats_changed
-signal game_paused
+signal game_paused( is_paused: bool )
 
 signal zone_edit_enabled
 signal zone_edit_disabled

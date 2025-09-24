@@ -68,6 +68,14 @@ func _ready() -> void:
 	bestDistanceResultRow.clear()
 	totalDistanceResultRow.clear()
 	Events.dialog_closed.connect( _on_dialog_closed )
+	Events.game_paused.connect( _on_game_paused )
+
+func _on_game_paused( is_paused: bool ) -> void:
+	return
+#	if is_paused:
+#		pass
+#	else:
+#		self.play_button.grab_focus.call_deferred()
 
 func _on_dialog_closed( id: DialogIds.Id ) -> void:
 	match id:
@@ -84,6 +92,12 @@ func set_game( g: Game) -> void:
 	self.game = g
 
 func _process(_delta: float) -> void:
+	if !Engine.is_editor_hint():
+		var focus = get_viewport().gui_get_focus_owner()
+		if focus == null:
+			print("No focus!")
+			self.play_button.grab_focus.call_deferred()
+
 	var total_coins = _start_coins + self.anim_coin_percentage * _new_coins
 	coinsResultRow.set_total( "%d" % total_coins )
 	var current_coins = ( 1.0 - self.anim_coin_percentage ) * _new_coins

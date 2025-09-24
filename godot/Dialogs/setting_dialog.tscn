@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://8r8p5v2ajdvy" path="res://Textures/UI/Buttons/button_kidsmode.png" id="12_ur55y"]
 
 [node name="SettingDialog" type="Control" node_paths=PackedStringArray("musicToggleButton", "soundToggleButton", "mainMenuToggleButton")]
+z_index = 102
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

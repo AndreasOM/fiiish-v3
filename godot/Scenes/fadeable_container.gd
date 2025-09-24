@@ -96,3 +96,17 @@ func fade_out( duration: float) -> void:
 		on_fading_out.emit( duration )
 		on_faded_out.emit()
 	
+
+
+func _on_focus_entered() -> void:
+	if self.get_child_count() <= 0:
+		return
+	
+	var first_child = self.get_child( 0 )
+
+	var c := first_child as Control
+
+	if c == null:
+		return
+
+	c.grab_focus.call_deferred()

@@ -4,6 +4,9 @@ extends Dialog
 #@export var game: Game = null
 @export var fade_time: float = 0.3
 @onready var exit_button_fadeable: FadeableContainer = %ExitButtonFadeable
+@onready var pause_toggle_button: ToggleButtonContainer = %PauseToggleButton
+
+var _focus_before_pause: Control = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +20,7 @@ func _ready() -> void:
 	Events.zone_changed.connect( _on_zone_changed )
 	Events.game_state_changed.connect( _on_game_state_changed )
 	Events.settings_changed.connect( _on_settings_changed )
+	Events.dialog_opened.connect( _on_dialog_opened )
 #	Events.zone_test_enabled.connect( _on_zone_test_enabled )
 #	Events.zone_test_disabled.connect( _on_zone_test_disabled )
 
@@ -85,12 +89,28 @@ func toggle_pause() -> void:
 	if self._dialog_manager.game !=	null:
 		var is_paused = self._dialog_manager.game.toogle_pause()
 		if is_paused:
-			%PauseToggleButton.goto_b()
+			self._focus_before_pause = get_viewport().gui_get_focus_owner()
+			if self._focus_before_pause != null:
+				print("focus was: %s" % self._focus_before_pause.name)
+			else:
+				print("no focus")
+			
+			self.pause_toggle_button.goto_b()
 			# Events.broadcast_global_message("Pause -> Paused")
+			self.pause_toggle_button.grab_focus.call_deferred()
 		else:
-			%PauseToggleButton.goto_a()
+			self.pause_toggle_button.goto_a()
 			# Events.broadcast_global_message("Pause -> Resumed")
 			self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
+			# self.pause_toggle_button.grab_focus.call_deferred()
+			
+			if self._focus_before_pause != null:
+				print("focus to: %s" % self._focus_before_pause.name)
+				self._focus_before_pause.grab_focus.call_deferred()
+				self._focus_before_pause = null
+			else:
+				print("Focus: release focus")
+				get_viewport().gui_release_focus.call_deferred()
 		self._update_settings_button()
 			
 func _on_settings_button_pressed() -> void:
@@ -100,6 +120,9 @@ func _on_settings_button_pressed() -> void:
 	self._dialog_manager.toggle_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 
 func _on_pause_toggle_button_toggled( _state: ToggleButtonContainer.ToggleState ) -> void:
+	toggle_pause()
+	
+func _on_pause_toggle_button_toggle_requested(state: ToggleButtonContainer.ToggleState) -> void:
 	toggle_pause()
 	
 func _on_zone_changed( _zone ) -> void:
@@ -113,6 +136,13 @@ func _on_game_state_changed( state: Game.State ) -> void:
 func _on_main_menu_button_pressed() -> void:
 	print("Toggle main menu")
 	self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
+	self._resume_if_paused()
+
+func _resume_if_paused() -> void:
+	if self._dialog_manager.game !=	null:
+		var is_paused = self._dialog_manager.game.is_paused()
+		if is_paused:
+			self.toggle_pause()
 
 func _on_settings_changed() -> void:
 	if !self.visible:
@@ -161,3 +191,14 @@ func _update_main_menu_button( state: Game.State ) -> void:
 
 func _on_exit_button_pressed() -> void:
 	self._dialog_manager.game.goto_zone_editor()
+
+
+func _on_pause_toggle_button_focus_entered() -> void:
+	pass # Replace with function body.
+
+func _on_dialog_opened( id: DialogIds.Id ) -> void:
+	match id:
+		DialogIds.Id.MAIN_MENU_DIALOG:
+			self._resume_if_paused()
+		_:
+			pass

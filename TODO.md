@@ -232,6 +232,8 @@
 - [x] Add keyboard/gamepad navigation to LeaderboardDialog
 - [x] Improve CancelConfirmDialog handling
 - [x] Fix (visual) rounding bug in SkillUpgradeItem
+- [x] Add keyboard/gamepad navigation to InGamePauseMenu
+- [x] Split Dialogs into front and back (split by PauseOverlay)
 
 ### 2025-09-23
 #### S06E20
