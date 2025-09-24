@@ -13,6 +13,26 @@ var _selected_achievement_id: String = ""
 func _ready() -> void:
 	Events.achievement_completed.connect( _on_achievement_completed )
 	
+func grab_focus_for_achievement() -> void:
+	if self._selected_achievement_id == null:
+		return
+		
+	var ab = self._find_achievement_button_by_id( self._selected_achievement_id )
+	if ab == null:
+		return
+		
+	ab.grab_focus.call_deferred()
+	
+func _find_achievement_button_by_id( id: String ) -> AchievementButton:
+	for c in self.achievement_container.get_children():
+		var ab = c as AchievementButton
+		if ab == null:
+			continue
+		if ab.config.id == id:
+			return ab
+	
+	return null
+	
 func recreate_achievements() -> void:
 	var achievement_config_manager = self.game_manager.game.achievement_config_manager
 	var achievement_manager = self.game_manager.game.achievement_manager
@@ -25,8 +45,14 @@ func recreate_achievements() -> void:
 	
 	if self._selected_achievement_id.is_empty():
 		if !keys.is_empty():
-			self._on_achievement_selected( keys[ 0 ] )
+			self._selected_achievement_id = keys[ 0 ]
+			# self._on_achievement_selected( keys[ 0 ] )
 			
+	var colums = self.achievement_container.columns
+	var i = 0
+	
+	var last_ab: AchievementButton = null
+	
 	for id in keys:
 		var ac = achievement_config_manager.get_config( id )
 		if ac == null:
@@ -46,7 +72,21 @@ func recreate_achievements() -> void:
 		ab.state = s
 		ab.selected = id == self._selected_achievement_id
 		ab.pressed.connect( _on_achievement_selected )
+		if i < colums:
+			ab.disable_up_focus()
 		self.achievement_container.add_child( ab )
+		ab.set_left_focus( last_ab )
+		ab.set_prev_focus( last_ab )
+		if last_ab != null:
+			last_ab.set_right_focus( ab )
+			last_ab.set_next_focus( ab )
+			
+		last_ab = ab
+		i += 1
+	
+	if last_ab != null:
+		last_ab.set_next_focus( null )
+		last_ab.set_right_focus( null )
 	
 func update_achievements() -> void:
 	var achievement_config_manager = self.game_manager.game.achievement_config_manager
@@ -96,3 +136,10 @@ func _on_achievement_element_view_collect_pressed(id: String) -> void:
 	var s = achievement_manager.get_achievement_state( id )
 	self.achievement_element_view.set_state( s )
 	# self.achievement_element_view.set_state( AchievementStates.State.COLLECTED )
+
+func collect_selected_achievement() -> bool:
+	if self._selected_achievement_id == "":
+		return false
+	self._on_achievement_element_view_collect_pressed( self._selected_achievement_id )
+	return true
+	

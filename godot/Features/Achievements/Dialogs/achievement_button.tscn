@@ -10,6 +10,7 @@ layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 2
 script = ExtResource("1_pvvg2")
 state = 1
 selected = true
@@ -27,6 +28,9 @@ texture = ExtResource("2_l4usc")
 [node name="TextureButton" type="TextureButton" parent="CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 texture_normal = ExtResource("1_hj7rr")
 
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="pressed" from="CenterContainer/TextureButton" to="." method="_on_texture_button_pressed"]

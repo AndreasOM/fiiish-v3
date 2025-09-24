@@ -18,6 +18,10 @@ func cancel() -> bool:
 	self.close( 0.3 )
 	return true
 
+func confirm() -> bool:
+	self.achievement_view.collect_selected_achievement()
+	return true
+	
 func close( duration: float) -> void:
 	fade_out( duration )
 
@@ -26,6 +30,7 @@ func open( duration: float) -> void:
 	# :HACK:
 	game.sync_achievements_with_player( game.get_player() )
 	self.achievement_view.recreate_achievements()
+	self.achievement_view.grab_focus_for_achievement()
 	fade_in( duration )
 
 func fade_out( duration: float ) -> void:

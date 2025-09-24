@@ -29,6 +29,38 @@ func set_selected( s: bool ) -> void:
 	selected = s
 	self._update()
 	
+func disable_up_focus() -> void:
+	self.focus_neighbor_top = NodePath(".")
+
+func set_right_focus( n: Node ) -> void:
+	var p = NodePath(".")
+	if n != null:
+		p = self.get_path_to( n )
+		
+	self.focus_neighbor_right = p
+
+func set_left_focus( n: Node ) -> void:
+	var p = NodePath(".")
+	if n != null:
+		p = self.get_path_to( n )
+		
+	self.focus_neighbor_left = p
+
+func set_next_focus( n: Node ) -> void:
+	var p = NodePath(".")
+	if n != null:
+		p = self.get_path_to( n )
+		
+	self.focus_next = p
+
+func set_prev_focus( n: Node ) -> void:
+	var p = NodePath(".")
+	if n != null:
+		p = self.get_path_to( n )
+		
+	self.focus_previous = p
+	
+
 func _animate_completed() -> void:
 	if self._tween != null:
 		self._tween.kill()
@@ -118,3 +150,13 @@ func _on_texture_button_pressed() -> void:
 	if self.config == null:
 		return
 	self.pressed.emit( self.config.id )
+
+
+func _on_focus_entered() -> void:
+	self.set_selected( true )
+	if self.config != null:
+		self.pressed.emit( self.config.id )
+
+
+func _on_focus_exited() -> void:
+	self.set_selected( false )

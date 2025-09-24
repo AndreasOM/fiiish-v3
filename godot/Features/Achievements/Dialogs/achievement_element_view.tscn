@@ -59,8 +59,8 @@ size_flags_horizontal = 8
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"LabelIcon"
-text = "[Demo]"
+theme_type_variation = &"LabelSmall"
+text = "Disabled in Demo"
 
 [node name="SkillAchievmentRewardElement" parent="HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_fm68y")]
 unique_name_in_owner = true
@@ -85,6 +85,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+focus_mode = 0
 texture_normal = ExtResource("3_poxhq")
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/CollectTextureButton"]
