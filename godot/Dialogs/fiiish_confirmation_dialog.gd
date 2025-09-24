@@ -14,6 +14,10 @@ signal cancelled
 @onready var description_label: RichTextLabel = %DescriptionLabel
 
 @export var mode: Mode = Mode.NONE : set = set_mode
+@onready var cancel_texture_button: TextureButton = %CancelTextureButton
+@onready var confirm_texture_button: TextureButton = %ConfirmTextureButton
+
+var _grabbed_initial_focus: bool = false
 
 func _ready() -> void:
 	self._update_buttons()
@@ -30,6 +34,11 @@ func cancel() -> bool:
 			cancellable = true
 		Mode.CANCEL_CONFIRM:
 			cancellable = true
+		# yes, confirm only dialogs can be confirmed via cancel
+		Mode.CONFIRM:
+			self.confirmed.emit()
+			self.close( 0.3 )
+			return true
 			
 	if cancellable:
 		self.cancelled.emit()
@@ -44,7 +53,7 @@ func confirm() -> bool:
 		Mode.CONFIRM:
 			confirmable = true
 		Mode.CANCEL_CONFIRM:
-			confirmable = true
+			confirmable = false # true
 			
 	if confirmable:
 		self.confirmed.emit()
@@ -86,19 +95,22 @@ func set_mode( _mode: Mode):
 	self._update_buttons()
 		
 func _update_buttons() -> void:
-	if %CancelTextureButton == null:
+	if self.cancel_texture_button == null:
 		return
-	if %ConfirmTextureButton == null:
+	if self.confirm_texture_button == null:
 		return
 		
 	match self.mode:
 		Mode.CANCEL:
-			%CancelTextureButton.visible = true
-			%ConfirmTextureButton.visible = false
+			self.cancel_texture_button.visible = true
+			self.confirm_texture_button.visible = false
 		Mode.CONFIRM:
-			%CancelTextureButton.visible = false
-			%ConfirmTextureButton.visible = true
+			self.cancel_texture_button.visible = false
+			self.confirm_texture_button.visible = true
 		Mode.CANCEL_CONFIRM:
-			%CancelTextureButton.visible = true
-			%ConfirmTextureButton.visible = true
+			self.cancel_texture_button.visible = true
+			self.confirm_texture_button.visible = true
+			if !self._grabbed_initial_focus:
+				self._grabbed_initial_focus = true
+				self.cancel_texture_button.grab_focus.call_deferred()
 	

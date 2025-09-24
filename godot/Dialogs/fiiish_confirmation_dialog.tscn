@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjc34mirtiy0w"]
+[gd_scene load_steps=8 format=3 uid="uid://bjc34mirtiy0w"]
 
 [ext_resource type="Script" uid="uid://by01jraxw5v61" path="res://Dialogs/fiiish_confirmation_dialog.gd" id="1_3nvp5"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_2c3hr"]
 [ext_resource type="Texture2D" uid="uid://cymc0ea0o55th" path="res://Textures/UI/confirmation_frame_v3.png" id="3_f3ec8"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="4_1dldt"]
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_8dk8x"]
+[ext_resource type="Texture2D" uid="uid://8lsk8v1mw6ic" path="res://Textures/UI/Buttons/button_cross_focused.png" id="5_te4vn"]
+[ext_resource type="Texture2D" uid="uid://8ohxv6lr06dr" path="res://Textures/UI/Buttons/button_play_focused.png" id="7_k3hrd"]
 
 [node name="FiiishConfirmationDialog" type="Control"]
 z_index = 20
@@ -77,13 +79,27 @@ size_flags_vertical = 10
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../ConfirmTextureButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../ConfirmTextureButton")
+focus_previous = NodePath(".")
 texture_normal = ExtResource("4_1dldt")
+texture_focused = ExtResource("5_te4vn")
 
 [node name="ConfirmTextureButton" type="TextureButton" parent="FadeableContainer/TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
+focus_neighbor_left = NodePath("../CancelTextureButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../CancelTextureButton")
 texture_normal = ExtResource("5_8dk8x")
+texture_focused = ExtResource("7_k3hrd")
 
 [connection signal="on_faded_in" from="FadeableContainer" to="." method="_on_faded_in"]
 [connection signal="on_faded_out" from="FadeableContainer" to="." method="_on_faded_out"]

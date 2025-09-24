@@ -6,6 +6,7 @@ extends Dialog
 @export var buy_skill_points_disabled_texture_focused: Texture2D = null
 
 @onready var buy_skill_points_button: TextureButton = %BuySkillPointsButton
+@onready var reset_skill_points_button: TextureButton = %ResetSkillPointsButton
 
 var _buy_skill_points_texture_focused: Texture2D = null
 var _skill_upgrade_item_scene = preload("res://Dialogs/SkillUpgradeElements/SkillUpgradeItem.tscn")
@@ -82,6 +83,17 @@ func _update_coins() -> void:
 	%CoinsLabel.text = "%d" % sp
 
 	
+func _focus_last_focused_skill() -> void:
+	var p = %SkillUpgradeItemContainer
+	var prev: SkillUpgradeItemButton = null
+	for c in p.get_children():
+		var sui = c as SkillUpgradeItem
+		if sui == null:
+			continue
+		if sui.skill_id == self._last_focused_skill_id:
+			sui.grab_focus.call_deferred()
+			return
+
 func _update_skill_upgrade_items() -> void:
 	var player = game.get_player()
 	var scm = game.get_skill_config_manager()
@@ -98,8 +110,8 @@ func _update_skill_upgrade_items() -> void:
 			sui.set_demo_maximum( sc.get_max_demo_level() )
 		var unlock_price = scm.get_skill_price( id, current+1 )
 		sui.unlock_price = unlock_price
-		if id == self._last_focused_skill_id:
-			sui.grab_focus.call_deferred()
+#		if id == self._last_focused_skill_id:
+#			sui.grab_focus.call_deferred()
 		
 	# update focus relationships
 	var p = %SkillUpgradeItemContainer
@@ -138,6 +150,7 @@ func _update_all() -> void:
 	_update_skill_upgrade_items()
 	_update_skill_point_cost()
 	_update_buy_skill_point_button()
+	_focus_last_focused_skill()
 
 func cancel() -> bool:
 	self.close( 0.3 )
@@ -157,6 +170,7 @@ func fade_out( duration: float ) -> void:
 func fade_in( duration: float ) -> void:
 	$FadeableCenterContainer.fade_in( duration )
 	_update_all()
+	self._focus_last_focused_skill()	
 	_prepare_fade_in()
 
 
@@ -239,9 +253,10 @@ func _on_skill_reset_confirmed() -> void:
 	var p = game.get_player()
 	p.reset_skills()
 	_update_all()
+	self.reset_skill_points_button.grab_focus.call_deferred()
 
 func _on_skill_reset_cancelled() -> void:
-	pass
+	self.reset_skill_points_button.grab_focus.call_deferred()
 
 func _on_reset_skill_points_button_pressed() -> void:
 	var d = _dialog_manager.open_dialog( DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG, 0.3 )
@@ -253,6 +268,8 @@ func _on_reset_skill_points_button_pressed() -> void:
 	if cd:
 		cd.cancelled.connect( _on_skill_reset_cancelled )
 		cd.confirmed.connect( _on_skill_reset_confirmed )
+		
+	self._last_focused_skill_id = SkillIds.Id.NONE
 
 func _get_price_for_skill_point( owned_skill_points: int ) -> int:
 	# return 200

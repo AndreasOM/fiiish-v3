@@ -22,9 +22,12 @@ var button = preload("res://Dialogs/SkillUpgradeElements/skill_upgrade_item_butt
 @onready var skill_upgrade_item_h_box_container: HBoxContainer = %SkillUpgradeItemHBoxContainer
 
 var active_button: SkillUpgradeItemButton = null
+var _current_scroll_horizontal: float = 0.0
 
 func _ready() -> void:
 	self.skill_name_label.text = title
+	self._current_scroll_horizontal = float(scroll_container.scroll_horizontal)
+	
 	_create_buttons()
 
 func _create_buttons() -> void:
@@ -52,10 +55,10 @@ func _on_button_pressed( i: int ) -> void:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-#	var tx = 0 + max( 0, current-1 ) * 64 + 32 + 32
-	var tx = 0 + current * 64 + 32 + 32
-	
-	self.scroll_container.scroll_horizontal = lerp( self.scroll_container.scroll_horizontal, tx, 0.08 )
+	var tx = float( 0 + current * 64 + 32 + 32 )
+
+	self._current_scroll_horizontal = lerp( self._current_scroll_horizontal, tx, 0.08 )
+	self.scroll_container.scroll_horizontal = int( self._current_scroll_horizontal )
 
 func _update_states() -> void:
 	var p = self.skill_upgrade_item_h_box_container
