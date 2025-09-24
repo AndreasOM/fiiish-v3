@@ -229,6 +229,7 @@
 - [x] Add focused texture to BuySkillPoints Button when not affordable
 - [x] Improve focused texture for BuySkill Button
 - [x] Add keyboard/gamepad navigation to AchievementDialog
+- [x] Add keyboard/gamepad navigation to LeaderboardDialog
 
 ### 2025-09-23
 #### S06E20

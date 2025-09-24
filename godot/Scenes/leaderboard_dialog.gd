@@ -2,6 +2,7 @@ extends Dialog
 class_name LeaderboardDialog
 
 @onready var shop_frame_title_container: ShopFrameTitleContainer = %ShopFrameTitleContainer
+@onready var coins_texture_button: TextureButton = %CoinsTextureButton
 
 func cancel() -> bool:
 	self.close( 0.3 )
@@ -39,6 +40,8 @@ func _switch_to_leaderboard( type: LeaderboardTypes.Type ) -> void:
 func open( duration: float) -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
 	fade_in( duration )
+	if self.coins_texture_button != null:
+		self.coins_texture_button.grab_focus.call_deferred()
 
 func fade_out( duration: float ) -> void:
 	%FadeablePanelContainer.fade_out( duration )
@@ -64,7 +67,17 @@ func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
 	closing()
 
 func _on_coins_texture_button_pressed() -> void:
-	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
+#	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
+	pass
 
 func _on_distance_texture_button_pressed() -> void:
+#	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_DISTANCE )
+	pass
+
+
+func _on_coins_texture_button_focus_entered() -> void:
+	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
+
+
+func _on_distance_texture_button_focus_entered() -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_DISTANCE )

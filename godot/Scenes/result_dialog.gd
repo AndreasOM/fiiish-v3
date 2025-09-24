@@ -29,6 +29,8 @@ enum AnimationStep {
 @onready var play_h_box_container: HBoxContainer = %PlayHBoxContainer
 @onready var play_button: TextureButton = %PlayButton
 @onready var skill_upgrade_button: TextureButton = %SkillUpgradeButton
+@onready var leaderboard_button: TextureButton = %LeaderboardButton
+@onready var achievement_button: TextureButton = %AchievementButton
 
 var _start_coins: int = 0
 var _new_coins: int = 0
@@ -71,7 +73,10 @@ func _on_dialog_closed( id: DialogIds.Id ) -> void:
 	match id:
 		DialogIds.Id.SKILL_UPGRADE_DIALOG:
 			self.skill_upgrade_button.grab_focus.call_deferred()
-			pass
+		DialogIds.Id.ACHIEVEMENTS_DIALOG:
+			self.achievement_button.grab_focus.call_deferred()
+		DialogIds.Id.LEADERBOARD_DIALOG:
+			self.leaderboard_button.grab_focus.call_deferred()
 		_:
 			pass
 
