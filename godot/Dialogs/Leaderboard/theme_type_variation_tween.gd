@@ -32,7 +32,7 @@ func set_highlighted(
 	)
 		
 	for property in properties:
-		print( property )
+		# print( property )
 		any_tweens = self.tween_property(
 			control,
 			theme,
@@ -122,7 +122,7 @@ func tween_color_property(
 	
 	# var has_color = theme.has_color( "font_color", variation )
 	var colors = theme.get_color_list( variation )
-	print( colors )
+	# print( colors )
 	#var has_color = colors.has( name )
 	#if has_color:
 		#var color = control.get_theme_color( name, variation)
@@ -156,7 +156,7 @@ func tween_constant_property(
 	control.remove_theme_constant_override( name )
 	
 	var constants = theme.get_constant_list( variation )
-	print( constants )
+	# print( constants )
 	#var has_constant = constants.has( name )
 	#if has_constant:
 		#var constant = control.get_theme_constant( name, variation)
@@ -182,7 +182,7 @@ func cleanup(
 	variation_highlighted: StringName,
 	highlighted: bool,
 ) -> void:
-	print("Cleanup")
+	# print("Cleanup")
 	var variation = variation_normal
 	if highlighted:
 		variation = variation_highlighted

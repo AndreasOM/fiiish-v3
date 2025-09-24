@@ -58,7 +58,7 @@ func _ready() -> void:
 func _update() -> void:
 	if self.texture_button == null:
 		return
-	if self.rich_text_label != null:
+	if self.rich_text_label == null:
 		return
 	self.rich_text_label.text = self.label
 	match self.state:

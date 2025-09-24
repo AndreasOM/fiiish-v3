@@ -50,6 +50,7 @@ outline_size = 35
 outline_color = Color(0.038076, 0.0370335, 6.01634e-09, 1)
 
 [node name="Main" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

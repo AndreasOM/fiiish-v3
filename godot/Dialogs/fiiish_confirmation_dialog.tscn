@@ -102,6 +102,7 @@ texture_normal = ExtResource("5_8dk8x")
 texture_focused = ExtResource("7_k3hrd")
 
 [connection signal="on_faded_in" from="FadeableContainer" to="." method="_on_faded_in"]
+[connection signal="on_faded_in" from="FadeableContainer" to="." method="_on_fadeable_container_on_faded_in"]
 [connection signal="on_faded_out" from="FadeableContainer" to="." method="_on_faded_out"]
 [connection signal="on_fading_in" from="FadeableContainer" to="." method="_on_fading_in"]
 [connection signal="on_fading_out" from="FadeableContainer" to="." method="_on_fading_out"]

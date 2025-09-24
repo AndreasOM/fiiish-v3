@@ -114,3 +114,7 @@ func _update_buttons() -> void:
 				self._grabbed_initial_focus = true
 				self.cancel_texture_button.grab_focus.call_deferred()
 	
+
+
+func _on_fadeable_container_on_faded_in() -> void:
+	self.opened()

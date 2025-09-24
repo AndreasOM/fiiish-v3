@@ -59,7 +59,9 @@
 
 
 ## Next
-- [ ] Bug: Fix focus previous handling in ResultScreenDialog
+- [ ] Polish: Fix focus previous handling across the board
+	- [] Bug: Fix focus previous handling in ResultScreenDialog
+
 - [ ] Demo: Add 1 new zone
 - [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
 
@@ -234,6 +236,7 @@
 - [x] Fix (visual) rounding bug in SkillUpgradeItem
 - [x] Add keyboard/gamepad navigation to InGamePauseMenu
 - [x] Split Dialogs into front and back (split by PauseOverlay)
+- [x] Steam: Select correct ActionSet when menus are open
 
 ### 2025-09-23
 #### S06E20

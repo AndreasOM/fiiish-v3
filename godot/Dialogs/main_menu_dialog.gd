@@ -56,7 +56,7 @@ func _update_entries() -> void:
 	
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
-		if steam.isSteamRunning:
+		if steam.isSteamRunning():
 			var steam_id = steam.getSteamID()
 			var developer_ids = [
 				76561199172150142, # andreas OM

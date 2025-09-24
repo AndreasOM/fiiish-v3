@@ -17,6 +17,7 @@ const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.
 var _was_paused_before_focus_was_lost: bool = false
 
 var _steam_input_handles: Dictionary = {}
+var _last_action_set: String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -62,7 +63,7 @@ func _ready() -> void:
 
 	
 	Events.game_state_changed.connect( _on_game_state_changed )
-	
+	Events.game_paused.connect( _on_game_paused )
 	# var lbd = %DialogManager.open_dialog(DialogIds.Id.LEADERBOARD_DIALOG, 0.0)
 	$Game.resume()
 
@@ -197,45 +198,73 @@ func _on_input_device_disconnected( input_handle: int ) -> void:
 	self._steam_input_handles[ input_handle ] = false
 	
 func _update_action_set( state: Game.State ) -> void:
+	const MENU_CONTROLS: String = "MenuControls"
+	const SWIM_CONTROLS: String = "SwimControls"
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
-		if !steam.isSteamRunning():
+		if !steam.isSteamRunning() && false:
 			return
-		var action_set_name = "MenuControls"
+		var action_set_name = MENU_CONTROLS
+		var reason = "default"
 		match state:
 			Game.State.WAITING_FOR_START:
-				action_set_name = "SwimControls"
+				action_set_name = SWIM_CONTROLS
 			Game.State.PREPARING_FOR_START:
-				action_set_name = "SwimControls"
+				action_set_name = SWIM_CONTROLS
 			Game.State.SWIMMING:
-				action_set_name = "SwimControls"
+				action_set_name = SWIM_CONTROLS
+
+		if self.dialog_manager.game.is_paused():
+			action_set_name = MENU_CONTROLS
+			reason = "paused"
+		elif self.dialog_manager.is_dialog_open( DialogIds.Id.MAIN_MENU_DIALOG ):
+			action_set_name = MENU_CONTROLS
+			reason = "main menu"
+		elif self.dialog_manager.is_dialog_open( DialogIds.Id.LEADERBOARD_DIALOG ):
+			action_set_name = MENU_CONTROLS
+			reason = "leaderboard"
+		elif self.dialog_manager.is_dialog_open( DialogIds.Id.ACHIEVEMENTS_DIALOG ):
+			action_set_name = MENU_CONTROLS
+			reason = "achievements"
+		elif self.dialog_manager.is_dialog_open( DialogIds.Id.CREDITS_DIALOG ):
+			action_set_name = MENU_CONTROLS
+			reason = "credits"
+		elif self.dialog_manager.is_dialog_open( DialogIds.Id.ABOUT_DEMO_DIALOG ):
+			action_set_name = MENU_CONTROLS
+			reason = "about demo"
+		elif self.dialog_manager.is_dialog_open( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG ):
+			action_set_name = MENU_CONTROLS
+			reason = "kids mode"
 				
-		if self.dialog_manager.is_dialog_open( DialogIds.Id.MAIN_MENU_DIALOG ):
-			action_set_name = "MenuControls"
-				
-		#var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
-		var action_set_handle = steam.getActionSetHandle( action_set_name )
-		# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
-		#if action_set_handle != 0:
-#		Events.broadcast_global_message("ash %d <- %s" % [ action_set_handle, action_set_name ])
-		for k in self._steam_input_handles.keys():
-			var h = self._steam_input_handles.get( k, false )
-			if h == false:
-				continue
-			steam.activateActionSet( k, action_set_handle )
+		if self._last_action_set != action_set_name:
+			self._last_action_set = action_set_name
+			#var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
+			var action_set_handle = steam.getActionSetHandle( action_set_name )
+			# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
+			#if action_set_handle != 0:
+			Events.broadcast_global_message("ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ])
+			for k in self._steam_input_handles.keys():
+				var h = self._steam_input_handles.get( k, false )
+				if h == false:
+					continue
+				steam.activateActionSet( k, action_set_handle )
 	else:
 		print("Update Action Set without Steam -> do nothing")
 	
 func _on_game_state_changed( state: Game.State ) -> void:
 	self._update_action_set( state )
+	
+func _on_game_paused( is_paused: bool ) -> void:
+	var state = self.game.get_state()
+	self._update_action_set( state )
 
 func _on_dialog_opened( id: DialogIds.Id ) -> void:
-	if id == DialogIds.Id.MAIN_MENU_DIALOG:
+	# if id == DialogIds.Id.MAIN_MENU_DIALOG:
 		var state = self.game.get_state()
 		self._update_action_set( state )
 
 func _on_dialog_closed( id: DialogIds.Id ) -> void:
-	if id == DialogIds.Id.MAIN_MENU_DIALOG:
+	# if id == DialogIds.Id.MAIN_MENU_DIALOG:
 		var state = self.game.get_state()
 		self._update_action_set( state )
 
@@ -427,6 +456,8 @@ func _process(_delta: float) -> void:
 	
 	var pa1 = PerformanceArea.new( "MainProcess" )
 	#PerformanceMonitor.draw( $UI/Performance/Performance2 )
+	var state = self.game.get_state()
+	self._update_action_set( state )
 	PerformanceMonitor.next_frame()
 
 func _on_player_changed( player: Player ) -> void:
