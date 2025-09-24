@@ -35,6 +35,8 @@ enum State {
 signal pressed
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var texture_button: TextureButton = %TextureButton
+@onready var rich_text_label: RichTextLabel = %RichTextLabel
 
 func _set_state( s: State ) -> void:
 	state = s
@@ -42,25 +44,31 @@ func _set_state( s: State ) -> void:
 	
 func _set_label( _label: String ) -> void:
 	label = _label
-	%RichTextLabel.text = self.label
-	
+	self._update()
+
 func _ready() -> void:
 	#print( "Label: %s" % self.label )
-	%RichTextLabel.text = self.label
-	%TextureButton.texture_normal = self.texture_normal
-	%TextureButton.texture_disabled = self.texture_disabled
-	%TextureButton.texture_focused = self.texture_focused
+	self.rich_text_label.text = self.label
+	self.texture_button.texture_normal = self.texture_normal
+	self.texture_button.texture_disabled = self.texture_disabled
+	self.texture_button.texture_focused = self.texture_focused
+	self.texture_button.name = "%sTextureButton" % [ self.label ]
 	self._update()
 
 func _update() -> void:
+	if self.texture_button == null:
+		return
+	if self.rich_text_label != null:
+		return
+	self.rich_text_label.text = self.label
 	match self.state:
 		State.ENABLED:
-			%TextureButton.disabled = false
-			%TextureButton.focus_mode = FocusMode.FOCUS_ALL
+			self.texture_button.disabled = false
+			self.texture_button.focus_mode = FocusMode.FOCUS_ALL
 			self.visible = true
 		State.DISABLED:
-			%TextureButton.disabled = true
-			%TextureButton.focus_mode = FocusMode.FOCUS_NONE
+			self.texture_button.disabled = true
+			self.texture_button.focus_mode = FocusMode.FOCUS_NONE
 			self.visible = true
 		State.HIDDEN:
 			self.visible = false
@@ -70,7 +78,7 @@ func _on_texture_button_pressed() -> void:
 
 
 func _on_focus_entered() -> void:
-	%TextureButton.grab_focus.call_deferred()
+	self.texture_button.grab_focus.call_deferred()
 
 
 func _on_texture_button_focus_entered() -> void:
