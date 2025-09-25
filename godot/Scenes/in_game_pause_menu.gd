@@ -7,6 +7,7 @@ extends Dialog
 @onready var pause_toggle_button: ToggleButtonContainer = %PauseToggleButton
 @onready var music_toggle_button: FiiishUI_ToggleButton = %MusicToggleButton
 @onready var sound_toggle_button: FiiishUI_ToggleButton = %SoundToggleButton
+@onready var settings_button: TextureButton = %SettingsButton
 
 var _focus_before_pause: Control = null
 
@@ -38,9 +39,16 @@ func _ready() -> void:
 	Events.game_state_changed.connect( _on_game_state_changed )
 	Events.settings_changed.connect( _on_settings_changed )
 	Events.dialog_opened.connect( _on_dialog_opened )
+	Events.dialog_closed.connect( _on_dialog_closed )
 #	Events.zone_test_enabled.connect( _on_zone_test_enabled )
 #	Events.zone_test_disabled.connect( _on_zone_test_disabled )
 
+func _on_dialog_closed( id: DialogIds.Id ) -> void:
+	match id:
+		DialogIds.Id.SETTING_DIALOG:
+			self.settings_button.grab_focus.call_deferred()
+		_:
+			pass
 
 func open( duration: float ) -> void:
 	fade_in( duration )

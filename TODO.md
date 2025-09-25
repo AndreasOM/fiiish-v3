@@ -2,8 +2,6 @@
 
 ## In Progress
 
-- [ ] Add keyboard/gamepad support to SettingsDialog
-- [ ] Add keyboard/gamepad support to KidsModeEnableDialog
 
 - [ ] Feature: Clean up UX to allow better gamepad navigation
 	- [ ] Doc:
@@ -92,6 +90,9 @@
 ## Polish & Bugs
 - [ ] Bug: Remove test zone with middle rock! -> Ensure only classic zones are included in classic
 - [ ] Polish: Rebake loading screen with version for local development
+
+## After steam demo
+- [ ] #postponed Add keyboard/gamepad support to KidsModeEnableDialog
 
 ## V3.8.0 (revised) - ETA: 07/11
 
@@ -235,6 +236,8 @@
 - [x] Move Music and Sound toggles into InGamePauseMenu
 - [x] Unified Pause handling for Steam to avoid double toggling
 - [x] Add simple DeveloperOverlay
+- [x] Add keyboard/gamepad support to SettingsDialog
+- [x] Fixed prev (and next) handling
 
 ### 2025-09-24
 #### S06E21

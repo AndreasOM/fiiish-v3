@@ -85,6 +85,7 @@ func fade_out( duration: float ) -> void:
 
 func _on_settings_fadeable_container_on_fading_in( _duration: float ) -> void:
 	opening()
+	self.main_menu_toggle_button.grab_focus.call_deferred()
 
 func _on_settings_fadeable_container_on_faded_in() -> void:
 	opened()

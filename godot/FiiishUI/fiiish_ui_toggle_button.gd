@@ -40,7 +40,32 @@ func _ready() -> void:
 	self.button_a_fadeable_container.fade_in( 0.0 )
 	self.button_b_fadeable_container.fade_out( 0.0 )
 	self._update_textures()
+	self._update_focus()
+	if self.name != "FiiishUI_ToggleButton": #:HACK:
+		self.button_a_texture_button.name = "%s_%s" % [ self.name, self.button_a_texture_button.name ]
+		self.button_b_texture_button.name = "%s_%s" % [ self.name, self.button_b_texture_button.name ]
 
+func _patch_node_path( np: NodePath ) -> NodePath:
+	if np == NodePath():
+		return NodePath()
+		
+	return NodePath( "../../%s" % np )
+	
+func _update_focus() -> void:
+	self.button_a_texture_button
+	self.button_a_texture_button.focus_neighbor_left	= _patch_node_path( self.focus_neighbor_left )
+	self.button_a_texture_button.focus_neighbor_right	= _patch_node_path( self.focus_neighbor_right )
+	self.button_a_texture_button.focus_neighbor_top		= _patch_node_path( self.focus_neighbor_top )
+	self.button_a_texture_button.focus_neighbor_bottom	= _patch_node_path( self.focus_neighbor_bottom )
+	self.button_a_texture_button.focus_next				= _patch_node_path( self.focus_next )
+	self.button_a_texture_button.focus_previous			= _patch_node_path( self.focus_previous )
+	self.button_b_texture_button.focus_neighbor_left	= _patch_node_path( self.focus_neighbor_left )
+	self.button_b_texture_button.focus_neighbor_right	= _patch_node_path( self.focus_neighbor_right )
+	self.button_b_texture_button.focus_neighbor_top		= _patch_node_path( self.focus_neighbor_top )
+	self.button_b_texture_button.focus_neighbor_bottom	= _patch_node_path( self.focus_neighbor_bottom )
+	self.button_b_texture_button.focus_next				= _patch_node_path( self.focus_next )
+	self.button_b_texture_button.focus_previous			= _patch_node_path( self.focus_previous )
+	
 func _update_textures() -> void:
 	if self.button_a_texture_button == null:
 		return

@@ -155,7 +155,7 @@ func _ready() -> void:
 
 func _on_focus_changed(control:Control) -> void:
 	if control != null:
-		print( "Focus: %s" % control.name )
+		print( "Focus: changed to %s" % control.name )
 
 func _copy_res_to_user( res: String, user: String ) -> bool:
 	var src = FileAccess.open( res, FileAccess.READ )
