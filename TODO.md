@@ -238,6 +238,7 @@
 - [x] Add simple DeveloperOverlay
 - [x] Add keyboard/gamepad support to SettingsDialog
 - [x] Fixed prev (and next) handling
+- [x] Steam: Retry input mapping loading on failure
 
 ### 2025-09-24
 #### S06E21

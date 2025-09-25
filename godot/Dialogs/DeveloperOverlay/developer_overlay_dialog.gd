@@ -2,25 +2,42 @@ class_name DeveloperOverlayDialog
 extends Dialog
 
 @onready var debug_rich_text_label: RichTextLabel = %DebugRichTextLabel
+@onready var buttons_rich_text_label: RichTextLabel = %ButtonsRichTextLabel
 
 var _debug_lines: Array[ String ] = []
+var _buttons: Dictionary[ String, bool ] = {}
 
 func _ready() -> void:
 	Events.developer_message.connect( _on_developer_message )
-	pass
 	
 
 func _on_developer_message( msg: DeveloperMessage ) -> void:
 	print( msg )
 	if msg is DeveloperMessageDebug:
 		var dbg = msg as DeveloperMessageDebug
+		print_rich("[color=orange]Debug: %s[/color]" % dbg.text)
 		self._debug_lines.push_back( dbg.text )
 		self._update_debug()
+	elif msg is DeveloperMessageButtonChange:
+		var btn = msg as DeveloperMessageButtonChange
+		# print_rich("[color=orange]Debug: %s[/color]" % msg.to_string())
+		self._buttons[ btn.name ] = btn.pressed
+		self._update_buttons()
 	else:
 		self._debug_lines.push_back( "Unhandled DeveloperMessage %s" % msg.to_string() )
+		print_rich("[color=red]Debug: %s[/color]" % msg.to_string())
 		self._update_debug()
 		pass
 		
+func _update_buttons() -> void:
+	if self.buttons_rich_text_label != null:
+		var button_lines = []
+		for n in self._buttons:
+			var p = self._buttons[ n ]
+			button_lines.push_back( "%d <- %s" % [ int(p), n ])
+		var joined = "\n".join(button_lines)
+		self.buttons_rich_text_label.text = joined
+	
 func _update_debug() -> void:
 	while self._debug_lines.size() > 20:
 		self._debug_lines.pop_front()

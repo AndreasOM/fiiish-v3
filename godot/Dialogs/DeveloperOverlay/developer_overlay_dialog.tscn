@@ -33,7 +33,7 @@ color = Color(0.890196, 0.188235, 1, 0.113725)
 
 [node name="DebugRichTextLabel" type="RichTextLabel" parent="MarginContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(960, 540)
+custom_minimum_size = Vector2(960, 490)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -43,6 +43,27 @@ theme_override_colors/font_outline_color = Color(0.208557, 0.119206, 0.222108, 1
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 32
 text = "Debug"
+scroll_active = false
+scroll_following = true
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="ButtonsRichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 490)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.631373, 0, 1)
+theme_override_colors/font_outline_color = Color(0.208557, 0.119206, 0.222108, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 22
+text = "Buttons
+0 <- Menu_CloseMainMenu
+1 <- MMMMMMMMMMMM
+0 <- IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
 scroll_active = false
 scroll_following = true
 shortcut_keys_enabled = false
