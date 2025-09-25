@@ -1,0 +1,108 @@
+@tool
+
+class_name FiiishUI_ToggleButton
+extends CenterContainer
+
+
+enum ToggleMode {
+	AUTO,
+	REQUEST,
+}
+
+@export var toggle_duration: float = 0.3
+@export var toggle_mode: ToggleMode = ToggleMode.AUTO
+
+@export_group("Textures")
+@export var a_texture_normal: Texture2D = null : set = set_a_texture_normal
+@export var a_texture_focused: Texture2D = null : set = set_a_texture_focused
+@export var b_texture_normal: Texture2D = null : set = set_b_texture_normal
+@export var b_texture_focused: Texture2D = null : set = set_b_texture_focused
+
+@onready var button_a_fadeable_container: FadeableContainer = %ButtonAFadeableContainer
+@onready var button_b_fadeable_container: FadeableContainer = %ButtonBFadeableContainer
+@onready var button_a_texture_button: TextureButton = %ButtonATextureButton
+@onready var button_b_texture_button: TextureButton = %ButtonBTextureButton
+
+enum ToggleState {
+	A,
+	B,
+	None,
+}
+
+var _toggle_state: ToggleState = ToggleState.None
+
+
+signal toggled( state: ToggleState )
+signal toggle_requested( state: ToggleState )
+
+	
+func _ready() -> void:
+	self.button_a_fadeable_container.fade_in( 0.0 )
+	self.button_b_fadeable_container.fade_out( 0.0 )
+	self._update_textures()
+
+func _update_textures() -> void:
+	if self.button_a_texture_button == null:
+		return
+	if self.button_b_texture_button == null:
+		return
+		
+	self.button_a_texture_button.texture_normal = self.a_texture_normal
+	self.button_b_texture_button.texture_normal = self.b_texture_normal
+
+func set_a_texture_normal( t: Texture2D ) -> void:
+	a_texture_normal = t
+	self._update_textures()
+	
+func set_a_texture_focused( t: Texture2D ) -> void:
+	a_texture_focused = t
+	self._update_textures()
+	
+func set_b_texture_normal( t: Texture2D ) -> void:
+	b_texture_normal = t
+	self._update_textures()
+	
+func set_b_texture_focused( t: Texture2D ) -> void:
+	b_texture_focused = t
+	self._update_textures()
+		
+func goto_a() -> void:
+	self.button_a_fadeable_container.fade_in( toggle_duration )
+	self.button_b_fadeable_container.fade_out( toggle_duration )
+	self._toggle_state = ToggleState.A
+
+func goto_b() -> void:
+	self.button_a_fadeable_container.fade_out( toggle_duration )
+	self.button_b_fadeable_container.fade_in( toggle_duration )
+	self._toggle_state = ToggleState.B
+
+func _on_a_pressed() -> void:
+	print("A pressed")
+	match self.toggle_mode:
+		ToggleMode.AUTO:
+			goto_b()
+			self.button_b_fadeable_container.grab_focus.call_deferred()
+			toggled.emit(ToggleState.B)
+		ToggleMode.REQUEST:
+			self.toggle_requested.emit( ToggleState.A )
+
+func _on_b_pressed() -> void:
+	print("B pressed")
+	match self.toggle_mode:
+		ToggleMode.AUTO:
+			goto_a()
+			self.button_a_fadeable_container.grab_focus.call_deferred()
+			toggled.emit(ToggleState.A)
+		ToggleMode.REQUEST:
+			self.toggle_requested.emit( ToggleState.A )
+			
+
+
+func _on_focus_entered() -> void:
+	match self._toggle_state:
+		ToggleState.A:
+			if self.button_a.focus_mode != FocusMode.FOCUS_NONE:
+				self.button_a.grab_focus.call_deferred()
+		ToggleState.B:
+			if self.button_b.focus_mode != FocusMode.FOCUS_NONE:
+				self.button_b.grab_focus.call_deferred()

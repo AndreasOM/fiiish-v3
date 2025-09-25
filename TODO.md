@@ -2,6 +2,10 @@
 
 ## In Progress
 
+- [ ] Move Music and Sound toggles into InGamePauseMenu
+- [ ] Add keyboard/gamepad support to SettingsDialog
+- [ ] Add keyboard/gamepad support to KidsModeEnableDialog
+
 - [ ] Feature: Clean up UX to allow better gamepad navigation
 	- [ ] Doc:
 		- Old: (as of 2025-09-22)
@@ -226,8 +230,12 @@
 
 ## Done
 
-### 2025-09-23
-#### S06E20
+### 2025-09-25
+#### S06E22
+- [x] Extract FiiishUI_ToggleButton and use it in SettingsDialog
+
+### 2025-09-24
+#### S06E21
 - [x] Add focused texture to BuySkillPoints Button when not affordable
 - [x] Improve focused texture for BuySkill Button
 - [x] Add keyboard/gamepad navigation to AchievementDialog

@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq0ysi1s3ojq4"]
+
+[ext_resource type="Script" uid="uid://y8jg3njn4u75" path="res://FiiishUI/fiiish_ui_toggle_button.gd" id="1_nipol"]
+[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_k17ww"]
+
+[node name="FiiishUI_ToggleButton" type="CenterContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_nipol")
+
+[node name="ButtonAFadeableContainer" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+script = ExtResource("2_k17ww")
+
+[node name="ButtonATextureButton" type="TextureButton" parent="ButtonAFadeableContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ButtonBFadeableContainer" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_k17ww")
+
+[node name="ButtonBTextureButton" type="TextureButton" parent="ButtonBFadeableContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="ButtonAFadeableContainer/ButtonATextureButton" to="." method="_on_a_pressed"]
+[connection signal="pressed" from="ButtonBFadeableContainer/ButtonBTextureButton" to="." method="_on_b_pressed"]

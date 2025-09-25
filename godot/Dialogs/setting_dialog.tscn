@@ -3,17 +3,17 @@
 [ext_resource type="Script" uid="uid://bosdiehbfaaxv" path="res://Scripts/setting_dialog.gd" id="1_ltbb1"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_vurtc"]
 [ext_resource type="Texture2D" uid="uid://jmkymvkmoqku" path="res://Textures/UI/screen_frame_2.png" id="3_rxvfp"]
-[ext_resource type="Script" uid="uid://r7if1ed85xhv" path="res://Scenes/toggle_button_container.gd" id="4_ga2un"]
+[ext_resource type="PackedScene" uid="uid://dq0ysi1s3ojq4" path="res://FiiishUI/fiiish_ui_toggle_button.tscn" id="4_84on1"]
 [ext_resource type="Texture2D" uid="uid://mldyaktoiolg" path="res://Textures/UI/Buttons/button_music_on.png" id="5_wxbur"]
 [ext_resource type="Texture2D" uid="uid://60y7knc4t6sk" path="res://Textures/UI/Buttons/button_music_off.png" id="6_v38ss"]
 [ext_resource type="Texture2D" uid="uid://cglln6ar6xm5y" path="res://Textures/UI/Buttons/button_sound_on.png" id="7_ly575"]
-[ext_resource type="Script" uid="uid://by02nscmryiau" path="res://Scenes/dummy_sound_texture_button.gd" id="8_xih51"]
 [ext_resource type="Texture2D" uid="uid://km1hnehrn0d4" path="res://Textures/UI/Buttons/button_sound_off.png" id="9_12tk5"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="10_awus1"]
+[ext_resource type="Texture2D" uid="uid://c24y33ueb1q0l" path="res://Textures/UI/Buttons/button_main_menu_focused.png" id="10_vkfyo"]
 [ext_resource type="Texture2D" uid="uid://b4wvrvfvm1bif" path="res://Textures/UI/Buttons/button_main_menu_off.png" id="11_84on1"]
 [ext_resource type="Texture2D" uid="uid://8r8p5v2ajdvy" path="res://Textures/UI/Buttons/button_kidsmode.png" id="12_ur55y"]
 
-[node name="SettingDialog" type="Control" node_paths=PackedStringArray("musicToggleButton", "soundToggleButton", "mainMenuToggleButton")]
+[node name="SettingDialog" type="Control"]
 z_index = 102
 layout_mode = 3
 anchors_preset = 8
@@ -30,9 +30,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_ltbb1")
-musicToggleButton = NodePath("SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer")
-soundToggleButton = NodePath("SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer")
-mainMenuToggleButton = NodePath("SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer")
 descriptionFile = "res://Resources/description.txt"
 descriptionDemoFile = "res://Resources/description_demo.txt"
 descriptionClassicFile = "res://Resources/description_classic.txt"
@@ -105,76 +102,24 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="MusicToggleButtonContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="MusicToggleButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer" instance=ExtResource("4_84on1")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("4_ga2un")
+a_texture_normal = ExtResource("5_wxbur")
+b_texture_normal = ExtResource("6_v38ss")
 
-[node name="MusicOnFadeableContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer"]
+[node name="SoundToggleButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer" instance=ExtResource("4_84on1")]
+unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 0
-script = ExtResource("2_vurtc")
+a_texture_normal = ExtResource("7_ly575")
+b_texture_normal = ExtResource("9_12tk5")
 
-[node name="MusicOnTextureButton" type="TextureButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOnFadeableContainer"]
+[node name="MainMenuToggleButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer" instance=ExtResource("4_84on1")]
+unique_name_in_owner = true
 layout_mode = 2
-texture_normal = ExtResource("5_wxbur")
-
-[node name="MusicOffFadeableContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer"]
-layout_mode = 2
-script = ExtResource("2_vurtc")
-
-[node name="MusicOffTextureButton" type="TextureButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOffFadeableContainer"]
-layout_mode = 2
-texture_normal = ExtResource("6_v38ss")
-
-[node name="DummySoundTextureButton" type="TextureButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("7_ly575")
-script = ExtResource("8_xih51")
-
-[node name="SoundToggleButtonContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
-layout_mode = 2
-script = ExtResource("4_ga2un")
-
-[node name="SoundOnFadeableContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer"]
-layout_mode = 2
-script = ExtResource("2_vurtc")
-
-[node name="SoundOnTextureButton" type="TextureButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOnFadeableContainer"]
-layout_mode = 2
-texture_normal = ExtResource("7_ly575")
-
-[node name="SoundOffFadeableContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer"]
-layout_mode = 2
-script = ExtResource("2_vurtc")
-
-[node name="SoundOffTextureButton" type="TextureButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer"]
-layout_mode = 2
-texture_normal = ExtResource("9_12tk5")
-
-[node name="MainMenuToggleButtonContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
-layout_mode = 2
-script = ExtResource("4_ga2un")
-
-[node name="MainMenuOnFadeableContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer"]
-layout_mode = 2
-script = ExtResource("2_vurtc")
-
-[node name="MainMenuOnTextureButton" type="TextureButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer/MainMenuOnFadeableContainer"]
-layout_mode = 2
-texture_normal = ExtResource("10_awus1")
-
-[node name="MainMenuFadeableContainer" type="CenterContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer"]
-layout_mode = 2
-script = ExtResource("2_vurtc")
-
-[node name="MainMenuTextureButton" type="TextureButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer/MainMenuFadeableContainer"]
-layout_mode = 2
-texture_normal = ExtResource("11_84on1")
+a_texture_normal = ExtResource("10_awus1")
+a_texture_focused = ExtResource("10_vkfyo")
+b_texture_normal = ExtResource("11_84on1")
 
 [node name="KidsModeTextureButton" type="TextureButton" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
@@ -184,14 +129,7 @@ texture_normal = ExtResource("12_ur55y")
 [connection signal="on_faded_out" from="SettingsFadeableContainer" to="." method="_on_settings_fadeable_container_on_faded_out"]
 [connection signal="on_fading_in" from="SettingsFadeableContainer" to="." method="_on_settings_fadeable_container_on_fading_in"]
 [connection signal="on_fading_out" from="SettingsFadeableContainer" to="." method="_on_settings_fadeable_container_on_fading_out"]
-[connection signal="toggled" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" to="." method="_on_music_toggle_button_container_toggled"]
-[connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOnFadeableContainer/MusicOnTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" method="_on_a_pressed"]
-[connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer/MusicOffFadeableContainer/MusicOffTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButtonContainer" method="_on_b_pressed"]
-[connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/DummySoundTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/DummySoundTextureButton" method="_on_pressed"]
-[connection signal="toggled" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" to="." method="_on_sound_toggle_button_container_toggled"]
-[connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOnFadeableContainer/SoundOnTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_a_pressed"]
-[connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer/SoundOffFadeableContainer/SoundOffTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButtonContainer" method="_on_b_pressed"]
-[connection signal="toggled" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer" to="." method="_on_main_menu_toggle_button_container_toggled"]
-[connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer/MainMenuOnFadeableContainer/MainMenuOnTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer" method="_on_a_pressed"]
-[connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer/MainMenuFadeableContainer/MainMenuTextureButton" to="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButtonContainer" method="_on_b_pressed"]
+[connection signal="toggled" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MusicToggleButton" to="." method="_on_music_toggle_button_container_toggled"]
+[connection signal="toggled" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/SoundToggleButton" to="." method="_on_sound_toggle_button_container_toggled"]
+[connection signal="toggled" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/MainMenuToggleButton" to="." method="_on_main_menu_toggle_button_container_toggled"]
 [connection signal="pressed" from="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2/HBoxContainer/KidsModeTextureButton" to="." method="_on_kids_mode_texture_button_pressed"]
