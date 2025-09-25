@@ -7,29 +7,17 @@ extends Dialog
 @export var descriptionClassicDemoFile: String
 @export var versionFile: String
 @onready var settings_info_rich_text_label: RichTextLabel = %SettingsInfoRichTextLabel
-@onready var music_toggle_button: FiiishUI_ToggleButton = %MusicToggleButton
-@onready var sound_toggle_button: FiiishUI_ToggleButton = %SoundToggleButton
 @onready var main_menu_toggle_button: FiiishUI_ToggleButton = %MainMenuToggleButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("SettingDialog - _ready()")
-	var settings = game.get_settings()
-	if settings.is_music_enabled():
-		music_toggle_button.goto_a()
-	else:
-		music_toggle_button.goto_b()
-
-	if settings.is_sound_enabled():
-		sound_toggle_button.goto_a()
-	else:
-		sound_toggle_button.goto_b()
 
 	var player = game.get_player()
 	if player.is_main_menu_enabled():
-		sound_toggle_button.goto_a()
+		main_menu_toggle_button.goto_a()
 	else:
-		sound_toggle_button.goto_b()
+		main_menu_toggle_button.goto_b()
 
 	var desc = ""		
 	if FeatureTags.has_feature("classic"):
@@ -70,27 +58,6 @@ func set_game( g: Game) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
-
-
-func _on_music_toggle_button_container_toggled(state: ToggleButtonContainer.ToggleState) -> void:
-	match state:
-		ToggleButtonContainer.ToggleState.A:
-			print("Music toggle to A")
-			game.enable_music()
-			
-		ToggleButtonContainer.ToggleState.B:
-			print("Music toggle to B")
-			game.disable_music()
-
-func _on_sound_toggle_button_container_toggled(state: ToggleButtonContainer.ToggleState) -> void:
-	match state:
-		ToggleButtonContainer.ToggleState.A:
-			print("Sound toggle to A")
-			game.enable_sound()
-			
-		ToggleButtonContainer.ToggleState.B:
-			print("Sound toggle to B")
-			game.disable_sound()
 
 func cancel() -> bool:
 	self.fade_out( 0.3 )

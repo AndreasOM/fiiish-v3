@@ -5,6 +5,8 @@ extends Dialog
 @export var fade_time: float = 0.3
 @onready var exit_button_fadeable: FadeableContainer = %ExitButtonFadeable
 @onready var pause_toggle_button: ToggleButtonContainer = %PauseToggleButton
+@onready var music_toggle_button: FiiishUI_ToggleButton = %MusicToggleButton
+@onready var sound_toggle_button: FiiishUI_ToggleButton = %SoundToggleButton
 
 var _focus_before_pause: Control = null
 
@@ -16,6 +18,21 @@ func _ready() -> void:
 	## # %SettingsFadeableContainer.fade_out( 0.0 )
 	%MainMenuButtonFadeable.fade_out( 0.0 )
 	self.exit_button_fadeable.fade_out( 0.0 )
+	
+	var game = self._dialog_manager.game
+	var settings = game.get_settings()
+	if settings.is_music_enabled():
+		music_toggle_button.goto_a()
+	else:
+		music_toggle_button.goto_b()
+
+	if settings.is_sound_enabled():
+		sound_toggle_button.goto_a()
+	else:
+		sound_toggle_button.goto_b()
+	
+	self.music_toggle_button.fade_out( 0.0 )
+	self.sound_toggle_button.fade_out( 0.0 )
 	
 	Events.zone_changed.connect( _on_zone_changed )
 	Events.game_state_changed.connect( _on_game_state_changed )
@@ -73,17 +90,23 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Events.broadcast_global_message("Toggle Pause")
 		toggle_pause()
 	
-func _update_settings_button() -> void:
+func _update_buttons() -> void:
 	var is_paused = self._dialog_manager.game.is_paused()
 	var settings_button = %SettingsButtonFade as FadeableContainer
 	if settings_button != null:
 		if !self._dialog_manager.game.is_in_kids_mode():
 			if is_paused:
 				settings_button.fade_in( 0.3 )
+				self.music_toggle_button.fade_in( 0.3 )
+				self.sound_toggle_button.fade_in( 0.3 )
 			else:
 				settings_button.fade_out( 0.3 )
+				self.music_toggle_button.fade_out( 0.3 )
+				self.sound_toggle_button.fade_out( 0.3 )
 		else:
 			settings_button.fade_out( 0.3 )
+			self.music_toggle_button.fade_out( 0.3 )
+			self.sound_toggle_button.fade_out( 0.3 )
 	
 func toggle_pause() -> void:
 	if self._dialog_manager.game !=	null:
@@ -111,7 +134,7 @@ func toggle_pause() -> void:
 			else:
 				print("Focus: release focus")
 				get_viewport().gui_release_focus.call_deferred()
-		self._update_settings_button()
+		self._update_buttons()
 			
 func _on_settings_button_pressed() -> void:
 	print("Settings Button pressed")
@@ -148,7 +171,7 @@ func _on_settings_changed() -> void:
 	if !self.visible:
 		return
 	self._update_main_menu_button( self._dialog_manager.game.get_state() )
-	self._update_settings_button()
+	self._update_buttons()
 
 func _is_main_menu_available( state: Game.State ) -> bool:
 	var should_be_visible: bool = false
@@ -202,3 +225,26 @@ func _on_dialog_opened( id: DialogIds.Id ) -> void:
 			self._resume_if_paused()
 		_:
 			pass
+
+
+func _on_music_toggle_button_toggled(state: FiiishUI_ToggleButton.ToggleState) -> void:
+	var game = self._dialog_manager.game
+	match state:
+		ToggleButtonContainer.ToggleState.A:
+			print("Music toggle to A")
+			game.enable_music()
+			
+		ToggleButtonContainer.ToggleState.B:
+			print("Music toggle to B")
+			game.disable_music()
+
+func _on_sound_toggle_button_toggled(state: FiiishUI_ToggleButton.ToggleState) -> void:
+	var game = self._dialog_manager.game
+	match state:
+		ToggleButtonContainer.ToggleState.A:
+			print("Sound toggle to A")
+			game.enable_sound()
+			
+		ToggleButtonContainer.ToggleState.B:
+			print("Sound toggle to B")
+			game.disable_sound()

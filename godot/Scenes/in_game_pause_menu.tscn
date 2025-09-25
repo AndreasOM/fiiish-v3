@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxdyfsr3rf56d"]
+[gd_scene load_steps=24 format=3 uid="uid://dxdyfsr3rf56d"]
 
 [ext_resource type="Script" uid="uid://d0l4anar52h5v" path="res://Scenes/in_game_pause_menu.gd" id="1_6l8pp"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_fdqay"]
@@ -11,8 +11,17 @@
 [ext_resource type="Texture2D" uid="uid://tufw5dqfb11k" path="res://Textures/UI/Buttons/button_pause_focused.png" id="7_ua4wi"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="8_gtjiv"]
 [ext_resource type="Texture2D" uid="uid://8ohxv6lr06dr" path="res://Textures/UI/Buttons/button_play_focused.png" id="9_n1w2s"]
+[ext_resource type="PackedScene" uid="uid://dq0ysi1s3ojq4" path="res://FiiishUI/fiiish_ui_toggle_button.tscn" id="10_hecxn"]
 [ext_resource type="Texture2D" uid="uid://dkstuii80r4ix" path="res://Textures/UI/Buttons/button_settings_focused.png" id="11_4p0q0"]
+[ext_resource type="Texture2D" uid="uid://mldyaktoiolg" path="res://Textures/UI/Buttons/button_music_on.png" id="11_fy1wx"]
+[ext_resource type="Texture2D" uid="uid://cmuq0ptjeluby" path="res://Textures/UI/Buttons/button_music_on_focused.png" id="12_j0a70"]
+[ext_resource type="Texture2D" uid="uid://60y7knc4t6sk" path="res://Textures/UI/Buttons/button_music_off.png" id="12_ql4i0"]
+[ext_resource type="Texture2D" uid="uid://cglln6ar6xm5y" path="res://Textures/UI/Buttons/button_sound_on.png" id="13_j0a70"]
 [ext_resource type="Texture2D" uid="uid://c24y33ueb1q0l" path="res://Textures/UI/Buttons/button_main_menu_focused.png" id="13_jf1ih"]
+[ext_resource type="Texture2D" uid="uid://km1hnehrn0d4" path="res://Textures/UI/Buttons/button_sound_off.png" id="14_0jd3p"]
+[ext_resource type="Texture2D" uid="uid://d1jxu4b4ljxbt" path="res://Textures/UI/Buttons/button_music_off_focused.png" id="14_pncls"]
+[ext_resource type="Texture2D" uid="uid://do4a5higld2jp" path="res://Textures/UI/Buttons/button_sound_on_focused.png" id="16_0jd3p"]
+[ext_resource type="Texture2D" uid="uid://cykqlpp4ld5yt" path="res://Textures/UI/Buttons/button_sound_off_focused.png" id="18_pncls"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_np5cf"]
 
@@ -101,12 +110,42 @@ script = ExtResource("3_fdqay")
 layout_mode = 2
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath(".")
-focus_neighbor_right = NodePath("../../../SettingsButtonFade")
+focus_neighbor_right = NodePath("../../../MusicToggleButton")
 focus_neighbor_bottom = NodePath("../../../../MainMenuButtonFadeable")
-focus_next = NodePath("../../../SettingsButtonFade")
+focus_next = NodePath("../../../MusicToggleButton")
 focus_previous = NodePath(".")
 texture_normal = ExtResource("5_ua4wi")
 texture_focused = ExtResource("9_n1w2s")
+
+[node name="MusicToggleButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("10_hecxn")]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../PauseToggleButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../SoundToggleButton")
+focus_neighbor_bottom = NodePath("../../MainMenuButtonFadeable")
+focus_next = NodePath("../SoundToggleButton")
+focus_previous = NodePath("../PauseToggleButton")
+focus_mode = 2
+a_texture_normal = ExtResource("11_fy1wx")
+a_texture_focused = ExtResource("12_j0a70")
+b_texture_normal = ExtResource("12_ql4i0")
+b_texture_focused = ExtResource("14_pncls")
+
+[node name="SoundToggleButton" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("10_hecxn")]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_left = NodePath("../MusicToggleButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../SettingsButtonFade")
+focus_neighbor_bottom = NodePath("../../MainMenuButtonFadeable")
+focus_next = NodePath("../SettingsButtonFade")
+focus_previous = NodePath("../MusicToggleButton")
+focus_mode = 2
+a_texture_normal = ExtResource("13_j0a70")
+a_texture_focused = ExtResource("16_0jd3p")
+b_texture_normal = ExtResource("14_0jd3p")
+b_texture_focused = ExtResource("18_pncls")
 
 [node name="SettingsButtonFade" type="CenterContainer" parent="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -121,12 +160,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-focus_neighbor_left = NodePath("../../PauseToggleButton")
+focus_neighbor_left = NodePath("../../SoundToggleButton")
 focus_neighbor_top = NodePath(".")
 focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../../../MainMenuButtonFadeable")
 focus_next = NodePath("../../../MainMenuButtonFadeable")
-focus_previous = NodePath("../../PauseToggleButton")
+focus_previous = NodePath("../../SoundToggleButton")
 texture_normal = ExtResource("6_n1w2s")
 texture_focused = ExtResource("11_4p0q0")
 
@@ -144,7 +183,7 @@ focus_neighbor_top = NodePath("../../HBoxContainer/PauseToggleButton")
 focus_neighbor_right = NodePath("../../HBoxContainer/SettingsButtonFade")
 focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath(".")
-focus_previous = NodePath("../../HBoxContainer/PauseToggleButton")
+focus_previous = NodePath("../../HBoxContainer/SettingsButtonFade")
 texture_normal = ExtResource("7_4p0q0")
 texture_focused = ExtResource("13_jf1ih")
 
@@ -160,6 +199,8 @@ texture_focused = ExtResource("13_jf1ih")
 [connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeA/PauseButtonA" to="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" method="_on_a_pressed"]
 [connection signal="focus_entered" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeB" to="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeB" method="_on_focus_entered"]
 [connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton/PauseButtonFadeB/PauseButtonB" to="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" method="_on_b_pressed"]
+[connection signal="toggled" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/MusicToggleButton" to="." method="_on_music_toggle_button_toggled"]
+[connection signal="toggled" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/SoundToggleButton" to="." method="_on_sound_toggle_button_toggled"]
 [connection signal="focus_entered" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade" to="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade" method="_on_focus_entered"]
 [connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="focus_entered" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/MainMenuButtonFadeable" to="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/MainMenuButtonFadeable" method="_on_focus_entered"]

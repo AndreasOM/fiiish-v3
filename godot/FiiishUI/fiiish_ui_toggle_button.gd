@@ -48,7 +48,9 @@ func _update_textures() -> void:
 		return
 		
 	self.button_a_texture_button.texture_normal = self.a_texture_normal
+	self.button_a_texture_button.texture_focused = self.a_texture_focused
 	self.button_b_texture_button.texture_normal = self.b_texture_normal
+	self.button_b_texture_button.texture_focused = self.b_texture_focused
 
 func set_a_texture_normal( t: Texture2D ) -> void:
 	a_texture_normal = t
@@ -70,11 +72,33 @@ func goto_a() -> void:
 	self.button_a_fadeable_container.fade_in( toggle_duration )
 	self.button_b_fadeable_container.fade_out( toggle_duration )
 	self._toggle_state = ToggleState.A
+	if self.button_b_texture_button.has_focus():
+		self.button_a_texture_button.grab_focus.call_deferred()
 
 func goto_b() -> void:
 	self.button_a_fadeable_container.fade_out( toggle_duration )
 	self.button_b_fadeable_container.fade_in( toggle_duration )
 	self._toggle_state = ToggleState.B
+	if self.button_a_texture_button.has_focus():
+		self.button_b_texture_button.grab_focus.call_deferred()
+
+func toggle_fade( duration: float ) -> void:
+	match self._toggle_state:
+		ToggleState.A:
+			self.button_a_fadeable_container.toggle_fade( duration )
+		ToggleState.B:
+			self.button_b_fadeable_container.toggle_fade( duration )
+		
+func fade_in( duration: float) -> void:
+	match self._toggle_state:
+		ToggleState.A:
+			self.button_a_fadeable_container.fade_in( duration )
+		ToggleState.B:
+			self.button_b_fadeable_container.fade_in( duration )
+	
+func fade_out( duration: float) -> void:
+	self.button_a_fadeable_container.fade_out( duration )
+	self.button_b_fadeable_container.fade_out( duration )
 
 func _on_a_pressed() -> void:
 	print("A pressed")
@@ -101,8 +125,8 @@ func _on_b_pressed() -> void:
 func _on_focus_entered() -> void:
 	match self._toggle_state:
 		ToggleState.A:
-			if self.button_a.focus_mode != FocusMode.FOCUS_NONE:
-				self.button_a.grab_focus.call_deferred()
+			if self.button_a_texture_button.focus_mode != FocusMode.FOCUS_NONE:
+				self.button_a_texture_button.grab_focus.call_deferred()
 		ToggleState.B:
-			if self.button_b.focus_mode != FocusMode.FOCUS_NONE:
-				self.button_b.grab_focus.call_deferred()
+			if self.button_b_texture_button.focus_mode != FocusMode.FOCUS_NONE:
+				self.button_b_texture_button.grab_focus.call_deferred()

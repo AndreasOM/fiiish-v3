@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] Move Music and Sound toggles into InGamePauseMenu
 - [ ] Add keyboard/gamepad support to SettingsDialog
 - [ ] Add keyboard/gamepad support to KidsModeEnableDialog
 
@@ -233,6 +232,7 @@
 ### 2025-09-25
 #### S06E22
 - [x] Extract FiiishUI_ToggleButton and use it in SettingsDialog
+- [x] Move Music and Sound toggles into InGamePauseMenu
 
 ### 2025-09-24
 #### S06E21

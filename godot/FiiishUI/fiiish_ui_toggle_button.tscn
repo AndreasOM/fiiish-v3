@@ -31,5 +31,6 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="pressed" from="ButtonAFadeableContainer/ButtonATextureButton" to="." method="_on_a_pressed"]
 [connection signal="pressed" from="ButtonBFadeableContainer/ButtonBTextureButton" to="." method="_on_b_pressed"]
