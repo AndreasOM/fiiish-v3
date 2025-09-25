@@ -28,6 +28,7 @@ var _dialog_configs: Dictionary = {
 	DialogIds.Id.DEVELOPER_DIALOG: preload("res://Features/DeveloperDialog/developer_dialog.tscn"),
 	DialogIds.Id.KIDS_MODE_ENABLE_DIALOG: preload("res://Features/KidsMode/kidsmode_enable_dialog.tscn"),
 	DialogIds.Id.ABOUT_DEMO_DIALOG: preload("res://Dialogs/fiiish_confirmation_dialog.tscn"),
+	DialogIds.Id.DEVELOPER_OVERLAY_DIALOG: preload("res://Dialogs/DeveloperOverlay/developer_overlay_dialog.tscn"),
 }
 
 var _dialogs: Dictionary = {}

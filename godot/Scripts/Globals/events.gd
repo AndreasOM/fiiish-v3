@@ -26,6 +26,8 @@ signal player_changed( player: Player )
 signal dialog_opened( id: DialogIds.Id )
 signal dialog_closed( id: DialogIds.Id )
 
+signal developer_message( msg: DeveloperMessage )
+
 func broadcast_game_state_changed( state: Game.State ) -> void:
 	game_state_changed.emit( state )
 
@@ -82,3 +84,6 @@ func broadcast_dialog_opened( id: DialogIds.Id ) -> void:
 	
 func broadcast_dialog_closed( id: DialogIds.Id ) -> void:
 	self.dialog_closed.emit( id )
+	
+func broadcast_developer_message( msg: DeveloperMessage ) -> void:
+	self.developer_message.emit( msg )

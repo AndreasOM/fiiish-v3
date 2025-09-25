@@ -19,7 +19,8 @@
 			{
 				"Swim_Dive"		   		"#Action_Swim_Dive"
 				"Swim_OpenMainMenu"		"#Action_Swim_OpenMainMenu"
-				"Swim_TogglePause"		"#Action_Swim_TogglePause"
+				"Swim_TogglePause"		"#Action_Swim_TogglePause_v0"
+				"TogglePause"			"#Action_Swim_TogglePause"
 			}
 		}
 		"MenuControls"
@@ -29,7 +30,8 @@
 			{
 				"Menu_GotoSwim"			"#Action_Menu_GotoSwim"
 				"Menu_CloseMainMenu"	"#Action_Menu_CloseMainMenu"
-				"Menu_TogglePause"		"#Action_Menu_TogglePause"
+				"Menu_TogglePause"		"#Action_Menu_TogglePause_v0"
+				"TogglePause"			"#Action_Menu_TogglePause"
 				"Menu_Confirm"			"#Action_Menu_Confirm"
 				"Menu_Cancel"			"#Action_Menu_Cancel"
 				"Menu_Up"				"#Action_Menu_Up"
@@ -48,11 +50,13 @@
 			"Set_SwimControls"			"Swim Controls"
 			"Action_Swim_Dive"			"Dive"
 			"Action_Swim_OpenMainMenu"	"Open Main Menu"
+			"Action_Swim_TogglePause_v0"	"Toggle Pause (Swim)"
 			"Action_Swim_TogglePause"	"Toggle Pause"
 
 			"Set_MenuControls"			"Menu Controls"
 			"Action_Menu_GotoSwim"		"Goto Swim"
 			"Action_Menu_CloseMainMenu"	"Close Main Menu"
+			"Action_Menu_TogglePause_v0"	"Toggle Pause (Menu)"
 			"Action_Menu_TogglePause"	"Toggle Pause"
 			"Action_Menu_Confirm"		"Confirm"
 			"Action_Menu_Cancel"		"Cancel"

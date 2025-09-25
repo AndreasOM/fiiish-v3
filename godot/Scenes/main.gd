@@ -91,6 +91,7 @@ func _ready() -> void:
 		var ir = SteamWrapper.get_initial_response()
 		var s = "Steam: %s" % ir
 		Events.broadcast_global_message( s )
+		Events.broadcast_developer_message( DeveloperMessageDebug.new( s ) )
 		var steam = SteamWrapper.get_steam()
 		if steam.isSteamRunning():
 		
@@ -242,7 +243,12 @@ func _update_action_set( state: Game.State ) -> void:
 			var action_set_handle = steam.getActionSetHandle( action_set_name )
 			# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
 			#if action_set_handle != 0:
-			Events.broadcast_global_message("ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ])
+			# Events.broadcast_global_message("ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ])
+			Events.broadcast_developer_message(
+				DeveloperMessageDebug.new(
+					"ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ]
+				)
+			)
 			for k in self._steam_input_handles.keys():
 				var h = self._steam_input_handles.get( k, false )
 				if h == false:
@@ -450,6 +456,8 @@ func open_initial_dialogs() -> void:
 	#if $Game.get_settings().get_developer_dialog_version() > 0:
 	#	%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
 
+	if DeveloperOverlayDialog.is_developer():
+		%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_OVERLAY_DIALOG, 0.0 )
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 #	print_rich("[color=yellow]main - _process ->[/color]")

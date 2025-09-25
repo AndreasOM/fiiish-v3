@@ -233,6 +233,8 @@
 #### S06E22
 - [x] Extract FiiishUI_ToggleButton and use it in SettingsDialog
 - [x] Move Music and Sound toggles into InGamePauseMenu
+- [x] Unified Pause handling for Steam to avoid double toggling
+- [x] Add simple DeveloperOverlay
 
 ### 2025-09-24
 #### S06E21

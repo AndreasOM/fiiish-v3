@@ -6,11 +6,11 @@ var _digital_action_handles: Dictionary[ String, int ] = {}
 const DIGITIAL_ACTIONS: Dictionary[ String, String ] = {
 	"Swim_Dive":			"Swim_Dive",
 	"Swim_OpenMainMenu":	"Swim_OpenMainMenu",
-	"Swim_TogglePause":		"Global_TogglePause",
+#	"Swim_TogglePause":		"Global_TogglePause",
 	
 	"Menu_GotoSwim":		"Menu_GotoSwim",
 	"Menu_CloseMainMenu":	"MainMenu_CloseMainMenu",
-	"Menu_TogglePause":		"Global_TogglePause",
+#	"Menu_TogglePause":		"Global_TogglePause",
 	"Menu_Confirm":			"Menu_Confirm",
 	"Menu_Cancel":			"Menu_Cancel",
 	"Menu_Up":				"Menu_Up",
@@ -19,6 +19,9 @@ const DIGITIAL_ACTIONS: Dictionary[ String, String ] = {
 	"Menu_Right":			"Menu_Right",
 	"Menu_Next":			"Menu_Next",
 	"Menu_Prev":			"Menu_Prev",
+	
+	"TogglePause":			"Global_TogglePause",
+
 }
 
 var _pressed_digital_actions: Dictionary[ String, bool ] = {}
@@ -68,10 +71,16 @@ func _process(delta: float) -> void:
 					self._pressed_digital_actions[ da ] = true
 					ev.pressed = true
 					# Events.broadcast_global_message("Pressed %s" % da)
+					Events.broadcast_developer_message(
+						DeveloperMessageButtonChange.new( da, true )
+					)
 				else:
 					self._pressed_digital_actions[ da ] = false
 					ev.pressed = false
 					# Events.broadcast_global_message("Released %s" % da)
+					Events.broadcast_developer_message(
+						DeveloperMessageButtonChange.new( da, false )
+					)
 
 				Input.parse_input_event(ev)
 				
@@ -86,7 +95,11 @@ func _on_input_device_connected( input_handle: int ) -> void:
 				var h = steam.getDigitalActionHandle( da )
 				self._digital_action_handles[ da ] = h
 				if h == 0:
-					Events.broadcast_global_message( "No mapping for %s -> %d" % [ da, h ] )
+					var msg ="No mapping for %s -> %d" % [ da, h ]
+					#Events.broadcast_global_message( msg )
+					Events.broadcast_developer_message(
+						DeveloperMessageDebug.new( msg )
+					)
 					print_rich( "[color=red]No mapping for %s -> %d[/color]" % [ da, h ] )
 		
 
