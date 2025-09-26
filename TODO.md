@@ -3,7 +3,6 @@
 ## In Progress
 
 
-- [ ] Task: Rebalance difficulty levels
 
 - [ ] Bug: Check missing input actions for Steam
 
@@ -193,6 +192,7 @@
 - [x] Task: Add button to toggle DeveloperOverlay
 - [x] Task: Add new Rock (Obstacle)
 - [x] Task: Add more Zones
+- [x] Task: Rebalance difficulty levels
 
 ### 2025-09-25
 #### S06E22

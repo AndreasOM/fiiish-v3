@@ -83,7 +83,7 @@ func _pick_next_zone() -> NewZone:
 	#var level = 0
 	var zn = self._zone_history.size()
 	#var difficulty = int(zn / 5.0)
-	var difficulty = int( zn * 4.0 )
+	var difficulty = min( 120, int( zn * 2.5 ) )
 	return self._zone_config_manager.pick_next_zone( blocked_zones, difficulty )
 
 func _spawn_object( ec: EntityConfig, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Entity:

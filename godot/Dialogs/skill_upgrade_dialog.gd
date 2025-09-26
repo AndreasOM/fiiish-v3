@@ -121,8 +121,9 @@ func _update_skill_upgrade_items() -> void:
 		if sui == null:
 			continue
 			
-		sui.active_button.set_prev_control( prev )
-		sui.active_button.set_next_control( null )
+		if sui.active_button != null:
+			sui.active_button.set_prev_control( prev )
+			sui.active_button.set_next_control( null )
 		if prev != null:
 			prev.set_next_control( sui.active_button )
 			
