@@ -85,13 +85,12 @@ _data = {
 
 [node name="ResultDialog" type="Control" node_paths=PackedStringArray("coinsResultRow", "distanceResultRow", "bestDistanceResultRow", "totalDistanceResultRow")]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_wlxjo")
 coinsResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/CoinsResultRow")
 distanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/DistanceResultRow")
@@ -111,10 +110,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("2_g40ym")
 
 [node name="TextureRect" type="TextureRect" parent="ResultDialogFadeableContainer"]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("3_dssl3")
 
 [node name="MarginContainer" type="MarginContainer" parent="ResultDialogFadeableContainer/TextureRect"]

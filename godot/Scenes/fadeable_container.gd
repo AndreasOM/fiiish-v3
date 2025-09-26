@@ -14,9 +14,12 @@ signal on_faded_in
 signal on_fading_out( duration: float )
 signal on_faded_out
 
+var _initial_mouse_filter: MouseFilter = MOUSE_FILTER_IGNORE
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 #	print("%s z: %d" % [ name, z_index ] )
+	self._initial_mouse_filter = self.mouse_filter
 	_save_original_z_index()
 	pass # Replace with function body.
 
@@ -63,7 +66,7 @@ func fade_in( duration: float) -> void:
 	_restore_original_z_index()
 	# z_index = _original_z_index
 	visible = true
-	mouse_filter = MOUSE_FILTER_STOP
+	mouse_filter = self._initial_mouse_filter
 	for c in get_children():
 		c.mouse_filter = MOUSE_FILTER_STOP
 	if duration > 0.0:
