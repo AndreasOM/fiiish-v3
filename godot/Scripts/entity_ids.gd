@@ -25,5 +25,6 @@ enum Id {
 	ROCKSETA_TOP_MIDDLE = 0xc425df11,
 	BIGROCK_A_6x2		= 0x26b2a65d,
 	TEST_ROCK_MIDDLE_A	= 0x22bae1ff,
+	ROCK_MIDDLE_B		= 0xf89d79cb,
 	INVALID				= 0xffffffff,
 }

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EntityConfig" load_steps=3 format=3 uid="uid://comyaladqv6g"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Obstacles/middlerock_a.tscn" id="1_jwun6"]
+[ext_resource type="PackedScene" uid="uid://bx06kvmkgu3hm" path="res://Scenes/Obstacles/middle_rock_a.tscn" id="1_jwun6"]
 [ext_resource type="Script" uid="uid://l4mx22800uyt" path="res://Scripts/entity_config.gd" id="2_1stuy"]
 
 [resource]

@@ -141,9 +141,9 @@ func _process_for_spawn( _delta: float ) -> void:
 func _process_for_select( _delta: float ) -> void:
 	if self._selected_object == null:
 		return
-	if Input.is_action_just_pressed("cursor_down"):
+	if Input.is_action_just_pressed("ZoneEditor_MoveBack"):
 		self._move_object_back( self._selected_object )
-	if Input.is_action_just_pressed("cursor_up"):
+	if Input.is_action_just_pressed("ZoneEditor_MoveForward"):
 		self._move_object_forward( self._selected_object )
 	
 func _update_cursor_position( mouse_event: InputEventMouse ) -> void:

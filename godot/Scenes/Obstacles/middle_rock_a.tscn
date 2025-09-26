@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://7w6332vp5cd"]
+[gd_scene load_steps=3 format=3 uid="uid://bx06kvmkgu3hm"]
 
-[ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_oytha"]
-[ext_resource type="Texture2D" uid="uid://bv3oxth1fgg0a" path="res://Textures/Obstacles/MiddleRocks/middlerock-a.png" id="2_oytha"]
+[ext_resource type="Script" uid="uid://be8rnx73pieb1" path="res://Scenes/Obstacles/obstacle.gd" id="1_ng0o2"]
+[ext_resource type="Texture2D" uid="uid://bv3oxth1fgg0a" path="res://Textures/Obstacles/MiddleRocks/middlerock-a.png" id="2_p6y5t"]
 
 [node name="MiddleRockA" type="Node2D"]
 visibility_layer = 513
 z_index = 5
-script = ExtResource("1_oytha")
+script = ExtResource("1_ng0o2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visibility_layer = 513
-texture = ExtResource("2_oytha")
+texture = ExtResource("2_p6y5t")
 
 [node name="Area2D" type="Area2D" parent="."]
 visibility_layer = 513
