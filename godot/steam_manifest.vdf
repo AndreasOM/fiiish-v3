@@ -2,13 +2,6 @@
 {
 	"configurations"
 	{
-		"controller_xboxone"
-		{
-			"0"
-			{
-				"path" "config_2960490_controller_xboxone.vdf"
-			}
-		}
 	}
 	"actions"
 	{

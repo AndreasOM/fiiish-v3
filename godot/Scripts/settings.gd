@@ -1,6 +1,6 @@
 class_name Settings
 
-const current_version: int = 3
+const current_version: int = 4
 const oldest_supported_version: int = 1
 
 
@@ -13,6 +13,7 @@ var _developer_dialog_version: int = 0
 var _is_music_enabled: bool = true
 var _is_sound_enabled: bool = true
 
+var _dev_is_developer_overlay_enabled: bool = false
 ## not serialized
 var _is_dirty: bool = false
 
@@ -79,6 +80,12 @@ func serialize( s: Serializer ) -> bool:
 		
 	self._is_music_enabled = s.serialize_bool( self._is_music_enabled )
 	self._is_sound_enabled = s.serialize_bool( self._is_sound_enabled )
+
+	# version 4
+	if version < 4:
+		return true
+		
+	self._dev_is_developer_overlay_enabled = s.serialize_bool( self._dev_is_developer_overlay_enabled )
 	
 	return true
 		
@@ -140,4 +147,19 @@ func disable_sound() -> void:
 	if !self._is_sound_enabled:
 		return
 	self._is_sound_enabled = false
+	self._is_dirty = true
+
+func dev_is_developer_overlay_enabled() -> bool:
+	return self._dev_is_developer_overlay_enabled
+
+func dev_enable_developer_overlay() -> void:
+	if self._dev_is_developer_overlay_enabled:
+		return
+	self._dev_is_developer_overlay_enabled = true
+	self._is_dirty = true
+
+func dev_disable_developer_overlay() -> void:
+	if !self._dev_is_developer_overlay_enabled:
+		return
+	self._dev_is_developer_overlay_enabled = false
 	self._is_dirty = true

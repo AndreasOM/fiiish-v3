@@ -3,7 +3,6 @@
 ## In Progress
 
 
-- [ ] Task: Add button to toggle DeveloperOverlay
 - [ ] Bug: Check missing input actions for Steam
 - [ ] Task: Add new Rock (Obstacle)
 - [ ] Task: Add more Zones
@@ -192,6 +191,7 @@
 ### 2025-09-26
 #### S06E23
 - [x] Bug: Fix mouse/touch control for diving
+- [x] Task: Add button to toggle DeveloperOverlay
 
 ### 2025-09-25
 #### S06E22
