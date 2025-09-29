@@ -196,6 +196,7 @@
 - [x] Demo: Automatically pause when controller disconnects
 - [x] Demo: Add some filler zones at difficulty 20 + 40
 - [x] Add jumping to next zone for developer
+- [x] Bug: Fix location of steam manifest for macOS (and bundle it during build)
 
 ### 2025-09-26
 #### S06E23

@@ -90,7 +90,7 @@ func _ready() -> void:
 		print_rich("[color=green]---=== Setting up Steam Integration ===---[/color]")
 		var ir = SteamWrapper.get_initial_response()
 		var s = "Steam: %s" % ir
-		Events.broadcast_global_message( s )
+		# Events.broadcast_global_message( s )
 		Events.broadcast_developer_message( DeveloperMessageDebug.new( s ) )
 		var steam = SteamWrapper.get_steam()
 		if steam.isSteamRunning():
@@ -178,7 +178,14 @@ func _get_global_steam_manifest_path() -> String:
 	if OS.has_feature("editor"):
 		return ProjectSettings.globalize_path( "res://steam_manifest.vdf" )
 	else:
-		var path = OS.get_executable_path().get_base_dir().path_join("steam_manifest.vdf")
+		var path = OS.get_executable_path().get_base_dir()
+		match OS.get_name():
+			"macOS":
+				path = path.path_join("../Resources/").simplify_path()
+			_:
+				pass
+		path = path.path_join("steam_manifest.vdf")
+
 		# :TODO: check on windows & macos -> ../Resources/
 		return path
 
