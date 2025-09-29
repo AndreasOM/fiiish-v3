@@ -318,7 +318,7 @@ jobs:
           cp ../steam_manifest.vdf ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
 
       - name: Steam - Add Action Manifest - macOS
-        if: ${{ env.TARGET != 'macos' }}  # :TODO: add "WITH_STEAM_SUPPORT"
+        if: ${{ env.TARGET == 'macos' }}  # :TODO: add "WITH_STEAM_SUPPORT"
         run: |
           cd godot/export
           # :TODO: handle macOS (-> .app/Resources)
