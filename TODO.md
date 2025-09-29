@@ -3,6 +3,7 @@
 ## In Progress
 
 
+- [ ] Demo: Automatically pause when controller disconnects
 
 - [ ] Bug: Check missing input actions for Steam
 
@@ -19,6 +20,8 @@
 
 
 ## Todo
+
+- [ ] Steam: Handle BigPicture mode
 
 - [ ] Feature: Rework ResultDialog for dpad control
 	- [ ] Task: Add Play Button to ResultDialog
@@ -185,6 +188,12 @@
 - [+] Task: Handle KidsMode for SettingsDialog? -> Settings Dialog will not be reachable
 
 ## Done
+
+
+### 2025-09-29
+#### S06E24
+- [x] Demo: Handle controller input on Desktop
+- [x] Bug: MainMenu doesn't accept clicks on first start (Pause Overlay was mouse_filter = STOP)
 
 ### 2025-09-26
 #### S06E23
