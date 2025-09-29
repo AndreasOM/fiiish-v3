@@ -11,38 +11,38 @@
 
 
 
-- [ ] Polish: Fix focus previous handling across the board
-	- [ ] Bug: Fix focus previous handling in ResultScreenDialog
+- [x] Polish: Fix focus previous handling across the board
+	- [x] Bug: Fix focus previous handling in ResultScreenDialog
 
-- [ ] Demo: Add 1 new zone
-- [+] Demo: Don't repeat same zone back to back -- unless no other zone exists
+- [x] Demo: Add 1 new zone
+- [x] Demo: Don't repeat same zone back to back -- unless no other zone exists
 
 
 ## Todo
 
 - [ ] Steam: Handle BigPicture mode
 
-- [ ] Feature: Rework ResultDialog for dpad control
-	- [ ] Task: Add Play Button to ResultDialog
-	- [ ] Task: Ensure correct focus handling
+- [x] Feature: Rework ResultDialog for dpad control
+	- [x] Task: Add Play Button to ResultDialog
+	- [x] Task: Ensure correct focus handling
 - [ ] Story: General cleanup pass
 
-- [ ] Feature: Clean up UX to allow better gamepad navigation
-	- [ ] Task: Adapt DeveloperConsole to new input scheme
-	- [ ] Task: Adapt ZoneEditor to new input scheme
+- [x] Feature: Clean up UX to allow better gamepad navigation
+	- [x] Task: Adapt DeveloperConsole to new input scheme
+	- [x] Task: Adapt ZoneEditor to new input scheme
 
 
 ## Todo Steam Demo
-- [ ] Steam: Automate uploading of new version via github action.
-- [ ] Steam: Improve controls
-	- [ ] Task: Make A-Button confirm only, and dive in game
+- [x] Steam: Automate uploading of new version via github action.
+- [x] Steam: Improve controls
+	- [x] Task: Make A-Button confirm only, and dive in game
 
 ## Todo Steam Store 
-- [ ] Steam: Get rid of macOS 10.15 warning
+- [x] Steam: Get rid of macOS 10.15 warning -> Replaced by "no Intel" warning
 - [ ] Steam: Add note about english only to description
 - [ ] Steam: Store Asset - Page Background -> Use blue swirl
 
-- [ ] Steam: Finalise godotsteam addon integration
+- [x] Steam: Finalise godotsteam addon integration
 
 
 ## Polish & Bugs
@@ -194,6 +194,8 @@
 - [x] Demo: Handle controller input on Desktop
 - [x] Bug: MainMenu doesn't accept clicks on first start (Pause Overlay was mouse_filter = STOP)
 - [x] Demo: Automatically pause when controller disconnects
+- [x] Demo: Add some filler zones at difficulty 20 + 40
+- [x] Add jumping to next zone for developer
 
 ### 2025-09-26
 #### S06E23

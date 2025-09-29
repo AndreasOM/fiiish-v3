@@ -57,16 +57,18 @@ func update_zones() -> void:
 			continue
 		var zone = zone_config_manager.get_zone_by_filename( filename )
 		var title = zone.name
-		self._add_selection( title, filename )
+		var difficulty = zone.difficulty
+		self._add_selection( title, filename, difficulty )
 
 	#self._add_selection("Tunnel", "classic-0010_Tunnel.nzne" )
 	#self._add_selection("Funnel", "classic-0020_Funnel.nzne" )
 	
 
-func _add_selection( title: String, filename: String ) -> void:
+func _add_selection( title: String, filename: String, difficulty: int = -1 ) -> void:
 	var zse: ZoneSelectionElement = ZONE_SELECTION_ELEMENT.instantiate()
 	zse.title = title
 	zse.filename = filename
+	zse.difficulty = difficulty
 	zse.selected.connect( _on_zone_selection_element_selected )
 	%Elements.add_child( zse )
 	

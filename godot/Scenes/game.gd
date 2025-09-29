@@ -10,6 +10,7 @@ class_name Game
 @onready var entity_config_manager: EntityConfigManager = %EntityConfigManager
 @onready var zone_manager: ZoneManager = %ZoneManager
 @onready var fish_manager: FishManager = %FishManager
+@onready var game_manager: GameManager = %GameManager
 
 enum State {
 	INITIAL,
@@ -405,6 +406,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				if event.is_action_pressed("Menu_GotoSwim"): #:TODO-INPUT:
 					self._goto_state_preparing_for_start()
 					return
+			Game.State.SWIMMING:
+				if event.is_action_pressed("Dev_Swim_JumpToNextZone"):
+					if DeveloperOverlayDialog.is_developer():
+						self.game_manager.jump_to_next_zone()
 			_:
 				pass
 

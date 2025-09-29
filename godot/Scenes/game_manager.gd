@@ -6,6 +6,8 @@ signal sound_triggered( soundEffects_Id )
 @export var play_movement: Vector2 = Vector2( 240.0, 0.0 )
 
 var movement: Vector2 = Vector2( 0.0, 0.0 )
+var jump_movement: Vector2 = Vector2.ZERO
+var _was_invicible_before_jump: bool = false
 
 @export var pixels_per_meter: float = 100.0
 
@@ -101,6 +103,24 @@ func push_initial_zones() -> void:
 	for iz in initial_zones:
 		self._zone_config_manager.push_next_zone_by_name( iz )
 
+func jump_to_next_zone() -> void:
+	if self.jump_movement.length_squared() > 0:
+		return
+	var current = self.zone_manager.current_zone_progress
+	var width = self.zone_manager.current_zone_width
+	var remaining = width - current
+	self.jump_movement = Vector2( remaining, 0.0 )
+	
+	var cheat_id = CheatIds.Id.INVINCIBLE;
+	var player = game.get_player()
+	player.enable_cheat( cheat_id )
+
+
+	
+#	self._was_invicible_before_jump = player.is_cheat_enabled( cheat_id )
+#	if !self._was_invicible_before_jump:
+#		player.enable_cheat( cheat_id )
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
@@ -118,6 +138,19 @@ func _process(delta: float) -> void:
 			#print( "GameManager [%d](%f) %f %f" % [ frame, delta, self.movement.x, self.play_movement.x ])
 		else:
 			self.movement = play_movement * delta
+			if self.jump_movement.length_squared() > 0:
+				self.movement += 0.2*self.jump_movement
+				self.jump_movement *= 0.9 # Vector2.ZERO
+				if self.jump_movement.length() < 50:
+					self.jump_movement = Vector2.ZERO
+#					if !self._was_invicible_before_jump:
+#						var cheat_id = CheatIds.Id.INVINCIBLE;
+#						var player = game.get_player()
+						
+#						if player.is_cheat_enabled( cheat_id ):
+#							player.disable_cheat( cheat_id )
+						
+				
 			#var frame = Engine.get_frames_drawn()
 			#print( "GameManager [%d](%f) %f %f" % [ frame, delta, self.movement.x, self.play_movement.x ])
 			

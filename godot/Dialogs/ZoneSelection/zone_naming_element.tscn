@@ -33,7 +33,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
-theme_type_variation = &"RichTextLabelHeader"
+theme_type_variation = &"RichTextLabelSmall"
 text = ":TODO:"
 vertical_alignment = 1
 
