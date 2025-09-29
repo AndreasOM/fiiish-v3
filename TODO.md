@@ -3,7 +3,6 @@
 ## In Progress
 
 
-- [ ] Demo: Automatically pause when controller disconnects
 
 - [ ] Bug: Check missing input actions for Steam
 
@@ -194,6 +193,7 @@
 #### S06E24
 - [x] Demo: Handle controller input on Desktop
 - [x] Bug: MainMenu doesn't accept clicks on first start (Pause Overlay was mouse_filter = STOP)
+- [x] Demo: Automatically pause when controller disconnects
 
 ### 2025-09-26
 #### S06E23

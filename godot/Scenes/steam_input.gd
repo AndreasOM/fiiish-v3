@@ -1,5 +1,7 @@
 extends Node
 
+signal controller_disconnected
+
 var _steam_input_handles: Dictionary = {}
 var _digital_action_handles: Dictionary[ String, int ] = {}
 
@@ -148,5 +150,6 @@ func _on_input_device_connected( input_handle: int ) -> void:
 
 func _on_input_device_disconnected( input_handle: int ) -> void:
 	self._steam_input_handles[ input_handle ] = false
+	self.controller_disconnected.emit()
 
 	

@@ -525,3 +525,7 @@ func _on_settings_changed() -> void:
 
 	
 	
+
+
+func _on_steam_input_controller_disconnected() -> void:
+	self.game.pause()

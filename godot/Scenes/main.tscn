@@ -405,6 +405,7 @@ script = ExtResource("29_7k868")
 game = NodePath("../../Game")
 metadata/_custom_type_script = "uid://df4ihhde77ug2"
 
+[connection signal="controller_disconnected" from="SteamInput" to="." method="_on_steam_input_controller_disconnected"]
 [connection signal="state_changed" from="Game" to="UI/DialogManager" method="_on_game_state_changed"]
 [connection signal="goto_next_zone" from="UI/DebugUI" to="Game" method="_on_debug_ui_goto_next_zone"]
 [connection signal="zoom_changed" from="UI/DebugUI" to="Game" method="_on_debug_ui_zoom_changed"]
