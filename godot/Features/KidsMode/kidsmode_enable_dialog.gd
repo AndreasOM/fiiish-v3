@@ -44,7 +44,9 @@ func close( duration: float) -> void:
 
 	
 func open( duration: float) -> void:
-	self._dialog_manager.game.pause()
+	# NEW PAUSE SYSTEM: Request pause
+	if self._dialog_manager.game.get_fiiish_pause_manager() != null:
+		self._dialog_manager.game.get_fiiish_pause_manager().get_pause_manager().request_player_pause()
 	fade_in( duration )
 
 func fade_out( duration: float ) -> void:

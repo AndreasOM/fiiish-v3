@@ -4,6 +4,7 @@ class_name Game
 @export var achievement_config_manager: AchievementConfigManager = null
 @export var achievement_counter_manager: AchievementCounterManager = null
 @export var achievement_manager: AchievementManager = null
+@export var fiiish_pause_manager: FiiishPauseManager = null
 
 @onready var game_scaler: GameScaler = %GameScaler
 @onready var zone_editor_manager: ZoneEditorManager = %ZoneEditorManager
@@ -123,7 +124,9 @@ func open_zone_editor() -> void:
 	if self._is_in_zone_editor:
 		push_warning( "Tried to open zone editor from zone editor")
 		return
-	self.resume()
+	# NEW PAUSE SYSTEM: Ensure game is unpaused
+	if fiiish_pause_manager != null:
+		fiiish_pause_manager.get_pause_manager().request_player_resume()
 	self._is_in_zone_editor = true
 	%DialogManager.open_dialog( DialogIds.Id.MINI_MAP_DIALOG, 1.0 )
 	Events.broadcast_zone_edit_enabled()
@@ -143,7 +146,10 @@ func close_zone_editor() -> void:
 	
 func get_sound_manager() -> SoundManager:
 	return self.soundManager
-	
+
+func get_fiiish_pause_manager() -> FiiishPauseManager:
+	return self.fiiish_pause_manager
+
 func get_player() -> Player:
 	return _player
 	
@@ -361,31 +367,11 @@ func disable_main_menu() -> void:
 	_player.save()
 
 
-func pause() -> void:
-	var tree = self.get_tree()
-	if !tree.is_paused():
-		print("pause")
-		tree.set_pause( true )
-		Events.broadcast_game_paused( true )
-
-func resume() -> void:
-	var tree = self.get_tree()
-	if tree.is_paused():
-		print("resume")
-		tree.set_pause( false )
-		Events.broadcast_game_paused( false )
-	
-func toogle_pause() -> bool:
-	var tree = self.get_tree()
-	var was_paused = tree.is_paused()
-	var is_paused = !was_paused
-	print("toogle_pause %d -> %d" % [ int(was_paused), int(is_paused)])
-	tree.set_pause(is_paused)
-	Events.broadcast_game_paused( is_paused )
-	return is_paused
-
+# NEW PAUSE SYSTEM: Use fiiish_pause_manager instead
 func is_paused() -> bool:
-	return self.get_tree().is_paused()
+	if fiiish_pause_manager != null:
+		return fiiish_pause_manager.is_paused()
+	return get_tree().is_paused()  # Fallback
 
 func _on_game_manager_sound_triggered( soundEffect: SoundEffects.Id ) -> void:
 	soundManager.trigger_effect( soundEffect )
@@ -449,7 +435,9 @@ func is_in_kids_mode() -> bool:
 func _enter_kidsmode( clean_player: bool ) -> void:
 	if self._is_in_zone_editor:
 		self.close_zone_editor()
-	self.resume()
+	# NEW PAUSE SYSTEM: Ensure game is unpaused
+	if fiiish_pause_manager != null:
+		fiiish_pause_manager.get_pause_manager().request_player_resume()
 	self.abort_swim()
 	self._settings.enable_kids_mode()
 	self._settings.save()
@@ -470,7 +458,9 @@ func enter_kidsmode_with_fresh_game() -> void:
 	self._enter_kidsmode( true )
 
 func leave_kids_mode() -> void:
-	self.resume()
+	# NEW PAUSE SYSTEM: Ensure game is unpaused
+	if fiiish_pause_manager != null:
+		fiiish_pause_manager.get_pause_manager().request_player_resume()
 	self.abort_swim()
 	self._settings.disable_kids_mode()
 	self._settings.save()

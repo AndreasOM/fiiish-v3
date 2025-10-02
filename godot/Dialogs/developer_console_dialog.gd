@@ -182,7 +182,9 @@ func inc_command_history_current() -> void:
 func _on_fadeable_container_on_fading_in( _duration: float ) -> void:
 	self.visible = true
 	self._block_input = true
-	self.game.pause()
+	# NEW PAUSE SYSTEM: Request pause
+	if self.game.get_fiiish_pause_manager() != null:
+		self.game.get_fiiish_pause_manager().get_pause_manager().request_player_pause()
 	await get_tree().process_frame
 	#%LineEdit.grab_focus.call_deferred()
 	print_rich("[color=green]developer_console_dialog grab_focus() ->[/color]")

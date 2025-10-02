@@ -1,3 +1,4 @@
+class_name SteamInput
 extends Node
 
 signal controller_disconnected

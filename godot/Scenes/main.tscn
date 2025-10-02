@@ -1,11 +1,11 @@
-[gd_scene load_steps=37 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=39 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
 [ext_resource type="PackedScene" uid="uid://dscdweyjo64pw" path="res://Scenes/debug_ui.tscn" id="2_3lm13"]
 [ext_resource type="Script" uid="uid://bjy3cbht121d2" path="res://Scenes/steam_input.gd" id="2_hpc6h"]
 [ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="3_2aw7r"]
-[ext_resource type="Script" uid="uid://c35wj77qlgbbd" path="res://Scenes/input_mapper.gd" id="3_neg2b"]
+[ext_resource type="Script" path="res://Scenes/input_mapper.gd" id="3_neg2b"]
 [ext_resource type="Script" uid="uid://vinoqubh04ad" path="res://Scenes/hud.gd" id="3_ypy50"]
 [ext_resource type="Script" uid="uid://igsaf4582kmm" path="res://Scenes/ui.gd" id="4_e08e2"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="5_l2xk6"]
@@ -34,6 +34,8 @@
 [ext_resource type="Script" uid="uid://cr7guxn2k4m4y" path="res://Features/Achievements/Scripts/achievement_config_manager.gd" id="27_1w6v2"]
 [ext_resource type="Script" uid="uid://b3ytntieih6jw" path="res://Features/Achievements/Scripts/achievement_counter_manager.gd" id="28_6vcvc"]
 [ext_resource type="Script" uid="uid://df4ihhde77ug2" path="res://Features/Achievements/Scripts/achievement_manager.gd" id="29_7k868"]
+[ext_resource type="Script" uid="uid://cm6ixqs4pe5wa" path="res://Scripts/fiiish_pause_manager.gd" id="30_pause"]
+[ext_resource type="Script" uid="uid://bhcqfq8wb7ejm" path="res://omg-lib/pause_manager.gd" id="36_hdf80"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwb6x"]
 font = ExtResource("7_c40ns")
@@ -68,11 +70,12 @@ script = ExtResource("2_hpc6h")
 process_mode = 3
 script = ExtResource("3_neg2b")
 
-[node name="Game" parent="." node_paths=PackedStringArray("achievement_config_manager", "achievement_counter_manager", "achievement_manager", "musicManager", "soundManager") instance=ExtResource("1_0flmv")]
+[node name="Game" parent="." node_paths=PackedStringArray("achievement_config_manager", "achievement_counter_manager", "achievement_manager", "fiiish_pause_manager", "musicManager", "soundManager") instance=ExtResource("1_0flmv")]
 unique_name_in_owner = true
 achievement_config_manager = NodePath("../Managers/AchievementConfigManager")
 achievement_counter_manager = NodePath("../Managers/AchievementCounterManager")
 achievement_manager = NodePath("../Managers/AchievementManager")
+fiiish_pause_manager = NodePath("../Managers/FiiishPauseManager")
 musicManager = NodePath("../Managers/MusicManager")
 soundManager = NodePath("../Managers/SoundManager")
 
@@ -404,6 +407,15 @@ unique_name_in_owner = true
 script = ExtResource("29_7k868")
 game = NodePath("../../Game")
 metadata/_custom_type_script = "uid://df4ihhde77ug2"
+
+[node name="FiiishPauseManager" type="Node" parent="Managers" node_paths=PackedStringArray("_game", "_steam_input")]
+unique_name_in_owner = true
+script = ExtResource("30_pause")
+_game = NodePath("../../Game")
+_steam_input = NodePath("../../SteamInput")
+
+[node name="PauseManager" type="Node" parent="Managers/FiiishPauseManager"]
+script = ExtResource("36_hdf80")
 
 [connection signal="controller_disconnected" from="SteamInput" to="." method="_on_steam_input_controller_disconnected"]
 [connection signal="state_changed" from="Game" to="UI/DialogManager" method="_on_game_state_changed"]

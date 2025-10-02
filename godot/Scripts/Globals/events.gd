@@ -5,7 +5,8 @@ signal zone_changed
 signal zone_finished
 signal settings_changed
 signal cheats_changed
-signal game_paused( is_paused: bool )
+signal pause_state_changed( state: PauseManager.PauseState, reason: PauseManager.PauseReason )
+signal player_pause_toggle_requested
 
 signal zone_edit_enabled
 signal zone_edit_disabled
@@ -43,8 +44,11 @@ func broadcast_settings_changed( ) -> void:
 func broadcast_cheats_changed( ) -> void:
 	cheats_changed.emit()
 
-func broadcast_game_paused( is_paused: bool ) -> void:
-	game_paused.emit( is_paused )
+func broadcast_pause_state_changed( state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
+	pause_state_changed.emit( state, reason )
+
+func broadcast_player_pause_toggle_requested() -> void:
+	player_pause_toggle_requested.emit()
 
 func broadcast_zone_edit_enabled( ) -> void:
 	zone_edit_enabled.emit()

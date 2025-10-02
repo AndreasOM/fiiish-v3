@@ -40,6 +40,7 @@ func _ready() -> void:
 	Events.settings_changed.connect( _on_settings_changed )
 	Events.dialog_opened.connect( _on_dialog_opened )
 	Events.dialog_closed.connect( _on_dialog_closed )
+	Events.pause_state_changed.connect( _on_pause_state_changed )
 #	Events.zone_test_enabled.connect( _on_zone_test_enabled )
 #	Events.zone_test_disabled.connect( _on_zone_test_disabled )
 
@@ -93,13 +94,15 @@ func _input(event: InputEvent) -> void:
 #		if self._is_main_menu_available( state ):
 #			self._dialog_manager.toggle_dialog( DialogIds.Id.MAIN_MENU_DIALOG, fade_time )
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Global_TogglePause"):
 		# Events.broadcast_global_message("Toggle Pause")
 		toggle_pause()
 	
 func _update_buttons() -> void:
-	var is_paused = self._dialog_manager.game.is_paused()
+	var pause_manager = self._dialog_manager.game.get_fiiish_pause_manager()
+	var is_paused = pause_manager.is_paused()
 	var settings_button = %SettingsButtonFade as FadeableContainer
 	if settings_button != null:
 		if !self._dialog_manager.game.is_in_kids_mode():
@@ -115,35 +118,10 @@ func _update_buttons() -> void:
 			settings_button.fade_out( 0.3 )
 			self.music_toggle_button.fade_out( 0.3 )
 			self.sound_toggle_button.fade_out( 0.3 )
-	
+
 func toggle_pause() -> void:
-	if self._dialog_manager.game !=	null:
-		var is_paused = self._dialog_manager.game.toogle_pause()
-		if is_paused:
-			self._focus_before_pause = get_viewport().gui_get_focus_owner()
-			if self._focus_before_pause != null:
-				print("focus was: %s" % self._focus_before_pause.name)
-			else:
-				print("no focus")
-			
-			self.pause_toggle_button.goto_b()
-			# Events.broadcast_global_message("Pause -> Paused")
-			self.pause_toggle_button.grab_focus.call_deferred()
-		else:
-			self.pause_toggle_button.goto_a()
-			# Events.broadcast_global_message("Pause -> Resumed")
-			self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
-			# self.pause_toggle_button.grab_focus.call_deferred()
-			
-			if self._focus_before_pause != null:
-				print("focus to: %s" % self._focus_before_pause.name)
-				self._focus_before_pause.grab_focus.call_deferred()
-				self._focus_before_pause = null
-			else:
-				print("Focus: release focus")
-				get_viewport().gui_release_focus.call_deferred()
-		self._update_buttons()
-			
+	Events.broadcast_player_pause_toggle_requested()
+
 func _on_settings_button_pressed() -> void:
 	print("Settings Button pressed")
 	## # %SettingsFadeableContainer.toggle_fade( 0.3 )
@@ -152,7 +130,7 @@ func _on_settings_button_pressed() -> void:
 
 func _on_pause_toggle_button_toggled( _state: ToggleButtonContainer.ToggleState ) -> void:
 	toggle_pause()
-	
+
 func _on_pause_toggle_button_toggle_requested(state: ToggleButtonContainer.ToggleState) -> void:
 	toggle_pause()
 	
@@ -179,6 +157,42 @@ func _on_settings_changed() -> void:
 	if !self.visible:
 		return
 	self._update_main_menu_button( self._dialog_manager.game.get_state() )
+	self._update_buttons()
+
+func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
+	match pause_state:
+		PauseManager.PauseState.PAUSED:
+			# Only save focus if we haven't already saved it
+			if self._focus_before_pause == null:
+				self._focus_before_pause = get_viewport().gui_get_focus_owner()
+				if self._focus_before_pause != null:
+					print("focus was: %s" % self._focus_before_pause.name)
+				else:
+					print("no focus")
+
+			# Update button to paused state and grab focus
+			self.pause_toggle_button.goto_b()
+			self.pause_toggle_button.grab_focus.call_deferred()
+
+		PauseManager.PauseState.RUNNING:
+			# Update button to running state
+			self.pause_toggle_button.goto_a()
+
+			# Close settings dialog when resuming
+			self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
+
+			# Restore focus from before pause
+			if self._focus_before_pause != null:
+				print("focus to: %s" % self._focus_before_pause.name)
+				self._focus_before_pause.grab_focus.call_deferred()
+				self._focus_before_pause = null
+			else:
+				print("Focus: release focus")
+				get_viewport().gui_release_focus.call_deferred()
+		_:
+			pass
+
+	# Always update buttons after state change
 	self._update_buttons()
 
 func _is_main_menu_available( state: Game.State ) -> bool:

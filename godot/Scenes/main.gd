@@ -63,9 +63,11 @@ func _ready() -> void:
 
 	
 	Events.game_state_changed.connect( _on_game_state_changed )
-	Events.game_paused.connect( _on_game_paused )
+	# Events.game_paused_v1.connect( _on_game_paused )  # OLD SYSTEM - DISABLED
+	Events.pause_state_changed.connect( _on_pause_state_changed )
+	Events.player_pause_toggle_requested.connect( _on_player_pause_toggle_requested )
 	# var lbd = %DialogManager.open_dialog(DialogIds.Id.LEADERBOARD_DIALOG, 0.0)
-	$Game.resume()
+	# $Game.resume()  # OLD SYSTEM - new system auto-starts in RUNNING state
 
 	var is_in_kids_mode = $Game.is_in_kids_mode()
 	self._on_kids_mode_changed( is_in_kids_mode )
@@ -83,8 +85,9 @@ func _ready() -> void:
 #	if FeatureTags.has_feature("steam"):
 #		Events.broadcast_global_message("STEAM!")
 
-	get_window().focus_exited.connect( _on_window_focus_exited )
-	get_window().focus_entered.connect( _on_window_focus_entered )
+	# OLD FOCUS CONNECTIONS DISABLED - FiiishPauseManager handles window focus now
+	# get_window().focus_exited.connect( _on_window_focus_exited )
+	# get_window().focus_entered.connect( _on_window_focus_entered )
 	
 	if SteamWrapper.is_available():
 		print_rich("[color=green]---=== Setting up Steam Integration ===---[/color]")
@@ -266,10 +269,24 @@ func _update_action_set( state: Game.State ) -> void:
 	
 func _on_game_state_changed( state: Game.State ) -> void:
 	self._update_action_set( state )
-	
-func _on_game_paused( is_paused: bool ) -> void:
+	_fix_startup_pause_state( state )
+
+func _fix_startup_pause_state( state: Game.State ) -> void:
+	match state:
+		Game.State.PREPARING_FOR_START, Game.State.WAITING_FOR_START:
+			print("NEW PAUSE SYSTEM: _fix_startup_pause_state triggered for %s" % game.state_to_name(state))
+			var pause_manager = %FiiishPauseManager.get_pause_manager()
+			print("NEW PAUSE SYSTEM: requesting player resume to fix startup artifacts")
+			pause_manager.request_player_resume()
+		_:
+			print("NEW PAUSE SYSTEM: _fix_startup_pause_state called with state: %s" % game.state_to_name(state))
+
+func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
 	var state = self.game.get_state()
 	self._update_action_set( state )
+
+func _on_player_pause_toggle_requested() -> void:
+	%FiiishPauseManager.toggle_player_pause()
 
 func _on_dialog_opened( id: DialogIds.Id ) -> void:
 	# if id == DialogIds.Id.MAIN_MENU_DIALOG:
@@ -282,32 +299,37 @@ func _on_dialog_closed( id: DialogIds.Id ) -> void:
 		self._update_action_set( state )
 
 func _on_steam_overlay_toggled( active: bool, _user_initiated: bool, _app_id: int ) -> void:
+	# Steam overlay does NOT trigger window focus events automatically, so we handle manually
 	if active:
-		self._on_window_focus_exited()
+		# Steam overlay opened - pause via new system
+		%FiiishPauseManager.get_pause_manager().notify_focus_lost()
 		Events.broadcast_global_message( "Overlay Toggled ON")
 	else:
-		self._on_window_focus_entered()
+		# Steam overlay closed - resume via new system
+		%FiiishPauseManager.get_pause_manager().notify_focus_gained()
 		Events.broadcast_global_message( "Overlay Toggled OFF")
 	
-func _on_window_focus_entered() -> void:
-	#self.resume()
-	self.process_mode = Node.PROCESS_MODE_INHERIT
-	# get_tree().paused = false
-	if !self._was_paused_before_focus_was_lost:
-		self.game.resume()
+# OLD FOCUS HANDLER - DISABLED - FiiishPauseManager handles focus events now
+# func _on_window_focus_entered() -> void:
+#	#self.resume()
+#	self.process_mode = Node.PROCESS_MODE_INHERIT
+#	# get_tree().paused = false
+#	if !self._was_paused_before_focus_was_lost:
+#		self.game.resume()
 	
-func _on_window_focus_exited() -> void:
-	const PAUSE_ON_FOCUS_LOSS: bool = false	# :TODO: could be a setting
-	if SteamWrapper.is_available():
-		var steam = SteamWrapper.get_steam()
-		#if PAUSE_ON_FOCUS_LOSS || steam.isSteamRunningOnSteamDeck():
-		if PAUSE_ON_FOCUS_LOSS || steam.isSteamRunning():
-			self.process_mode = Node.PROCESS_MODE_DISABLED
-			if self.game.is_paused():
-				self._was_paused_before_focus_was_lost = true
-			else:
-				self._was_paused_before_focus_was_lost = false
-				self.game.pause()
+# OLD FOCUS HANDLER - DISABLED - FiiishPauseManager handles focus events now
+# func _on_window_focus_exited() -> void:
+#	const PAUSE_ON_FOCUS_LOSS: bool = false	# :TODO: could be a setting
+#	if SteamWrapper.is_available():
+#		var steam = SteamWrapper.get_steam()
+#		#if PAUSE_ON_FOCUS_LOSS || steam.isSteamRunningOnSteamDeck():
+#		if PAUSE_ON_FOCUS_LOSS || steam.isSteamRunning():
+#			self.process_mode = Node.PROCESS_MODE_DISABLED
+#			if self.game.is_paused():
+#				self._was_paused_before_focus_was_lost = true
+#			else:
+#				self._was_paused_before_focus_was_lost = false
+#				self.game.pause()
 
 	
 func _on_received_url( url: String ) -> void:
@@ -535,4 +557,5 @@ func _on_settings_changed() -> void:
 
 
 func _on_steam_input_controller_disconnected() -> void:
-	self.game.pause()
+	# NEW PAUSE SYSTEM: Controller disconnect triggers pause
+	%FiiishPauseManager.get_pause_manager().notify_controller_disconnected()

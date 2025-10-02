@@ -68,14 +68,12 @@ func _ready() -> void:
 	bestDistanceResultRow.clear()
 	totalDistanceResultRow.clear()
 	Events.dialog_closed.connect( _on_dialog_closed )
-	Events.game_paused.connect( _on_game_paused )
+	# Events.game_paused_v1.connect( _on_game_paused )  # OLD SYSTEM - DISABLED
+	Events.pause_state_changed.connect( _on_pause_state_changed )
 
-func _on_game_paused( is_paused: bool ) -> void:
+func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
 	return
-#	if is_paused:
-#		pass
-#	else:
-#		self.play_button.grab_focus.call_deferred()
+	# Empty - same as old handler
 
 func _on_dialog_closed( id: DialogIds.Id ) -> void:
 	match id:
