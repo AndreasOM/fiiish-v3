@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dj0xbojj3n5cm"]
+[gd_scene load_steps=3 format=3 uid="uid://dj0xbojj3n5cm"]
 
 [ext_resource type="Script" uid="uid://ccwdu1nruredj" path="res://Dialogs/DeveloperOverlay/developer_overlay_dialog.gd" id="1_xax1l"]
+[ext_resource type="FontFile" uid="uid://by1vsru6pkq7c" path="res://Fonts/SF_Arch_Rival.ttf" id="2_k35jd"]
 
 [node name="DeveloperOverlayDialog" type="Control"]
 z_index = 999
@@ -49,11 +50,16 @@ shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="ButtonsRichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="ButtonsRichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(350, 490)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0.631373, 0, 1)
@@ -64,6 +70,43 @@ text = "Buttons
 0 <- Menu_CloseMainMenu
 1 <- MMMMMMMMMMMM
 0 <- IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+scroll_active = false
+scroll_following = true
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="EntityStatsRichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 490)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.631373, 0, 1)
+theme_override_colors/font_outline_color = Color(0.208557, 0.119206, 0.222108, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 22
+text = "Stats"
+scroll_active = false
+scroll_following = true
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="PerformanceStatsRichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 490)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0.631373, 0, 1)
+theme_override_colors/font_outline_color = Color(0.208557, 0.119206, 0.222108, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("2_k35jd")
+theme_override_font_sizes/normal_font_size = 16
+text = "Stats"
 scroll_active = false
 scroll_following = true
 shortcut_keys_enabled = false

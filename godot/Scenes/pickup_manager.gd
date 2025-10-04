@@ -13,10 +13,42 @@ var _coin_rain_counter: float = 0.0
 @export var game_manager: GameManager = null
 @export var entity_config_manager: EntityConfigManager = null
 
+# :NOTE: ZoneManager currently delegates pickup spawning here to maintain proper ownership.
+# This will be further detangled when we implement the new zone file format.
+func spawn_pickup_from_entity_config(ec: EntityConfig, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Entity:
+	var o: Node = ec.resource.instantiate()
+	var e = o as Entity
+	if e == null:
+		o.queue_free()
+		return null
+
+	e.game_manager = self.game_manager
+	e.entity_type = ec.entity_type
+	e.position = Vector2(position.x + spawn_offset, position.y)
+	e.rotation_degrees = rotation_degrees
+	%Pickups.add_child(e)
+
+	var type_str = EntityTypes.id_to_string(e.entity_type)
+	self.game_manager.entity_stats.increment(type_str + "_spawned")
+
+	return e
+
+func _despawn_pickup(pickup: Entity) -> void:
+	if pickup == null:
+		push_warning("Attempted to despawn null pickup")
+		return
+
+	var type_str = EntityTypes.id_to_string(pickup.entity_type)
+	self.game_manager.entity_stats.increment(type_str + "_despawned")
+
+	var parent = pickup.get_parent()
+	if parent != null:
+		parent.remove_child(pickup)
+	pickup.queue_free()
+
 func cleanup() -> void:
 	for p in %Pickups.get_children():
-		%Pickups.remove_child(p)
-		p.queue_free()
+		self._despawn_pickup(p as Entity)
 
 func kill_all() -> void:
 	var g = Vector2( 0.0, 9.81*100.0 )
@@ -68,8 +100,7 @@ func _despawn_offscreen_pickups() -> void:
 			if wo > 0:
 				n.position.x += wo
 			else:
-				%Pickups.remove_child(p)
-				p.queue_free()
+				self._despawn_pickup(n as Entity)
 
 
 func _process_fish_attraction( delta: float ) -> void:
@@ -108,8 +139,7 @@ func _process_fish_attraction( delta: float ) -> void:
 					_: pass
 				self.game_manager.trigger_sound( p.soundEffect() )
 				self.game_manager.give_coins( p.coin_value() )
-				p.queue_free()
-				p.get_parent().remove_child( p )
+				self._despawn_pickup(p as Entity)
 			elif ls < magnet_range_sqr:
 				if !p.is_magnetic():
 					continue
@@ -138,19 +168,15 @@ func _process_coins(delta: float) -> void:
 				spawn_coins(cc, f)
 
 func spawn_explosion( position: Vector2, fish: Fish ) -> void:
-	position.x += 50.0	
+	position.x += 50.0
 	var count: int = floor(fish.get_skill_effect_value( SkillEffectIds.Id.COIN_EXPLOSION_AMOUNT, 1.0 ))
-	
+
 	for i in count:
-		var p = _instantiate_coin( fish )
-		if p == null:
+		var coin_ec = _get_coin_entity_config( fish )
+		if coin_ec == null:
 			continue
-		
-		p.game_manager = self.game_manager
-		p.position = position
-		%Pickups.add_child(p)
-		
-		var pickup = p as Pickup
+
+		var pickup = self.spawn_pickup_from_entity_config(coin_ec, position, 0.0, 0.0)
 		if pickup != null:
 			var v = Vector2.RIGHT
 			var cone = 0.5
@@ -172,15 +198,12 @@ func extend_coin_rain( duration: float, cps: float ) -> void:
 
 func spawn_coins( count: int, fish: Fish ) -> void:
 	for i in count:
-		var p = _instantiate_coin( fish )
-		if p == null:
+		var coin_ec = _get_coin_entity_config( fish )
+		if coin_ec == null:
 			continue
-			
-		p.game_manager = self.game_manager
-		p.position = Vector2( randf_range( 0.0, 1000.0 ), randf_range( -1100.0, -600.0 ) )
-		%Pickups.add_child(p)
-		
-		var pickup = p as Pickup
+
+		var pos = Vector2( randf_range( 0.0, 1000.0 ), randf_range( -1100.0, -600.0 ) )
+		var pickup = self.spawn_pickup_from_entity_config(coin_ec, pos, 0.0, 0.0)
 		if pickup != null:
 			pickup.set_velocity( Vector2( randf_range( -10.0, 10.0 ), randf_range( 250.0, 400.0 ) ) )
 
@@ -188,45 +211,23 @@ func spawn_coin( pos: Vector2 ) -> Pickup:
 	var coin_ec = entity_config_manager.get_entry( EntityId.Id.PICKUPCOIN )
 	if coin_ec == null:
 		return null
-	var p = coin_ec.resource.instantiate()
-	
-	p.game_manager = self.game_manager
-	p.position = pos
-	%Pickups.add_child(p)
-	
-	return p
+	return self.spawn_pickup_from_entity_config(coin_ec, pos, 0.0, 0.0)
 
 func spawn_pickup_rain( pos: Vector2 ) -> Pickup:
 	var coin_ec = entity_config_manager.get_entry( EntityId.Id.PICKUPRAIN )
 	if coin_ec == null:
 		return null
-	var p = coin_ec.resource.instantiate()
-	
-	p.game_manager = self.game_manager
-	p.position = pos
-	%Pickups.add_child(p)
-	
-	return p
+	return self.spawn_pickup_from_entity_config(coin_ec, pos, 0.0, 0.0)
 
 func spawn_pickup_explosion( pos: Vector2 ) -> Pickup:
 	var coin_ec = entity_config_manager.get_entry( EntityId.Id.PICKUPEXPLOSION )
 	if coin_ec == null:
 		return null
-	var p = coin_ec.resource.instantiate()
+	return self.spawn_pickup_from_entity_config(coin_ec, pos, 0.0, 0.0)
 	
-	p.game_manager = self.game_manager
-	p.position = pos
-	%Pickups.add_child(p)
-	
-	return p
-	
-func _instantiate_coin( fish: Fish ) -> Object:
+func _get_coin_entity_config( fish: Fish ) -> EntityConfig:
 	var coin_entity_id = pick_coin( fish )
-	var coin_ec = entity_config_manager.get_entry( coin_entity_id )
-	if coin_ec == null:
-		return null
-	var p = coin_ec.resource.instantiate()
-	return p
+	return entity_config_manager.get_entry( coin_entity_id )
 
 func pick_coin( fish: Fish ) -> EntityId.Id:
 	var luck_factor = max( 0.0, 1.0-0.1*_special_coins_spawned )

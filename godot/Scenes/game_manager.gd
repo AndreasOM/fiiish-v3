@@ -23,6 +23,8 @@ var _was_invicible_before_jump: bool = false
 
 @onready var fish_manager: FishManager = %FishManager
 
+var entity_stats: StatisticsCounters = StatisticsCounters.new("Entity Statistics")
+
 var _coins: int = 0
 var _distance: float = 0.0
 var _paused: bool = true
@@ -260,11 +262,20 @@ func move_fish( v: Vector2 ) -> void:
 
 func _on_game_state_changed( state: Game.State ) -> void:
 	match state:
+		Game.State.PREPARING_FOR_START:
+			if OS.has_feature("editor"):
+				print("=== Entity Statistics (PREPARING_FOR_START) ===")
+				print(self.entity_stats)
+			self.entity_stats.clear()
 		Game.State.SWIMMING:
 			var autospawn = self._test_zone_filename.is_empty()
 			self.zone_manager.clear_zone_history()
 			self.spawn_zone( autospawn )
 			self.resume()
+		Game.State.GAME_OVER:
+			if OS.has_feature("editor"):
+				print("=== Entity Statistics (GAME_OVER) ===")
+				print(self.entity_stats)
 		_:
 			pass
 	
@@ -275,7 +286,10 @@ func _on_zone_finished() -> void:
 
 func get_zone_config_manager() -> ZoneConfigManager:
 	return self._zone_config_manager
-	
+
+func get_entity_statistics() -> StatisticsCounters:
+	return self.entity_stats
+
 func set_test_zone_filename( filename: String ) -> void:
 	self._test_zone_filename = filename
 	

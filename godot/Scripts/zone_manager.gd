@@ -44,8 +44,7 @@ func _despawn_offscreen_obstacles() -> void:
 			if wo > 0:
 				n.position.x += wo
 			else:
-				%Obstacles.remove_child(n)
-				n.queue_free()
+				self._despawn_entity(n as Entity)
 
 func get_current_zone() -> NewZone:
 	return self._current_zone
@@ -61,11 +60,9 @@ func set_zone_config_manager( zcm: ZoneConfigManager ) -> void:
 
 func cleanup() -> void:
 	for o in %Obstacles.get_children():
-		%Obstacles.remove_child(o)
-		o.queue_free()
+		self._despawn_entity(o as Entity)
 	for a in %Areas.get_children():
-		%Areas.remove_child(a)
-		a.queue_free()
+		self._despawn_entity(a as Entity)
 
 func clear_zone_history() -> void:
 	self._zone_history.clear()
@@ -87,28 +84,50 @@ func _pick_next_zone() -> NewZone:
 	return self._zone_config_manager.pick_next_zone( blocked_zones, difficulty )
 
 func _spawn_object( ec: EntityConfig, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Entity:
-	var o: Node = ec.resource.instantiate()
-	var e = o as Entity
-	if e == null:
-		o.queue_free()
-		return null
-		
-	e.game_manager = self.game_manager
-	e.position = Vector2( position.x + spawn_offset, position.y )
-	e.rotation_degrees = rotation_degrees
+	# :NOTE: Delegate pickup spawning to PickupManager to maintain proper ownership.
+	# This will be further detangled when we implement the new zone file format.
 	match ec.entity_type:
-		EntityTypes.Id.OBSTACLE:
-			%Obstacles.add_child(e)
 		EntityTypes.Id.PICKUP:
-			%Pickups.add_child(e)
-		EntityTypes.Id.AREA:
-			%Areas.add_child(e)
-		_ :
-			# !!!!
-			pass
-	
-	return e
-	
+			return self.game_manager.pickup_manager.spawn_pickup_from_entity_config(ec, position, rotation_degrees, spawn_offset)
+		_:
+			# ZoneManager handles obstacles and areas
+			var o: Node = ec.resource.instantiate()
+			var e = o as Entity
+			if e == null:
+				o.queue_free()
+				return null
+
+			e.game_manager = self.game_manager
+			e.entity_type = ec.entity_type
+			e.position = Vector2( position.x + spawn_offset, position.y )
+			e.rotation_degrees = rotation_degrees
+			match ec.entity_type:
+				EntityTypes.Id.OBSTACLE:
+					%Obstacles.add_child(e)
+				EntityTypes.Id.AREA:
+					%Areas.add_child(e)
+				_:
+					return e  # Early return for unknown types, don't track
+
+			# Track spawned entity (only OBSTACLE and AREA reach here)
+			var type_str = EntityTypes.id_to_string(e.entity_type)
+			self.game_manager.entity_stats.increment(type_str + "_spawned")
+			return e
+
+func _despawn_entity(entity: Entity) -> void:
+	if entity == null:
+		push_warning("Attempted to despawn null entity")
+		return
+
+	# Track despawned entity
+	var type_str = EntityTypes.id_to_string(entity.entity_type)
+	self.game_manager.entity_stats.increment(type_str + "_despawned")
+
+	var parent = entity.get_parent()
+	if parent != null:
+		parent.remove_child(entity)
+	entity.queue_free()
+
 func spawn_object_from_crc( crc: int, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Node2D:
 	var ec = entity_config_manager.get_entry( crc )
 	if ec == null:
