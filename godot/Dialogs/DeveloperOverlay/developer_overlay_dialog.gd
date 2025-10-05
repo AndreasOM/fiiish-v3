@@ -5,12 +5,16 @@ extends Dialog
 @onready var buttons_rich_text_label: RichTextLabel = %ButtonsRichTextLabel
 @onready var entity_stats_rich_text_label: RichTextLabel = %EntityStatsRichTextLabel
 @onready var performance_stats_rich_text_label: RichTextLabel = %PerformanceStatsRichTextLabel
+@onready var performance_waterfall_rich_text_label: RichTextLabel = %PerformanceWaterfallRichTextLabel
 
 var _debug_lines: Array[ String ] = []
 var _buttons: Dictionary[ String, bool ] = {}
 
 const PERF_STATS_UPDATE_INTERVAL = 60
 var _perf_stats_frame_counter: int = 0
+
+const WATERFALL_UPDATE_INTERVAL = 60
+var _waterfall_frame_counter: int = 0
 
 func _ready() -> void:
 	Events.developer_message.connect( _on_developer_message )
@@ -53,6 +57,7 @@ func _update_debug() -> void:
 func _process(_delta: float) -> void:
 	_update_entity_stats()
 	_update_performance_stats()
+	_update_performance_waterfall()
 
 func _update_entity_stats() -> void:
 	if self.entity_stats_rich_text_label == null:
@@ -95,6 +100,19 @@ func _update_performance_stats() -> void:
 			lines.push_back(str(stats))
 
 	self.performance_stats_rich_text_label.text = "\n".join(lines)
+
+func _update_performance_waterfall() -> void:
+	if self.performance_waterfall_rich_text_label == null:
+		return
+
+	self._waterfall_frame_counter += 1
+	if self._waterfall_frame_counter < WATERFALL_UPDATE_INTERVAL:
+		return
+
+	self._waterfall_frame_counter = 0
+
+	var waterfall = PerformanceMonitor.get_worst_frame_waterfall()
+	self.performance_waterfall_rich_text_label.text = waterfall
 
 static func is_developer() -> bool:
 	var developer_enabled = false

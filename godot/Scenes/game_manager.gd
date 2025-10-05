@@ -272,6 +272,7 @@ func _on_game_state_changed( state: Game.State ) -> void:
 			self.zone_manager.clear_zone_history()
 			self.spawn_zone( autospawn )
 			self.resume()
+			PerformanceMonitor.reset_worst_frame()
 		Game.State.GAME_OVER:
 			if OS.has_feature("editor"):
 				print("=== Entity Statistics (GAME_OVER) ===")

@@ -154,6 +154,8 @@ func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float 
 	return true
 	
 func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> bool:
+	var pa = PerformanceArea.new("ZoneSpawning")
+
 	self.current_zone_progress = 0.0
 	self._current_zone = zone
 	Events.broadcast_zone_changed( zone )
@@ -170,7 +172,7 @@ func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> bool:
 			pass
 		else:
 			print("Skipping layer %s" % l.name )
-			
+
 	return true
 
 func load_and_spawn_zone( filename: String ) -> bool:
