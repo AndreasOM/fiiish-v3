@@ -5,7 +5,7 @@ extends Dialog
 @onready var buttons_rich_text_label: RichTextLabel = %ButtonsRichTextLabel
 @onready var entity_stats_rich_text_label: RichTextLabel = %EntityStatsRichTextLabel
 @onready var performance_stats_rich_text_label: RichTextLabel = %PerformanceStatsRichTextLabel
-@onready var performance_waterfall_rich_text_label: RichTextLabel = %PerformanceWaterfallRichTextLabel
+@onready var performance_waterfall_view_control: PerformanceMonitor_ViewControl = %PerformanceWaterfallViewControl
 
 var _debug_lines: Array[ String ] = []
 var _buttons: Dictionary[ String, bool ] = {}
@@ -105,7 +105,7 @@ func _update_performance_stats() -> void:
 	self.performance_stats_rich_text_label.text = "\n".join(lines)
 
 func _update_performance_waterfall() -> void:
-	if self.performance_waterfall_rich_text_label == null:
+	if self.performance_waterfall_view_control == null:
 		return
 
 	self._waterfall_frame_counter += 1
@@ -114,8 +114,7 @@ func _update_performance_waterfall() -> void:
 
 	self._waterfall_frame_counter = 0
 
-	var waterfall = PerformanceMonitor.get_worst_frame_waterfall()
-	self.performance_waterfall_rich_text_label.text = waterfall
+	self.performance_waterfall_view_control.update_display()
 
 static func is_developer() -> bool:
 	var developer_enabled = false
