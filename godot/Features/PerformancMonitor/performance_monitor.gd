@@ -2,7 +2,7 @@
 extends Node2D
 
 var _current_areas: Dictionary[String, int] = {}
-var _historical_areas: Dictionary[String, PerformanceAreaStats] = {}
+var _historical_areas: Dictionary[String, PerformanceMonitor_AreaStats] = {}
 var _path: Array[String] = []
 
 func _init() -> void:
@@ -10,12 +10,12 @@ func _init() -> void:
 
 var _current_frame_start_usec: int = 0
 var _current_frame_number: int = 0
-var _current_frame_areas: Array[FrameAreaTiming] = []
+var _current_frame_areas: Array[PerformanceMonitor_AreaTiming] = []
 var _current_frame_total_work_usec: int = 0  # Sum of all durations reported by engine
 
 # Deferred call tracking
-var _current_frame_deferred_calls: Array[DeferredCallTiming] = []
-var _deferred_call_stats: Dictionary = {}  # "ClassName::method_name" -> DeferredCallStats
+var _current_frame_deferred_calls: Array[PerformanceMonitor_DeferredCallTiming] = []
+var _deferred_call_stats: Dictionary = {}  # "ClassName::method_name" -> PerformanceMonitor_DeferredCallStats
 
 # Frame timing breakdown from engine
 var _current_frame_game_logic_usec: int = 0
@@ -32,10 +32,10 @@ var _current_frame_script_frame_usec: int = 0
 var _current_frame_audio_update_usec: int = 0
 
 const MAX_FRAME_HISTORY = 60
-var _frame_history: Array[FrameTiming] = []
+var _frame_history: Array[PerformanceMonitor_FrameSnapshot] = []
 var _frame_history_index: int = 0
 
-var _worst_frame: FrameTiming = null
+var _worst_frame: PerformanceMonitor_FrameSnapshot = null
 
 func draw( ci: CanvasItem ) -> void:
 	var x = 0
@@ -52,7 +52,7 @@ func next_frame() -> void:
 
 	# Finalize previous frame
 	if _current_frame_number > 0:
-		var prev_frame = FrameTiming.new(_current_frame_number, _current_frame_start_usec)
+		var prev_frame = PerformanceMonitor_FrameSnapshot.new(_current_frame_number, _current_frame_start_usec)
 		prev_frame.areas = _current_frame_areas.duplicate()
 		prev_frame.deferred_calls = _current_frame_deferred_calls.duplicate()
 		prev_frame.finalize(now)
@@ -146,7 +146,7 @@ func leave_performance_area( name: String, duration: int ) -> void:
 	var n = self._path.pop_back()
 
 	# Record for current frame timeline
-	var area_timing = FrameAreaTiming.new(full_name, start_time, end_time)
+	var area_timing = PerformanceMonitor_AreaTiming.new(full_name, start_time, end_time)
 	_current_frame_areas.push_back(area_timing)
 
 	# Update current frame (for draw visualization)
@@ -155,12 +155,12 @@ func leave_performance_area( name: String, duration: int ) -> void:
 
 	# Update historical statistics
 	if !self._historical_areas.has(full_name):
-		self._historical_areas[full_name] = PerformanceAreaStats.new(full_name)
+		self._historical_areas[full_name] = PerformanceMonitor_AreaStats.new(full_name)
 
 	var stats = self._historical_areas[full_name]
 	stats.add_sample(duration, end_time)
 
-func get_area_stats(area_name: String) -> PerformanceAreaStats:
+func get_area_stats(area_name: String) -> PerformanceMonitor_AreaStats:
 	return self._historical_areas.get(area_name, null)
 
 func get_all_stats() -> Dictionary:
@@ -171,10 +171,10 @@ func get_all_area_names() -> Array[String]:
 	names.assign(self._historical_areas.keys())
 	return names
 
-func get_frame_history() -> Array[FrameTiming]:
+func get_frame_history() -> Array[PerformanceMonitor_FrameSnapshot]:
 	return _frame_history.duplicate()
 
-func get_worst_frame() -> FrameTiming:
+func get_worst_frame() -> PerformanceMonitor_FrameSnapshot:
 	return _worst_frame
 
 func get_current_frame_number() -> int:
@@ -230,14 +230,14 @@ func _engine_track_deferred_call(
 	var key = "%s::%s [%s]" % [classname, method, type_str]
 
 	# Track this individual call
-	var call_timing = DeferredCallTiming.new(target, method, type, start_usec, end_usec)
+	var call_timing = PerformanceMonitor_DeferredCallTiming.new(target, method, type, start_usec, end_usec)
 	_current_frame_deferred_calls.push_back(call_timing)
 
 	# Update aggregate stats
 	if !_deferred_call_stats.has(key):
-		_deferred_call_stats[key] = DeferredCallStats.new(classname, method, type)
+		_deferred_call_stats[key] = PerformanceMonitor_DeferredCallStats.new(classname, method, type)
 
-	var stats: DeferredCallStats = _deferred_call_stats[key]
+	var stats: PerformanceMonitor_DeferredCallStats = _deferred_call_stats[key]
 	stats.add_sample(duration_usec, end_usec)
 
 # Engine hook: called at end of frame with timing breakdown
@@ -338,7 +338,7 @@ func _track_node_timing(node: Node, start_time_usec: int, end_time_usec: int) ->
 	_current_frame_total_work_usec += duration_usec
 
 	# Record for current frame timeline (with node reference)
-	var area_timing = FrameAreaTiming.new(node_path, start_time_usec, end_time_usec, node)
+	var area_timing = PerformanceMonitor_AreaTiming.new(node_path, start_time_usec, end_time_usec, node)
 	_current_frame_areas.push_back(area_timing)
 
 	# Update current frame (for draw visualization)
@@ -347,7 +347,7 @@ func _track_node_timing(node: Node, start_time_usec: int, end_time_usec: int) ->
 
 	# Update historical statistics
 	if !self._historical_areas.has(node_path):
-		self._historical_areas[node_path] = PerformanceAreaStats.new(node_path)
+		self._historical_areas[node_path] = PerformanceMonitor_AreaStats.new(node_path)
 
 	var stats = self._historical_areas[node_path]
 	stats.add_sample(duration_usec, end_time_usec)
@@ -359,7 +359,7 @@ const WATERFALL_USEC_THRESHOLD_MS = 1.0  # Show microseconds if below this thres
 const WORST_FRAME_MAX_AGE = 300
 
 # Waterfall filtering configuration
-var waterfall_anchors: Dictionary = {}  # Node -> WaterfallAnchorConfig
+var waterfall_anchors: Dictionary = {}  # Node -> PerformanceMonitor_WaterfallAnchorConfig
 var waterfall_deny_list: Array[Node] = []  # Nodes to exclude from tracking
 var waterfall_default_max_depth: int = 3  # Default max depth from anchor (0 = unlimited)
 var waterfall_default_min_duration_usec: int = 100  # Default min duration
@@ -368,7 +368,7 @@ func add_waterfall_anchor(node: Node, prefix: String, max_depth: int = 0, min_du
 	# Use provided values or fall back to global defaults
 	var actual_max_depth = max_depth if max_depth > 0 else waterfall_default_max_depth
 	var actual_min_duration = min_duration_usec if min_duration_usec >= 0 else waterfall_default_min_duration_usec
-	waterfall_anchors[node] = WaterfallAnchorConfig.new(prefix, actual_max_depth, actual_min_duration)
+	waterfall_anchors[node] = PerformanceMonitor_WaterfallAnchorConfig.new(prefix, actual_max_depth, actual_min_duration)
 
 func add_waterfall_deny_node(node: Node) -> void:
 	if not waterfall_deny_list.has(node):
@@ -387,10 +387,10 @@ func set_waterfall_default_min_duration_usec(min_usec: int) -> void:
 	waterfall_default_min_duration_usec = min_usec
 
 class AnchorMatch:
-	var config: WaterfallAnchorConfig
+	var config: PerformanceMonitor_WaterfallAnchorConfig
 	var relative_path: String
 
-	func _init(p_config: WaterfallAnchorConfig, p_relative_path: String) -> void:
+	func _init(p_config: PerformanceMonitor_WaterfallAnchorConfig, p_relative_path: String) -> void:
 		self.config = p_config
 		self.relative_path = p_relative_path
 
@@ -399,10 +399,10 @@ func _find_best_anchor(area_node: Node) -> AnchorMatch:
 
 	if area_node == null:
 		# Fallback for manual PerformanceArea (no node reference)
-		var default_config = WaterfallAnchorConfig.new("", waterfall_default_max_depth, waterfall_default_min_duration_usec)
+		var default_config = PerformanceMonitor_WaterfallAnchorConfig.new("", waterfall_default_max_depth, waterfall_default_min_duration_usec)
 		return AnchorMatch.new(default_config, "")
 
-	var default_config = WaterfallAnchorConfig.new("", waterfall_default_max_depth, waterfall_default_min_duration_usec)
+	var default_config = PerformanceMonitor_WaterfallAnchorConfig.new("", waterfall_default_max_depth, waterfall_default_min_duration_usec)
 	var best_match = AnchorMatch.new(default_config, str(area_node.get_path()))
 	var shortest_len = best_match.relative_path.length()
 
@@ -415,7 +415,7 @@ func _find_best_anchor(area_node: Node) -> AnchorMatch:
 			if relative_path == ".":
 				display_path = ""  # Will show just the prefix
 
-			var anchor_config: WaterfallAnchorConfig = waterfall_anchors[anchor_node]
+			var anchor_config: PerformanceMonitor_WaterfallAnchorConfig = waterfall_anchors[anchor_node]
 			best_match = AnchorMatch.new(anchor_config, display_path)
 			shortest_len = relative_path.length()
 
@@ -426,7 +426,7 @@ static func _get_path_depth(path: String) -> int:
 		return 0
 	return path.count("/")
 
-func _calculate_inclusive_duration(node_path: String, all_areas: Array[FrameAreaTiming]) -> int:
+func _calculate_inclusive_duration(node_path: String, all_areas: Array[PerformanceMonitor_AreaTiming]) -> int:
 	# Calculate total duration of this node and all its descendants
 	var total = 0
 	for area in all_areas:
@@ -563,7 +563,7 @@ func get_worst_frame_waterfall() -> String:
 			tree_nodes[parent_path].end = max(tree_nodes[parent_path].end, area.end_usec)
 
 	# STEP 1.5: Add aggregated deferred calls as flat entries (no hierarchy)
-	var default_config = WaterfallAnchorConfig.new("[DEFERRED] ", waterfall_default_max_depth, waterfall_default_min_duration_usec)
+	var default_config = PerformanceMonitor_WaterfallAnchorConfig.new("[DEFERRED] ", waterfall_default_max_depth, waterfall_default_min_duration_usec)
 
 	for key in aggregated_deferred:
 		var agg = aggregated_deferred[key]
@@ -580,11 +580,11 @@ func get_worst_frame_waterfall() -> String:
 		}
 
 	# STEP 2: Filter what to display based on depth and duration
-	var filtered_areas: Array[FrameAreaTiming] = []
+	var filtered_areas: Array[PerformanceMonitor_AreaTiming] = []
 
 	for path in tree_nodes:
 		var node = tree_nodes[path]
-		var anchor_config: WaterfallAnchorConfig = node.anchor_config
+		var anchor_config: PerformanceMonitor_WaterfallAnchorConfig = node.anchor_config
 
 		# Extract relative path (remove anchor prefix)
 		var relative_path = path.replace(anchor_config.prefix, "")
@@ -599,7 +599,7 @@ func get_worst_frame_waterfall() -> String:
 			continue  # Skip - too fast
 
 		# This node passes filters - add it to display
-		var new_area = FrameAreaTiming.new(path, node.start, node.end)
+		var new_area = PerformanceMonitor_AreaTiming.new(path, node.start, node.end)
 		new_area.original_path = node.original_path if node.original_path != "" else path
 		# Override duration to use self duration (inclusive is calculated later)
 		new_area.duration_usec = node.self_duration
