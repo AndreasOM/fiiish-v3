@@ -22,7 +22,10 @@ var _last_action_set: String = ""
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print_rich("[color=green]main _ready() ->[/color]")
-	
+
+	# Configure PerformanceMonitor waterfall anchors with per-anchor filtering
+	PerformanceMonitor.add_waterfall_anchor(self, "Main->", 2, 100)
+
 	#get_window().size = Vector2i( 1920*2*0.75, 1080*2*0.75 )
 	#get_window().position = Vector2i( 1920*2, 0 )
 	if !OS.has_feature("standalone"):

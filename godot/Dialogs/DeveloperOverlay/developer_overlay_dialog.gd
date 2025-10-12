@@ -17,6 +17,9 @@ const WATERFALL_UPDATE_INTERVAL = 60
 var _waterfall_frame_counter: int = 0
 
 func _ready() -> void:
+	# Exclude this dialog from performance tracking (it measures itself)
+#	PerformanceMonitor.add_waterfall_deny_node(self)
+
 	Events.developer_message.connect( _on_developer_message )
 	
 

@@ -71,7 +71,10 @@ const KIDS_MODE_SUFFIX: String = "_kids_mode"
 
 func _ready() -> void:
 	print("Game - _ready()")
-	
+
+	# Configure PerformanceMonitor anchor for game entities with filtering
+	PerformanceMonitor.add_waterfall_anchor(%GameNode2D, "Game->", 4, 100)
+
 	self._settings = Settings.load()
 	musicManager.fade_out( 0.0 )
 	if self._settings.is_music_enabled():
