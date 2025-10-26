@@ -7,8 +7,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3pmx8"]
 
-[node name="FramedDialog" type="Control"]
-layout_mode = 3
+[node name="FramedDialog" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,10 +17,6 @@ script = ExtResource("1_7aclb")
 
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3pmx8")
 script = ExtResource("2_mvk17")
 metadata/_custom_type_script = "uid://ckhevounoe7f4"
