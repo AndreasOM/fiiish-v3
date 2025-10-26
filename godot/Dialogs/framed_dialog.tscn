@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bodpbn4iu132i"]
+[gd_scene load_steps=6 format=3 uid="uid://b3fqsad4iymyq"]
 
-[ext_resource type="Script" uid="uid://dat4drno0xxi" path="res://Scenes/framed_dialog.gd" id="1_7aclb"]
+[ext_resource type="Script" path="res://Scenes/framed_dialog.gd" id="1_7aclb"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_mvk17"]
 [ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="3_g8cyo"]
 [ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="4_i4txi"]

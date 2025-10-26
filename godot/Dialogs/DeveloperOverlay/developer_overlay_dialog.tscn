@@ -4,9 +4,8 @@
 [ext_resource type="FontFile" uid="uid://bwv1fw5fu6u46" path="res://Fonts/Hack-Regular.ttf" id="2_k35jd"]
 [ext_resource type="Script" uid="uid://d1hwxf5g85jtk" path="res://omg-lib/PerformanceMonitor/performance_monitor_view_control.gd" id="3_pmro4"]
 
-[node name="DeveloperOverlayDialog" type="Control"]
+[node name="DeveloperOverlayDialog" type="MarginContainer"]
 z_index = 999
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,12 +15,7 @@ mouse_filter = 2
 script = ExtResource("1_xax1l")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
