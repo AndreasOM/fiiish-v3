@@ -8,17 +8,16 @@
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_ace3m"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_66sxi"]
 [ext_resource type="Texture2D" uid="uid://c1kyb7ia7ta4x" path="res://Textures/UI/Buttons/button_sub_menu_entry.png" id="7_htgnp"]
-[ext_resource type="Script" uid="uid://yvc5t2j67ltg" path="res://Dialogs/cursor_offset_button.gd" id="8_3ni0a"]
+[ext_resource type="Script" path="res://Dialogs/cursor_offset_button.gd" id="8_3ni0a"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="8_kw77y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kw77y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_427qg"]
 
-[node name="ZoneEditorMenuDialog" type="Control"]
+[node name="ZoneEditorMenuDialog" type="MarginContainer"]
 process_mode = 3
 z_index = 8
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,12 +30,7 @@ script = ExtResource("1_ssmqt")
 
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kw77y")
 script = ExtResource("8_kw77y")
