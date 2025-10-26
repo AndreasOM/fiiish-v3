@@ -476,6 +476,125 @@ static func _shorten_area_name(name: String, max_len: int) -> String:
 		return result.substr(0, max_len - 2) + ".."
 	return result
 
+func get_worst_frame_waterfall_areas() -> Array[PerformanceMonitor_AreaTiming]:
+	"""Get processed waterfall areas (anchor-relative, filtered, sorted) for visualization."""
+	if _worst_frame == null:
+		return []
+
+	var frame = _worst_frame
+
+	# This duplicates logic from get_worst_frame_waterfall() but returns areas instead of ASCII
+	# TODO: Refactor to share logic between both methods
+
+	# STEP 0.5: Aggregate deferred calls
+	var aggregated_deferred: Dictionary = {}
+	if frame.deferred_calls != null and frame.deferred_calls.size() > 0:
+		for call in frame.deferred_calls:
+			var key = call.get_key()
+			if !aggregated_deferred.has(key):
+				aggregated_deferred[key] = {
+					"start": call.start_usec,
+					"end": call.end_usec,
+					"total_duration": call.duration_usec,
+					"count": 1
+				}
+			else:
+				var agg = aggregated_deferred[key]
+				agg.start = min(agg.start, call.start_usec)
+				agg.end = max(agg.end, call.end_usec)
+				agg.total_duration += call.duration_usec
+				agg.count += 1
+
+	# STEP 1: Build tree with anchor-relative paths
+	var tree_nodes: Dictionary = {}
+
+	for area in frame.areas:
+		var valid_node = area.node if area.node != null and is_instance_valid(area.node) else null
+		var anchor_match: AnchorMatch = _find_best_anchor(valid_node)
+		var display_path = anchor_match.config.prefix + anchor_match.relative_path
+
+		if display_path == "" and valid_node == null:
+			display_path = area.name
+
+		if !tree_nodes.has(display_path):
+			tree_nodes[display_path] = {
+				"self_duration": 0,
+				"inclusive_duration": 0,
+				"count": 1,
+				"start": area.start_usec,
+				"end": area.end_usec,
+				"original_path": area.name,
+				"anchor_config": anchor_match.config
+			}
+
+		tree_nodes[display_path].self_duration += area.duration_usec
+		tree_nodes[display_path].inclusive_duration += area.duration_usec
+
+		# Accumulate into parents
+		var parts = display_path.split("/")
+		for i in range(parts.size() - 1, 0, -1):
+			var parent_parts = parts.slice(0, i)
+			var parent_path = "/".join(parent_parts)
+
+			if !tree_nodes.has(parent_path):
+				tree_nodes[parent_path] = {
+					"self_duration": 0,
+					"inclusive_duration": 0,
+					"count": 0,
+					"start": area.start_usec,
+					"end": area.end_usec,
+					"original_path": "",
+					"anchor_config": anchor_match.config
+				}
+
+			tree_nodes[parent_path].inclusive_duration += area.duration_usec
+			tree_nodes[parent_path].start = min(tree_nodes[parent_path].start, area.start_usec)
+			tree_nodes[parent_path].end = max(tree_nodes[parent_path].end, area.end_usec)
+
+	# STEP 1.5: Add deferred calls
+	var default_config = PerformanceMonitor_WaterfallAnchorConfig.new("[DEFERRED] ", waterfall_default_max_depth, waterfall_default_min_duration_usec)
+
+	for key in aggregated_deferred:
+		var agg = aggregated_deferred[key]
+		var display_name = "[DEFERRED] %s" % key
+
+		tree_nodes[display_name] = {
+			"self_duration": agg.total_duration,
+			"inclusive_duration": agg.total_duration,
+			"count": agg.count,
+			"start": agg.start,
+			"end": agg.end,
+			"original_path": display_name,
+			"anchor_config": default_config
+		}
+
+	# STEP 2: Filter
+	var filtered_areas: Array[PerformanceMonitor_AreaTiming] = []
+
+	for path in tree_nodes:
+		var node = tree_nodes[path]
+		var anchor_config: PerformanceMonitor_WaterfallAnchorConfig = node.anchor_config
+		var relative_path = path.replace(anchor_config.prefix, "")
+		var depth = _get_path_depth(relative_path)
+
+		if anchor_config.max_depth > 0 and depth > anchor_config.max_depth:
+			continue
+
+		if anchor_config.min_duration_usec > 0 and node.inclusive_duration < anchor_config.min_duration_usec:
+			continue
+
+		var new_area = PerformanceMonitor_AreaTiming.new(path, node.start, node.end)
+		new_area.original_path = node.original_path if node.original_path != "" else path
+		new_area.duration_usec = node.self_duration
+		filtered_areas.push_back(new_area)
+
+	filtered_areas.sort_custom(func(a, b): return a.start_usec < b.start_usec)
+
+	if filtered_areas.size() > WATERFALL_MAX_AREAS:
+		filtered_areas = filtered_areas.slice(0, WATERFALL_MAX_AREAS)
+
+	return filtered_areas
+
 func get_worst_frame_waterfall() -> String:
 	if _worst_frame == null:
 		return "No frames recorded yet"
