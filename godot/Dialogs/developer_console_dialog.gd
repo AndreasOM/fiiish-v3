@@ -1,4 +1,4 @@
-extends Dialog
+extends FiiishDialog
 
 @export var game: Game = null
 @export var max_history: int = 10
@@ -12,6 +12,8 @@ var _command_history_current = 0
 
 var _commands: Array = [ DeveloperCommand ]
 
+var _fader: OmgCanvasItemAlphaFader = null
+
 func close( duration: float) -> void:
 	fade_out( duration )
 
@@ -19,10 +21,14 @@ func open( duration: float) -> void:
 	fade_in( duration )
 		
 func fade_out( duration: float ) -> void:
-	%FadeableContainer.fade_out( duration )
+	if self._fader != null:
+		self._fader.fade_out( duration )
+	#%FadeableContainer.fade_out( duration )
 
 func fade_in( duration: float ) -> void:
-	%FadeableContainer.fade_in( duration )
+	if self._fader != null:
+		self._fader.fade_in( duration )
+	#%FadeableContainer.fade_in( duration )
 
 func set_game( g: Game ) -> void:
 	self.game = g
@@ -30,7 +36,14 @@ func set_game( g: Game ) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print_rich("[color=green]developer_console_dialog _ready() ->[/color]")
-	
+
+	self._fader = get_node_or_null("Fader") as OmgCanvasItemAlphaFader
+	if self._fader != null:
+		self._fader.fading_in.connect(_on_fadeable_container_on_fading_in)
+		self._fader.faded_in.connect(opened)
+		self._fader.fading_out.connect(closing)
+		self._fader.faded_out.connect(_on_fadeable_container_on_faded_out)
+
 	self.clear()
 	self._commands.push_back( DeveloperCommandResume.new() )
 	self._commands.push_back( DeveloperCommandFail.new() )
@@ -49,7 +62,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Global_ToggleDeveloperConsole"):
 		# print("Tilde")
-		%FadeableContainer.toggle_fade( 0.1 )
+		if self._fader != null:
+			self._fader.toggle( 0.1 )
+		# %FadeableContainer.toggle_fade( 0.1 )
 
 func _input(event) -> void:
 	if _block_input: # You can also check which actions using is_action.
