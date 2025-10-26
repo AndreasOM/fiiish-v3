@@ -8,8 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="5_64osa"]
 [ext_resource type="Texture2D" uid="uid://6gla2fnkdi76" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide_focused.png" id="7_lltem"]
 
-[node name="LeaderboardDialog" type="Control"]
-layout_mode = 3
+[node name="LeaderboardDialog" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,12 +19,7 @@ script = ExtResource("1_n1b7g")
 
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_filter = 2
 script = ExtResource("2_laulm")
 metadata/_custom_type_script = "uid://ckhevounoe7f4"
