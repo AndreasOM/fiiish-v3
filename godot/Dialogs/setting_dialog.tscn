@@ -11,9 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://b4wvrvfvm1bif" path="res://Textures/UI/Buttons/button_main_menu_off.png" id="11_84on1"]
 [ext_resource type="Texture2D" uid="uid://8r8p5v2ajdvy" path="res://Textures/UI/Buttons/button_kidsmode.png" id="12_ur55y"]
 
-[node name="SettingDialog" type="Control"]
+[node name="SettingDialog" type="MarginContainer"]
 z_index = 102
-layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -35,12 +34,7 @@ descriptionClassicDemoFile = "res://Resources/description_classic_demo.txt"
 versionFile = "res://Resources/version_info.txt"
 
 [node name="SettingsFadeableContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("2_vurtc")
 
 [node name="SettingsPanel" type="Panel" parent="SettingsFadeableContainer"]
