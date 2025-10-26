@@ -8,9 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://8lsk8v1mw6ic" path="res://Textures/UI/Buttons/button_cross_focused.png" id="5_te4vn"]
 [ext_resource type="Texture2D" uid="uid://8ohxv6lr06dr" path="res://Textures/UI/Buttons/button_play_focused.png" id="7_k3hrd"]
 
-[node name="FiiishConfirmationDialog" type="Control"]
+[node name="FiiishConfirmationDialog" type="MarginContainer"]
 z_index = 20
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,12 +19,7 @@ script = ExtResource("1_3nvp5")
 
 [node name="FadeableContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("2_2c3hr")
 metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
@@ -101,8 +95,8 @@ focus_previous = NodePath("../CancelTextureButton")
 texture_normal = ExtResource("5_8dk8x")
 texture_focused = ExtResource("7_k3hrd")
 
-[connection signal="on_faded_in" from="FadeableContainer" to="." method="_on_faded_in"]
 [connection signal="on_faded_in" from="FadeableContainer" to="." method="_on_fadeable_container_on_faded_in"]
+[connection signal="on_faded_in" from="FadeableContainer" to="." method="_on_faded_in"]
 [connection signal="on_faded_out" from="FadeableContainer" to="." method="_on_faded_out"]
 [connection signal="on_fading_in" from="FadeableContainer" to="." method="_on_fading_in"]
 [connection signal="on_fading_out" from="FadeableContainer" to="." method="_on_fading_out"]
