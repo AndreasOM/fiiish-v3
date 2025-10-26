@@ -83,8 +83,7 @@ _data = {
 &"RESET": SubResource("Animation_m8h2f")
 }
 
-[node name="ResultDialog" type="Control" node_paths=PackedStringArray("coinsResultRow", "distanceResultRow", "bestDistanceResultRow", "totalDistanceResultRow")]
-layout_mode = 3
+[node name="ResultDialog" type="MarginContainer" node_paths=PackedStringArray("coinsResultRow", "distanceResultRow", "bestDistanceResultRow", "totalDistanceResultRow")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -104,12 +103,7 @@ libraries = {
 }
 
 [node name="ResultDialogFadeableContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_filter = 2
 script = ExtResource("2_g40ym")
 
