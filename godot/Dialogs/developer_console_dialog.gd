@@ -12,37 +12,13 @@ var _command_history_current = 0
 
 var _commands: Array = [ DeveloperCommand ]
 
-var _fader: OmgCanvasItemAlphaFader = null
-
-func close( duration: float) -> void:
-	fade_out( duration )
-
-func open( duration: float) -> void:
-	fade_in( duration )
-		
-func fade_out( duration: float ) -> void:
-	if self._fader != null:
-		self._fader.fade_out( duration )
-	#%FadeableContainer.fade_out( duration )
-
-func fade_in( duration: float ) -> void:
-	if self._fader != null:
-		self._fader.fade_in( duration )
-	#%FadeableContainer.fade_in( duration )
-
 func set_game( g: Game ) -> void:
 	self.game = g
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super._ready()
 	print_rich("[color=green]developer_console_dialog _ready() ->[/color]")
-
-	self._fader = get_node_or_null("Fader") as OmgCanvasItemAlphaFader
-	if self._fader != null:
-		self._fader.fading_in.connect(_on_fadeable_container_on_fading_in)
-		self._fader.faded_in.connect(opened)
-		self._fader.fading_out.connect(closing)
-		self._fader.faded_out.connect(_on_fadeable_container_on_faded_out)
 
 	self.clear()
 	self._commands.push_back( DeveloperCommandResume.new() )
@@ -194,7 +170,8 @@ func inc_command_history_current() -> void:
 		self._command_history_current += 1
 	# print("DEVELOPER_CONSOLE: %d ++ => %d" % [ o, self._command_history_current ] )
 	
-func _on_fadeable_container_on_fading_in( _duration: float ) -> void:
+func _on_fader_fading_in(_duration: float) -> void:
+	super._on_fader_fading_in(_duration)
 	self.visible = true
 	self._block_input = true
 	# NEW PAUSE SYSTEM: Request pause
@@ -203,13 +180,14 @@ func _on_fadeable_container_on_fading_in( _duration: float ) -> void:
 	await get_tree().process_frame
 	#%LineEdit.grab_focus.call_deferred()
 	print_rich("[color=green]developer_console_dialog grab_focus() ->[/color]")
-	
-	%LineEdit.grab_focus()
+
+	#%LineEdit.grab_focus()
 	print_rich("[color=green]<- developer_console_dialog grab_focus()[/color]")
 
 
 
-func _on_fadeable_container_on_faded_out() -> void:
+func closed() -> void:
+#	super.closed()
 	self.visible = false
 	self._block_input = false
 
