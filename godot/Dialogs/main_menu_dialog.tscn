@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ce5wjojgn8rrg"]
 
 [ext_resource type="Script" uid="uid://dwejhqhcnwn2b" path="res://Dialogs/main_menu_dialog.gd" id="1_otu7v"]
-[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_ce5h4"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_otu7v"]
 [ext_resource type="PackedScene" uid="uid://ljeb1qfapg02" path="res://Dialogs/MainMenu/main_menu_entry.tscn" id="3_otu7v"]
 
 [sub_resource type="Animation" id="Animation_otu7v"]
@@ -73,6 +73,10 @@ size_flags_vertical = 4
 script = ExtResource("1_otu7v")
 fade_duration = 0.66
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("2_otu7v")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
@@ -83,8 +87,6 @@ libraries = {
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
-script = ExtResource("2_ce5h4")
-apply_alpha = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenuFadeableContainer"]
 layout_mode = 2
@@ -142,10 +144,6 @@ state = 1
 label = "Quit"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="on_faded_in" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_faded_in"]
-[connection signal="on_faded_out" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_faded_out"]
-[connection signal="on_fading_in" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_in"]
-[connection signal="on_fading_out" from="MainMenuFadeableContainer" to="." method="_on_main_menu_fadeable_container_on_fading_out"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/LeaderBoard" to="." method="_on_leader_board_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/Achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="MainMenuFadeableContainer/VBoxContainer/GameMode" to="." method="_on_game_mode_pressed"]

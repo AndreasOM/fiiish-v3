@@ -26,7 +26,18 @@ func close(duration: float) -> void:
 func fade_in(duration: float) -> void:
 	if _fader != null:
 		_fader.fade_in(duration)
+	else:
+		self.modulate.a = 1.0
 
 func fade_out(duration: float) -> void:
 	if _fader != null:
 		_fader.fade_out(duration)
+	else:
+		self.modulate.a = 0.0
+
+func toggle(duration: float) -> void:
+	if _fader != null:
+		_fader.toggle(duration)
+	else:
+		push_warning("Toggle without fade for %s" % self.name )
+	

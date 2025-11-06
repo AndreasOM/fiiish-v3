@@ -1,10 +1,6 @@
-@tool
-
-extends Dialog
+extends FiiishDialog
 class_name MainMenuDialog
 
-@export_tool_button( "FadeIn" ) var fade_in_action = _fade_in.bind()
-@export_tool_button( "FadeOut" ) var fade_out_action = _fade_out
 @export var fade_duration: float = 1.5
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -18,19 +14,8 @@ class_name MainMenuDialog
 
 var game: Game = null
 
-func _fade_in() -> void:
-	if self.animation_player == null:
-		self.animation_player = %AnimationPlayer
-	# fade_in( fade_duration )
-	open( fade_duration )
-	
-
-func _fade_out() -> void:
-	
-	if self.animation_player == null:
-		self.animation_player = %AnimationPlayer
-	# fade_out( fade_duration )
-	close( fade_duration )
+func _ready() -> void:
+	super._ready()
 	
 func set_game( g: Game ):
 	self.game = g
@@ -71,34 +56,6 @@ func cancel() -> bool:
 	self.close( 0.3 )
 	return true
 
-func toggle( _duration: float ) -> void:
-	self._update_entries()
-	# toggle_fade( duration )
-	toggle_fade( fade_duration )
-
-func close( duration: float) -> void:
-	fade_out( duration )
-#	if duration > 0.0:
-#		self.animation_player.play( &"FadeIn", -1.0, -1.0/fade_duration, false )
-
-func open( duration: float) -> void:
-	self._update_entries()
-		
-	self.visible = true
-	fade_in( duration )
-#	if duration > 0.0:
-#		$AnimationPlayer.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
-
-func toggle_fade( duration: float ) -> void:
-	$MainMenuFadeableContainer.toggle_fade( duration )
-
-func fade_in( duration: float ) -> void:
-	$MainMenuFadeableContainer.fade_in( duration )
-
-func fade_out( duration: float ):
-	$MainMenuFadeableContainer.fade_out( duration )
-
-
 func _on_zone_editor_pressed() -> void:
 	self.close( 0.3 )
 	game.goto_zone_editor()
@@ -119,26 +76,30 @@ func _on_game_mode_pressed() -> void:
 	var mode_name = GameModes.get_name_for_mode( mode )
 	%GameMode.label = "GameMode: %s" % mode_name
 
-func _on_main_menu_fadeable_container_on_fading_in( duration: float ) -> void:
-#	%LeaderBoard.grab_focus.call_deferred()
-	self.visible = true
-	if duration > 0.0 && self.animation_player != null:
+func opening() -> void:
+	super.opening()
+	self._update_entries()
+	
+	if (
+		# duration > 0.0 && 
+		self.animation_player != null
+	):
 		self.animation_player.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
 
-
-func _on_main_menu_fadeable_container_on_fading_out( duration: float ) -> void:
-	if duration > 0.0 && self.animation_player != null:
+func closing() -> void:
+	if (
+		# duration > 0.0 && 
+		self.animation_player != null
+	):
 		self.animation_player.play( &"FadeIn", -1.0, -1.0/fade_duration, true )
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	var frames = Engine.get_frames_drawn()
 	print( "Animation Finished: %s (%d)" % [ anim_name, frames ] )
 
-
 func _on_achievements_pressed() -> void:
 	self.close( 0.3 )
 	self._dialog_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
-
 
 func _on_about_demo_pressed() -> void:
 	var d = _dialog_manager.open_dialog( DialogIds.Id.ABOUT_DEMO_DIALOG, 0.3 )
@@ -148,16 +109,8 @@ func _on_about_demo_pressed() -> void:
 	cd.set_mode( FiiishConfirmationDialog.Mode.CONFIRM )
 	self.close( 0.3 )
 
-
 func _on_developer_pressed() -> void:
 	get_tree().change_scene_to_file("res://Features/Developer/developer.tscn")
 
-
-func _on_main_menu_fadeable_container_on_faded_out() -> void:
-	self.closed()
-	pass
-
-
-func _on_main_menu_fadeable_container_on_faded_in() -> void:
-	self.opened()
+func opened() -> void:
 	%LeaderBoard.grab_focus.call_deferred()
