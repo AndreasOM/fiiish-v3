@@ -1,8 +1,8 @@
 [gd_scene load_steps=24 format=3 uid="uid://dxdyfsr3rf56d"]
 
 [ext_resource type="Script" uid="uid://d0l4anar52h5v" path="res://Scenes/in_game_pause_menu.gd" id="1_6l8pp"]
-[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_fdqay"]
 [ext_resource type="Script" uid="uid://r7if1ed85xhv" path="res://Scenes/toggle_button_container.gd" id="2_gtjiv"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_pncls"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="3_fdqay"]
 [ext_resource type="Texture2D" uid="uid://bvm6wtn8i6awd" path="res://Textures/UI/Buttons/button_pause.png" id="4_np5cf"]
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_ua4wi"]
@@ -38,13 +38,14 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_6l8pp")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("2_pncls")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
-unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_np5cf")
-script = ExtResource("2_fdqay")
-metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="ExitButtonFadeable" type="CenterContainer" parent="FadeablePanelContainer"]
 unique_name_in_owner = true
@@ -181,10 +182,6 @@ focus_previous = NodePath("../../HBoxContainer/SettingsButtonFade")
 texture_normal = ExtResource("7_4p0q0")
 texture_focused = ExtResource("13_jf1ih")
 
-[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
-[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
-[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
-[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
 [connection signal="pressed" from="FadeablePanelContainer/ExitButtonFadeable/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="focus_entered" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" to="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" method="_on_focus_entered"]
 [connection signal="toggle_requested" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/PauseToggleButton" to="." method="_on_pause_toggle_button_toggle_requested"]

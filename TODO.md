@@ -191,6 +191,7 @@
 ### 2025-11-06
 #### S07E01
 - [x] Simplify MainMenuDialog by extending FiiishDialog
+- [x] Simplify InGamePauseMenu by extending FiiishDialog
 
 ### 2025-09-29
 #### S06E24
