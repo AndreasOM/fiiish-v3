@@ -1,9 +1,11 @@
-extends Dialog
+class_name AchievementDialog
+extends FiiishDialog
 
 @onready var achievement_view: AchievementView = %AchievementView
 
 
 func _ready() -> void:
+	super._ready()
 	if self._dialog_manager != null:
 		self.achievement_view.game_manager = self._dialog_manager.game.get_game_manager()
 	
@@ -22,38 +24,16 @@ func confirm() -> bool:
 	self.achievement_view.collect_selected_achievement()
 	return true
 	
-func close( duration: float) -> void:
-	fade_out( duration )
-
 func open( duration: float) -> void:
 	var game = self._dialog_manager.game
 	# :HACK:
 	game.sync_achievements_with_player( game.get_player() )
 	self.achievement_view.recreate_achievements()
 	self.achievement_view.grab_focus_for_achievement()
-	fade_in( duration )
-
-func fade_out( duration: float ) -> void:
-	%FadeablePanelContainer.fade_out( duration )
-
-func fade_in( duration: float ) -> void:
-	%FadeablePanelContainer.fade_in( duration )
+	super.open( duration )
 
 func _on_close_button_pressed() -> void:
-	self._dialog_manager.close_dialog(DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3)
-
-
-func _on_fadeable_panel_container_on_faded_in() -> void:
-	opened()
-
-func _on_fadeable_panel_container_on_faded_out() -> void:
-	closed()
-
-func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
-	opening()
-
-func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
-	closing()
+	self.close( 0.3 )
 
 func _on_achievement_completed( id: String ) -> void:
 	# :HACK:
