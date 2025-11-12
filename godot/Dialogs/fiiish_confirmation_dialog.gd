@@ -1,5 +1,5 @@
-extends Dialog
 class_name FiiishConfirmationDialog
+extends FiiishDialog
 
 enum Mode {
 	CANCEL_CONFIRM,
@@ -14,12 +14,18 @@ signal cancelled
 @onready var description_label: RichTextLabel = %DescriptionLabel
 
 @export var mode: Mode = Mode.NONE : set = set_mode
-@onready var cancel_texture_button: TextureButton = %CancelTextureButton
-@onready var confirm_texture_button: TextureButton = %ConfirmTextureButton
+# @onready var cancel_texture_button: TextureButton = %CancelTextureButton
+# @onready var confirm_texture_button: TextureButton = %ConfirmTextureButton
 
 var _grabbed_initial_focus: bool = false
+var _cancel_texture_button: TextureButton = null
+var _confirm_texture_button: TextureButton = null
 
 func _ready() -> void:
+	super._ready()
+	_cancel_texture_button = get_node_or_null("%CancelTextureButton") as TextureButton
+	_confirm_texture_button = get_node_or_null("%ConfirmTextureButton") as TextureButton
+	
 	self._update_buttons()
 	if OS.get_name() != "HTML5":
 		self.description_label.connect("meta_clicked", _on_meta_clicked)
@@ -62,19 +68,6 @@ func confirm() -> bool:
 	else:
 		return false
 
-func close( duration: float) -> void:
-	fade_out( duration )
-
-func open( duration: float) -> void:
-	fade_in( duration )
-		
-func fade_out( duration: float ) -> void:
-	%FadeableContainer.fade_out( duration )
-
-func fade_in( duration: float ) -> void:
-	%FadeableContainer.fade_in( duration )
-
-
 func _on_cancel_button_pressed() -> void:
 	cancelled.emit()
 	close( 0.3 )
@@ -95,26 +88,21 @@ func set_mode( _mode: Mode):
 	self._update_buttons()
 		
 func _update_buttons() -> void:
-	if self.cancel_texture_button == null:
+	if self._cancel_texture_button == null:
 		return
-	if self.confirm_texture_button == null:
+	if self._confirm_texture_button == null:
 		return
 		
 	match self.mode:
 		Mode.CANCEL:
-			self.cancel_texture_button.visible = true
-			self.confirm_texture_button.visible = false
+			self._cancel_texture_button.visible = true
+			self._confirm_texture_button.visible = false
 		Mode.CONFIRM:
-			self.cancel_texture_button.visible = false
-			self.confirm_texture_button.visible = true
+			self._cancel_texture_button.visible = false
+			self._confirm_texture_button.visible = true
 		Mode.CANCEL_CONFIRM:
-			self.cancel_texture_button.visible = true
-			self.confirm_texture_button.visible = true
+			self._cancel_texture_button.visible = true
+			self._confirm_texture_button.visible = true
 			if !self._grabbed_initial_focus:
 				self._grabbed_initial_focus = true
-				self.cancel_texture_button.grab_focus.call_deferred()
-	
-
-
-func _on_fadeable_container_on_faded_in() -> void:
-	self.opened()
+				self._cancel_texture_button.grab_focus.call_deferred()

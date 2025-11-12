@@ -1,7 +1,6 @@
 # TODO
 
 ## InProgress
-- [ ] Task: Simplify CreditsDialog using FiiishDialog
 
 ## Next
 
@@ -29,6 +28,7 @@
 ### 2025-11-12
 #### S07E02
 - [x] Fix main menu fading
+- [x] Task: Simplify CreditsDialog using FiiishDialog
 
 ### 2025-11-06
 #### S07E01
