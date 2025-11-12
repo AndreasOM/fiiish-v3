@@ -1,5 +1,5 @@
-extends Dialog
 class_name LeaderboardDialog
+extends FiiishDialog
 
 @onready var shop_frame_title_container: ShopFrameTitleContainer = %ShopFrameTitleContainer
 @onready var coins_texture_button: TextureButton = %CoinsTextureButton
@@ -7,9 +7,6 @@ class_name LeaderboardDialog
 func cancel() -> bool:
 	self.close( 0.3 )
 	return true
-
-func close( duration: float) -> void:
-	fade_out( duration )
 
 func _format_distance( distance: int ) -> String:
 	return "%d m" % distance
@@ -39,32 +36,12 @@ func _switch_to_leaderboard( type: LeaderboardTypes.Type ) -> void:
 	
 func open( duration: float) -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
-	fade_in( duration )
+	super.open( duration )
 	if self.coins_texture_button != null:
 		self.coins_texture_button.grab_focus.call_deferred()
 
-func fade_out( duration: float ) -> void:
-	%FadeablePanelContainer.fade_out( duration )
-
-func fade_in( duration: float ) -> void:
-	%FadeablePanelContainer.fade_in( duration )
-
 func _on_close_button_pressed() -> void:
-	# print( "Leaderboard Close")
-	self._dialog_manager.close_dialog(DialogIds.Id.LEADERBOARD_DIALOG, 0.3)
-
-
-func _on_fadeable_panel_container_on_faded_in() -> void:
-	opened()
-
-func _on_fadeable_panel_container_on_faded_out() -> void:
-	closed()
-
-func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
-	opening()
-
-func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
-	closing()
+	self.close( 0.3 )
 
 func _on_coins_texture_button_pressed() -> void:
 #	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
@@ -74,10 +51,8 @@ func _on_distance_texture_button_pressed() -> void:
 #	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_DISTANCE )
 	pass
 
-
 func _on_coins_texture_button_focus_entered() -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
-
 
 func _on_distance_texture_button_focus_entered() -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_DISTANCE )

@@ -2,11 +2,11 @@
 
 ## InProgress
 
+
 ## Next
 
 ## ToDo
 - [ ] Feature: Simplify dialogs using FiiishDialog
-	- [ ] Simplify LeaderboardDialog using FiiishDialog
 	- [ ] Simplify ResultDialog using FiiishDialog
 	- [ ] Simplify SettingDialog using FiiishDialog
 		- [ ] Simplify KidsModeEnableDialog using FiiishDialog
@@ -29,6 +29,7 @@
 - [x] Fix main menu fading
 - [x] Task: Simplify CreditsDialog using FiiishDialog
 - [x] Task: Simplify AchievementDialog using FiiishDialog
+- [x] Task: Simplify LeaderboardDialog using FiiishDialog
 
 ### 2025-11-06
 #### S07E01
