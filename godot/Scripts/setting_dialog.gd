@@ -48,6 +48,8 @@ func _ready() -> void:
 	if OS.get_name() != "HTML5":
 		self.settings_info_rich_text_label.connect("meta_clicked", _on_meta_clicked)
 
+	Events.dialog_closed.connect( _on_dialog_closed )
+
 func _on_meta_clicked(meta) -> void:
 	OS.shell_open(meta)
 
@@ -79,3 +81,10 @@ func _on_main_menu_toggle_button_container_toggled(state: ToggleButtonContainer.
 
 func _on_kids_mode_texture_button_pressed() -> void:
 	self._dialog_manager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
+
+func _on_dialog_closed( id: DialogIds.Id ) -> void:
+	match id:
+		DialogIds.Id.KIDS_MODE_ENABLE_DIALOG:
+			self.main_menu_toggle_button.grab_focus.call_deferred()
+		_:
+			pass

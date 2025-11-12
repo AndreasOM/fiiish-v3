@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0jw8fsap8u7a"]
+[gd_scene load_steps=8 format=3 uid="uid://c0jw8fsap8u7a"]
 
 [ext_resource type="Script" uid="uid://d1bdvm57f563s" path="res://Features/KidsMode/kidsmode_enable_dialog.gd" id="1_nib0v"]
-[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_vou17"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_nib0v"]
 [ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="3_d82ve"]
 [ext_resource type="Texture2D" uid="uid://cxxi48tk2plt2" path="res://Textures/UI/Buttons/button_main_menu_entry.png" id="4_yo47v"]
+[ext_resource type="Texture2D" uid="uid://dny0ut88xlr2q" path="res://Textures/UI/Buttons/button_main_menu_entry_focused.png" id="5_nib0v"]
 [ext_resource type="Texture2D" uid="uid://dcfd2873d6qbm" path="res://Textures/UI/MiniButtons/mini_button_cross.png" id="6_60dca"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yo47v"]
@@ -17,12 +18,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nib0v")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("2_nib0v")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_yo47v")
-script = ExtResource("2_vou17")
-metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="ColorRect" type="ColorRect" parent="FadeablePanelContainer"]
 layout_mode = 2
@@ -84,6 +86,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("4_yo47v")
+texture_focused = ExtResource("5_nib0v")
 
 [node name="Label" type="Label" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/FreshGameTextureButton"]
 layout_mode = 1
@@ -103,6 +106,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("4_yo47v")
+texture_focused = ExtResource("5_nib0v")
 
 [node name="Label" type="Label" parent="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/WithUpgradesTextureButton"]
 layout_mode = 1
@@ -139,10 +143,6 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("6_60dca")
 
-[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
-[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
-[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
-[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
 [connection signal="pressed" from="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/FreshGameTextureButton" to="." method="_on_fresh_game_texture_button_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/TextureRect/MarginContainer/VBoxContainer/WithUpgradesTextureButton" to="." method="_on_with_upgrades_texture_button_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/TextureRect/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
