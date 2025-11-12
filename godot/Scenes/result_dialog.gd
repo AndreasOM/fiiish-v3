@@ -1,6 +1,7 @@
 @tool
 
-extends Dialog
+class_name ResultDialog
+extends FiiishDialog
 
 enum AnimationStep {
 	NONE,
@@ -62,6 +63,7 @@ func _set_animation_step( step: AnimationStep ) -> void:
 	animation_step = step
 	
 func _ready() -> void:
+	super._ready()
 	self._id = DialogIds.Id.RESULT_DIALOG
 	coinsResultRow.clear()
 	distanceResultRow.clear()
@@ -69,11 +71,10 @@ func _ready() -> void:
 	totalDistanceResultRow.clear()
 	Events.dialog_closed.connect( _on_dialog_closed )
 	# Events.game_paused_v1.connect( _on_game_paused )  # OLD SYSTEM - DISABLED
-	Events.pause_state_changed.connect( _on_pause_state_changed )
+	# Events.pause_state_changed.connect( _on_pause_state_changed )
 
-func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
-	return
-	# Empty - same as old handler
+#func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
+#	return
 
 func _on_dialog_closed( id: DialogIds.Id ) -> void:
 	match id:
@@ -121,8 +122,6 @@ func _process(_delta: float) -> void:
 	var best = distance >= bestDistance && _was_best_distance
 	distanceResultRow.was_best = best
 	bestDistanceResultRow.was_best = best
-	
-	return
 
 func _prepare_results() -> void:
 	var player = game.get_player()
@@ -206,21 +205,18 @@ func _prepare_high_demo_results() -> void:
 		start_coins,
 		start_distance,
 	)
-	
-func toggle( duration: float ) -> void:
-	toggle_fade( duration )
 
 func close( duration: float) -> void:
 	var sound_manager := self.game.get_sound_manager()
 	if sound_manager != null:
 		sound_manager.fade_out_effect( SoundEffects.Id.PICKED_COIN_LOOP, 0.3 )
 		sound_manager.fade_out_effect( SoundEffects.Id.DISTANCE_COUNT_LOOP, 0.3 )
-	fade_out( duration )
+	super.close( duration )
 
 func open( duration: float) -> void:
 	_prepare_results()
 	self._update_button_container()
-	fade_in( duration )
+	super.open( duration )
 	
 func _update_button_container() -> void:
 	if self._dialog_manager.game.is_in_kids_mode():
@@ -233,31 +229,8 @@ func _update_button_container() -> void:
 		
 	self.play_button.grab_focus.call_deferred()
 
-func toggle_fade( duration: float ) -> void:
-	$ResultDialogFadeableContainer.toggle_fade( duration )
-
-func fade_in( duration: float ) -> void:
-	$ResultDialogFadeableContainer.fade_in( duration )
-
-func fade_out( duration: float ) -> void:
-	$ResultDialogFadeableContainer.fade_out( duration )
-
-
 func _on_skill_upgrade_button_pressed() -> void:
 	_dialog_manager.open_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG, 0.3 )
-
-func _on_result_dialog_fadeable_container_on_fading_in( _duration: float ) -> void:
-	opening()
-
-func _on_result_dialog_fadeable_container_on_faded_in() -> void:
-	opened()
-
-func _on_result_dialog_fadeable_container_on_fading_out( _duration: float  ) -> void:
-	closing()
-
-func _on_result_dialog_fadeable_container_on_faded_out() -> void:
-	closed()
-
 
 func _on_leaderboard_button_pressed() -> void:
 	_dialog_manager.open_dialog( DialogIds.Id.LEADERBOARD_DIALOG, 0.3 )
@@ -265,7 +238,6 @@ func _on_leaderboard_button_pressed() -> void:
 
 func _on_achievement_button_pressed() -> void:
 	_dialog_manager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
-
 
 func _on_play_button_pressed() -> void:
 	var event = InputEventAction.new()

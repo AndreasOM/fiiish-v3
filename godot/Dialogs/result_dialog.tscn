@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://d0rj0pswt334s"]
 
 [ext_resource type="Script" uid="uid://d0npyqj022upw" path="res://Scenes/result_dialog.gd" id="1_wlxjo"]
-[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_g40ym"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_gqdjf"]
 [ext_resource type="Texture2D" uid="uid://uhorwvm6i0mq" path="res://Textures/UI/screen_frame.png" id="3_dssl3"]
 [ext_resource type="PackedScene" uid="uid://ch18db020xqmp" path="res://Scenes/UI/result_row.tscn" id="4_sjgyn"]
 [ext_resource type="Texture2D" uid="uid://l3vyvg8q35ki" path="res://Textures/UI/Buttons/button_fiiish.png" id="5_8gynd"]
@@ -96,6 +96,10 @@ distanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginCo
 bestDistanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/BestDistanceResultRow")
 totalDistanceResultRow = NodePath("ResultDialogFadeableContainer/TextureRect/MarginContainer/VBoxContainer/TotalDistanceResultRow")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("2_gqdjf")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
@@ -105,7 +109,6 @@ libraries = {
 [node name="ResultDialogFadeableContainer" type="CenterContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
-script = ExtResource("2_g40ym")
 
 [node name="TextureRect" type="TextureRect" parent="ResultDialogFadeableContainer"]
 layout_mode = 2
@@ -238,10 +241,6 @@ texture_normal = ExtResource("8_p2fcy")
 texture_hover = ExtResource("9_gnvys")
 texture_focused = ExtResource("9_gnvys")
 
-[connection signal="on_faded_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_in"]
-[connection signal="on_faded_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_faded_out"]
-[connection signal="on_fading_in" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_in"]
-[connection signal="on_fading_out" from="ResultDialogFadeableContainer" to="." method="_on_result_dialog_fadeable_container_on_fading_out"]
 [connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer/SkillUpgradeButton" to="." method="_on_skill_upgrade_button_pressed"]
 [connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="pressed" from="ResultDialogFadeableContainer/TextureRect/MarginContainer2/HBoxContainer/FullHBoxContainer/AchievementButton" to="." method="_on_achievement_button_pressed"]
