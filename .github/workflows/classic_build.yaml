@@ -3,9 +3,9 @@ run-name: 🏛️ 🪐 🔨 Classic - All - Build ${{ vars.PROJECT }} - ${{ inpu
 on: 
   workflow_dispatch:
   workflow_call:
-#  push:
-#    tags:
-#      - "v*"
+  push:
+    tags:
+      - "v*"
     # We always build on a tag
     # paths:
     #  - godot/**

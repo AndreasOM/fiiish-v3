@@ -15,6 +15,7 @@
 	- [ ] Simplify Developer_*_Dialog using FiiishDialog
 
 - [ ] Stop updating demo builds, and switch focus to classic final
+	- [ ] Task: Update Push to Steam action to allow release version
 
 ## Done
 
@@ -31,6 +32,7 @@
 - [x] Bug: Fix SkillResetConfirmation not closing correctly
 - [x] Task: Simplify FiiishConfirmationDialog using FiiishDialog
 - [x] Task: Simplify ToastDialog using FiiishDialog
+- [x] Task: Switch builds on tag push to run classic instead of classic-demo
 
 ### 2025-11-06
 #### S07E01

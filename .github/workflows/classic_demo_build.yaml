@@ -2,10 +2,11 @@ name: 🏛️ 🧪 🪐 🔨 Classic DEMO - All - Build
 run-name: 🏛️ 🧪 🪐 🔨 Classic DEMO - All - Build ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
-  workflow_call:
-  push:
-    tags:
-      - "v*"
+#  workflow_call:
+#  push:
+#    tags:
+#      - "v*"
+    # we are in preparation for final-classic, so do not auto build demo
     # We always build on a version tag
 
 jobs:
