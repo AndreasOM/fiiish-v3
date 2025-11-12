@@ -2,8 +2,7 @@
 
 ## InProgress
 
-- [ ] Simplify SettingDialog using FiiishDialog
-	- [ ] Simplify KidsModeEnableDialog using FiiishDialog
+- [ ] Task: Simplify KidsModeEnableDialog using FiiishDialog
 
 ## Next
 
@@ -30,6 +29,7 @@
 - [x] Task: Simplify AchievementDialog using FiiishDialog
 - [x] Task: Simplify LeaderboardDialog using FiiishDialog
 - [x] Task: Simplify ResultDialog using FiiishDialog
+- [x] Task: Simplify SettingDialog using FiiishDialog
 
 ### 2025-11-06
 #### S07E01

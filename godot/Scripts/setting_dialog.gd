@@ -1,4 +1,5 @@
-extends Dialog
+class_name SettingDialog
+extends FiiishDialog
 
 @export var game: Game = null
 @export var descriptionFile: String
@@ -9,9 +10,8 @@ extends Dialog
 @onready var settings_info_rich_text_label: RichTextLabel = %SettingsInfoRichTextLabel
 @onready var main_menu_toggle_button: FiiishUI_ToggleButton = %MainMenuToggleButton
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("SettingDialog - _ready()")
+	super._ready()
 
 	var player = game.get_player()
 	if player.is_main_menu_enabled():
@@ -51,51 +51,19 @@ func _ready() -> void:
 func _on_meta_clicked(meta) -> void:
 	OS.shell_open(meta)
 
+func opening() -> void:
+	self.main_menu_toggle_button.grab_focus.call_deferred()
+	super.opening()
+
 func set_game( g: Game) -> void:
 	self.game = g
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+#func _process(_delta: float) -> void:
+#	pass
 
 func cancel() -> bool:
 	self.fade_out( 0.3 )
 	return true
-
-func toggle( duration: float ) -> void:
-	toggle_fade( duration )
-
-func close( duration: float) -> void:
-	fade_out( duration )
-
-func open( duration: float) -> void:
-	fade_in( duration )
-
-
-func toggle_fade( duration: float ) -> void:
-	$SettingsFadeableContainer.toggle_fade( duration )
-
-func fade_in( duration: float ) -> void:
-	$SettingsFadeableContainer.fade_in( duration )
-
-func fade_out( duration: float ) -> void:
-	$SettingsFadeableContainer.fade_out( duration )
-
-
-func _on_settings_fadeable_container_on_fading_in( _duration: float ) -> void:
-	opening()
-	self.main_menu_toggle_button.grab_focus.call_deferred()
-
-func _on_settings_fadeable_container_on_faded_in() -> void:
-	opened()
-
-func _on_settings_fadeable_container_on_fading_out( _duration: float ) -> void:
-	closing()
-
-func _on_settings_fadeable_container_on_faded_out() -> void:
-	closed()
-
 
 func _on_main_menu_toggle_button_container_toggled(state: ToggleButtonContainer.ToggleState) -> void:
 	match state:
@@ -108,7 +76,6 @@ func _on_main_menu_toggle_button_container_toggled(state: ToggleButtonContainer.
 			game.disable_main_menu()
 
 	Events.broadcast_settings_changed()
-
 
 func _on_kids_mode_texture_button_pressed() -> void:
 	self._dialog_manager.open_dialog( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG, 0.3 )
