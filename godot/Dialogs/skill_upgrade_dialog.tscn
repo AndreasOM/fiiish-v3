@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cjb7j1x8e8enx" path="res://Dialogs/skill_upgrade_dialog.gd" id="1_k8lgt"]
 [ext_resource type="Texture2D" uid="uid://drggp3004h2i3" path="res://Textures/UI/MiniButtons/mini_button_buy_right_off_focused.png" id="2_cmc7j"]
-[ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_e21l8"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="3_cmc7j"]
 [ext_resource type="Texture2D" uid="uid://bcjkbkwh1wqjt" path="res://Textures/UI/shop_frame_v3.png" id="3_ohic6"]
 [ext_resource type="PackedScene" uid="uid://csgvcitxpt8iw" path="res://FiiishUI/shop_frame_texture_rect.tscn" id="3_r7umh"]
 [ext_resource type="PackedScene" uid="uid://bxbxcigpne8qa" path="res://FiiishUI/shop_frame_title_container.tscn" id="4_a86li"]
@@ -25,9 +25,12 @@ mouse_filter = 2
 script = ExtResource("1_k8lgt")
 buy_skill_points_disabled_texture_focused = ExtResource("2_cmc7j")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("3_cmc7j")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="FadeableCenterContainer" type="CenterContainer" parent="."]
 layout_mode = 2
-script = ExtResource("2_e21l8")
 
 [node name="ShopFrameTextureRect" parent="FadeableCenterContainer" instance=ExtResource("3_r7umh")]
 layout_mode = 2
@@ -241,10 +244,6 @@ visible = false
 layout_mode = 2
 texture = ExtResource("3_ohic6")
 
-[connection signal="on_faded_in" from="FadeableCenterContainer" to="." method="_on_fadeable_center_container_on_faded_in"]
-[connection signal="on_faded_out" from="FadeableCenterContainer" to="." method="_on_fadeable_center_container_on_faded_out"]
-[connection signal="on_fading_in" from="FadeableCenterContainer" to="." method="_on_fadeable_center_container_on_fading_in"]
-[connection signal="on_fading_out" from="FadeableCenterContainer" to="." method="_on_fadeable_center_container_on_fading_out"]
 [connection signal="close_button_pressed" from="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/ShopFrameTitleContainer" to="." method="_on_close_button_pressed"]
 [connection signal="skill_buy_triggered" from="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/CenterMarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeUpgradeItem" to="." method="_on_skill_buy_triggered"]
 [connection signal="skill_buy_triggered" from="FadeableCenterContainer/ShopFrameTextureRect/VBoxContainer/CenterMarginContainer/VBoxContainer/MarginContainer/ScrollContainer/SkillUpgradeItemContainer/MagnetRangeBoostUpgradeItem" to="." method="_on_skill_buy_triggered"]

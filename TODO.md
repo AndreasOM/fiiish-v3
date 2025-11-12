@@ -5,12 +5,13 @@
 
 ## Next
 
+-[ ] Bug: Fix SkillResetConfirmation not closing correctly
+	- [ ] Task: Simplify FiiishConfirmationDialog using FiiishDialog
+
 ## ToDo
 - [ ] Feature: Simplify dialogs using FiiishDialog
-	- [ ] Simplify SkillUpgradeDialog using FiiishDialog
 	- [ ] Simplify ToastDialog using FiiishDialog
 
-	- [ ] Simplify FiiishConfirmationDialog using FiiishDialog
 	- [ ] Simplify ZoneEditor_*_Dialog using FiiishDialog
 		- [ ] Simplify ZoneSelectDialog using FiiishDialog
 		- [ ] Simplify ZonePropertyDialog using FiiishDialog
@@ -30,6 +31,7 @@
 - [x] Task: Simplify ResultDialog using FiiishDialog
 - [x] Task: Simplify SettingDialog using FiiishDialog
 - [x] Task: Simplify KidsModeEnableDialog using FiiishDialog
+- [x] Task: Simplify SkillUpgradeDialog using FiiishDialog
 
 ### 2025-11-06
 #### S07E01

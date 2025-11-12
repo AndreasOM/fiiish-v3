@@ -1,4 +1,5 @@
-extends Dialog
+class_name SkillUpgradeDialog
+extends FiiishDialog
 
 @export var game: Game = null
 #@export var skill_point_price: int = 200
@@ -14,6 +15,7 @@ var _skill_upgrade_item_scene = preload("res://Dialogs/SkillUpgradeElements/Skil
 var _last_focused_skill_id: SkillIds.Id = SkillIds.Id.MAGNET
 
 func _ready() -> void:
+	super._ready()
 	self._buy_skill_points_texture_focused = self.buy_skill_points_button.texture_focused
 	_regenerate_skill_upgrade_items()
 	_update_all()
@@ -158,26 +160,21 @@ func cancel() -> bool:
 	return true
 
 func close( duration: float) -> void:
-	fade_out( duration )
 	_dialog_manager.close_dialog( DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG, 0.3 )
+	super.close( duration )
 
-func open( duration: float) -> void:
-	fade_in( duration )
-		
-func fade_out( duration: float ) -> void:
-	$FadeableCenterContainer.fade_out( duration )
+func closing() -> void:
+	super.closing()
 	game.save_player()
 
-func fade_in( duration: float ) -> void:
-	$FadeableCenterContainer.fade_in( duration )
+func opening() -> void:
+	super.opening()
 	_update_all()
-	self._focus_last_focused_skill()	
+	self._focus_last_focused_skill()
 	_prepare_fade_in()
 
-
 func _on_close_button_pressed() -> void:
-	fade_out( 0.3 )
-
+	self.close( 0.3 )
 
 func _on_buy_skill_point_button_pressed() -> void:
 	var p = game.get_player()
@@ -235,8 +232,6 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	self._last_focused_skill_id = id
 	_update_all()
 
-
-
 func _get_skill_upgrade_item_for_skill_id( id: SkillIds.Id ) -> SkillUpgradeItem:
 	# var p = $FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer
 	var p = %SkillUpgradeItemContainer
@@ -248,7 +243,6 @@ func _get_skill_upgrade_item_for_skill_id( id: SkillIds.Id ) -> SkillUpgradeItem
 			return sui
 	
 	return null
-
 
 func _on_skill_reset_confirmed() -> void:
 	var p = game.get_player()
@@ -280,15 +274,3 @@ func _get_price_for_skill_point( owned_skill_points: int ) -> int:
 	return ceil(r)
 
 # 1.931E-08*x^4.222
-
-func _on_fadeable_center_container_on_faded_in() -> void:
-	opened()
-
-func _on_fadeable_center_container_on_faded_out() -> void:
-	closed()
-
-func _on_fadeable_center_container_on_fading_in( _duration: float ) -> void:
-	opening()
-
-func _on_fadeable_center_container_on_fading_out( _duration: float ) -> void:
-	closing()
