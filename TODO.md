@@ -8,8 +8,6 @@
 
 ## ToDo
 - [ ] Feature: Simplify dialogs using FiiishDialog
-	- [ ] Simplify ToastDialog using FiiishDialog
-
 	- [ ] Simplify ZoneEditor_*_Dialog using FiiishDialog
 		- [ ] Simplify ZoneSelectDialog using FiiishDialog
 		- [ ] Simplify ZonePropertyDialog using FiiishDialog
@@ -32,6 +30,7 @@
 - [x] Task: Simplify SkillUpgradeDialog using FiiishDialog
 - [x] Bug: Fix SkillResetConfirmation not closing correctly
 - [x] Task: Simplify FiiishConfirmationDialog using FiiishDialog
+- [x] Task: Simplify ToastDialog using FiiishDialog
 
 ### 2025-11-06
 #### S07E01

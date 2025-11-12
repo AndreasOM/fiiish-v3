@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cyxd8md7y3lyx" path="res://Features/Toasts/Dialogs/toast_dialog.gd" id="1_3xme6"]
 [ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="2_2on31"]
-[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_dqplu"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="3_0fxhk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1w6v2"]
 
@@ -19,13 +19,14 @@ script = ExtResource("1_3xme6")
 push_speed = 48.0
 reward_test_icon = ExtResource("2_2on31")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("3_0fxhk")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
-unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1w6v2")
-script = ExtResource("2_dqplu")
-metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FadeablePanelContainer"]
 custom_minimum_size = Vector2(640, 1080)
@@ -45,8 +46,3 @@ custom_minimum_size = Vector2(640, 0)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 0
-
-[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
-[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
-[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
-[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]

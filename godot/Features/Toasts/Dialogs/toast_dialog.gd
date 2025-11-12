@@ -1,7 +1,7 @@
 @tool
 
 class_name ToastDialog
-extends Dialog
+extends FiiishDialog
 
 @export var max_toasts: int = 5
 @export var push_speed: float = 12.0
@@ -23,7 +23,11 @@ const ACHIEVEMENT_TOAST = preload("res://Features/Toasts/Dialogs/achievement_toa
 const REWARD_TOAST = preload("res://Features/Toasts/Dialogs/reward_toast.tscn")
 
 func _ready() -> void:
+	super._ready()
 	self.margin_container.add_theme_constant_override("margin_top", 0)
+	Events.global_message.connect( _on_global_message )
+	Events.achievement_completed.connect( _on_achievement_completed )
+	Events.reward_received.connect( _on_reward_received )
 	# self.add_toast( "Ready..." )
 	
 func clear_tween() -> void:
@@ -124,33 +128,6 @@ func toast_pushed_out( toast: Control ) -> void:
 	if self.toast_container.get_child_count() > 0:
 		var next_toast = self.toast_container.get_child(0)
 		self.push_out_toast( next_toast )
-		
-func close( duration: float) -> void:
-	fade_out( duration )
-
-func open( duration: float) -> void:
-	Events.global_message.connect( _on_global_message )
-	Events.achievement_completed.connect( _on_achievement_completed )
-	Events.reward_received.connect( _on_reward_received )
-	fade_in( duration )
-
-func fade_out( duration: float ) -> void:
-	%FadeablePanelContainer.fade_out( duration )
-
-func fade_in( duration: float ) -> void:
-	%FadeablePanelContainer.fade_in( duration )
-
-func _on_fadeable_panel_container_on_faded_in() -> void:
-	opened()
-
-func _on_fadeable_panel_container_on_faded_out() -> void:
-	closed()
-
-func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
-	opening()
-
-func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
-	closing()
 
 func _on_global_message( text: String ) -> void:
 	self.add_simple_text_toast( text )
