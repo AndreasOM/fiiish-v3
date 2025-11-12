@@ -1,5 +1,5 @@
 name: 🚂 Push latest to steam
-run-name: 🚂 Push latest to itchio ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
+run-name: 🚂 Push latest to steam ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
     inputs:
