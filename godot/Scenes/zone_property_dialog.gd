@@ -1,5 +1,5 @@
 class_name ZonePropertyDialog
-extends Dialog
+extends FiiishDialog
 
 signal zone_name_submitted( new_name: String )
 signal difficulty_changed( difficulty: int )
@@ -28,48 +28,15 @@ func _update_stop_testing_button() -> void:
 	if self.stop_testing_button == null:
 		return
 	self.stop_testing_button.visible = self.stop_testing_enabled
-	
-func open( duration: float) -> void:
-	fade_in( duration )
-
-func close( duration: float) -> void:
-	fade_out( duration )
-
-func toggle( duration: float ) -> void:
-	toggle_fade( duration )
-
-func toggle_fade( duration: float ) -> void:
-	%FadeablePanelContainer.toggle_fade( duration )
-
-func fade_out( duration: float ) -> void:
-	%FadeablePanelContainer.fade_out( duration )
-
-func fade_in( duration: float ) -> void:
-	%FadeablePanelContainer.fade_in( duration )
-
-func _on_fadeable_panel_container_on_faded_in() -> void:
-	opened()
-
-func _on_fadeable_panel_container_on_faded_out() -> void:
-	closed()
-
-func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
-	opening()
-
-func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
-	closing()
-
 
 func _on_stop_testing_button_pressed() -> void:
 	self._dialog_manager.game.goto_zone_editor()
-
 
 func _on_name_line_edit_text_submitted(new_text: String) -> void:
 	self.zone_name_submitted.emit( new_text )
 
 func on_zone_name_changed( zone_name: String ) -> void:
 	self.name_line_edit.text = zone_name
-
 
 func _on_difficulty_slider_value_changed(difficulty: float) -> void:
 	self.difficulty_value_label.text = "%d" % difficulty
@@ -85,7 +52,6 @@ func on_zone_difficulty_changed( difficulty: int ) -> void:
 	self.difficulty_value_label.text = "%d" % difficulty
 	self.difficulty_slider.value = difficulty
 
-
 func _on_width_line_edit_text_submitted(new_text: String) -> void:
 	if !new_text.is_valid_int():
 		# :TODO: tell user?
@@ -95,4 +61,3 @@ func _on_width_line_edit_text_submitted(new_text: String) -> void:
 	
 func on_zone_width_changed( width: int ) -> void:
 	self.width_line_edit.text = "%d" % width
-	

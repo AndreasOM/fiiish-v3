@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://yonakomfcua6" path="res://Scenes/zone_property_dialog.gd" id="1_agb66"]
 [ext_resource type="Texture2D" uid="uid://dfnpoemp6ik7l" path="res://Textures/UI/frame_v3.png" id="2_0yrt0"]
-[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_4dx1e"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_4dx1e"]
 [ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="3_4dx1e"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0yrt0"]
@@ -16,13 +16,14 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_agb66")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("2_4dx1e")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
-unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0yrt0")
-script = ExtResource("2_4dx1e")
-metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
 layout_mode = 2
@@ -146,10 +147,6 @@ text = "Stop Testing"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
-[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
-[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
-[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
 [connection signal="text_submitted" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/NameLineEdit" to="." method="_on_name_line_edit_text_submitted"]
 [connection signal="drag_ended" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/DifficultySlider" to="." method="_on_difficulty_slider_drag_ended"]
 [connection signal="value_changed" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/DifficultySlider" to="." method="_on_difficulty_slider_value_changed"]

@@ -3,6 +3,7 @@
 ## InProgress
 
 
+- [ ] Task: Simplify ZonePropertyDialog using FiiishDialog
 
 
 ## Next
@@ -12,7 +13,6 @@
 - [ ] Feature: Simplify dialogs using FiiishDialog
 	- [ ] Simplify ZoneEditor_*_Dialog using FiiishDialog
 		- [ ] Simplify ZoneSelectDialog using FiiishDialog
-		- [ ] Simplify ZonePropertyDialog using FiiishDialog
 
 - [ ] Bug: Fix fading of InGamePauseMenu when closing ZoneEditor
 - [ ] Task: Fix settings in ZoneEditorMenuDialog
