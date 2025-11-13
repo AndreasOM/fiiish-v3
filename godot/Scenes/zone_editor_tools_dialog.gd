@@ -1,5 +1,5 @@
 class_name ZoneEditorToolsDialog
-extends Dialog
+extends FiiishDialog
 
 signal spawn_entity_changed( id: EntityId.Id)
 signal tool_selected( tool_id: ZoneEditorToolIds.Id )
@@ -19,6 +19,7 @@ func _ready() -> void:
 	self.tool_selected.emit( self.last_selected_tool_id )
 	self.undo_button.disabled = true
 	self.redo_button.disabled = true
+	super._ready()
 	
 func _update_buttons( active_tid: ZoneEditorToolIds.Id ) -> void:
 	for c in self.tool_buttons.get_children():
@@ -31,37 +32,9 @@ func _update_buttons( active_tid: ZoneEditorToolIds.Id ) -> void:
 			b.make_inactive()
 	
 func open( duration: float) -> void:
-	fade_in( duration )
+	super.open( duration )
 	self.entity_select_button_minus.entity_config_manager = self._dialog_manager.game.entity_config_manager
 	self.entity_select_button_plus.entity_config_manager = self._dialog_manager.game.entity_config_manager
-
-func close( duration: float) -> void:
-	fade_out( duration )
-
-func toggle( duration: float ) -> void:
-	toggle_fade( duration )
-
-func toggle_fade( duration: float ) -> void:
-	%FadeablePanelContainer.toggle_fade( duration )
-
-func fade_out( duration: float ) -> void:
-	%FadeablePanelContainer.fade_out( duration )
-
-func fade_in( duration: float ) -> void:
-	%FadeablePanelContainer.fade_in( duration )
-
-func _on_fadeable_panel_container_on_faded_in() -> void:
-	opened()
-
-func _on_fadeable_panel_container_on_faded_out() -> void:
-	closed()
-
-func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
-	opening()
-
-func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
-	closing()
-
 
 func _on_zone_editor_tool_button_selected(tool_button: ZoneEditorToolButton) -> void:
 	self.last_selected_tool_id = tool_button.tool_id
@@ -81,7 +54,6 @@ func on_command_history_size_changed( history_size: int, future_size: int ) -> v
 	self.undo_button.disabled = history_size == 0
 	self.redo_button.disabled = future_size == 0
 
-
 func _on_entity_select_button_entity_changed(id: EntityId.Id) -> void:
 	self.spawn_entity_changed.emit( id )
 	var ec = self._dialog_manager.game.entity_config_manager.get_entry( id )
@@ -89,12 +61,9 @@ func _on_entity_select_button_entity_changed(id: EntityId.Id) -> void:
 	self.spawn_zone_editor_tool_button.label = t
 	self.entity_select_button_minus.set_current_id( id )
 	self.entity_select_button_plus.set_current_id( id )
-	
-
 
 func _on_move_back_button_pressed() -> void:
 	pass # Replace with function body.
-
 
 func _on_move_forward_button_pressed() -> void:
 	pass # Replace with function body.

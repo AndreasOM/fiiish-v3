@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://duckwsw8cl6o8"]
 
 [ext_resource type="Script" uid="uid://b5ud2rj55s160" path="res://Scenes/zone_editor_tools_dialog.gd" id="1_ucsjx"]
-[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_6sbcy"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_0u0x8"]
 [ext_resource type="PackedScene" uid="uid://756pnhs8ekwg" path="res://Dialogs/ZoneEditor/zone_editor_tool_button.tscn" id="3_1ypek"]
 [ext_resource type="Texture2D" uid="uid://dtt0e2fw6ckhx" path="res://Textures/UI/Buttons/button.png" id="4_6sbcy"]
 [ext_resource type="Script" uid="uid://f7kr8cd0vq5g" path="res://Dialogs/ZoneEditor/entity_select_button.gd" id="5_0u0x8"]
@@ -20,13 +20,14 @@ offset_right = 424.0
 grow_vertical = 0
 script = ExtResource("1_ucsjx")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("2_0u0x8")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
-unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pdsj5")
-script = ExtResource("2_6sbcy")
-metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
 layout_mode = 2
@@ -205,10 +206,6 @@ text = "Redo"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
-[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
-[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
-[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/DeleteZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/MoveZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
 [connection signal="selected" from="FadeablePanelContainer/MarginContainer/HBoxContainer/ToolButtons/RotateZoneEditorToolButton" to="." method="_on_zone_editor_tool_button_selected"]
