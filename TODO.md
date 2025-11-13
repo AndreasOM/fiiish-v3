@@ -9,7 +9,6 @@
 
 ## ToDo
 
-- [ ] Bug: Fix fading of InGamePauseMenu when closing ZoneEditor
 
 
 ## Done
@@ -31,6 +30,7 @@
 - [x] Task: Simplify ZoneEditor_*_Dialog using FiiishDialog
 - [x] Feature: Simplify dialogs using FiiishDialog
 - [x] Task: Fix settings in ZoneEditorMenuDialog
+- [x] Bug: Fix fading of InGamePauseMenu when closing ZoneEditor
 
 ### 2025-11-12
 #### S07E02

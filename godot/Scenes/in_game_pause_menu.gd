@@ -13,6 +13,7 @@ var _focus_before_pause: Control = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super._ready()
 	# await get_tree().process_frame
 	%SettingsButtonFade.fade_out( 0.0 )
 	## %SettingDialog.fade_out( 0.0 )
@@ -140,11 +141,13 @@ func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: Paus
 		PauseManager.PauseState.PAUSED:
 			# Only save focus if we haven't already saved it
 			if self._focus_before_pause == null:
-				self._focus_before_pause = get_viewport().gui_get_focus_owner()
-				if self._focus_before_pause != null:
-					print("focus was: %s" % self._focus_before_pause.name)
-				else:
-					print("no focus")
+				var viewport = get_viewport()
+				if viewport != null:
+					self._focus_before_pause = get_viewport().gui_get_focus_owner()
+					if self._focus_before_pause != null:
+						print("focus was: %s" % self._focus_before_pause.name)
+					else:
+						print("no focus")
 
 			# Update button to paused state and grab focus
 			self.pause_toggle_button.goto_b()
@@ -164,7 +167,9 @@ func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: Paus
 				self._focus_before_pause = null
 			else:
 				print("Focus: release focus")
-				get_viewport().gui_release_focus.call_deferred()
+				var viewport = get_viewport()
+				if viewport != null:
+					get_viewport().gui_release_focus.call_deferred()
 		_:
 			pass
 
