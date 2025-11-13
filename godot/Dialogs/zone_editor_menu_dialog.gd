@@ -3,6 +3,8 @@ extends FiiishDialog
 
 @onready var cursor_offset_button: CursorOffsetButton = %CursorOffsetButton
 @onready var menu_fadeable_panel_container: FadeablePanelContainer = %MenuFadeablePanelContainer
+@onready var music_toggle_button: FiiishUI_ToggleButton = %MusicToggleButton
+@onready var sound_toggle_button: FiiishUI_ToggleButton = %SoundToggleButton
 
 func _on_close_button_pressed() -> void:
 #	self._dialog_manager.close_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
@@ -13,14 +15,20 @@ func open( duration: float ) -> void:
 	super.open( duration )
 	menu_fadeable_panel_container.fade_out( 0.0 )
 #	cursor_offset_button.connect("pressed", _on_cursor_offset_button_pressed )
+	var game = self._dialog_manager.game
+	var settings = game.get_settings()
+	if settings.is_music_enabled():
+		music_toggle_button.goto_a()
+	else:
+		music_toggle_button.goto_b()
 
-func _on_settings_button_pressed() -> void:
-	self._dialog_manager.toggle_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
-
-
+	if settings.is_sound_enabled():
+		sound_toggle_button.goto_a()
+	else:
+		sound_toggle_button.goto_b()
+	
 func _on_main_menu_button_pressed() -> void:
 	self.menu_fadeable_panel_container.toggle_fade( 0.3 )
-
 
 func _on_load_button_pressed() -> void:
 	var d = self._dialog_manager.open_dialog( DialogIds.Id.ZONE_SELECT_DIALOG, 0.3 )
@@ -73,3 +81,25 @@ func _on_cursor_offset_button_pressed() -> void:
 
 func _on_zone_test_button_pressed() -> void:
 	self._dialog_manager.game.zone_editor_manager.test_zone()
+
+func _on_music_toggle_button_toggled(state: FiiishUI_ToggleButton.ToggleState) -> void:
+	var game = self._dialog_manager.game
+	match state:
+		ToggleButtonContainer.ToggleState.A:
+			print("Music toggle to A")
+			game.enable_music()
+			
+		ToggleButtonContainer.ToggleState.B:
+			print("Music toggle to B")
+			game.disable_music()
+
+func _on_sound_toggle_button_toggled(state: FiiishUI_ToggleButton.ToggleState) -> void:
+	var game = self._dialog_manager.game
+	match state:
+		ToggleButtonContainer.ToggleState.A:
+			print("Sound toggle to A")
+			game.enable_sound()
+			
+		ToggleButtonContainer.ToggleState.B:
+			print("Sound toggle to B")
+			game.disable_sound()
