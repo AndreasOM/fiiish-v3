@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://dyddvv17y3dmy"]
+[gd_scene load_steps=14 format=3 uid="uid://dyddvv17y3dmy"]
 
 [ext_resource type="Script" uid="uid://cdced8n48ndm" path="res://Dialogs/zone_editor_menu_dialog.gd" id="1_ssmqt"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="2_4w7ob"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_427qg"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="3_jmev3"]
 [ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="5_kkhx4"]
 [ext_resource type="Texture2D" uid="uid://cnbxk2ekrux0c" path="res://Textures/UI/Buttons/button_play.png" id="5_rct3w"]
 [ext_resource type="Texture2D" uid="uid://byl13ejupqdy" path="res://Textures/UI/Buttons/button_settings.png" id="6_ace3m"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="7_66sxi"]
 [ext_resource type="Texture2D" uid="uid://c1kyb7ia7ta4x" path="res://Textures/UI/Buttons/button_sub_menu_entry.png" id="7_htgnp"]
-[ext_resource type="Script" path="res://Dialogs/cursor_offset_button.gd" id="8_3ni0a"]
+[ext_resource type="Script" uid="uid://yvc5t2j67ltg" path="res://Dialogs/cursor_offset_button.gd" id="8_3ni0a"]
 [ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="8_kw77y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kw77y"]
@@ -17,7 +18,7 @@
 
 [node name="ZoneEditorMenuDialog" type="MarginContainer"]
 process_mode = 3
-z_index = 8
+z_index = 102
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,13 +29,14 @@ size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_ssmqt")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("2_427qg")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
-unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kw77y")
-script = ExtResource("8_kw77y")
-metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="TopLeftMarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
 layout_mode = 2
@@ -262,10 +264,6 @@ text = ":TODO:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
-[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
-[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
-[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
 [connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/SettingsButtonFade/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="FadeablePanelContainer/TopLeftMarginContainer/VBoxContainer/HBoxContainer/ZoneTestButton" to="." method="_on_zone_test_button_pressed"]

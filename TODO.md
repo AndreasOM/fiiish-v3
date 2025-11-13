@@ -7,14 +7,15 @@
 
 ## Next
 
-- [ ] Task: Simplify ZoneEditorMenuDialog using FiiishDialog
-	- [ ] Bug: Fix layer of ZoneEditorMenuDialog
 
 ## ToDo
 - [ ] Feature: Simplify dialogs using FiiishDialog
 	- [ ] Simplify ZoneEditor_*_Dialog using FiiishDialog
 		- [ ] Simplify ZoneSelectDialog using FiiishDialog
 		- [ ] Simplify ZonePropertyDialog using FiiishDialog
+
+- [ ] Bug: Fix fading of InGamePauseMenu when closing ZoneEditor
+- [ ] Task: Fix settings in ZoneEditorMenuDialog
 
 
 ## Done
@@ -28,6 +29,8 @@
 - [x] Bug: Ensure MainMenu is using correct Action Set (Menu not Dive)
 - [x] Task: Simplify Developer_*_Dialog using FiiishDialog
 - [x] Task: Simplify MiniMapDialog using FiiishDialog
+- [x] Task: Simplify ZoneEditorMenuDialog using FiiishDialog
+- [x] Bug: Fix layer of ZoneEditorMenuDialog
 
 ### 2025-11-12
 #### S07E02
