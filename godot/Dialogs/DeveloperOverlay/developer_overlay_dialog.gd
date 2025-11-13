@@ -1,5 +1,5 @@
 class_name DeveloperOverlayDialog
-extends Dialog
+extends FiiishDialog
 
 @onready var debug_rich_text_label: RichTextLabel = %DebugRichTextLabel
 @onready var buttons_rich_text_label: RichTextLabel = %ButtonsRichTextLabel

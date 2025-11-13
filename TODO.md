@@ -14,7 +14,6 @@
 		- [ ] Simplify ZoneSelectDialog using FiiishDialog
 		- [ ] Simplify ZonePropertyDialog using FiiishDialog
 		- [ ] Simplify MiniMapDialog using FiiishDialog
-	- [ ] Simplify Developer_*_Dialog using FiiishDialog
 
 
 ## Done
@@ -26,6 +25,7 @@
 - [x] Stop updating demo builds, and switch focus to classic final
 - [x] Task: Update Push to Steam action to allow release version
 - [x] Bug: Ensure MainMenu is using correct Action Set (Menu not Dive)
+- [x] Task: Simplify Developer_*_Dialog using FiiishDialog
 
 ### 2025-11-12
 #### S07E02

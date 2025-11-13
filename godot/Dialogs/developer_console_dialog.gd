@@ -1,3 +1,4 @@
+class_name DeveloperConsoleDialog
 extends FiiishDialog
 
 @export var game: Game = null
