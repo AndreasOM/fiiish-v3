@@ -2,10 +2,6 @@
 
 ## InProgress
 
-- [ ] Task: Update build actions to use latest Godot 4.5.x (4.5.1)
-
-- [ ] Stop updating demo builds, and switch focus to classic final
-	- [ ] Task: Update Push to Steam action to allow release version
 
 ## Next
 
@@ -25,8 +21,10 @@
 
 ### 2025-11-12
 #### S07E03
-
 - [x] Bug: Use sub_type in run name when pushing to steam
+- [x] Task: Update build actions to use latest Godot 4.5.x (4.5.1)
+- [x] Stop updating demo builds, and switch focus to classic final
+- [x] Task: Update Push to Steam action to allow release version
 
 ### 2025-11-12
 #### S07E02
