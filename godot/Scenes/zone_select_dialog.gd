@@ -1,5 +1,5 @@
 class_name ZoneSelectDialog
-extends Dialog
+extends FiiishDialog
 
 enum Mode {
 	LOAD,
@@ -21,9 +21,6 @@ func add_filter_prefix( prefix: String ) -> void:
 	if self.filter_prefixes.find( prefix ) != -1:
 		return
 	self.filter_prefixes.push_back( prefix )
-	
-func _ready() -> void:
-	pass
 	
 func _allowed( filename: String ) -> bool:
 	if self.filter_prefixes.is_empty():
@@ -75,39 +72,10 @@ func _add_selection( title: String, filename: String, difficulty: int = -1 ) -> 
 	
 func open( duration: float) -> void:
 	self.update_zones()
-	fade_in( duration )
-
-func close( duration: float) -> void:
-	fade_out( duration )
-
-func toggle( duration: float ) -> void:
-	toggle_fade( duration )
-
-func toggle_fade( duration: float ) -> void:
-	%FadeablePanelContainer.toggle_fade( duration )
-
-func fade_out( duration: float ) -> void:
-	%FadeablePanelContainer.fade_out( duration )
-
-func fade_in( duration: float ) -> void:
-	%FadeablePanelContainer.fade_in( duration )
-
-
-func _on_fadeable_panel_container_on_faded_in() -> void:
-	opened()
-
-func _on_fadeable_panel_container_on_faded_out() -> void:
-	closed()
-
-func _on_fadeable_panel_container_on_fading_in( _duration: float ) -> void:
-	opening()
-
-func _on_fadeable_panel_container_on_fading_out( _duration: float ) -> void:
-	closing()
+	super.open( duration )
 
 func _on_anchor_texture_button_pressed() -> void:
 	self.zone_selected.emit( "classic-5001_Anchor.nzne")
-
 
 func _on_i_love_fiiish_texture_button_pressed() -> void:
 	self.zone_selected.emit( "classic-0000_ILoveFiiish.nzne")
