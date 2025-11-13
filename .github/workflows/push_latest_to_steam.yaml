@@ -1,18 +1,19 @@
 name: 🚂 Push latest to steam
-run-name: 🚂 Push latest to steam ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
+run-name: 🚂 Push latest to steam ${{ vars.PROJECT }} - ${{ inputs.sub_type }} by @${{ github.actor }}
 on: 
   workflow_dispatch:
     inputs:
       sub_type:
         description: 'The sub_type of build'
         required: true
-        default: 'demo-classic'
+        default: 'classic'
         type: choice
         options:
+          - 'classic'
           - 'demo-classic'
   workflow_call:
     inputs:
-      build_type:
+      sub_type:
         description: 'The sub_type of build'
         required: true
         type: string
