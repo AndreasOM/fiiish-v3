@@ -4,16 +4,17 @@
 
 
 
+
 ## Next
 
-
+- [ ] Task: Simplify ZoneEditorMenuDialog using FiiishDialog
+	- [ ] Bug: Fix layer of ZoneEditorMenuDialog
 
 ## ToDo
 - [ ] Feature: Simplify dialogs using FiiishDialog
 	- [ ] Simplify ZoneEditor_*_Dialog using FiiishDialog
 		- [ ] Simplify ZoneSelectDialog using FiiishDialog
 		- [ ] Simplify ZonePropertyDialog using FiiishDialog
-		- [ ] Simplify MiniMapDialog using FiiishDialog
 
 
 ## Done
@@ -26,6 +27,7 @@
 - [x] Task: Update Push to Steam action to allow release version
 - [x] Bug: Ensure MainMenu is using correct Action Set (Menu not Dive)
 - [x] Task: Simplify Developer_*_Dialog using FiiishDialog
+- [x] Task: Simplify MiniMapDialog using FiiishDialog
 
 ### 2025-11-12
 #### S07E02

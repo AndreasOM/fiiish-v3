@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://boalgyacjnga8"]
 
 [ext_resource type="Script" uid="uid://djytbufye6okv" path="res://Scenes/mini_map_dialog.gd" id="1_0qp1s"]
-[ext_resource type="Script" uid="uid://ckhevounoe7f4" path="res://Scenes/fadeable_panel_container.gd" id="2_4aoyc"]
+[ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_0qp1s"]
 [ext_resource type="PackedScene" uid="uid://dm2ddgnytoha6" path="res://Dialogs/MiniMap/mini_map_sub_viewport_container.tscn" id="3_rj50v"]
 
 [node name="MiniMapDialog" type="MarginContainer"]
@@ -15,12 +15,13 @@ grow_horizontal = 2
 mouse_filter = 2
 script = ExtResource("1_0qp1s")
 
+[node name="Fader" type="Node" parent="."]
+script = ExtResource("2_0qp1s")
+metadata/_custom_type_script = "uid://c7r2stxdangf5"
+
 [node name="FadeablePanelContainer" type="PanelContainer" parent="."]
-unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
-script = ExtResource("2_4aoyc")
-metadata/_custom_type_script = "uid://ckhevounoe7f4"
 
 [node name="MarginContainer" type="MarginContainer" parent="FadeablePanelContainer"]
 layout_mode = 2
@@ -29,8 +30,3 @@ mouse_filter = 2
 [node name="MiniMapSubViewportContainer" parent="FadeablePanelContainer/MarginContainer" instance=ExtResource("3_rj50v")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[connection signal="on_faded_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_in"]
-[connection signal="on_faded_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_faded_out"]
-[connection signal="on_fading_in" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_in"]
-[connection signal="on_fading_out" from="FadeablePanelContainer" to="." method="_on_fadeable_panel_container_on_fading_out"]
