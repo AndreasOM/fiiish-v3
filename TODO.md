@@ -2,11 +2,18 @@
 
 ## InProgress
 
+- [ ] Task: Update build actions to use latest Godot 4.5.x (4.5.1)
+
 
 ## Next
 
+- [ ] Task: Try to add sub_type to run name when pushing to steam
+- [ ] Stop updating demo builds, and switch focus to classic final
+	- [ ] Task: Update Push to Steam action to allow release version
+
 
 ## ToDo
+- [ ] Bug: Ensure MainMenu is using correct Action Set (Menu not Dive)
 - [ ] Feature: Simplify dialogs using FiiishDialog
 	- [ ] Simplify ZoneEditor_*_Dialog using FiiishDialog
 		- [ ] Simplify ZoneSelectDialog using FiiishDialog
@@ -14,8 +21,6 @@
 		- [ ] Simplify MiniMapDialog using FiiishDialog
 	- [ ] Simplify Developer_*_Dialog using FiiishDialog
 
-- [ ] Stop updating demo builds, and switch focus to classic final
-	- [ ] Task: Update Push to Steam action to allow release version
 
 ## Done
 
