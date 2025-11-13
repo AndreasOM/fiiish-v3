@@ -3,12 +3,12 @@
 ## InProgress
 
 
+
 ## Next
 
 
 
 ## ToDo
-- [ ] Bug: Ensure MainMenu is using correct Action Set (Menu not Dive)
 - [ ] Feature: Simplify dialogs using FiiishDialog
 	- [ ] Simplify ZoneEditor_*_Dialog using FiiishDialog
 		- [ ] Simplify ZoneSelectDialog using FiiishDialog
@@ -25,6 +25,7 @@
 - [x] Task: Update build actions to use latest Godot 4.5.x (4.5.1)
 - [x] Stop updating demo builds, and switch focus to classic final
 - [x] Task: Update Push to Steam action to allow release version
+- [x] Bug: Ensure MainMenu is using correct Action Set (Menu not Dive)
 
 ### 2025-11-12
 #### S07E02

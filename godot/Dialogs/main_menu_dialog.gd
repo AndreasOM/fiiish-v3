@@ -87,6 +87,7 @@ func opening() -> void:
 		self.animation_player.play( &"FadeIn", -1.0, 1.0/fade_duration, false )
 
 func closing() -> void:
+	super.closing()
 	if (
 		# duration > 0.0 && 
 		self.animation_player != null
@@ -113,4 +114,5 @@ func _on_developer_pressed() -> void:
 	get_tree().change_scene_to_file("res://Features/Developer/developer.tscn")
 
 func opened() -> void:
+	super.opened()
 	%LeaderBoard.grab_focus.call_deferred()
