@@ -6,7 +6,6 @@
 
 [sub_resource type="Resource" id="Resource_r1prg"]
 script = ExtResource("1_m728o")
-prereq_achievement_ids = Array[String]([])
 prereq_counters = Dictionary[int, int]({
 6: 100
 })
@@ -15,14 +14,9 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_ik8ef")
 id = "MaxCoins1"
-disabled_in_demo = false
 sort_index = 1121
 name = "Max Coins Bronze"
-description = ""
-hidden = false
 icon = ExtResource("2_m728o")
 completion_condition = SubResource("Resource_r1prg")
 reward_coins = 10
-reward_skill_points = 0
-reward_extra = Array[String]([])
 metadata/_custom_type_script = "uid://dtt8w7uij10vl"

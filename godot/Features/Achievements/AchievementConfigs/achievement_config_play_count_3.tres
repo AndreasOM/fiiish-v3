@@ -15,14 +15,10 @@ metadata/_custom_type_script = "uid://847eoiqj5nwn"
 [resource]
 script = ExtResource("3_duxdh")
 id = "PlayCount3"
-disabled_in_demo = false
 sort_index = 1113
 name = "Times Played Gold"
-description = ""
-hidden = false
 icon = ExtResource("2_ere4s")
 completion_condition = SubResource("Resource_vw4ne")
 reward_coins = 100
 reward_skill_points = 1
-reward_extra = Array[String]([])
 metadata/_custom_type_script = "uid://dtt8w7uij10vl"

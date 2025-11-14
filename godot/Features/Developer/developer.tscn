@@ -87,6 +87,22 @@ mouse_filter = 0
 id = 5
 label = "Quit"
 
+[node name="ResetAchievementsButton" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_gpqy2")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/ResetAchievementsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"LabelHeader"
+text = "Reset Achievements"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="GameButton" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("6_gpqy2")
@@ -164,4 +180,5 @@ font_size = 128
 
 [connection signal="toggled" from="MarginContainer/HBoxContainer/DeveloperOverlayToggleButton" to="." method="_on_developer_overlay_toggle_button_toggled"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/ResetAchievementsButton" to="." method="_on_reset_achievements_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/GameButton" to="." method="_on_game_button_pressed"]

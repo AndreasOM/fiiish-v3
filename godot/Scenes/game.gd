@@ -87,6 +87,7 @@ func _ready() -> void:
 	var suffix = "" if !self._settings.is_kids_mode_enabled() else KIDS_MODE_SUFFIX
 	self._player = Player.load_with_suffix( suffix )
 	self._player.update_day_streak()
+	self._sync_achievements_to_steam()
 	Events.broadcast_player_changed( self._player )
 			
 	Events.cheats_changed.connect( _on_cheats_changed )
@@ -296,6 +297,57 @@ func collect_all_achievements() -> void:
 	for ca in player.completed_achievements():
 		self.collect_achievement( ca )
 		
+func _sync_achievements_to_steam() -> void:
+	if self.achievement_config_manager == null:
+		return
+	if !SteamWrapper.is_available():
+		return
+	var steam = SteamWrapper.get_steam()
+	if !steam.isSteamRunning():
+		return
+		
+	var achievements = self.achievement_config_manager.get_keys()
+	var player_achievements = self._player.collected_achievements()
+	
+	if achievements.size() > 0:
+		var synced = 0
+		for a in achievements:
+			var ac = self.achievement_config_manager.get_config( a )
+			if ac == null:
+				continue
+			var player_state = player_achievements.has( ac.id )
+			var ss = steam.getAchievement( ac.id )
+			var steam_known = ss.get("ret", false)
+			if !steam_known:
+				var msg = "[color=yellow]STEAM: Achievement not known >%s< - Player: %d" % [ ac.id, int(player_state) ]
+				print_rich( msg )
+				continue
+
+			var steam_state = ss.get("achieved", false)
+		
+			var msg = "[color=green]STEAM: Achievement >%s<: %d == %d" % [ ac.id, int(steam_state), int(player_state) ]
+			print_rich( msg )
+			
+			if player_state && !steam_state:
+				steam.setAchievement( ac.id )
+				synced += 1
+			elif !player_state && steam_state:
+				steam.clearAchievement( ac.id )
+				synced += 1
+				
+		if synced > 0:
+			if !steam.storeStats():
+				print_rich("[color=yellow]STEAM: Failed storing stats to steam - %d" % [ synced ])
+
+func _unlock_achievement_on_steam( ac: AchievementConfig ) -> void:
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		if steam.isSteamRunning():
+			if !steam.setAchievement( ac.id ):
+				print_rich("[color=yellow]STEAM: Failed setting achievement - %s" % [ ac.id ])
+			if !steam.storeStats():
+				print_rich("[color=yellow]STEAM: Failed storing stats - %s" % [ ac.id ])
+
 func collect_achievement( id: String ) -> bool:
 	var player = self.get_player()
 	if !player.collect_achievement( id ):
@@ -304,6 +356,8 @@ func collect_achievement( id: String ) -> bool:
 	
 	var ac = self.achievement_config_manager.get_config( id )
 	if ac != null:
+		self._unlock_achievement_on_steam( ac )
+		
 		if ac.reward_coins > 0:
 			player.give_coins( ac.reward_coins )
 			# Events.broadcast_global_message( "Got %d coins" % ac.reward_coins )

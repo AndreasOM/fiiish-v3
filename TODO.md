@@ -6,14 +6,32 @@
 
 ## Next
 
+- [ ] Steam: Submit a gatekeeper build
 
 ## ToDo
 
+- [ ] Steam: Create remaining achievements
 
+- [ ] Steam: Understand Cloud Saves
+- [ ] Steam: Configure Accessibility
+- [ ] Bonus + Steam: Add Leaderboards
+- [ ] Task: Copy zones from Demo to Classic
+- [ ] Feature: Verify KidsMode works correctly
+
+- [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
+- [ ] Task: Renable Music and Sound toggle in KidsMode
+- [ ] Bug: Fix KidsModeDisable on Steamdeck (and in general)
+- [ ] Bug: Fix InGamePauseMenu focus handling in KidsMode
+- [ ] Bug: Fix mouse input on macOS when running in Steam
 
 ## Done
 
-### 2025-11-12
+### 2025-11-14
+#### S07E04
+- [x] Steam: Add and sync Achievements
+- [x] Task: Add script to create `_uncompleted` version of achievement icons
+
+### 2025-11-13
 #### S07E03
 - [x] Bug: Use sub_type in run name when pushing to steam
 - [x] Task: Update build actions to use latest Godot 4.5.x (4.5.1)

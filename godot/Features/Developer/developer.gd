@@ -51,3 +51,31 @@ func _on_developer_overlay_toggle_button_toggled(state: FiiishUI_ToggleButton.To
 func _on_game_button_pressed() -> void:
 	self._settings.save()
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+
+
+func _on_reset_achievements_button_pressed() -> void:
+	var player = Player.load()
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		if steam.isSteamRunning():
+			# var achievements = player.collected_achievements()
+			var acm = AchievementConfigManager.new()
+			var achievements = acm.get_keys()
+			if achievements.size() > 0:
+				var cleared = 0
+				for a in achievements:
+					var ac = acm.get_config( a )
+					if ac == null:
+						continue
+					var ss = steam.getAchievement( ac.id )
+					var msg = "[color=green]STEAM: Achievement >%s<: %s" % [ ac.id, ss  ]
+					print_rich( msg )
+					steam.clearAchievement( ac.id )
+					cleared += 1
+						
+				if cleared > 0:
+					if !steam.storeStats():
+						print_rich("[color=yellow]STEAM: Failed storing stats to steam - %d" % [ cleared ])
+	
+	player.reset_achievements()
+	player.save()
