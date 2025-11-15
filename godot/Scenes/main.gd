@@ -336,7 +336,7 @@ func _on_steam_overlay_toggled( active: bool, _user_initiated: bool, _app_id: in
 
 	
 func _on_received_url( url: String ) -> void:
-#	Events.broadcast_global_message("Received URL: %s" % url )
+	Events.broadcast_global_message("Received URL: %s" % url )
 	var lurl = url.to_lower()	
 	self._handle_kids_mode( lurl )
 
@@ -347,8 +347,9 @@ func _on_application_did_become_active( ) -> void:
 
 func _handle_launch_parameters() -> void:
 	var launch_parameters = self._get_launch_parameters()
-	print("Launch Parameters >%s<" % launch_parameters )
+#	print("Launch Parameters >%s<" % launch_parameters )
 	Events.broadcast_log_event( "Launch Parameters: %s" % launch_parameters )
+#	Events.broadcast_global_message( "Launch Parameters: %s" % launch_parameters )
 	var llp = launch_parameters.to_lower()
 	
 	self._handle_kids_mode( llp )
@@ -417,13 +418,15 @@ func _get_launch_parameters() -> String:
 		return self._get_launch_parameters_editor()
 	else:
 		match OS.get_name():
-			"Windows":
-				return ""
+#			"Windows":
+# just use standard cmd line args
+#				return ""
 #			"macOS":
 # just use standard cmd line args
 #				return ""
-			"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
-				return ""
+#			"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+# just use standard cmd line args
+#				return ""
 			"Android":
 				return ""
 			"iOS":

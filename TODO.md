@@ -2,8 +2,6 @@
 
 ## InProgress
 
-	- [ ] Steam: Verify Cloud Saves work
-
 
 ## Next
 
@@ -11,22 +9,21 @@
 
 ## ToDo
 
+- [ ] Steam: Verify Cloud Saves work
 
-- [ ] Steam: Understand Cloud Saves
-- [ ] Steam: Configure Accessibility
 - [ ] Bonus + Steam: Add Leaderboards
 - [ ] Task: Copy zones from Demo to Classic
 - [ ] Feature: Verify KidsMode works correctly
 
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 - [ ] Task: Renable Music and Sound toggle in KidsMode
-- [ ] Bug: Fix KidsModeDisable on Steamdeck (and in general)
 - [ ] Bug: Fix InGamePauseMenu focus handling in KidsMode
 - [ ] Bug: Fix mouse input on macOS when running in Steam
 
 ## Done
 ### 2025-11-15
 - [x] Steam: Rethink Achievement state syncing. Unlocked/completed always wins
+- [x] Bug: Fix KidsModeDisable on Steamdeck (and in general)
 
 #### Offstream
 - [x] Steam: Create remaining achievements
