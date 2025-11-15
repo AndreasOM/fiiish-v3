@@ -93,8 +93,14 @@ func _update_buttons() -> void:
 				self.sound_toggle_button.fade_out( 0.3 )
 		else:
 			settings_button.fade_out( 0.3 )
-			self.music_toggle_button.fade_out( 0.3 )
-			self.sound_toggle_button.fade_out( 0.3 )
+			if is_paused:
+				self.music_toggle_button.fade_in( 0.3 )
+				self.sound_toggle_button.fade_in( 0.3 )
+			else:
+				self.music_toggle_button.fade_out( 0.3 )
+				self.sound_toggle_button.fade_out( 0.3 )
+			# self.music_toggle_button.fade_out( 0.3 )
+			# self.sound_toggle_button.fade_out( 0.3 )
 
 func toggle_pause() -> void:
 	Events.broadcast_player_pause_toggle_requested()
