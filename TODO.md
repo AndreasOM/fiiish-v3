@@ -2,10 +2,7 @@
 
 ## InProgress
 
-- [x] Steam: Create remaining achievements
-- [x] Steam: Understand Cloud Saves + Setup
 	- [ ] Steam: Verify Cloud Saves work
-- [x] Steam: Configure Accessibility
 
 
 ## Next
@@ -14,8 +11,6 @@
 
 ## ToDo
 
-- [ ] Steam: Create remaining achievements
-- [ ] Steam: Rethink Achievement state syncing. Should unlocked/completed always win?
 
 - [ ] Steam: Understand Cloud Saves
 - [ ] Steam: Configure Accessibility
@@ -30,6 +25,13 @@
 - [ ] Bug: Fix mouse input on macOS when running in Steam
 
 ## Done
+### 2025-11-15
+- [x] Steam: Rethink Achievement state syncing. Unlocked/completed always wins
+
+#### Offstream
+- [x] Steam: Create remaining achievements
+- [x] Steam: Understand Cloud Saves + Setup
+- [x] Steam: Configure Accessibility
 
 ### 2025-11-14
 #### S07E04

@@ -311,6 +311,7 @@ func _sync_achievements_to_steam() -> void:
 	
 	if achievements.size() > 0:
 		var synced = 0
+		var to_complete_in_player: Array[ String ] = []
 		for a in achievements:
 			var ac = self.achievement_config_manager.get_config( a )
 			if ac == null:
@@ -325,19 +326,31 @@ func _sync_achievements_to_steam() -> void:
 
 			var steam_state = ss.get("achieved", false)
 		
-			var msg = "[color=green]STEAM: Achievement >%s<: %d == %d" % [ ac.id, int(steam_state), int(player_state) ]
-			print_rich( msg )
+			# var msg = "[color=green]STEAM: Achievement >%s<: %d == %d" % [ ac.id, int(steam_state), int(player_state) ]
+			# print_rich( msg )
 			
 			if player_state && !steam_state:
-				steam.setAchievement( ac.id )
+				# player has achievement locally so send to steam
+				if !steam.setAchievement( ac.id ):
+					var msg = "[color=yellow]STEAM: Failed setting Achievement >%s<" % [ ac.id ]
+					print_rich( msg )
+				else:
+					var msg = "[color=green]STEAM: Set Achievement >%s<" % [ ac.id ]
+					print_rich( msg )
+					
 				synced += 1
 			elif !player_state && steam_state:
-				steam.clearAchievement( ac.id )
-				synced += 1
+				# steam has achievement so mark completed locally
+				to_complete_in_player.push_back( ac.id )
+				var msg = "[color=green]STEAM: Completing local Achievement >%s<, since it is completed on Steam" % [ ac.id ]
+				print_rich( msg )
 				
 		if synced > 0:
 			if !steam.storeStats():
 				print_rich("[color=yellow]STEAM: Failed storing stats to steam - %d" % [ synced ])
+		
+		if !to_complete_in_player.is_empty():
+			self._player.add_completed_achievements( to_complete_in_player )
 
 func _unlock_achievement_on_steam( ac: AchievementConfig ) -> void:
 	if SteamWrapper.is_available():
