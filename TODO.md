@@ -2,6 +2,10 @@
 
 ## InProgress
 
+- [x] Steam: Create remaining achievements
+- [x] Steam: Understand Cloud Saves + Setup
+	- [ ] Steam: Verify Cloud Saves work
+- [x] Steam: Configure Accessibility
 
 
 ## Next
@@ -10,10 +14,6 @@
 
 ## ToDo
 
-- [ ] Steam: Create remaining achievements
-
-- [ ] Steam: Understand Cloud Saves
-- [ ] Steam: Configure Accessibility
 - [ ] Bonus + Steam: Add Leaderboards
 - [ ] Task: Copy zones from Demo to Classic
 - [ ] Feature: Verify KidsMode works correctly
