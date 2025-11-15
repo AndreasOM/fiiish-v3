@@ -3,6 +3,8 @@
 ## InProgress
 
 
+- [ ] Steam Feature: Add Leaderboards
+
 - [ ] Bug: Fix mouse input on macOS when running in Steam -> Verify after build
 - [ ] Steam: Verify Cloud Saves work
 
@@ -14,7 +16,6 @@
 ## ToDo
 
 
-- [ ] Bonus + Steam: Add Leaderboards
 - [ ] Task: Copy zones from Demo to Classic
 
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
@@ -26,6 +27,7 @@
 - [x] Task: Renable Music and Sound toggle in KidsMode
 - [x] Bug: Fix InGamePauseMenu focus handling in KidsMode
 - [x] Feature: Verify KidsMode works correctly
+- [x] Steam Task: Upload highscore to steam leaderboard
 
 #### Offstream
 - [x] Steam: Create remaining achievements

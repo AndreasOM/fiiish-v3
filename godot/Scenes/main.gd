@@ -13,6 +13,7 @@ const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.
 @onready var achievement_manager: AchievementManager = %AchievementManager
 @onready var game: Game = %Game
 @onready var dialog_manager: DialogManager = %DialogManager
+@onready var steam_leaderboard_manager: SteamLeaderboardManager = %SteamLeaderboardManager
 
 var _was_paused_before_focus_was_lost: bool = false
 
@@ -565,3 +566,7 @@ func _on_settings_changed() -> void:
 func _on_steam_input_controller_disconnected() -> void:
 	# NEW PAUSE SYSTEM: Controller disconnect triggers pause
 	%FiiishPauseManager.get_pause_manager().notify_controller_disconnected()
+
+
+func _on_game_new_local_highscore(leaderboard_type: LeaderboardTypes.Type, value: float) -> void:
+	self.steam_leaderboard_manager.send_highscore( leaderboard_type, value )

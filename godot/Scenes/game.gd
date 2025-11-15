@@ -1,6 +1,8 @@
 extends Node
 class_name Game
 
+signal new_local_highscore( leaderboard_type: LeaderboardTypes.Type, value: float )
+
 @export var achievement_config_manager: AchievementConfigManager = null
 @export var achievement_counter_manager: AchievementCounterManager = null
 @export var achievement_manager: AchievementManager = null
@@ -286,9 +288,16 @@ func _credit_last_swim() -> void:
 	
 	self.sync_achievements_with_player( _player )
 	
-	_player.update_leaderboards( coins, distance )
+	var first_ranks = _player.update_leaderboards( coins, distance )
 	_player.save();
+	
+	# update scores to steam
+	if true || first_ranks.has( LeaderboardTypes.Type.LOCAL_COINS ):
+		self.new_local_highscore.emit( LeaderboardTypes.Type.LOCAL_COINS, coins )
 
+	if true || first_ranks.has( LeaderboardTypes.Type.LOCAL_DISTANCE ):
+		self.new_local_highscore.emit( LeaderboardTypes.Type.LOCAL_DISTANCE, distance )
+		
 func mark_achievement_completed( id: String ) -> void:
 	self.achievement_manager.mark_achievement_completed( id )
 
