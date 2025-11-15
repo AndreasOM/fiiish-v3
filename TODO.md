@@ -14,6 +14,11 @@
 
 ## ToDo
 
+- [ ] Steam: Create remaining achievements
+- [ ] Steam: Rethink Achievement state syncing. Should unlocked/completed always win?
+
+- [ ] Steam: Understand Cloud Saves
+- [ ] Steam: Configure Accessibility
 - [ ] Bonus + Steam: Add Leaderboards
 - [ ] Task: Copy zones from Demo to Classic
 - [ ] Feature: Verify KidsMode works correctly
