@@ -261,7 +261,7 @@ offset_right = -1482.0
 size_flags_vertical = 10
 game = NodePath("../../Game")
 
-[node name="DialogManager" type="Control" parent="UI" node_paths=PackedStringArray("game", "front_dialogs")]
+[node name="DialogManager" type="Control" parent="UI" node_paths=PackedStringArray("game", "front_dialogs", "steam_leaderboard_manager")]
 unique_name_in_owner = true
 process_mode = 3
 z_index = 10
@@ -275,6 +275,7 @@ mouse_filter = 2
 script = ExtResource("25_xncef")
 game = NodePath("../../Game")
 front_dialogs = NodePath("../FrontDialogs")
+steam_leaderboard_manager = NodePath("../../Managers/SteamLeaderboardManager")
 metadata/_custom_type_script = "uid://l0esgnhelws0"
 
 [node name="LeaderboardDialogHardCoded" parent="UI/DialogManager" instance=ExtResource("14_h1bgf")]

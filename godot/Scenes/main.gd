@@ -568,5 +568,11 @@ func _on_steam_input_controller_disconnected() -> void:
 	%FiiishPauseManager.get_pause_manager().notify_controller_disconnected()
 
 
+const STEAM_LEADERBOARD_MAPPINGS: Dictionary[ LeaderboardTypes.Type, LeaderboardTypes.Type ] = {
+	LeaderboardTypes.Type.LOCAL_COINS: LeaderboardTypes.Type.STEAM_SINGLE_RUN_COINS,
+	LeaderboardTypes.Type.LOCAL_DISTANCE: LeaderboardTypes.Type.STEAM_SINGLE_RUN_DISTANCE,
+}
 func _on_game_new_local_highscore(leaderboard_type: LeaderboardTypes.Type, value: float) -> void:
-	self.steam_leaderboard_manager.send_highscore( leaderboard_type, value )
+	var steam_leaderboard_type = STEAM_LEADERBOARD_MAPPINGS.get( leaderboard_type, null )
+	if steam_leaderboard_type != null:
+		self.steam_leaderboard_manager.send_highscore( steam_leaderboard_type, value )

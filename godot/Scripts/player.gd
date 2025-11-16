@@ -409,8 +409,8 @@ func disable_cheat( id: CheatIds.Id ) -> void:
 	self._cheats.erase( id )
 	
 
-func get_leaderboard( type: LeaderboardTypes.Type ) -> Leaderboard:
-	return self._leaderboards.get_entry( type )
+func get_leaderboard( type: LeaderboardTypes.Type, default: Leaderboard = null ) -> Leaderboard:
+	return self._leaderboards.get_entry( type, default )
 	
 func update_leaderboards( new_coins: int, distance: int ) -> Array[ LeaderboardTypes.Type ]:
 	# var dt = Time.get_datetime_dict_from_system()

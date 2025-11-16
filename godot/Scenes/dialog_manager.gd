@@ -4,6 +4,8 @@ class_name DialogManager
 @export var game: Game = null
 @export var front_dialogs: Control = null
 
+@export var steam_leaderboard_manager: SteamLeaderboardManager = null
+
 var _dialog_configs: Dictionary = {
 	DialogIds.Id.RESULT_DIALOG: preload("res://Dialogs/result_dialog.tscn"),
 #	DialogIds.Id.SETTING_DIALOG: preload("res://Dialogs/setting_dialog.tscn"),

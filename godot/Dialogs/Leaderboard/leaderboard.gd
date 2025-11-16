@@ -37,6 +37,21 @@ func set_name( n: String ) -> void:
 func name() -> String:
 	return self._name
 
+func replace_entry( participant: String, score: int ) -> int:
+	self.remove_entry( participant )
+	return self.add_entry( participant, score )
+
+func remove_entry( participant: String ) -> void:
+	for i in range( 0, self._entries.size() ):
+		var e = self._entries.get_entry( i )
+		if e == null:
+			continue
+		var e2 = e as LeaderboardEntry
+		if e2 == null:
+			continue
+		if e2.participant() == participant:
+			self._entries.remove_at( i )
+			
 func add_entry( participant: String, score: int ) -> int:
 	var ne = LeaderboardEntry.new( participant, score )
 	var p = self._entries.size()
@@ -56,6 +71,9 @@ func add_entry( participant: String, score: int ) -> int:
 		
 	self._last_added_entry_position = p
 	return p
+
+func clear_last_added_entry_position() -> void:
+	self._last_added_entry_position = -1
 
 func last_added_entry_position() -> int:
 	return self._last_added_entry_position

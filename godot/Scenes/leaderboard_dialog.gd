@@ -18,13 +18,16 @@ func _switch_to_leaderboard( type: LeaderboardTypes.Type ) -> void:
 	if game != null:
 		var player = game.get_player()
 		if player != null:
-			var l = player.get_leaderboard( type )
-			if l != null:
-				leaderboard = l
+			leaderboard = player.get_leaderboard( type, leaderboard )
+		var steam_leaderboard_manager =self._dialog_manager.steam_leaderboard_manager
+		if steam_leaderboard_manager != null:
+			leaderboard = steam_leaderboard_manager.get_leaderboard( type, leaderboard )
 				
 	var score_formatter = Callable()
 	match type:
 		LeaderboardTypes.Type.LOCAL_DISTANCE:
+			score_formatter = _format_distance
+		LeaderboardTypes.Type.STEAM_SINGLE_RUN_DISTANCE:
 			score_formatter = _format_distance
 		_:
 			pass
@@ -43,16 +46,14 @@ func open( duration: float) -> void:
 func _on_close_button_pressed() -> void:
 	self.close( 0.3 )
 
-func _on_coins_texture_button_pressed() -> void:
-#	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
-	pass
-
-func _on_distance_texture_button_pressed() -> void:
-#	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_DISTANCE )
-	pass
-
 func _on_coins_texture_button_focus_entered() -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
 
 func _on_distance_texture_button_focus_entered() -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_DISTANCE )
+
+func _on_steam_coins_texture_button_focus_entered() -> void:
+	self._switch_to_leaderboard( LeaderboardTypes.Type.STEAM_SINGLE_RUN_COINS )
+
+func _on_steam_distance_texture_button_focus_entered() -> void:
+	self._switch_to_leaderboard( LeaderboardTypes.Type.STEAM_SINGLE_RUN_DISTANCE )

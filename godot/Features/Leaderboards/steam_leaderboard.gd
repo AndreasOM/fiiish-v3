@@ -5,22 +5,29 @@ class Score:
 #	var leaderboard_type: LeaderboardTypes.Type
 	var value: float
 
+var _name: String = "[NAME]"
 var _leaderboard_name: String = "[UNDEFINED]"
 var _pending_scores: Array[ Score ] = []
 var _leaderboard_handle: int = -1
+
+var _leaderboards: Dictionary[ int, Leaderboard ] = {}
 
 func _init( leaderboard_name: String ) -> void:
 #	print("STEAM: Leaderboard._init( %s ) was: %s" % [ leaderboard_name, self._leaderboard_name ] )
 	self._leaderboard_name = leaderboard_name
 	# :HACK: since only one find request can be in flight we handle this in the SteamLeaderboardManager
-#	if SteamWrapper.is_available():
-#		var steam = SteamWrapper.get_steam()
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
 #		if steam.isSteamRunning():
 #			steam.leaderboard_find_result.connect(_on_leaderboard_find_result)
 #			steam.leaderboard_score_uploaded.connect(_on_leaderboard_score_uploaded)
+#			steam.leaderboard_scores_downloaded.connect(_on_leaderboard_scores_downloaded)
 #			print("STEAM: Finding leaderboard %s" % [ self._leaderboard_name ] )
 #			steam.findLeaderboard( self._leaderboard_name )
 	
+func set_name( name: String ) -> void:
+	self._name = name
+
 func _on_leaderboard_find_result(new_handle: int, was_found: int) -> void:
 	if !was_found:
 		print("STEAM: Leaderboard %s not found" % [ self._leaderboard_name ] )
@@ -41,9 +48,27 @@ func _on_leaderboard_score_uploaded(success: int, this_handle: int, this_score: 
 		print("STEAM: Failed to upload score to leaderboard %s %d -> %s" % [ self._leaderboard_name, this_handle, str(this_score) ] )
 		return
 	
-	var s = str(this_score)
-	print("STEAM: Successfully uploaded score to leaderboard %s %d -> %s" % [ self._leaderboard_name, this_handle, s ] )
+	print("STEAM: Successfully uploaded score to leaderboard %s %d -> %s" % [ self._leaderboard_name, this_handle, str(this_score) ] )
 		
+func _on_leaderboard_scores_downloaded(message: String, this_handle: int, these_results: Array, data_request_type: int = 0) -> void:
+	if self._leaderboard_handle != this_handle:
+		return
+#	print( "STEAM: Scores downloaded %s: %s -> %s (%d)" % [ self._leaderboard_name, message, str(these_results), data_request_type ] )
+	print( "STEAM: Scores downloaded %s: %s (%d)" % [ self._leaderboard_name, message, data_request_type ] )
+	
+	var l: Leaderboard = self._leaderboards.get( data_request_type, null )
+	if l == null:
+		l = Leaderboard.new( self._name, 10 )
+		self._leaderboards[ data_request_type ] = l
+
+	for e in these_results:
+		var steam_id = e.get("steam_id",0)
+		# :HACK: until we improve the leaderboard to allow subclassing of participants
+		var p = "SteamId=%d" % [ steam_id ]
+		l.replace_entry( p, e.get("score", -1))
+	
+	l.clear_last_added_entry_position()
+
 func send_highscore( value: float ) -> void:
 	var score = Score.new()
 #	score.leaderboard_type = leaderboard_type
@@ -61,3 +86,13 @@ func _process(delta: float) -> void:
 		var steam = SteamWrapper.get_steam()
 		if steam.isSteamRunning():
 			steam.uploadLeaderboardScore( s.value, true, [], self._leaderboard_handle )
+
+func downloadLeaderboardEntries( start_index: int, end_index: int, data_request_type: int ) -> void:
+	print("STEAM: SteamLeaderboard.downloadLeaderboardEntries() %s" % [ self._leaderboard_name ] )
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		if steam.isSteamRunning():
+			steam.downloadLeaderboardEntries( start_index, end_index, data_request_type, self._leaderboard_handle )
+
+func get_leaderboard( data_request_type: int, default: Leaderboard ) -> Leaderboard:
+	return self._leaderboards.get( data_request_type, default )

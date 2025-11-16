@@ -4,9 +4,8 @@
 
 
 - [ ] Steam Feature: Add Leaderboards
+	- [ ] Steam Task: Map SteamId in Leaderboards to Steam Name
 
-- [ ] Bug: Fix mouse input on macOS when running in Steam -> Verify after build
-- [ ] Steam: Verify Cloud Saves work
 
 
 ## Next
@@ -21,13 +20,21 @@
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 
 ## Done
+
+### 2025-11-16
+#### S07E06
+- [x] Steam Task: Display Leaderboards
+
 ### 2025-11-15
+#### S07E05
 - [x] Steam: Rethink Achievement state syncing. Unlocked/completed always wins
 - [x] Bug: Fix KidsModeDisable on Steamdeck (and in general)
 - [x] Task: Renable Music and Sound toggle in KidsMode
 - [x] Bug: Fix InGamePauseMenu focus handling in KidsMode
 - [x] Feature: Verify KidsMode works correctly
 - [x] Steam Task: Upload highscore to steam leaderboard
+- [x] Bug: Fix mouse input on macOS when running in Steam -> Verify after build
+- [x] Steam: Verify Cloud Saves work
 
 #### Offstream
 - [x] Steam: Create remaining achievements

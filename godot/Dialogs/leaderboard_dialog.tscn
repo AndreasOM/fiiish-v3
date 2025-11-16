@@ -112,9 +112,9 @@ vertical_alignment = 1
 layout_mode = 2
 focus_neighbor_left = NodePath("../CoinsTextureButton")
 focus_neighbor_top = NodePath(".")
-focus_neighbor_right = NodePath(".")
+focus_neighbor_right = NodePath("../SteamCoinsTextureButton")
 focus_neighbor_bottom = NodePath(".")
-focus_next = NodePath(".")
+focus_next = NodePath("../SteamCoinsTextureButton")
 focus_previous = NodePath("../CoinsTextureButton")
 texture_normal = ExtResource("5_64osa")
 texture_focused = ExtResource("7_lltem")
@@ -131,8 +131,56 @@ text = "Distance"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SteamCoinsTextureButton" type="TextureButton" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../DistanceTextureButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../SteamDistanceTextureButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../SteamDistanceTextureButton")
+focus_previous = NodePath("../DistanceTextureButton")
+texture_normal = ExtResource("5_64osa")
+texture_focused = ExtResource("7_lltem")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/SteamCoinsTextureButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"LabelBody"
+text = "Steam
+Coins"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SteamDistanceTextureButton" type="TextureButton" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../SteamCoinsTextureButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath("../SteamCoinsTextureButton")
+texture_normal = ExtResource("5_64osa")
+texture_focused = ExtResource("7_lltem")
+
+[node name="Label" type="Label" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/SteamDistanceTextureButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"LabelBody"
+text = "Steam
+Distance"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="close_button_pressed" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/ShopFrameTitleContainer" to="." method="_on_close_button_pressed"]
 [connection signal="focus_entered" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/CoinsTextureButton" to="." method="_on_coins_texture_button_focus_entered"]
-[connection signal="pressed" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/CoinsTextureButton" to="." method="_on_coins_texture_button_pressed"]
 [connection signal="focus_entered" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/DistanceTextureButton" to="." method="_on_distance_texture_button_focus_entered"]
-[connection signal="pressed" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/DistanceTextureButton" to="." method="_on_distance_texture_button_pressed"]
+[connection signal="focus_entered" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/SteamCoinsTextureButton" to="." method="_on_steam_coins_texture_button_focus_entered"]
+[connection signal="focus_entered" from="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer/SteamDistanceTextureButton" to="." method="_on_steam_distance_texture_button_focus_entered"]
