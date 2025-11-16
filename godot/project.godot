@@ -45,6 +45,7 @@ VersionInfo="*res://Scripts/version_info.gd"
 FeatureTags="*res://Features/feature_tags.gd"
 SteamWrapper="*res://Features/Steam/steam_wrapper.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+SteamEvents="*res://Features/Steam/steam_events.gd"
 
 [debug]
 

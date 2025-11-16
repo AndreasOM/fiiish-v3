@@ -36,9 +36,12 @@ var _download_entries_in_flight: DownloadEntriesRequest = null
 
 
 func _ready() -> void:
+	SteamEvents.user_info_required.connect(_on_steam_user_info_required)
 	if SteamWrapper.is_available():
 		var steam = SteamWrapper.get_steam()
 		if steam.isSteamRunning():
+			steam.persona_state_change.connect( _on_steam_persona_state_change )
+			steam.avatar_loaded.connect( _on_steam_avatar_loaded )
 			steam.leaderboard_find_result.connect(_on_leaderboard_find_result)
 			steam.leaderboard_score_uploaded.connect(_on_leaderboard_score_uploaded)
 			steam.leaderboard_scores_downloaded.connect(_on_leaderboard_scores_downloaded)
@@ -162,3 +165,37 @@ func get_leaderboard( type: LeaderboardTypes.Type, default: Leaderboard = null )
 		return null
 		
 	return l.get_leaderboard( 0, default ) # :TODO: handle different types
+
+func _on_steam_persona_state_change( steam_id: int, flags: int ) -> void:
+	print("STEAM: _on_steam_persona_state_change %d %d" % [ steam_id, flags] )
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		if steam.isSteamRunning():
+			var n = steam.getFriendPersonaName( steam_id )
+			#var nf = "%s -> %d" % [ n, flags ]
+			SteamEvents.broadcast_user_name_updated( steam_id, n )
+	
+	
+func _on_steam_avatar_loaded( steam_id: int, width: int, data: PackedByteArray ):
+	# print( "STEAM: avatar loaded %d %s" % [ width, str(data) ] )
+	var avatar_image: Image = Image.create_from_data(width, width, false, Image.FORMAT_RGBA8, data)
+
+#	if width > 32:
+#		avatar_image.resize(32, 32, Image.INTERPOLATE_LANCZOS)
+	var avatar_texture: ImageTexture = ImageTexture.create_from_image(avatar_image)
+	
+	SteamEvents.broadcast_user_texture_updated( steam_id, avatar_texture )
+	
+func _on_steam_user_info_required( steam_id: int ) -> void:
+	if SteamWrapper.is_available():
+		var steam = SteamWrapper.get_steam()
+		if steam.isSteamRunning():
+			var n = steam.getFriendPersonaName( steam_id )
+			SteamEvents.broadcast_user_name_updated( steam_id, n )
+			
+			steam.getPlayerAvatar( 1, steam_id )
+			# steam.getPlayerAvatar( 3, steam_id )
+			# steam.getPlayerAvatar( 2, steam_id )
+			
+#	SteamEvents.broadcast_user_name_updated( steam_id, "???" )
+	

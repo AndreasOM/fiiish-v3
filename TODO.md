@@ -4,7 +4,7 @@
 
 
 - [ ] Steam Feature: Add Leaderboards
-	- [ ] Steam Task: Map SteamId in Leaderboards to Steam Name
+	- [ ] Steam Task: Cache profile info (name + avatar)
 
 
 
@@ -24,6 +24,8 @@
 ### 2025-11-16
 #### S07E06
 - [x] Steam Task: Display Leaderboards
+- [x] Steam Task: Map SteamId in Leaderboards to Steam Name
+- [x] Steam Task: Map SteamId in Leaderboards to Steam Avatar
 
 ### 2025-11-15
 #### S07E05

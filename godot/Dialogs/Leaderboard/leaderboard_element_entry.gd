@@ -9,6 +9,9 @@ class_name LeaderboardEntryElement
 @export var was_latest: bool = false : set = _set_was_latest
 @export var duration: float = 0.3
 
+@onready var avatar_texture_rect: TextureRect = %AvatarTextureRect
+
+var _steam_id: int = -1
 
 func _ready() -> void:
 	_update_look()
@@ -26,10 +29,30 @@ func _set_rank( r: String) -> void:
 	rank = r
 	%RankLabel.text = rank
 
-func _set_participant( p: String) -> void:
+func _set_participant( p: String ) -> void:
 	participant = p
-	%ParticipantLabel.text = p
+	if self.participant.begins_with("SteamId="):
+		%ParticipantLabel.text = "?"
+		self._steam_id = int(self.participant.trim_prefix("SteamId="))
+		SteamEvents.user_name_updated.connect( _on_steam_user_name_updated )
+		SteamEvents.user_texture_updated.connect( _on_steam_user_texture_updated )
+		SteamEvents.broadcast_user_info_required( self._steam_id )
+	else:
+		self._steam_id = -1
+		%ParticipantLabel.text = p
 
+func _on_steam_user_name_updated( steam_id: int, name: String ):
+	if self._steam_id != steam_id:
+		return
+		
+	%ParticipantLabel.text = "%s" %[ name ]
+
+func _on_steam_user_texture_updated( steam_id: int, texture: ImageTexture ):
+	if self._steam_id != steam_id:
+		return
+	
+	self.avatar_texture_rect.texture = texture
+	
 func _set_score( s: String) -> void:
 	score = s
 	%ScoreLabel.text = s
