@@ -160,7 +160,7 @@ func get_leaderboard( type: LeaderboardTypes.Type, default: Leaderboard = null )
 		
 	var l: SteamLeaderboard = self._leaderboards.get( name, null )
 	if l == null:
-		return null
+		return default
 		
 	return l.get_leaderboard( 0, default ) # :TODO: handle different types
 
