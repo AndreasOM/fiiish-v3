@@ -56,7 +56,6 @@ func _on_game_button_pressed() -> void:
 func _on_reset_achievements_button_pressed() -> void:
 	var player = Player.load()
 	if SteamWrapper.isSteamRunning():
-		var steam = SteamWrapper.get_steam()
 		# var achievements = player.collected_achievements()
 		var acm = AchievementConfigManager.new()
 		var achievements = acm.get_keys()
@@ -69,7 +68,7 @@ func _on_reset_achievements_button_pressed() -> void:
 				var ss = SteamWrapper.getAchievement( ac.id )
 				var msg = "[color=green]STEAM: Achievement >%s<: %s" % [ ac.id, ss  ]
 				print_rich( msg )
-				steam.clearAchievement( ac.id )
+				SteamWrapper.clearAchievement( ac.id )
 				cleared += 1
 
 			if cleared > 0:

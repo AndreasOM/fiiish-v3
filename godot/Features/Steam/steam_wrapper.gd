@@ -121,3 +121,16 @@ func getAchievement(id: String) -> Dictionary:
 		return {"ret": false, "achieved": false}
 
 	return steam.getAchievement(id)
+
+func clearAchievement(id: String) -> bool:
+	if self._inner == null:
+		return false
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return false
+
+	if !steam.isSteamRunning():
+		return false
+
+	return steam.clearAchievement(id)
