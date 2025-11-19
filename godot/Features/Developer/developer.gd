@@ -66,14 +66,14 @@ func _on_reset_achievements_button_pressed() -> void:
 				var ac = acm.get_config( a )
 				if ac == null:
 					continue
-				var ss = steam.getAchievement( ac.id )
+				var ss = SteamWrapper.getAchievement( ac.id )
 				var msg = "[color=green]STEAM: Achievement >%s<: %s" % [ ac.id, ss  ]
 				print_rich( msg )
 				steam.clearAchievement( ac.id )
 				cleared += 1
 
 			if cleared > 0:
-				if !steam.storeStats():
+				if !SteamWrapper.storeStats():
 					print_rich("[color=yellow]STEAM: Failed storing stats to steam - %d" % [ cleared ])
 	
 	player.reset_achievements()

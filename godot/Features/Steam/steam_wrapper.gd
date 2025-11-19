@@ -82,3 +82,42 @@ func isSteamRunning() -> bool:
 		return false
 
 	return steam.isSteamRunning()
+
+func setAchievement(id: String) -> bool:
+	if self._inner == null:
+		return false
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return false
+
+	if !steam.isSteamRunning():
+		return false
+
+	return steam.setAchievement(id)
+
+func storeStats() -> bool:
+	if self._inner == null:
+		return false
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return false
+
+	if !steam.isSteamRunning():
+		return false
+
+	return steam.storeStats()
+
+func getAchievement(id: String) -> Dictionary:
+	if self._inner == null:
+		return {"ret": false, "achieved": false}
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return {"ret": false, "achieved": false}
+
+	if !steam.isSteamRunning():
+		return {"ret": false, "achieved": false}
+
+	return steam.getAchievement(id)
