@@ -170,3 +170,70 @@ func get_steam_init_result() -> Dictionary:
 		return {"status": 2, "verbal": "Steam client not available"}
 
 	return steam.get_steam_init_result()
+
+# Called every frame - hot path
+func runFrame() -> void:
+	if self._inner == null:
+		return
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return
+
+	if !steam.isSteamRunning():
+		return
+
+	steam.runFrame()
+
+# Called every frame per action - hot path
+func getDigitalActionData(input_device: int, action_handle: int) -> Dictionary:
+	if self._inner == null:
+		return {"active": false, "state": false}
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return {"active": false, "state": false}
+
+	if !steam.isSteamRunning():
+		return {"active": false, "state": false}
+
+	return steam.getDigitalActionData(input_device, action_handle)
+
+func getDigitalActionHandle(action_name: String) -> int:
+	if self._inner == null:
+		return 0
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return 0
+
+	if !steam.isSteamRunning():
+		return 0
+
+	return steam.getDigitalActionHandle(action_name)
+
+func getActionSetHandle(action_set_name: String) -> int:
+	if self._inner == null:
+		return 0
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return 0
+
+	if !steam.isSteamRunning():
+		return 0
+
+	return steam.getActionSetHandle(action_set_name)
+
+func activateActionSet(input_device: int, action_set_handle: int) -> void:
+	if self._inner == null:
+		return
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return
+
+	if !steam.isSteamRunning():
+		return
+
+	steam.activateActionSet(input_device, action_set_handle)

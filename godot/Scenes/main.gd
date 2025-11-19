@@ -216,8 +216,7 @@ func _update_action_set( state: Game.State ) -> void:
 	const MENU_CONTROLS: String = "MenuControls"
 	const SWIM_CONTROLS: String = "SwimControls"
 	if SteamWrapper.is_available():
-		var steam = SteamWrapper.get_steam()
-		if !steam.isSteamRunning() && false:
+		if !SteamWrapper.isSteamRunning() && false:
 			return
 		var action_set_name = MENU_CONTROLS
 		var reason = "default"
@@ -250,11 +249,11 @@ func _update_action_set( state: Game.State ) -> void:
 		elif self.dialog_manager.is_dialog_open( DialogIds.Id.KIDS_MODE_ENABLE_DIALOG ):
 			action_set_name = MENU_CONTROLS
 			reason = "kids mode"
-				
+
 		if self._last_action_set != action_set_name:
 			self._last_action_set = action_set_name
-			#var action_set_handle = steam.getActionSetHandle( "Set_Swim" )
-			var action_set_handle = steam.getActionSetHandle( action_set_name )
+			#var action_set_handle = SteamWrapper.getActionSetHandle( "Set_Swim" )
+			var action_set_handle = SteamWrapper.getActionSetHandle( action_set_name )
 			# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
 			#if action_set_handle != 0:
 			# Events.broadcast_global_message("ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ])
@@ -267,7 +266,7 @@ func _update_action_set( state: Game.State ) -> void:
 				var h = self._steam_input_handles.get( k, false )
 				if h == false:
 					continue
-				steam.activateActionSet( k, action_set_handle )
+				SteamWrapper.activateActionSet( k, action_set_handle )
 	else:
 		print("Update Action Set without Steam -> do nothing")
 	
