@@ -167,8 +167,7 @@ func get_leaderboard( type: LeaderboardTypes.Type, default: Leaderboard = null )
 func _on_steam_persona_state_change( steam_id: int, flags: int ) -> void:
 	print("STEAM: _on_steam_persona_state_change %d %d" % [ steam_id, flags] )
 	if SteamWrapper.isSteamRunning():
-		var steam = SteamWrapper.get_steam()
-		var n = steam.getFriendPersonaName( steam_id )
+		var n = SteamWrapper.getFriendPersonaName( steam_id )
 		#var nf = "%s -> %d" % [ n, flags ]
 		SteamEvents.broadcast_user_name_updated( steam_id, n )
 	
@@ -186,7 +185,7 @@ func _on_steam_avatar_loaded( steam_id: int, width: int, data: PackedByteArray )
 func _on_steam_user_info_required( steam_id: int ) -> void:
 	if SteamWrapper.isSteamRunning():
 		var steam = SteamWrapper.get_steam()
-		var n = steam.getFriendPersonaName( steam_id )
+		var n = SteamWrapper.getFriendPersonaName( steam_id )
 		SteamEvents.broadcast_user_name_updated( steam_id, n )
 
 		steam.getPlayerAvatar( 1, steam_id )

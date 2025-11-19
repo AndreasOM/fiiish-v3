@@ -33,8 +33,7 @@ func _on_leaderboard_find_result(new_handle: int, was_found: int) -> void:
 		print("STEAM: Leaderboard %s not found" % [ self._leaderboard_name ] )
 		return
 		
-	var steam = SteamWrapper.get_steam()
-	var api_name: String = steam.getLeaderboardName(new_handle)
+	var api_name: String = SteamWrapper.getLeaderboardName(new_handle)
 		
 	if api_name == self._leaderboard_name:
 		self._leaderboard_handle = new_handle

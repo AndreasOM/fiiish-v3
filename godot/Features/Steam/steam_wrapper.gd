@@ -134,3 +134,29 @@ func clearAchievement(id: String) -> bool:
 		return false
 
 	return steam.clearAchievement(id)
+
+func getFriendPersonaName(steam_id: int) -> String:
+	if self._inner == null:
+		return ""
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return ""
+
+	if !steam.isSteamRunning():
+		return ""
+
+	return steam.getFriendPersonaName(steam_id)
+
+func getLeaderboardName(handle: int) -> String:
+	if self._inner == null:
+		return ""
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return ""
+
+	if !steam.isSteamRunning():
+		return ""
+
+	return steam.getLeaderboardName(handle)
