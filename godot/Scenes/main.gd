@@ -99,9 +99,9 @@ func _ready() -> void:
 		var s = "Steam: %s" % ir
 		# Events.broadcast_global_message( s )
 		Events.broadcast_developer_message( DeveloperMessageDebug.new( s ) )
-		var steam = SteamWrapper.get_steam()
-		if steam.isSteamRunning():
-		
+		if SteamWrapper.isSteamRunning():
+			var steam = SteamWrapper.get_steam()
+
 			steam.input_device_connected.connect( _on_input_device_connected )
 			steam.input_device_disconnected.connect( _on_input_device_disconnected )
 			steam.inputInit()

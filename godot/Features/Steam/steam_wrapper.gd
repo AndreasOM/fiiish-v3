@@ -72,3 +72,13 @@ func getSteamID() -> int:
 		return 0
 
 	return steam.getSteamID()
+
+func isSteamRunning() -> bool:
+	if self._inner == null:
+		return false
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return false
+
+	return steam.isSteamRunning()

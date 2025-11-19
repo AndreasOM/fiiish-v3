@@ -309,11 +309,9 @@ func collect_all_achievements() -> void:
 func _sync_achievements_to_steam() -> void:
 	if self.achievement_config_manager == null:
 		return
-	if !SteamWrapper.is_available():
+	if !SteamWrapper.isSteamRunning():
 		return
 	var steam = SteamWrapper.get_steam()
-	if !steam.isSteamRunning():
-		return
 		
 	var achievements = self.achievement_config_manager.get_keys()
 	var player_achievements = self._player.collected_achievements()
@@ -362,13 +360,12 @@ func _sync_achievements_to_steam() -> void:
 			self._player.add_completed_achievements( to_complete_in_player )
 
 func _unlock_achievement_on_steam( ac: AchievementConfig ) -> void:
-	if SteamWrapper.is_available():
+	if SteamWrapper.isSteamRunning():
 		var steam = SteamWrapper.get_steam()
-		if steam.isSteamRunning():
-			if !steam.setAchievement( ac.id ):
-				print_rich("[color=yellow]STEAM: Failed setting achievement - %s" % [ ac.id ])
-			if !steam.storeStats():
-				print_rich("[color=yellow]STEAM: Failed storing stats - %s" % [ ac.id ])
+		if !steam.setAchievement( ac.id ):
+			print_rich("[color=yellow]STEAM: Failed setting achievement - %s" % [ ac.id ])
+		if !steam.storeStats():
+			print_rich("[color=yellow]STEAM: Failed storing stats - %s" % [ ac.id ])
 
 func collect_achievement( id: String ) -> bool:
 	var player = self.get_player()
