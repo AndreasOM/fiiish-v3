@@ -160,3 +160,13 @@ func getLeaderboardName(handle: int) -> String:
 		return ""
 
 	return steam.getLeaderboardName(handle)
+
+func get_steam_init_result() -> Dictionary:
+	if self._inner == null:
+		return {"status": 2, "verbal": "Steam client not available"}
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return {"status": 2, "verbal": "Steam client not available"}
+
+	return steam.get_steam_init_result()
