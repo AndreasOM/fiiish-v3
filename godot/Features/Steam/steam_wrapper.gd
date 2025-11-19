@@ -51,11 +51,24 @@ func get_steam_controller_input() -> Variant:
 #	var os = OS.get_name()
 #	if self.NON_STEAM_OS.has( os ):
 #		return null
-		
+
 	if self._inner == null:
 		return null
-	
+
 	if !self._inner.has_method("get_steam_controller_input"):
 		return null
-		
+
 	return self._inner.get_steam_controller_input()
+
+func getSteamID() -> int:
+	if self._inner == null:
+		return 0
+
+	var steam = self._inner.get_steam()
+	if steam == null:
+		return 0
+
+	if !steam.isSteamRunning():
+		return 0
+
+	return steam.getSteamID()

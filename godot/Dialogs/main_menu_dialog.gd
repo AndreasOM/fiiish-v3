@@ -39,15 +39,12 @@ func _update_entries() -> void:
 	if FeatureTags.has_feature("editor_runtime"):
 		developer_enabled = true
 	
-	if SteamWrapper.is_available():
-		var steam = SteamWrapper.get_steam()
-		if steam.isSteamRunning():
-			var steam_id = steam.getSteamID()
-			var developer_ids = [
-				76561199172150142, # andreas OM
-			]
-			if developer_ids.find( steam_id ) >= 0:
-				developer_enabled = true
+	var steam_id = SteamWrapper.getSteamID()
+	var developer_ids = [
+		76561199172150142, # andreas OM
+	]
+	if developer_ids.find( steam_id ) >= 0:
+		developer_enabled = true
 		
 	if developer_enabled:
 		self.developer.state = MainMenuEntry.State.ENABLED
