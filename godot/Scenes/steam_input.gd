@@ -43,11 +43,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if SteamWrapper.is_available():
-		var steam = SteamWrapper.get_steam()
-		if !steam.isSteamRunning():
+		if !SteamWrapper.isSteamRunning():
 			return
 #		print_rich("[color=yellow]SteamInput - _process ->[/color]")
-		steam.runFrame()
+		SteamWrapper.runFrame()
 		self._retry_mapping()
 		for da in self.DIGITIAL_ACTIONS.keys():
 			var action_handle = self._digital_action_handles.get( da, -1 )
@@ -56,11 +55,11 @@ func _process(delta: float) -> void:
 			var target = self.DIGITIAL_ACTIONS.get( da, "" )
 			if target == "":
 				continue
-				
+
 			for input_device in self._steam_input_handles.keys():
 				if !self._steam_input_handles.get( input_device, false ):
 					continue
-				var data = steam.getDigitalActionData( input_device, action_handle )
+				var data = SteamWrapper.getDigitalActionData( input_device, action_handle )
 				if !data.get("active", false):
 					continue
 				
@@ -105,11 +104,9 @@ func _retry_mapping() -> void:
 	if self._digital_action_handles.size() != self.DIGITIAL_ACTIONS.size():
 		self._digital_action_handles.clear()
 		if SteamWrapper.is_available():
-			var steam = SteamWrapper.get_steam()
-
 			var missing_mappings = []
 			for da in self.DIGITIAL_ACTIONS.keys():
-				var h = steam.getDigitalActionHandle( da )
+				var h = SteamWrapper.getDigitalActionHandle( da )
 				if h != 0:
 					self._digital_action_handles[ da ] = h
 				else:

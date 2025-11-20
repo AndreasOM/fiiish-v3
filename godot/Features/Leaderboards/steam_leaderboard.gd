@@ -33,8 +33,7 @@ func _on_leaderboard_find_result(new_handle: int, was_found: int) -> void:
 		print("STEAM: Leaderboard %s not found" % [ self._leaderboard_name ] )
 		return
 		
-	var steam = SteamWrapper.get_steam()
-	var api_name: String = steam.getLeaderboardName(new_handle)
+	var api_name: String = SteamWrapper.getLeaderboardName(new_handle)
 		
 	if api_name == self._leaderboard_name:
 		self._leaderboard_handle = new_handle
@@ -82,17 +81,15 @@ func _process(delta: float) -> void:
 	if s == null:
 		return
 		
-	if SteamWrapper.is_available():
+	if SteamWrapper.isSteamRunning():
 		var steam = SteamWrapper.get_steam()
-		if steam.isSteamRunning():
-			steam.uploadLeaderboardScore( s.value, true, [], self._leaderboard_handle )
+		steam.uploadLeaderboardScore( s.value, true, [], self._leaderboard_handle )
 
 func downloadLeaderboardEntries( start_index: int, end_index: int, data_request_type: int ) -> void:
 	print("STEAM: SteamLeaderboard.downloadLeaderboardEntries() %s" % [ self._leaderboard_name ] )
-	if SteamWrapper.is_available():
+	if SteamWrapper.isSteamRunning():
 		var steam = SteamWrapper.get_steam()
-		if steam.isSteamRunning():
-			steam.downloadLeaderboardEntries( start_index, end_index, data_request_type, self._leaderboard_handle )
+		steam.downloadLeaderboardEntries( start_index, end_index, data_request_type, self._leaderboard_handle )
 
 func get_leaderboard( data_request_type: int, default: Leaderboard ) -> Leaderboard:
 	return self._leaderboards.get( data_request_type, default )
