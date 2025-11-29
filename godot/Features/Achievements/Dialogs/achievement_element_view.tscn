@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1tfstesf0mo0"]
 
 [ext_resource type="Script" uid="uid://ck2ogfgo85fjm" path="res://Features/Achievements/Dialogs/achievement_element_view.gd" id="1_wne31"]
-[ext_resource type="Texture2D" uid="uid://36gmp52rb45g" path="res://Features/Achievements/Textures/slices_4x/achievement_icon_single_run_distance_1.png" id="2_fm68y"]
+[ext_resource type="Texture2D" path="res://Features/Achievements/Textures/slices_4x/achievement_icon_single_run_distance_1.png" id="2_fm68y"]
 [ext_resource type="PackedScene" uid="uid://jog1d3qygnjp" path="res://Features/Achievements/Dialogs/achievment_reward_element.tscn" id="3_fm68y"]
 [ext_resource type="Texture2D" uid="uid://dbp2api70mifw" path="res://Textures/UI/MiniButtons/mini_button_recycle_wide.png" id="3_poxhq"]
 [ext_resource type="Texture2D" uid="uid://ba44xgufi4hjl" path="res://Textures/UI/mini_icon_skill.png" id="3_sch0u"]
