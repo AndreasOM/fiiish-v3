@@ -5,7 +5,7 @@ signal collect_pressed( id: String )
 
 @export var config: AchievementConfig = null : set = set_achievement_config
 @export var state: AchievementStates.State = AchievementStates.State.UNKNOWN : set = set_state
-@onready var icon: TextureRect = %Icon
+@onready var icon: TextureButton = %Icon
 @onready var name_label: RichTextLabel = %NameLabel
 @onready var description_label: RichTextLabel = %DescriptionLabel
 @onready var extra_rewards_label: RichTextLabel = %ExtraRewardsLabel
@@ -37,7 +37,7 @@ func _update() -> void:
 		return
 
 	#self.name = "AchievementElementView-%s" % self.config.id
-	self.icon.texture = self.config.icon
+	self.icon.texture_normal = self.config.icon
 	self.name_label.text = self.config.name
 	self.description_label.text = self.config.description
 	
