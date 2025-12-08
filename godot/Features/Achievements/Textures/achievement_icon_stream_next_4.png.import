@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d31k4bdo8rl4m"
-path="res://.godot/imported/achievement_icon_skill_upgrades_5.png-75eeaa1b3db63684087407fe66d236ae.ctex"
+uid="uid://bqe1j0aj0pn2m"
+path="res://.godot/imported/achievement_icon_stream_next_4.png-5b2f7915b36d81f58739069223808e66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Features/Achievements/Textures/achievement_icon_skill_upgrades_5.png"
-dest_files=["res://.godot/imported/achievement_icon_skill_upgrades_5.png-75eeaa1b3db63684087407fe66d236ae.ctex"]
+source_file="res://Features/Achievements/Textures/achievement_icon_stream_next_4.png"
+dest_files=["res://.godot/imported/achievement_icon_stream_next_4.png-5b2f7915b36d81f58739069223808e66.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
