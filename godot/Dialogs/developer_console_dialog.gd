@@ -33,8 +33,39 @@ func _ready() -> void:
 	self._commands.push_back( DeveloperCommandDeveloperDialogToggle.new() )
 
 	Events.log_event.connect( _on_log_event )
+	%LineEdit.gui_input.connect( _on_line_edit_gui_input )
 
 	print_rich("[color=green]<- developer_console_dialog _ready()[/color]")
+
+func _on_line_edit_gui_input(event: InputEvent) -> void:
+	if not event.pressed:
+		return
+	if event is InputEventKey and event.echo:
+		return
+
+	# TAB - autocomplete
+	if (event is InputEventKey and (event.keycode == KEY_TAB or event.physical_keycode == KEY_TAB)):
+		get_viewport().set_input_as_handled()
+		var l = self.auto_complete(%LineEdit.text)
+		if l != null:
+			%LineEdit.text = l
+			%LineEdit.set_caret_column(l.length())
+	# UP - history prev (handle physical key, Menu_Up, and synthetic ui_up)
+	elif (event is InputEventKey and event.physical_keycode == KEY_UP) or event.is_action("Menu_Up") or event.is_action("ui_up"):
+		get_viewport().set_input_as_handled()
+		self.dec_command_history_current()
+		var l = self.get_command_history_current()
+		if l != null:
+			%LineEdit.text = l
+	# DOWN - history next (handle physical key, Menu_Down, and synthetic ui_down)
+	elif (event is InputEventKey and event.physical_keycode == KEY_DOWN) or event.is_action("Menu_Down") or event.is_action("ui_down"):
+		get_viewport().set_input_as_handled()
+		self.inc_command_history_current()
+		var l = self.get_command_history_current()
+		if l != null:
+			%LineEdit.text = l
+		else:
+			%LineEdit.text = ""
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Global_ToggleDeveloperConsole"):
@@ -48,27 +79,7 @@ func _input(event) -> void:
 		### %LineEdit._input(event)
 		if event.is_action("Global_ToggleDeveloperConsole"):
 			get_viewport().set_input_as_handled()
-		elif event.is_action_pressed("cursor_up"):
-			get_viewport().set_input_as_handled()
-			self.dec_command_history_current()
-			var l = self.get_command_history_current()
-			if l != null:
-				%LineEdit.text = l
-		elif event.is_action_pressed("cursor_down"):
-			get_viewport().set_input_as_handled()
-			self.inc_command_history_current()
-			var l = self.get_command_history_current()
-			if l != null:
-				%LineEdit.text = l
-			else:
-				%LineEdit.text = ""
-		elif event.is_action_pressed( "tab" ):
-			get_viewport().set_input_as_handled()
-			var l = self.auto_complete( %LineEdit.text )
-			if l != null:
-				%LineEdit.text = l
-				%LineEdit.set_caret_column( l.length() )
-		
+
 func clear() -> void:
 	%RichTextLabel.clear()
 	self._history.clear()
@@ -179,13 +190,7 @@ func _on_fader_fading_in(_duration: float) -> void:
 	if self.game.get_fiiish_pause_manager() != null:
 		self.game.get_fiiish_pause_manager().get_pause_manager().request_player_pause()
 	await get_tree().process_frame
-	#%LineEdit.grab_focus.call_deferred()
-	print_rich("[color=green]developer_console_dialog grab_focus() ->[/color]")
-
-	#%LineEdit.grab_focus()
-	print_rich("[color=green]<- developer_console_dialog grab_focus()[/color]")
-
-
+	%LineEdit.grab_focus.call_deferred()
 
 func closed() -> void:
 #	super.closed()
