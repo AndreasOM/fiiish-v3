@@ -6,14 +6,28 @@
 - [ ] Steam Feature: Add Leaderboards
 	- [ ] Steam Task: Cache profile info (name + avatar)
 
+- [ ] Steam: Submit a gatekeeper build
 
 
 ## Next
 
-- [ ] Steam: Submit a gatekeeper build
 
 ## ToDo
 
+
+- [ ] Disable developer console for non-developers
+- [ ] Switch to release build
+- [ ] Disable the console wrapper for exports
+- [ ] Improve the description*.txt files
+
+- [ ] Steam: Switch to production leaderboards
+- [ ] Steam: Add leaderboard screenshot
+- [ ] Steam: Disable steam leaderboards on non steam builds
+- [ ] Steam: Show placeholder for leaderboards when offline
+
+- [ ] Steam: Opt-in to online features?
+
+- [ ] Steam: Improve leaderboard refresh
 
 - [ ] Task: Copy zones from Demo to Classic
 
