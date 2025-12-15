@@ -69,10 +69,9 @@ func _on_line_edit_gui_input(event: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Global_ToggleDeveloperConsole"):
-		# print("Tilde")
-		if self._fader != null:
-			self._fader.toggle( 0.1 )
-		# %FadeableContainer.toggle_fade( 0.1 )
+		if SteamWrapper.is_developer():
+			if self._fader != null:
+				self._fader.toggle( 0.1 )
 
 func _input(event) -> void:
 	if _block_input: # You can also check which actions using is_action.

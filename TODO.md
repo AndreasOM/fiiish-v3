@@ -15,7 +15,6 @@
 ## ToDo
 
 
-- [ ] Disable developer console for non-developers
 - [ ] Switch to release build
 - [ ] Disable the console wrapper for exports
 - [ ] Improve the description*.txt files
@@ -38,6 +37,7 @@
 #### S08E01
 - [x] Steam: Add leaderboard screenshot
 - [x] Add launch option for classic
+- [x] Disable developer console for non-developers
 
 ### 2025-11-16
 #### S07E06

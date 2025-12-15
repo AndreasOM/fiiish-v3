@@ -95,6 +95,13 @@ func _ready() -> void:
 	
 	if SteamWrapper.is_available():
 		print_rich("[color=green]---=== Setting up Steam Integration ===---[/color]")
+		var developer_ids = [
+			76561199172150142, # andreas OM
+		]
+		
+		for id in developer_ids:
+			SteamWrapper.add_developer_id( id )
+		
 		var ir = SteamWrapper.get_initial_response()
 		var s = "Steam: %s" % ir
 		# Events.broadcast_global_message( s )

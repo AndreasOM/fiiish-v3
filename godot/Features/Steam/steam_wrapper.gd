@@ -7,6 +7,10 @@ const SteamWrapperInner = "res://Features/Steam/steam_wrapper_inner.gd"
 
 var _inner: Variant = null
 
+var _developer_ids: Dictionary[ int, bool ] = {
+	
+}
+
 func _ready() -> void:
 	print_rich("[color=yellow]SteamWrapper - _ready ->[/color]")
 	var os = OS.get_name()
@@ -60,6 +64,16 @@ func get_steam_controller_input() -> Variant:
 
 	return self._inner.get_steam_controller_input()
 
+func add_developer_id( id: int ) -> void:
+	self._developer_ids[ id ] = true
+	
+func is_developer() -> bool:
+	if OS.has_feature("editor_runtime"):
+		return true
+	
+	var steam_id = SteamWrapper.getSteamID()
+	return self._developer_ids.get( steam_id, false )
+	
 func getSteamID() -> int:
 	if self._inner == null:
 		return 0
