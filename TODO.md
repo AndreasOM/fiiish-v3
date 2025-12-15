@@ -27,7 +27,7 @@
 
 - [ ] Steam: Improve leaderboard refresh
 
-- [ ] Task: Copy zones from Demo to Classic
+- [ ] Fix achievement toast icon
 
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 
@@ -38,6 +38,7 @@
 - [x] Steam: Add leaderboard screenshot
 - [x] Add launch option for classic
 - [x] Disable developer console for non-developers
+- [x] Task: Copy zones from Demo to Classic
 
 ### 2025-11-16
 #### S07E06
