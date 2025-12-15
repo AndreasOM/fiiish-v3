@@ -15,8 +15,6 @@
 ## ToDo
 
 
-- [ ] Switch to release build
-- [ ] Disable the console wrapper for exports
 - [ ] Improve the description*.txt files
 
 - [ ] Steam: Switch to production leaderboards
@@ -39,6 +37,8 @@
 - [x] Add launch option for classic
 - [x] Disable developer console for non-developers
 - [x] Task: Copy zones from Demo to Classic
+- [x] Switch to release build
+	- [x] Disable the console wrapper for exports
 
 ### 2025-11-16
 #### S07E06
