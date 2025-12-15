@@ -185,6 +185,15 @@ func take_screenshots( script_manager: ScriptManager ) -> void:
 	await script_manager.close_dialog( DialogIds.Id.SKILL_UPGRADE_DIALOG )
 	await script_manager.wait_until_dialog_closed( DialogIds.Id.SKILL_UPGRADE_DIALOG )
 
+	await script_manager.open_dialog( DialogIds.Id.LEADERBOARD_DIALOG )
+	await script_manager.wait_until_dialog_open( DialogIds.Id.LEADERBOARD_DIALOG )
+
+	### ---=== Screenshot ===--- ###
+	await script_manager.take_screenshot( "leaderboards" )
+
+	await script_manager.close_dialog( DialogIds.Id.LEADERBOARD_DIALOG )
+	await script_manager.wait_until_dialog_closed( DialogIds.Id.LEADERBOARD_DIALOG )
+
 
 	script_manager.swim_down()
 

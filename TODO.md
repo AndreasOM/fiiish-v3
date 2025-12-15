@@ -11,6 +11,7 @@
 
 ## Next
 
+- [ ] Add launch option for classic
 
 ## ToDo
 
@@ -21,7 +22,6 @@
 - [ ] Improve the description*.txt files
 
 - [ ] Steam: Switch to production leaderboards
-- [ ] Steam: Add leaderboard screenshot
 - [ ] Steam: Disable steam leaderboards on non steam builds
 - [ ] Steam: Show placeholder for leaderboards when offline
 
@@ -34,6 +34,10 @@
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 
 ## Done
+
+### 2025-12-15
+#### S08E01
+- [x] Steam: Add leaderboard screenshot
 
 ### 2025-11-16
 #### S07E06

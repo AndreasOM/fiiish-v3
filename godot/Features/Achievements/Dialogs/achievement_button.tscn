@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8h4u2gu50lms"]
+[gd_scene load_steps=3 format=3 uid="uid://b8h4u2gu50lms"]
 
 [ext_resource type="Script" uid="uid://0sn4uthxb0pi" path="res://Features/Achievements/Dialogs/achievement_button.gd" id="1_pvvg2"]
 [ext_resource type="Texture2D" uid="uid://xqeph3blkkew" path="res://Textures/UI/mini_icon_selected_frame.png" id="2_l4usc"]
-[ext_resource type="Texture2D" uid="uid://36gmp52rb45g" path="res://Features/Achievements/Textures/slices_4x/achievement_icon_single_run_distance_1.png" id="3_l4usc"]
 
 [node name="AchievementButton" type="Control"]
 custom_minimum_size = Vector2(64, 64)
@@ -33,7 +32,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 focus_mode = 0
-texture_normal = ExtResource("3_l4usc")
 ignore_texture_size = true
 stretch_mode = 5
 
