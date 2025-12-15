@@ -15,7 +15,7 @@ func _ready() -> void:
 		self.rich_text_label.connect("meta_clicked", _on_meta_clicked)
 		
 	var desc = ""
-	if OS.has_feature("classic"):
+	if FeatureTags.has_feature("classic"):
 		desc = FileAccess.get_file_as_string( self.info_file_classic )
 	else:
 		desc = FileAccess.get_file_as_string( self.info_file_v3 )

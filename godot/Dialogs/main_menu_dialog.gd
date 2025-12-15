@@ -21,7 +21,7 @@ func set_game( g: Game ):
 	self.game = g
 	
 func _update_entries() -> void:
-	if OS.has_feature("classic"):
+	if FeatureTags.has_feature("classic"):
 		self.game_mode.state = MainMenuEntry.State.HIDDEN
 		self.zone_editor.state = MainMenuEntry.State.HIDDEN
 		

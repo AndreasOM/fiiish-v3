@@ -11,7 +11,6 @@
 
 ## Next
 
-- [ ] Add launch option for classic
 
 ## ToDo
 
@@ -38,6 +37,7 @@
 ### 2025-12-15
 #### S08E01
 - [x] Steam: Add leaderboard screenshot
+- [x] Add launch option for classic
 
 ### 2025-11-16
 #### S07E06
