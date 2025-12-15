@@ -25,7 +25,6 @@
 
 - [ ] Steam: Improve leaderboard refresh
 
-- [ ] Fix achievement toast icon
 
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 
@@ -39,6 +38,9 @@
 - [x] Task: Copy zones from Demo to Classic
 - [x] Switch to release build
 	- [x] Disable the console wrapper for exports
+
+##### Post Stream
+- [x] Fix achievement toast icon
 
 ### 2025-11-16
 #### S07E06

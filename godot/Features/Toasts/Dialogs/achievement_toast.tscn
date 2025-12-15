@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Features/Toasts/Dialogs/achievement_toast.gd" id="1_8r5kc"]
 [ext_resource type="Texture2D" uid="uid://gyi7pnsddk47" path="res://Textures/UI/achievement_toast_frame.png" id="2_dk0xc"]
-[ext_resource type="Texture2D" uid="uid://bcjstfd38pb23" path="res://Textures/UI/mini_icon_coin.png" id="3_dk0xc"]
+[ext_resource type="Texture2D" uid="uid://bwta7jkeygf1u" path="res://Features/Achievements/Textures/achievement_icon_skill_upgrades_1.png" id="3_dk0xc"]
 
 [node name="AchievementToast" type="Control"]
 custom_minimum_size = Vector2(512, 127)
@@ -68,11 +68,13 @@ mouse_filter = 2
 
 [node name="Icon" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("3_dk0xc")
+expand_mode = 3
 stretch_mode = 4
 
 [node name="NameLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
