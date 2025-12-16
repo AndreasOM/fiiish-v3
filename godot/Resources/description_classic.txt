@@ -1,6 +1,5 @@
-Early test version!
-For more info check
-[url]https://games.omnimad.net/games/fiiish-classic[/url]
+For info, news, and support:
+[blue][url=https://games.omnimad.net/games/fiiish-classic]games.omnimad.net/games/fiiish-classic[/url][/blue]
 
 commit=[commit]
 build=[build]

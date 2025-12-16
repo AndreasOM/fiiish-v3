@@ -1,6 +1,6 @@
 Early test version!
-For more info check
-[url]https://games.omnimad.net/games/fiiish-v3[/url]
+For info, news, and support:
+[blue][url=https://games.omnimad.net/games/fiiish-v3]games.omnimad.net/games/fiiish-v3[/url][/blue]
 
 commit=[commit]
 build=[build]

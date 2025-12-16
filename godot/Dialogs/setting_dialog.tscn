@@ -1,16 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://clsiffamxnnmk"]
+[gd_scene load_steps=14 format=3 uid="uid://clsiffamxnnmk"]
 
 [ext_resource type="Script" uid="uid://bosdiehbfaaxv" path="res://Scripts/setting_dialog.gd" id="1_ltbb1"]
 [ext_resource type="Script" uid="uid://c7r2stxdangf5" path="res://omg-lib/omg_canvas_item_alpha_fader.gd" id="2_84on1"]
 [ext_resource type="Script" uid="uid://0y8v6gxx5db6" path="res://Scenes/fadeable_container.gd" id="2_vurtc"]
 [ext_resource type="Texture2D" uid="uid://jmkymvkmoqku" path="res://Textures/UI/screen_frame_2.png" id="3_rxvfp"]
 [ext_resource type="PackedScene" uid="uid://dq0ysi1s3ojq4" path="res://FiiishUI/fiiish_ui_toggle_button.tscn" id="4_84on1"]
+[ext_resource type="Script" uid="uid://dxhf0qm5yn3hh" path="res://Features/RichTextEffects/url_rich_text_effect.gd" id="5_ur55y"]
 [ext_resource type="Texture2D" uid="uid://baigj2e73r83e" path="res://Textures/UI/Buttons/button_main_menu_off_focused.png" id="8_mml8h"]
 [ext_resource type="Texture2D" uid="uid://br54vux48mvve" path="res://Textures/UI/Buttons/button_kidsmode_focused.png" id="10_84on1"]
 [ext_resource type="Texture2D" uid="uid://b74d5olw0o7l6" path="res://Textures/UI/Buttons/button_main_menu.png" id="10_awus1"]
 [ext_resource type="Texture2D" uid="uid://c24y33ueb1q0l" path="res://Textures/UI/Buttons/button_main_menu_focused.png" id="10_vkfyo"]
 [ext_resource type="Texture2D" uid="uid://b4wvrvfvm1bif" path="res://Textures/UI/Buttons/button_main_menu_off.png" id="11_84on1"]
 [ext_resource type="Texture2D" uid="uid://8r8p5v2ajdvy" path="res://Textures/UI/Buttons/button_kidsmode.png" id="12_ur55y"]
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_vkfyo"]
+script = ExtResource("5_ur55y")
+metadata/_custom_type_script = "uid://dxhf0qm5yn3hh"
 
 [node name="SettingDialog" type="MarginContainer"]
 z_index = 102
@@ -89,10 +94,11 @@ theme_type_variation = &"RichTextLabelSmall"
 bbcode_enabled = true
 text = "Version :TODO:
 Early test version!
-Thanks for playing :)
+[blue][url=https://games.omnimad.net/games/fiiish-classic]games.omnimad.net/games/fiiish-classic[/url][/blue]
 "
 fit_content = true
 autowrap_mode = 0
+custom_effects = [SubResource("RichTextEffect_vkfyo")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingsFadeableContainer/TextureRect/MarginContainer/VBoxContainer2"]
 layout_mode = 2

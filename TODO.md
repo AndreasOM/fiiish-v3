@@ -3,6 +3,7 @@
 ## InProgress
 
 
+
 - [ ] Steam Feature: Add Leaderboards
 	- [ ] Steam Task: Cache profile info (name + avatar)
 
@@ -15,7 +16,6 @@
 ## ToDo
 
 
-- [ ] Improve the description*.txt files
 
 - [ ] Steam: Switch to production leaderboards
 - [ ] Steam: Disable steam leaderboards on non steam builds
@@ -29,6 +29,11 @@
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 
 ## Done
+
+### 2025-1216
+#### S08E02
+- [x] Improve the description*.txt files
+- [x] Improve formatting of description in settings
 
 ### 2025-12-15
 #### S08E01
