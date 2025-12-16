@@ -58,6 +58,7 @@ func _on_leaderboard_scores_downloaded(message: String, this_handle: int, these_
 	var l: Leaderboard = self._leaderboards.get( data_request_type, null )
 	if l == null:
 		l = Leaderboard.new( self._name, 10 )
+		l.set_type( Leaderboard.Type.STEAM )
 		self._leaderboards[ data_request_type ] = l
 
 	for e in these_results:

@@ -132,6 +132,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SteamCoinsTextureButton" type="TextureButton" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../DistanceTextureButton")
 focus_neighbor_top = NodePath(".")
@@ -156,6 +157,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SteamDistanceTextureButton" type="TextureButton" parent="FadeablePanelContainer/ShopFrameTextureRect/VBoxContainer/BottomMarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../SteamCoinsTextureButton")
 focus_neighbor_top = NodePath(".")

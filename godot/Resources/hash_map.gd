@@ -39,6 +39,9 @@ func size() -> int:
 	
 func keys() -> Array:
 	return _data.keys()
+
+func values() -> Array:
+	return _data.values()
 	
 func erase( key: int ) -> bool:
 	return _data.erase( key )

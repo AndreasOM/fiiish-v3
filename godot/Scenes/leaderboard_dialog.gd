@@ -3,6 +3,8 @@ extends FiiishDialog
 
 @onready var shop_frame_title_container: ShopFrameTitleContainer = %ShopFrameTitleContainer
 @onready var coins_texture_button: TextureButton = %CoinsTextureButton
+@onready var steam_coins_texture_button: TextureButton = %SteamCoinsTextureButton
+@onready var steam_distance_texture_button: TextureButton = %SteamDistanceTextureButton
 
 func cancel() -> bool:
 	self.close( 0.3 )
@@ -13,6 +15,7 @@ func _format_distance( distance: int ) -> String:
 	
 func _switch_to_leaderboard( type: LeaderboardTypes.Type ) -> void:
 	var leaderboard = Leaderboard.new("dummy")
+	leaderboard.set_type( Leaderboard.Type.DUMMY )
 	
 	var game = self._dialog_manager.game
 	if game != null:
@@ -23,6 +26,7 @@ func _switch_to_leaderboard( type: LeaderboardTypes.Type ) -> void:
 		if steam_leaderboard_manager != null:
 			leaderboard = steam_leaderboard_manager.get_leaderboard( type, leaderboard )
 				
+	print("Switched to Leadeboard %s (%s)" % [ leaderboard.name(), leaderboard.type_str() ] )
 	var score_formatter = Callable()
 	match type:
 		LeaderboardTypes.Type.LOCAL_DISTANCE:
@@ -34,11 +38,26 @@ func _switch_to_leaderboard( type: LeaderboardTypes.Type ) -> void:
 				
 	%LeaderBoardElement.set_leaderboard( leaderboard, score_formatter )
 	# %TitleLabel.text = "Leaderboard - %s" % leaderboard.name()
-	self.shop_frame_title_container.title = "Leaderboard - %s" % leaderboard.name()
+	if leaderboard.type() == Leaderboard.Type.DUMMY:
+		self.shop_frame_title_container.title = "Leaderboard - [no data]"
+	else:
+		self.shop_frame_title_container.title = "Leaderboard - %s" % leaderboard.name()
 	
 	
 func open( duration: float) -> void:
 	self._switch_to_leaderboard( LeaderboardTypes.Type.LOCAL_COINS )
+	if !SteamWrapper.isSteamRunning():
+		self.steam_coins_texture_button.visible = false
+		self.steam_coins_texture_button.disabled = true
+		self.steam_distance_texture_button.visible = false
+		self.steam_distance_texture_button.disabled = true
+		pass
+	else:
+		self.steam_coins_texture_button.visible = true
+		self.steam_coins_texture_button.disabled = false
+		self.steam_distance_texture_button.visible = true
+		self.steam_distance_texture_button.disabled = false
+	
 	super.open( duration )
 	if self.coins_texture_button != null:
 		self.coins_texture_button.grab_focus.call_deferred()

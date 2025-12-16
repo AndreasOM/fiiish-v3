@@ -26,48 +26,54 @@ enum Id {
 }
 
 static func id_to_name( id: DialogIds.Id ) -> String:
-	match id:
-		DialogIds.Id.RESULT_DIALOG:
-			return "RESULT_DIALOG"
-		DialogIds.Id.SETTING_DIALOG:
-			return "SETTING_DIALOG"
-		DialogIds.Id.SKILL_UPGRADE_DIALOG:
-			return "SKILL_UPGRADE_DIALOG"
-		DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG:
-			return "SKILL_RESET_CONFIRMATION_DIALOG"
-		DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG:
-			return "SKILL_NOT_AFFORDABLE_DIALOG"
-		DialogIds.Id.DEVELOPER_CONSOLE_DIALOG:
-			return "DEVELOPER_CONSOLE_DIALOG"
-		DialogIds.Id.MAIN_MENU_DIALOG:
-			return "MAIN_MENU_DIALOG"
-		DialogIds.Id.CREDITS_DIALOG:
-			return "CREDITS_DIALOG"
-		DialogIds.Id.LEADERBOARD_DIALOG:
-			return "LEADERBOARD_DIALOG"
-		DialogIds.Id.ZONE_EDITOR_MENU_DIALOG:
-			return "ZONE_EDITOR_MENU_DIALOG"
-		DialogIds.Id.MINI_MAP_DIALOG:
-			return "MINI_MAP_DIALOG"
-		DialogIds.Id.ZONE_SELECT_DIALOG:
-			return "ZONE_SELECT_DIALOG"
-		DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG:
-			return "ZONE_EDITOR_TOOLS_DIALOG"
-		DialogIds.Id.ZONE_PROPERTY_DIALOG:
-			return "ZONE_PROPERTY_DIALOG"
-		DialogIds.Id.IN_GAME_PAUSE_DIALOG:
-			return "IN_GAME_PAUSE_DIALOG"
-		DialogIds.Id.ACHIEVEMENTS_DIALOG:
-			return "ACHIEVEMENTS_DIALOG"
-		DialogIds.Id.TOAST_DIALOG:
-			return "TOAST_DIALOG"
-		DialogIds.Id.DEVELOPER_DIALOG:
-			return "DEVELOPER_DIALOG"
-		DialogIds.Id.KIDS_MODE_ENABLE_DIALOG:
-			return "KIDS_MODE_ENABLE_DIALOG"
-		DialogIds.Id.ABOUT_DEMO_DIALOG:
-			return "ABOUT_DEMO_DIALOG"
-		DialogIds.Id.DEVELOPER_OVERLAY_DIALOG:
-			return "DEVELOPER_OVERLAY_DIALOG"
-		_:
-			return "[UNKNOWN DIALOG]"
+	# :HACK: needs improving
+	var keys = DialogIds.Id.keys()
+	if int(id)  > keys.size():
+		return "[UNKNOWN %d]" % [ int( id ) ]
+	return DialogIds.Id.keys()[ id ]
+	
+#	match id:
+#		DialogIds.Id.RESULT_DIALOG:
+#			return "RESULT_DIALOG"
+#		DialogIds.Id.SETTING_DIALOG:
+#			return "SETTING_DIALOG"
+#		DialogIds.Id.SKILL_UPGRADE_DIALOG:
+#			return "SKILL_UPGRADE_DIALOG"
+#		DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG:
+#			return "SKILL_RESET_CONFIRMATION_DIALOG"
+#		DialogIds.Id.SKILL_NOT_AFFORDABLE_DIALOG:
+#			return "SKILL_NOT_AFFORDABLE_DIALOG"
+#		DialogIds.Id.DEVELOPER_CONSOLE_DIALOG:
+#			return "DEVELOPER_CONSOLE_DIALOG"
+#		DialogIds.Id.MAIN_MENU_DIALOG:
+#			return "MAIN_MENU_DIALOG"
+#		DialogIds.Id.CREDITS_DIALOG:
+#			return "CREDITS_DIALOG"
+#		DialogIds.Id.LEADERBOARD_DIALOG:
+#			return "LEADERBOARD_DIALOG"
+#		DialogIds.Id.ZONE_EDITOR_MENU_DIALOG:
+#			return "ZONE_EDITOR_MENU_DIALOG"
+#		DialogIds.Id.MINI_MAP_DIALOG:
+#			return "MINI_MAP_DIALOG"
+#		DialogIds.Id.ZONE_SELECT_DIALOG:
+#			return "ZONE_SELECT_DIALOG"
+#		DialogIds.Id.ZONE_EDITOR_TOOLS_DIALOG:
+#			return "ZONE_EDITOR_TOOLS_DIALOG"
+#		DialogIds.Id.ZONE_PROPERTY_DIALOG:
+#			return "ZONE_PROPERTY_DIALOG"
+#		DialogIds.Id.IN_GAME_PAUSE_DIALOG:
+#			return "IN_GAME_PAUSE_DIALOG"
+#		DialogIds.Id.ACHIEVEMENTS_DIALOG:
+#			return "ACHIEVEMENTS_DIALOG"
+#		DialogIds.Id.TOAST_DIALOG:
+#			return "TOAST_DIALOG"
+#		DialogIds.Id.DEVELOPER_DIALOG:
+#			return "DEVELOPER_DIALOG"
+#		DialogIds.Id.KIDS_MODE_ENABLE_DIALOG:
+#			return "KIDS_MODE_ENABLE_DIALOG"
+#		DialogIds.Id.ABOUT_DEMO_DIALOG:
+#			return "ABOUT_DEMO_DIALOG"
+#		DialogIds.Id.DEVELOPER_OVERLAY_DIALOG:
+#			return "DEVELOPER_OVERLAY_DIALOG"
+#		_:
+#			return "[UNKNOWN DIALOG]"

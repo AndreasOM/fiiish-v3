@@ -1,5 +1,12 @@
 class_name Leaderboard
 
+enum Type {
+	UNKNOWN,
+	DUMMY,
+	LOCAL,
+	STEAM,
+}
+
 const current_version: int = 1
 const oldest_supported_version: int = 1
 
@@ -13,9 +20,17 @@ var _entries: SerializableArray = SerializableArray.new(
 # not serialized!
 var _last_added_entry_position = -1
 
+var _type: Leaderboard.Type = Type.UNKNOWN
+
 func _init( n: String, max_entries: int = 0 ) -> void:
 	self._name = n
 	self._max_entries = max_entries
+
+func set_type( t: Type ) -> void:
+	_type = t
+	
+func get_type( ) -> Type:
+	return _type
 
 func serialize( s: Serializer ) -> bool:
 	var version: int = current_version;
@@ -37,6 +52,12 @@ func set_name( n: String ) -> void:
 func name() -> String:
 	return self._name
 
+func type_str() -> String:
+	return Leaderboard.Type.keys()[ self._type ]
+
+func type() -> Leaderboard.Type:
+	return self._type
+	
 func replace_entry( participant: String, score: int ) -> int:
 	self.remove_entry( participant )
 	return self.add_entry( participant, score )

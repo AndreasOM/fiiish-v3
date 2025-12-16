@@ -18,8 +18,6 @@
 
 
 
-- [ ] Steam: Disable steam leaderboards on non steam builds
-- [ ] Steam: Show placeholder for leaderboards when offline
 
 - [ ] Steam: Opt-in to online features?
 
@@ -35,6 +33,8 @@
 - [x] Improve the description*.txt files
 - [x] Improve formatting of description in settings
 - [x] Steam: Switch to production leaderboards
+- [x] Steam: Show placeholder for leaderboards when offline
+- [x] Steam: Disable steam leaderboards on non steam builds
 
 ### 2025-12-15
 #### S08E01

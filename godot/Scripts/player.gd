@@ -196,6 +196,13 @@ func serialize( s: Serializer ) -> bool:
 
 	_leaderboards.serialize( s )
 	
+	# :HACK:
+	for l in _leaderboards.values():
+		var lb = l as Leaderboard
+		if lb == null:
+			continue
+		lb.set_type( Leaderboard.Type.LOCAL )
+	
 	# version 9:
 	if version < 9:
 		return true
@@ -417,12 +424,16 @@ func update_leaderboards( new_coins: int, distance: int ) -> Array[ LeaderboardT
 	# var p = "%dddd" % [ dt[ "year"]]
 	var first_ranks: Array[ LeaderboardTypes.Type ] = []
 	var p = Time.get_datetime_string_from_system( false, true )
-	var lc = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_COINS, Leaderboard.new( "Local Coins", 20 ) )
+	var local_coins = Leaderboard.new( "Local Coins", 20 )
+	local_coins.set_type( Leaderboard.Type.LOCAL )
+	var lc = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_COINS, local_coins )
 	var coin_rank = lc.add_entry( p, new_coins )
 	if coin_rank == 0:
 		first_ranks.push_back( LeaderboardTypes.Type.LOCAL_COINS )
 
-	var ld = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_DISTANCE, Leaderboard.new( "Local Distance", 20 ) )
+	var local_distance = Leaderboard.new( "Local Distance", 20 )
+	local_distance.set_type( Leaderboard.Type.LOCAL )
+	var ld = self._leaderboards.get_or_add( LeaderboardTypes.Type.LOCAL_DISTANCE, local_distance )
 	var distance_rank = ld.add_entry( p, distance )
 	if distance_rank == 0:
 		first_ranks.push_back( LeaderboardTypes.Type.LOCAL_DISTANCE )

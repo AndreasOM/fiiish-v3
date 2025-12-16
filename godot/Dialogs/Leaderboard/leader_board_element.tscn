@@ -42,27 +42,43 @@ size_flags_vertical = 3
 script = ExtResource("1_acy28")
 was_new_best = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="EntriesScrollContainer" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Entries" type="VBoxContainer" parent="ScrollContainer"]
+[node name="Entries" type="VBoxContainer" parent="EntriesScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LeaderboardEntry" parent="ScrollContainer/Entries" instance=ExtResource("1_ycipv")]
+[node name="LeaderboardEntry" parent="EntriesScrollContainer/Entries" instance=ExtResource("1_ycipv")]
 layout_mode = 2
 rank = "1."
 participant = "2025-04-04 20:58"
 score = "123"
 
-[node name="LeaderboardEntry2" parent="ScrollContainer/Entries" instance=ExtResource("1_ycipv")]
+[node name="LeaderboardEntry2" parent="EntriesScrollContainer/Entries" instance=ExtResource("1_ycipv")]
 layout_mode = 2
 rank = "2."
 participant = "2025-04-04 20:58"
 score = "111"
 was_latest = true
+
+[node name="NoDataMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="NoDataMarginContainer"]
+layout_mode = 2
+color = Color(0.4392157, 0.09019608, 0.12941177, 0.41568628)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NoDataMarginContainer"]
+layout_mode = 2
+theme_type_variation = &"RichTextLabelSmall"
+text = "Sorry, no data..."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ParticlePositionControl" type="Control" parent="."]
 layout_mode = 2
