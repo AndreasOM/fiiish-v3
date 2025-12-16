@@ -10,6 +10,7 @@
 - [ ] Steam: Submit a gatekeeper build
 
 
+
 ## Next
 
 
@@ -17,7 +18,6 @@
 
 
 
-- [ ] Steam: Switch to production leaderboards
 - [ ] Steam: Disable steam leaderboards on non steam builds
 - [ ] Steam: Show placeholder for leaderboards when offline
 
@@ -34,6 +34,7 @@
 #### S08E02
 - [x] Improve the description*.txt files
 - [x] Improve formatting of description in settings
+- [x] Steam: Switch to production leaderboards
 
 ### 2025-12-15
 #### S08E01

@@ -13,11 +13,11 @@ class LeaderboardConfig:
 	
 var LEADERBOARD_MAPPINGS: Dictionary[ LeaderboardTypes.Type, LeaderboardConfig ] = {
 	LeaderboardTypes.Type.STEAM_SINGLE_RUN_COINS:		LeaderboardConfig.new(
-		"dev_max_single_run_coins",
+		"max_single_run_coins",
 		"Steam Coins"
 	),
 	LeaderboardTypes.Type.STEAM_SINGLE_RUN_DISTANCE:	LeaderboardConfig.new(
-		"dev_max_single_run_distance",
+		"max_single_run_distance",
 		"Steam Distance"
 	),
 }
