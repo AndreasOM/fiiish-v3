@@ -12,9 +12,11 @@ class_name LeaderboardEntryElement
 @onready var avatar_texture_rect: TextureRect = %AvatarTextureRect
 
 var _steam_id: int = -1
+var _avatar_texture: ImageTexture = null
 
 func _ready() -> void:
 	_update_look()
+	self._update()
 
 func _set_was_latest( b: bool ) -> void:
 	was_latest = b
@@ -51,8 +53,15 @@ func _on_steam_user_texture_updated( steam_id: int, texture: ImageTexture ):
 	if self._steam_id != steam_id:
 		return
 	
-	self.avatar_texture_rect.texture = texture
+	self._avatar_texture = texture
+	self._update()
 	
+func _update() -> void:
+	if(
+			self.avatar_texture_rect != null
+			&& self._avatar_texture != null
+	):
+		self.avatar_texture_rect.texture = self._avatar_texture
 func _set_score( s: String) -> void:
 	score = s
 	%ScoreLabel.text = s

@@ -57,6 +57,18 @@ class SendScoreRequest:
 var _pending_scores_to_upload: Array[ SendScoreRequest ] = [ ]
 var _score_upload_in_flight: SendScoreRequest = null
 
+class AvatarCacheEntry:
+	var texture: ImageTexture = null
+
+class AvatarCache:
+	var _entries: Dictionary[ int, AvatarCacheEntry ] = {}
+	func get_or_create_entry( id: int ) -> AvatarCacheEntry:
+		return self._entries.get_or_add( id, AvatarCacheEntry.new() )
+	func get_entry( id: int, default: AvatarCacheEntry = null ) -> AvatarCacheEntry:
+		return self._entries.get( id, default )
+
+var _avatar_cache: AvatarCache = AvatarCache.new()
+
 func _ready() -> void:
 	SteamEvents.user_info_required.connect(_on_steam_user_info_required)
 	if SteamWrapper.isSteamRunning():
@@ -235,12 +247,16 @@ func _on_steam_persona_state_change( steam_id: int, flags: int ) -> void:
 	
 	
 func _on_steam_avatar_loaded( steam_id: int, width: int, data: PackedByteArray ):
-	# print( "STEAM: avatar loaded %d %s" % [ width, str(data) ] )
+	# print( "STEAM: _on_steam_avatar_loaded %d %s" % [ width, str(data) ] )
+	print( "STEAM: _on_steam_avatar_loaded for %d -> %d" % [ steam_id, width ] )
 	var avatar_image: Image = Image.create_from_data(width, width, false, Image.FORMAT_RGBA8, data)
 
 #	if width > 32:
 #		avatar_image.resize(32, 32, Image.INTERPOLATE_LANCZOS)
 	var avatar_texture: ImageTexture = ImageTexture.create_from_image(avatar_image)
+	
+	var e = self._avatar_cache.get_or_create_entry( steam_id )
+	e.texture = avatar_texture
 	
 	SteamEvents.broadcast_user_texture_updated( steam_id, avatar_texture )
 	
@@ -250,7 +266,15 @@ func _on_steam_user_info_required( steam_id: int ) -> void:
 		var n = SteamWrapper.getFriendPersonaName( steam_id )
 		SteamEvents.broadcast_user_name_updated( steam_id, n )
 
-		steam.getPlayerAvatar( 1, steam_id )
+		var e = self._avatar_cache.get_entry( steam_id )
+		if e != null:
+			# :TODO: check age of cached version and refresh if too old
+			# using cached version
+			print("STEAM: Using cached avatar for %d" % [ steam_id ] )
+			SteamEvents.broadcast_user_texture_updated( steam_id, e.texture )
+		else:
+			print("STEAM: Requesting fresh avatar for %d" % [ steam_id ] )
+			steam.getPlayerAvatar( 1, steam_id )
 		# steam.getPlayerAvatar( 3, steam_id )
 		# steam.getPlayerAvatar( 2, steam_id )
 			

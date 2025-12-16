@@ -3,7 +3,7 @@
 ## InProgress
 
 - [ ] Steam Feature: Add Leaderboards
-	- [ ] Steam Task: Cache profile info (name + avatar)
+	- [ ] Steam Task: Cache profile info (name [+ avatar])
 
 - [ ] Steam: Submit a gatekeeper build
 
@@ -26,6 +26,7 @@
 - [x] Steam: Show placeholder for leaderboards when offline
 - [x] Steam: Disable steam leaderboards on non steam builds
 - [x] Steam: Improve leaderboard refresh
+- [x] Steam Task: Cache avatar
 
 ### 2025-12-15
 #### S08E01
