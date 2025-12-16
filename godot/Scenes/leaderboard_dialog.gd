@@ -51,7 +51,6 @@ func open( duration: float) -> void:
 		self.steam_coins_texture_button.disabled = true
 		self.steam_distance_texture_button.visible = false
 		self.steam_distance_texture_button.disabled = true
-		pass
 	else:
 		self.steam_coins_texture_button.visible = true
 		self.steam_coins_texture_button.disabled = false

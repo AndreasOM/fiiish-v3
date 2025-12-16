@@ -28,6 +28,9 @@ func _init( leaderboard_name: String ) -> void:
 func set_name( name: String ) -> void:
 	self._name = name
 
+func handle() -> int:
+	return self._leaderboard_handle
+	
 func _on_leaderboard_find_result(new_handle: int, was_found: int) -> void:
 	if !was_found:
 		print("STEAM: Leaderboard %s not found" % [ self._leaderboard_name ] )
@@ -39,15 +42,17 @@ func _on_leaderboard_find_result(new_handle: int, was_found: int) -> void:
 		self._leaderboard_handle = new_handle
 		print("STEAM: Found leaderboard %s == %s -> %d" % [ self._leaderboard_name, api_name, new_handle ] )
 	
-func _on_leaderboard_score_uploaded(success: int, this_handle: int, this_score: Dictionary) -> void:
+func _on_leaderboard_score_uploaded(success: int, this_handle: int, this_score: Dictionary) -> bool:
 	if this_handle != self._leaderboard_handle:
-		return
+		return false
 
 	if success == 0:
-		print("STEAM: Failed to upload score to leaderboard %s %d -> %s" % [ self._leaderboard_name, this_handle, str(this_score) ] )
-		return
+		print("[SteamLeaderboard] STEAM: Failed to upload score to leaderboard %s %d -> %s" % [ self._leaderboard_name, this_handle, str(this_score) ] )
+		return false
 	
-	print("STEAM: Successfully uploaded score to leaderboard %s %d -> %s" % [ self._leaderboard_name, this_handle, str(this_score) ] )
+	print("[SteamLeaderboard] STEAM: Successfully uploaded score to leaderboard %s %d -> %s" % [ self._leaderboard_name, this_handle, str(this_score) ] )
+	
+	return true
 		
 func _on_leaderboard_scores_downloaded(message: String, this_handle: int, these_results: Array, data_request_type: int = 0) -> void:
 	if self._leaderboard_handle != this_handle:

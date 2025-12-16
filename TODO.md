@@ -2,13 +2,10 @@
 
 ## InProgress
 
-
-
 - [ ] Steam Feature: Add Leaderboards
 	- [ ] Steam Task: Cache profile info (name + avatar)
 
 - [ ] Steam: Submit a gatekeeper build
-
 
 
 ## Next
@@ -16,15 +13,8 @@
 
 ## ToDo
 
-
-
-
-- [ ] Steam: Opt-in to online features?
-
-- [ ] Steam: Improve leaderboard refresh
-
-
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
+- [ ] Steam: Opt-in to online features?
 
 ## Done
 
@@ -35,6 +25,7 @@
 - [x] Steam: Switch to production leaderboards
 - [x] Steam: Show placeholder for leaderboards when offline
 - [x] Steam: Disable steam leaderboards on non steam builds
+- [x] Steam: Improve leaderboard refresh
 
 ### 2025-12-15
 #### S08E01

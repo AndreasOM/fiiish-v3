@@ -34,6 +34,28 @@ class DownloadEntriesRequest:
 var _pending_leaderboards_to_download: Array[ DownloadEntriesRequest ] = []
 var _download_entries_in_flight: DownloadEntriesRequest = null
 
+class SendScoreRequest:
+	func _init( 
+			score: int,
+			keep_best: bool,
+			details: Array[ int ],
+			# leaderboard_handle: int
+			leaderboard_name: String
+	) -> void:
+		self.score = score
+		self.keep_best = keep_best
+		self.details = details
+		# self.leaderboard_handle = leaderboard_handle
+		self.leaderboard_name = leaderboard_name
+		
+	var score: int
+	var keep_best: bool
+	var details: Array[ int ]
+	# var leaderboard_handle: int
+	var leaderboard_name: String
+
+var _pending_scores_to_upload: Array[ SendScoreRequest ] = [ ]
+var _score_upload_in_flight: SendScoreRequest = null
 
 func _ready() -> void:
 	SteamEvents.user_info_required.connect(_on_steam_user_info_required)
@@ -55,14 +77,28 @@ func _ready() -> void:
 #						print("STEAM: Created new leaderboard for %s" % [ leaderboard_name ] )
 
 func send_highscore(leaderboard_type: LeaderboardTypes.Type, value: float) -> void:
+	print("[SteamLeaderboard] send_highscore %s" % [ LeaderboardTypes.type_to_name(leaderboard_type) ] )
 	var leaderboard_config = self.LEADERBOARD_MAPPINGS.get( leaderboard_type, [] )
 	var leaderboard_name = leaderboard_config.steam_name
 	var l = self._leaderboards.get( leaderboard_name, null )
 	if l == null:
+		print_rich("[color=red][SteamLeaderboard]Leaderboard does not exist when sending score: %s[/color]" % [ leaderboard_name ] )
 		push_warning("Leaderboard does not exist when sending score: %s" % [ leaderboard_name ] )
 		return
 	
-	l.send_highscore( value )
+#	l.send_highscore( value )
+	var keep_best = true
+	var details: Array[ int ] = []
+	var r = SendScoreRequest.new(
+			int(value),
+			keep_best,
+			details,
+			# l.handle(),
+			leaderboard_name,
+	)
+	print("[SteamLeaderboard] Queing score %d -> %s" % [ r.score, r.leaderboard_name ] )
+	
+	self._pending_scores_to_upload.push_back( r )
 		
 #	if SteamWrapper.is_available():
 #		var steam = SteamWrapper.get_steam()
@@ -80,11 +116,19 @@ func _on_leaderboard_find_result(new_handle: int, was_found: int) -> void:
 		self.refresh()
 	
 func _on_leaderboard_score_uploaded(success: int, this_handle: int, this_score: Dictionary) -> void:
-	for l in self._leaderboards.values():
-		l._on_leaderboard_score_uploaded( success, this_handle, this_score )
+	print( "[SteamLeaderboard] Manager _on_leaderboard_score_uploaded( %d, %d, %s)" % [ success, this_handle, str( this_score ) ] )
+	for leaderboard_name in self._leaderboards.keys():
+		var l = self._leaderboards.get( leaderboard_name, null )
+		if l == null:
+			continue
+		if l._on_leaderboard_score_uploaded( success, this_handle, this_score ):
+			# this leaderboard was affected
+			self._refresh_leaderboards( leaderboard_name )
 		
 	# :HACK: we should be more granular
-	self.refresh()
+	# self.refresh()
+	
+	self._score_upload_in_flight = null
 	
 func _on_leaderboard_scores_downloaded(message: String, this_handle: int, these_results: Array) -> void:
 	var r = self._download_entries_in_flight
@@ -96,12 +140,14 @@ func _on_leaderboard_scores_downloaded(message: String, this_handle: int, these_
 func refresh() -> void:
 	for leaderboard_config in LEADERBOARD_MAPPINGS.values():
 		var leaderboard_name = leaderboard_config.steam_name
-		# 0 <- LEADERBOARD_DATA_REQUEST_GLOBAL
-		self._refresh_leaderboard( leaderboard_name, 0 )
-		# :TEST: self._refresh_leaderboard( leaderboard_name, 0 )
-		# 1 <- LEADERBOARD_DATA_REQUEST_GLOBAL_AROUND_US
+		self._refresh_leaderboards( leaderboard_name )
+	
+func _refresh_leaderboards( leaderboard_name: String ) -> void:
+	self._refresh_leaderboard( leaderboard_name, 0 )
+	# :TEST: self._refresh_leaderboard( leaderboard_name, 0 )
+	# 1 <- LEADERBOARD_DATA_REQUEST_GLOBAL_AROUND_US
 #			self._refresh_leaderboard( leaderboard_name, 1 )
-		# 2 <- LEADERBOARD_DATA_REQUEST_FRIENDS
+	# 2 <- LEADERBOARD_DATA_REQUEST_FRIENDS
 #			self._refresh_leaderboard( leaderboard_name, 2 )
 	
 func _refresh_leaderboard( name: String, data_request_type: int = 0 ) -> void:
@@ -116,6 +162,7 @@ func _refresh_leaderboard( name: String, data_request_type: int = 0 ) -> void:
 	r.end_index = 14
 	r.data_request_type = data_request_type
 	# l.downloadLeaderboardEntries(start_index, end_index, data_request_type)
+	print("[SteamLeaderboard] Request refresh of %s" % [ name ])
 	self._pending_leaderboards_to_download.push_back( r )
 	
 func _process(delta: float) -> void:
@@ -150,6 +197,21 @@ func _process(delta: float) -> void:
 		
 		return
 
+	if self._score_upload_in_flight != null:
+		return
+		
+	if !self._pending_scores_to_upload.is_empty():
+		var r = self._pending_scores_to_upload.pop_front()
+		
+		var l = self._leaderboards.get( r.leaderboard_name, null ) as SteamLeaderboard
+		if l == null:
+			return
+
+		print("[SteamLeaderboard] Sending queued score %d -> %s" % [ r.score, r.leaderboard_name ] )
+		l.send_highscore( r.score )
+		self._score_upload_in_flight = r
+		
+		return
 
 func get_leaderboard( type: LeaderboardTypes.Type, default: Leaderboard = null ) -> Leaderboard:
 	var config = self.LEADERBOARD_MAPPINGS.get( type, null )
