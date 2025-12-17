@@ -2,6 +2,7 @@
 
 ## InProgress
 
+
 - [ ] Steam Feature: Add Leaderboards
 	- [ ] Steam Task: Cache profile info (name [+ avatar])
 
@@ -21,6 +22,7 @@
 ### 2025-12-17
 #### S08E03
 - [x] Disable always on top
+- [x] Hide mouse when keyboard or joypad is used
 
 ### 2025-12-16
 #### S08E02

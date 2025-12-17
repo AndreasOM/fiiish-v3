@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b3sssky7beb2e"]
+[gd_scene load_steps=41 format=3 uid="uid://b3sssky7beb2e"]
 
 [ext_resource type="PackedScene" uid="uid://bviw4wx2laqag" path="res://Scenes/game.tscn" id="1_0flmv"]
 [ext_resource type="Script" uid="uid://1ktcy8lv2gsx" path="res://Scenes/main.gd" id="1_w7ipa"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c35wj77qlgbbd" path="res://Scenes/input_mapper.gd" id="3_neg2b"]
 [ext_resource type="Script" uid="uid://vinoqubh04ad" path="res://Scenes/hud.gd" id="3_ypy50"]
 [ext_resource type="Script" uid="uid://igsaf4582kmm" path="res://Scenes/ui.gd" id="4_e08e2"]
+[ext_resource type="Script" uid="uid://cetxhr36onlnl" path="res://Scenes/mouse_pointer_handler.gd" id="4_k2e45"]
 [ext_resource type="Texture2D" uid="uid://c0etl38vn3bw6" path="res://Textures/UI/Buttons/button_cross.png" id="5_l2xk6"]
 [ext_resource type="Texture2D" uid="uid://byyivxx7e4lfo" path="res://Textures/UI/mini_icon_flag.png" id="5_p4vau"]
 [ext_resource type="FontFile" uid="uid://bb2pts3o32ebo" path="res://Fonts/all_things_pink.ttf" id="7_c40ns"]
@@ -70,6 +71,9 @@ script = ExtResource("2_hpc6h")
 [node name="InputMapper" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("3_neg2b")
+
+[node name="MousePointerHandler" type="Node" parent="."]
+script = ExtResource("4_k2e45")
 
 [node name="Game" parent="." node_paths=PackedStringArray("achievement_config_manager", "achievement_counter_manager", "achievement_manager", "fiiish_pause_manager", "musicManager", "soundManager") instance=ExtResource("1_0flmv")]
 unique_name_in_owner = true
