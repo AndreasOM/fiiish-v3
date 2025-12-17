@@ -23,6 +23,7 @@
 #### S08E03
 - [x] Disable always on top
 - [x] Hide mouse when keyboard or joypad is used
+- [x] Update OMGLifecylePlugin for iOS to Godot 4.5
 
 ### 2025-12-16
 #### S08E02
