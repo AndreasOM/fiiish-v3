@@ -18,7 +18,11 @@
 
 ## Done
 
-### 2025-1216
+### 2025-12-17
+#### S08E03
+- [x] Disable always on top
+
+### 2025-12-16
 #### S08E02
 - [x] Improve the description*.txt files
 - [x] Improve formatting of description in settings
