@@ -3,7 +3,6 @@
 ## InProgress
 
 
-- [ ] Bug: Focus issue when going to Skill from Results via controller
 
 - [ ] Steam Feature: Add Leaderboards
 	- [ ] Steam Task: Cache profile info (name [+ avatar])
@@ -25,6 +24,7 @@
 #### S08E04
 - [x] Add basic controller mapping
 - [x] Input ignore Dive if not "Swiming" aka if in Menu
+- [x] Bug: Focus issue when going to Skill from Results via controller
 
 ### 2025-12-17
 #### S08E03

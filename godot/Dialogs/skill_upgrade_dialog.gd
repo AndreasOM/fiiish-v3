@@ -93,9 +93,22 @@ func _focus_last_focused_skill() -> void:
 		if sui == null:
 			continue
 		if sui.skill_id == self._last_focused_skill_id:
+			if sui.can_focus():
+				sui.grab_focus.call_deferred()
+				return
+			else:
+				break
+
+	for c in p.get_children():
+		var sui = c as SkillUpgradeItem
+		if sui == null:
+			continue
+		if sui.can_focus():
 			sui.grab_focus.call_deferred()
 			return
-
+				
+	self.buy_skill_points_button.grab_focus.call_deferred()
+	
 func _update_skill_upgrade_items() -> void:
 	var player = game.get_player()
 	var scm = game.get_skill_config_manager()
@@ -144,8 +157,8 @@ func _prepare_fade_in() -> void:
 		if sui == null:
 			continue
 		sui.prepare_fade_in()
-		if id == self._last_focused_skill_id:
-			sui.grab_focus.call_deferred()
+#		if id == self._last_focused_skill_id:
+#			sui.grab_focus.call_deferred()
 	
 func _update_all() -> void:
 	_update_skill_points()
@@ -153,7 +166,7 @@ func _update_all() -> void:
 	_update_skill_upgrade_items()
 	_update_skill_point_cost()
 	_update_buy_skill_point_button()
-	_focus_last_focused_skill()
+#	_focus_last_focused_skill()
 
 func cancel() -> bool:
 	self.close( 0.3 )
@@ -230,6 +243,7 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	var total_skill_levels = p.get_total_skill_levels()
 	game.achievement_counter_manager.set_counter( AchievementCounterIds.Id.SKILL_UPGRADES, total_skill_levels )
 	self._last_focused_skill_id = id
+	self._focus_last_focused_skill()
 	_update_all()
 
 func _get_skill_upgrade_item_for_skill_id( id: SkillIds.Id ) -> SkillUpgradeItem:

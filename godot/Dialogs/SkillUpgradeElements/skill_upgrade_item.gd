@@ -124,3 +124,14 @@ func _on_focus_entered() -> void:
 		return
 		
 	focused.grab_focus.call_deferred()
+
+func can_focus() -> bool:
+	var p = self.skill_upgrade_item_h_box_container
+	if p.get_child_count() < self.current:
+		# should not happen
+		return false
+	
+	if self.maximum <= self.current:
+		return false
+		
+	return true
