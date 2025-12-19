@@ -2,7 +2,7 @@
 
 ## InProgress
 
-- [ ] Input ignore Dive if not "Swiming" aka if in Menu
+
 - [ ] Bug: Focus issue when going to Skill from Results via controller
 
 - [ ] Steam Feature: Add Leaderboards
@@ -24,6 +24,7 @@
 ### 2025-12-19
 #### S08E04
 - [x] Add basic controller mapping
+- [x] Input ignore Dive if not "Swiming" aka if in Menu
 
 ### 2025-12-17
 #### S08E03

@@ -133,9 +133,10 @@ func _retry_mapping() -> void:
 					Events.broadcast_developer_message(
 						DeveloperMessageDebug.new( msg )
 					)
-					Events.broadcast_global_message(
-						"Problem with input configuration. Please restart!"
-					)
+#					Events.broadcast_global_message(
+#						"Problem with input configuration. Please restart!"
+#					)
+					print_rich("[color=red] Problem with input configuration. Might be due to broken steam input controller support!" )
 #		else:
 #			print_rich( "[color=yellow]No steam[/color]")
 #	else:

@@ -29,6 +29,8 @@ signal dialog_closed( id: DialogIds.Id )
 
 signal developer_message( msg: DeveloperMessage )
 
+signal action_set_changed( old_name: String, new_name: String )
+
 func broadcast_game_state_changed( state: Game.State ) -> void:
 	game_state_changed.emit( state )
 
@@ -91,3 +93,6 @@ func broadcast_dialog_closed( id: DialogIds.Id ) -> void:
 	
 func broadcast_developer_message( msg: DeveloperMessage ) -> void:
 	self.developer_message.emit( msg )
+	
+func broadcast_action_set_changed( old_name: String, new_name: String ) -> void:
+	self.action_set_changed.emit( old_name, new_name )

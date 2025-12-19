@@ -71,6 +71,8 @@ var _was_zone_editor_requested: bool = false
 
 const KIDS_MODE_SUFFIX: String = "_kids_mode"
 
+var _active_action_set: String = ""
+
 func _ready() -> void:
 	print("Game - _ready()")
 
@@ -97,6 +99,7 @@ func _ready() -> void:
 	self.fish_manager.last_fish_killed.connect( _on_last_fish_killed )
 	self.fish_manager.all_fish_dead.connect( _on_all_fish_dead )
 	self.fish_manager.all_fish_waiting_for_start.connect( _on_all_fish_waiting_for_start )
+	Events.action_set_changed.connect( _on_action_set_changed )
 
 func _on_cheats_changed() -> void:
 	var invicible = self._player.is_cheat_enabled(	CheatIds.Id.INVINCIBLE )
@@ -450,6 +453,9 @@ func is_paused() -> bool:
 func _on_game_manager_sound_triggered( soundEffect: SoundEffects.Id ) -> void:
 	soundManager.trigger_effect( soundEffect )
 
+func _on_action_set_changed( _old_name: String, new_name: String ) -> void:
+	self._active_action_set = new_name
+	
 func next_game_mode() -> GameModes.Mode:
 	self._mode = GameModes.next( self._mode )
 	
@@ -460,6 +466,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		match self._state:
 			Game.State.WAITING_FOR_START:
 				if event.is_action_pressed("Swim_Dive"):
+					match self._active_action_set:
+						"MenuControls":
+							return
+						_:
+							pass
 					self._goto_state_swimming()
 					return
 			Game.State.GAME_OVER:

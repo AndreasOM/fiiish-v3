@@ -258,6 +258,7 @@ func _update_action_set( state: Game.State ) -> void:
 			reason = "kids mode"
 
 		if self._last_action_set != action_set_name:
+			Events.broadcast_action_set_changed( self._last_action_set, action_set_name )
 			self._last_action_set = action_set_name
 			#var action_set_handle = SteamWrapper.getActionSetHandle( "Set_Swim" )
 			var action_set_handle = SteamWrapper.getActionSetHandle( action_set_name )
