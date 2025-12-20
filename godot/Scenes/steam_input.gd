@@ -31,7 +31,11 @@ var _pressed_digital_actions: Dictionary[ String, bool ] = {}
 
 var _mapping_retries: int = 0
 
+const ENABLED: bool = false
 func _ready() -> void:
+	if !self.ENABLED:
+		return
+	
 	print_rich("[color=yellow]SteamInput - _ready ->[/color]")
 	
 	if SteamWrapper.is_available():
@@ -42,6 +46,9 @@ func _ready() -> void:
 	print_rich("[color=yellow]<- SteamInput - _ready[/color]")
 
 func _process(delta: float) -> void:
+	if !self.ENABLED:
+		return
+	
 	if SteamWrapper.is_available():
 		if !SteamWrapper.isSteamRunning():
 			return
@@ -77,6 +84,7 @@ func _process(delta: float) -> void:
 					self._pressed_digital_actions[ da ] = true
 					ev.pressed = true
 					# Events.broadcast_global_message("Pressed %s" % da)
+					print_rich("[color=lightblue] Pressed %s" % [ da ])
 					Events.broadcast_developer_message(
 						DeveloperMessageButtonChange.new( da, true )
 					)

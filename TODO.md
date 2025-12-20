@@ -20,6 +20,10 @@
 
 ## Done
 
+### 2025-12-20
+#### OFFSTREAM
+- [x] Steam: Disable steam input - broken pile of ...
+
 ### 2025-12-19
 #### S08E04
 - [x] Add basic controller mapping
