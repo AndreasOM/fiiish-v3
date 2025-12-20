@@ -146,7 +146,7 @@ func _ready() -> void:
 				push_warning("Action manifest file not found %s" % manifest_file )
 				Events.broadcast_global_message( "Action manifest file not found %s" % manifest_file )
 			else:
-				if true:
+				if SteamInput.ENABLED:
 					if !steam.setInputActionManifestFilePath( manifest_file):
 						#get_tree().quit(0)
 						#OS.crash("Failed loading steam action manifest")
@@ -222,9 +222,7 @@ func _on_input_device_disconnected( input_handle: int ) -> void:
 func _update_action_set( state: Game.State ) -> void:
 	const MENU_CONTROLS: String = "MenuControls"
 	const SWIM_CONTROLS: String = "SwimControls"
-	if SteamWrapper.is_available():
-		if !SteamWrapper.isSteamRunning() && false:
-			return
+	if true:
 		var action_set_name = MENU_CONTROLS
 		var reason = "default"
 		match state:
@@ -260,21 +258,27 @@ func _update_action_set( state: Game.State ) -> void:
 		if self._last_action_set != action_set_name:
 			Events.broadcast_action_set_changed( self._last_action_set, action_set_name )
 			self._last_action_set = action_set_name
-			#var action_set_handle = SteamWrapper.getActionSetHandle( "Set_Swim" )
-			var action_set_handle = SteamWrapper.getActionSetHandle( action_set_name )
-			# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
-			#if action_set_handle != 0:
-			# Events.broadcast_global_message("ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ])
-			Events.broadcast_developer_message(
-				DeveloperMessageDebug.new(
-					"ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ]
+			if ( SteamInput.ENABLED
+					&& SteamWrapper.is_available()
+					&& !SteamWrapper.isSteamRunning()
+			):
+				return
+			
+				#var action_set_handle = SteamWrapper.getActionSetHandle( "Set_Swim" )
+				var action_set_handle = SteamWrapper.getActionSetHandle( action_set_name )
+				# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
+				#if action_set_handle != 0:
+				# Events.broadcast_global_message("ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ])
+				Events.broadcast_developer_message(
+					DeveloperMessageDebug.new(
+						"ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ]
+					)
 				)
-			)
-			for k in self._steam_input_handles.keys():
-				var h = self._steam_input_handles.get( k, false )
-				if h == false:
-					continue
-				SteamWrapper.activateActionSet( k, action_set_handle )
+				for k in self._steam_input_handles.keys():
+					var h = self._steam_input_handles.get( k, false )
+					if h == false:
+						continue
+					SteamWrapper.activateActionSet( k, action_set_handle )
 	else:
 		print("Update Action Set without Steam -> do nothing")
 	

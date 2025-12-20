@@ -23,6 +23,7 @@
 ### 2025-12-20
 #### OFFSTREAM
 - [x] Steam: Disable steam input - broken pile of ...
+- [x] Steam: Rip out action set handling
 
 ### 2025-12-19
 #### S08E04
