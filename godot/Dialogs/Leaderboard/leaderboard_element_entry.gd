@@ -43,11 +43,11 @@ func _set_participant( p: String ) -> void:
 		self._steam_id = -1
 		%ParticipantLabel.text = p
 
-func _on_steam_user_name_updated( steam_id: int, name: String ):
+func _on_steam_user_name_updated( steam_id: int, user_name: String ):
 	if self._steam_id != steam_id:
 		return
 		
-	%ParticipantLabel.text = "%s" %[ name ]
+	%ParticipantLabel.text = "%s" %[ user_name ]
 
 func _on_steam_user_texture_updated( steam_id: int, texture: ImageTexture ):
 	if self._steam_id != steam_id:

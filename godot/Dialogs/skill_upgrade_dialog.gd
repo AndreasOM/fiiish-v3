@@ -87,7 +87,7 @@ func _update_coins() -> void:
 	
 func _focus_last_focused_skill() -> void:
 	var p = %SkillUpgradeItemContainer
-	var prev: SkillUpgradeItemButton = null
+	# var prev: SkillUpgradeItemButton = null
 	for c in p.get_children():
 		var sui = c as SkillUpgradeItem
 		if sui == null:

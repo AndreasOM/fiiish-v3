@@ -45,7 +45,7 @@ func _ready() -> void:
 		
 	print_rich("[color=yellow]<- SteamInput - _ready[/color]")
 
-func _process(delta: float) -> void:
+func _process( _delta: float ) -> void:
 	if !self.ENABLED:
 		return
 	

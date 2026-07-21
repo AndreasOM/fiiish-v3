@@ -52,7 +52,7 @@ func _patch_node_path( np: NodePath ) -> NodePath:
 	return NodePath( "../../%s" % np )
 	
 func _update_focus() -> void:
-	self.button_a_texture_button
+## ??	self.button_a_texture_button
 	self.button_a_texture_button.focus_neighbor_left	= _patch_node_path( self.focus_neighbor_left )
 	self.button_a_texture_button.focus_neighbor_right	= _patch_node_path( self.focus_neighbor_right )
 	self.button_a_texture_button.focus_neighbor_top		= _patch_node_path( self.focus_neighbor_top )

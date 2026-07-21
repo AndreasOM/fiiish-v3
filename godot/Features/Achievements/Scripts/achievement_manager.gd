@@ -50,7 +50,7 @@ func _process( _delta: float ) -> void:
 		# Events.broadcast_global_message( "Completed: %s" % cfg.name )
 		Events.broadcast_achievement_completed( cfg.id )
 			
-func _check_condition_prereq_achievements( condition: AchievementCondition, counter_manager: AchievementCounterManager ) -> bool:
+func _check_condition_prereq_achievements( condition: AchievementCondition, _counter_manager: AchievementCounterManager ) -> bool:
 	for id in condition.prereq_achievement_ids:
 		var s = self._achievements.get( id, AchievementStates.State.UNKNOWN )
 		match s:
@@ -76,8 +76,8 @@ func _print_condition_counters( condition: AchievementCondition ) -> void:
 		var needed_value = condition.prereq_counters.get( id, null)
 		if needed_value == null:
 			continue
-		var name = AchievementCounterIds.to_name( id )
-		print("Achievement Condition Counter - %s [%d]: %d" % [ name, id, needed_value ])
+		var prereq_counter_name = AchievementCounterIds.to_name( id )
+		print("Achievement Condition Counter - %s [%d]: %d" % [ prereq_counter_name, id, needed_value ])
 
 
 func get_completed_achievments() -> Array[ String ]:

@@ -6,7 +6,7 @@ func _ready() -> void:
 	Events.pause_state_changed.connect( _on_pause_state_changed )
 	%FadeableContainer.fade_out( 0.0 )
 
-func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
+func _on_pause_state_changed( pause_state: PauseManager.PauseState, _reason: PauseManager.PauseReason ) -> void:
 	match pause_state:
 		PauseManager.PauseState.PAUSED:
 			self.visible = true

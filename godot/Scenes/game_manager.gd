@@ -7,7 +7,7 @@ signal sound_triggered( soundEffects_Id )
 
 var movement: Vector2 = Vector2( 0.0, 0.0 )
 var jump_movement: Vector2 = Vector2.ZERO
-var _was_invicible_before_jump: bool = false
+## var _was_invicible_before_jump: bool = false
 
 @export var pixels_per_meter: float = 100.0
 

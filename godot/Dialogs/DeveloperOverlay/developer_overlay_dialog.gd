@@ -89,7 +89,7 @@ func _update_performance_stats() -> void:
 
 	self._perf_stats_frame_counter = 0
 
-	var pa = PerformanceArea.new("DeveloperOverlay/UpdatePerfStats")
+	var _pa = PerformanceArea.new("DeveloperOverlay/UpdatePerfStats")
 
 	var all_stats = PerformanceMonitor.get_all_stats()
 	if all_stats.is_empty():
@@ -116,7 +116,7 @@ func _update_performance_waterfall() -> void:
 
 	self._waterfall_frame_counter = 0
 
-	var pa = PerformanceArea.new("DeveloperOverlay/UpdateWaterfall")
+	var _pa = PerformanceArea.new("DeveloperOverlay/UpdateWaterfall")
 	self.performance_waterfall_view_control.update_display()
 
 static func is_developer() -> bool:

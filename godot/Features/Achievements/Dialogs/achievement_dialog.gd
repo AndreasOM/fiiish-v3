@@ -35,7 +35,7 @@ func open( duration: float) -> void:
 func _on_close_button_pressed() -> void:
 	self.close( 0.3 )
 
-func _on_achievement_completed( id: String ) -> void:
+func _on_achievement_completed( _achievement_id: String ) -> void:
 	# :HACK:
 	if self._dialog_manager == null:
 		return

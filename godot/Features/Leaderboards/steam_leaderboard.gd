@@ -17,7 +17,8 @@ func _init( leaderboard_name: String ) -> void:
 	self._leaderboard_name = leaderboard_name
 	# :HACK: since only one find request can be in flight we handle this in the SteamLeaderboardManager
 	if SteamWrapper.is_available():
-		var steam = SteamWrapper.get_steam()
+		pass
+#		var steam = SteamWrapper.get_steam()
 #		if steam.isSteamRunning():
 #			steam.leaderboard_find_result.connect(_on_leaderboard_find_result)
 #			steam.leaderboard_score_uploaded.connect(_on_leaderboard_score_uploaded)
@@ -80,7 +81,7 @@ func send_highscore( value: float ) -> void:
 	score.value = value
 	self._pending_scores.push_back( score )
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if self._leaderboard_handle < 0:
 		return
 	var s = self._pending_scores.pop_front()

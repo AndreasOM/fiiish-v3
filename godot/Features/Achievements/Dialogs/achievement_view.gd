@@ -6,7 +6,7 @@ class_name AchievementView
 
 @export var game_manager: GameManager = null
 
-var _element = preload("res://Features/Achievements/achievement_element.tscn")
+### var _element = preload("res://Features/Achievements/achievement_element.tscn")
 var _button_element = preload("res://Features/Achievements/Dialogs/achievement_button.tscn")
 var _selected_achievement_id: String = ""
 
@@ -89,7 +89,7 @@ func recreate_achievements() -> void:
 		last_ab.set_right_focus( null )
 	
 func update_achievements() -> void:
-	var achievement_config_manager = self.game_manager.game.achievement_config_manager
+##	var achievement_config_manager = self.game_manager.game.achievement_config_manager
 	var achievement_manager = self.game_manager.game.achievement_manager
 	
 	for c in self.achievement_container.get_children():

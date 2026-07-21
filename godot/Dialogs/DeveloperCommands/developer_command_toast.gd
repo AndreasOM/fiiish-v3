@@ -3,7 +3,7 @@ class_name DeveloperCommandToast extends DeveloperCommand
 func syntax() -> String:
 	return "toast"
 	
-func run( input: String, game: Game ) -> bool:
+func run( input: String, _game: Game ) -> bool:
 	var i = input.trim_prefix( "toast" )
 	i = i.strip_edges()
 	var parts = i.split(" ")

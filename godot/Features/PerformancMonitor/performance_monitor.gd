@@ -135,15 +135,15 @@ func next_frame() -> void:
 	for a in self._current_areas:
 		self._current_areas[a] = 0
 	
-func enter_performance_area( name: String ) -> void:
-	self._path.push_back( name )
+func enter_performance_area( area_name: String ) -> void:
+	self._path.push_back( area_name )
 	pass
 
-func leave_performance_area( name: String, duration: int ) -> void:
+func leave_performance_area( _area_name: String, duration: int ) -> void:
 	var end_time = Time.get_ticks_usec()
 	var start_time = end_time - duration
 	var full_name = "/".join( self._path )
-	var n = self._path.pop_back()
+	var _n = self._path.pop_back()
 
 	# Record for current frame timeline
 	var area_timing = PerformanceMonitor_AreaTiming.new(full_name, start_time, end_time)
@@ -262,8 +262,8 @@ func _engine_track_frame_times(
 	before_frame_delay_time: int,
 	process_hook_total_usec: int,
 	process_hook_call_count: int,
-	physics_process_hook_total_usec: int,
-	physics_process_hook_call_count: int,
+##	physics_process_hook_total_usec: int,
+##	physics_process_hook_call_count: int,
 	process_multiplayer_usec: int,
 	process_signal_usec: int,
 	process_message_queue1_usec: int,
@@ -397,12 +397,12 @@ class AnchorMatch:
 func _find_best_anchor(area_node: Node) -> AnchorMatch:
 	# Find the closest anchor by checking which gives the shortest relative path
 
+	var default_config = PerformanceMonitor_WaterfallAnchorConfig.new("", waterfall_default_max_depth, waterfall_default_min_duration_usec)
 	if area_node == null:
 		# Fallback for manual PerformanceArea (no node reference)
-		var default_config = PerformanceMonitor_WaterfallAnchorConfig.new("", waterfall_default_max_depth, waterfall_default_min_duration_usec)
 		return AnchorMatch.new(default_config, "")
 
-	var default_config = PerformanceMonitor_WaterfallAnchorConfig.new("", waterfall_default_max_depth, waterfall_default_min_duration_usec)
+##	var default_config = PerformanceMonitor_WaterfallAnchorConfig.new("", waterfall_default_max_depth, waterfall_default_min_duration_usec)
 	var best_match = AnchorMatch.new(default_config, str(area_node.get_path()))
 	var shortest_len = best_match.relative_path.length()
 
@@ -436,12 +436,12 @@ func _calculate_inclusive_duration(node_path: String, all_areas: Array[Performan
 
 	return total
 
-static func _shorten_area_name(name: String, max_len: int) -> String:
-	if name.length() <= max_len:
-		return name
+static func _shorten_area_name(area_name: String, max_len: int) -> String:
+	if area_name.length() <= max_len:
+		return area_name
 
 	# Split by "/" for hierarchical names
-	var parts = name.split("/")
+	var parts = area_name.split("/")
 	var shortened_parts: Array[String] = []
 
 	for part in parts:
@@ -489,20 +489,20 @@ func get_worst_frame_waterfall_areas() -> Array[PerformanceMonitor_AreaTiming]:
 	# STEP 0.5: Aggregate deferred calls
 	var aggregated_deferred: Dictionary = {}
 	if frame.deferred_calls != null and frame.deferred_calls.size() > 0:
-		for call in frame.deferred_calls:
-			var key = call.get_key()
+		for deferred_call in frame.deferred_calls:
+			var key = deferred_call.get_key()
 			if !aggregated_deferred.has(key):
 				aggregated_deferred[key] = {
-					"start": call.start_usec,
-					"end": call.end_usec,
-					"total_duration": call.duration_usec,
+					"start": deferred_call.start_usec,
+					"end": deferred_call.end_usec,
+					"total_duration": deferred_call.duration_usec,
 					"count": 1
 				}
 			else:
 				var agg = aggregated_deferred[key]
-				agg.start = min(agg.start, call.start_usec)
-				agg.end = max(agg.end, call.end_usec)
-				agg.total_duration += call.duration_usec
+				agg.start = min(agg.start, deferred_call.start_usec)
+				agg.end = max(agg.end, deferred_call.end_usec)
+				agg.total_duration += deferred_call.duration_usec
 				agg.count += 1
 
 	# STEP 1: Build tree with anchor-relative paths
@@ -612,21 +612,21 @@ func get_worst_frame_waterfall() -> String:
 	var aggregated_deferred: Dictionary = {}  # key -> {start, end, total_duration, count}
 
 	if frame.deferred_calls != null and frame.deferred_calls.size() > 0:
-		for call in frame.deferred_calls:
-			var key = call.get_key()
+		for deferred_call in frame.deferred_calls:
+			var key = deferred_call.get_key()
 
 			if !aggregated_deferred.has(key):
 				aggregated_deferred[key] = {
-					"start": call.start_usec,
-					"end": call.end_usec,
-					"total_duration": call.duration_usec,
+					"start": deferred_call.start_usec,
+					"end": deferred_call.end_usec,
+					"total_duration": deferred_call.duration_usec,
 					"count": 1
 				}
 			else:
 				var agg = aggregated_deferred[key]
-				agg.start = min(agg.start, call.start_usec)
-				agg.end = max(agg.end, call.end_usec)
-				agg.total_duration += call.duration_usec
+				agg.start = min(agg.start, deferred_call.start_usec)
+				agg.end = max(agg.end, deferred_call.end_usec)
+				agg.total_duration += deferred_call.duration_usec
 				agg.count += 1
 
 	# STEP 1: Build complete tree - accumulate ALL nodes into their parents recursively

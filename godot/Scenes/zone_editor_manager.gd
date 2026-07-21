@@ -61,7 +61,7 @@ func _ready() -> void:
 	Events.zone_edit_disabled.connect(_on_zone_edit_disabled)
 	
 	
-func _process_selected_object(delta: float) -> void:
+func _process_selected_object(_delta: float) -> void:
 	if self._selected_object == null:
 		return
 	var t = 0.001*Time.get_ticks_msec()
@@ -147,10 +147,10 @@ func _process_for_select( _delta: float ) -> void:
 		self._move_object_forward( self._selected_object )
 	
 func _update_cursor_position( mouse_event: InputEventMouse ) -> void:
-	var tr = self._game_scaler.transform
-	tr = tr.affine_inverse()
+	var tra = self._game_scaler.transform
+	tra = tra.affine_inverse()
 	var p = mouse_event.position
-	p = tr * p
+	p = tra * p
 	var cursor_offset = self._CURSOR_OFFSETS[ self._cursor_offset_index ]
 	p += cursor_offset*Vector2( -1.0, -1.0 )
 	self.debug_cursor_sprite_2d.position = p
@@ -160,10 +160,10 @@ func _handle_mouse_hover( mouse_motion_event: InputEventMouseMotion ) -> void:
 	if !_mouse_hover_enabled:
 		return
 		
-	var tr = self._game_scaler.transform
-	tr = tr.affine_inverse()
+	var tra = self._game_scaler.transform
+	tra = tra.affine_inverse()
 	var p = mouse_motion_event.position
-	p = tr * p
+	p = tra * p
 	
 	var cs = CollisionShape2D.new()
 	var circle = CircleShape2D.new()
@@ -258,7 +258,7 @@ func _handle_mouse_button_for_delete( mouse_button_event: InputEventMouseButton 
 				else:								# same selection
 					_deselect_object()
 					self._zone_editor_command_handler.add_command_delete( n )
-					self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+					self._zone_minimum_width = int(self._game_manager.zone_manager.calculate_zone_width( self._offset_x ))
 			else:
 				_deselect_object()
 	else:
@@ -290,7 +290,7 @@ func _handle_mouse_button_for_move( mouse_button_event: InputEventMouseButton ) 
 				self._zone_editor_command_handler.add_command_move( self._selected_object, move, rotation )
 				_deselect_object()
 				
-				self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+				self._zone_minimum_width = int(self._game_manager.zone_manager.calculate_zone_width( self._offset_x ))
 				if self._zone_minimum_width > self._zone_width:
 					self.set_zone_width( self._zone_minimum_width )
 				
@@ -307,7 +307,7 @@ func _handle_mouse_button_for_rotate( mouse_button_event: InputEventMouseButton 
 			if n != null:
 				var rotation = 90.0
 				self._zone_editor_command_handler.add_command_move( n, Vector2.ZERO, rotation )
-				self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+				self._zone_minimum_width = int(self._game_manager.zone_manager.calculate_zone_width( self._offset_x ))
 				if self._zone_minimum_width > self._zone_width:
 					self.set_zone_width( self._zone_minimum_width )
 	else:
@@ -332,7 +332,7 @@ func _handle_mouse_button_for_spawn( mouse_button_event: InputEventMouseButton )
 				self._selected_object.queue_free()
 				self._deselect_object()
 				
-				self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+				self._zone_minimum_width = int(self._game_manager.zone_manager.calculate_zone_width( self._offset_x ))
 				if self._zone_minimum_width > self._zone_width:
 					self.set_zone_width( self._zone_minimum_width )
 	else:
@@ -355,10 +355,10 @@ func _handle_mouse_button_for_select( mouse_button_event: InputEventMouseButton 
 		self._select_press_position = self.debug_cursor_sprite_2d.position # :HACK: to avoid recalculation
 
 func _handle_mouse_motion( mouse_motion_event: InputEventMouseMotion ) -> void:
-	var tr = self._game_scaler.transform
-	tr = tr.affine_inverse()
+	var tra = self._game_scaler.transform
+	tra = tra.affine_inverse()
 	var cursor_position = mouse_motion_event.position
-	cursor_position = tr * cursor_position
+	cursor_position = tra * cursor_position
 	self._last_cursor_position = cursor_position
 	
 #	match self.tool_id:
@@ -540,7 +540,7 @@ func _load_zone( filename: String ) -> bool:
 		
 	self._offset_x = 0.0
 
-	self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+	self._zone_minimum_width = int(self._game_manager.zone_manager.calculate_zone_width( self._offset_x ))
 
 	var current_zone = self._game_manager.zone_manager.get_current_zone()
 	if current_zone != null:
@@ -599,7 +599,7 @@ func set_zone_width( width: float ) -> void:
 	if width == self._zone_width:
 		return
 		
-	self._zone_width = maxf( width, self._zone_minimum_width )
+	self._zone_width = int(maxf( width, self._zone_minimum_width ))
 	if self._right_boundary_entity != null:
 		self._right_boundary_entity.position = Vector2( self._zone_width - self._offset_x, 0.0 )
 	self.zone_width_changed.emit( self._zone_width )
@@ -633,11 +633,11 @@ func _save_zone( filename: String ) -> bool:
 	
 	return true
 
-func set_cursor_offset( old_cursor_offset: float ) -> float:
+func set_cursor_offset( _old_cursor_offset: float ) -> float:
 	self._cursor_offset_index = ( self._cursor_offset_index + 1 ) % self._CURSOR_OFFSETS.size()
 	return self._CURSOR_OFFSETS[ self._cursor_offset_index ]
 
-func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
+func on_tool_selected( selected_tool_id: ZoneEditorToolIds.Id ) -> void:
 	match self.tool_id:
 		ZoneEditorToolIds.Id.MOVE:
 			if self._selected_object != null:
@@ -649,18 +649,18 @@ func on_tool_selected( tool_id: ZoneEditorToolIds.Id ) -> void:
 		_:
 			pass
 	self._deselect_object()
-	self.tool_id = tool_id
+	self.tool_id = selected_tool_id
 
 func on_undo_pressed() -> void:
 	if self._zone_editor_command_handler.undo():
-		self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+		self._zone_minimum_width = int(self._game_manager.zone_manager.calculate_zone_width( self._offset_x ))
 		if self._zone_minimum_width > self._zone_width:
 			self.set_zone_width( self._zone_minimum_width )
 	
 
 func on_redo_pressed() -> void:
 	if self._zone_editor_command_handler.redo():
-		self._zone_minimum_width = self._game_manager.zone_manager.calculate_zone_width( self._offset_x )
+		self._zone_minimum_width = int(self._game_manager.zone_manager.calculate_zone_width( self._offset_x ))
 		if self._zone_minimum_width > self._zone_width:
 			self.set_zone_width( self._zone_minimum_width )
 

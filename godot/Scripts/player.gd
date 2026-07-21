@@ -265,7 +265,8 @@ func _days_since_yyyymmdd( date_str: String ) -> int:
 	
 	var epoch_date = Time.get_unix_time_from_datetime_dict( date )
 	
-	var delta = ( epoch_now - epoch_date ) / ( 24*60*60 )
+	@warning_ignore("integer_division")
+	var delta = int(( epoch_now - epoch_date ) / ( 24*60*60 ))
 	
 	
 	return delta

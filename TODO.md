@@ -15,10 +15,17 @@
 
 ## ToDo
 
+- [ ] Cleanup: in_game_pause_menu.gd:83 - `settings_button` in `_update_buttons()`
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 - [ ] Steam: Opt-in to online features?
 
 - [ ] Steam: Add opt-in for steam input
+- [ ] Move Player to rust, and implement Serializer for direct use
+- [ ] Steam: Refactor leaderboards, and maybe extract into shared
+- [ ] Cleanup: Remove or fix PerformanceMonitor, etc
+- [ ] Cleanup: Research replacing Script constants in main.gd
+
+- [ ] Cleanup: Improve pause handling, once more
 
 ## Done
 
@@ -26,6 +33,7 @@
 ### 2026-07-21
 #### 26E001
 - [x] Update to godot 4.7
+- [x] Clean up warnings
 
 ### 2025-12-20
 #### OFFSTREAM

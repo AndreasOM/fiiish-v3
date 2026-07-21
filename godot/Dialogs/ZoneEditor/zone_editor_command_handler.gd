@@ -57,10 +57,10 @@ func add_command_spawn( crc: int, position: Vector2, rotate_degrees: float ) -> 
 	self.add_command( command )
 
 class ZoneEditorCommand:
-	func run(zone_manager: ZoneManager) -> bool:
+	func run(_zone_manager: ZoneManager) -> bool:
 		return false
 	
-	func undo(zone_manager: ZoneManager) -> bool:
+	func undo(_zone_manager: ZoneManager) -> bool:
 		return false
 	
 class ZoneEditorCommandDelete:

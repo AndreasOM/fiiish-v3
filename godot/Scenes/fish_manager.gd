@@ -33,7 +33,7 @@ func _on_fish_state_changed( state: Fish.State ) -> void:
 		_:
 			pass
 
-func _on_fish_request_respawn( fish: Fish ) -> void:
+func _on_fish_request_respawn( _fish: Fish ) -> void:
 #	fish._goto_respawning()
 	pass
 	

@@ -60,5 +60,5 @@ func _on_pressed() -> void:
 	var index = self._selectable_indices[ selectable_index ]
 	
 	var id = self.entity_config_manager.get_id_by_index( index )
-	var ec = self.entity_config_manager.get_entry( id )
+##	var ec = self.entity_config_manager.get_entry( id )
 	self.entity_changed.emit( id )

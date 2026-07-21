@@ -104,7 +104,7 @@ func _despawn_offscreen_pickups() -> void:
 
 
 func _process_fish_attraction( delta: float ) -> void:
-	var pa1 = PerformanceArea.new( "ProcessFishAttraction" )
+	var _pa1 = PerformanceArea.new( "ProcessFishAttraction" )
 	for fi in %Fishes.get_children():
 		var f = fi as Fish
 		if f == null:
@@ -125,7 +125,7 @@ func _process_fish_attraction( delta: float ) -> void:
 			var ls = delta_pos.length_squared()
 			
 			if ls < pickup_range_sqr:
-				var pa2 = PerformanceArea.new( "Collect" )
+				var _pa2 = PerformanceArea.new( "Collect" )
 				p.collect()
 				match p.effect():
 					PickupEffectIds.Id.MAGNET:

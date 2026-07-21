@@ -111,10 +111,10 @@ func _on_settings_button_pressed() -> void:
 	## %SettingDialog.toggle_fade( 0.3 )
 	self._dialog_manager.toggle_dialog( DialogIds.Id.SETTING_DIALOG, 0.3 )
 
-func _on_pause_toggle_button_toggled( _state: ToggleButtonContainer.ToggleState ) -> void:
+func _on_pause_toggle_button_toggled( _new_state: ToggleButtonContainer.ToggleState ) -> void:
 	toggle_pause()
 
-func _on_pause_toggle_button_toggle_requested(state: ToggleButtonContainer.ToggleState) -> void:
+func _on_pause_toggle_button_toggle_requested( _new_state: ToggleButtonContainer.ToggleState) -> void:
 	toggle_pause()
 	
 func _on_zone_changed( _zone ) -> void:
@@ -142,7 +142,7 @@ func _on_settings_changed() -> void:
 	self._update_main_menu_button( self._dialog_manager.game.get_state() )
 	self._update_buttons()
 
-func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
+func _on_pause_state_changed( pause_state: PauseManager.PauseState, _reason: PauseManager.PauseReason ) -> void:
 	match pause_state:
 		PauseManager.PauseState.PAUSED:
 			# Only save focus if we haven't already saved it

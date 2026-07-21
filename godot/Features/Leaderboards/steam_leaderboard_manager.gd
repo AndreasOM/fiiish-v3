@@ -7,9 +7,9 @@ class LeaderboardConfig:
 	var steam_name: String
 	var name: String
 	
-	func _init( steam_name: String, name: String ):
-		self.steam_name = steam_name
-		self.name = name
+	func _init( initial_steam_name: String, leaderboard_name: String ):
+		self.steam_name = initial_steam_name
+		self.name = leaderboard_name
 	
 var LEADERBOARD_MAPPINGS: Dictionary[ LeaderboardTypes.Type, LeaderboardConfig ] = {
 	LeaderboardTypes.Type.STEAM_SINGLE_RUN_COINS:		LeaderboardConfig.new(
@@ -36,17 +36,17 @@ var _download_entries_in_flight: DownloadEntriesRequest = null
 
 class SendScoreRequest:
 	func _init( 
-			score: int,
-			keep_best: bool,
-			details: Array[ int ],
+			i_score: int,
+			i_keep_best: bool,
+			i_details: Array[ int ],
 			# leaderboard_handle: int
-			leaderboard_name: String
+			i_leaderboard_name: String
 	) -> void:
-		self.score = score
-		self.keep_best = keep_best
-		self.details = details
+		self.score = i_score
+		self.keep_best = i_keep_best
+		self.details = i_details
 		# self.leaderboard_handle = leaderboard_handle
-		self.leaderboard_name = leaderboard_name
+		self.leaderboard_name = i_leaderboard_name
 		
 	var score: int
 	var keep_best: bool
@@ -162,19 +162,19 @@ func _refresh_leaderboards( leaderboard_name: String ) -> void:
 	# 2 <- LEADERBOARD_DATA_REQUEST_FRIENDS
 #			self._refresh_leaderboard( leaderboard_name, 2 )
 	
-func _refresh_leaderboard( name: String, data_request_type: int = 0 ) -> void:
-	var l: SteamLeaderboard = self._leaderboards.get( name, null )
+func _refresh_leaderboard( leaderboard_name: String, data_request_type: int = 0 ) -> void:
+	var l: SteamLeaderboard = self._leaderboards.get( leaderboard_name, null )
 	if l == null:
 		return
 		
 	var r = DownloadEntriesRequest.new()
 	
-	r.leaderboard_name = name
+	r.leaderboard_name = leaderboard_name
 	r.start_index = 0
 	r.end_index = 14
 	r.data_request_type = data_request_type
 	# l.downloadLeaderboardEntries(start_index, end_index, data_request_type)
-	print("[SteamLeaderboard] Request refresh of %s" % [ name ])
+	print("[SteamLeaderboard] Request refresh of %s" % [ leaderboard_name ])
 	self._pending_leaderboards_to_download.push_back( r )
 	
 func _process(delta: float) -> void:
@@ -230,9 +230,9 @@ func get_leaderboard( type: LeaderboardTypes.Type, default: Leaderboard = null )
 	if config == null:
 		return default
 		
-	var name = config.steam_name
+	var leaderboard_name = config.steam_name
 		
-	var l: SteamLeaderboard = self._leaderboards.get( name, null )
+	var l: SteamLeaderboard = self._leaderboards.get( leaderboard_name, null )
 	if l == null:
 		return default
 		

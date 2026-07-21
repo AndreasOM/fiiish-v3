@@ -7,7 +7,7 @@ func _ready() -> void:
 	VersionInfo.print()
 	# get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	print_rich("[color=green]loading _process() ->[/color]")
 	if self._load:
 		self._load = false

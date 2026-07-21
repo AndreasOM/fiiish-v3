@@ -26,7 +26,7 @@ func set_cover( c: bool ) -> void:
 	cover = c
 	self._needs_relayout = true
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !self._needs_relayout:
 		return
 	if self.texture == null:
@@ -46,20 +46,20 @@ func _process(delta: float) -> void:
 
 	var scale_x = ww / 1920.0
 	var scale_y = wh / 1080.0
-	var scale = 1.0
+	var new_scale = 1.0
 	if scale_x >= scale_y:
-		scale = scale_y
+		new_scale = scale_y
 		scale_x /= scale_y
 		scale_y = 1.0
 	else:
-		scale = scale_x
+		new_scale = scale_x
 		scale_y /= scale_x
 		scale_x = 1.0
 #
 	if !Engine.is_editor_hint():
 		print("scale_x: ", scale_x)
 		print("scale_y: ", scale_y)
-		print("scale  : ", scale)
+		print("scale  : ", new_scale)
 
 	
 	var img_scale = 1.0
@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 		var ish = wh / float(ih)
 		var isw = ww / float(iw)
 		img_scale = max(ish,isw)
-		img_scale /= scale
+		img_scale /= new_scale
 		iw *= img_scale
 		ih *= img_scale
 		print("img_scale  : ", img_scale)

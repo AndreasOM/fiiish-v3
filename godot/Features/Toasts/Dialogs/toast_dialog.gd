@@ -70,7 +70,7 @@ func add_simple_text_toast( text: String ) -> SimpleTextToast:
 	stt.text = text
 	return stt
 	
-func add_toast( text: String ) -> void:
+func add_toast( _text: String ) -> void:
 	var cr = ColorRect.new()
 	cr.custom_minimum_size = Vector2( 640, 64 + randi_range( 0, 256 ) )
 	cr.color = Color.HOT_PINK
@@ -80,7 +80,7 @@ func add_toast( text: String ) -> void:
 	self._queued_toasts.push_back( cr )
 	print("Queued toast")
 	
-func _process( delta: float ) -> void:
+func _process( _delta: float ) -> void:
 	if !self._queued_toasts.is_empty():
 		var tc = self.toast_container.get_child_count()
 		if tc < self.max_toasts:

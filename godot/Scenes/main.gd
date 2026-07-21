@@ -15,7 +15,7 @@ const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.
 @onready var dialog_manager: DialogManager = %DialogManager
 @onready var steam_leaderboard_manager: SteamLeaderboardManager = %SteamLeaderboardManager
 
-var _was_paused_before_focus_was_lost: bool = false
+## var _was_paused_before_focus_was_lost: bool = false
 
 var _steam_input_handles: Dictionary = {}
 var _last_action_set: String = ""
@@ -263,22 +263,23 @@ func _update_action_set( state: Game.State ) -> void:
 					&& !SteamWrapper.isSteamRunning()
 			):
 				return
-			
-				#var action_set_handle = SteamWrapper.getActionSetHandle( "Set_Swim" )
-				var action_set_handle = SteamWrapper.getActionSetHandle( action_set_name )
-				# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
-				#if action_set_handle != 0:
-				# Events.broadcast_global_message("ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ])
-				Events.broadcast_developer_message(
-					DeveloperMessageDebug.new(
-						"ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ]
-					)
-				)
-				for k in self._steam_input_handles.keys():
-					var h = self._steam_input_handles.get( k, false )
-					if h == false:
-						continue
-					SteamWrapper.activateActionSet( k, action_set_handle )
+
+		var _use_reason = reason
+###				#var action_set_handle = SteamWrapper.getActionSetHandle( "Set_Swim" )
+###				var action_set_handle = SteamWrapper.getActionSetHandle( action_set_name )
+###				# print("action_set_handle %d <- %s" % [ action_set_handle, action_set_name ])
+###				#if action_set_handle != 0:
+###				# Events.broadcast_global_message("ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ])
+###				Events.broadcast_developer_message(
+###					DeveloperMessageDebug.new(
+###						"ash %d <- %s [%s]" % [ action_set_handle, action_set_name, reason ]
+###					)
+###				)
+###				for k in self._steam_input_handles.keys():
+###					var h = self._steam_input_handles.get( k, false )
+###					if h == false:
+###						continue
+###					SteamWrapper.activateActionSet( k, action_set_handle )
 	else:
 		print("Update Action Set without Steam -> do nothing")
 	
@@ -289,26 +290,26 @@ func _on_game_state_changed( state: Game.State ) -> void:
 func _fix_startup_pause_state( state: Game.State ) -> void:
 	match state:
 		Game.State.PREPARING_FOR_START, Game.State.WAITING_FOR_START:
-			print("NEW PAUSE SYSTEM: _fix_startup_pause_state triggered for %s" % game.state_to_name(state))
+			print("NEW PAUSE SYSTEM: _fix_startup_pause_state triggered for %s" % Game.state_to_name(state))
 			var pause_manager = %FiiishPauseManager.get_pause_manager()
 			print("NEW PAUSE SYSTEM: requesting player resume to fix startup artifacts")
 			pause_manager.request_player_resume()
 		_:
-			print("NEW PAUSE SYSTEM: _fix_startup_pause_state called with state: %s" % game.state_to_name(state))
+			print("NEW PAUSE SYSTEM: _fix_startup_pause_state called with state: %s" % Game.state_to_name(state))
 
-func _on_pause_state_changed( pause_state: PauseManager.PauseState, reason: PauseManager.PauseReason ) -> void:
+func _on_pause_state_changed( _pause_state: PauseManager.PauseState, _reason: PauseManager.PauseReason ) -> void:
 	var state = self.game.get_state()
 	self._update_action_set( state )
 
 func _on_player_pause_toggle_requested() -> void:
 	%FiiishPauseManager.toggle_player_pause()
 
-func _on_dialog_opened( id: DialogIds.Id ) -> void:
+func _on_dialog_opened( _id: DialogIds.Id ) -> void:
 	# if id == DialogIds.Id.MAIN_MENU_DIALOG:
 		var state = self.game.get_state()
 		self._update_action_set( state )
 
-func _on_dialog_closed( id: DialogIds.Id ) -> void:
+func _on_dialog_closed( _id: DialogIds.Id ) -> void:
 	# if id == DialogIds.Id.MAIN_MENU_DIALOG:
 		var state = self.game.get_state()
 		self._update_action_set( state )
@@ -498,7 +499,7 @@ func open_initial_dialogs() -> void:
 	# %DialogManager.open_dialog( DialogIds.Id.MINI_MAP_DIALOG, 0.0 )
 	%DialogManager.open_dialog( DialogIds.Id.IN_GAME_PAUSE_DIALOG, 0.0 )
 	# %DialogManager.open_dialog( DialogIds.Id.ACHIEVEMENTS_DIALOG, 0.3 )
-	var toast_dialog: ToastDialog = %DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
+	var _toast_dialog: ToastDialog = %DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
 #	toast_dialog.add_simple_text_toast( "Started..." )
 #	Events.broadcast_global_message("Game Started!")
 	
@@ -515,7 +516,7 @@ func _process(_delta: float) -> void:
 #	print_rich("[color=yellow]main - _process ->[/color]")
 
 	PerformanceMonitor.next_frame()
-	var pa1 = PerformanceArea.new( "MainProcess" )
+	var _pa1 = PerformanceArea.new( "MainProcess" )
 	#PerformanceMonitor.draw( $UI/Performance/Performance2 )
 	var state = self.game.get_state()
 	self._update_action_set( state )
@@ -565,10 +566,10 @@ func _on_settings_changed() -> void:
 	else:
 		%DialogManager.close_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.3 )
 		
-	var game: Game = $Game as Game
-	if game == null:
+#	var game: Game = $Game as Game
+	if self.game == null:
 		return
-	var settings := game.get_settings()
+	var settings := self.game.get_settings()
 	if settings == null:
 		return
 	if settings.dev_is_developer_overlay_enabled():

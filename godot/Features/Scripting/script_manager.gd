@@ -47,7 +47,7 @@ func wait_seconds( s: float ) -> void:
 func set_game_speed( speed: float ) -> void:
 	print("delta speed: %f" % speed)
 	Engine.time_scale = speed
-	Engine.physics_ticks_per_second = 60 * speed
+	Engine.physics_ticks_per_second = int(60.0 * speed)
 	# Engine.max_physics_steps_per_frame
 
 	pass

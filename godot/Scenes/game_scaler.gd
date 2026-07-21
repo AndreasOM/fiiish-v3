@@ -19,7 +19,7 @@ func _fix_size() -> void:
 	var sx = screensize.x/1920.0
 	var sy = screensize.y/1080.0
 	var target_aspect = 1920.0/1080.0
-	var tx = 1080.0 * target_aspect * sy
+##	var tx = 1080.0 * target_aspect * sy
 	#print("%dx%d %f, %f %f -> tx %f" % [ screensize.x, screensize.y, a, sx, sy, tx])
 	
 	# var scale = screensize.y/1024.0
