@@ -50,7 +50,6 @@ jobs:
         run: |
           case ${{ inputs.build_type }} in
             ios*)
-##              echo "runner=macos-14" >> "$GITHUB_OUTPUT"
               echo "runner=macos-26" >> "$GITHUB_OUTPUT"
               ;;
             macos*)
