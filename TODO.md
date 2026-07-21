@@ -26,6 +26,7 @@
 - [ ] Cleanup: Research replacing Script constants in main.gd
 
 - [ ] Cleanup: Improve pause handling, once more
+- [ ] Debug: Mouse cursor disappearing
 
 ## Done
 
