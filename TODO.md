@@ -18,7 +18,14 @@
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 - [ ] Steam: Opt-in to online features?
 
+- [ ] Steam: Add opt-in for steam input
+
 ## Done
+
+
+### 2026-07-21
+#### 26E001
+- [x] Update to godot 4.7
 
 ### 2025-12-20
 #### OFFSTREAM

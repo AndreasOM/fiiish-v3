@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://iw1xv475xr8k"]
+[gd_resource type="Theme" format=3 uid="uid://iw1xv475xr8k"]
 
 [ext_resource type="FontFile" uid="uid://bb2pts3o32ebo" path="res://Fonts/all_things_pink.ttf" id="1_wkw6o"]
 [ext_resource type="FontFile" uid="uid://by1vsru6pkq7c" path="res://Fonts/SF_Arch_Rival.ttf" id="3_gcoww"]
