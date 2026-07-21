@@ -50,7 +50,8 @@ jobs:
         run: |
           case ${{ inputs.build_type }} in
             ios*)
-              echo "runner=macos-14" >> "$GITHUB_OUTPUT"
+##              echo "runner=macos-14" >> "$GITHUB_OUTPUT"
+              echo "runner=macos-26" >> "$GITHUB_OUTPUT"
               ;;
             macos*)
               echo "runner=macos-26" >> "$GITHUB_OUTPUT"
@@ -260,11 +261,11 @@ jobs:
           # || exit 0
 
 # [ --- iOS only ---
-      - name: Switch Xcode Version
-        if: ${{ env.TARGET == 'ios' }}
-        run: |
-          sudo xcode-select --switch /Applications/Xcode_16.2.0.app
-          xcode-select --print-path
+##      - name: Switch Xcode Version
+##        if: ${{ env.TARGET == 'ios' }}
+##        run: |
+##          sudo xcode-select --switch /Applications/Xcode_16.2.0.app
+##          xcode-select --print-path
 
       - name: Patch version
         if: ${{ env.TARGET == 'ios' }}

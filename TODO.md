@@ -15,6 +15,7 @@
 
 ## ToDo
 
+- [ ] Extract launch control.
 - [ ] Cleanup: in_game_pause_menu.gd:83 - `settings_button` in `_update_buttons()`
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
 - [ ] Steam: Opt-in to online features?
