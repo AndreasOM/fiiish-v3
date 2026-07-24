@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cj86n8epk284g"]
+[gd_scene format=3 uid="uid://cj86n8epk284g"]
 
 [ext_resource type="Script" uid="uid://dqghm7lguf4fi" path="res://Scenes/loading.gd" id="1_fim2r"]
 
-[node name="Loading" type="Control"]
+[node name="Loading" type="Control" unique_id=1450733092]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
