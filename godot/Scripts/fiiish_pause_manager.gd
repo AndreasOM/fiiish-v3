@@ -50,6 +50,12 @@ func _on_focus_gained():
 	print("NEW PAUSE SYSTEM: focus_entered triggered")
 	_pause_manager.notify_focus_gained()
 
+func disable_autopause_on_focus_lost() -> void:
+	self._pause_manager.disable_autopause_on_focus_lost()
+
+func enable_autopause_on_focus_lost() -> void:
+	self._pause_manager.enable_autopause_on_focus_lost()
+
 # Public API
 func toggle_player_pause() -> void:
 	_pause_manager.toggle_player_pause()

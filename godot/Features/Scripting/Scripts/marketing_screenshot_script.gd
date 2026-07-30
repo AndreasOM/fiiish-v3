@@ -8,18 +8,26 @@ func run( script_manager: ScriptManager ) -> bool:
 	DirAccess.make_dir_recursive_absolute("user://screenshots/")
 
 	const ScreenSizes = [
-		Vector2i( 2868*0.5, 1320*0.5 ), # iPhone 6.9" *0.5
+		#Vector2i( 2778, 1284 ), # iPhone 6.5"
+		Vector2i( 2732, 2048 ), # iPad 13"
+		#Vector2i( 2868*0.5, 1320*0.5 ), # iPhone 6.9" *0.5
 		#Vector2i( 2868, 1320 ), # iPhone 6.9"
 		# 1432 × 657 pixels
 		#Vector2i( 2688, 1242 ), # iPhone 6.5"
 		#Vector2i( 2208, 1242 ), # iPhone 5.5"		
 	]
 	
+	script_manager.disable_autopause_on_focus_lost()
+	
 	for ss in ScreenSizes:
 		print("MarketingScreenshotScript - screen size: ", ss)
 		script_manager.set_screenshot_prefix("user://screenshots/fiiish-v3-marketing-%dx%d" % [ ss.x, ss.y ])
 		get_window().size = ss
 		
+		var new_size = get_window().size
+		if new_size != ss:
+			print_rich("[color=orange] New Window Size %s != %s" %[ new_size, ss ])
+			get_tree().quit( 1 )
 		
 		await self.take_screenshots( script_manager )
 	

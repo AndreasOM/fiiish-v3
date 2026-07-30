@@ -230,3 +230,13 @@ func select_achievement( id: String ) -> void:
 		
 	if d.has_method("select_achievement"):
 		d.select_achievement( id )
+
+func disable_autopause_on_focus_lost() -> void:
+	var fpm: FiiishPauseManager = self.game.get_fiiish_pause_manager()
+	if fpm != null:
+		fpm.disable_autopause_on_focus_lost()
+	
+func enable_autopause_on_focus_lost() -> void:
+	var fpm: FiiishPauseManager = self.game.get_fiiish_pause_manager()
+	if fpm != null:
+		fpm.enable_autopause_on_focus_lost()

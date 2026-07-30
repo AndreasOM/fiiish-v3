@@ -12,6 +12,10 @@
 
 ## Next
 
+- [ ] Disable menu for marketing screenshots
+- [ ] Add 'classic' for marketing screenshots
+- [ ] Create privacy policy for iOS AppStore
+
 
 ## ToDo
 
@@ -31,6 +35,10 @@
 
 ## Done
 
+
+### 2026-07-30
+#### 26E0002
+- [x] iOS marketing screenshots in 2778×1284, 2732x2048
 
 ### 2026-07-21
 #### 26E001
