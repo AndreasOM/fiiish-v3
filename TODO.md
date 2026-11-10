@@ -19,6 +19,7 @@
 
 ## ToDo
 
+- [ ] Bug: Block `8001_Empty` (d=0) and `8002_Trailer` (d=100) in `_pick_next_zone` - both are picked in normal runs
 - [ ] Extract launch control.
 - [ ] Cleanup: in_game_pause_menu.gd:83 - `settings_button` in `_update_buttons()`
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
