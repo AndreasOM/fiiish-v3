@@ -37,6 +37,13 @@
 ## Done
 
 
+### 2026-11-11
+#### OFFSTREAM
+- [x] Task: Add 15 martin classic zones (3001-3015)
+- [x] Task: Add 4 martin starter zones (3016-3019) at difficulty 2-7
+- [x] Task: Trim zone lead in/out for a connected world feel
+- [x] Task: Add docs/ZONE_RULES.md zone design checklist
+
 ### 2026-07-30
 #### 26E0002
 - [x] iOS marketing screenshots in 2778×1284, 2732x2048
