@@ -53,6 +53,12 @@
 ## Done
 
 
+### 2026-11-12
+#### OFFSTREAM
+- [x] Task: Add docs/ECONOMY_RULES.md economy design (pricing, capstone lock, Legacy, Ascension, migration)
+- [x] Task: Add docs/RELEASE.md release flow and versioning rules
+- [x] Task: Add 3 martin teaser zones to the demo (D0025-D0027, half the coins)
+
 ### 2026-11-11
 #### OFFSTREAM
 - [x] Task: Add 15 martin classic zones (3001-3015)
