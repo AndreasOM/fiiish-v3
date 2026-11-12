@@ -20,6 +20,12 @@
 ## ToDo
 
 - [ ] Bug: Block `8001_Empty` (d=0) and `8002_Trailer` (d=100) in `_pick_next_zone` - both are picked in normal runs
+- [ ] Task: Upload gate via floating tags `classic` and `full`
+	- [ ] Build: write `commit.txt` into the archive (next to `version.txt`)
+	- [ ] Uploads: compare `commit.txt` with the floating tag (`*-classic`/`*-demo-classic` → `classic`, v3 builds → `full`), stop on mismatch
+	- [ ] Later: moving the floating tag triggers the upload
+- [ ] Bug: Build picks the wrong version when a commit has two tags (dev + public, e.g. v3.15.22 + v3.16.22). `update_version_info.sh` writes both ("v3.16.22 v3.15.22"), `build.yaml` sorts as text (v3.9.24 beats v3.10.0). Pick the public (even) tag, compare numerically.
+- [ ] Bug: macOS and Windows builds carry no version (empty `short_version`/`version` and `file_version`/`product_version` in export_presets.cfg; stale `config/version="1.0.1"` in project.godot)
 - [ ] Extract launch control.
 - [ ] Cleanup: in_game_pause_menu.gd:83 - `settings_button` in `_update_buttons()`
 - [ ] Task: Add paging/scrolling (via keys!) to Leaderboard
@@ -33,6 +39,16 @@
 
 - [ ] Cleanup: Improve pause handling, once more
 - [ ] Debug: Mouse cursor disappearing
+
+## LATER
+
+- [ ] Release scripts: stricter version handling
+	- [ ] Build trigger and version detection: only `v<number>.<number>.<number>` tags (floating tags `classic`/`full` must never trigger a build or count as a version)
+	- [ ] Refuse tags that don't match `v3.<minor>.<patch>`
+	- [ ] Uploads: `0.0.0` (untagged) builds only with an explicit opt-in (e.g. an `allow_untagged` input), never by accident. Useful for quick test iterations.
+	- [ ] Steam/App Store: warn when uploading an odd (dev) version
+	- [ ] "Latest" pointer: record the tag, show it in the upload summary
+- [ ] Steam upload without Steam Guard prompts: store steamcmd's `config/config.vdf` (from one local login of the build account) as a GitHub secret and restore it before login. Refresh when Steam asks again.
 
 ## Done
 
