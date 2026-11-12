@@ -20,6 +20,9 @@
 ## ToDo
 
 - [ ] Bug: Block `8001_Empty` (d=0) and `8002_Trailer` (d=100) in `_pick_next_zone` - both are picked in normal runs
+- [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot`). The Steam job logs in after running a third-party action.
+- [ ] Security (zizmor): pass secrets via `env:` instead of `${{ secrets.* }}` inside `run:` (AWS keys, steamcmd login)
+- [ ] Task: Raise iOS minimum version from 14.0 to 15.0 (`application/min_ios_version` in export_presets.cfg). Apple requires 15.0+ for uploads from April 2027.
 - [ ] Task: Upload gate via floating tags `classic` and `full`
 	- [ ] Build: write `commit.txt` into the archive (next to `version.txt`)
 	- [ ] Uploads: compare `commit.txt` with the floating tag (`*-classic`/`*-demo-classic` → `classic`, v3 builds → `full`), stop on mismatch
@@ -48,6 +51,10 @@
 	- [ ] Uploads: `0.0.0` (untagged) builds only with an explicit opt-in (e.g. an `allow_untagged` input), never by accident. Useful for quick test iterations.
 	- [ ] Steam/App Store: warn when uploading an odd (dev) version
 	- [ ] "Latest" pointer: record the tag, show it in the upload summary
+- [ ] Security (zizmor, offline run 2026-11-12: 395 findings, mostly repeats)
+	- [ ] Template injection: move `${{ … }}` used in `run:` into `env:` and use `"$VAR"` (worst: versions read from `version.txt` in S3 archives, `inputs.s3_archive`). `zizmor --fix` handles many.
+	- [ ] Add `permissions: contents: read` to every workflow, widen only where needed
+	- [ ] `actions/checkout`: `persist-credentials: false`
 - [ ] Steam upload without Steam Guard prompts: store steamcmd's `config/config.vdf` (from one local login of the build account) as a GitHub secret and restore it before login. Refresh when Steam asks again.
 
 ## Done
