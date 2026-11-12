@@ -41,6 +41,8 @@ permissions:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    env:
+      INPUT_BUILD_TYPE: ${{ inputs.build_type }}
     outputs:
       runner: ${{ steps.choose_runner.outputs.runner }}    
     defaults:
@@ -51,7 +53,7 @@ jobs:
       - name: Choose runner
         id: choose_runner
         run: |
-          case ${{ inputs.build_type }} in
+          case "${INPUT_BUILD_TYPE}" in
             ios*)
               echo "runner=macos-26" >> "$GITHUB_OUTPUT"
               ;;
@@ -65,6 +67,10 @@ jobs:
   build:
     needs: [prepare]
     runs-on: ${{ needs.prepare.outputs.runner }}
+    env:
+      INPUT_BUILD_TYPE: ${{ inputs.build_type }}
+      PROJECT: ${{ vars.PROJECT }}
+      BUILD_RUNNER: ${{ needs.prepare.outputs.runner }}
     outputs:
       s3_archive: ${{ steps.upload_artifact.outputs.s3_archive }}
     defaults:
@@ -88,12 +94,11 @@ jobs:
 
       - name: Create variables
         run: |
-          PROJECT=${{ vars.PROJECT }}
           COMMIT_HASH=$(git rev-parse --short HEAD)
           COMMIT_DATE=$(git show -s --format=%ci HEAD|cut -b1-10)
-          BUILD_TYPE=${{ inputs.build_type }}
+          BUILD_TYPE="${INPUT_BUILD_TYPE}"
 
-          case ${{ inputs.build_type }} in
+          case "${INPUT_BUILD_TYPE}" in
             macos*)
               echo "TARGET=macos" >> "$GITHUB_ENV"
               ;;
@@ -115,13 +120,13 @@ jobs:
               ;;
           esac
 
-          case ${{ inputs.build_type }} in
+          case "${INPUT_BUILD_TYPE}" in
             *-classic)
               echo "BINARY_NAME=fiiish-classic" >> "$GITHUB_ENV"
               echo "LOADINGSCREEN=loadingscreen-classic.webp" >> "$GITHUB_ENV"
               ;;
             *)
-              echo "BINARY_NAME=${{ vars.PROJECT }}" >> "$GITHUB_ENV"
+              echo "BINARY_NAME=${PROJECT}" >> "$GITHUB_ENV"
               echo "LOADINGSCREEN=loadingscreen.webp" >> "$GITHUB_ENV"
               ;;
           esac
@@ -172,7 +177,7 @@ jobs:
 
       - name: Set binary extension
         run: |
-          case ${{ inputs.build_type }} in
+          case "${INPUT_BUILD_TYPE}" in
             macos*)
               echo "BINARY_EXTENSION=.app" >> "$GITHUB_ENV"
               ;;
@@ -208,11 +213,11 @@ jobs:
 
       - name: Fix version info
         run: |
-          .github/helpers/update_version_info.sh ${{ env.BUILD_TYPE }}
+          .github/helpers/update_version_info.sh ${BUILD_TYPE}
 
       - name: Install GraphicsMagick
         run: |
-          if [[ ${{ needs.prepare.outputs.runner }} == macos-* ]]
+          if [[ ${BUILD_RUNNER} == macos-* ]]
           then
             brew install graphicsmagick
           else
@@ -223,11 +228,11 @@ jobs:
       - name: Bake Version into Splash
         run: |
           LEFT_TEXT=""
-          if [[ ${{ env.VERSION }} == "0.0.0" ]]
+          if [[ ${VERSION} == "0.0.0" ]]
           then
-            LEFT_TEXT="${{ env.COMMIT_HASH }}"
+            LEFT_TEXT="${COMMIT_HASH}"
           fi
-          RIGHT_TEXT="v${{ env.VERSION }}"
+          RIGHT_TEXT="v${VERSION}"
           gm convert \
             -verbose \
             -fill "#2dbac9" \
@@ -235,7 +240,7 @@ jobs:
             -font godot/Fonts/all_things_pink.ttf \
             -draw "text 1520,1040 '${RIGHT_TEXT}'" \
             -draw "text 300,1040 '${LEFT_TEXT}'" \
-            godot/Textures/Loadingscreen/${{ env.LOADINGSCREEN }} \
+            godot/Textures/Loadingscreen/${LOADINGSCREEN} \
             godot/Textures/Loadingscreen/loadingscreen-with-version.png
 
       - name: Import project
@@ -252,12 +257,12 @@ jobs:
       - name: Export project
         run: |
           cd godot
-          mkdir -p export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
+          mkdir -p export/${PROJECT}-${BUILD_TYPE}
           godot \
             --headless \
             --export-release \
-            ${{ env.BUILD_TYPE }} \
-            export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY_NAME }}${{ env.BINARY_EXTENSION }} \
+            ${BUILD_TYPE} \
+            export/${PROJECT}-${BUILD_TYPE}/${BINARY_NAME}${BINARY_EXTENSION} \
             --quit #
 
           # || exit 0
@@ -272,8 +277,8 @@ jobs:
       - name: Patch version
         if: ${{ env.TARGET == 'ios' }}
         run: |
-          agvtool new-marketing-version ${{ env.VERSION }}
-          agvtool new-version -all ${{ env.BUILD_NUMBER }}
+          agvtool new-marketing-version ${VERSION}
+          agvtool new-version -all ${BUILD_NUMBER}
 
         working-directory: godot/export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
 
@@ -281,9 +286,9 @@ jobs:
         if: ${{ env.TARGET == 'ios' }}
         run: |
           xcodebuild \
-            -project ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY_NAME }}${{ env.BINARY_EXTENSION }} \
+            -project ${PROJECT}-${BUILD_TYPE}/${BINARY_NAME}${BINARY_EXTENSION} \
             -sdk iphoneos \
-            -scheme "${{ env.BINARY_NAME }}" \
+            -scheme "${BINARY_NAME}" \
             -configuration "Release" \
             build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
@@ -293,10 +298,10 @@ jobs:
         if: ${{ env.TARGET == 'ios' }}
         run: |
           xcodebuild \
-            -archivePath "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}.xcarchive" \
-            -project ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY_NAME }}${{ env.BINARY_EXTENSION }} \
+            -archivePath "${PROJECT}-${BUILD_TYPE}.xcarchive" \
+            -project ${PROJECT}-${BUILD_TYPE}/${BINARY_NAME}${BINARY_EXTENSION} \
             -sdk iphoneos \
-            -scheme "${{ env.BINARY_NAME }}" \
+            -scheme "${BINARY_NAME}" \
             -configuration "Release" \
             archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
@@ -305,9 +310,9 @@ jobs:
       - name: Move Archive into Export
         if: ${{ env.TARGET == 'ios' }}
         run: |
-          mv ${{ env.PROJECT }}-${{ env.BUILD_TYPE }} "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}-godot"
-          mkdir -p ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
-          mv "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}.xcarchive" "${{ env.PROJECT }}-${{ env.BUILD_TYPE }}"
+          mv ${PROJECT}-${BUILD_TYPE} "${PROJECT}-${BUILD_TYPE}-godot"
+          mkdir -p ${PROJECT}-${BUILD_TYPE}
+          mv "${PROJECT}-${BUILD_TYPE}.xcarchive" "${PROJECT}-${BUILD_TYPE}"
 
         working-directory: godot/export
 
@@ -319,15 +324,15 @@ jobs:
         run: |
           cd godot/export
           # :TODO: handle macOS (-> .app/Resources)
-          cp ../steam_manifest.vdf ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/
+          cp ../steam_manifest.vdf ${PROJECT}-${BUILD_TYPE}/
 
       - name: Steam - Add Action Manifest - macOS
         if: ${{ env.TARGET == 'macos' }}  # :TODO: add "WITH_STEAM_SUPPORT"
         run: |
           cd godot/export
           # :TODO: handle macOS (-> .app/Resources)
-          mkdir -p ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY_NAME }}${{ env.BINARY_EXTENSION }}/Contents/Resources
-          cp ../steam_manifest.vdf ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/${{ env.BINARY_NAME }}${{ env.BINARY_EXTENSION }}/Contents/Resources/
+          mkdir -p ${PROJECT}-${BUILD_TYPE}/${BINARY_NAME}${BINARY_EXTENSION}/Contents/Resources
+          cp ../steam_manifest.vdf ${PROJECT}-${BUILD_TYPE}/${BINARY_NAME}${BINARY_EXTENSION}/Contents/Resources/
 
       - name: Check result
         run: |
@@ -337,23 +342,23 @@ jobs:
 ##      - name: Add .itch.toml
 ##        continue-on-error: true
 ##        run: |
-##            cp godot/${{ env.BINARY_NAME }}.itch.toml godot/export/${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/.itch.toml
+##            cp godot/${BINARY_NAME}.itch.toml godot/export/${PROJECT}-${BUILD_TYPE}/.itch.toml
 
       - name: Bundle artifact
         run: |
           cd godot/export
-          echo ${{ env.VERSION }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/version.txt
-          echo ${{ env.BUILD_NUMBER }} > ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}/build_number.txt
-          tar czf ${{ env.ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
-          ARCHIVE_SIZE=$(du -h ${{ env.ARCHIVE_FILE }}|cut -f1)
+          echo ${VERSION} > ${PROJECT}-${BUILD_TYPE}/version.txt
+          echo ${BUILD_NUMBER} > ${PROJECT}-${BUILD_TYPE}/build_number.txt
+          tar czf ${ARCHIVE_FILE} ${PROJECT}-${BUILD_TYPE}
+          ARCHIVE_SIZE=$(du -h ${ARCHIVE_FILE}|cut -f1)
           echo "ARCHIVE_SIZE=${ARCHIVE_SIZE}" >> "$GITHUB_ENV"
 
       - name: Upload artifact
         id: upload_artifact
         run: |
           cd godot/export
-          aws s3 cp ${{ env.ARCHIVE_FILE }} ${{ env.S3_ARCHIVE_FILE }}
-          echo "s3_archive=${{ env.S3_ARCHIVE_FILE }}" >> "$GITHUB_OUTPUT"
+          aws s3 cp ${ARCHIVE_FILE} ${S3_ARCHIVE_FILE}
+          echo "s3_archive=${S3_ARCHIVE_FILE}" >> "$GITHUB_OUTPUT"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -361,8 +366,8 @@ jobs:
 
       - name: Create latest reference
         run: |
-          echo ${{ env.LATEST_CONTENT }} > ${{ env.LATEST_FILE }}
-          aws s3 cp ${{ env.LATEST_FILE }} ${{ env.S3_LATEST_FILE }}
+          echo ${LATEST_CONTENT} > ${LATEST_FILE}
+          aws s3 cp ${LATEST_FILE} ${S3_LATEST_FILE}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -374,12 +379,12 @@ jobs:
           {
             echo "|                     |                                    |"
             echo "| :------------------ | ---------------------------------: |"
-            echo "| PROJECT             | ${{ env.PROJECT }}                 |"
-            echo "| BUILD_TYPE          | ${{ env.BUILD_TYPE }}              |"
-            echo "| COMMIT_HASH         | ${{ env.COMMIT_HASH }}             |"
-            echo "| COMMIT_DATE         | ${{ env.COMMIT_DATE }}             |"
-            echo "| VERSION             | \`${{ env.VERSION }}\`             |"
-            echo "| BUILD_NUMBER        | \`${{ env.BUILD_NUMBER }}\`        |"
-            echo "| S3_ARCHIVE_FILE     | \`${{ env.S3_ARCHIVE_FILE }}\`     |"
-            echo "| ARCHIVE_SIZE        | \`${{ env.ARCHIVE_SIZE }}\`        |"
+            echo "| PROJECT             | ${PROJECT}                 |"
+            echo "| BUILD_TYPE          | ${BUILD_TYPE}              |"
+            echo "| COMMIT_HASH         | ${COMMIT_HASH}             |"
+            echo "| COMMIT_DATE         | ${COMMIT_DATE}             |"
+            echo "| VERSION             | \`${VERSION}\`             |"
+            echo "| BUILD_NUMBER        | \`${BUILD_NUMBER}\`        |"
+            echo "| S3_ARCHIVE_FILE     | \`${S3_ARCHIVE_FILE}\`     |"
+            echo "| ARCHIVE_SIZE        | \`${ARCHIVE_SIZE}\`        |"
           } >> "$GITHUB_STEP_SUMMARY"
