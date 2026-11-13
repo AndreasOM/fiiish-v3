@@ -20,8 +20,9 @@
 ## ToDo
 
 - [ ] Bug: Block `8001_Empty` (d=0) and `8002_Trailer` (d=100) in `_pick_next_zone` - both are picked in normal runs
-- [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot`). The Steam job logs in after running a third-party action.
+- [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot` outside `build.yaml`). The Steam job logs in after running a third-party action. `build.yaml` is clean, use it as the pattern.
 - [ ] Security (zizmor): pass secrets via `env:` instead of `${{ secrets.* }}` inside `run:` (AWS keys, steamcmd login)
+- [ ] Test: run `macos` and `ios` builds by hand once, to check the `build.yaml` env refactor on the macOS/iOS-only steps
 - [ ] Task: Raise iOS minimum version from 14.0 to 15.0 (`application/min_ios_version` in export_presets.cfg). Apple requires 15.0+ for uploads from April 2027.
 - [ ] Task: Upload gate via floating tags `classic` and `full`
 	- [ ] Build: write `commit.txt` into the archive (next to `version.txt`)
@@ -54,17 +55,24 @@
 - [ ] Security (zizmor, offline run 2026-11-12: 395 findings, mostly repeats)
 	- [ ] Template injection: move `${{ … }}` used in `run:` into `env:` and use `"$VAR"` (worst: versions read from `version.txt` in S3 archives, `inputs.s3_archive`). `zizmor --fix` handles many.
 	- [ ] Add `permissions: contents: read` to every workflow, widen only where needed
-	- [ ] `actions/checkout`: `persist-credentials: false`
+	- [ ] `actions/checkout`: `persist-credentials: false`. Later `git fetch` needs `--no-recurse-submodules` (`omg-lib` uses an SSH URL)
+	- [ ] Auditor persona: job names, `concurrency` per shared S3 pointer
+	- [ ] Secrets in GitHub environments (`artifacts`, `appstore`, `steam`), restricted to `main`/`v*` or `classic`/`full`. Also enforces the upload gate.
 - [ ] Steam upload without Steam Guard prompts: store steamcmd's `config/config.vdf` (from one local login of the build account) as a GitHub secret and restore it before login. Refresh when Steam asks again.
 
 ## Done
 
+
+### 2026-11-13
+#### OFFSTREAM
+- [x] Security: `build.yaml` zizmor clean, incl. auditor persona (persist-credentials off, tag fetch skips submodules, job names, one queue per build type)
 
 ### 2026-11-12
 #### OFFSTREAM
 - [x] Task: Add docs/ECONOMY_RULES.md economy design (pricing, capstone lock, Legacy, Ascension, migration)
 - [x] Task: Add docs/RELEASE.md release flow and versioning rules
 - [x] Task: Add 3 martin teaser zones to the demo (D0025-D0027, half the coins)
+- [x] Security: `build.yaml` read-only token, values via `env:` instead of template expansion, actions pinned to commit SHAs
 
 ### 2026-11-11
 #### OFFSTREAM
