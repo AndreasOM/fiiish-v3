@@ -91,7 +91,7 @@ jobs:
 
       - name: Fetch tags
         run: |
-          git fetch origin --tags --force
+          git fetch --no-recurse-submodules origin --tags --force
 
       - name: Create variables
         run: |
