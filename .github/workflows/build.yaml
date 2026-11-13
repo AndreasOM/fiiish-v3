@@ -86,6 +86,7 @@ jobs:
             godot
           fetch-depth: 1
           submodules: true
+          persist-credentials: false
 #          fetch-tags: true # Note: fails when triggered from tag!
 
       - name: Fetch tags
