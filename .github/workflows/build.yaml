@@ -38,8 +38,14 @@ on:
 permissions:
   contents: read
 
+# One build per build type at a time (shared S3 latest pointer). Queue, never cancel.
+concurrency:
+  group: build-${{ inputs.build_type }}
+  cancel-in-progress: false
+
 jobs:
   prepare:
+    name: Prepare
     runs-on: ubuntu-latest
     env:
       INPUT_BUILD_TYPE: ${{ inputs.build_type }}
@@ -65,6 +71,7 @@ jobs:
               ;;
           esac
   build:
+    name: Build
     needs: [prepare]
     runs-on: ${{ needs.prepare.outputs.runner }}
     env:
