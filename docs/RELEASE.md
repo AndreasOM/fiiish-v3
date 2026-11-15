@@ -81,8 +81,10 @@ git push -f origin classic
 
 - **Build:** iOS, macOS, Linux, Windows (`*-classic`). Uploads to S3 and marks it as "latest" per build type. Web and demo builds: run "Build" by hand.
 - **Floating tag:** points at the commit to ship. Uploads check it (planned).
-- **Sign + upload:** signs macOS and iOS. Uploads iOS to App Store Connect, desktop to itch.io.
-- **Steam:** checks that Linux, macOS and Windows have the same version. Build description = `vX.Y.Z`.
+- **Sign + upload:** signs macOS (Developer ID, notarized, stapled) and iOS. Uploads iOS to App Store Connect, desktop to itch.io.
+- **Demo:** run "macOS - Sign" with `macos-demo-classic` by hand before pushing the demo to Steam.
+- **Steam:** checks that Linux, macOS and Windows have the same version. Build description = `vX.Y.Z`. macOS: only the signed build of the latest; fails if it is not signed yet.
+- **Secrets:** after creating or rotating Apple secrets, run "Verify setup".
 - **Go live:** Steamworks: set the build live on the branch. App Store Connect: TestFlight / submit for review.
 - **Announce:** Steam community announcement titled `vX.Y.Z`.
 - Only **even** versions go live for normal users. Dev builds go to test branches or TestFlight at most.
