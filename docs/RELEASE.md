@@ -100,5 +100,6 @@ Frozen, for reference:
 | 2025-10-03 | Announcement  | v3.10.1             |                              |
 | 2025-12-28 | Store release | most likely v3.13.x | odd, from before these rules |
 | 2026-07-30 | Announcement  | v3.15.2             | odd, from before these rules |
+| 2026-11-14 | Announcement  | v3.16.2             | "Content Updates"            |
 
-Next public release: **v3.16.x**.
+Next public release: **v3.16.x** (small changes), **v3.18.x** (big change or new year).
