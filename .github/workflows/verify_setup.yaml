@@ -10,7 +10,8 @@ run-name: 🔍 Verify setup ${{ vars.PROJECT }} by @${{ github.actor }}
 # Apple: the Developer ID .p12 (APPLE_DEVELOPER_ID_CERT, _PASSWORD) must open
 # with its password, use legacy encryption, hold a valid "Developer ID
 # Application" certificate of the team with its key; the notary .p8 must be an
-# EC key, the key and issuer ids well formed.
+# EC key, the key and issuer ids well formed, and the notary API must accept
+# a token signed with it.
 
 on:
   workflow_dispatch:
@@ -108,3 +109,38 @@ jobs:
             bad "issuer id" "want a lowercase UUID, got ${#APPSTORE_ISSUER_ID} characters"
           fi
           exit $fail
+
+      # notarytool talks to the same API; a key that may list submissions may
+      # submit. The ES256 JWT is made with openssl alone: the DER signature is
+      # turned into the raw r||s that JWS wants.
+      - name: Notary API accepts the key
+        env:
+          APP_STORE_API_PRIVATE_KEY: ${{ secrets.APP_STORE_API_PRIVATE_KEY }}
+          APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+        run: |
+          set -euo pipefail
+          row() { echo "| $1 | $2 |" >> "$GITHUB_STEP_SUMMARY"; }
+          d="$(mktemp -d)"; trap 'rm -rf "$d"' EXIT
+          printf '%s' "$APP_STORE_API_PRIVATE_KEY" | base64 -d > "$d/key.p8"
+          b64url() { openssl base64 -A | tr '+/' '-_' | tr -d '='; }
+          # one INTEGER of the DER signature as exactly 32 raw bytes
+          raw32() { local h="${1#00}"; while [ ${#h} -lt 64 ]; do h="0$h"; done; printf '%b' "$(printf '%s' "$h" | sed 's/../\\x&/g')"; }
+          now="$(date +%s)"
+          header="$(printf '{"alg":"ES256","kid":"%s","typ":"JWT"}' "$APPSTORE_API_KEY_ID" | b64url)"
+          payload="$(printf '{"iss":"%s","iat":%d,"exp":%d,"aud":"appstoreconnect-v1"}' "$APPSTORE_ISSUER_ID" "$now" "$((now + 300))" | b64url)"
+          printf '%s.%s' "$header" "$payload" | openssl dgst -sha256 -sign "$d/key.p8" > "$d/sig.der"
+          mapfile -t ints < <(openssl asn1parse -inform DER -in "$d/sig.der" | awk -F: '/INTEGER/ { print $NF }')
+          [ "${#ints[@]}" -eq 2 ] || { row "notary API" "❌ could not sign a token"; exit 1; }
+          sig="$({ raw32 "${ints[0]}"; raw32 "${ints[1]}"; } | b64url)"
+          jwt="$header.$payload.$sig"
+          echo "::add-mask::$jwt"
+          # token in a header from stdin, never on a command line
+          code="$(printf 'Authorization: Bearer %s\n' "$jwt" | curl -sS -H @- -o "$d/resp.json" -w '%{http_code}' \
+            'https://appstoreconnect.apple.com/notary/v2/submissions?limit=1')"
+          case "$code" in
+            200) row "notary API" "✅ key accepted, $(jq '.data | length' "$d/resp.json") recent submission(s) listed" ;;
+            401) row "notary API" "❌ 401: key revoked, wrong key id or issuer id"; exit 1 ;;
+            403) row "notary API" "❌ 403: key lacks notarization access (team key, Developer role or higher)"; exit 1 ;;
+            *)   row "notary API" "❌ HTTP $code"; exit 1 ;;
+          esac
