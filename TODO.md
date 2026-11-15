@@ -23,6 +23,7 @@
 - [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot` outside `build.yaml`). The Steam job logs in after running a third-party action. `build.yaml` is clean, use it as the pattern.
 - [ ] Security (zizmor): pass secrets via `env:` instead of `${{ secrets.* }}` inside `run:` (AWS keys, steamcmd login)
 - [ ] Test: run `macos` and `ios` builds by hand once, to check the `build.yaml` env refactor on the macOS/iOS-only steps
+- [ ] Test: full release flow with the next tag (sign, Steam development branch, overlay Shift+Tab and achievement popup), then tick "App Bundles Are Notarized" in Steamworks and add it to RELEASE.md
 - [ ] Task: Raise iOS minimum version from 14.0 to 15.0 (`application/min_ios_version` in export_presets.cfg). Apple requires 15.0+ for uploads from April 2027.
 - [ ] Task: Upload gate via floating tags `classic` and `full`
 	- [ ] Build: write `commit.txt` into the archive (next to `version.txt`)
@@ -62,6 +63,11 @@
 
 ## Done
 
+
+### 2026-11-15
+#### OFFSTREAM
+- [x] macOS: Developer ID signing, notarization and stapling in CI; Steam push takes only the signed build; "Verify setup" checks Apple secrets incl. notary API
+- [x] Clean up obsolete GitHub secrets: `CODESIGN_CERT`, `CODESIGN_CERT_PASS`, `CODESIGN_CERT_PASSWORD`, `CODESIGN_CERT_IDENTITY` (old macOS signing, replaced by `APPLE_DEVELOPER_ID_CERT*`)
 
 ### 2026-11-13
 #### OFFSTREAM
