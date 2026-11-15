@@ -5,15 +5,17 @@ PROJECT="fiiish-v3"
 
 set -e
 
-if [[ $# -ne 2 ]]
+if [[ $# -lt 2 || $# -gt 3 || ( $# -eq 3 && "$3" != "signed" ) ]]
 then
-	echo "Usage: $0 <target_folder> <build_type>"
+	echo "Usage: $0 <target_folder> <build_type> [signed]"
+	echo "  signed: take <archive>-signed.tgz of the latest build, fail if there is none"
 	exit 1
 fi
 
 TARGET_FOLDER="$1"
 
 BUILD_TYPE="$2"
+SIGNED="${3:-}"
 PLATFORM=""
 
 case ${BUILD_TYPE} in
@@ -79,6 +81,11 @@ fi
 #
 #ARCHIVE_FILE="${ARCHIVE_NAME}${ARCHIVE_EXT}"
 
+if [[ "${SIGNED}" == "signed" ]]
+then
+	LATEST="${LATEST%.tgz}-signed.tgz"
+fi
+
 ARCHIVE_NAME=$( basename "${LATEST}" )
 S3_ARCHIVE_FILE="s3://${BUCKET}/${LATEST}"
 
@@ -95,7 +102,11 @@ else
 	echo "Syncing latest archive from ${S3_ARCHIVE_FILE} to ${ARCHIVE_NAME}"
 
 	aws s3 cp ${S3_ARCHIVE_FILE} ${ARCHIVE_NAME} || {
-		echo "Error: Failed to download latest archive"
+		echo "Error: Failed to download latest archive ${S3_ARCHIVE_FILE}"
+		if [[ "${SIGNED}" == "signed" ]]
+		then
+			echo "Error: The latest ${BUILD_TYPE} build is not signed yet. Run the sign workflow first."
+		fi
 		exit 1
 	}
 fi

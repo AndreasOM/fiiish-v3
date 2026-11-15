@@ -83,9 +83,10 @@ jobs:
         run: |
           .github/helpers/download_latest.sh ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
 
-      - name: Download latest macos from S3
+      - name: Download latest signed macos from S3
         run: |
-          .github/helpers/download_latest.sh ${{ env.TARGET_FOLDER }} macos-${{ env.SUB_TYPE }}
+          # Signed and notarized only: Steam has "App Bundles Are Notarized" ticked.
+          .github/helpers/download_latest.sh ${{ env.TARGET_FOLDER }} macos-${{ env.SUB_TYPE }} signed
 
       - name: Download latest windows from S3
         run: |
