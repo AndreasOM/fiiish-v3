@@ -1,6 +1,22 @@
 name: 🖥️ macOS - 🖋️ Sign
 run-name: 🖥️ macOS - 🖋️ Sign ${{ vars.PROJECT }} - ${{ inputs.build_type }} by @${{ github.actor }}
-on: 
+
+# Developer ID signs, notarizes and staples the latest macOS build of a type.
+#
+# Reads s3://artifacts.omnimad.net/<project>/<project>-<build_type>-latest.txt,
+# downloads that archive, and uploads <archive>-signed.tgz next to it with the
+# same layout.
+#
+# Signing goes inside out, without --deep: every dylib, then every framework,
+# then the app. All with the hardened runtime and a secure timestamp. The app
+# gets macos/fiiish.entitlements (what the Steam overlay needs). The timestamp
+# server fails now and then, so each codesign gets a second try after a minute.
+#
+# Needs: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, APPLE_DEVELOPER_ID_CERT(_PASSWORD),
+# APP_STORE_API_PRIVATE_KEY, APPSTORE_API_KEY_ID, APPSTORE_ISSUER_ID.
+# verify_setup.yaml checks the Apple ones on Linux.
+
+on:
   workflow_dispatch:
     inputs:
       build_type:
@@ -11,6 +27,7 @@ on:
         options:
           - 'macos'
           - 'macos-classic'
+          - 'macos-demo-classic'
   workflow_call:
     inputs:
       build_type:
@@ -24,166 +41,186 @@ on:
         required: false
         type: string
 
+permissions:
+  contents: read
+
+concurrency:
+  group: sign-${{ inputs.build_type }}
+  cancel-in-progress: false
+
+env:
+  PROJECT: ${{ vars.PROJECT }}
+  BUILD_TYPE: ${{ inputs.build_type }}
+  SUMMARY_STYLE: ${{ inputs.summary_style }}
+  BUCKET: artifacts.omnimad.net
+  AWS_DEFAULT_REGION: eu-west-1
+  TEAM_ID: ACWF5Y4FTA
+
 jobs:
   sign:
+    name: Sign and notarize
     runs-on: macos-15
+    timeout-minutes: 60
     defaults:
       run:
-        # Use bash shells on all platforms.
         shell: bash
     steps:
-      - name: Create variables
+      - name: Download the latest build
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          PROJECT=${{ vars.PROJECT }}
-          BUILD_TYPE=${{ inputs.build_type }}
-          LATEST_FILE="${PROJECT}-${BUILD_TYPE}-latest.txt"
-          S3_LATEST_FILE="s3://artifacts.omnimad.net/${PROJECT}/${LATEST_FILE}"
-          case ${{ inputs.build_type }} in
-            *-classic)
-              APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-classic.app"
-              ;;
-            *)
-              APP_TO_SIGN="${PROJECT}-${BUILD_TYPE}/fiiish-v3.app"
-              ;;
+          set -euo pipefail
+          case "$BUILD_TYPE" in
+            macos-demo-classic) app_name="fiiish-classic-demo.app" ;;
+            macos-classic)      app_name="fiiish-classic.app" ;;
+            macos)              app_name="fiiish-v3.app" ;;
+            *) echo "unsupported build type: $BUILD_TYPE" >&2; exit 1 ;;
           esac
-          
-          #
-          # put into github env
-          #
+          aws s3 cp --no-progress "s3://$BUCKET/$PROJECT/$PROJECT-$BUILD_TYPE-latest.txt" latest.txt
+          key="$(cat latest.txt)"   # <project>/<date>/<project>-<type>-<date>.tgz
+          case "$key" in "$PROJECT"/*/"$PROJECT-$BUILD_TYPE"-*.tgz) ;; *) echo "bad pointer: $key" >&2; exit 1 ;; esac
+          aws s3 cp --no-progress "s3://$BUCKET/$key" build.tgz
+          tar -xzf build.tgz
+          app="$PWD/$PROJECT-$BUILD_TYPE/$app_name"
+          [ -d "$app" ] || { echo "no $app_name in $key" >&2; exit 1; }
+          xattr -cr "$app"   # codesign refuses extended attributes ("detritus")
           {
-            echo "PROJECT=${PROJECT}"
-            echo "BUILD_TYPE=${BUILD_TYPE}"
-            echo "LATEST_FILE=${LATEST_FILE}"
-            echo "S3_LATEST_FILE=${S3_LATEST_FILE}"
-            echo "APP_TO_SIGN=${APP_TO_SIGN}"
+            echo "KEY=$key"
+            echo "SIGNED_KEY=${key%.tgz}-signed.tgz"
+            echo "APP=$app"
           } >> "$GITHUB_ENV"
 
-      - name: Get latest reference
+      - name: Throwaway keychain with the Developer ID certificate
+        env:
+          APPLE_DEVELOPER_ID_CERT: ${{ secrets.APPLE_DEVELOPER_ID_CERT }}
+          APPLE_DEVELOPER_ID_CERT_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSWORD }}
         run: |
-          #
-          # get latest info
-          #
-          aws s3 cp ${{ env.S3_LATEST_FILE }} ${{ env.LATEST_FILE }}
-          # cat ${{ env.LATEST_FILE }}
-          LATEST=$(cat "${{ env.LATEST_FILE }}")
-          #
-          # split into parts
-          #
-          ARCHIVE_FOLDER=$( dirname "${LATEST}" )
-          ARCHIVE_NAME=$( basename "${LATEST}" .tgz )
-          ARCHIVE_EXT=.tgz
-          #
-          # combine
-          #
-          ARCHIVE_FILE="${ARCHIVE_NAME}${ARCHIVE_EXT}"
-          S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${LATEST}"
-          SIGNED_ARCHIVE_FILE="${ARCHIVE_NAME}-signed.tgz"
-          SIGNED_S3_ARCHIVE_FILE="s3://artifacts.omnimad.net/${ARCHIVE_FOLDER}/${SIGNED_ARCHIVE_FILE}"
-          #
-          # put into github env
-          #
+          set -euo pipefail
+          kc="$RUNNER_TEMP/sign.keychain-db"
+          kc_pass="$(openssl rand -hex 32)"
+          security create-keychain -p "$kc_pass" "$kc"
+          security set-keychain-settings -lut 3600 "$kc"
+          security unlock-keychain -p "$kc_pass" "$kc"
+          printf '%s' "$APPLE_DEVELOPER_ID_CERT" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$kc" -P "$APPLE_DEVELOPER_ID_CERT_PASSWORD" -T /usr/bin/codesign
+          rm -f "$RUNNER_TEMP/cert.p12"
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$kc_pass" "$kc" >/dev/null
+          # codesign looks identities up in the search list.
+          old="$(security list-keychains -d user | tr -d '"' | xargs)"
+          # shellcheck disable=SC2086 # one path per word
+          security list-keychains -d user -s "$kc" $old
+          identity="$(security find-identity -v -p codesigning "$kc" \
+            | awk -v team="($TEAM_ID)" '/"Developer ID Application:/ && index($0, team) { print $2; exit }')"
+          [ -n "$identity" ] || { echo "no Developer ID Application identity of $TEAM_ID" >&2; security find-identity -v -p codesigning "$kc"; exit 1; }
+          security find-identity -v -p codesigning "$kc" | grep "$identity"
           {
-            echo "ARCHIVE_FILE=${ARCHIVE_FILE}"
-            echo "S3_ARCHIVE_FILE=${S3_ARCHIVE_FILE}"
-            echo "SIGNED_ARCHIVE_FILE=${SIGNED_ARCHIVE_FILE}"
-            echo "SIGNED_S3_ARCHIVE_FILE=${SIGNED_S3_ARCHIVE_FILE}"
+            echo "KEYCHAIN=$kc"
+            echo "IDENTITY=$identity"
           } >> "$GITHUB_ENV"
 
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "eu-west-1"
+      - name: Check out the entitlements
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: src
+          sparse-checkout: |
+            macos/fiiish.entitlements
+          sparse-checkout-cone-mode: false
+          fetch-depth: 1
+          submodules: false
+          persist-credentials: false
 
-      - name: Download artifact
+      - name: Sign (inside out)
         run: |
-          aws s3 cp ${{ env.S3_ARCHIVE_FILE }} ${{ env.ARCHIVE_FILE }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "eu-west-1"
-
-      - name: Unpack artifact
-        run: |
-          tar xzvf ${{ env.ARCHIVE_FILE }}
-          find ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
-
-      - name: Prepare keychain
-        run: |
-          keychain_password="$(openssl rand -hex 32)"
-          security create-keychain -p "${keychain_password}" "the-keychain"
-          echo "${{ secrets.CODESIGN_CERT }}" | base64 --decode > cert.p12
-          md5 < cert.p12
-          keychain_db="${HOME}/Library/Keychains/the-keychain-db"
-          security import cert.p12 -k "${keychain_db}" -P "${{ secrets.CODESIGN_CERT_PASS }}" -T "$(command -v codesign)"
-          security set-key-partition-list -S "apple-tool:,apple:" -s -k "${keychain_password}" "${keychain_db}"
-          security default-keychain -d "user" -s "${keychain_db}"
-          security find-identity -v
-
-      - name: Sign .app
-        id: sign0
-        continue-on-error: true
-        run: |
-          ping -c 5 time.apple.com
-          codesign \
-            -s ${{ secrets.CODESIGN_CERT_IDENTITY }} \
-            -f -v --timestamp \
-            --options runtime \
-            ${{ env.APP_TO_SIGN }}
-        timeout-minutes: 10
-
-      - name: Sign .app (2nd try)
-        id: sign1
-        continue-on-error: true
-        if: steps.sign0.outcome=='failure'
-        run: |
-          sleep 60
-          ping -c 5 time.apple.com
-          codesign \
-            -s ${{ secrets.CODESIGN_CERT_IDENTITY }} \
-            -f -v --timestamp \
-            --options runtime \
-            ${{ env.APP_TO_SIGN }}
-        timeout-minutes: 10
-
-      - name: Set Sign status
-        if: always()
-        run: |
-          if ${{ steps.sign0.outcome=='success' || steps.sign1.outcome=='success' }}; then
-            echo "Successfully signed!"
-          else
-            echo "Failed signing even after retry"
-            exit 1
+          set -euo pipefail
+          ent="$PWD/src/macos/fiiish.entitlements"
+          plutil -lint "$ent"
+          sign() {
+            local try
+            for try in 1 2; do
+              if codesign --force --verbose --timestamp --options runtime \
+                   --keychain "$KEYCHAIN" --sign "$IDENTITY" "$@"; then
+                return 0
+              fi
+              [ "$try" = 2 ] || { echo "codesign failed for ${*: -1}, retrying in 60 s" >&2; sleep 60; }
+            done
+            return 1
+          }
+          fw="$APP/Contents/Frameworks"
+          if [ -d "$fw" ]; then
+            # deepest first, so a framework is signed after the dylibs inside it
+            while IFS= read -r f; do sign "$f"; done < <(find "$fw" -type f -name '*.dylib' | awk '{ print gsub("/", "/"), $0 }' | sort -rn | cut -d' ' -f2-)
+            while IFS= read -r f; do sign "$f"; done < <(find "$fw" -type d -name '*.framework' -prune)
           fi
+          sign --entitlements "$ent" "$APP"
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          codesign -dvv "$APP" 2>&1 | grep -E '^(Authority|TeamIdentifier|Timestamp|Runtime|Identifier)'
+          codesign -d --entitlements - "$APP"
 
-      - name: Upload signed artifact
+      - name: Notarize and staple
+        env:
+          APP_STORE_API_PRIVATE_KEY: ${{ secrets.APP_STORE_API_PRIVATE_KEY }}
+          APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
-          tar czvf ${{ env.SIGNED_ARCHIVE_FILE }} ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
-          aws s3 cp ${{ env.SIGNED_ARCHIVE_FILE }} ${{ env.SIGNED_S3_ARCHIVE_FILE }}
+          set -euo pipefail
+          p8="$RUNNER_TEMP/AuthKey.p8"
+          printf '%s' "$APP_STORE_API_PRIVATE_KEY" | base64 --decode > "$p8"
+          auth=(--key "$p8" --key-id "$APPSTORE_API_KEY_ID" --issuer "$APPSTORE_ISSUER_ID")
+          ditto -c -k --keepParent "$APP" "$RUNNER_TEMP/app.zip"
+          xcrun notarytool submit "$RUNNER_TEMP/app.zip" "${auth[@]}" \
+            --wait --timeout 30m --output-format json > notary.json || true
+          cat notary.json
+          id="$(plutil -extract id raw -o - notary.json 2>/dev/null || true)"
+          status="$(plutil -extract status raw -o - notary.json 2>/dev/null || true)"
+          if [ -n "$id" ]; then
+            xcrun notarytool log "$id" "${auth[@]}" notary-log.json || true
+            cat notary-log.json 2>/dev/null || true
+          fi
+          rm -f "$p8"
+          echo "NOTARY_ID=$id" >> "$GITHUB_ENV"
+          [ "$status" = Accepted ] || { echo "notarization: ${status:-no result}" >&2; exit 1; }
+          xcrun stapler staple "$APP"
+          xcrun stapler validate "$APP"
+          spctl --assess --type execute --verbose=4 "$APP"
+
+      - name: Archive and upload to S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "eu-west-1"
+        run: |
+          set -euo pipefail
+          archive="$(basename "$SIGNED_KEY")"
+          COPYFILE_DISABLE=1 tar -czf "$archive" "$PROJECT-$BUILD_TYPE"
+          aws s3 cp --no-progress "$archive" "s3://$BUCKET/$SIGNED_KEY"
+          echo "ARCHIVE_SIZE=$(du -h "$archive" | cut -f1)" >> "$GITHUB_ENV"
 
       - name: Create Summary
         if: always()
         run: |
-          if [[ "${{ inputs.summary_style }}" == "skip" ]]
-          then
+          if [[ "$SUMMARY_STYLE" == "skip" ]]; then
             echo "Skipping summary"
-          elif [[ "${{ inputs.summary_style }}" == "minimal" ]]
-          then
+          elif [[ "$SUMMARY_STYLE" == "minimal" ]]; then
             {
               echo "|                        |                                   |"
               echo "| :--------------------- | --------------------------------: |"
             } >> "$GITHUB_STEP_SUMMARY"
           else
+            version="$(cat "$PROJECT-$BUILD_TYPE/version.txt" 2>/dev/null || echo '?')"
             {
-              echo "|                        |                                   |"
-              echo "| :--------------------- | --------------------------------: |"
-              echo "| ARCHIVE_FILE           | ${{ env.ARCHIVE_FILE }}           |"
-              echo "| S3_ARCHIVE_FILE        | ${{ env.S3_ARCHIVE_FILE }}        |"
-              echo "| SIGNED_ARCHIVE_FILE    | ${{ env.SIGNED_ARCHIVE_FILE }}    |"
-              echo "| SIGNED_S3_ARCHIVE_FILE | ${{ env.SIGNED_S3_ARCHIVE_FILE }} |"
-              echo "| BUILD_TYPE             | ${{ env.BUILD_TYPE }}             |"
+              echo "### $PROJECT $BUILD_TYPE, signed and notarized"
+              echo "| | |"
+              echo "|---|---|"
+              echo "| version | \`$version\` |"
+              echo "| from | \`s3://$BUCKET/${KEY:-?}\` |"
+              echo "| archive | \`s3://$BUCKET/${SIGNED_KEY:-?}\` |"
+              echo "| notary submission | \`${NOTARY_ID:-none}\` |"
+              echo "| size | ${ARCHIVE_SIZE:-?} |"
             } >> "$GITHUB_STEP_SUMMARY"
           fi
+
+      - name: Remove the keychain
+        if: always()
+        run: |
+          if [ -n "${KEYCHAIN:-}" ]; then security delete-keychain "$KEYCHAIN" || true; fi
+          rm -f "$RUNNER_TEMP/cert.p12" "$RUNNER_TEMP/AuthKey.p8"
