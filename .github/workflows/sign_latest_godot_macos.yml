@@ -7,10 +7,11 @@ run-name: 🖥️ macOS - 🖋️ Sign ${{ vars.PROJECT }} - ${{ inputs.build_ty
 # downloads that archive, and uploads <archive>-signed.tgz next to it with the
 # same layout.
 #
-# Signing goes inside out, without --deep: every dylib, then every framework,
-# then the app. All with the hardened runtime and a secure timestamp. The app
-# gets macos/fiiish.entitlements (what the Steam overlay needs). The timestamp
-# server fails now and then, so each codesign gets a second try after a minute.
+# Signing goes inside out, without --deep: every Mach-O in Frameworks, then
+# every framework, then the app. All with the hardened runtime and a secure
+# timestamp. The app gets macos/fiiish.entitlements (what the Steam overlay
+# needs). The timestamp server fails now and then, so each codesign gets a
+# second try after a minute.
 #
 # Needs: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, APPLE_DEVELOPER_ID_CERT(_PASSWORD),
 # APP_STORE_API_PRIVATE_KEY, APPSTORE_API_KEY_ID, APPSTORE_ISSUER_ID.
@@ -148,8 +149,11 @@ jobs:
           }
           fw="$APP/Contents/Frameworks"
           if [ -d "$fw" ]; then
-            # deepest first, so a framework is signed after the dylibs inside it
-            while IFS= read -r f; do sign "$f"; done < <(find "$fw" -type f -name '*.dylib' | awk '{ print gsub("/", "/"), $0 }' | sort -rn | cut -d' ' -f2-)
+            # Every Mach-O, whatever its name (a framework's main binary has no
+            # .dylib extension), deepest first, then the frameworks around them.
+            while IFS= read -r f; do
+              if file -b "$f" | grep -q '^Mach-O'; then sign "$f"; fi
+            done < <(find "$fw" -type f | awk '{ print gsub("/", "/"), $0 }' | sort -rn | cut -d' ' -f2-)
             while IFS= read -r f; do sign "$f"; done < <(find "$fw" -type d -name '*.framework' -prune)
           fi
           sign --entitlements "$ent" "$APP"
