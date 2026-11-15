@@ -1,0 +1,110 @@
+name: 🔍 Verify setup
+run-name: 🔍 Verify setup ${{ vars.PROJECT }} by @${{ github.actor }}
+
+# Quick check of what the macOS sign workflow needs from the repository, on a
+# Linux runner (no macOS minutes). Run it by hand after creating or rotating
+# secrets. Secret values are never printed.
+#
+#   gh workflow run verify_setup.yaml && gh run watch
+#
+# Apple: the Developer ID .p12 (APPLE_DEVELOPER_ID_CERT, _PASSWORD) must open
+# with its password, use legacy encryption, hold a valid "Developer ID
+# Application" certificate of the team with its key; the notary .p8 must be an
+# EC key, the key and issuer ids well formed.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-setup
+  cancel-in-progress: false
+
+jobs:
+  # The Developer ID certificate and the notary key, checked with openssl so a
+  # bad secret fails here and not halfway through a macOS signing run.
+  apple:
+    name: Apple signing and notary secrets
+    runs-on: ubuntu-latest
+    env:
+      TEAM_ID: ACWF5Y4FTA
+    steps:
+      - name: Developer ID certificate and notary key
+        env:
+          APPLE_DEVELOPER_ID_CERT: ${{ secrets.APPLE_DEVELOPER_ID_CERT }}
+          APPLE_DEVELOPER_ID_CERT_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSWORD }}
+          APP_STORE_API_PRIVATE_KEY: ${{ secrets.APP_STORE_API_PRIVATE_KEY }}
+          APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+        run: |
+          set -uo pipefail
+          fail=0
+          row() { echo "| $1 | $2 |" >> "$GITHUB_STEP_SUMMARY"; }
+          bad() { row "$1" "❌ $2"; fail=1; }
+          printf '| Apple | check |\n|---|---|\n' >> "$GITHUB_STEP_SUMMARY"
+          d="$(mktemp -d)"; trap 'rm -rf "$d"' EXIT
+          pass=(-passin env:APPLE_DEVELOPER_ID_CERT_PASSWORD)
+
+          # Developer ID Application .p12
+          if [ -z "$APPLE_DEVELOPER_ID_CERT" ] || ! printf '%s' "$APPLE_DEVELOPER_ID_CERT" | base64 -d > "$d/cert.p12" 2>/dev/null; then
+            bad "certificate .p12" "APPLE_DEVELOPER_ID_CERT missing or not base64"
+          elif ! openssl pkcs12 -in "$d/cert.p12" "${pass[@]}" -info -noout > "$d/info.txt" 2>&1; then
+            bad "certificate .p12" "does not open with APPLE_DEVELOPER_ID_CERT_PASSWORD"
+          else
+            row "certificate .p12" "✅ opens with its password"
+            # openssl 3 defaults to PBES2/AES, which the macOS CI keychain cannot import.
+            if grep -q PBES2 "$d/info.txt" || ! grep -q "pbeWithSHA1And3-KeyTripleDES-CBC" "$d/info.txt"; then
+              bad "legacy encryption" "re-export with -keypbe PBE-SHA1-3DES -certpbe PBE-SHA1-3DES -macalg sha1"
+            else
+              row "legacy encryption" "✅ 3DES / SHA-1"
+            fi
+            openssl pkcs12 -in "$d/cert.p12" "${pass[@]}" -nokeys -clcerts -out "$d/cert.pem" 2>/dev/null
+            subject="$(openssl x509 -in "$d/cert.pem" -noout -subject -nameopt oneline,-esc_msb 2>/dev/null)"
+            issuer="$(openssl x509 -in "$d/cert.pem" -noout -issuer -nameopt oneline,-esc_msb 2>/dev/null)"
+            if [[ "$subject" == *"Developer ID Application:"*"($TEAM_ID)"* ]]; then
+              row "certificate type" "✅ \`${subject#subject=}\`"
+            else
+              bad "certificate type" "want Developer ID Application of team $TEAM_ID, got \`${subject#subject=}\`"
+            fi
+            if [[ "$issuer" == *"Developer ID Certification Authority"* ]]; then
+              row "issuer" "✅ \`${issuer#issuer=}\`"
+            else
+              bad "issuer" "\`${issuer#issuer=}\`"
+            fi
+            end="$(openssl x509 -in "$d/cert.pem" -noout -enddate | sed 's/notAfter=//')"
+            if ! openssl x509 -in "$d/cert.pem" -noout -checkend 0 >/dev/null; then
+              bad "valid" "expired $end"
+            elif ! openssl x509 -in "$d/cert.pem" -noout -checkend $((30 * 86400)) >/dev/null; then
+              row "valid" "⚠️ until $end, less than 30 days left"
+            else
+              row "valid" "✅ until $end"
+            fi
+            openssl pkcs12 -in "$d/cert.p12" "${pass[@]}" -nocerts -nodes -out "$d/key.pem" 2>/dev/null
+            if [ "$(openssl x509 -in "$d/cert.pem" -noout -pubkey | openssl md5)" = "$(openssl pkey -in "$d/key.pem" -pubout 2>/dev/null | openssl md5)" ]; then
+              row "private key" "✅ in the .p12, matches the certificate"
+            else
+              bad "private key" "missing or does not match the certificate"
+            fi
+          fi
+
+          # App Store Connect API key for notarytool
+          if [ -z "$APP_STORE_API_PRIVATE_KEY" ] || ! printf '%s' "$APP_STORE_API_PRIVATE_KEY" | base64 -d > "$d/key.p8" 2>/dev/null; then
+            bad "notary key .p8" "APP_STORE_API_PRIVATE_KEY missing or not base64"
+          elif ! openssl pkey -in "$d/key.p8" -noout -text 2>/dev/null | grep -q "prime256v1"; then
+            bad "notary key .p8" "not an EC P-256 private key"
+          else
+            row "notary key .p8" "✅ EC P-256 private key"
+          fi
+          if [[ "$APPSTORE_API_KEY_ID" =~ ^[A-Z0-9]{10}$ ]]; then
+            row "key id" "✅ \`$APPSTORE_API_KEY_ID\`"
+          else
+            bad "key id" "want 10 characters A-Z 0-9, got ${#APPSTORE_API_KEY_ID} characters"
+          fi
+          if [[ "$APPSTORE_ISSUER_ID" =~ ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$ ]]; then
+            row "issuer id" "✅ a UUID"
+          else
+            bad "issuer id" "want a lowercase UUID, got ${#APPSTORE_ISSUER_ID} characters"
+          fi
+          exit $fail
