@@ -183,14 +183,17 @@ func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float 
 		
 	return true
 	
-func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> bool:
+# Makes the zone the current one and spawns its objects. Counts it in the zone history, and with
+# add_to_recent also adds its name to the recent list (the zones the picker avoids).
+func _spawn_zone_internal( zone: NewZone, spawn_offset: float, add_to_recent: bool ) -> bool:
 	var _pa = PerformanceArea.new("ZoneSpawning")
 
 	self.current_zone_progress = 0.0
 	self._current_zone = zone
 	Events.broadcast_zone_changed( zone )
 	self._zone_history.push_back( zone.name )
-	self._remember_zone( zone.name )
+	if add_to_recent:
+		self._remember_zone( zone.name )
 	for l in zone.layers.iter():
 		if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
 			for obj in l.objects.iter():
@@ -213,7 +216,7 @@ func load_and_spawn_zone( filename: String ) -> bool:
 		return false
 
 	var zone = self._zone_config_manager.get_zone( i )
-	self._spawn_zone_internal( zone, 0.0 )
+	self._spawn_zone_internal( zone, 0.0, false )
 	
 	self._autospawn_on_zone_end = false
 	return true
@@ -229,15 +232,17 @@ func spawn_zone( autospawn_on_zone_end: bool = false ) -> bool:
 
 	self._autospawn_on_zone_end = autospawn_on_zone_end
 	var zone = null
+	var picked = false
 	var next_zone = self._zone_config_manager.pop_next_zone()
 		
 	if next_zone >= 0 && next_zone < self._zone_config_manager.zone_count():
 		zone = self._zone_config_manager.get_zone( next_zone )
 	else:
 		zone = self._pick_next_zone()
+		picked = true
 #	if self._zone != null:
 	if zone != null:
-		return self._spawn_zone_internal( zone, self.game_manager.zone_spawn_offset )
+		return self._spawn_zone_internal( zone, self.game_manager.zone_spawn_offset, picked )
 	else:
 		push_warning("No zone found to spawn")
 		return false

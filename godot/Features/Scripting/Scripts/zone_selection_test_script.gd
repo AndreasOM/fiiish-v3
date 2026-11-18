@@ -41,6 +41,7 @@ func run( script_manager: ScriptManager ) -> bool:
 		"no_repeat": self._case_no_repeat,
 		"small_pool": self._case_small_pool,
 		"player_save": self._case_player_save,
+		"remember_picked_only": self._case_remember_picked_only,
 	}
 
 	var selected = self._get_selected_case()
@@ -237,4 +238,62 @@ func _case_player_save() -> Array[ String ]:
 		self._add_failure( failures, "roundtrip: recent zones %s, expected %s" % [ reloaded.recent_zones(), zones ] )
 	if reloaded.coins() != 1276:
 		self._add_failure( failures, "roundtrip: coins %d, expected 1276" % reloaded.coins() )
+	return failures
+
+# Goes through ZoneManager.spawn_zone(): a forced zone (the start zone) must not land in the recent
+# list, a zone the picker chose must. Really spawns two zones, then puts everything back.
+func _case_remember_picked_only() -> Array[ String ]:
+	var failures: Array[ String ] = []
+	var zm = self._zone_manager
+	var zcm = self._zone_config_manager
+	var player = zm.game_manager.game.get_player()
+
+	var start_zone = "D0000_Start" if FeatureTags.has_feature( "demo" ) else "0000_ILoveFiiish"
+	if zcm.find_zone_index_by_name( start_zone ) < 0:
+		self._add_failure( failures, "start zone %s not in the pool" % start_zone )
+		return failures
+
+	zm._load_recent_zones()
+	var saved_recent = zm._recent_zones.duplicate()
+	var saved_history = zm._zone_history.duplicate()
+	var saved_next = zcm._next_zones.duplicate()
+	var saved_zone = zm._current_zone
+	var saved_progress = zm.current_zone_progress
+	var saved_autospawn = zm._autospawn_on_zone_end
+	var saved_player_recent = player.recent_zones()
+
+	# forced zone
+	zcm.clear_next_zones()
+	zcm.push_next_zone_by_name( start_zone )
+	if !zm.spawn_zone( false ):
+		self._add_failure( failures, "forced zone did not spawn" )
+	elif zm.get_current_zone_name() != start_zone:
+		self._add_failure( failures, "forced zone: got %s, expected %s" % [ zm.get_current_zone_name(), start_zone ] )
+	if zm._recent_zones != saved_recent:
+		self._add_failure( failures, "forced zone changed the recent list: %s -> %s" % [ saved_recent, zm._recent_zones ] )
+
+	# picked zone
+	var before = zm._recent_zones.duplicate()
+	if !zm.spawn_zone( false ):
+		self._add_failure( failures, "picked zone did not spawn" )
+	else:
+		var picked = zm.get_current_zone_name()
+		var expected = before.duplicate()
+		expected.push_back( picked )
+		while expected.size() > RECENT_WINDOW:
+			expected.pop_front()
+		if zm._recent_zones != expected:
+			self._add_failure( failures, "picked zone %s: recent list %s, expected %s" % [ picked, zm._recent_zones, expected ] )
+		if player.recent_zones() != expected:
+			self._add_failure( failures, "picked zone %s: player list %s, expected %s" % [ picked, player.recent_zones(), expected ] )
+
+	# put everything back
+	zm.cleanup()
+	zm._recent_zones = saved_recent
+	zm._zone_history = saved_history
+	zm._current_zone = saved_zone
+	zm.current_zone_progress = saved_progress
+	zm._autospawn_on_zone_end = saved_autospawn
+	zcm._next_zones = saved_next
+	player.set_recent_zones( saved_player_recent )
 	return failures
