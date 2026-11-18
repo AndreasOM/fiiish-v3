@@ -7,6 +7,9 @@ var _next_zones: Array[ int ] = []
 
 var _zone_filenames_to_zones: Dictionary[ String, int ] = {}
 
+## Print every candidate and the picked zone in pick_next_zone(). Very noisy, off by default.
+var verbose_picking: bool = false
+
 #func _process(delta: float) -> void:
 #	pass
 
@@ -124,13 +127,15 @@ func pick_next_zone( blocked_zones: Array [ String ], difficulty: int ) -> NewZo
 #				dd *= 0.5 # slightly favour lower levels
 			dd = abs( dd )
 			var count = amplitude+slope*dd
-			print("! %d -> %d *%f [%f %f]" %[ i, dd, count, slope, amplitude])
+			if self.verbose_picking:
+				print("! %d -> %d *%f [%f %f]" %[ i, dd, count, slope, amplitude])
 			for c in range(count):
 				candidates.push_back( i )
 		slope *= 0.9 #0.5
 		amplitude *= 1.1 #2.0
 		
-	print( candidates )
+	if self.verbose_picking:
+		print( candidates )
 	if candidates.size() == 0:
 		push_warning("No next zone found")
 		return null
@@ -138,5 +143,6 @@ func pick_next_zone( blocked_zones: Array [ String ], difficulty: int ) -> NewZo
 	var index = candidates.pick_random()
 	var next_zone = self._zones[ index ]
 	
-	print("! picked next zone: %s %d ~ %d" % [ next_zone.name, next_zone.difficulty, difficulty])
+	if self.verbose_picking:
+		print("! picked next zone: %s %d ~ %d" % [ next_zone.name, next_zone.difficulty, difficulty])
 	return next_zone

@@ -13,7 +13,7 @@ extends Node
 # The pool depends on the build flavour (demo or full); the full pool also loads user://zones/.
 
 const TEST_SEED: int = 20261118
-const PICKS_PER_STEP: int = 100		# keep low until the picker's per-candidate prints are silenced
+const PICKS_PER_STEP: int = 2000
 const MAX_ZONE_COUNT: int = 60			# the 120 difficulty cap is reached at zone 48
 const MAX_TARGET_DIFFICULTY: int = 120	# same cap as ZoneManager._pick_next_zone()
 const HIGH_TARGET_DIFFICULTIES: Array[ int ] = [ 32768, 40000, 65535 ]	# at and above bit 15
