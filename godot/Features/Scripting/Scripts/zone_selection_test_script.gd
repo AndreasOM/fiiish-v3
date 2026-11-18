@@ -23,20 +23,26 @@ const EXPECTED_NEVER_PICK_ZONES: Array[ String ] = [ "8001_Empty", "8002_Trailer
 const RECENT_WINDOW: int = Player.MAX_RECENT_ZONES
 const REPEAT_PICKS: int = 5000
 const REPEAT_TARGETS: Array[ int ] = [ 2, 5, 12, 20, 40, 60, 70, 90, 120 ]
+const TEST_PLAYER_SUFFIX: String = "_zone_selection_test"
 
 var _zone_manager: ZoneManager = null
 var _zone_config_manager: ZoneConfigManager = null
+var _game: Game = null
+var _test_player: Player = null
 
 func run( script_manager: ScriptManager ) -> bool:
 	print("ZoneSelectionTest - run()")
 	self._zone_manager = script_manager.game.zone_manager
 	self._zone_config_manager = script_manager.game.get_game_manager().get_zone_config_manager()
+	self._game = script_manager.game
 
 	# let the game finish starting up. The cases themselves never await,
 	# so nothing else touches the zone history while they run.
 	await get_tree().process_frame
+	self._use_test_player()
 
 	var cases: Dictionary[ String, Callable ] = {
+		"test_player": self._case_test_player,
 		"never_pick": self._case_never_pick,
 		"no_repeat": self._case_no_repeat,
 		"small_pool": self._case_small_pool,
@@ -64,9 +70,23 @@ func run( script_manager: ScriptManager ) -> bool:
 			for f in failures:
 				print("ZoneSelectionTest -   %s" % f)
 
+	self._remove_test_player_save()
 	print( "ZONE_SELECTION_TEST PASS" if all_ok else "ZONE_SELECTION_TEST FAIL" )
 	get_tree().quit( 0 if all_ok else 1 )
 	return all_ok
+
+# Replaces the game's player with a fresh one that saves to its own file (TEST_PLAYER_SUFFIX).
+func _use_test_player() -> void:
+	self._test_player = Player.new()
+	self._test_player._load_suffix = TEST_PLAYER_SUFFIX
+	self._game._player = self._test_player
+	Events.broadcast_player_changed( self._test_player )
+
+# Deletes the test player's save file, if there is one.
+func _remove_test_player_save() -> void:
+	var path = Player.get_save_path( TEST_PLAYER_SUFFIX )
+	if FileAccess.file_exists( path ):
+		DirAccess.remove_absolute( path )
 
 func _get_selected_case() -> String:
 	return OS.get_environment( "ZONE_SELECTION_TEST_CASE" )
@@ -278,11 +298,9 @@ func _case_player_save() -> Array[ String ]:
 		self._add_failure( failures, "after %d pushes: recent zones %s, expected %s" % [ pushed, old.recent_zones(), zones ] )
 
 	# roundtrip as the current version, other fields must survive
-	var suffix = "_zone_selection_test"
-	old.save_with_suffix( suffix )
-	var path = Player.get_save_path( suffix )
-	var reloaded = Player.load_with_suffix( suffix )
-	DirAccess.remove_absolute( path )
+	old.save_with_suffix( TEST_PLAYER_SUFFIX )
+	var reloaded = Player.load_with_suffix( TEST_PLAYER_SUFFIX )
+	self._remove_test_player_save()
 	if reloaded.recent_zones() != zones:
 		self._add_failure( failures, "roundtrip: recent zones %s, expected %s" % [ reloaded.recent_zones(), zones ] )
 	if reloaded.coins() != 1276:
@@ -295,7 +313,7 @@ func _case_player_save() -> Array[ String ]:
 
 # Goes through ZoneManager.spawn_zone(): a forced zone (the start zone) must not land in the player's
 # recent zones, a zone the picker chose must. The player owns the list, so a list emptied behind
-# ZoneManager's back must stay empty. Really spawns three zones, then puts everything back.
+# ZoneManager's back must stay empty. Really spawns three zones, then puts the zone state back and empties the list.
 func _case_remember_picked_only() -> Array[ String ]:
 	var failures: Array[ String ] = []
 	var zm = self._zone_manager
@@ -353,6 +371,30 @@ func _case_remember_picked_only() -> Array[ String ]:
 	zm._autospawn_on_zone_end = saved_autospawn
 	zcm._next_zones = saved_next
 	player.clear_recent_zones()
-	for zone_name in saved_recent:
-		player.push_recent_zone( zone_name )
+	return failures
+
+# The cases must never change the real player save: the game must hold the test player,
+# and a save through the game must land in the test player's file and leave the real one alone.
+func _case_test_player() -> Array[ String ]:
+	var failures: Array[ String ] = []
+	if self._game.get_player() != self._test_player:
+		self._add_failure( failures, "the game does not use the test player" )
+		return failures
+
+	var real_path = Player.get_save_path( "" )
+	var test_path = Player.get_save_path( TEST_PLAYER_SUFFIX )
+	var real_existed = FileAccess.file_exists( real_path )
+	var real_modified = FileAccess.get_modified_time( real_path ) if real_existed else 0
+	var real_size = FileAccess.get_file_as_bytes( real_path ).size() if real_existed else 0
+
+	self._remove_test_player_save()
+	self._game.save_player()
+	if !FileAccess.file_exists( test_path ):
+		self._add_failure( failures, "saving through the game did not write %s" % test_path )
+	if FileAccess.file_exists( real_path ) != real_existed:
+		self._add_failure( failures, "saving through the game created %s" % real_path )
+	elif real_existed:
+		if FileAccess.get_modified_time( real_path ) != real_modified || FileAccess.get_file_as_bytes( real_path ).size() != real_size:
+			self._add_failure( failures, "saving through the game changed %s" % real_path )
+	self._remove_test_player_save()
 	return failures
