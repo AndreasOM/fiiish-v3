@@ -24,7 +24,8 @@
 	- [x] `pick_next_zone`: skip zones where `is_never_pick()`, checked before the distance math, independent of the 120 cap. Scripted zones (`push_next_zone_by_name`) skip difficulty and keep working.
 	- [x] Set both zones to difficulty 65535 (patched the u16 directly, no format change)
 	- [ ] Test in Godot: 8001/8002 never show up in normal runs, scripted screenshot/trailer scripts still spawn them
-- [ ] Task: Zone editor: add a "Never pick" checkbox to the zone property dialog, using `NewZone.set_never_pick()`. Disable the slider while checked and show "never" in the label. When unchecking, reset the difficulty to a value in the slider range (the setter only toggles the bit, so 65535 would become 32767). Today the slider (1-100) clamps a loaded 65535 to "100" and a drag silently overwrites it on the next save.
+- [ ] Test: Zone editor "Never pick" checkbox (implemented, untested): load 8002_Trailer (shows "never", slider disabled), uncheck (slider 100), recheck, save, reload; check the dialog still fits (panel min height 282 -> 330)
+- [x] Task: Zone editor: add a "Never pick" checkbox to the zone property dialog, using `NewZone.set_never_pick()`. Disable the slider while checked and show "never" in the label. When unchecking, reset the difficulty to a value in the slider range (the setter only toggles the bit, so 65535 would become 32767). Today the slider (1-100) clamps a loaded 65535 to "100" and a drag silently overwrites it on the next save.
 - [ ] Task: Avoid zone repeats in `_pick_next_zone` (today `_zone_history` only counts zones and is cleared per run, so the same zone can come twice in a row). Players do hundreds of runs through the same early difficulty band.
 	- [ ] Prefer zones not among the last ~8-10 played, across runs
 	- [ ] Fallback when the pool is small: if too few candidates remain, relax the recent list (drop the oldest entries first, down to just the previous zone) instead of picking nothing

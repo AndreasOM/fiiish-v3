@@ -40,7 +40,7 @@ mouse_filter = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="FadeablePanelContainer/MarginContainer/CenterContainer"]
 self_modulate = Color(1, 1, 1, 0.8)
-custom_minimum_size = Vector2(352, 282)
+custom_minimum_size = Vector2(352, 330)
 layout_mode = 2
 mouse_filter = 0
 texture = ExtResource("2_0yrt0")
@@ -110,6 +110,12 @@ min_value = 1.0
 value = 1.0
 rounded = true
 
+[node name="NeverPickCheckBox" type="CheckBox" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Never pick"
+
 [node name="WidthLabel" type="Label" parent="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"SmallLabel"
@@ -150,5 +156,6 @@ vertical_alignment = 1
 [connection signal="text_submitted" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/NameLineEdit" to="." method="_on_name_line_edit_text_submitted"]
 [connection signal="drag_ended" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/DifficultySlider" to="." method="_on_difficulty_slider_drag_ended"]
 [connection signal="value_changed" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/DifficultySlider" to="." method="_on_difficulty_slider_value_changed"]
+[connection signal="toggled" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/NeverPickCheckBox" to="." method="_on_never_pick_check_box_toggled"]
 [connection signal="text_submitted" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/WidthLineEdit" to="." method="_on_width_line_edit_text_submitted"]
 [connection signal="pressed" from="FadeablePanelContainer/MarginContainer/CenterContainer/NinePatchRect/StopTestingButton" to="." method="_on_stop_testing_button_pressed"]

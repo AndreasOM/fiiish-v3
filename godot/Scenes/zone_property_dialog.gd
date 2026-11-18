@@ -11,13 +11,17 @@ signal zone_width_changed( width: int )
 @onready var name_line_edit: LineEdit = %NameLineEdit
 @onready var difficulty_value_label: Label = %DifficultyValueLabel
 @onready var difficulty_slider: HSlider = %DifficultySlider
+@onready var never_pick_check_box: CheckBox = %NeverPickCheckBox
 @onready var width_line_edit: LineEdit = %WidthLineEdit
+
+# Raw u16 difficulty of the zone, including the never-pick bit (see NewZone).
+var _difficulty: int = 0
 
 func set_zone_editing_enabled( v: bool ) -> void:
 	zone_editing_enabled = v
 	self.name_line_edit.editable = zone_editing_enabled
-	self.difficulty_slider.editable = zone_editing_enabled
 	self.width_line_edit.editable = zone_editing_enabled
+	self._update_difficulty_widgets()
 	
 func set_stop_testing_enabled( v: bool ) -> void:
 	stop_testing_enabled = v
@@ -45,12 +49,34 @@ func _on_difficulty_slider_drag_ended(value_changed: bool) -> void:
 	if !value_changed:
 		return
 	
+	# The slider is disabled while never-pick is set, so the bit is clear here.
 	var v = int(self.difficulty_slider.value)
+	self._difficulty = v
 	self.difficulty_changed.emit( v )
 
+func _on_never_pick_check_box_toggled( toggled_on: bool ) -> void:
+	var d = NewZone.difficulty_with_never_pick( self._difficulty, toggled_on )
+	if !toggled_on:
+		# Unchecking only clears the bit. Keep what is left inside the slider range
+		# (an old 65535 would otherwise stay at 32767).
+		d = clampi( d, int(self.difficulty_slider.min_value), int(self.difficulty_slider.max_value) )
+	self._difficulty = d
+	self._update_difficulty_widgets()
+	self.difficulty_changed.emit( d )
+
 func on_zone_difficulty_changed( difficulty: int ) -> void:
-	self.difficulty_value_label.text = "%d" % difficulty
-	self.difficulty_slider.value = difficulty
+	self._difficulty = difficulty
+	self._update_difficulty_widgets()
+
+func _update_difficulty_widgets() -> void:
+	var never_pick = NewZone.difficulty_is_never_pick( self._difficulty )
+	var shown = NewZone.difficulty_with_never_pick( self._difficulty, false )
+	shown = clampi( shown, int(self.difficulty_slider.min_value), int(self.difficulty_slider.max_value) )
+	self.difficulty_slider.set_value_no_signal( shown )
+	self.difficulty_slider.editable = self.zone_editing_enabled && !never_pick
+	self.difficulty_value_label.text = "never" if never_pick else "%d" % shown
+	self.never_pick_check_box.set_pressed_no_signal( never_pick )
+	self.never_pick_check_box.disabled = !self.zone_editing_enabled
 
 func _on_width_line_edit_text_submitted(new_text: String) -> void:
 	if !new_text.is_valid_int():
