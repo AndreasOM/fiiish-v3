@@ -252,6 +252,8 @@ func _case_small_pool() -> Array[ String ]:
 
 # Player save v15 added the recent zones list. The v14 fixture (godot-saves/) must still load, with an empty list.
 # The list must keep only the latest Player.MAX_RECENT_ZONES names and survive a save and load.
+# Does not cover the `version < 15` gate in Player.serialize(): the Serializer returns zeros past the
+# end of the data, so the v14 fixture loads the same with or without the gate.
 func _case_player_save() -> Array[ String ]:
 	var failures: Array[ String ] = []
 	var fixture = ProjectSettings.globalize_path( "res://" ).path_join( "../godot-saves/player-version-14.data" ).simplify_path()
