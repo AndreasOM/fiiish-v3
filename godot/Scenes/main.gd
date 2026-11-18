@@ -7,6 +7,7 @@ const MarketingScreenshotScript = "res://Features/Scripting/Scripts/marketing_sc
 const MarketingTrailerScript = "res://Features/Scripting/Scripts/marketing_trailer_script.gd"
 const SteamScreenshotScript = "res://Features/Scripting/Scripts/steam_screenshot_script.gd"
 const OverlayTestScript = "res://Features/Scripting/Scripts/overlay_test_script.gd"
+const ZoneSelectionTestScript = "res://Features/Scripting/Scripts/zone_selection_test_script.gd"
 
 @onready var achievement_config_manager: AchievementConfigManager = %AchievementConfigManager
 @onready var achievement_counter_manager: AchievementCounterManager = %AchievementCounterManager
@@ -404,6 +405,8 @@ func _handle_script( s: String ) -> void:
 			script = load(SteamScreenshotScript)
 		"OverlayTest":
 			script = load(OverlayTestScript)
+		"ZoneSelectionTest":
+			script = load(ZoneSelectionTestScript)
 		_:
 			return
 			
@@ -477,6 +480,14 @@ func _get_launch_parameters_web() -> String:
 func _get_launch_parameters_editor() -> String:
 	
 	if !EngineDebugger.is_active():
+		# Started from a terminal with the editor binary, e.g.
+		#   godot --path godot -- --script:"ZoneSelectionTest"
+		# No editor Play session hands over the launch parameters then, so use the user args (after `--`).
+		var user_args = OS.get_cmdline_user_args()
+		if user_args.size() > 0:
+			var user_lp = " ".join(user_args)
+			print("Launch Parameter (user args) >%s<" % user_lp )
+			return user_lp
 		push_warning("No EngineDebugger active when running from editor")
 		return ""
 		
