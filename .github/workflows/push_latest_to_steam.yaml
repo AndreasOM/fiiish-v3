@@ -83,6 +83,14 @@ jobs:
         run: |
           .github/helpers/steam_token.sh restore steam-token.enc
 
+      # Early: fail before the downloads, and a Steam Guard fallback prompt comes right at the start.
+      - name: Login to steam
+        env:
+          STEAM_USER: ${{ secrets.STEAM_USER }}
+          STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+        run: |
+          .github/helpers/steam_login.sh
+
       - name: Download latest linux from S3
         run: |
           .github/helpers/download_latest.sh ${{ env.TARGET_FOLDER }} linux-${{ env.SUB_TYPE }}
@@ -99,13 +107,6 @@ jobs:
       - name: Create .VDFs
         run: |
           .github/helpers/steam_create_vdf.sh ${{ env.TARGET_FOLDER }} ${{ env.SUB_TYPE }}
-
-      - name: Login to steam
-        env:
-          STEAM_USER: ${{ secrets.STEAM_USER }}
-          STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
-        run: |
-          .github/helpers/steam_login.sh
 
       - name: Upload to steam
         env:
