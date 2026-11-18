@@ -65,7 +65,7 @@
 
 ### 2026-11-18
 #### OFFSTREAM
-- [x] Steam login without phone: "Steam refresh login" caches steamcmd's token encrypted (`STEAM_CACHE_KEY`), weekly + by hand; push logs in with the cached token, falls back to password + Steam Guard. `setup-steamcmd` pinned to SHA, Steam secrets via `env:`
+- [x] Steam login without phone: "Steam refresh login" caches steamcmd's token encrypted (`STEAM_CACHE_KEY`), weekly + by hand; push logs in with the cached token, falls back to password + Steam Guard. `setup-steamcmd` pinned to SHA, Steam secrets via `env:`, login runs before the downloads to fail early
 - [x] Test: full release flow with v3.16.3 (sign, notarize, Steam development branch, overlay works), promoted to default, "App Bundles Are Notarized" ticked, announced as "v3.16.3 - macOS Notarization"
 - [x] Demo rebuilt at v3.16.3 (was `0.0.0`), notarized, live as BuildID 26766632, "App Bundles Are Notarized" ticked
 - [x] Fix: sign workflow used the wrong app name for `macos-demo-classic` (every `*-classic` is `fiiish-classic.app`)
