@@ -20,6 +20,9 @@ const MAX_TARGET_DIFFICULTY: int = 120	# same cap as ZoneManager._pick_next_zone
 const HIGH_TARGET_DIFFICULTIES: Array[ int ] = [ 32768, 40000, 65535 ]	# at and above bit 15
 const MAX_REPORTED_FAILURES: int = 10
 const EXPECTED_NEVER_PICK_ZONES: Array[ String ] = [ "8001_Empty", "8002_Trailer" ]
+const RECENT_WINDOW: int = 8			# same as ZoneManager.RECENT_ZONES_MAX
+const REPEAT_PICKS: int = 20000
+const REPEAT_TARGETS: Array[ int ] = [ 5, 20, 60, 120 ]
 
 var _zone_manager: ZoneManager = null
 var _zone_config_manager: ZoneConfigManager = null
@@ -35,6 +38,8 @@ func run( script_manager: ScriptManager ) -> bool:
 
 	var cases: Dictionary[ String, Callable ] = {
 		"never_pick": self._case_never_pick,
+		"no_repeat": self._case_no_repeat,
+		"small_pool": self._case_small_pool,
 	}
 
 	var selected = self._get_selected_case()
@@ -130,4 +135,77 @@ func _case_never_pick() -> Array[ String ]:
 		if idx < 0 || self._zone_config_manager.get_zone( idx ).name != zone_name:
 			self._add_failure( failures, "%s not found by name" % zone_name )
 
+	return failures
+
+# pickable zone names for a target difficulty (not never-pick, not too difficult)
+func _eligible_names( difficulty: int ) -> Array[ String ]:
+	var names: Array[ String ] = []
+	for i in range( self._zone_config_manager.zone_count() ):
+		var z = self._zone_config_manager.get_zone( i )
+		if !z.is_never_pick() && z.difficulty <= difficulty:
+			names.push_back( z.name )
+	return names
+
+# Feeds the recent list back like ZoneManager does. While the eligible pool is big enough
+# the picker must keep the whole window apart; with a smaller pool at least the previous zone.
+func _case_no_repeat() -> Array[ String ]:
+	var failures: Array[ String ] = []
+	var tested = 0
+	for d in REPEAT_TARGETS:
+		var pool = self._eligible_names( d ).size()
+		print("ZoneSelectionTest - no_repeat: target %d has %d eligible zones" % [ d, pool ])
+		if pool < 4:
+			continue	# too small to guarantee anything, small_pool covers that
+		tested += 1
+		var recent: Array[ String ] = []
+		for n in range( REPEAT_PICKS ):
+			var zone = self._zone_config_manager.pick_next_zone( [], d, recent )
+			self._check_pick( failures, "target %d" % d, zone )
+			if zone == null:
+				break
+			if pool >= RECENT_WINDOW + 3 && recent.has( zone.name ):
+				self._add_failure( failures, "target %d: %s repeated within the last %d (pool %d)" % [ d, zone.name, RECENT_WINDOW, pool ] )
+			elif !recent.is_empty() && recent.back() == zone.name:
+				self._add_failure( failures, "target %d: %s twice in a row (pool %d)" % [ d, zone.name, pool ] )
+			recent.push_back( zone.name )
+			while recent.size() > RECENT_WINDOW:
+				recent.pop_front()
+	if tested == 0:
+		self._add_failure( failures, "no target difficulty has a big enough pool" )
+	return failures
+
+# Tiny pools must neither hang nor come back empty while a zone is pickable.
+func _case_small_pool() -> Array[ String ]:
+	var failures: Array[ String ] = []
+	var eligible = self._eligible_names( MAX_TARGET_DIFFICULTY )
+	if eligible.size() < 2:
+		self._add_failure( failures, "pool too small to test (%d)" % eligible.size() )
+		return failures
+
+	for keep in [ 1, 2, 3 ]:
+		if keep > eligible.size():
+			continue
+		var blocked: Array[ String ] = []
+		for i in range( self._zone_config_manager.zone_count() ):
+			var name = self._zone_config_manager.get_zone( i ).name
+			if eligible.find( name ) >= keep:
+				blocked.push_back( name )
+			elif eligible.find( name ) < 0:
+				blocked.push_back( name )
+		var recent: Array[ String ] = []
+		for n in range( 500 ):
+			var zone = self._zone_config_manager.pick_next_zone( blocked, MAX_TARGET_DIFFICULTY, recent )
+			self._check_pick( failures, "pool of %d" % keep, zone )
+			if zone == null:
+				break
+			recent.push_back( zone.name )
+			while recent.size() > RECENT_WINDOW:
+				recent.pop_front()
+
+	# nothing pickable: must come back with null, not loop
+	var all_blocked: Array[ String ] = []
+	for i in range( self._zone_config_manager.zone_count() ):
+		all_blocked.push_back( self._zone_config_manager.get_zone( i ).name )
+	if self._zone_config_manager.pick_next_zone( all_blocked, MAX_TARGET_DIFFICULTY, [] ) != null:
+		self._add_failure( failures, "picked a zone with everything blocked" )
 	return failures

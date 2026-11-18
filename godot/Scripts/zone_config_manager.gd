@@ -104,36 +104,22 @@ func pop_next_zone() -> int:
 		return -1
 	return next_zone
 	
-func pick_next_zone( blocked_zones: Array [ String ], difficulty: int ) -> NewZone:
-	var candidates = []			# index into self._zones[]
-	var n =  self._zones.size()
-	
-	var mininum_candidates = 10
-	var slope = -0.5
-	var amplitude = 2.0
+const MIN_CANDIDATES: int = 10		# weighted entries before the difficulty band stops widening
+const MIN_DISTINCT_ZONES: int = 3	# fewer distinct zones: shrink the recent window instead
+const MAX_WIDEN_ROUNDS: int = 60
 
-	while candidates.size() < mininum_candidates:
-		for i in range(n):
-			var z = self._zones[i]
-			if blocked_zones.find( z.name ) >= 0:
-				continue
-			if z.is_never_pick():
-				continue
+# recent: zone names played lately, oldest first. Zones in it are avoided. If that leaves too few
+# distinct zones the window shrinks (oldest entries dropped first, down to nothing) instead of failing.
+func pick_next_zone( blocked_zones: Array [ String ], difficulty: int, recent: Array[ String ] = [] ) -> NewZone:
+	var candidates: Array = []
+	for window in range( recent.size(), -1, -1 ):
+		var excluded: Array[ String ] = blocked_zones.duplicate()
+		excluded.append_array( recent.slice( recent.size() - window ) )
+		candidates = self._collect_candidates( excluded, difficulty )
+		if self._count_distinct( candidates ) >= MIN_DISTINCT_ZONES:
+			break
+		# window 0 is the last try, take whatever it found
 
-			var dd = difficulty - z.difficulty
-			if dd < 0:	# do not use zones that are too difficult
-				continue
-#			if dd > 0:
-#				dd *= 0.5 # slightly favour lower levels
-			dd = abs( dd )
-			var count = amplitude+slope*dd
-			if self.verbose_picking:
-				print("! %d -> %d *%f [%f %f]" %[ i, dd, count, slope, amplitude])
-			for c in range(count):
-				candidates.push_back( i )
-		slope *= 0.9 #0.5
-		amplitude *= 1.1 #2.0
-		
 	if self.verbose_picking:
 		print( candidates )
 	if candidates.size() == 0:
@@ -146,3 +132,41 @@ func pick_next_zone( blocked_zones: Array [ String ], difficulty: int ) -> NewZo
 	if self.verbose_picking:
 		print("! picked next zone: %s %d ~ %d" % [ next_zone.name, next_zone.difficulty, difficulty])
 	return next_zone
+
+func _count_distinct( candidates: Array ) -> int:
+	var seen: Dictionary = {}
+	for c in candidates:
+		seen[ c ] = true
+	return seen.size()
+
+# Weighted list of zone indices (closer to the target difficulty = more entries). Widens the band
+# until MIN_CANDIDATES entries from at least MIN_DISTINCT_ZONES zones exist. Gives up (possibly empty) when widening cannot help.
+func _collect_candidates( excluded: Array[ String ], difficulty: int ) -> Array:
+	var candidates: Array = []			# index into self._zones[]
+	var n = self._zones.size()
+	var slope = -0.5
+	var amplitude = 2.0
+
+	for _round in range( MAX_WIDEN_ROUNDS ):
+		for i in range(n):
+			var z = self._zones[i]
+			if excluded.find( z.name ) >= 0:
+				continue
+			if z.is_never_pick():
+				continue
+
+			var dd = difficulty - z.difficulty
+			if dd < 0:	# do not use zones that are too difficult
+				continue
+			dd = abs( dd )
+			var count = amplitude+slope*dd
+			if self.verbose_picking:
+				print("! %d -> %d *%f [%f %f]" %[ i, dd, count, slope, amplitude])
+			for c in range(count):
+				candidates.push_back( i )
+		if candidates.size() >= MIN_CANDIDATES && self._count_distinct( candidates ) >= MIN_DISTINCT_ZONES:
+			break
+		slope *= 0.9 #0.5
+		amplitude *= 1.1 #2.0
+
+	return candidates
