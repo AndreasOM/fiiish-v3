@@ -482,6 +482,14 @@ func _get_launch_parameters_web() -> String:
 func _get_launch_parameters_editor() -> String:
 	
 	if !EngineDebugger.is_active():
+		# Started from a terminal with the editor binary, e.g.
+		#   godot --headless --path godot -- '--script:"ZoneSelectionTest"' --no-user-zones
+		# No editor Play session hands over the launch parameters then, so use the user args (after `--`).
+		var user_args = OS.get_cmdline_user_args()
+		if user_args.size() > 0:
+			var user_lp = " ".join(user_args)
+			print("Launch Parameter (user args) >%s<" % user_lp )
+			return user_lp
 		push_warning("No EngineDebugger active when running from editor")
 		return ""
 		
