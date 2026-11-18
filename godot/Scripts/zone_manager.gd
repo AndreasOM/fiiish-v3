@@ -22,12 +22,6 @@ var _next_object_id = 1
 
 var _zone_history: Array = []
 
-# Names of the zones played lately, oldest first. Unlike _zone_history this survives runs,
-# so the same zone does not come twice in a row, nor every other zone.
-const RECENT_ZONES_MAX: int = 8
-var _recent_zones: Array[ String ] = []
-var _recent_zones_loaded: bool = false
-
 func _process(_delta: float) -> void:
 	self.current_zone_progress += self.game_manager.movement.x
 	#self.current_zone_progress += self.game_manager.movement_x * delta
@@ -73,31 +67,7 @@ func cleanup() -> void:
 func clear_zone_history() -> void:
 	self._zone_history.clear()
 
-# The recent list lives in the player save, so it survives restarts.
-func _load_recent_zones() -> void:
-	if self._recent_zones_loaded:
-		return
-	var player = self.game_manager.game.get_player()
-	if player == null:
-		return
-	self._recent_zones_loaded = true
-	self._recent_zones = player.recent_zones()
-	while self._recent_zones.size() > RECENT_ZONES_MAX:
-		self._recent_zones.pop_front()
-
-func _remember_zone( zone_name: String ) -> void:
-	if self.game_manager.game.is_in_zone_editor():
-		return
-	self._load_recent_zones()
-	self._recent_zones.push_back( zone_name )
-	while self._recent_zones.size() > RECENT_ZONES_MAX:
-		self._recent_zones.pop_front()
-	var player = self.game_manager.game.get_player()
-	if player != null:
-		player.set_recent_zones( self._recent_zones )
-
 func _pick_next_zone() -> NewZone:
-	self._load_recent_zones()
 	var blocked_zones: Array[ String ] = [ 
 		"0000_Start",
 		"0000_ILoveFiiish",
@@ -111,7 +81,11 @@ func _pick_next_zone() -> NewZone:
 	var zn = self._zone_history.size()
 	#var difficulty = int(zn / 5.0)
 	var difficulty = min( 120, int( zn * 2.5 ) )
-	return self._zone_config_manager.pick_next_zone( blocked_zones, difficulty, self._recent_zones )
+	var recent: Array[ String ] = []
+	var player = self.game_manager.game.get_player()
+	if player != null:
+		recent = player.recent_zones()
+	return self._zone_config_manager.pick_next_zone( blocked_zones, difficulty, recent )
 
 func _spawn_object( ec: EntityConfig, position: Vector2, rotation_degrees: float, spawn_offset: float) -> Entity:
 	# :NOTE: Delegate pickup spawning to PickupManager to maintain proper ownership.
@@ -184,7 +158,7 @@ func spawn_new_zone_layer_object( nzlo: NewZoneLayerObject, spawn_offset: float 
 	return true
 	
 # Makes the zone the current one and spawns its objects. Counts it in the zone history, and with
-# add_to_recent also adds its name to the recent list (the zones the picker avoids).
+# add_to_recent also adds its name to the player's recent zones (the ones the picker avoids), except in the zone editor.
 func _spawn_zone_internal( zone: NewZone, spawn_offset: float, add_to_recent: bool ) -> bool:
 	var _pa = PerformanceArea.new("ZoneSpawning")
 
@@ -192,8 +166,10 @@ func _spawn_zone_internal( zone: NewZone, spawn_offset: float, add_to_recent: bo
 	self._current_zone = zone
 	Events.broadcast_zone_changed( zone )
 	self._zone_history.push_back( zone.name )
-	if add_to_recent:
-		self._remember_zone( zone.name )
+	if add_to_recent && !self.game_manager.game.is_in_zone_editor():
+		var player = self.game_manager.game.get_player()
+		if player != null:
+			player.push_recent_zone( zone.name )
 	for l in zone.layers.iter():
 		if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
 			for obj in l.objects.iter():

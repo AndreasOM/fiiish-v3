@@ -68,6 +68,7 @@ var _day_streak_start: String = ""	# YYYYMMDD
 var _day_streak_length: int = 0
 
 ## version 15
+const MAX_RECENT_ZONES: int = 8
 var _recent_zones: SerializableArray = SerializableArray.new(
 	func() -> SerializableString:
 		return SerializableString.new()
@@ -128,7 +129,7 @@ func reset() -> void:
 	_last_achievements.clear()
 	self._day_streak_start = ""
 	self._day_streak_length = 0
-	self._recent_zones.clear()
+	self.clear_recent_zones()
 	self._is_dirty = true
 	
 func reset_local_leaderboards() -> void:
@@ -503,17 +504,23 @@ func collect_achievement( id: String ) -> bool:
 	
 	return true
 
-## Names of the zones played lately, oldest first (zone picker repeat avoidance, survives restarts).
+## Names of the zones played lately, oldest first, at most MAX_RECENT_ZONES after a push.
 func recent_zones() -> Array[ String ]:
 	var r: Array[ String ] = []
 	for z in self._recent_zones.iter():
 		r.push_back( z.to_string() )
 	return r
 
-func set_recent_zones( zones: Array[ String ] ) -> void:
-	if zones == self.recent_zones():
+## Adds a zone as the latest played one and drops the oldest names above MAX_RECENT_ZONES.
+func push_recent_zone( zone_name: String ) -> void:
+	self._recent_zones.push_back( SerializableString.new( zone_name ) )
+	while self._recent_zones.size() > MAX_RECENT_ZONES:
+		self._recent_zones.remove_at( 0 )
+	self._is_dirty = true
+
+## Empties the list of zones played lately.
+func clear_recent_zones() -> void:
+	if self._recent_zones.size() == 0:
 		return
 	self._recent_zones.clear()
-	for z in zones:
-		self._recent_zones.push_back( SerializableString.new( z ) )
 	self._is_dirty = true

@@ -20,7 +20,7 @@ const MAX_TARGET_DIFFICULTY: int = 120	# same cap as ZoneManager._pick_next_zone
 const HIGH_TARGET_DIFFICULTIES: Array[ int ] = [ 32768, 40000, 65535 ]	# at and above bit 15
 const MAX_REPORTED_FAILURES: int = 10
 const EXPECTED_NEVER_PICK_ZONES: Array[ String ] = [ "8001_Empty", "8002_Trailer" ]
-const RECENT_WINDOW: int = ZoneManager.RECENT_ZONES_MAX
+const RECENT_WINDOW: int = Player.MAX_RECENT_ZONES
 const REPEAT_PICKS: int = 5000
 const REPEAT_TARGETS: Array[ int ] = [ 2, 5, 12, 20, 40, 60, 70, 90, 120 ]
 
@@ -251,6 +251,7 @@ func _case_small_pool() -> Array[ String ]:
 	return failures
 
 # Player save v15 added the recent zones list. The v14 fixture (godot-saves/) must still load, with an empty list.
+# The list must keep only the latest Player.MAX_RECENT_ZONES names and survive a save and load.
 func _case_player_save() -> Array[ String ]:
 	var failures: Array[ String ] = []
 	var fixture = ProjectSettings.globalize_path( "res://" ).path_join( "../godot-saves/player-version-14.data" ).simplify_path()
@@ -264,9 +265,17 @@ func _case_player_save() -> Array[ String ]:
 	if !old.recent_zones().is_empty():
 		self._add_failure( failures, "v14 fixture: recent zones %s, expected empty" % [ old.recent_zones() ] )
 
+	# more pushes than the list holds: only the latest names stay, oldest first
+	var pushed = Player.MAX_RECENT_ZONES + 2
+	var zones: Array[ String ] = []
+	for i in range( pushed ):
+		old.push_recent_zone( "zone_%02d" % i )
+		if i >= pushed - Player.MAX_RECENT_ZONES:
+			zones.push_back( "zone_%02d" % i )
+	if old.recent_zones() != zones:
+		self._add_failure( failures, "after %d pushes: recent zones %s, expected %s" % [ pushed, old.recent_zones(), zones ] )
+
 	# roundtrip as the current version, other fields must survive
-	var zones: Array[ String ] = [ "3001_A", "5002_PinkAndPurple", "D0006_EasyGoing3" ]
-	old.set_recent_zones( zones )
 	var suffix = "_zone_selection_test"
 	old.save_with_suffix( suffix )
 	var path = Player.get_save_path( suffix )
@@ -276,10 +285,15 @@ func _case_player_save() -> Array[ String ]:
 		self._add_failure( failures, "roundtrip: recent zones %s, expected %s" % [ reloaded.recent_zones(), zones ] )
 	if reloaded.coins() != 1276:
 		self._add_failure( failures, "roundtrip: coins %d, expected 1276" % reloaded.coins() )
+
+	reloaded.clear_recent_zones()
+	if !reloaded.recent_zones().is_empty():
+		self._add_failure( failures, "after clear: recent zones %s, expected empty" % [ reloaded.recent_zones() ] )
 	return failures
 
-# Goes through ZoneManager.spawn_zone(): a forced zone (the start zone) must not land in the recent
-# list, a zone the picker chose must. Really spawns two zones, then puts everything back.
+# Goes through ZoneManager.spawn_zone(): a forced zone (the start zone) must not land in the player's
+# recent zones, a zone the picker chose must. The player owns the list, so a list emptied behind
+# ZoneManager's back must stay empty. Really spawns three zones, then puts everything back.
 func _case_remember_picked_only() -> Array[ String ]:
 	var failures: Array[ String ] = []
 	var zm = self._zone_manager
@@ -291,14 +305,12 @@ func _case_remember_picked_only() -> Array[ String ]:
 		self._add_failure( failures, "start zone %s not in the pool" % start_zone )
 		return failures
 
-	zm._load_recent_zones()
-	var saved_recent = zm._recent_zones.duplicate()
+	var saved_recent = player.recent_zones()
 	var saved_history = zm._zone_history.duplicate()
 	var saved_next = zcm._next_zones.duplicate()
 	var saved_zone = zm._current_zone
 	var saved_progress = zm.current_zone_progress
 	var saved_autospawn = zm._autospawn_on_zone_end
-	var saved_player_recent = player.recent_zones()
 
 	# forced zone
 	zcm.clear_next_zones()
@@ -307,31 +319,38 @@ func _case_remember_picked_only() -> Array[ String ]:
 		self._add_failure( failures, "forced zone did not spawn" )
 	elif zm.get_current_zone_name() != start_zone:
 		self._add_failure( failures, "forced zone: got %s, expected %s" % [ zm.get_current_zone_name(), start_zone ] )
-	if zm._recent_zones != saved_recent:
-		self._add_failure( failures, "forced zone changed the recent list: %s -> %s" % [ saved_recent, zm._recent_zones ] )
+	if player.recent_zones() != saved_recent:
+		self._add_failure( failures, "forced zone changed the recent zones: %s -> %s" % [ saved_recent, player.recent_zones() ] )
 
 	# picked zone
-	var before = zm._recent_zones.duplicate()
 	if !zm.spawn_zone( false ):
 		self._add_failure( failures, "picked zone did not spawn" )
 	else:
 		var picked = zm.get_current_zone_name()
-		var expected = before.duplicate()
+		var expected = saved_recent.duplicate()
 		expected.push_back( picked )
 		while expected.size() > RECENT_WINDOW:
 			expected.pop_front()
-		if zm._recent_zones != expected:
-			self._add_failure( failures, "picked zone %s: recent list %s, expected %s" % [ picked, zm._recent_zones, expected ] )
 		if player.recent_zones() != expected:
-			self._add_failure( failures, "picked zone %s: player list %s, expected %s" % [ picked, player.recent_zones(), expected ] )
+			self._add_failure( failures, "picked zone %s: recent zones %s, expected %s" % [ picked, player.recent_zones(), expected ] )
+
+	# picked zone after the player's list was emptied (e.g. player reset, kids mode switch)
+	player.clear_recent_zones()
+	if !zm.spawn_zone( false ):
+		self._add_failure( failures, "picked zone after clear did not spawn" )
+	else:
+		var expected_after_clear: Array[ String ] = [ zm.get_current_zone_name() ]
+		if player.recent_zones() != expected_after_clear:
+			self._add_failure( failures, "picked zone after clear: recent zones %s, expected %s" % [ player.recent_zones(), expected_after_clear ] )
 
 	# put everything back
 	zm.cleanup()
-	zm._recent_zones = saved_recent
 	zm._zone_history = saved_history
 	zm._current_zone = saved_zone
 	zm.current_zone_progress = saved_progress
 	zm._autospawn_on_zone_end = saved_autospawn
 	zcm._next_zones = saved_next
-	player.set_recent_zones( saved_player_recent )
+	player.clear_recent_zones()
+	for zone_name in saved_recent:
+		player.push_recent_zone( zone_name )
 	return failures
