@@ -73,9 +73,9 @@ jobs:
         run: |
           set -euo pipefail
           case "$BUILD_TYPE" in
-            macos-demo-classic) app_name="fiiish-classic-demo.app" ;;
-            macos-classic)      app_name="fiiish-classic.app" ;;
-            macos)              app_name="fiiish-v3.app" ;;
+            # as BINARY_NAME in build.yaml: every *-classic is fiiish-classic
+            macos-classic|macos-demo-classic) app_name="fiiish-classic.app" ;;
+            macos)                            app_name="fiiish-v3.app" ;;
             *) echo "unsupported build type: $BUILD_TYPE" >&2; exit 1 ;;
           esac
           aws s3 cp --no-progress "s3://$BUCKET/$PROJECT/$PROJECT-$BUILD_TYPE-latest.txt" latest.txt
