@@ -58,19 +58,14 @@
 	- [ ] `actions/checkout`: `persist-credentials: false`. Later `git fetch` needs `--no-recurse-submodules` (`omg-lib` uses an SSH URL)
 	- [ ] Auditor persona: job names, `concurrency` per shared S3 pointer
 	- [ ] Secrets in GitHub environments (`artifacts`, `appstore`, `steam`), restricted to `main`/`v*` or `classic`/`full`. Also enforces the upload gate.
-- [ ] Steam upload without Steam Guard prompts: cache steamcmd's login token between runs, no local Steam setup needed
-	- [ ] First: pin `CyberAndrii/setup-steamcmd` to a commit SHA and pass the Steam secrets via `env:` (third-party code must not run next to a cached token)
-	- [ ] GitHub environment `steam` (restricted to `main` and `v*` tags) holding `STEAM_USER`, `STEAM_PASSWORD` and a new `STEAM_CACHE_KEY`
-	- [ ] Before login: restore the newest `actions/cache` entry (prefix restore), decrypt with `STEAM_CACHE_KEY` (`openssl enc -aes-256-cbc -pbkdf2`) into steamcmd's `config/config.vdf`
-	- [ ] After a successful login only: encrypt `config/config.vdf` and save it as a new cache entry (key with run id, entries are immutable)
-	- [ ] Encrypted because any workflow run, incl. fork PRs, can read caches of the default branch. Never print the token.
-	- Limits: caches unused for 7 days are evicted, then the phone prompt appears once and a fresh token is cached. Token lifetime on Valve's side is undocumented.
+- [ ] Steam: verify a real push uses the cached token (no phone)
 
 ## Done
 
 
 ### 2026-11-18
 #### OFFSTREAM
+- [x] Steam login without phone: "Steam refresh login" caches steamcmd's token encrypted (`STEAM_CACHE_KEY`), weekly + by hand; push logs in with the cached token, falls back to password + Steam Guard. `setup-steamcmd` pinned to SHA, Steam secrets via `env:`
 - [x] Test: full release flow with v3.16.3 (sign, notarize, Steam development branch, overlay works), promoted to default, "App Bundles Are Notarized" ticked, announced as "v3.16.3 - macOS Notarization"
 - [x] Demo rebuilt at v3.16.3 (was `0.0.0`), notarized, live as BuildID 26766632, "App Bundles Are Notarized" ticked
 - [x] Fix: sign workflow used the wrong app name for `macos-demo-classic` (every `*-classic` is `fiiish-classic.app`)
