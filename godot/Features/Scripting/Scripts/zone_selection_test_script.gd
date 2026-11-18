@@ -20,9 +20,9 @@ const MAX_TARGET_DIFFICULTY: int = 120	# same cap as ZoneManager._pick_next_zone
 const HIGH_TARGET_DIFFICULTIES: Array[ int ] = [ 32768, 40000, 65535 ]	# at and above bit 15
 const MAX_REPORTED_FAILURES: int = 10
 const EXPECTED_NEVER_PICK_ZONES: Array[ String ] = [ "8001_Empty", "8002_Trailer" ]
-const RECENT_WINDOW: int = 8			# same as ZoneManager.RECENT_ZONES_MAX
-const REPEAT_PICKS: int = 20000
-const REPEAT_TARGETS: Array[ int ] = [ 5, 20, 60, 120 ]
+const RECENT_WINDOW: int = ZoneManager.RECENT_ZONES_MAX
+const REPEAT_PICKS: int = 5000
+const REPEAT_TARGETS: Array[ int ] = [ 2, 5, 12, 20, 40, 60, 70, 90, 120 ]
 
 var _zone_manager: ZoneManager = null
 var _zone_config_manager: ZoneConfigManager = null
@@ -148,61 +148,99 @@ func _eligible_names( difficulty: int ) -> Array[ String ]:
 			names.push_back( z.name )
 	return names
 
-# Feeds the recent list back like ZoneManager does. While the eligible pool is big enough
-# the picker must keep the whole window apart; with a smaller pool at least the previous zone.
+# Names of the different zones in the picker's difficulty band for a target (no recent list involved).
+func _band_names( blocked: Array[ String ], difficulty: int ) -> Array[ String ]:
+	var names: Array[ String ] = []
+	for i in self._zone_config_manager._collect_candidates( blocked, difficulty ):
+		var zone_name = self._zone_config_manager.get_zone( i ).name
+		if !names.has( zone_name ):
+			names.push_back( zone_name )
+	return names
+
+# Picks `picks` zones for one target and keeps the list of recent zones like ZoneManager does. The list
+# goes to the picker only with use_recent. Returns counters: picks done, picks that were among the recent
+# zones ("within_window"), picks equal to the previous one ("back_to_back") and the summed difficulty.
+# With use_recent it also adds failures: for a pick outside the band, for a back to back repeat while the
+# band has 2 or more zones, and for a repeat within the window while the band is big enough to avoid it.
+func _run_picks( failures: Array[ String ], where: String, blocked: Array[ String ], difficulty: int, picks: int, use_recent: bool ) -> Dictionary:
+	var band = self._band_names( blocked, difficulty )
+	var stats = { "picks": 0, "within_window": 0, "back_to_back": 0, "difficulty_sum": 0 }
+	var recent: Array[ String ] = []
+	var no_recent: Array[ String ] = []
+	for n in range( picks ):
+		var zone = self._zone_config_manager.pick_next_zone( blocked, difficulty, recent if use_recent else no_recent )
+		self._check_pick( failures, where, zone )
+		if zone == null:
+			break
+		var within_window = recent.has( zone.name )
+		var back_to_back = !recent.is_empty() && recent.back() == zone.name
+		stats[ "picks" ] += 1
+		stats[ "difficulty_sum" ] += zone.difficulty
+		if within_window:
+			stats[ "within_window" ] += 1
+		if back_to_back:
+			stats[ "back_to_back" ] += 1
+		if use_recent:
+			if !band.has( zone.name ):
+				self._add_failure( failures, "%s: %s is outside the difficulty band %s" % [ where, zone.name, band ] )
+			if back_to_back && band.size() >= 2:
+				self._add_failure( failures, "%s: %s twice in a row (band of %d)" % [ where, zone.name, band.size() ] )
+			if within_window && band.size() >= RECENT_WINDOW + ZoneConfigManager.MIN_DISTINCT_ZONES:
+				self._add_failure( failures, "%s: %s repeated within the last %d (band of %d)" % [ where, zone.name, RECENT_WINDOW, band.size() ] )
+		recent.push_back( zone.name )
+		while recent.size() > RECENT_WINDOW:
+			recent.pop_front()
+	return stats
+
+func _percent( part: int, total: int ) -> float:
+	return 100.0 * part / max( 1, total )
+
+# The recent list must only change which zone of the difficulty band comes, never the band itself:
+# a repeat is better than a zone of the wrong difficulty. Inside the band the previous zone must not
+# come again while there is another one. Prints a report per target, with and without the recent list.
 func _case_no_repeat() -> Array[ String ]:
 	var failures: Array[ String ] = []
-	var tested = 0
+	var no_blocked: Array[ String ] = []
+	var exercised = false
 	for d in REPEAT_TARGETS:
-		var pool = self._eligible_names( d ).size()
-		print("ZoneSelectionTest - no_repeat: target %d has %d eligible zones" % [ d, pool ])
-		if pool < 4:
-			continue	# too small to guarantee anything, small_pool covers that
-		tested += 1
-		var recent: Array[ String ] = []
-		for n in range( REPEAT_PICKS ):
-			var zone = self._zone_config_manager.pick_next_zone( [], d, recent )
-			self._check_pick( failures, "target %d" % d, zone )
-			if zone == null:
-				break
-			if pool >= RECENT_WINDOW + 3 && recent.has( zone.name ):
-				self._add_failure( failures, "target %d: %s repeated within the last %d (pool %d)" % [ d, zone.name, RECENT_WINDOW, pool ] )
-			elif !recent.is_empty() && recent.back() == zone.name:
-				self._add_failure( failures, "target %d: %s twice in a row (pool %d)" % [ d, zone.name, pool ] )
-			recent.push_back( zone.name )
-			while recent.size() > RECENT_WINDOW:
-				recent.pop_front()
-	if tested == 0:
-		self._add_failure( failures, "no target difficulty has a big enough pool" )
+		var band_size = self._band_names( no_blocked, d ).size()
+		if band_size >= 2:
+			exercised = true
+		var plain = self._run_picks( failures, "target %d" % d, no_blocked, d, REPEAT_PICKS, false )
+		var avoiding = self._run_picks( failures, "target %d" % d, no_blocked, d, REPEAT_PICKS, true )
+		print("ZoneSelectionTest - no_repeat: target %3d, band of %2d zones | within last %d: %5.1f%% -> %5.1f%% | back to back: %5.1f%% -> %5.1f%% | mean difficulty: %5.1f -> %5.1f" % [
+			d, band_size, RECENT_WINDOW,
+			self._percent( plain[ "within_window" ], plain[ "picks" ] ), self._percent( avoiding[ "within_window" ], avoiding[ "picks" ] ),
+			self._percent( plain[ "back_to_back" ], plain[ "picks" ] ), self._percent( avoiding[ "back_to_back" ], avoiding[ "picks" ] ),
+			float( plain[ "difficulty_sum" ] ) / max( 1, plain[ "picks" ] ), float( avoiding[ "difficulty_sum" ] ) / max( 1, avoiding[ "picks" ] ),
+		])
+	if !exercised:
+		self._add_failure( failures, "no target has a band of 2 or more zones" )
 	return failures
 
-# Tiny pools must neither hang nor come back empty while a zone is pickable.
+# Tiny pools must neither hang nor come back empty while a zone is pickable,
+# and must still not repeat back to back when the band holds two zones.
 func _case_small_pool() -> Array[ String ]:
 	var failures: Array[ String ] = []
 	var eligible = self._eligible_names( MAX_TARGET_DIFFICULTY )
-	if eligible.size() < 2:
+	if eligible.size() < 3:
 		self._add_failure( failures, "pool too small to test (%d)" % eligible.size() )
 		return failures
 
+	var exercised = false
 	for keep in [ 1, 2, 3 ]:
-		if keep > eligible.size():
-			continue
 		var blocked: Array[ String ] = []
 		for i in range( self._zone_config_manager.zone_count() ):
-			var name = self._zone_config_manager.get_zone( i ).name
-			if eligible.find( name ) >= keep:
-				blocked.push_back( name )
-			elif eligible.find( name ) < 0:
-				blocked.push_back( name )
-		var recent: Array[ String ] = []
-		for n in range( 500 ):
-			var zone = self._zone_config_manager.pick_next_zone( blocked, MAX_TARGET_DIFFICULTY, recent )
-			self._check_pick( failures, "pool of %d" % keep, zone )
-			if zone == null:
-				break
-			recent.push_back( zone.name )
-			while recent.size() > RECENT_WINDOW:
-				recent.pop_front()
+			var zone_name = self._zone_config_manager.get_zone( i ).name
+			if eligible.find( zone_name ) < 0 || eligible.find( zone_name ) >= keep:
+				blocked.push_back( zone_name )
+		var band_size = self._band_names( blocked, MAX_TARGET_DIFFICULTY ).size()
+		if band_size >= 2:
+			exercised = true
+		print("ZoneSelectionTest - small_pool: pool of %d, band of %d zones" % [ keep, band_size ])
+		self._run_picks( failures, "pool of %d" % keep, blocked, MAX_TARGET_DIFFICULTY, 500, true )
+	if !exercised:
+		self._add_failure( failures, "no small pool has a band of 2 or more zones" )
 
 	# nothing pickable: must come back with null, not loop
 	var all_blocked: Array[ String ] = []

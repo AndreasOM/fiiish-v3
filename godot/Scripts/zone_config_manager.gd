@@ -105,20 +105,24 @@ func pop_next_zone() -> int:
 	return next_zone
 	
 const MIN_CANDIDATES: int = 10		# weighted entries before the difficulty band stops widening
-const MIN_DISTINCT_ZONES: int = 3	# fewer distinct zones: shrink the recent window instead
+const MIN_DISTINCT_ZONES: int = 3	# different zones a recent window of 2 or more names leaves over
 const MAX_WIDEN_ROUNDS: int = 60
 
-# recent: zone names played lately, oldest first. Zones in it are avoided. If that leaves too few
-# distinct zones the window shrinks (oldest entries dropped first, down to nothing) instead of failing.
+# Picks a random zone from the difficulty band around the target (see _collect_candidates()).
+# Zones named in recent (played lately, oldest first) are left out of the band while enough of it remains:
+# the window of recent names shrinks, oldest first, until MIN_DISTINCT_ZONES different zones are left over,
+# or any zone at all once only the previous zone is left out. The band never widens for this, so a zone
+# repeats when the band holds nothing else. Returns null when no zone is eligible.
 func pick_next_zone( blocked_zones: Array [ String ], difficulty: int, recent: Array[ String ] = [] ) -> NewZone:
-	var candidates: Array = []
-	for window in range( recent.size(), -1, -1 ):
-		var excluded: Array[ String ] = blocked_zones.duplicate()
-		excluded.append_array( recent.slice( recent.size() - window ) )
-		candidates = self._collect_candidates( excluded, difficulty )
-		if self._count_distinct( candidates ) >= MIN_DISTINCT_ZONES:
+	var band = self._collect_candidates( blocked_zones, difficulty )
+	var candidates = band
+	for window in range( recent.size(), 0, -1 ):
+		var avoided = recent.slice( recent.size() - window )
+		var remaining = band.filter( func( i ): return !avoided.has( self._zones[ i ].name ) )
+		var needed = MIN_DISTINCT_ZONES if window > 1 else 1
+		if self._count_distinct( remaining ) >= needed:
+			candidates = remaining
 			break
-		# window 0 is the last try, take whatever it found
 
 	if self.verbose_picking:
 		print( candidates )
@@ -133,24 +137,27 @@ func pick_next_zone( blocked_zones: Array [ String ], difficulty: int, recent: A
 		print("! picked next zone: %s %d ~ %d" % [ next_zone.name, next_zone.difficulty, difficulty])
 	return next_zone
 
+# Number of different values in the list.
 func _count_distinct( candidates: Array ) -> int:
 	var seen: Dictionary = {}
 	for c in candidates:
 		seen[ c ] = true
 	return seen.size()
 
-# Weighted list of zone indices (closer to the target difficulty = more entries). Widens the band
-# until MIN_CANDIDATES entries from at least MIN_DISTINCT_ZONES zones exist. Gives up (possibly empty) when widening cannot help.
-func _collect_candidates( excluded: Array[ String ], difficulty: int ) -> Array:
+# Builds the difficulty band for a target: a weighted list of zone indices, the closer a zone is to the
+# target the more entries it gets. Blocked, never-pick and too difficult zones get none. The band widens
+# round by round until it holds MIN_CANDIDATES entries. Empty when no zone is eligible.
+func _collect_candidates( blocked_zones: Array[ String ], difficulty: int ) -> Array:
 	var candidates: Array = []			# index into self._zones[]
 	var n = self._zones.size()
 	var slope = -0.5
 	var amplitude = 2.0
 
 	for _round in range( MAX_WIDEN_ROUNDS ):
+		var any_eligible = false
 		for i in range(n):
 			var z = self._zones[i]
-			if excluded.find( z.name ) >= 0:
+			if blocked_zones.find( z.name ) >= 0:
 				continue
 			if z.is_never_pick():
 				continue
@@ -158,13 +165,14 @@ func _collect_candidates( excluded: Array[ String ], difficulty: int ) -> Array:
 			var dd = difficulty - z.difficulty
 			if dd < 0:	# do not use zones that are too difficult
 				continue
+			any_eligible = true
 			dd = abs( dd )
 			var count = amplitude+slope*dd
 			if self.verbose_picking:
 				print("! %d -> %d *%f [%f %f]" %[ i, dd, count, slope, amplitude])
 			for c in range(count):
 				candidates.push_back( i )
-		if candidates.size() >= MIN_CANDIDATES && self._count_distinct( candidates ) >= MIN_DISTINCT_ZONES:
+		if candidates.size() >= MIN_CANDIDATES || !any_eligible:
 			break
 		slope *= 0.9 #0.5
 		amplitude *= 1.1 #2.0
