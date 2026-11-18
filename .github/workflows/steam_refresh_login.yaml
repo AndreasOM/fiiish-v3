@@ -35,7 +35,7 @@ jobs:
           steamcmd +quit
 
       - name: Restore steam token
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: steam-token.enc
           key: steam-token-${{ github.run_id }}
@@ -63,7 +63,7 @@ jobs:
           .github/helpers/steam_token.sh save steam-token.enc
 
       - name: Save steam token
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: steam-token.enc
           key: steam-token-${{ github.run_id }}-${{ github.run_attempt }}

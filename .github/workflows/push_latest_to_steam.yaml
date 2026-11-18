@@ -70,7 +70,7 @@ jobs:
 
       # Token cached by steam_refresh_login. Missing or expired: Steam Guard asks the phone.
       - name: Restore steam token
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: steam-token.enc
           key: steam-token-${{ github.run_id }}
