@@ -82,8 +82,9 @@ git push -f origin classic
 - **Build:** iOS, macOS, Linux, Windows (`*-classic`). Uploads to S3 and marks it as "latest" per build type. Web and demo builds: run "Build" by hand.
 - **Floating tag:** points at the commit to ship. Uploads check it (planned).
 - **Sign + upload:** signs macOS (Developer ID, notarized, stapled) and iOS. Uploads iOS to App Store Connect, desktop to itch.io.
-- **Demo:** run "macOS - Sign" with `macos-demo-classic` by hand before pushing the demo to Steam.
-- **Steam:** checks that Linux, macOS and Windows have the same version. Build description = `vX.Y.Z`. macOS: only the signed build of the latest; fails if it is not signed yet.
+- **Demo:** run "Build" for `linux-demo-classic`, `windows-demo-classic`, `macos-demo-classic` on the tag (`gh workflow run build.yaml --ref vX.Y.Z -f build_type=…`), otherwise the version is `0.0.0`. Then run "macOS - Sign" with `macos-demo-classic` before pushing the demo to Steam. The demo app has its own "App Bundles Are Notarized" box, ticked.
+- **Steam:** checks that Linux, macOS and Windows have the same version. Build description = `vX.Y.Z`. macOS: only the signed build of the latest; fails if it is not signed yet. Steamworks has "App Bundles Are Notarized" ticked.
+- **Steam Guard:** the upload login needs a confirmation in the Steam Mobile app within about a minute. Have the phone ready before starting the push.
 - **Secrets:** after creating or rotating Apple secrets, run "Verify setup".
 - **Go live:** Steamworks: set the build live on the branch. App Store Connect: TestFlight / submit for review.
 - **Announce:** Steam community announcement titled `vX.Y.Z`.
@@ -103,5 +104,6 @@ Frozen, for reference:
 | 2025-12-28 | Store release | most likely v3.13.x | odd, from before these rules |
 | 2026-07-30 | Announcement  | v3.15.2             | odd, from before these rules |
 | 2026-11-14 | Announcement  | v3.16.2             | "Content Updates"            |
+| 2026-11-18 | Announcement  | v3.16.3             | "macOS Notarization"         |
 
 Next public release: **v3.16.x** (small changes), **v3.18.x** (big change or new year).

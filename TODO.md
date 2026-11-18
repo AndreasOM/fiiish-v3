@@ -23,7 +23,6 @@
 - [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot` outside `build.yaml`). The Steam job logs in after running a third-party action. `build.yaml` is clean, use it as the pattern.
 - [ ] Security (zizmor): pass secrets via `env:` instead of `${{ secrets.* }}` inside `run:` (AWS keys, steamcmd login)
 - [ ] Test: run `macos` and `ios` builds by hand once, to check the `build.yaml` env refactor on the macOS/iOS-only steps
-- [ ] Test: full release flow with the next tag (sign, Steam development branch, overlay Shift+Tab and achievement popup), then tick "App Bundles Are Notarized" in Steamworks and add it to RELEASE.md
 - [ ] Task: Raise iOS minimum version from 14.0 to 15.0 (`application/min_ios_version` in export_presets.cfg). Apple requires 15.0+ for uploads from April 2027.
 - [ ] Task: Upload gate via floating tags `classic` and `full`
 	- [ ] Build: write `commit.txt` into the archive (next to `version.txt`)
@@ -59,10 +58,22 @@
 	- [ ] `actions/checkout`: `persist-credentials: false`. Later `git fetch` needs `--no-recurse-submodules` (`omg-lib` uses an SSH URL)
 	- [ ] Auditor persona: job names, `concurrency` per shared S3 pointer
 	- [ ] Secrets in GitHub environments (`artifacts`, `appstore`, `steam`), restricted to `main`/`v*` or `classic`/`full`. Also enforces the upload gate.
-- [ ] Steam upload without Steam Guard prompts: store steamcmd's `config/config.vdf` (from one local login of the build account) as a GitHub secret and restore it before login. Refresh when Steam asks again.
+- [ ] Steam upload without Steam Guard prompts: cache steamcmd's login token between runs, no local Steam setup needed
+	- [ ] First: pin `CyberAndrii/setup-steamcmd` to a commit SHA and pass the Steam secrets via `env:` (third-party code must not run next to a cached token)
+	- [ ] GitHub environment `steam` (restricted to `main` and `v*` tags) holding `STEAM_USER`, `STEAM_PASSWORD` and a new `STEAM_CACHE_KEY`
+	- [ ] Before login: restore the newest `actions/cache` entry (prefix restore), decrypt with `STEAM_CACHE_KEY` (`openssl enc -aes-256-cbc -pbkdf2`) into steamcmd's `config/config.vdf`
+	- [ ] After a successful login only: encrypt `config/config.vdf` and save it as a new cache entry (key with run id, entries are immutable)
+	- [ ] Encrypted because any workflow run, incl. fork PRs, can read caches of the default branch. Never print the token.
+	- Limits: caches unused for 7 days are evicted, then the phone prompt appears once and a fresh token is cached. Token lifetime on Valve's side is undocumented.
 
 ## Done
 
+
+### 2026-11-18
+#### OFFSTREAM
+- [x] Test: full release flow with v3.16.3 (sign, notarize, Steam development branch, overlay works), promoted to default, "App Bundles Are Notarized" ticked, announced as "v3.16.3 - macOS Notarization"
+- [x] Demo rebuilt at v3.16.3 (was `0.0.0`), notarized, live as BuildID 26766632, "App Bundles Are Notarized" ticked
+- [x] Fix: sign workflow used the wrong app name for `macos-demo-classic` (every `*-classic` is `fiiish-classic.app`)
 
 ### 2026-11-15
 #### OFFSTREAM
