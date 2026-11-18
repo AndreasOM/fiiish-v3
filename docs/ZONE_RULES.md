@@ -16,6 +16,7 @@ Basics: the world scrolls at 240 px/s, so a 4096 px zone lasts about 17 s. The v
 
 - [ ] The zone name inside the file matches the filename (`NNNN_Name.nzne`).
 - [ ] The `difficulty` field fits the actual feel (zones are picked when difficulty ≤ run level).
+- [ ] Zones that must never appear in normal runs (marketing, trailer, test, empty) use difficulty 65535. Bit 15 of `difficulty` (0x8000) set means never picked. Scripts can still spawn them by name.
 - [ ] The width ends right after the zone's last obstacle plus its lead out. Pickups beyond the width overlap the next zone.
 - [ ] Only the `Obstacles`, `Obstacles_01` and `Pickups_00` layers spawn.
 
