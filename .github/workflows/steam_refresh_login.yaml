@@ -53,7 +53,7 @@ jobs:
           STEAM_USER: ${{ secrets.STEAM_USER }}
           STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
         run: |
-          steamcmd +login "${STEAM_USER}" "${STEAM_PASSWORD}" +quit
+          .github/helpers/steam_login.sh
 
       - name: Encrypt steam token
         env:

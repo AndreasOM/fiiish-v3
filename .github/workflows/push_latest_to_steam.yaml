@@ -100,15 +100,22 @@ jobs:
         run: |
           .github/helpers/steam_create_vdf.sh ${{ env.TARGET_FOLDER }} ${{ env.SUB_TYPE }}
 
-      - name: Upload to steam
+      - name: Login to steam
         env:
           STEAM_USER: ${{ secrets.STEAM_USER }}
           STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
         run: |
+          .github/helpers/steam_login.sh
+
+      - name: Upload to steam
+        env:
+          STEAM_USER: ${{ secrets.STEAM_USER }}
+        run: |
           cd ${TARGET_FOLDER}
           CWD=$(pwd)
           cd -
-          steamcmd +login "${STEAM_USER}" "${STEAM_PASSWORD}" +run_app_build "${CWD}/AppBuild_${{ env.SUB_TYPE }}.vdf" +quit
+          # Username only: reuses the token from the login step.
+          steamcmd +login "${STEAM_USER}" +run_app_build "${CWD}/AppBuild_${{ env.SUB_TYPE }}.vdf" +quit
 
       - name: Create Summary
         if: always()
