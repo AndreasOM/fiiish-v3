@@ -61,23 +61,27 @@ jobs:
           } >> "$GITHUB_ENV"
 
       - name: Setup steamcmd
-        uses: CyberAndrii/setup-steamcmd@v1
+        uses: CyberAndrii/setup-steamcmd@afc45f145b95c175c3a3862d3ca84756537d48e8 # v1
 
-      - name: Check steamcmd
+      - name: Bootstrap steamcmd
         run: |
           which steamcmd
+          steamcmd +quit
 
-#      - name: Set steam guard code
-#        run: |
-#          if [[ "x${{ secrets.STEAM_GUARD_CODE }}" != "x" ]]
-#          then
-#            steamcmd +set_steam_guard_code ${{ secrets.STEAM_GUARD_CODE }} +quit
-#            gh secret remove STEAM_GUARD_CODE
-#          fi
-#
-#      - name: Login to steam
-#        run: |
-#          steamcmd +login ${{ secrets.STEAM_USER }} ${{ secrets.STEAM_PASSWORD }} +quit
+      # Token cached by steam_refresh_login. Missing or expired: Steam Guard asks the phone.
+      - name: Restore steam token
+        uses: actions/cache/restore@v4
+        with:
+          path: steam-token.enc
+          key: steam-token-${{ github.run_id }}
+          restore-keys: |
+            steam-token-
+
+      - name: Install steam token
+        env:
+          STEAM_CACHE_KEY: ${{ secrets.STEAM_CACHE_KEY }}
+        run: |
+          .github/helpers/steam_token.sh restore steam-token.enc
 
       - name: Download latest linux from S3
         run: |
@@ -97,11 +101,14 @@ jobs:
           .github/helpers/steam_create_vdf.sh ${{ env.TARGET_FOLDER }} ${{ env.SUB_TYPE }}
 
       - name: Upload to steam
+        env:
+          STEAM_USER: ${{ secrets.STEAM_USER }}
+          STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
         run: |
           cd ${TARGET_FOLDER}
           CWD=$(pwd)
           cd -
-          steamcmd +login ${{ secrets.STEAM_USER }} ${{ secrets.STEAM_PASSWORD }} +run_app_build "${CWD}/AppBuild_${{ env.SUB_TYPE }}.vdf" +quit
+          steamcmd +login "${STEAM_USER}" "${STEAM_PASSWORD}" +run_app_build "${CWD}/AppBuild_${{ env.SUB_TYPE }}.vdf" +quit
 
       - name: Create Summary
         if: always()

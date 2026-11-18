@@ -1,0 +1,69 @@
+name: 🔑 Steam refresh login
+run-name: 🔑 Steam refresh login by @${{ github.actor }}
+# Logs into Steam and caches steamcmd's login token (encrypted) for push_latest_to_steam.
+# Without a valid cached token Steam Guard asks for a phone confirmation (~1 min).
+# The weekly run keeps the cache from being evicted (7 days unused) and the token fresh.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 4 * * 1'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            .github/helpers
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Setup steamcmd
+        uses: CyberAndrii/setup-steamcmd@afc45f145b95c175c3a3862d3ca84756537d48e8 # v1
+
+      - name: Bootstrap steamcmd
+        run: |
+          steamcmd +quit
+
+      - name: Restore steam token
+        uses: actions/cache/restore@v4
+        with:
+          path: steam-token.enc
+          key: steam-token-${{ github.run_id }}
+          restore-keys: |
+            steam-token-
+
+      - name: Install steam token
+        env:
+          STEAM_CACHE_KEY: ${{ secrets.STEAM_CACHE_KEY }}
+        run: |
+          .github/helpers/steam_token.sh restore steam-token.enc
+
+      - name: Login to steam
+        env:
+          STEAM_USER: ${{ secrets.STEAM_USER }}
+          STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+        run: |
+          steamcmd +login "${STEAM_USER}" "${STEAM_PASSWORD}" +quit
+
+      - name: Encrypt steam token
+        env:
+          STEAM_CACHE_KEY: ${{ secrets.STEAM_CACHE_KEY }}
+        run: |
+          rm -f steam-token.enc
+          .github/helpers/steam_token.sh save steam-token.enc
+
+      - name: Save steam token
+        uses: actions/cache/save@v4
+        with:
+          path: steam-token.enc
+          key: steam-token-${{ github.run_id }}-${{ github.run_attempt }}
