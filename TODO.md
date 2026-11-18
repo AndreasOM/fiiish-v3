@@ -20,6 +20,10 @@
 ## ToDo
 
 - [ ] Bug: Block `8001_Empty` (d=0) and `8002_Trailer` (d=100) in `_pick_next_zone` - both are picked in normal runs
+- [ ] Task: Avoid zone repeats in `_pick_next_zone` (today `_zone_history` only counts zones and is cleared per run, so the same zone can come twice in a row). Players do hundreds of runs through the same early difficulty band.
+	- [ ] Prefer zones not among the last ~8-10 played, across runs
+	- [ ] Fallback when the pool is small: if too few candidates remain, relax the recent list (drop the oldest entries first, down to just the previous zone) instead of picking nothing
+	- [ ] Serialise the recent-zones list to the player save so it survives restarts (needs a save version bump + migration for old saves: empty list)
 - [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot` outside `build.yaml`). The Steam job logs in after running a third-party action. `build.yaml` is clean, use it as the pattern.
 - [ ] Security (zizmor): pass secrets via `env:` instead of `${{ secrets.* }}` inside `run:` (AWS keys, steamcmd login)
 - [ ] Test: run `macos` and `ios` builds by hand once, to check the `build.yaml` env refactor on the macOS/iOS-only steps
