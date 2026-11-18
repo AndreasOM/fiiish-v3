@@ -272,6 +272,7 @@ func _case_small_pool() -> Array[ String ]:
 
 # Player save v15 added the recent zones list. The v14 fixture (godot-saves/) must still load, with an empty list.
 # The list must keep only the latest Player.MAX_RECENT_ZONES names and survive a save and load.
+# The player must be dirty after a change and clean after saving and after loading.
 # Does not cover the `version < 15` gate in Player.serialize(): the Serializer returns zeros past the
 # end of the data, so the v14 fixture loads the same with or without the gate.
 func _case_player_save() -> Array[ String ]:
@@ -286,6 +287,8 @@ func _case_player_save() -> Array[ String ]:
 		self._add_failure( failures, "v14 fixture: coins %d, expected 1276 (did loading break?)" % old.coins() )
 	if !old.recent_zones().is_empty():
 		self._add_failure( failures, "v14 fixture: recent zones %s, expected empty" % [ old.recent_zones() ] )
+	if old.is_dirty():
+		self._add_failure( failures, "v14 fixture: dirty right after loading" )
 
 	# more pushes than the list holds: only the latest names stay, oldest first
 	var pushed = Player.MAX_RECENT_ZONES + 2
@@ -296,11 +299,17 @@ func _case_player_save() -> Array[ String ]:
 			zones.push_back( "zone_%02d" % i )
 	if old.recent_zones() != zones:
 		self._add_failure( failures, "after %d pushes: recent zones %s, expected %s" % [ pushed, old.recent_zones(), zones ] )
+	if !old.is_dirty():
+		self._add_failure( failures, "after %d pushes: not dirty" % pushed )
 
 	# roundtrip as the current version, other fields must survive
 	old.save_with_suffix( TEST_PLAYER_SUFFIX )
+	if old.is_dirty():
+		self._add_failure( failures, "still dirty after saving" )
 	var reloaded = Player.load_with_suffix( TEST_PLAYER_SUFFIX )
 	self._remove_test_player_save()
+	if reloaded.is_dirty():
+		self._add_failure( failures, "roundtrip: dirty right after loading" )
 	if reloaded.recent_zones() != zones:
 		self._add_failure( failures, "roundtrip: recent zones %s, expected %s" % [ reloaded.recent_zones(), zones ] )
 	if reloaded.coins() != 1276:
@@ -309,6 +318,8 @@ func _case_player_save() -> Array[ String ]:
 	reloaded.clear_recent_zones()
 	if !reloaded.recent_zones().is_empty():
 		self._add_failure( failures, "after clear: recent zones %s, expected empty" % [ reloaded.recent_zones() ] )
+	if !reloaded.is_dirty():
+		self._add_failure( failures, "after clear: not dirty" )
 	return failures
 
 # Goes through ZoneManager.spawn_zone(): a forced zone (the start zone) must not land in the player's

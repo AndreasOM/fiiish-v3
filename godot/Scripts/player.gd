@@ -109,6 +109,7 @@ static func load_from_file( path: String ) -> Player:
 		push_warning("Failed serializing player");
 		return Player.new()
 		
+	player._is_dirty = false
 	return player
 	
 func reset() -> void:
@@ -143,14 +144,20 @@ func save_with_suffix( suffix: String ) -> void:
 	var p = get_save_path( suffix )
 	print("Saving player to %s" % p)
 	var s = Serializer.new()
-	if !serialize( s ):
+	var serialized = serialize( s )
+	if !serialized:
 		push_warning("Failed serializing player");
 	
 	self._load_suffix = suffix
-	s.save_file(p)
+	if s.save_file(p) && serialized:
+		self._is_dirty = false
 	
 func save() -> void:
 	save_with_suffix( self._load_suffix )
+
+## True while the player has changes that are not in its save file yet.
+func is_dirty() -> bool:
+	return self._is_dirty
 
 func serialize( s: Serializer ) -> bool:
 
