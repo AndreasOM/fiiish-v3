@@ -6,6 +6,19 @@ var width: float = 0.0
 var height: float = 0.0
 var difficulty: int = 0
 
+# Bit 15 of the u16 difficulty: zone is never picked automatically (scripts can still spawn it by name).
+# This is the only place that knows the bit. Everyone else uses is_never_pick() / set_never_pick().
+const _NEVER_PICK_FLAG: int = 0x8000
+
+func is_never_pick() -> bool:
+	return ( self.difficulty & _NEVER_PICK_FLAG ) != 0
+
+func set_never_pick( never_pick: bool ) -> void:
+	if never_pick:
+		self.difficulty |= _NEVER_PICK_FLAG
+	else:
+		self.difficulty &= ~_NEVER_PICK_FLAG
+
 var layers: SerializableArray = SerializableArray.new(
 	func() -> NewZoneLayer:
 		return NewZoneLayer.new() 

@@ -114,7 +114,9 @@ func pick_next_zone( blocked_zones: Array [ String ], difficulty: int ) -> NewZo
 			var z = self._zones[i]
 			if blocked_zones.find( z.name ) >= 0:
 				continue
-			
+			if z.is_never_pick():
+				continue
+
 			var dd = difficulty - z.difficulty
 			if dd < 0:	# do not use zones that are too difficult
 				continue
