@@ -3,14 +3,15 @@ extends Node
 
 # Zone selection test harness, runs inside the real game like the other scripts.
 #
-#   godot --headless --path godot -- --script:"ZoneSelectionTest"                    (all cases)
-#   ZONE_SELECTION_TEST_CASE=never_pick godot --headless --path godot -- --script:"ZoneSelectionTest"   (one case)
+# Launch parameters, like the other scripts (editor launch control sets them as main_run_args):
+#   --script:"ZoneSelectionTest" --no-user-zones
 #
-# The case comes from an env var because main.gd only accepts exactly `--script:"Name"` as launch parameter.
+# --no-user-zones tests the shipped zones only (same pool on every machine). Without it the full pool
+# also loads user://zones/. The pool also depends on the build flavour (demo or full).
+# Set the env var ZONE_SELECTION_TEST_CASE (e.g. never_pick) to run a single case.
 #
 # Every case returns a list of failure messages (empty = pass). Prints
 # ZONE_SELECTION_TEST PASS/FAIL and quits with exit code 0/1.
-# The pool depends on the build flavour (demo or full); the full pool also loads user://zones/.
 
 const TEST_SEED: int = 20261118
 const PICKS_PER_STEP: int = 2000

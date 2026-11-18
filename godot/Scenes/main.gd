@@ -386,15 +386,17 @@ func _handle_script( s: String ) -> void:
 			s = ""
 		#print("Removed uid:// -> >%s< (%d)" % [ s, first_space ])
 		
-	if !s.begins_with("--script:"):
+	# Find --script:"Name" anywhere in the launch parameters, so other flags may be passed along
+	# (e.g. --no-user-zones).
+	var script_marker = "--script:\""
+	var script_start = s.find( script_marker )
+	if script_start < 0:
 		return
-	s = s.trim_prefix("--script:")
-	if !s.begins_with("\""):
+	s = s.substr( script_start + script_marker.length() )
+	var script_end = s.find( "\"" )
+	if script_end < 0:
 		return
-	if !s.ends_with("\""):
-		return
-	s = s.trim_prefix("\"")
-	s = s.trim_suffix("\"")
+	s = s.substr( 0, script_end )
 	var script = null
 	match s:
 		"MarketingScreenshots":
@@ -480,14 +482,6 @@ func _get_launch_parameters_web() -> String:
 func _get_launch_parameters_editor() -> String:
 	
 	if !EngineDebugger.is_active():
-		# Started from a terminal with the editor binary, e.g.
-		#   godot --path godot -- --script:"ZoneSelectionTest"
-		# No editor Play session hands over the launch parameters then, so use the user args (after `--`).
-		var user_args = OS.get_cmdline_user_args()
-		if user_args.size() > 0:
-			var user_lp = " ".join(user_args)
-			print("Launch Parameter (user args) >%s<" % user_lp )
-			return user_lp
 		push_warning("No EngineDebugger active when running from editor")
 		return ""
 		

@@ -10,13 +10,21 @@ func _ready() -> void:
 	var lp = " ".join(args)
 	
 	self._handle_demo( lp )
+	self._handle_no_user_zones( lp )
 	self._handle_steam()
 
 func _handle_demo( s: String ) -> void:
 	if !s.contains("--demo"):
 		return
-		
+
 	self.add_extra_feature( "demo" )
+
+# Skip loading the zones from user://zones/ (e.g. for tests that need the same zone pool on every machine).
+func _handle_no_user_zones( s: String ) -> void:
+	if !s.contains("--no-user-zones"):
+		return
+
+	self.add_extra_feature( "no_user_zones" )
 
 func _handle_steam( ) -> void:
 	var ir = SteamWrapper.get_steam_init_result()

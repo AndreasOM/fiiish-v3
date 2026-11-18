@@ -76,8 +76,9 @@ func _ready() -> void:
 	else:
 		self._zone_config_manager.load_zones_from_folder( "res://Resources/Zones/", "classic" )
 		
-		DirAccess.make_dir_recursive_absolute("user://zones/")
-		self._zone_config_manager.load_zones_from_folder( "user://zones/", "user" )
+		if !FeatureTags.has_feature("no_user_zones"):
+			DirAccess.make_dir_recursive_absolute("user://zones/")
+			self._zone_config_manager.load_zones_from_folder( "user://zones/", "user" )
 
 	
 	self.zone_manager.set_zone_config_manager( self._zone_config_manager )
