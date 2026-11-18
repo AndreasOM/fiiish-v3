@@ -1,5 +1,6 @@
 class_name Player
 
+# The save format version. godot-saves/README.md has the rule for changing it (keep a save in the old format).
 const current_version: int = 15
 const oldest_supported_version: int = 3
 

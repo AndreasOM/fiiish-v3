@@ -24,15 +24,8 @@
 	- [x] `pick_next_zone`: skip zones where `is_never_pick()`, checked before the distance math, independent of the 120 cap. Scripted zones (`push_next_zone_by_name`) skip difficulty and keep working.
 	- [x] Set both zones to difficulty 65535 (patched the u16 directly, no format change)
 	- [ ] Test in Godot: 8001/8002 never show up in normal runs, scripted screenshot/trailer scripts still spawn them
-- [x] Task: Add a launch flag to skip loading user zones (`--no-user-zones`, `user://zones/` in `game_manager.gd`), so the zone selection tests (`ZoneSelectionTest`) run against the same pool on every machine
 - [ ] Task: Rethink the launch parameter handling. Today `FeatureTags` (`--demo`, `--no-user-zones`), `main.gd` (`--classic`, kids mode, `--script:"Name"`) and the editor addon (`editor/run/main_run_args`) each parse `OS.get_cmdline_args()` on their own: as one joined string with `contains()` matches, with different editor / non-editor / iOS / web sources. Args after `--` (`get_cmdline_user_args()`) are only used by `main.gd`, and only as a fallback for a terminal run with the editor binary (no debugger attached). `--script:` takes `"Name"` and `Name`, the other flags are plain `contains()` matches. Idea: one parser that builds the parameter list once and exposes typed flags, used by `FeatureTags`, `main.gd` and the scripts.
-- [x] Bug: `ZoneConfigManager.pick_next_zone` loops forever when no zone is eligible for the target (`while candidates.size() < mininum_candidates`; the `candidates.size() == 0` check after the loop is unreachable). The game doesn't hit it today (the start zone is in the history, so target >= 2), but never-pick zones and small pools (demo) make it easier to hit. Bail out with a warning (return null) when no zone passes the filters, and make the caller cope with null.
 - [ ] Test: Zone editor "Never pick" checkbox (implemented, untested): load 8002_Trailer (shows "never", slider disabled), uncheck (slider 100), recheck, save, reload; check the dialog still fits (panel min height 282 -> 330)
-- [x] Task: Zone editor: add a "Never pick" checkbox to the zone property dialog, using `NewZone.set_never_pick()`. Disable the slider while checked and show "never" in the label. When unchecking, reset the difficulty to a value in the slider range (the setter only toggles the bit, so 65535 would become 32767). Today the slider (1-100) clamps a loaded 65535 to "100" and a drag silently overwrites it on the next save.
-- [x] Task: Avoid zone repeats in `_pick_next_zone` (today `_zone_history` only counts zones and is cleared per run, so the same zone can come twice in a row). Players do hundreds of runs through the same early difficulty band.
-	- [x] Prefer zones not among the last ~8-10 played, across runs
-	- [x] Fallback when the pool is small: if too few candidates remain, relax the recent list (drop the oldest entries first, down to just the previous zone) instead of picking nothing
-	- [x] Serialise the recent-zones list to the player save so it survives restarts (needs a save version bump + migration for old saves: empty list)
 - [ ] Test: zone repeats by hand: play two runs, restart the game, check no early repeats across the restart (player save v15)
 - [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot` outside `build.yaml`). The Steam job logs in after running a third-party action. `build.yaml` is clean, use it as the pattern.
 - [ ] Security (zizmor): pass secrets via `env:` instead of `${{ secrets.* }}` inside `run:` (AWS keys, steamcmd login)
@@ -83,6 +76,11 @@
 - [x] Test: full release flow with v3.16.3 (sign, notarize, Steam development branch, overlay works), promoted to default, "App Bundles Are Notarized" ticked, announced as "v3.16.3 - macOS Notarization"
 - [x] Demo rebuilt at v3.16.3 (was `0.0.0`), notarized, live as BuildID 26766632, "App Bundles Are Notarized" ticked
 - [x] Fix: sign workflow used the wrong app name for `macos-demo-classic` (every `*-classic` is `fiiish-classic.app`)
+- [x] Launch flag `--no-user-zones` skips `user://zones/`, so the zone selection test runs against the same pool on every machine
+- [x] Zone editor: "Never pick" checkbox in the zone property dialog (`NewZone.set_never_pick()`), slider disabled and "never" shown while checked
+- [x] Fix: `ZoneConfigManager.pick_next_zone` looped forever when no zone was eligible; it now returns null with a warning
+- [x] Zone repeat avoidance: the last 8 picked zones live in the player save (v15, `Player.push_recent_zone()`) and are avoided inside the difficulty band of the target only. The band never widens for it, so a repeat beats a zone of the wrong difficulty. Forced zones (start zone, scripts, test play) are not counted
+- [x] Zone selection test (`ZoneSelectionTest`, 6 cases) runs headless from a terminal on a throwaway player: `godot --headless --path godot -- --script:ZoneSelectionTest --no-user-zones`. `--script:` takes the name with or without quotes
 
 ### 2026-11-15
 #### OFFSTREAM
