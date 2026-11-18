@@ -386,17 +386,23 @@ func _handle_script( s: String ) -> void:
 			s = ""
 		#print("Removed uid:// -> >%s< (%d)" % [ s, first_space ])
 		
-	# Find --script:"Name" anywhere in the launch parameters, so other flags may be passed along
-	# (e.g. --no-user-zones).
-	var script_marker = "--script:\""
+	# Find --script:"Name" or --script:Name anywhere in the launch parameters, so other flags may be
+	# passed along (e.g. --no-user-zones). A shell strips the quotes, so both forms are taken.
+	var script_marker = "--script:"
 	var script_start = s.find( script_marker )
 	if script_start < 0:
 		return
 	s = s.substr( script_start + script_marker.length() )
-	var script_end = s.find( "\"" )
-	if script_end < 0:
-		return
-	s = s.substr( 0, script_end )
+	if s.begins_with( "\"" ):
+		s = s.substr( 1 )
+		var quote_end = s.find( "\"" )
+		if quote_end < 0:
+			return
+		s = s.substr( 0, quote_end )
+	else:
+		var space = s.find( " " )
+		if space >= 0:
+			s = s.substr( 0, space )
 	var script = null
 	match s:
 		"MarketingScreenshots":
@@ -410,6 +416,7 @@ func _handle_script( s: String ) -> void:
 		"ZoneSelectionTest":
 			script = load(ZoneSelectionTestScript)
 		_:
+			push_warning( "Unknown script >%s<" % s )
 			return
 			
 	var script_node: Node = Node.new()
@@ -483,7 +490,7 @@ func _get_launch_parameters_editor() -> String:
 	
 	if !EngineDebugger.is_active():
 		# Started from a terminal with the editor binary, e.g.
-		#   godot --headless --path godot -- '--script:"ZoneSelectionTest"' --no-user-zones
+		#   godot --headless --path godot -- --script:ZoneSelectionTest --no-user-zones
 		# No editor Play session hands over the launch parameters then, so use the user args (after `--`).
 		var user_args = OS.get_cmdline_user_args()
 		if user_args.size() > 0:

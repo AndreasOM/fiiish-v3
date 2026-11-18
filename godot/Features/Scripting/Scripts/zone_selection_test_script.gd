@@ -5,6 +5,8 @@ extends Node
 #
 # Launch parameters, like the other scripts (editor launch control sets them as main_run_args):
 #   --script:"ZoneSelectionTest" --no-user-zones
+# From a terminal, with the editor binary:
+#   godot --headless --path godot -- --script:ZoneSelectionTest --no-user-zones
 #
 # --no-user-zones tests the shipped zones only (same pool on every machine). Without it the full pool
 # also loads user://zones/. The pool also depends on the build flavour (demo or full).
