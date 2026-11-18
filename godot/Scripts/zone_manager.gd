@@ -26,6 +26,7 @@ var _zone_history: Array = []
 # so the same zone does not come twice in a row, nor every other zone.
 const RECENT_ZONES_MAX: int = 8
 var _recent_zones: Array[ String ] = []
+var _recent_zones_loaded: bool = false
 
 func _process(_delta: float) -> void:
 	self.current_zone_progress += self.game_manager.movement.x
@@ -72,7 +73,31 @@ func cleanup() -> void:
 func clear_zone_history() -> void:
 	self._zone_history.clear()
 
+# The recent list lives in the player save, so it survives restarts.
+func _load_recent_zones() -> void:
+	if self._recent_zones_loaded:
+		return
+	var player = self.game_manager.game.get_player()
+	if player == null:
+		return
+	self._recent_zones_loaded = true
+	self._recent_zones = player.recent_zones()
+	while self._recent_zones.size() > RECENT_ZONES_MAX:
+		self._recent_zones.pop_front()
+
+func _remember_zone( zone_name: String ) -> void:
+	if self.game_manager.game.is_in_zone_editor():
+		return
+	self._load_recent_zones()
+	self._recent_zones.push_back( zone_name )
+	while self._recent_zones.size() > RECENT_ZONES_MAX:
+		self._recent_zones.pop_front()
+	var player = self.game_manager.game.get_player()
+	if player != null:
+		player.set_recent_zones( self._recent_zones )
+
 func _pick_next_zone() -> NewZone:
+	self._load_recent_zones()
 	var blocked_zones: Array[ String ] = [ 
 		"0000_Start",
 		"0000_ILoveFiiish",
@@ -165,9 +190,7 @@ func _spawn_zone_internal( zone: NewZone, spawn_offset: float ) -> bool:
 	self._current_zone = zone
 	Events.broadcast_zone_changed( zone )
 	self._zone_history.push_back( zone.name )
-	self._recent_zones.push_back( zone.name )
-	while self._recent_zones.size() > RECENT_ZONES_MAX:
-		self._recent_zones.pop_front()
+	self._remember_zone( zone.name )
 	for l in zone.layers.iter():
 		if l.name == "Obstacles" || l.name == "Obstacles_01" || l.name == "Pickups_00":
 			for obj in l.objects.iter():

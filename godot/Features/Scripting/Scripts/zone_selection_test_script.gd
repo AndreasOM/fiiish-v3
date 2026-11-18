@@ -40,6 +40,7 @@ func run( script_manager: ScriptManager ) -> bool:
 		"never_pick": self._case_never_pick,
 		"no_repeat": self._case_no_repeat,
 		"small_pool": self._case_small_pool,
+		"player_save": self._case_player_save,
 	}
 
 	var selected = self._get_selected_case()
@@ -208,4 +209,32 @@ func _case_small_pool() -> Array[ String ]:
 		all_blocked.push_back( self._zone_config_manager.get_zone( i ).name )
 	if self._zone_config_manager.pick_next_zone( all_blocked, MAX_TARGET_DIFFICULTY, [] ) != null:
 		self._add_failure( failures, "picked a zone with everything blocked" )
+	return failures
+
+# Player save v15 added the recent zones list. The v14 fixture (godot-saves/) must still load, with an empty list.
+func _case_player_save() -> Array[ String ]:
+	var failures: Array[ String ] = []
+	var fixture = ProjectSettings.globalize_path( "res://" ).path_join( "../godot-saves/player-version-14.data" ).simplify_path()
+	if !FileAccess.file_exists( fixture ):
+		self._add_failure( failures, "fixture missing: %s" % fixture )
+		return failures
+
+	var old = Player.load_from_file( fixture )
+	if old.coins() != 1276:
+		self._add_failure( failures, "v14 fixture: coins %d, expected 1276 (did loading break?)" % old.coins() )
+	if !old.recent_zones().is_empty():
+		self._add_failure( failures, "v14 fixture: recent zones %s, expected empty" % [ old.recent_zones() ] )
+
+	# roundtrip as the current version, other fields must survive
+	var zones: Array[ String ] = [ "3001_A", "5002_PinkAndPurple", "D0006_EasyGoing3" ]
+	old.set_recent_zones( zones )
+	var suffix = "_zone_selection_test"
+	old.save_with_suffix( suffix )
+	var path = Player.get_save_path( suffix )
+	var reloaded = Player.load_with_suffix( suffix )
+	DirAccess.remove_absolute( path )
+	if reloaded.recent_zones() != zones:
+		self._add_failure( failures, "roundtrip: recent zones %s, expected %s" % [ reloaded.recent_zones(), zones ] )
+	if reloaded.coins() != 1276:
+		self._add_failure( failures, "roundtrip: coins %d, expected 1276" % reloaded.coins() )
 	return failures

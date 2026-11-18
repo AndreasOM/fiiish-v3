@@ -1,6 +1,6 @@
 class_name Player
 
-const current_version: int = 14
+const current_version: int = 15
 const oldest_supported_version: int = 3
 
 var _coins: int = 0
@@ -67,6 +67,12 @@ var _max_coins: int = 0
 var _day_streak_start: String = ""	# YYYYMMDD
 var _day_streak_length: int = 0
 
+## version 15
+var _recent_zones: SerializableArray = SerializableArray.new(
+	func() -> SerializableString:
+		return SerializableString.new()
+)
+
 ## not serialized
 var _first_ranks_on_last_leaderboard_update: Array[ LeaderboardTypes.Type ] = []
 var _last_coins = 0
@@ -122,6 +128,7 @@ func reset() -> void:
 	_last_achievements.clear()
 	self._day_streak_start = ""
 	self._day_streak_length = 0
+	self._recent_zones.clear()
 	self._is_dirty = true
 	
 func reset_local_leaderboards() -> void:
@@ -235,6 +242,11 @@ func serialize( s: Serializer ) -> bool:
 		
 	self._day_streak_start = s.serialize_fixed_string( 8, self._day_streak_start )
 	self._day_streak_length = s.serialize_u16( self._day_streak_length )
+
+	if version < 15:
+		return true
+
+	self._recent_zones.serialize( s )
 	
 	return true
 		
@@ -490,3 +502,18 @@ func collect_achievement( id: String ) -> bool:
 	self._collected_achievements.push_back( s_id )
 	
 	return true
+
+## Names of the zones played lately, oldest first (zone picker repeat avoidance, survives restarts).
+func recent_zones() -> Array[ String ]:
+	var r: Array[ String ] = []
+	for z in self._recent_zones.iter():
+		r.push_back( z.to_string() )
+	return r
+
+func set_recent_zones( zones: Array[ String ] ) -> void:
+	if zones == self.recent_zones():
+		return
+	self._recent_zones.clear()
+	for z in zones:
+		self._recent_zones.push_back( SerializableString.new( z ) )
+	self._is_dirty = true

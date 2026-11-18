@@ -29,10 +29,11 @@
 - [x] Bug: `ZoneConfigManager.pick_next_zone` loops forever when no zone is eligible for the target (`while candidates.size() < mininum_candidates`; the `candidates.size() == 0` check after the loop is unreachable). The game doesn't hit it today (the start zone is in the history, so target >= 2), but never-pick zones and small pools (demo) make it easier to hit. Bail out with a warning (return null) when no zone passes the filters, and make the caller cope with null.
 - [ ] Test: Zone editor "Never pick" checkbox (implemented, untested): load 8002_Trailer (shows "never", slider disabled), uncheck (slider 100), recheck, save, reload; check the dialog still fits (panel min height 282 -> 330)
 - [x] Task: Zone editor: add a "Never pick" checkbox to the zone property dialog, using `NewZone.set_never_pick()`. Disable the slider while checked and show "never" in the label. When unchecking, reset the difficulty to a value in the slider range (the setter only toggles the bit, so 65535 would become 32767). Today the slider (1-100) clamps a loaded 65535 to "100" and a drag silently overwrites it on the next save.
-- [ ] Task: Avoid zone repeats in `_pick_next_zone` (today `_zone_history` only counts zones and is cleared per run, so the same zone can come twice in a row). Players do hundreds of runs through the same early difficulty band.
+- [x] Task: Avoid zone repeats in `_pick_next_zone` (today `_zone_history` only counts zones and is cleared per run, so the same zone can come twice in a row). Players do hundreds of runs through the same early difficulty band.
 	- [x] Prefer zones not among the last ~8-10 played, across runs
 	- [x] Fallback when the pool is small: if too few candidates remain, relax the recent list (drop the oldest entries first, down to just the previous zone) instead of picking nothing
-	- [ ] Serialise the recent-zones list to the player save so it survives restarts (needs a save version bump + migration for old saves: empty list)
+	- [x] Serialise the recent-zones list to the player save so it survives restarts (needs a save version bump + migration for old saves: empty list)
+- [ ] Test: zone repeats by hand: play two runs, restart the game, check no early repeats across the restart (player save v15)
 - [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot` outside `build.yaml`). The Steam job logs in after running a third-party action. `build.yaml` is clean, use it as the pattern.
 - [ ] Security (zizmor): pass secrets via `env:` instead of `${{ secrets.* }}` inside `run:` (AWS keys, steamcmd login)
 - [ ] Test: run `macos` and `ios` builds by hand once, to check the `build.yaml` env refactor on the macOS/iOS-only steps
