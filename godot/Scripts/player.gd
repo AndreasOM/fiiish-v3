@@ -306,6 +306,10 @@ func update_day_streak() -> void:
 	var delta = self._days_since_yyyymmdd( self._day_streak_start )
 	delta += 1
 
+	if delta < 1:
+		# The clock is before the streak start: keep the streak as it is.
+		return
+
 	if delta > self._day_streak_length + 1:
 		# broken streak
 		print("Broken Streak started on %s, %d days in streak, but needed %d" % [ self._day_streak_start, self._day_streak_length, delta ])
