@@ -87,26 +87,34 @@ func _update_coins() -> void:
 	
 func _focus_last_focused_skill() -> void:
 	var p = %SkillUpgradeItemContainer
-	# var prev: SkillUpgradeItemButton = null
+	var found: bool = false
+	var first: SkillUpgradeItem = null
+	var above: SkillUpgradeItem = null
 	for c in p.get_children():
 		var sui = c as SkillUpgradeItem
 		if sui == null:
 			continue
 		if sui.skill_id == self._last_focused_skill_id:
-			if sui.can_focus():
-				sui.grab_focus.call_deferred()
-				return
-			else:
-				break
-
-	for c in p.get_children():
-		var sui = c as SkillUpgradeItem
-		if sui == null:
+			found = true
+		if !sui.can_focus():
 			continue
-		if sui.can_focus():
+		if found:
+			# The last focused skill, or the next one below it when it is maxed.
 			sui.grab_focus.call_deferred()
 			return
-				
+		if first == null:
+			first = sui
+		above = sui
+
+	if found && above != null:
+		# Nothing below, take the nearest one above.
+		above.grab_focus.call_deferred()
+		return
+
+	if !found && first != null:
+		first.grab_focus.call_deferred()
+		return
+
 	self.buy_skill_points_button.grab_focus.call_deferred()
 	
 func _update_skill_upgrade_items() -> void:
@@ -246,8 +254,8 @@ func _on_skill_buy_triggered( id: SkillIds.Id, level: int ) -> void:
 	var total_skill_levels = p.get_total_skill_levels()
 	game.achievement_counter_manager.set_counter( AchievementCounterIds.Id.SKILL_UPGRADES, total_skill_levels )
 	self._last_focused_skill_id = id
+	self._update_all()
 	self._focus_last_focused_skill()
-	_update_all()
 
 func _get_skill_upgrade_item_for_skill_id( id: SkillIds.Id ) -> SkillUpgradeItem:
 	# var p = $FadeableCenterContainer/TextureRect/MarginContainer/HBoxContainer/ScrollContainer/RightVBoxContainer

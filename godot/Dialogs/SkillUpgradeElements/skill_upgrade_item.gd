@@ -81,6 +81,12 @@ func _update_states() -> void:
 				suib.set_state_disabled()
 				
 			i += 1
+
+	# A maxed skill has nothing left to focus.
+	if self.maximum <= self.current:
+		self.focus_mode = Control.FOCUS_NONE
+	else:
+		self.focus_mode = Control.FOCUS_ALL
 	
 func set_unlockable( v: int ) -> void:
 	unlockable = v

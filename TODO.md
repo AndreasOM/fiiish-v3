@@ -79,6 +79,7 @@
 - [x] Fixed special coin streak timer
 - [x] Reset magnet boost on respawn
 - [x] Fixed skill dialog focus with maxed skills
+- [x] Fixed focus staying on maxed skill after buying
 
 ### 2026-11-18
 #### OFFSTREAM
