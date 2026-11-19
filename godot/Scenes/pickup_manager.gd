@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 		_special_coins_spawned = max( 0.0, _special_coins_spawned )
 		# print("_special_coins_spawned %f" % _special_coins_spawned)
 
-	_time_since_last_special_coin += delta
+	self._time_since_last_special_coin += delta
 
 	if _special_coin_cooldown > 0.0:
 		_special_coin_cooldown = max( 0.0, _special_coin_cooldown - delta )
@@ -260,4 +260,4 @@ func _log_special_coin() -> void:
 			_special_coin_cooldown = 10.0
 			_special_coin_streak = 0
 	else:
-		_special_coin_streak = 1
+		self._special_coin_streak = 1
