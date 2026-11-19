@@ -151,6 +151,8 @@ func on_dialog_closed( dialog: Dialog ) -> void:
 		self.front_dialogs.remove_child( dialog )
 	else:
 		print("WARN: dialog is neither a child of DialogManager nor of front_dialogs")
+	# Every open creates a new instance, so the closed one is not needed again.
+	dialog.queue_free()
 	var id = _dialogs.find_key( dialog )
 	if id != null:
 		_dialogs.erase( id )

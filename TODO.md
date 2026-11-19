@@ -73,6 +73,7 @@
 ### 2026-11-19
 #### OFFSTREAM
 - [x] Fixed startup with broken settings file
+- [x] Freed dialogs after closing
 
 ### 2026-11-18
 #### OFFSTREAM
