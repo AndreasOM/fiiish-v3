@@ -108,6 +108,15 @@ static func load_from_file( path: String ) -> Player:
 	var player = Player.new()
 	if !player.serialize( s ):
 		push_warning("Failed serializing player");
+		# Keep the unreadable file, the next save would overwrite it.
+		var stamp = Time.get_datetime_string_from_system( true ).replace( "-", "" ).replace( ":", "" )
+		var version = VersionInfo.version.validate_filename().replace( " ", "_" )
+		var broken_path = "%s.broken-%s-%s" % [ path, version, stamp ]
+		var err = DirAccess.copy_absolute( path, broken_path )
+		if err != OK:
+			push_error( "Failed copying broken player save to %s (%d)" % [ broken_path, err ] )
+		else:
+			print( "Copied broken player save to %s" % broken_path )
 		return Player.new()
 		
 	player._is_dirty = false
