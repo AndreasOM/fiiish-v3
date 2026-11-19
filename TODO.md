@@ -70,6 +70,10 @@
 ## Done
 
 
+### 2026-11-19
+#### OFFSTREAM
+- [x] Fixed startup with broken settings file
+
 ### 2026-11-18
 #### OFFSTREAM
 - [x] Steam login without phone: "Steam refresh login" caches steamcmd's token encrypted (`STEAM_CACHE_KEY`), weekly + by hand; push logs in with the cached token, falls back to password + Steam Guard. `setup-steamcmd` pinned to SHA, Steam secrets via `env:`, login runs before the downloads to fail early

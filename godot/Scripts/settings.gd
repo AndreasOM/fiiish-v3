@@ -31,8 +31,8 @@ static func load() -> Settings:
 		
 	var settings = Settings.new()
 	if !settings.serialize( s ):
-		push_warning("Failed serializing settings");
-		return null
+		push_warning("Failed serializing settings, using defaults");
+		return Settings.new()
 		
 	return settings
 	
