@@ -126,6 +126,9 @@ func _goto_dying() -> void:
 
 func _goto_respawning() -> void:
 	_set_state( Fish.State.RESPAWNING )
+	self._magnet_boost_duration = 0.0
+	self._magnet_range_boost = 1.0
+	self._magnet_speed_boost = 1.0
 	self.transform.origin.y = 0.0
 	self.transform.origin.x = -1200.0
 	self.rotation_degrees = 0.0

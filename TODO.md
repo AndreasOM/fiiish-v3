@@ -77,6 +77,7 @@
 - [x] Disabled Kill key in release builds
 - [x] Fixed launch flags after `--` being ignored
 - [x] Fixed special coin streak timer
+- [x] Reset magnet boost on respawn
 
 ### 2026-11-18
 #### OFFSTREAM
