@@ -202,7 +202,8 @@ func _process_mode_play(delta: float) -> void:
 		Fish.State.INITIAL:
 			_set_state(Fish.State.WAITING_FOR_START)
 		Fish.State.SWIMMING:
-			if Input.is_key_pressed(KEY_K):
+			# Debug key: kill the fish. Not in release builds.
+			if OS.is_debug_build() && Input.is_key_pressed(KEY_K):
 				_goto_killed()
 			if _magnet_boost_duration > 0.0:
 				_magnet_boost_duration -= delta

@@ -74,6 +74,7 @@
 #### OFFSTREAM
 - [x] Fixed startup with broken settings file
 - [x] Freed dialogs after closing
+- [x] Disabled Kill key in release builds
 
 ### 2026-11-18
 #### OFFSTREAM
