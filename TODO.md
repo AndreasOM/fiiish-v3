@@ -84,6 +84,7 @@
 - [x] Kept day streak when the clock moves back
 - [x] Kept a copy of broken player saves
 - [x] Added backup of player save before migration
+- [x] Released v3.16.4 on Steam, announced as "v3.16.4 - Variety & Polish"
 
 ### 2026-11-18
 #### OFFSTREAM
