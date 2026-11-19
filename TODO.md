@@ -66,7 +66,7 @@
 	- [ ] Auditor persona: job names, `concurrency` per shared S3 pointer
 	- [ ] Secrets in GitHub environments (`artifacts`, `appstore`, `steam`), restricted to `main`/`v*` or `classic`/`full`. Also enforces the upload gate.
 - [ ] Steam: verify a real push uses the cached token (no phone)
-- [ ] Feature: Expose broken player saves (`player.data.broken-*`) to the player, and allow fixing them, e.g. if we mess up a migration
+- [ ] Feature: Expose broken player saves (`player.data.broken-*`) and migration backups (`player.data.backup-save*`) to the player, and allow fixing or restoring them, e.g. if we mess up a migration
 
 ## Done
 
@@ -83,6 +83,7 @@
 - [x] Fixed focus staying on maxed skill after buying
 - [x] Kept day streak when the clock moves back
 - [x] Kept a copy of broken player saves
+- [x] Added backup of player save before migration
 
 ### 2026-11-18
 #### OFFSTREAM

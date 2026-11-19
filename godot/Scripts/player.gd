@@ -11,6 +11,8 @@ var _best_distance: int = 0
 var _play_count: int = 0
 
 var _is_dirty: bool = false
+## Save format version this player was last read from or written as.
+var _loaded_version: int = current_version
 
 ## version 4
 var _skill_points_gained: int = 0
@@ -109,18 +111,26 @@ static func load_from_file( path: String ) -> Player:
 	if !player.serialize( s ):
 		push_warning("Failed serializing player");
 		# Keep the unreadable file, the next save would overwrite it.
-		var stamp = Time.get_datetime_string_from_system( true ).replace( "-", "" ).replace( ":", "" )
-		var version = VersionInfo.version.validate_filename().replace( " ", "_" )
-		var broken_path = "%s.broken-%s-%s" % [ path, version, stamp ]
-		var err = DirAccess.copy_absolute( path, broken_path )
-		if err != OK:
-			push_error( "Failed copying broken player save to %s (%d)" % [ broken_path, err ] )
-		else:
-			print( "Copied broken player save to %s" % broken_path )
+		_copy_save_aside( path, "broken" )
 		return Player.new()
 		
+	if player._loaded_version < current_version:
+		# Keep the old format file, the next save writes the current format.
+		_copy_save_aside( path, "backup-save%d" % [ player._loaded_version ] )
+
 	player._is_dirty = false
 	return player
+
+## Copies a save file to `<path>.<label>-<game version>-<UTC timestamp>`.
+static func _copy_save_aside( path: String, label: String ) -> void:
+	var stamp = Time.get_datetime_string_from_system( true ).replace( "-", "" ).replace( ":", "" )
+	var version = VersionInfo.version.validate_filename().replace( " ", "_" )
+	var copy_path = "%s.%s-%s-%s" % [ path, label, version, stamp ]
+	var err = DirAccess.copy_absolute( path, copy_path )
+	if err != OK:
+		push_error( "Failed copying player save to %s (%d)" % [ copy_path, err ] )
+	else:
+		print( "Copied player save to %s" % [ copy_path ] )
 	
 func reset() -> void:
 	_coins = 0
@@ -177,6 +187,7 @@ func serialize( s: Serializer ) -> bool:
 		
 	var version: int = current_version;
 	version = s.serialize_u16( version )
+	self._loaded_version = version
 	if version < oldest_supported_version:
 		push_warning("Version not supported ", version)
 		return false

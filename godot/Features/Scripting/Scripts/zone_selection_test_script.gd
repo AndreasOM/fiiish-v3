@@ -90,6 +90,20 @@ func _remove_test_player_save() -> void:
 	if FileAccess.file_exists( path ):
 		DirAccess.remove_absolute( path )
 
+# Lists the backup copies of the test player's save file.
+func _find_test_player_backups() -> Array[ String ]:
+	var prefix = Player.get_save_path( TEST_PLAYER_SUFFIX ).get_file() + ".backup-"
+	var backups: Array[ String ] = []
+	for f in DirAccess.get_files_at( "user://" ):
+		if f.begins_with( prefix ):
+			backups.push_back( f )
+	return backups
+
+# Deletes the backup copies of the test player's save file.
+func _remove_test_player_backups() -> void:
+	for f in self._find_test_player_backups():
+		DirAccess.remove_absolute( "user://%s" % [ f ] )
+
 func _get_selected_case() -> String:
 	return OS.get_environment( "ZONE_SELECTION_TEST_CASE" )
 
@@ -275,6 +289,7 @@ func _case_small_pool() -> Array[ String ]:
 # Player save v15 added the recent zones list. The v14 fixture (godot-saves/) must still load, with an empty list.
 # The list must keep only the latest Player.MAX_RECENT_ZONES names and survive a save and load.
 # The player must be dirty after a change and clean after saving and after loading.
+# Loading the older version must leave one backup copy of the file, loading the current version none.
 # Does not cover the `version < 15` gate in Player.serialize(): the Serializer returns zeros past the
 # end of the data, so the v14 fixture loads the same with or without the gate.
 func _case_player_save() -> Array[ String ]:
@@ -284,7 +299,16 @@ func _case_player_save() -> Array[ String ]:
 		self._add_failure( failures, "fixture missing: %s" % fixture )
 		return failures
 
-	var old = Player.load_from_file( fixture )
+	# load a copy: loading an older version writes a backup next to the file
+	var test_path = Player.get_save_path( TEST_PLAYER_SUFFIX )
+	self._remove_test_player_backups()
+	DirAccess.copy_absolute( fixture, test_path )
+	var old = Player.load_from_file( test_path )
+	var backups = self._find_test_player_backups()
+	if backups.size() != 1 || !backups[ 0 ].contains( ".backup-save14-" ):
+		self._add_failure( failures, "v14 fixture: backups %s, expected one .backup-save14-* file" % [ backups ] )
+	elif FileAccess.get_file_as_bytes( "user://%s" % [ backups[ 0 ] ] ) != FileAccess.get_file_as_bytes( fixture ):
+		self._add_failure( failures, "v14 fixture: backup %s differs from the fixture" % [ backups[ 0 ] ] )
 	if old.coins() != 1276:
 		self._add_failure( failures, "v14 fixture: coins %d, expected 1276 (did loading break?)" % old.coins() )
 	if !old.recent_zones().is_empty():
@@ -310,6 +334,9 @@ func _case_player_save() -> Array[ String ]:
 		self._add_failure( failures, "still dirty after saving" )
 	var reloaded = Player.load_with_suffix( TEST_PLAYER_SUFFIX )
 	self._remove_test_player_save()
+	if self._find_test_player_backups().size() != 1:
+		self._add_failure( failures, "roundtrip: loading the current version wrote another backup" )
+	self._remove_test_player_backups()
 	if reloaded.is_dirty():
 		self._add_failure( failures, "roundtrip: dirty right after loading" )
 	if reloaded.recent_zones() != zones:
