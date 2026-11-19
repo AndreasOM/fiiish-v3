@@ -135,18 +135,21 @@ func _update_skill_upgrade_items() -> void:
 		var sui = c as SkillUpgradeItem
 		if sui == null:
 			continue
-			
-		if sui.active_button != null:
-			sui.active_button.set_prev_control( prev )
-			sui.active_button.set_next_control( null )
+		# A maxed skill has no active button, the chain links across it.
+		if sui.active_button == null:
+			continue
+
+		sui.active_button.set_prev_control( prev )
+		sui.active_button.set_next_control( null )
 		if prev != null:
 			prev.set_next_control( sui.active_button )
 			
 		prev = sui.active_button
 	
-	prev.set_next_control( %ResetSkillPointsButton )
-	%ResetSkillPointsButton.focus_neighbor_top = %ResetSkillPointsButton.get_path_to( prev )
-	self.buy_skill_points_button.focus_neighbor_top = self.buy_skill_points_button.get_path_to( prev )
+	if prev != null:
+		prev.set_next_control( %ResetSkillPointsButton )
+		%ResetSkillPointsButton.focus_neighbor_top = %ResetSkillPointsButton.get_path_to( prev )
+		self.buy_skill_points_button.focus_neighbor_top = self.buy_skill_points_button.get_path_to( prev )
 
 func _prepare_fade_in() -> void:
 	var scm = game.get_skill_config_manager()
