@@ -6,7 +6,9 @@ var removed_features: Array[ String ] = []
 const NON_STEAM_OS: Array[ String ] = ["iOS","Android","Web","macOS"]
 
 func _ready() -> void:
+	# get_cmdline_args() stops at `--`, the args after it are only in get_cmdline_user_args().
 	var args = OS.get_cmdline_args()
+	args.append_array( OS.get_cmdline_user_args() )
 	var lp = " ".join(args)
 	
 	self._handle_demo( lp )
