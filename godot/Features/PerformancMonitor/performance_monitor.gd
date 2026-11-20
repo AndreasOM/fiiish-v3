@@ -5,6 +5,9 @@ var _current_areas: Dictionary[String, int] = {}
 var _historical_areas: Dictionary[String, PerformanceMonitor_AreaStats] = {}
 var _path: Array[String] = []
 
+# Collects timings only when true. On in the editor and in debug builds, off in release builds.
+var enabled: bool = OS.is_debug_build()
+
 func _init() -> void:
 	print("[PerformanceMonitor] _init called - autoload is being created")
 
@@ -48,6 +51,9 @@ func draw( ci: CanvasItem ) -> void:
 		x = x + w
 
 func next_frame() -> void:
+	if !self.enabled:
+		return
+
 	var now = Time.get_ticks_usec()
 
 	# Finalize previous frame
@@ -136,10 +142,14 @@ func next_frame() -> void:
 		self._current_areas[a] = 0
 	
 func enter_performance_area( area_name: String ) -> void:
+	if !self.enabled:
+		return
 	self._path.push_back( area_name )
 	pass
 
 func leave_performance_area( _area_name: String, duration: int ) -> void:
+	if !self.enabled:
+		return
 	var end_time = Time.get_ticks_usec()
 	var start_time = end_time - duration
 	var full_name = "/".join( self._path )

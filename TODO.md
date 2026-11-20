@@ -46,6 +46,7 @@
 - [ ] Move Player to rust, and implement Serializer for direct use
 - [ ] Steam: Refactor leaderboards, and maybe extract into shared
 - [ ] Cleanup: Remove or fix PerformanceMonitor, etc
+- [ ] Feature: Allow a developer to enable the PerformanceMonitor in release builds (off there by default, so the perf section of the developer overlay is empty)
 - [ ] Cleanup: Research replacing Script constants in main.gd
 
 - [ ] Cleanup: Improve pause handling, once more
@@ -80,6 +81,7 @@
 - [x] Fixed typos in the skill reset dialog
 - [x] Reset coin streak and coin rain state between runs
 - [x] Excluded marketing overlays from exports
+- [x] Disabled the performance monitor in release builds
 
 ### 2026-11-19
 #### OFFSTREAM
