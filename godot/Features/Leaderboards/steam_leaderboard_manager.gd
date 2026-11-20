@@ -204,8 +204,8 @@ func _process(delta: float) -> void:
 		if l == null:
 			return
 			
-		l.downloadLeaderboardEntries(r.start_index, r.end_index, r.data_request_type)
-		self._download_entries_in_flight = r
+		if l.downloadLeaderboardEntries( r.start_index, r.end_index, r.data_request_type ):
+			self._download_entries_in_flight = r
 		
 		return
 

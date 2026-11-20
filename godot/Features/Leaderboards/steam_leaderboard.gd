@@ -92,11 +92,18 @@ func _process(_delta: float) -> void:
 		var steam = SteamWrapper.get_steam()
 		steam.uploadLeaderboardScore( s.value, true, [], self._leaderboard_handle )
 
-func downloadLeaderboardEntries( start_index: int, end_index: int, data_request_type: int ) -> void:
+# Requests the entries from Steam. Returns false when nothing was sent.
+func downloadLeaderboardEntries( start_index: int, end_index: int, data_request_type: int ) -> bool:
+	if self._leaderboard_handle < 0:
+		print("STEAM: SteamLeaderboard.downloadLeaderboardEntries() %s skipped, no handle" % [ self._leaderboard_name ] )
+		return false
+	if !SteamWrapper.isSteamRunning():
+		return false
+
 	print("STEAM: SteamLeaderboard.downloadLeaderboardEntries() %s" % [ self._leaderboard_name ] )
-	if SteamWrapper.isSteamRunning():
-		var steam = SteamWrapper.get_steam()
-		steam.downloadLeaderboardEntries( start_index, end_index, data_request_type, self._leaderboard_handle )
+	var steam = SteamWrapper.get_steam()
+	steam.downloadLeaderboardEntries( start_index, end_index, data_request_type, self._leaderboard_handle )
+	return true
 
 func get_leaderboard( data_request_type: int, default: Leaderboard ) -> Leaderboard:
 	return self._leaderboards.get( data_request_type, default )
