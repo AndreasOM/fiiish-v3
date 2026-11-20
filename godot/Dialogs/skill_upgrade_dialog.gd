@@ -281,8 +281,8 @@ func _on_skill_reset_cancelled() -> void:
 func _on_reset_skill_points_button_pressed() -> void:
 	var d = _dialog_manager.open_dialog( DialogIds.Id.SKILL_RESET_CONFIRMATION_DIALOG, 0.3 )
 	var cd = d as FiiishConfirmationDialog
-	cd.set_title("Reset Skills?	")
-	cd.set_description("This will reset all your skills.\nAre sure?" )
+	cd.set_title( "Reset Skills?" )
+	cd.set_description( "This will reset all your skills.\nAre you sure?" )
 	cd.set_mode( FiiishConfirmationDialog.Mode.CANCEL_CONFIRM )
 	
 	if cd:

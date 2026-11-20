@@ -77,6 +77,7 @@
 - [x] Added commit time to the S3 archive name
 - [x] Added sanity checks for the exported binary and the archive size
 - [x] Skipped leaderboard downloads for boards without handle
+- [x] Fixed typos in the skill reset dialog
 
 ### 2026-11-19
 #### OFFSTREAM
