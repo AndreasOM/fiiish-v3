@@ -25,6 +25,9 @@ func load_zones_from_folder( folder: String, prefix: String = "" ) -> void:
 		print("Zones: %s (%s)" % [ zn, prefix ])
 		var fzn = "%s/%s" % [ folder, zn ]
 		var z = load( fzn )
+		if z == null:
+			push_warning( "Zone %s could not be loaded, skipping it." % [ fzn ] )
+			continue
 		var zone_name = "%s%s" % [ prefix, zn ]
 		self._zone_filenames_to_zones[ zone_name ] = self._zones.size()
 		self._zones.push_back( z )
@@ -34,6 +37,9 @@ func reload_zone( folder: String, filename: String, prefix: String = "" ) -> voi
 		prefix = "%s-" % prefix
 	var fzn = "%s/%s" % [ folder, filename ]
 	var z = ResourceLoader.load( fzn, "", ResourceLoader.CacheMode.CACHE_MODE_IGNORE_DEEP )
+	if z == null:
+		push_warning( "Zone %s could not be reloaded, the zone pool stays unchanged." % [ fzn ] )
+		return
 	var zone_name = "%s%s" % [ prefix, filename ]
 	var i = self.find_zone_index_by_filename( zone_name )
 	if i < 0:

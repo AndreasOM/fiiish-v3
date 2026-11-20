@@ -84,6 +84,7 @@
 - [x] Disabled the performance monitor in release builds
 - [x] Excluded the unused zone folder from demo and full exports
 - [x] Kept a copy of player saves from newer builds
+- [x] Skipped broken zone files when loading zones
 
 ### 2026-11-19
 #### OFFSTREAM

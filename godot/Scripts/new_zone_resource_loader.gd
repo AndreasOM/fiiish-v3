@@ -21,8 +21,10 @@ func _handles_type(type: StringName) -> bool:
 func _load(_path: String, original_path: String, _use_sub_threads: bool, _cache_mode: int) -> Variant:
 	# print("!!!!! Load ", original_path)
 	var s = Serializer.new()
-	s.load_file( original_path )
+	if !s.load_file( original_path ):
+		return ERR_FILE_CANT_OPEN
 
 	var n = NewZone.new()
-	n.serialize( s )
+	if !n.serialize( s ):
+		return ERR_FILE_CORRUPT
 	return n
