@@ -71,6 +71,10 @@
 ## Done
 
 
+### 2026-11-20
+#### OFFSTREAM
+- [x] Ignored floating tags in version info
+
 ### 2026-11-19
 #### OFFSTREAM
 - [x] Fixed startup with broken settings file
