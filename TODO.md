@@ -82,6 +82,7 @@
 - [x] Reset coin streak and coin rain state between runs
 - [x] Excluded marketing overlays from exports
 - [x] Disabled the performance monitor in release builds
+- [x] Excluded the unused zone folder from demo and full exports
 
 ### 2026-11-19
 #### OFFSTREAM

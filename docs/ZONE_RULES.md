@@ -22,6 +22,8 @@ Basics: the world scrolls at 240 px/s, so a 4096 px zone lasts about 17 s. The v
 
 How zones are picked: every pick has a target difficulty that rises during a run. The picker takes the zones closest to the target from below (the difficulty band) and avoids the last 8 picked zones among them. It never widens the band to avoid a repeat, so a difficulty with few zones repeats: today 70 and 90 have one zone each. The `no_repeat` case of the zone selection test prints the band size per target, which shows where new zones are needed.
 
+Demo and full pool: `Resources/Demo-Zones/` is the demo's pool, `Resources/Zones/` the full game's. Each build ships only its own folder, the export presets exclude the other one. `D0001`–`D0024` exist in both folders on purpose, so the full game has them too: change both copies together.
+
 ## Lead in / lead out
 
 The next zone spawns exactly at this zone's width, so the empty gap at a seam is the previous zone's lead out plus this zone's lead in.
