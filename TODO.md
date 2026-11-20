@@ -75,6 +75,7 @@
 #### OFFSTREAM
 - [x] Ignored floating tags in version info
 - [x] Added commit time to the S3 archive name
+- [x] Added sanity checks for the exported binary and the archive size
 
 ### 2026-11-19
 #### OFFSTREAM

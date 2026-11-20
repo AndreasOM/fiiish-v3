@@ -277,6 +277,13 @@ jobs:
 
           # || exit 0
 
+          BINARY=export/${PROJECT}-${BUILD_TYPE}/${BINARY_NAME}${BINARY_EXTENSION}
+          if [ ! -e "${BINARY}" ]
+          then
+            echo "::error::Export produced no ${BINARY}"
+            exit 1
+          fi
+
 # [ --- iOS only ---
 ##      - name: Switch Xcode Version
 ##        if: ${{ env.TARGET == 'ios' }}
@@ -360,6 +367,14 @@ jobs:
           echo ${VERSION} > ${PROJECT}-${BUILD_TYPE}/version.txt
           echo ${BUILD_NUMBER} > ${PROJECT}-${BUILD_TYPE}/build_number.txt
           tar czf ${ARCHIVE_FILE} ${PROJECT}-${BUILD_TYPE}
+          # Smallest real archive is about 75 MB (web-demo, 2026-11-19).
+          MIN_ARCHIVE_BYTES=25000000
+          ARCHIVE_BYTES=$(wc -c < ${ARCHIVE_FILE} | tr -d " ")
+          if [ ${ARCHIVE_BYTES} -lt ${MIN_ARCHIVE_BYTES} ]
+          then
+            echo "::error::Archive ${ARCHIVE_FILE} too small: ${ARCHIVE_BYTES} bytes, expected at least ${MIN_ARCHIVE_BYTES}"
+            exit 1
+          fi
           ARCHIVE_SIZE=$(du -h ${ARCHIVE_FILE}|cut -f1)
           echo "ARCHIVE_SIZE=${ARCHIVE_SIZE}" >> "$GITHUB_ENV"
 
