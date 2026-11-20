@@ -32,6 +32,14 @@ Build types combine platform and product, e.g. `macos-classic`, `windows-demo-cl
 - **Public patch:** the last episode included. If that number is already used, take the next one.
 - **Off-stream:** public tags allowed, no dev tags. Untagged builds show the commit hash.
 - **The past is frozen:** never retag, never reuse a version.
+- **Annotated tags:** version tags are always annotated, never lightweight. The message is the commit prefix plus `: Tag <version>`:
+
+```
+git tag -a v3.16.22 -m "[OFFSTREAM] : Tag v3.16.22"
+git cat-file -t v3.16.22
+```
+
+  The second line must print `tag`. `commit` means the tag is lightweight.
 
 Commit prefixes: `[26E023]` for stream work (year + episode), `[OFFSTREAM]` otherwise.
 
