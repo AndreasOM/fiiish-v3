@@ -83,6 +83,7 @@
 - [x] Excluded marketing overlays from exports
 - [x] Disabled the performance monitor in release builds
 - [x] Excluded the unused zone folder from demo and full exports
+- [x] Kept a copy of player saves from newer builds
 
 ### 2026-11-19
 #### OFFSTREAM

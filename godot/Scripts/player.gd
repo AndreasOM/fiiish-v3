@@ -114,8 +114,8 @@ static func load_from_file( path: String ) -> Player:
 		_copy_save_aside( path, "broken" )
 		return Player.new()
 		
-	if player._loaded_version < current_version:
-		# Keep the old format file, the next save writes the current format.
+	if player._loaded_version != current_version:
+		# Keep the file of the older or newer format, the next save writes the current format.
 		_copy_save_aside( path, "backup-save%d" % [ player._loaded_version ] )
 
 	player._is_dirty = false
