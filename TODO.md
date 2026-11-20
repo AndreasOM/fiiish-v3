@@ -85,6 +85,8 @@
 - [x] Excluded the unused zone folder from demo and full exports
 - [x] Kept a copy of player saves from newer builds
 - [x] Skipped broken zone files when loading zones
+- [x] Added rule about annotated version tags
+- [x] Released v3.16.5 on Steam, announced as "v3.16.5 - Smaller Download & Fixes"
 
 ### 2026-11-19
 #### OFFSTREAM
