@@ -59,7 +59,13 @@ func kill_all() -> void:
 		p.set_acceleration( g )
 
 func prepare_respawn() -> void:
-	_coin_rain_duration = 0.0
+	self._coin_rain_duration = 0.0
+	self._coin_rain_coins_per_second = 0.0
+	self._coin_rain_counter = 0.0
+	self._special_coins_spawned = 0.0
+	self._time_since_last_special_coin = 0.0
+	self._special_coin_streak = 0
+	self._special_coin_cooldown = 0.0
 
 func _process(delta: float) -> void:
 

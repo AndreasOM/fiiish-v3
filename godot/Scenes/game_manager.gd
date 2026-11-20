@@ -221,6 +221,7 @@ func kill_pickups() -> void:
 func prepare_respawn() -> void:
 	_coins = 0
 	_distance = 0.0
+	self.jump_movement = Vector2.ZERO
 	self.pickup_manager.prepare_respawn()
 	self._zone_config_manager.clear_next_zones()
 	if self._test_zone_filename.is_empty():
