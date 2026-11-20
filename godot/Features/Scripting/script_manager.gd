@@ -4,7 +4,7 @@ extends Node
 @onready var game: Game = %Game
 @onready var dialog_manager: DialogManager = %DialogManager
 
-const OverlayFolder = "res://Textures/Overlays/"
+const OverlayFolder = "res://Textures/Overlays"
 
 var _screenshot_prefix: String = ""
 var _screenshot_counter: int = 0
@@ -143,9 +143,12 @@ func enable_overlay( imagefile: String, direction: String ) -> int:
 #		self._overlay.queue_free()
 
 	var p = "%s/%s" % [ OverlayFolder, imagefile ]
+	if !FileAccess.file_exists( p ):
+		push_warning( "Overlay %s not found, skipping it. Overlays are not part of exported builds." % [ p ] )
+		return 0
 	var image = Image.load_from_file( p )
 	if image == null:
-		push_warning("Couldn't load image %s" % p )
+		push_warning( "Couldn't load overlay %s, skipping it." % [ p ] )
 		return 0
 
 	var sp = WindowAlignedSprite2D.new()

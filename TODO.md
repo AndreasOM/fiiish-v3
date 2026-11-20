@@ -79,6 +79,7 @@
 - [x] Skipped leaderboard downloads for boards without handle
 - [x] Fixed typos in the skill reset dialog
 - [x] Reset coin streak and coin rain state between runs
+- [x] Excluded marketing overlays from exports
 
 ### 2026-11-19
 #### OFFSTREAM
