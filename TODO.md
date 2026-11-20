@@ -74,6 +74,7 @@
 ### 2026-11-20
 #### OFFSTREAM
 - [x] Ignored floating tags in version info
+- [x] Added commit time to the S3 archive name
 
 ### 2026-11-19
 #### OFFSTREAM
