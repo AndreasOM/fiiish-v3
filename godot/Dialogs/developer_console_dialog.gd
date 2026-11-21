@@ -38,7 +38,7 @@ func _ready() -> void:
 	print_rich("[color=green]<- developer_console_dialog _ready()[/color]")
 
 func _on_line_edit_gui_input(event: InputEvent) -> void:
-	if not event.pressed:
+	if not event.is_pressed():
 		return
 	if event is InputEventKey and event.echo:
 		return
