@@ -116,7 +116,9 @@ func jump_to_next_zone() -> void:
 	
 	var cheat_id = CheatIds.Id.INVINCIBLE;
 	var player = game.get_player()
+	# Stays enabled after the jump on purpose, until it is toggled off.
 	player.enable_cheat( cheat_id )
+	Events.broadcast_cheats_changed()
 
 
 	

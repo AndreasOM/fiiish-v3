@@ -79,6 +79,7 @@
 - [x] Moved AWS and butler secrets to the steps that need them
 - [x] Added timeout to script waits
 - [x] Wrote tag version and build number into macOS and Windows builds
+- [x] Fixed jump to next zone not making the fish invincible
 
 ### 2026-11-20
 #### OFFSTREAM
