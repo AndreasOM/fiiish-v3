@@ -10,30 +10,95 @@ const THROWAWAY_PLAYER_SUFFIX: String = "_script"
 # How the throwaway player starts: as a new player, or as a copy of the game's current player.
 enum ThrowawayPlayerStart { FRESH, COPY_OF_CURRENT }
 
+const DEFAULT_WAIT_TIMEOUT_SECONDS: float = 60.0
+const MIN_WAIT_TIMEOUT_SECONDS: float = 1.0
+const MAX_WAIT_TIMEOUT_SECONDS: float = 600.0
+
+## Emitted when a wait ran into the timeout, right before the game quits with exit code 1.
+## Handlers run synchronously, anything behind an `await` in them does not run anymore.
+signal wait_timed_out( wait_description: String )
+
+signal _wait_wakeup
+
+var _wait_timeout_seconds: float = DEFAULT_WAIT_TIMEOUT_SECONDS
+var _is_throwaway_player_in_use: bool = false
+
 var _screenshot_prefix: String = ""
 var _screenshot_counter: int = 0
 
 var _overlays: Dictionary[ int, WindowAlignedSprite2D ] = {}
 var _next_overlay_id: int = 1
 
+## Sets the timeout for all following waits, clamped to MIN_WAIT_TIMEOUT_SECONDS..MAX_WAIT_TIMEOUT_SECONDS.
+func set_wait_timeout( seconds: float ) -> void:
+	var clamped = clampf( seconds, MIN_WAIT_TIMEOUT_SECONDS, MAX_WAIT_TIMEOUT_SECONDS )
+	if clamped != seconds:
+		push_warning( "ScriptManager: wait timeout %.1f s is out of range, using %.1f s." % [ seconds, clamped ] )
+	self._wait_timeout_seconds = clamped
+
+# Returns the point in time (Time.get_ticks_msec) at which a wait starting now times out.
+func _get_wait_deadline_msec() -> int:
+	return Time.get_ticks_msec() + int( 1000.0 * self._wait_timeout_seconds )
+
+# Does nothing before `deadline_msec`. After it: emits wait_timed_out, removes the throwaway
+# player save, reports the wait, quits with exit code 1 and never returns.
+func _check_wait_timeout( deadline_msec: int, wait_description: String ) -> void:
+	if Time.get_ticks_msec() < deadline_msec:
+		return
+	self.wait_timed_out.emit( wait_description )
+	if self._is_throwaway_player_in_use:
+		self.remove_throwaway_player_save()
+	push_error( "ScriptManager: %s timed out after %.1f s, quitting." % [ wait_description, self._wait_timeout_seconds ] )
+	get_tree().quit( 1 )
+	while true:
+		await get_tree().process_frame
+
+func _emit_wait_wakeup() -> void:
+	self._wait_wakeup.emit()
+
+# Waits until `sig` (with `sig_arg_count` arguments) is emitted. Times out at `deadline_msec`.
+func _wait_for_signal( sig: Signal, sig_arg_count: int, deadline_msec: int, wait_description: String ) -> void:
+	# Dictionary: lambdas capture locals by value, a plain bool would not be shared.
+	var shared = { "has_signal_arrived": false }
+	var on_signal = func() -> void:
+		shared.has_signal_arrived = true
+		self._wait_wakeup.emit()
+	var on_signal_unbound = on_signal.unbind( sig_arg_count ) if sig_arg_count > 0 else on_signal
+	sig.connect( on_signal_unbound, CONNECT_ONE_SHOT )
+	while !shared.has_signal_arrived:
+		var remaining = maxf( 0.05, ( deadline_msec - Time.get_ticks_msec() ) / 1000.0 )
+		var timer = get_tree().create_timer( remaining, true, false, true )
+		timer.timeout.connect( self._emit_wait_wakeup )
+		await self._wait_wakeup
+		if timer.timeout.is_connected( self._emit_wait_wakeup ):
+			timer.timeout.disconnect( self._emit_wait_wakeup )
+		if !shared.has_signal_arrived:
+			await self._check_wait_timeout( deadline_msec, wait_description )
+
 func wait_for_game_state( state: Game.State ) -> void:
 	await get_tree().process_frame
-	
+
+	var deadline_msec = self._get_wait_deadline_msec()
+	var n2 = Game.state_to_name( state )
 	while self.game.get_state() != state:
 		var n1 = Game.state_to_name( self.game.get_state() )
-		var n2 = Game.state_to_name( state )
 		print( "game state %s != %s" % [ n1, n2 ] )
-		await self.game.state_changed
-		
-#	return
+		await self._wait_for_signal( self.game.state_changed, 1, deadline_msec, "wait_for_game_state( %s )" % [ n2 ] )
 
 func wait_for_zone_name( n: String ) -> void:
+	var deadline_msec = self._get_wait_deadline_msec()
 	while self.game.zone_manager.get_current_zone_name() != n:
+		await self._check_wait_timeout( deadline_msec, "wait_for_zone_name( \"%s\" )" % [ n ] )
 		await get_tree().process_frame
 
 func wait_for_zone_progress( x: float ) -> void:
+	var deadline_msec = self._get_wait_deadline_msec()
+	var next_print_msec = 0
 	while self.game.zone_manager.current_zone_progress < x:
-		print( "MarketingScreenshot progress %f < %f" % [ self.game.zone_manager.current_zone_progress, x ])
+		if next_print_msec <= Time.get_ticks_msec():
+			print( "MarketingScreenshot progress %f < %f" % [ self.game.zone_manager.current_zone_progress, x ] )
+			next_print_msec = Time.get_ticks_msec() + 1000
+		await self._check_wait_timeout( deadline_msec, "wait_for_zone_progress( %f )" % [ x ] )
 		await get_tree().process_frame
 		
 	print( "MarketingScreenshot progress %f" % self.game.zone_manager.current_zone_progress)
@@ -85,7 +150,7 @@ func reset_screenshot_counter() -> void:
 	
 func take_screenshot( filename: String ) -> void:
 	var full_filename = "%s-%04d-%s.png" % [ self._screenshot_prefix, self._screenshot_counter, filename ]
-	await RenderingServer.frame_post_draw
+	await self._wait_for_signal( RenderingServer.frame_post_draw, 0, self._get_wait_deadline_msec(), "take_screenshot( \"%s\" )" % [ filename ] )
 	var image = get_viewport().get_texture().get_image()
 	match image.save_png(full_filename):
 		OK:
@@ -114,6 +179,7 @@ func spawn_pickup_explosion( pos: Vector2 ) -> Pickup:
 ## Also disables Steam writes (achievements, stats, leaderboard scores) for the rest of the run.
 func use_throwaway_player( start: ThrowawayPlayerStart ) -> Player:
 	SteamWrapper.writes_enabled = false
+	self._is_throwaway_player_in_use = true
 	var player = Player.new()
 	match start:
 		ThrowawayPlayerStart.FRESH:
@@ -236,11 +302,15 @@ func show_toasts() -> void:
 	%DialogManager.open_dialog( DialogIds.Id.TOAST_DIALOG, 0.0 )
 
 func wait_until_dialog_open( id: DialogIds.Id ) -> void:
+	var deadline_msec = self._get_wait_deadline_msec()
 	while !self.dialog_manager.is_dialog_open( id ):
+		await self._check_wait_timeout( deadline_msec, "wait_until_dialog_open( %d )" % [ id ] )
 		await get_tree().process_frame
 
 func wait_until_dialog_closed( id: DialogIds.Id ) -> void:
+	var deadline_msec = self._get_wait_deadline_msec()
 	while !self.dialog_manager.is_dialog_closed( id ):
+		await self._check_wait_timeout( deadline_msec, "wait_until_dialog_closed( %d )" % [ id ] )
 		await get_tree().process_frame
 
 func open_dialog( id: DialogIds.Id ) -> void:

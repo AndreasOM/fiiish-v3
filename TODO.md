@@ -77,6 +77,7 @@
 - [x] Used throwaway player in marketing and screenshot scripts
 - [x] Disabled Steam writes during scripts
 - [x] Moved AWS and butler secrets to the steps that need them
+- [x] Added timeout to script waits
 
 ### 2026-11-20
 #### OFFSTREAM
