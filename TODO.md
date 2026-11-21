@@ -78,6 +78,7 @@
 - [x] Disabled Steam writes during scripts
 - [x] Moved AWS and butler secrets to the steps that need them
 - [x] Added timeout to script waits
+- [x] Wrote tag version and build number into macOS and Windows builds
 
 ### 2026-11-20
 #### OFFSTREAM

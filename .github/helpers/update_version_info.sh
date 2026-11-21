@@ -3,7 +3,7 @@
 VI="godot/Resources/version_info.txt"
 
 commit=$(git rev-parse --short HEAD)
-version=$(git tag --points-at HEAD --list 'v[0-9]*' --sort=-version:refname | head -n 1)
+version=$("$(dirname "$0")/get_version_tag.sh")
 suffix="local"
 build=${1:-unknown}
 if [ ${version:+1} ]
