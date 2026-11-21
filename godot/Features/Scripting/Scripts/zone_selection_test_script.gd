@@ -25,18 +25,20 @@ const EXPECTED_NEVER_PICK_ZONES: Array[ String ] = [ "8001_Empty", "8002_Trailer
 const RECENT_WINDOW: int = Player.MAX_RECENT_ZONES
 const REPEAT_PICKS: int = 5000
 const REPEAT_TARGETS: Array[ int ] = [ 2, 5, 12, 20, 40, 60, 70, 90, 120 ]
-const TEST_PLAYER_SUFFIX: String = "_zone_selection_test"
+const TEST_PLAYER_SUFFIX: String = ScriptManager.THROWAWAY_PLAYER_SUFFIX
 
 var _zone_manager: ZoneManager = null
 var _zone_config_manager: ZoneConfigManager = null
 var _game: Game = null
 var _test_player: Player = null
+var _script_manager: ScriptManager = null
 
 func run( script_manager: ScriptManager ) -> bool:
 	print("ZoneSelectionTest - run()")
 	self._zone_manager = script_manager.game.zone_manager
 	self._zone_config_manager = script_manager.game.get_game_manager().get_zone_config_manager()
 	self._game = script_manager.game
+	self._script_manager = script_manager
 
 	# let the game finish starting up. The cases themselves never await,
 	# so nothing else touches the zone history while they run.
@@ -79,16 +81,11 @@ func run( script_manager: ScriptManager ) -> bool:
 
 # Replaces the game's player with a fresh one that saves to its own file (TEST_PLAYER_SUFFIX).
 func _use_test_player() -> void:
-	self._test_player = Player.new()
-	self._test_player._load_suffix = TEST_PLAYER_SUFFIX
-	self._game._player = self._test_player
-	Events.broadcast_player_changed( self._test_player )
+	self._test_player = self._script_manager.use_throwaway_player( ScriptManager.ThrowawayPlayerStart.FRESH )
 
 # Deletes the test player's save file, if there is one.
 func _remove_test_player_save() -> void:
-	var path = Player.get_save_path( TEST_PLAYER_SUFFIX )
-	if FileAccess.file_exists( path ):
-		DirAccess.remove_absolute( path )
+	self._script_manager.remove_throwaway_player_save()
 
 # Lists the backup copies of the test player's save file.
 func _find_test_player_backups() -> Array[ String ]:

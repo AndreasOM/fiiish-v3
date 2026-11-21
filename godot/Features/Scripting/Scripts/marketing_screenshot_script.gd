@@ -3,6 +3,7 @@ extends Node
 const OverlayFolder = "res://Textures/Overlays/"
 func run( script_manager: ScriptManager ) -> bool:
 	print("MarketingScreenshotScript - run()")
+	script_manager.use_throwaway_player( ScriptManager.ThrowawayPlayerStart.COPY_OF_CURRENT )
 	# await get_tree().create_timer(5.0).timeout
 
 	DirAccess.make_dir_recursive_absolute("user://screenshots/")
@@ -33,6 +34,7 @@ func run( script_manager: ScriptManager ) -> bool:
 	
 	print("MarketingScreenshotScript - done()")
 	
+	script_manager.remove_throwaway_player_save()
 	get_tree().quit( 0 )
 
 	return true

@@ -5,6 +5,10 @@ extends Node
 @onready var dialog_manager: DialogManager = %DialogManager
 
 const OverlayFolder = "res://Textures/Overlays"
+const THROWAWAY_PLAYER_SUFFIX: String = "_script"
+
+# How the throwaway player starts: as a new player, or as a copy of the game's current player.
+enum ThrowawayPlayerStart { FRESH, COPY_OF_CURRENT }
 
 var _screenshot_prefix: String = ""
 var _screenshot_counter: int = 0
@@ -105,6 +109,32 @@ func spawn_pickup_rain( pos: Vector2 ) -> Pickup:
 	
 func spawn_pickup_explosion( pos: Vector2 ) -> Pickup:
 	return self.game.get_game_manager().spawn_pickup_explosion( pos )
+
+## Replaces the game's player with one that saves to its own file (THROWAWAY_PLAYER_SUFFIX).
+## Also disables Steam writes (achievements, stats, leaderboard scores) for the rest of the run.
+func use_throwaway_player( start: ThrowawayPlayerStart ) -> Player:
+	SteamWrapper.writes_enabled = false
+	var player = Player.new()
+	match start:
+		ThrowawayPlayerStart.FRESH:
+			pass
+		ThrowawayPlayerStart.COPY_OF_CURRENT:
+			var path = Player.get_save_path( THROWAWAY_PLAYER_SUFFIX )
+			var s = Serializer.new()
+			if self.game.get_player().serialize( s ) && s.save_file( path ):
+				player = Player.load_from_file( path )
+			else:
+				push_warning( "Couldn't copy the current player to %s, using a fresh one." % [ path ] )
+	player._load_suffix = THROWAWAY_PLAYER_SUFFIX
+	self.game._player = player
+	Events.broadcast_player_changed( player )
+	return player
+
+## Deletes the save file of the throwaway player, if there is one.
+func remove_throwaway_player_save() -> void:
+	var path = Player.get_save_path( THROWAWAY_PLAYER_SUFFIX )
+	if FileAccess.file_exists( path ):
+		DirAccess.remove_absolute( path )
 
 func reset_player_skills() -> void:
 	self.game.get_player().reset_skills()

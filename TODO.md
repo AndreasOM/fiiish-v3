@@ -72,6 +72,11 @@
 ## Done
 
 
+### 2026-11-21
+#### OFFSTREAM
+- [x] Used throwaway player in marketing and screenshot scripts
+- [x] Disabled Steam writes during scripts
+
 ### 2026-11-20
 #### OFFSTREAM
 - [x] Ignored floating tags in version info

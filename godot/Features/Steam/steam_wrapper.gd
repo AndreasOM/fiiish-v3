@@ -7,6 +7,9 @@ const SteamWrapperInner = "res://Features/Steam/steam_wrapper_inner.gd"
 
 var _inner: Variant = null
 
+# Achievement, stats and leaderboard score writes reach Steam only when true. Reads always work.
+var writes_enabled: bool = true
+
 var _developer_ids: Dictionary[ int, bool ] = {
 	
 }
@@ -98,6 +101,10 @@ func isSteamRunning() -> bool:
 	return steam.isSteamRunning()
 
 func setAchievement(id: String) -> bool:
+	if !self.writes_enabled:
+		print( "STEAM: setAchievement %s skipped, Steam writes are disabled" % [ id ] )
+		return false
+
 	if self._inner == null:
 		return false
 
@@ -111,6 +118,10 @@ func setAchievement(id: String) -> bool:
 	return steam.setAchievement(id)
 
 func storeStats() -> bool:
+	if !self.writes_enabled:
+		print( "STEAM: storeStats skipped, Steam writes are disabled" )
+		return false
+
 	if self._inner == null:
 		return false
 
@@ -137,6 +148,10 @@ func getAchievement(id: String) -> Dictionary:
 	return steam.getAchievement(id)
 
 func clearAchievement(id: String) -> bool:
+	if !self.writes_enabled:
+		print( "STEAM: clearAchievement %s skipped, Steam writes are disabled" % [ id ] )
+		return false
+
 	if self._inner == null:
 		return false
 
