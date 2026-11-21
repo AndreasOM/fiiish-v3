@@ -30,9 +30,6 @@ on:
       version:
         description: "The version of the build"
         value: ${{ jobs.push.outputs.version }}
-env:
-  BUTLER_API_KEY: ${{ secrets.ITCHIO_API_KEY }}
-
 jobs:
   push:
     runs-on: ubuntu-latest
@@ -161,10 +158,14 @@ jobs:
           version: 15.20.0
 
       - name: Login to butler
+        env:
+          BUTLER_API_KEY: ${{ secrets.ITCHIO_API_KEY }}
         run: |
           butler login
 
       - name: Push to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.ITCHIO_API_KEY }}
         run: |
           butler push . ${{ env.ITCHIO_PROJECT }}:${{ env.ITCHIO_PLATFORM }} --userversion-file=version.txt
         working-directory: ${{ env.PROJECT }}-${{ env.BUILD_TYPE }}
