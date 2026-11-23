@@ -50,7 +50,9 @@ func save() -> bool:
 		push_warning("Failed serializing settings");
 		return false
 	
-	s.save_file(p)
+	if !s.save_file( p ):
+		push_warning( "Failed saving settings to %s" % [ p ] )
+		return false
 	
 	return true
 

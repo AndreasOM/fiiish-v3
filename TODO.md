@@ -72,6 +72,10 @@
 ## Done
 
 
+### 2026-11-23
+#### OFFSTREAM
+- [x] Added warnings for failed player and settings saves
+
 ### 2026-11-21
 #### OFFSTREAM
 - [x] Used throwaway player in marketing and screenshot scripts

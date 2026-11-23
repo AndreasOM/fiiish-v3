@@ -171,6 +171,8 @@ func save_with_suffix( suffix: String ) -> void:
 	self._load_suffix = suffix
 	if s.save_file(p) && serialized:
 		self._is_dirty = false
+	else:
+		push_warning( "Failed saving player to %s" % [ p ] )
 	
 func save() -> void:
 	save_with_suffix( self._load_suffix )
