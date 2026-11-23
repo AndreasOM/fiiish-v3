@@ -40,18 +40,21 @@ func set_wait_timeout( seconds: float ) -> void:
 func _get_wait_deadline_msec() -> int:
 	return Time.get_ticks_msec() + int( 1000.0 * self._wait_timeout_seconds )
 
-# Does nothing before `deadline_msec`. After it: emits wait_timed_out, removes the throwaway
-# player save, reports the wait, quits with exit code 1 and never returns.
+# Removes the throwaway player save, reports `reason`, quits with exit code 1 and never returns.
+func _abort( reason: String ) -> void:
+	if self._is_throwaway_player_in_use:
+		self.remove_throwaway_player_save()
+	push_error( "ScriptManager: %s, quitting." % [ reason ] )
+	get_tree().quit( 1 )
+	while true:
+		await get_tree().process_frame
+
+# Does nothing before `deadline_msec`. After it: emits wait_timed_out and aborts the run.
 func _check_wait_timeout( deadline_msec: int, wait_description: String ) -> void:
 	if Time.get_ticks_msec() < deadline_msec:
 		return
 	self.wait_timed_out.emit( wait_description )
-	if self._is_throwaway_player_in_use:
-		self.remove_throwaway_player_save()
-	push_error( "ScriptManager: %s timed out after %.1f s, quitting." % [ wait_description, self._wait_timeout_seconds ] )
-	get_tree().quit( 1 )
-	while true:
-		await get_tree().process_frame
+	await self._abort( "%s timed out after %.1f s" % [ wait_description, self._wait_timeout_seconds ] )
 
 func _emit_wait_wakeup() -> void:
 	self._wait_wakeup.emit()
@@ -152,12 +155,11 @@ func take_screenshot( filename: String ) -> void:
 	var full_filename = "%s-%04d-%s.png" % [ self._screenshot_prefix, self._screenshot_counter, filename ]
 	await self._wait_for_signal( RenderingServer.frame_post_draw, 0, self._get_wait_deadline_msec(), "take_screenshot( \"%s\" )" % [ filename ] )
 	var image = get_viewport().get_texture().get_image()
-	match image.save_png(full_filename):
+	match image.save_png( full_filename ):
 		OK:
-			pass
-		var o:
-			print("MarketingScreenshot - Error saving screenshot", o)
-	print("MarketingScreenshot - screenshot saved to %s" % full_filename)
+			print( "MarketingScreenshot - screenshot saved to %s" % [ full_filename ] )
+		var error:
+			await self._abort( "saving screenshot %s failed with error %d" % [ full_filename, error ] )
 	self._screenshot_counter += 1
 
 func cleanup_pickups() -> void:
