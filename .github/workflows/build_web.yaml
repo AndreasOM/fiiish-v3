@@ -1,0 +1,20 @@
+name: Build Web
+run-name: Build Web by @${{ github.actor }}
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - godot/**
+      - .github/workflows/**
+      - .github/helpers/**
+
+jobs:
+  
+  build:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'web-demo'
+    secrets: inherit

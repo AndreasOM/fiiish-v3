@@ -1,0 +1,20 @@
+name: Build Web - DEMO - classic
+run-name: Build Web DEMO classic by @${{ github.actor }}
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - godot/**
+      - .github/workflows/**
+      - .github/helpers/**
+
+jobs:
+  
+  build:
+    uses: ./.github/workflows/build.yaml
+    with:
+      build_type: 'web-demo-classic'
+    secrets: inherit

@@ -1,5 +1,5 @@
-name: Build & Update Web - classic
-run-name: Build & Update Web classic by @${{ github.actor }}
+name: Build Web - classic
+run-name: Build Web classic by @${{ github.actor }}
 
 on: 
   workflow_dispatch:
@@ -7,6 +7,7 @@ on:
 #    paths:
 #      - godot/**
 #      - .github/workflows/**
+#      - .github/helpers/**
 
 jobs:
   disabled:
@@ -23,12 +24,3 @@ jobs:
     with:
       build_type: 'web-classic'
     secrets: inherit
-
-  update_web:
-    needs: [build]
-    uses: ./.github/workflows/update_web.yaml
-    with:
-      build_type: 'web-classic'
-      s3_archive: ''
-    secrets: inherit
-

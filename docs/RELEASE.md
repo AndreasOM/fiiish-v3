@@ -87,9 +87,10 @@ git push -f origin classic
 | 6. Go live       | by hand                              |
 | 7. Announce      | by hand                              |
 
-- **Build:** iOS, macOS, Linux, Windows (`*-classic`). Uploads to S3 and marks it as "latest" per build type. Web and demo builds: run "Build" by hand.
+- **Build:** iOS, macOS, Linux, Windows (`*-classic`). Uploads to S3 and marks it as "latest" per build type. Demo builds: run "Build" by hand.
 - **Floating tag:** points at the commit to ship. Uploads check it (planned).
 - **Sign + upload:** signs macOS (Developer ID, notarized, stapled) and iOS. Uploads iOS to App Store Connect, desktop to itch.io.
+- **Web:** `web-demo` and `web-demo-classic` are built on every push to `main` ("Build Web", "Build Web - DEMO - classic"). Deploy the latest build to the web alpha by hand with "Update Web".
 - **Demo:** run "Build" for `linux-demo-classic`, `windows-demo-classic`, `macos-demo-classic` on the tag (`gh workflow run build.yaml --ref vX.Y.Z -f build_type=…`), otherwise the version is `0.0.0`. Then run "macOS - Sign" with `macos-demo-classic` before pushing the demo to Steam. The demo app has its own "App Bundles Are Notarized" box, ticked.
 - **Steam:** checks that Linux, macOS and Windows have the same version. Build description = `vX.Y.Z`. macOS: only the signed build of the latest; fails if it is not signed yet. Steamworks has "App Bundles Are Notarized" ticked.
 - **Steam Guard:** the upload logs in with steamcmd's login token, cached encrypted (`STEAM_CACHE_KEY`) by "Steam refresh login" (weekly and by hand). No phone needed. If the token is missing or expired, the login falls back to the password and needs a confirmation in the Steam Mobile app within about a minute: run "Steam refresh login" by hand with the phone ready.
