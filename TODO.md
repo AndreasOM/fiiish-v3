@@ -77,6 +77,7 @@
 - [x] Added warnings for failed player and settings saves
 - [x] Stopped marketing screenshot script after failed window size check
 - [x] Aborted script run on failed screenshot
+- [x] Enabled version check in iOS upload and validate workflows
 
 ### 2026-11-21
 #### OFFSTREAM
