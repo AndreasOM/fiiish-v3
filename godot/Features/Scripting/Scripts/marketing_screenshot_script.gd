@@ -28,7 +28,9 @@ func run( script_manager: ScriptManager ) -> bool:
 		var new_size = get_window().size
 		if new_size != ss:
 			print_rich("[color=orange] New Window Size %s != %s" %[ new_size, ss ])
+			script_manager.remove_throwaway_player_save()
 			get_tree().quit( 1 )
+			return false
 		
 		await self.take_screenshots( script_manager )
 	

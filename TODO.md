@@ -75,6 +75,7 @@
 ### 2026-11-23
 #### OFFSTREAM
 - [x] Added warnings for failed player and settings saves
+- [x] Stopped marketing screenshot script after failed window size check
 
 ### 2026-11-21
 #### OFFSTREAM
