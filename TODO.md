@@ -68,6 +68,7 @@
 	- [ ] Secrets in GitHub environments (`artifacts`, `appstore`, `steam`), restricted to `main`/`v*` or `classic`/`full`. Also enforces the upload gate.
 - [ ] Steam: verify a real push uses the cached token (no phone)
 - [ ] Feature: Expose broken player saves (`player.data.broken-*`) and migration backups (`player.data.backup-save*`) to the player, and allow fixing or restoring them, e.g. if we mess up a migration
+- [ ] Release: Implement V3 handling
 
 ## Done
 
@@ -77,6 +78,7 @@
 - [x] Disabled MD5 debug prints in iOS workflows
 - [x] Added timeouts to build and push workflows
 - [x] Queued parallel Steam pushes and web deploys
+- [x] Stopped download script for non-classic builds
 
 ### 2026-11-23
 #### OFFSTREAM

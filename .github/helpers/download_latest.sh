@@ -43,8 +43,9 @@ case ${BUILD_TYPE} in
 	*-classic)
 		SUB_TYPE="classic"
 		;;
-	*-demo)
-		SUB_TYPE="demo"
+	*)
+		echo "Error: BUILD_TYPE ${BUILD_TYPE} has no supported sub type. Supported: classic, demo-classic. v3 and demo-v3 are not supported yet."
+		exit 1
 		;;
 esac
 
