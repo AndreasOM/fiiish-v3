@@ -80,6 +80,7 @@
 - [x] Queued parallel Steam pushes and web deploys
 - [x] Stopped download script for non-classic builds
 - [x] Replaced NAN markers in fish target height range
+- [x] Declared zone parameter of zone_changed signal
 
 ### 2026-11-23
 #### OFFSTREAM

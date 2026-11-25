@@ -1,7 +1,7 @@
 extends Node
 
 signal game_state_changed( state: Game.State )
-signal zone_changed
+signal zone_changed( zone: NewZone )
 signal zone_finished
 signal settings_changed
 signal cheats_changed
