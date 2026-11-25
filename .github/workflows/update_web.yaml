@@ -31,6 +31,10 @@ on:
         default: ''
         type: string
 
+concurrency:
+  group: update-web-${{ inputs.build_type }}
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest

@@ -76,6 +76,7 @@
 #### OFFSTREAM
 - [x] Disabled MD5 debug prints in iOS workflows
 - [x] Added timeouts to build and push workflows
+- [x] Queued parallel Steam pushes and web deploys
 
 ### 2026-11-23
 #### OFFSTREAM
