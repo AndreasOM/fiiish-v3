@@ -52,8 +52,8 @@ var _acceleration: Vector2 = Vector2.ZERO
 var _is_invincible: bool = false
 var _initial_modulate: Color = Color.WHITE
 
-var _target_min_height: float = NAN
-var _target_max_height: float = NAN
+var _target_min_height: float = -INF
+var _target_max_height: float = INF
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -254,13 +254,11 @@ func _process_swimming(delta: float) -> void:
 	var y =  self.transform.origin.y
 	
 	var d = self.direction
-	if self._target_min_height != NAN:
-		if y < self._target_min_height:
-			d = Direction.DOWN
+	if y < self._target_min_height:
+		d = Direction.DOWN
 
-	if self._target_max_height != NAN:
-		if y > self._target_max_height:
-			d = Direction.UP
+	if y > self._target_max_height:
+		d = Direction.UP
 
 	match d:
 		Direction.DOWN:

@@ -79,6 +79,7 @@
 - [x] Added timeouts to build and push workflows
 - [x] Queued parallel Steam pushes and web deploys
 - [x] Stopped download script for non-classic builds
+- [x] Replaced NAN markers in fish target height range
 
 ### 2026-11-23
 #### OFFSTREAM
