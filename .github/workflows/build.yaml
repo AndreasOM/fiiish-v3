@@ -47,6 +47,7 @@ jobs:
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
+    timeout-minutes: 1
     env:
       INPUT_BUILD_TYPE: ${{ inputs.build_type }}
     outputs:
@@ -74,6 +75,7 @@ jobs:
     name: Build
     needs: [prepare]
     runs-on: ${{ needs.prepare.outputs.runner }}
+    timeout-minutes: 21
     env:
       INPUT_BUILD_TYPE: ${{ inputs.build_type }}
       PROJECT: ${{ vars.PROJECT }}

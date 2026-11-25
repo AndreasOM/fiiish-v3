@@ -75,6 +75,7 @@
 ### 2026-11-25
 #### OFFSTREAM
 - [x] Disabled MD5 debug prints in iOS workflows
+- [x] Added timeouts to build and push workflows
 
 ### 2026-11-23
 #### OFFSTREAM

@@ -33,6 +33,7 @@ on:
 jobs:
   push:
     runs-on: macos-15
+    timeout-minutes: 2
     defaults:
       run:
         # Use bash shells on all platforms.
