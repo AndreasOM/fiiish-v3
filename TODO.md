@@ -72,6 +72,10 @@
 ## Done
 
 
+### 2026-11-25
+#### OFFSTREAM
+- [x] Disabled MD5 debug prints in iOS workflows
+
 ### 2026-11-23
 #### OFFSTREAM
 - [x] Added warnings for failed player and settings saves

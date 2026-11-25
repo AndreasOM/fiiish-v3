@@ -111,7 +111,7 @@ jobs:
           keychain_password="$(openssl rand -hex 32)"
           security create-keychain -p "${keychain_password}" "the-keychain"
           echo "${{ secrets.APPLE_CODESIGN_CERT }}" | base64 --decode > cert.p12
-          md5 < cert.p12
+          # md5 < cert.p12
           keychain_db="${HOME}/Library/Keychains/the-keychain-db"
           security import cert.p12 -k "${keychain_db}" -P "${{ secrets.APPLE_CODESIGN_CERT_PASSWORD }}" -T "$(command -v codesign)"
           security set-key-partition-list -S "apple-tool:,apple:" -s -k "${keychain_password}" "${keychain_db}"
