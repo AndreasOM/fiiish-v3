@@ -6,6 +6,7 @@ extends Node
 var _last_version: int = 0
 
 var _achievements: Dictionary[ String, AchievementStates.State ] = {}
+var _warned_missing_conditions: Dictionary[ String, bool ] = {}
 
 func _process( _delta: float ) -> void:
 	if self.game == null:
@@ -39,6 +40,11 @@ func _process( _delta: float ) -> void:
 		# print("Checking Achievement %s" % cfg.name)
 		if is_demo && cfg.disabled_in_demo:
 			# print("[Demo] Skipping Achievement %s" % cfg.name)
+			continue
+		if cfg.completion_condition == null:
+			if !self._warned_missing_conditions.has( cfg.id ):
+				self._warned_missing_conditions[ cfg.id ] = true
+				push_warning( "Achievement %s has no completion condition, skipping it" % [ cfg.id ] )
 			continue
 		if !self._check_condition_prereq_achievements( cfg.completion_condition, counter_manager ):
 			continue
