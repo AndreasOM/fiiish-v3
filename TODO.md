@@ -81,6 +81,7 @@
 - [x] Stopped spawning entities with unsupported type
 - [x] Fixed index check in get_zone
 - [x] Fixed instant fades in FadeableContainer
+- [x] Fixed result count-up for empty runs
 
 ### 2026-11-25
 #### OFFSTREAM

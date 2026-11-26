@@ -161,7 +161,7 @@ func _prepare_results_from(
 
 	_was_best_distance = first_ranks.has( LeaderboardTypes.Type.LOCAL_DISTANCE )
 
-	var duration = 4.0*log( max(coins, distance) )/log(10)+1.3
+	var duration = 4.0*log( max( 1, coins, distance ) )/log(10)+1.3
 	var anim_duration = 3.0
 	var speed = anim_duration / duration
 	
