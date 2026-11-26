@@ -13,6 +13,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if !self.is_visible_in_tree():
+		return
 	if self.game !=	null:
 		var game_manager = self.game.get_game_manager()
 		if game_manager != null:

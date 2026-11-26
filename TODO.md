@@ -86,6 +86,7 @@
 - [x] Fixed send_highscore for unknown leaderboard type
 - [x] Skipped achievements without completion condition
 - [x] Rejected achievement configs without id
+- [x] Stopped hidden debug UI from updating every frame
 
 ### 2026-11-25
 #### OFFSTREAM
