@@ -83,6 +83,7 @@
 - [x] Fixed instant fades in FadeableContainer
 - [x] Fixed result count-up for empty runs
 - [x] Fixed DialogIds.id_to_name
+- [x] Fixed send_highscore for unknown leaderboard type
 
 ### 2026-11-25
 #### OFFSTREAM

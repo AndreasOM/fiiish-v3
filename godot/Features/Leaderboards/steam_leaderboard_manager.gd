@@ -93,7 +93,10 @@ func send_highscore(leaderboard_type: LeaderboardTypes.Type, value: float) -> vo
 		print( "[SteamLeaderboard] send_highscore %s skipped, Steam writes are disabled" % [ LeaderboardTypes.type_to_name( leaderboard_type ) ] )
 		return
 	print("[SteamLeaderboard] send_highscore %s" % [ LeaderboardTypes.type_to_name(leaderboard_type) ] )
-	var leaderboard_config = self.LEADERBOARD_MAPPINGS.get( leaderboard_type, [] )
+	var leaderboard_config = self.LEADERBOARD_MAPPINGS.get( leaderboard_type, null )
+	if leaderboard_config == null:
+		push_warning( "No Steam leaderboard configured for %s" % [ LeaderboardTypes.type_to_name( leaderboard_type ) ] )
+		return
 	var leaderboard_name = leaderboard_config.steam_name
 	var l = self._leaderboards.get( leaderboard_name, null )
 	if l == null:
