@@ -13,7 +13,7 @@ static func next( mode: GameModes.Mode ) -> GameModes.Mode:
 			return GameModes.Mode.ARCADE
 		GameModes.Mode.ARCADE:
 			return GameModes.Mode.ADVENTURE
-		GameModes.Mode.ARCADE:
+		GameModes.Mode.ADVENTURE:
 			return GameModes.Mode.CLASSIC
 		_:
 			return GameModes.Mode.CLASSIC

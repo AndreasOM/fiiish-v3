@@ -73,6 +73,10 @@
 ## Done
 
 
+### 2026-11-26
+#### OFFSTREAM
+- [x] Fixed duplicate branch in GameModes.next
+
 ### 2026-11-25
 #### OFFSTREAM
 - [x] Disabled MD5 debug prints in iOS workflows
