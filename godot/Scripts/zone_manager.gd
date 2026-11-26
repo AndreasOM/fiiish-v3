@@ -111,7 +111,9 @@ func _spawn_object( ec: EntityConfig, position: Vector2, rotation_degrees: float
 				EntityTypes.Id.AREA:
 					%Areas.add_child(e)
 				_:
-					return e  # Early return for unknown types, don't track
+					push_warning( "Entity %s has unsupported type %s, not spawned" % [ ec.name, EntityTypes.id_to_string( ec.entity_type ) ] )
+					e.queue_free()
+					return null
 
 			# Track spawned entity (only OBSTACLE and AREA reach here)
 			var type_str = EntityTypes.id_to_string(e.entity_type)

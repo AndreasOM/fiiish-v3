@@ -78,6 +78,7 @@
 - [x] Fixed duplicate branch in GameModes.next
 - [x] Fixed Shift+Tab across maxed skill
 - [x] Fixed Tab order of buy skill point button
+- [x] Stopped spawning entities with unsupported type
 
 ### 2026-11-25
 #### OFFSTREAM
