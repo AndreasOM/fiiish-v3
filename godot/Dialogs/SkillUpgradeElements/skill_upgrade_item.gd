@@ -61,6 +61,7 @@ func _process(_delta: float) -> void:
 	self.scroll_container.scroll_horizontal = int( self._current_scroll_horizontal )
 
 func _update_states() -> void:
+	self.active_button = null
 	var p = self.skill_upgrade_item_h_box_container
 	var i = 0
 	var is_demo = FeatureTags.has_feature("demo")

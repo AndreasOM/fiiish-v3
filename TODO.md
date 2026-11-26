@@ -76,6 +76,7 @@
 ### 2026-11-26
 #### OFFSTREAM
 - [x] Fixed duplicate branch in GameModes.next
+- [x] Fixed Shift+Tab across maxed skill
 
 ### 2026-11-25
 #### OFFSTREAM
