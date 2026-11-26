@@ -12,6 +12,7 @@ func _ready() -> void:
 	var lp = " ".join(args)
 	
 	self._handle_demo( lp )
+	self._handle_classic( lp )
 	self._handle_no_user_zones( lp )
 	self._handle_steam()
 
@@ -20,6 +21,12 @@ func _handle_demo( s: String ) -> void:
 		return
 
 	self.add_extra_feature( "demo" )
+
+func _handle_classic( s: String ) -> void:
+	if !s.contains("--classic"):
+		return
+
+	self.add_extra_feature( "classic" )
 
 # Skip loading the zones from user://zones/ (e.g. for tests that need the same zone pool on every machine).
 func _handle_no_user_zones( s: String ) -> void:

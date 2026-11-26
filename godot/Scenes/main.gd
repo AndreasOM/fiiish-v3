@@ -366,7 +366,6 @@ func _handle_launch_parameters() -> void:
 #	Events.broadcast_global_message( "Launch Parameters: %s" % launch_parameters )
 	var llp = launch_parameters.to_lower()
 	
-	self._handle_classic( llp )
 	self._handle_kids_mode( llp )
 ##	self._handle_demo( launch_parameters )
 	self._handle_script( launch_parameters )
@@ -429,10 +428,6 @@ func _handle_script( s: String ) -> void:
 		print("Starting script >%s<" % s)
 		await script_node.run( script_manager )
 
-func _handle_classic( s: String ) -> void:
-	if s.contains("--classic"):
-		FeatureTags.add_extra_feature( "classic" )
-	
 func _handle_kids_mode( s: String ) -> void:
 	if s.contains("kidsmodedisable"):
 		self.game.leave_kids_mode()

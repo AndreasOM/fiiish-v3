@@ -24,7 +24,7 @@
 	- [x] `pick_next_zone`: skip zones where `is_never_pick()`, checked before the distance math, independent of the 120 cap. Scripted zones (`push_next_zone_by_name`) skip difficulty and keep working.
 	- [x] Set both zones to difficulty 65535 (patched the u16 directly, no format change)
 	- [ ] Test in Godot: 8001/8002 never show up in normal runs, scripted screenshot/trailer scripts still spawn them
-- [ ] Task: Rethink the launch parameter handling. Today `FeatureTags` (`--demo`, `--no-user-zones`), `main.gd` (`--classic`, kids mode, `--script:"Name"`) and the editor addon (`editor/run/main_run_args`) each parse `OS.get_cmdline_args()` on their own: as one joined string with `contains()` matches, with different editor / non-editor / iOS / web sources. Args after `--` (`get_cmdline_user_args()`) are only used by `main.gd`, and only as a fallback for a terminal run with the editor binary (no debugger attached). `--script:` takes `"Name"` and `Name`, the other flags are plain `contains()` matches. Idea: one parser that builds the parameter list once and exposes typed flags, used by `FeatureTags`, `main.gd` and the scripts.
+- [ ] Task: Rethink the launch parameter handling. Today `FeatureTags` (`--demo`, `--classic`, `--no-user-zones`), `main.gd` (kids mode, `--script:"Name"`) and the editor addon (`editor/run/main_run_args`) each parse `OS.get_cmdline_args()` on their own: as one joined string with `contains()` matches, with different editor / non-editor / iOS / web sources. Args after `--` (`get_cmdline_user_args()`) are only used by `main.gd`, and only as a fallback for a terminal run with the editor binary (no debugger attached). `--script:` takes `"Name"` and `Name`, the other flags are plain `contains()` matches. Idea: one parser that builds the parameter list once and exposes typed flags, used by `FeatureTags`, `main.gd` and the scripts.
 - [ ] Test: Zone editor "Never pick" checkbox (implemented, untested): load 8002_Trailer (shows "never", slider disabled), uncheck (slider 100), recheck, save, reload; check the dialog still fits (panel min height 282 -> 330)
 - [ ] Test: zone repeats by hand: play two runs, restart the game, check no early repeats across the restart (player save v15)
 - [ ] Security (zizmor): pin third-party actions to a commit SHA (`CyberAndrii/setup-steamcmd`, `jdno/setup-butler`, `chickensoft-games/setup-godot` outside `build.yaml`). The Steam job logs in after running a third-party action. `build.yaml` is clean, use it as the pattern.
@@ -87,6 +87,7 @@
 - [x] Skipped achievements without completion condition
 - [x] Rejected achievement configs without id
 - [x] Stopped hidden debug UI from updating every frame
+- [x] Moved --classic handling into FeatureTags
 
 ### 2026-11-25
 #### OFFSTREAM
