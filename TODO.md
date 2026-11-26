@@ -69,6 +69,7 @@
 - [ ] Steam: verify a real push uses the cached token (no phone)
 - [ ] Feature: Expose broken player saves (`player.data.broken-*`) and migration backups (`player.data.backup-save*`) to the player, and allow fixing or restoring them, e.g. if we mess up a migration
 - [ ] Release: Implement V3 handling
+- [ ] Task: Keep the movie file setting (`editor/movie_writer/movie_file`) relative. The file picker in the project settings only gives absolute paths, so picking the file again puts a local path into `project.godot`.
 
 ## Done
 
@@ -88,6 +89,7 @@
 - [x] Rejected achievement configs without id
 - [x] Stopped hidden debug UI from updating every frame
 - [x] Moved --classic handling into FeatureTags
+- [x] Removed local paths from project settings and main.gd
 
 ### 2026-11-25
 #### OFFSTREAM

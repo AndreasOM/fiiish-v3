@@ -134,14 +134,11 @@ func _ready() -> void:
 			var manifest_file = self._get_global_steam_manifest_path()
 			#var manifest_file = ProjectSettings.globalize_path( "user://steam_manifest.vdf")
 			#var manifest_file = ProjectSettings.globalize_path( "res://steam_manifest.vdf")
-		#		var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/steam/steam_manifest.vdf"
-			#var manifest_file = "/Users/anti/data/work/anti666tv/fiiish-v3/godot/steam_manifest.vdf"
 			#var manifest_file = "steam_manifest.vdf"
 			#var manifest_file = "res://../steam/steam_manifest.vdf"
 			#var manifest_file = "res://steam_manifest.vdf"
 			#var manifest_file = "steam_manifest.vdf"
 			#var manifest_file = "BROKEN"
-			#var manifest_file = "/Users/anti/Library/Application%20Support/Godot/app_userdata/fiiish-v3/steam_manifest.vdf"
 			print("manifest_file %s" % manifest_file )
 			if !FileAccess.file_exists( manifest_file ):
 				push_warning("Action manifest file not found %s" % manifest_file )

@@ -68,7 +68,7 @@ window/handheld/orientation=4
 
 [editor]
 
-movie_writer/movie_file="/Users/anti/data/work/anti666tv/fiiish-v3/marketing/trailer/trailer-scripted.avi"
+movie_writer/movie_file="../marketing/trailer/trailer-scripted.avi"
 movie_writer/mjpeg_quality=1.0
 
 [editor_plugins]
