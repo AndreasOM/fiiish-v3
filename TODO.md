@@ -90,6 +90,7 @@
 - [x] Stopped hidden debug UI from updating every frame
 - [x] Moved --classic handling into FeatureTags
 - [x] Removed local paths from project settings and main.gd
+- [x] Stopped ignoring export_presets.cfg
 
 ### 2026-11-25
 #### OFFSTREAM
