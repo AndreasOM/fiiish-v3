@@ -53,12 +53,12 @@ func zone_count() -> int:
 	
 func get_zone( i: int ) -> NewZone:
 	var l = self._zones.size()
-	if i >= l:
+	if i < 0 || i >= l:
 		push_warning( "Tried to access zone %d / %d" % [ i, l ])
-		i = 0
 		if l == 0:
-			push_error( "Tried acces zone %d / 0 !" % i )
+			push_error( "Tried to access zone %d / 0 !" % [ i ] )
 			assert( self._zones.size() > 0 )
+		i = 0
 
 	return self._zones[ i ]
 	
