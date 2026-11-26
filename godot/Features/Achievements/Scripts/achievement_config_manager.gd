@@ -21,6 +21,9 @@ func reload() -> void:
 			continue
 		print("Achievement Config: %s" % cn)
 		var n = cfg.id
+		if n == "":
+			push_warning( "Achievement config %s has no id, skipping it" % [ cn ] )
+			continue
 		if self._configs.has( n ):
 			push_warning("Duplicate achievement config %s from %s" % [ n, cn ])
 			continue
