@@ -156,8 +156,14 @@ func _update_skill_upgrade_items() -> void:
 	
 	if prev != null:
 		prev.set_next_control( %ResetSkillPointsButton )
+		# Tab goes through the buy button, down goes straight to reset.
+		prev.focus_next = prev.get_path_to( self.buy_skill_points_button )
 		%ResetSkillPointsButton.focus_neighbor_top = %ResetSkillPointsButton.get_path_to( prev )
 		self.buy_skill_points_button.focus_neighbor_top = self.buy_skill_points_button.get_path_to( prev )
+		self.buy_skill_points_button.focus_previous = self.buy_skill_points_button.get_path_to( prev )
+	else:
+		# Everything is maxed, there is no skill to go back to.
+		self.buy_skill_points_button.focus_previous = self.buy_skill_points_button.get_path_to( self.reset_skill_points_button )
 
 func _prepare_fade_in() -> void:
 	var scm = game.get_skill_config_manager()

@@ -77,6 +77,7 @@
 #### OFFSTREAM
 - [x] Fixed duplicate branch in GameModes.next
 - [x] Fixed Shift+Tab across maxed skill
+- [x] Fixed Tab order of buy skill point button
 
 ### 2026-11-25
 #### OFFSTREAM
