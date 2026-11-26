@@ -80,6 +80,7 @@
 - [x] Fixed Tab order of buy skill point button
 - [x] Stopped spawning entities with unsupported type
 - [x] Fixed index check in get_zone
+- [x] Fixed instant fades in FadeableContainer
 
 ### 2026-11-25
 #### OFFSTREAM

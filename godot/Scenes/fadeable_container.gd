@@ -75,6 +75,7 @@ func fade_in( duration: float) -> void:
 	else:
 		print("%s fast fade in" % name)
 		_alpha = 1.0
+		self._alpha_speed = 0.0
 		if self.apply_alpha:
 			modulate.a = _alpha
 		on_fading_in.emit( duration )
@@ -84,13 +85,13 @@ func fade_out( duration: float) -> void:
 	mouse_filter = MOUSE_FILTER_IGNORE
 	for c in get_children():
 		c.mouse_filter = MOUSE_FILTER_IGNORE
-	_alpha_speed = -1.0 / duration
 	if duration > 0.0:
 		_alpha_speed = -1.0 / duration
 		on_fading_out.emit( duration )
 	else:
 		print("%s fast fade out" % name)
 		_alpha = 0.0
+		self._alpha_speed = 0.0
 		if self.apply_alpha:
 			modulate.a = _alpha
 		visible = false
