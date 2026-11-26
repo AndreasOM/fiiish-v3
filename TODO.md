@@ -82,6 +82,7 @@
 - [x] Fixed index check in get_zone
 - [x] Fixed instant fades in FadeableContainer
 - [x] Fixed result count-up for empty runs
+- [x] Fixed DialogIds.id_to_name
 
 ### 2026-11-25
 #### OFFSTREAM

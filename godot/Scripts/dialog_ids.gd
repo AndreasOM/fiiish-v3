@@ -26,11 +26,10 @@ enum Id {
 }
 
 static func id_to_name( id: DialogIds.Id ) -> String:
-	# :HACK: needs improving
-	var keys = DialogIds.Id.keys()
-	if int(id)  > keys.size():
+	var key = DialogIds.Id.find_key( id )
+	if key == null:
 		return "[UNKNOWN %d]" % [ int( id ) ]
-	return DialogIds.Id.keys()[ id ]
+	return key
 	
 #	match id:
 #		DialogIds.Id.RESULT_DIALOG:
