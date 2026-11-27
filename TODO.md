@@ -89,6 +89,7 @@
 - [x] Removed duplicate _process from Obstacle
 - [x] Removed unused EasedInteger
 - [x] Sent highscores to Steam only for new local bests
+- [x] Fixed typo in COIN_EXPLOSION_AMOUNT skill effect id
 
 ### 2026-11-26
 #### OFFSTREAM
