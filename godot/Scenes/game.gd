@@ -404,8 +404,6 @@ func sync_achievements_with_player( player: Player ) -> bool:
 	if completed_achievements.is_empty():
 		return false
 	
-#	for ca in completed_achievements:
-#		self.achievement_manager.collect_achievement( ca )
 	player.add_completed_achievements( completed_achievements )
 	return true
 

@@ -105,19 +105,6 @@ func mark_achievement_completed( id: String ) -> void:
 func mark_achievement_collected( id: String ) -> void:
 	self._achievements[ id ] = AchievementStates.State.COLLECTED
 
-func collect_achievement( id: String ) -> bool:
-	var s = self._achievements.get( id, AchievementStates.State.UNKNOWN )
-	match s:
-		AchievementStates.State.UNKNOWN:
-			return false
-		AchievementStates.State.COLLECTED:
-			return false
-		AchievementStates.State.COMPLETED:
-			self._achievements[ id ] = AchievementStates.State.COLLECTED
-			return false
-			
-	return false
-	
 func get_achievement_state( id: String ) -> AchievementStates.State:
 	return self._achievements.get( id, AchievementStates.State.UNKNOWN )
 	
