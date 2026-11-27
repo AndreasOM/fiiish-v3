@@ -86,6 +86,7 @@
 - [x] Fixed typo in PerformanceMonitor folder name
 - [x] Disabled not found print for maxed skills
 - [x] Removed duplicate _process from Obstacle
+- [x] Removed unused EasedInteger
 
 ### 2026-11-26
 #### OFFSTREAM
