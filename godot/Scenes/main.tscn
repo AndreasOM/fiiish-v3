@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://bbymdllg7tpvi" path="res://Features/DeveloperDialog/developer_dialog.tscn" id="19_ee4r6"]
 [ext_resource type="PackedScene" uid="uid://c0jw8fsap8u7a" path="res://Features/KidsMode/kidsmode_enable_dialog.tscn" id="20_gt3je"]
 [ext_resource type="Script" uid="uid://d4kutof6ntjmx" path="res://Features/Scripting/script_manager.gd" id="21_3pmx8"]
-[ext_resource type="Script" uid="uid://jkirwyfaqig0" path="res://Features/PerformancMonitor/performance_display.gd" id="21_7k868"]
+[ext_resource type="Script" uid="uid://jkirwyfaqig0" path="res://Features/PerformanceMonitor/performance_display.gd" id="21_7k868"]
 [ext_resource type="AudioStream" uid="uid://d2u0kcl8pn3o2" path="res://Music/theme-00.mp3" id="22_n5j80"]
 [ext_resource type="Script" uid="uid://cmyn0xagot67t" path="res://Scenes/managers.gd" id="23_kltya"]
 [ext_resource type="Script" uid="uid://ef1ug6bg1c75" path="res://Scenes/music_manager.gd" id="23_l5um0"]

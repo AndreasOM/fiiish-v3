@@ -44,7 +44,7 @@ config/project_url.classic="https://games.omnimad.net/games/fiiish-classic"
 [autoload]
 
 Events="*res://Scripts/Globals/events.gd"
-PerformanceMonitor="*res://Features/PerformancMonitor/performance_monitor.gd"
+PerformanceMonitor="*res://Features/PerformanceMonitor/performance_monitor.gd"
 VersionInfo="*res://Scripts/version_info.gd"
 FeatureTags="*res://Features/feature_tags.gd"
 SteamWrapper="*res://Features/Steam/steam_wrapper.gd"
