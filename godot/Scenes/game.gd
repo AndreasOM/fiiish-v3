@@ -295,10 +295,10 @@ func _credit_last_swim() -> void:
 	_player.save();
 	
 	# update scores to steam
-	if true || first_ranks.has( LeaderboardTypes.Type.LOCAL_COINS ):
+	if first_ranks.has( LeaderboardTypes.Type.LOCAL_COINS ):
 		self.new_local_highscore.emit( LeaderboardTypes.Type.LOCAL_COINS, coins )
 
-	if true || first_ranks.has( LeaderboardTypes.Type.LOCAL_DISTANCE ):
+	if first_ranks.has( LeaderboardTypes.Type.LOCAL_DISTANCE ):
 		self.new_local_highscore.emit( LeaderboardTypes.Type.LOCAL_DISTANCE, distance )
 		
 func mark_achievement_completed( id: String ) -> void:

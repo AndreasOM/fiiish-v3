@@ -72,6 +72,7 @@
 - [ ] Task: Keep the movie file setting (`editor/movie_writer/movie_file`) relative. The file picker in the project settings only gives absolute paths, so picking the file again puts a local path into `project.godot`.
 - [ ] Task: Logger. Log output is plain `print` calls, with no levels and no way to filter or switch them off.
 - [ ] Task: `get_skill_price` returns -1 for an unknown skill, a missing level and a maxed skill alike.
+- [ ] Task: Highscores go to Steam only for a new local best, so a best that never reached Steam is not sent later.
 
 ## Done
 
@@ -87,6 +88,7 @@
 - [x] Disabled not found print for maxed skills
 - [x] Removed duplicate _process from Obstacle
 - [x] Removed unused EasedInteger
+- [x] Sent highscores to Steam only for new local bests
 
 ### 2026-11-26
 #### OFFSTREAM
