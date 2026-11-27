@@ -193,7 +193,8 @@ func get_skill_price( id: SkillIds.Id, level: int ) -> int:
 	
 	var slc = sc.get_level( level )
 	if slc == null:
-		print("Skill level config for skill %s [%d] not found" % [ skill_name, level ] )
+		# Not an error: the skill upgrade dialog asks for the level after the last one for every maxed skill.
+		# print("Skill level config for skill %s [%d] not found" % [ skill_name, level ] )
 		return -1
 
 	var skill_price = slc.cost

@@ -71,6 +71,7 @@
 - [ ] Release: Implement V3 handling
 - [ ] Task: Keep the movie file setting (`editor/movie_writer/movie_file`) relative. The file picker in the project settings only gives absolute paths, so picking the file again puts a local path into `project.godot`.
 - [ ] Task: Logger. Log output is plain `print` calls, with no levels and no way to filter or switch them off.
+- [ ] Task: `get_skill_price` returns -1 for an unknown skill, a missing level and a maxed skill alike.
 
 ## Done
 
@@ -83,6 +84,7 @@
 - [x] Removed broken iOS build archive upload workflow
 - [x] Removed duplicate per-platform itch.io workflows
 - [x] Fixed typo in PerformanceMonitor folder name
+- [x] Disabled not found print for maxed skills
 
 ### 2026-11-26
 #### OFFSTREAM
