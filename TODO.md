@@ -70,6 +70,7 @@
 - [ ] Feature: Expose broken player saves (`player.data.broken-*`) and migration backups (`player.data.backup-save*`) to the player, and allow fixing or restoring them, e.g. if we mess up a migration
 - [ ] Release: Implement V3 handling
 - [ ] Task: Keep the movie file setting (`editor/movie_writer/movie_file`) relative. The file picker in the project settings only gives absolute paths, so picking the file again puts a local path into `project.godot`.
+- [ ] Task: Logger. Log output is plain `print` calls, with no levels and no way to filter or switch them off.
 
 ## Done
 
