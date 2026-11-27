@@ -74,6 +74,10 @@
 ## Done
 
 
+### 2026-11-27
+#### OFFSTREAM
+- [x] Ignored Finder icon file in repo root
+
 ### 2026-11-26
 #### OFFSTREAM
 - [x] Fixed duplicate branch in GameModes.next
