@@ -85,6 +85,7 @@
 - [x] Removed duplicate per-platform itch.io workflows
 - [x] Fixed typo in PerformanceMonitor folder name
 - [x] Disabled not found print for maxed skills
+- [x] Removed duplicate _process from Obstacle
 
 ### 2026-11-26
 #### OFFSTREAM
