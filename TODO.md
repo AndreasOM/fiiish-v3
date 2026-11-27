@@ -78,6 +78,7 @@
 #### OFFSTREAM
 - [x] Ignored Finder icon file in repo root
 - [x] Removed orphan import files
+- [x] Removed obsolete manual WebGL build workflow
 
 ### 2026-11-26
 #### OFFSTREAM
