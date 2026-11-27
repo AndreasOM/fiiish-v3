@@ -80,6 +80,7 @@
 - [x] Removed orphan import files
 - [x] Removed obsolete manual WebGL build workflow
 - [x] Removed broken iOS build archive upload workflow
+- [x] Removed duplicate per-platform itch.io workflows
 
 ### 2026-11-26
 #### OFFSTREAM

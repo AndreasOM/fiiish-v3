@@ -4,15 +4,17 @@ on:
 
 jobs:
   linux_upload:
-    uses: ./.github/workflows/push_latest_godot_linux_to_itchio.yml
+    uses: ./.github/workflows/push_latest_to_itchio.yaml
     secrets: inherit
     with:
+      build_type: 'linux'
       summary_style: "skip"
 
   windows_upload:
-    uses: ./.github/workflows/push_latest_godot_windows_to_itchio.yml
+    uses: ./.github/workflows/push_latest_to_itchio.yaml
     secrets: inherit
     with:
+      build_type: 'windows'
       summary_style: "skip"
 
   macos_sign:
@@ -23,9 +25,10 @@ jobs:
 
   macos_upload:
     needs: macos_sign
-    uses: ./.github/workflows/push_latest_godot_macos_to_itchio.yml
+    uses: ./.github/workflows/push_latest_to_itchio.yaml
     secrets: inherit
     with:
+      build_type: 'macos'
       summary_style: "skip"
 
   ios_archive:
