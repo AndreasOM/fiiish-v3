@@ -96,6 +96,7 @@
 - [x] Moved dialog scene table into FiiishDialogManager
 - [x] Removed unused zone offset from ZoneManager
 - [x] Removed dead button handlers from ZoneSelectDialog
+- [x] Reset last run state in Player reset
 
 ### 2026-11-26
 #### OFFSTREAM

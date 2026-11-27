@@ -148,6 +148,8 @@ func reset() -> void:
 	_completed_achievements.clear()
 	_collected_achievements.clear()
 	_last_achievements.clear()
+	self._last_coins = 0
+	self._first_ranks_on_last_leaderboard_update = []
 	self._day_streak_start = ""
 	self._day_streak_length = 0
 	self.clear_recent_zones()
