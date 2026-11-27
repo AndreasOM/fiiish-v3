@@ -95,6 +95,7 @@
 - [x] Moved developer check into Platform
 - [x] Moved dialog scene table into FiiishDialogManager
 - [x] Removed unused zone offset from ZoneManager
+- [x] Removed dead button handlers from ZoneSelectDialog
 
 ### 2026-11-26
 #### OFFSTREAM

@@ -74,12 +74,6 @@ func open( duration: float) -> void:
 	self.update_zones()
 	super.open( duration )
 
-func _on_anchor_texture_button_pressed() -> void:
-	self.zone_selected.emit( "classic-5001_Anchor.nzne")
-
-func _on_i_love_fiiish_texture_button_pressed() -> void:
-	self.zone_selected.emit( "classic-0000_ILoveFiiish.nzne")
-
 func _on_close_button_pressed() -> void:
 	self.close( 0.3 )
 
