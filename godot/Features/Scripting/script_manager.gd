@@ -168,9 +168,6 @@ func cleanup_pickups() -> void:
 func spawn_coin( pos: Vector2 ) -> Pickup:
 	return self.game.get_game_manager().spawn_coin( pos )
 
-func spawn_coin_rain( pos: Vector2 ) -> Pickup:
-	return self.game.get_game_manager().spawn_coin( pos )
-	
 func spawn_pickup_rain( pos: Vector2 ) -> Pickup:
 	return self.game.get_game_manager().spawn_pickup_rain( pos )
 	

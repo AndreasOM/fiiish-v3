@@ -90,6 +90,7 @@
 - [x] Removed unused EasedInteger
 - [x] Sent highscores to Steam only for new local bests
 - [x] Fixed typo in COIN_EXPLOSION_AMOUNT skill effect id
+- [x] Removed unused spawn_coin_rain from ScriptManager
 
 ### 2026-11-26
 #### OFFSTREAM
