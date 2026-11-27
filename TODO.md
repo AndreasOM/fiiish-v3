@@ -93,6 +93,7 @@
 - [x] Removed unused spawn_coin_rain from ScriptManager
 - [x] Removed dead collect_achievement from AchievementManager
 - [x] Moved developer check into Platform
+- [x] Moved dialog scene table into FiiishDialogManager
 
 ### 2026-11-26
 #### OFFSTREAM
