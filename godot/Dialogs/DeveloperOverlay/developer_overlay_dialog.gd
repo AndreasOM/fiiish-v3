@@ -118,13 +118,3 @@ func _update_performance_waterfall() -> void:
 
 	var _pa = PerformanceArea.new("DeveloperOverlay/UpdateWaterfall")
 	self.performance_waterfall_view_control.update_display()
-
-static func is_developer() -> bool:
-	var developer_enabled = false
-	if FeatureTags.has_feature("editor_runtime"):
-		developer_enabled = true
-	
-	if SteamWrapper.is_developer():
-		developer_enabled = true
-		
-	return developer_enabled

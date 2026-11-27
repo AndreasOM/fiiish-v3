@@ -521,7 +521,7 @@ func open_initial_dialogs() -> void:
 	#if $Game.get_settings().get_developer_dialog_version() > 0:
 	#	%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_DIALOG, 0.0 )
 
-#	if DeveloperOverlayDialog.is_developer():
+#	if Platform.is_developer():
 #		%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_OVERLAY_DIALOG, 0.0 )
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -585,7 +585,7 @@ func _on_settings_changed() -> void:
 	if settings == null:
 		return
 	if settings.dev_is_developer_overlay_enabled():
-		if DeveloperOverlayDialog.is_developer():
+		if Platform.is_developer():
 			%DialogManager.open_dialog( DialogIds.Id.DEVELOPER_OVERLAY_DIALOG, 0.0 )
 
 	

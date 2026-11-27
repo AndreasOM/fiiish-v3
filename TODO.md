@@ -92,6 +92,7 @@
 - [x] Fixed typo in COIN_EXPLOSION_AMOUNT skill effect id
 - [x] Removed unused spawn_coin_rain from ScriptManager
 - [x] Removed dead collect_achievement from AchievementManager
+- [x] Moved developer check into Platform
 
 ### 2026-11-26
 #### OFFSTREAM

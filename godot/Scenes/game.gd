@@ -477,7 +477,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					return
 			Game.State.SWIMMING:
 				if event.is_action_pressed("Dev_Swim_JumpToNextZone"):
-					if DeveloperOverlayDialog.is_developer():
+					if Platform.is_developer():
 						self.game_manager.jump_to_next_zone()
 			_:
 				pass

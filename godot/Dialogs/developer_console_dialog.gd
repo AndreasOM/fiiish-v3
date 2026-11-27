@@ -69,7 +69,7 @@ func _on_line_edit_gui_input(event: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Global_ToggleDeveloperConsole"):
-		if SteamWrapper.is_developer():
+		if Platform.is_developer():
 			if self._fader != null:
 				self._fader.toggle( 0.1 )
 

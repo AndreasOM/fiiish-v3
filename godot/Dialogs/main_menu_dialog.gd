@@ -35,14 +35,7 @@ func _update_entries() -> void:
 	else:
 		self.quit.state = MainMenuEntry.State.HIDDEN
 	
-	var developer_enabled = false
-	if FeatureTags.has_feature("editor_runtime"):
-		developer_enabled = true
-	
-	if SteamWrapper.is_developer():
-		developer_enabled = true
-		
-	if developer_enabled:
+	if Platform.is_developer():
 		self.developer.state = MainMenuEntry.State.ENABLED
 		
 func cancel() -> bool:
