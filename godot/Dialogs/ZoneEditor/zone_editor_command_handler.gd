@@ -83,7 +83,6 @@ class ZoneEditorCommandDelete:
 			push_warning("Tried to delete object that can't be converted to NewZoneLayerObject")
 			return false
 		self._nzlo = nzlo
-		# self._zone_offset_x = zone_manager.get_zone_offset_x()
 		self._zone_offset_x = zone_manager.current_zone_progress
 		var p = node.get_parent()
 		if p != null:
@@ -96,7 +95,6 @@ class ZoneEditorCommandDelete:
 			push_warning( "Tried to undo delete of object without NewZoneLayerObject")
 			return false
 			
-		# var zone_offset_x = zone_manager.get_zone_offset_x()
 		var zone_offset_x = zone_manager.current_zone_progress
 		var spawn_offset = self._zone_offset_x - zone_offset_x
 		return zone_manager.spawn_new_zone_layer_object( self._nzlo, spawn_offset )

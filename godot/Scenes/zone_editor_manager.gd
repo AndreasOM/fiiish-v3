@@ -108,8 +108,6 @@ func _process(delta: float) -> void:
 	# print("offset_x %f += %f of %f" % [ offset_x, actual_move_x, zone_width])
 	self._game_manager.set_move( Vector2( actual_move_x, 0.0 ) )
 	
-	self._game_manager.zone_manager.add_zone_offset_x( actual_move_x )
-
 	# up & down
 	#var dy = Input.get_axis("zone_editor_up","zone_editor_down")
 	

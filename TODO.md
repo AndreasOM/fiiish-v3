@@ -94,6 +94,7 @@
 - [x] Removed dead collect_achievement from AchievementManager
 - [x] Moved developer check into Platform
 - [x] Moved dialog scene table into FiiishDialogManager
+- [x] Removed unused zone offset from ZoneManager
 
 ### 2026-11-26
 #### OFFSTREAM

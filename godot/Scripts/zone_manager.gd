@@ -4,8 +4,6 @@ class_name ZoneManager
 @export var game_manager: GameManager = null
 @export var entity_config_manager: EntityConfigManager = null
 
-var _zone_offset_x: float = 0.0
-
 var _zone_config_manager: ZoneConfigManager = null
 var current_zone_progress: float = 0.0
 var current_zone_width: float:
@@ -411,15 +409,6 @@ func ensure_unique_entity_ids() -> int:
 			seen_ids[ id ] = 1
 		
 	return duplicate_count
-
-func get_zone_offset_x() -> float:
-	return self._zone_offset_x
-	
-func set_zone_offset_x( x: float ) -> void:
-	self._zone_offset_x = x
-	
-func add_zone_offset_x( x: float ) -> void:
-	self._zone_offset_x += x
 
 func reset_object_ids() -> void:
 	print("Reset object ids")
