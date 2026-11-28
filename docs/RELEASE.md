@@ -116,5 +116,6 @@ Frozen, for reference:
 | 2026-11-18 | Announcement  | v3.16.3             | "macOS Notarization"         |
 | 2026-11-19 | Announcement  | v3.16.4             | "Variety & Polish"           |
 | 2026-11-20 | Announcement  | v3.16.5             | "Smaller Download & Fixes"   |
+| 2026-11-28 | Announcement  | v3.16.9             | "Smooth at Any Frame Rate"   |
 
 Next public release: **v3.16.x** (small changes), **v3.18.x** (big change or new year).
