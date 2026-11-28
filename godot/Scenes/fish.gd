@@ -189,8 +189,7 @@ func _unhandled_input_mode_play(event: InputEvent) -> void:
 				self.request_respawn.emit( self )
 				self.direction = Direction.DOWN
 		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	match self.mode:
 		Mode.PLAY:
 			self._process_mode_play( delta )

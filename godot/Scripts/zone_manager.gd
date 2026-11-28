@@ -20,7 +20,7 @@ var _next_object_id = 1
 
 var _zone_history: Array = []
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	self.current_zone_progress += self.game_manager.movement.x
 	#self.current_zone_progress += self.game_manager.movement_x * delta
 	if self._current_zone != null:

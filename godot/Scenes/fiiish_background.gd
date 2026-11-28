@@ -43,6 +43,11 @@ func _ready() -> void:
 	
 	super()
 	
+func _physics_process(_delta: float) -> void:
+	if !Engine.is_editor_hint():
+		var m = %GameManager.movement
+		self.offset += 0.5*(1.0/1024.0)*m.x
+
 func _process(delta: float) -> void:
 #	if Engine.is_editor_hint():
 #		# material.set_shader_parameter("tint", tint)
@@ -61,8 +66,6 @@ func _process(delta: float) -> void:
 		const eight_hours = 8*60*60
 		if _time > eight_hours:
 			_time -= eight_hours
-		var m = %GameManager.movement
-		offset += 0.5*(1.0/1024.0)*m.x
 		#offset += 0.5*(1.0/1024.0)*%GameManager.movement_x*delta
 		match self.mode:
 #			Mode.V1:

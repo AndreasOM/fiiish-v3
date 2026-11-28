@@ -126,8 +126,7 @@ func jump_to_next_zone() -> void:
 #	if !self._was_invicible_before_jump:
 #		player.enable_cheat( cheat_id )
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	
 	_distance += self.movement.x
 	# _distance += self.movement_x * delta
@@ -158,7 +157,10 @@ func _process(delta: float) -> void:
 				
 			#var frame = Engine.get_frames_drawn()
 			#print( "GameManager [%d](%f) %f %f" % [ frame, delta, self.movement.x, self.play_movement.x ])
-			
+
+func _process(_delta: float) -> void:
+	if !self.game.is_in_zone_editor():
+		if !self._paused:
 			if !self.has_test_zone():
 				var achievement_counter_manager = self.game.achievement_counter_manager
 				var d = distance_in_m();

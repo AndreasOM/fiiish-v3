@@ -80,7 +80,21 @@ func _process_selected_object(_delta: float) -> void:
 	
 func _process(delta: float) -> void:
 	self._process_selected_object( delta )
-	
+
+	match self.tool_id:
+		#ZoneEditorToolIds.Id.DELETE:
+		#	self._process_for_delete( delta )
+		ZoneEditorToolIds.Id.MOVE:
+			self._process_for_move( delta )
+		ZoneEditorToolIds.Id.SPAWN:
+			self._process_for_spawn( delta )
+		ZoneEditorToolIds.Id.SELECT:
+			self._process_for_select( delta )
+		_:
+			# :TODO:
+			pass
+
+func _physics_process(delta: float) -> void:
 	var dx = _dx
 	var move_x = 0.0
 	if dx != 0.0:
@@ -115,19 +129,6 @@ func _process(delta: float) -> void:
 	dy *= self.vertical_speed
 	dy *= delta
 	self._game_manager.move_fish( Vector2( 0.0, dy ) )
-
-	match self.tool_id:
-		#ZoneEditorToolIds.Id.DELETE:
-		#	self._process_for_delete( delta )
-		ZoneEditorToolIds.Id.MOVE:
-			self._process_for_move( delta )
-		ZoneEditorToolIds.Id.SPAWN:
-			self._process_for_spawn( delta )
-		ZoneEditorToolIds.Id.SELECT:
-			self._process_for_select( delta )
-		_:
-			# :TODO:
-			pass
 
 func _process_for_move( _delta: float ) -> void:
 	self._update_selected_object_position_for_move()

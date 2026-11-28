@@ -77,6 +77,10 @@
 ## Done
 
 
+### 2026-11-28
+#### OFFSTREAM
+- [x] Moved gameplay simulation to physics tick
+
 ### 2026-11-27
 #### OFFSTREAM
 - [x] Ignored Finder icon file in repo root

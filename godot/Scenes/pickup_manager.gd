@@ -67,7 +67,7 @@ func prepare_respawn() -> void:
 	self._special_coin_streak = 0
 	self._special_coin_cooldown = 0.0
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 
 	if _special_coins_spawned > 0.0:
 		_special_coins_spawned -= 1.0 * delta
@@ -82,7 +82,6 @@ func _process(delta: float) -> void:
 	if !self.game_manager.game.is_in_zone_editor():
 		self._despawn_offscreen_pickups()
 
-# func _physics_process(delta: float) -> void:
 	if !self.game_manager.should_process_pickups():
 		return
 

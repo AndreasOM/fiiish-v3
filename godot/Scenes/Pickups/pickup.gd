@@ -57,7 +57,7 @@ func _ready() -> void:
 	if as2d != null:
 		as2d.play("default")
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if _disable_magnetic_duration > 0.0:
 		_disable_magnetic_duration -= delta
 	
