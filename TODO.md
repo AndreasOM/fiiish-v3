@@ -51,6 +51,7 @@
 
 - [ ] Cleanup: Improve pause handling, once more
 - [ ] Debug: Mouse cursor disappearing
+- [ ] Task: Allow players to opt in to faster frame rates, and battery saver
 
 ## LATER
 
