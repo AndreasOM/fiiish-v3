@@ -80,6 +80,7 @@
 ### 2026-11-28
 #### OFFSTREAM
 - [x] Moved gameplay simulation to physics tick
+- [x] Enabled physics interpolation
 
 ### 2026-11-27
 #### OFFSTREAM

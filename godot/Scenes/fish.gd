@@ -131,6 +131,7 @@ func _goto_respawning() -> void:
 	self._magnet_speed_boost = 1.0
 	self.transform.origin.y = 0.0
 	self.transform.origin.x = -1200.0
+	self.reset_physics_interpolation()
 	self.rotation_degrees = 0.0
 	%AnimatedSprite2D.play("swim")
 		

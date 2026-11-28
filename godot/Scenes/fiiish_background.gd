@@ -20,6 +20,8 @@ enum Mode {
 var _phaseMin: float = 0.0
 var _phaseMax: float = 0.0
 var _time: float = 0.0
+var _offset_previous: float = 0.0
+var _offset_current: float = 0.0
 
 var _tween: Tween = null
 
@@ -40,13 +42,16 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	_phaseMin = 0.0
 	_phaseMax = 0.0
+	self._offset_previous = self.offset
+	self._offset_current = self.offset
 	
 	super()
 	
 func _physics_process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
 		var m = %GameManager.movement
-		self.offset += 0.5*(1.0/1024.0)*m.x
+		self._offset_previous = self._offset_current
+		self._offset_current += 0.5*(1.0/1024.0)*m.x
 
 func _process(delta: float) -> void:
 #	if Engine.is_editor_hint():
@@ -66,6 +71,7 @@ func _process(delta: float) -> void:
 		const eight_hours = 8*60*60
 		if _time > eight_hours:
 			_time -= eight_hours
+		self.offset = lerpf( self._offset_previous, self._offset_current, Engine.get_physics_interpolation_fraction() )
 		#offset += 0.5*(1.0/1024.0)*%GameManager.movement_x*delta
 		match self.mode:
 #			Mode.V1:
